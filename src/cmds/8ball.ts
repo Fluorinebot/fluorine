@@ -26,3 +26,9 @@ export async function run(
 		);
 	message.reply({ embeds: [embed] });
 }
+export const help = {
+	name: "fun",
+	description: "Magiczna kula",
+	aliases: [],
+	category: "fun",
+};

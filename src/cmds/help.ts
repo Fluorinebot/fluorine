@@ -57,7 +57,7 @@ export async function run(
 }
 export const help = {
 	name: "help",
-	description: "lista komend",
+	description: "Lista komend",
 	aliases: ["pomoc", "h"],
 	category: "tools",
 };
