@@ -13,6 +13,7 @@ export default class AlcanClient extends Client {
 			intents: new Intents(
 				Object.values(Intents.FLAGS).reduce((acc, p) => acc | p, 0)
 			),
+			allowedMentions: { repliedUser: false },
 		});
 		connect({}).then((conn) => {
 			this.conn = conn;
