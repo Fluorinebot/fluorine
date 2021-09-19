@@ -1,0 +1,24 @@
+{
+	"name": "alcan",
+	"version": "1.0.0",
+	"description": "A discord bot",
+	"main": "dist/index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Xiboon/Alcan.git"
+	},
+	"author": "Xiboon",
+	"license": "GPL-3.0-or-later",
+	"bugs": {
+		"url": "https://github.com/Xiboon/Alcan/issues"
+	},
+	"homepage": "https://github.com/Xiboon/Alcan#readme",
+	"dependencies": {
+		"@types/rethinkdb": "^2.3.17",
+		"discord.js": "^13.1.0",
+		"rethinkdb": "^2.4.2"
+	}
+}
