@@ -1,4 +1,4 @@
-import { Client, Intents } from "discord.js";
+import { Client, ColorResolvable, Intents } from "discord.js";
 import { connect } from "rethinkdb";
 import CommandHandler from "./handlers/CommandHandler";
 import EventHandler from "./handlers/EventHandler";
@@ -8,6 +8,7 @@ export default class AlcanClient extends Client {
 	cmds!: Map<any, any>;
 	version: string;
 	footer: string;
+	color: ColorResolvable;
 	constructor() {
 		super({
 			intents: new Intents(
@@ -21,6 +22,7 @@ export default class AlcanClient extends Client {
 		this.config = require(`${__dirname}/../../config.json`);
 		this.version = "1.0.0";
 		this.footer = `Alcan ${this.version}`;
+		this.color = "#3872f2";
 	}
 	init() {
 		new EventHandler(this);

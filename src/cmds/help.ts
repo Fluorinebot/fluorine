@@ -1,4 +1,5 @@
 import AlcanClient from "@classes/Client";
+import Embed from "@classes/Embed";
 import { Message, MessageEmbed } from "discord.js";
 
 export async function run(
@@ -17,39 +18,36 @@ export async function run(
 	});
 	switch (args[0]) {
 		case "fun":
-			const funEmbed = new MessageEmbed()
+			const funEmbed = new Embed()
 				.setTitle("4Fun")
 				.setDescription(list.fun)
-				.setFooter(client.footer)
-				.setTimestamp();
+				.setFooter(client.footer);
 			message.reply({ embeds: [funEmbed] });
 			break;
 		case "tools":
-			const toolEmbed = new MessageEmbed()
+			const toolEmbed = new Embed()
 				.setTitle("Narzędzia")
 				.setDescription(list.tools)
-				.setFooter(client.footer)
-				.setTimestamp();
+				.setFooter(client.footer);
 			message.reply({ embeds: [toolEmbed] });
 			break;
 		case "moderation":
-			const modEmbed = new MessageEmbed()
+			const modEmbed = new Embed()
 				.setTitle("Moderacja")
 				.setDescription(list.moderation)
-				.setFooter(client.footer)
-				.setTimestamp();
+				.setFooter(client.footer);
+
 			message.reply({ embeds: [modEmbed] });
 			break;
 		case "dev":
 			break;
 		default:
-			const defaultEmbed = new MessageEmbed()
+			const defaultEmbed = new Embed()
 				.setTitle("Pomoc")
 				.setDescription("Kategorie")
 				.addField("4Fun", "a!help fun")
 				.addField("Narzędzia", "a!help tools")
 				.addField("Moderacja", "a!help moderation")
-				.setTimestamp()
 				.setFooter(client.footer);
 			message.channel.send({ embeds: [defaultEmbed] });
 			break;

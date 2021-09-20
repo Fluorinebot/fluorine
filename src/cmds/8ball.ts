@@ -1,5 +1,6 @@
 import AlcanClient from "@classes/Client";
-import { Message, MessageEmbed } from "discord.js";
+import Embed from "@classes/Embed";
+import { Message } from "discord.js";
 export async function run(
 	client: AlcanClient,
 	message: Message,
@@ -14,12 +15,16 @@ export async function run(
 		"Wątpię",
 	];
 	if (!args[0]) {
-		return message.reply("Musisz podać pytanie!");
+		const errorEmbed = new Embed()
+			.setTitle("Błąd")
+			.setDescription("Musisz podać pytanie!")
+			.setFooter(client.footer)
+			.setColor(client.color);
+		return message.reply({ embeds: [errorEmbed] });
 	}
-	let embed = new MessageEmbed()
+	const embed = new Embed()
 		.setDescription(args.join(" "))
 		.setFooter(client.footer)
-		.setTimestamp()
 		.addField(
 			"Odpowiedź",
 			responses[Math.floor(Math.random() * responses.length)]
