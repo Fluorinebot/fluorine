@@ -1,6 +1,6 @@
 import AlcanClient from "@classes/Client";
 import Embed from "@classes/Embed";
-import { Message, MessageEmbed } from "discord.js";
+import { Message } from "discord.js";
 
 export async function run(
 	client: AlcanClient,
@@ -14,8 +14,8 @@ export async function run(
 	const embed = new Embed()
 		.setTitle("Avatar")
 		.setFooter(client.footer)
-		.setImage(user.displayAvatarURL({ dynamic: true, size: 512 }))
-	message.channel.send({ embeds: [embed] });
+		.setImage(user.displayAvatarURL({ dynamic: true, size: 512 }));
+	message.reply({ embeds: [embed] });
 }
 export const help = {
 	name: "avatar",

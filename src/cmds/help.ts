@@ -1,6 +1,6 @@
 import AlcanClient from "@classes/Client";
 import Embed from "@classes/Embed";
-import { Message, MessageEmbed } from "discord.js";
+import { Message } from "discord.js";
 
 export async function run(
 	client: AlcanClient,

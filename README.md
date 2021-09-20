@@ -1,5 +1,3 @@
 # Alcan
 
-New alcan
-sprawdzam
-s
+nowy alcanlol
