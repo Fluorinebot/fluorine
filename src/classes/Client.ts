@@ -3,6 +3,7 @@ import { connect } from "rethinkdb";
 import CommandHandler from "./handlers/CommandHandler";
 import EventHandler from "./handlers/EventHandler";
 import { functions } from "../util";
+import Logger from "./Logger";
 export default class AlcanClient extends Client {
 	conn: any;
 	config: any;
@@ -11,6 +12,7 @@ export default class AlcanClient extends Client {
 	footer: string;
 	color: ColorResolvable;
 	functions: any;
+	logger: Logger;
 	constructor() {
 		super({
 			intents: new Intents(
@@ -26,10 +28,14 @@ export default class AlcanClient extends Client {
 		this.footer = `Alcan ${this.version}`;
 		this.color = "#3872f2";
 		this.functions = functions;
+		this.logger = new Logger();
 	}
 	init() {
 		new EventHandler(this);
 		this.cmds = new CommandHandler().map;
 		this.login(this.config.token);
+		process.on("unhandledRejection", (error) => {
+			this.logger.error(error!.toString());
+		});
 	}
 }

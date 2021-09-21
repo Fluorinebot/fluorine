@@ -19,6 +19,8 @@
 	"homepage": "https://github.com/Xiboon/Alcan#readme",
 	"dependencies": {
 		"@types/rethinkdb": "^2.3.17",
+		"chalk": "^4.1.2",
+		"dayjs": "^1.10.7",
 		"discord.js": "^13.1.0",
 		"rethinkdb": "^2.4.2"
 	}
