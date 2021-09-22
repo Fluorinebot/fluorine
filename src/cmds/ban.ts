@@ -33,3 +33,9 @@ export async function run(
 		.setFooter(client.footer);
 	message.reply({ embeds: [embed] });
 }
+export const help = {
+	name: "ban",
+	description: "Zbanuj kogoś z serwera",
+	aliases: ["zbanuj"],
+	category: "moderation",
+};
