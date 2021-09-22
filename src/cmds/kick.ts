@@ -30,3 +30,9 @@ export async function run(
 		.setFooter(client.footer);
 	message.reply({ embeds: [embed] });
 }
+export const help = {
+	name: "kick",
+	description: "Wyrzuć kogoś z serwera",
+	aliases: ["wyrzuć"],
+	category: "moderation",
+};
