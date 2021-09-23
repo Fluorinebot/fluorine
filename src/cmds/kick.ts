@@ -9,10 +9,12 @@ export async function run(
 ) {
 	if (!args[0])
 		return message.reply("Członek którego chcesz wyrzucić nie istnieje!");
+
 	const member =
-		message.mentions.members?.first() ||
-		(await message.guild?.members.fetch(args[0]).catch(() => {}));
-	const reason = args.slice(1).join(" ") || "Brak powodu";
+			message.mentions.members?.first() ||
+			(await message.guild?.members.fetch(args[0]).catch(() => {})),
+		reason = args.slice(1).join(" ") || "Brak powodu";
+
 	if (!member)
 		return message.reply("Członek którego chcesz wyrzucić nie istnieje!");
 	if (!member?.kickable)
@@ -22,7 +24,9 @@ export async function run(
 	if (reason.length > 1024) {
 		message.reply("Powód nie może być dłuższy niż 1024");
 	}
+
 	member.kick(`Wyrzucono przez ${message.author.tag} | ${reason}`);
+
 	const embed = new Embed()
 		.setTitle("Wyrzucono!")
 		.setDescription("Pomyślnie wyrzucono członka!")

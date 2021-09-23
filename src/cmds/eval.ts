@@ -13,10 +13,11 @@ export async function run(
 	if (args.includes("client.token")) return message.reply("usun client.token ");
 
 	const codex = args.join(" ");
-	const code = codex.replace("client.token", '"chuj ci w dupke"');
+	const code = codex.replace("client.token", '"no"');
 	try {
 		const evaled = eval(code);
 		const clean = await client.functions.clean(client, evaled);
+
 		const embed = new Embed()
 			.setTitle("Wykonano!")
 			.setDescription(`\`\`\`js\n${clean}\n\`\`\``);

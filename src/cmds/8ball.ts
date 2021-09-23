@@ -22,6 +22,7 @@ export async function run(
 			.setColor(client.color);
 		return message.reply({ embeds: [errorEmbed] });
 	}
+
 	const embed = new Embed()
 		.setDescription(args.join(" "))
 		.setFooter(client.footer)

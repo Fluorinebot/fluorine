@@ -11,6 +11,7 @@ export async function run(
 		message.mentions.users.first() ??
 		client.users.cache.get(args[0]) ??
 		message.author;
+
 	const embed = new Embed()
 		.setTitle("Avatar")
 		.setFooter(client.footer)

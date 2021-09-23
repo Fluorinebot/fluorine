@@ -42,15 +42,19 @@ export async function run(
 		case "dev":
 			break;
 		default:
-			const defaultEmbed = new Embed()
-				.setTitle("Pomoc")
-				.setDescription("Kategorie")
-				.addField("4Fun", "a!help fun")
-				.addField("Narzędzia", "a!help tools")
-				.addField("Moderacja", "a!help moderation")
-				.setFooter(client.footer);
-			message.channel.send({ embeds: [defaultEmbed] });
-			break;
+			if (args[0] && client.cmds.get(args[0])) {
+				const cmd = client.cmds.get(args[0]);
+			} else {
+				const defaultEmbed = new Embed()
+					.setTitle("Pomoc")
+					.setDescription("Kategorie")
+					.addField("4Fun", "a!help fun")
+					.addField("Narzędzia", "a!help tools")
+					.addField("Moderacja", "a!help moderation")
+					.setFooter(client.footer);
+				message.channel.send({ embeds: [defaultEmbed] });
+				break;
+			}
 	}
 }
 export const help = {
