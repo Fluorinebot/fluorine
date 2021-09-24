@@ -1,11 +1,18 @@
 import AlcanClient from "@classes/Client";
 import { Message, MessageEmbed } from "discord.js";
+import r from "rethinkdb";
 
 export async function run(client: AlcanClient, message: Message) {
 	const prefix = "a!";
 	const args = message.content.slice(prefix.length).split(" ");
 	const command = args.shift();
-	if (message.content.startsWith("a!")) {
+
+	const settings: any = await r
+		.table("config")
+		.get(message.guild!.id)
+		.run(client.conn);
+
+	if (message.content.startsWith(settings.prefix || "a!")) {
 		const code = client.cmds.get(command);
 		if (code) {
 			code.run(client, message, args);
@@ -15,6 +22,7 @@ export async function run(client: AlcanClient, message: Message) {
 	} else if (message.content === `<@!${client.user!.id}>`) {
 		const embed = new MessageEmbed()
 			.setTitle("Alcan")
+			.setDescription("Mój prefix na tym serwerze to" + settings!.prefix)
 			.addField("Serwery", client.guilds.cache.size.toString())
 			.addField("Użytkownicy", client.users.cache.size.toString())
 			.addField("Komendy", client.cmds.size.toString())
