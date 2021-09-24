@@ -1,6 +1,7 @@
 import AlcanClient from "@classes/Client";
 import Embed from "@classes/Embed";
 import { Message } from "discord.js";
+import r from "rethinkdb";
 
 export async function run(
 	client: AlcanClient,
@@ -8,6 +9,10 @@ export async function run(
 	args: string[]
 ) {
 	const cmds = Array.from(client.cmds.values());
+	const { prefix }: any = await r
+		.table("config")
+		.get(message.guild!.id)
+		.run(client.conn);
 	const list: any = {};
 	["fun", "tools", "moderation", "dev"].forEach((key) => {
 		list[key] =
@@ -48,9 +53,9 @@ export async function run(
 				const defaultEmbed = new Embed()
 					.setTitle("Pomoc")
 					.setDescription("Kategorie")
-					.addField("4Fun", "a!help fun")
-					.addField("Narzędzia", "a!help tools")
-					.addField("Moderacja", "a!help moderation")
+					.addField("4Fun", `${prefix}help fun`)
+					.addField("Narzędzia", `${prefix}help tools`)
+					.addField("Moderacja", `${prefix}help moderation`)
 					.setFooter(client.footer);
 				message.channel.send({ embeds: [defaultEmbed] });
 				break;

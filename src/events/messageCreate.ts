@@ -3,16 +3,14 @@ import { Message, MessageEmbed } from "discord.js";
 import r from "rethinkdb";
 
 export async function run(client: AlcanClient, message: Message) {
-	const prefix = "a!";
-	const args = message.content.slice(prefix.length).split(" ");
-	const command = args.shift();
-
 	const settings: any = await r
 		.table("config")
 		.get(message.guild!.id)
 		.run(client.conn);
+	const args = message.content.slice(settings.prefix.length).split(" ");
+	const command = args.shift();
 
-	if (message.content.startsWith(settings.prefix || "a!")) {
+	if (message.content.startsWith(settings.prefix)) {
 		const code = client.cmds.get(command);
 		if (code) {
 			code.run(client, message, args);
