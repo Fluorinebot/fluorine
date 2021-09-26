@@ -11,7 +11,7 @@ export async function run(client: AlcanClient, message: Message) {
 	const command = args.shift();
 
 	if (message.content.startsWith(settings.prefix)) {
-		const code = client.cmds.get(command);
+		const code = client.cmds.get(command!);
 		if (code) {
 			code.run(client, message, args);
 		} else {

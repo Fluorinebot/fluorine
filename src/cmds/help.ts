@@ -2,6 +2,7 @@ import AlcanClient from "@classes/Client";
 import Embed from "@classes/Embed";
 import { Message } from "discord.js";
 import r from "rethinkdb";
+import { command } from "types/command.type";
 
 export async function run(
 	client: AlcanClient,
@@ -17,7 +18,7 @@ export async function run(
 	["fun", "tools", "moderation", "dev"].forEach((key) => {
 		list[key] =
 			cmds
-				.filter((cmd) => cmd.help.category === key)
+				.filter((cmd: command) => cmd.help.category === key)
 				.map((c) => c.help.name)
 				.join(` \n `) || "None";
 	});
@@ -48,7 +49,14 @@ export async function run(
 			break;
 		default:
 			if (args[0] && client.cmds.get(args[0])) {
-				const cmd = client.cmds.get(args[0]);
+				const cmd = client.cmds.get(args[0])!;
+				const category = client.functions.category(cmd);
+				const helpEmbed = new Embed()
+					.setTitle("Informacje o komendzie")
+					.addField("Nazwa", cmd.help.name)
+					.addField("Kategoria", category)
+					.addField("Aliasy", cmd.help.aliases.toString());
+				message.reply({ embeds: [helpEmbed] });
 			} else {
 				const defaultEmbed = new Embed()
 					.setTitle("Pomoc")

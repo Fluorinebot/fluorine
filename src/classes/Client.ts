@@ -4,11 +4,12 @@ import EventHandler from "./handlers/EventHandler";
 import { functions } from "../util";
 import r from "rethinkdb";
 import Logger from "./Logger";
+import { command } from "types/command.type";
 
 export default class AlcanClient extends Client {
 	conn: any;
 	config: any;
-	cmds!: Map<any, any>;
+	cmds!: Map<string, command>;
 	version: string;
 	footer: string;
 	color: ColorResolvable;
@@ -21,10 +22,10 @@ export default class AlcanClient extends Client {
 			),
 			allowedMentions: { repliedUser: false },
 		});
-		r.connect({}).then((conn) => {
+		this.config = require(`${__dirname}/../../config.json`);
+		r.connect(this.config.rethink).then((conn) => {
 			this.conn = conn;
 		});
-		this.config = require(`${__dirname}/../../config.json`);
 		this.version = "1.0.0-beta";
 		this.footer = `Alcan ${this.version}`;
 		this.color = "#3872f2";
@@ -46,8 +47,8 @@ export default class AlcanClient extends Client {
 				`Loaded ${this.cmds.size} commands, checked ${this.guilds.cache.size} guilds`
 			);
 		});
-		process.on("unhandledRejection", (error) => {
-			this.logger.error(error!.toString());
+		process.on("unhandledRejection", (error: Error) => {
+			this.logger.error(error.stack!);
 		});
 	}
 }
