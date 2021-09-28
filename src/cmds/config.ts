@@ -37,8 +37,38 @@ export async function run(
 				message.reply({ embeds: [prefixEmbed] });
 				break;
 			case "logs":
+				const bool = args[2] === "y";
+				r.table("config")
+					.get(message.guild!.id)
+					.update({ logs: bool })
+					.run(client.conn);
+
+				const logEmbed = new Embed()
+					.setTitle("Status logów ustawiony!")
+					.addField("Nowy status", args[2] ? "Włączone" : "Wyłączone")
+					.setFooter(client.footer);
+
+				message.reply({ embeds: [logEmbed] });
 				break;
 			case "logChannel":
+				const channel = message.mentions.channels.first()?.id || args[2];
+				if (message.guild?.channels.cache.get(channel)) {
+					return message.reply(
+						"Nieprawidłowy kanał! Oznacz kanał lub podaj jego id."
+					);
+				}
+				r.table("config")
+					.get(message.guild!.id)
+					.update({ logChannel: channel })
+					.run(client.conn);
+
+				const channelEmbed = new Embed()
+					.setTitle("Kanał logów ustawiony!")
+					.addField("Nowy kanał", `<#${channel}>`)
+					.setFooter(client.footer);
+
+				message.reply({ embeds: [channelEmbed] });
+
 				break;
 		}
 	} else {
