@@ -1,3 +1,3 @@
 # Alcan
 
-nowy alcanlol
+nowy alcan
