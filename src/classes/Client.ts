@@ -17,9 +17,7 @@ export default class AlcanClient extends Client {
 	logger: Logger;
 	constructor() {
 		super({
-			intents: new Intents(
-				Object.values(Intents.FLAGS).reduce((acc, p) => acc | p, 0)
-			),
+			intents: 5638,
 			allowedMentions: { repliedUser: false },
 		});
 		this.config = require(`${__dirname}/../../config.json`);
