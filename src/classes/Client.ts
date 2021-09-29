@@ -40,7 +40,9 @@ export default class AlcanClient extends Client {
 			this.guilds.cache.forEach(async (g) => {
 				const guild = await r.table("config").get(g.id).run(this.conn);
 				if (!guild) {
-					r.table("config").insert({ id: g.id, prefix: "a!" }).run(this.conn);
+					r.table("config")
+						.insert({ id: g.id, prefix: this.config.prefix })
+						.run(this.conn);
 				}
 			});
 			this.logger.log(
