@@ -10,9 +10,9 @@ export async function run(
 	const file = new MessageAttachment("https://leosia.alcan.me").setName(
 		"leosia.jpg"
 	);
-	const texts = ["young leosia", "jungle girl", "idolka"];
+	const texts = ["young leosia", "jungle girl", "idolka", "mommy"];
 	message.reply({
-		content: texts[Math.round(Math.random() * 3)],
+		content: texts[Math.floor(Math.random() * texts.length)],
 		files: [file],
 	});
 }
