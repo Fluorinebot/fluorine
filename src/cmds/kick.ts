@@ -9,7 +9,9 @@ export async function run(
 ) {
 	if (!args[0])
 		return message.reply("Członek którego chcesz wyrzucić nie istnieje!");
-
+	if (!message.member?.permissions.has("KICK_MEMBERS")) {
+		return message.reply("Nie masz permisji do wyrzucenia tego użytkownika!");
+	}
 	const member =
 			message.mentions.members?.first() ||
 			(await message.guild?.members.fetch(args[0]).catch(() => {})),

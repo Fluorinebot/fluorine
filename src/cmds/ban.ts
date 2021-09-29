@@ -7,6 +7,10 @@ export async function run(
 	message: Message,
 	args: string[]
 ) {
+	if (!message.member?.permissions.has("BAN_MEMBERS")) {
+		return message.reply("Nie masz permisji do zbanowania tego użytkownika!")
+	}
+
 	if (!args[0])
 		return message.reply("Członek którego chcesz zbanować nie istnieje!");
 
