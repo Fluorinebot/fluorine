@@ -8,7 +8,7 @@ export async function run(
 	args: string[]
 ) {
 	if (message.author.id !== "707675871355600967") {
-		return message.reply("spierdalaj tylko dla kubusia");
+		return message.reply("ta komenda jest dostepna tylko dla developerow");
 	}
 	if (args.includes("client.token")) return message.reply("usun client.token ");
 
