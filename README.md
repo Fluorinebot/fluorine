@@ -1,3 +1,3 @@
 # Alcan
 
-nowy alcan
+nowy alcantest
