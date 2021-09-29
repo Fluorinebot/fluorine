@@ -3,6 +3,7 @@ import { Message, MessageEmbed } from "discord.js";
 import r from "rethinkdb";
 
 export async function run(client: AlcanClient, message: Message) {
+	console.log(" s");
 	const settings: any = await r
 		.table("config")
 		.get(message.guild!.id)
