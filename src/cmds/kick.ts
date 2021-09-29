@@ -33,7 +33,7 @@ export async function run(
 		.setTitle("Wyrzucono!")
 		.setDescription("Pomyślnie wyrzucono członka!")
 		.setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
-		.addField("Wyrzucono przez:", message.author.tag)
+		.addField("Wyrzucony przez:", message.author.tag)
 		.addField("Wyrzucony:", member.user.tag)
 		.addField("Powód", reason)
 		.setFooter(client.footer);

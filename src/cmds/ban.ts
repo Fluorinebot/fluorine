@@ -35,8 +35,8 @@ export async function run(
 		.setTitle("Zbanowano!")
 		.setDescription("Pomyślnie zbanowano członka!")
 		.setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
-		.addField("Zbanowano przez:", message.author.tag)
-		.addField("Zbanowano:", member.user.tag)
+		.addField("Zbanowany przez:", message.author.tag)
+		.addField("Zbanowany:", member.user.tag)
 		.addField("Powód", reason)
 		.setFooter(client.footer);
 	message.reply({ embeds: [embed] });
