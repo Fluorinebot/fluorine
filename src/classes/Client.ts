@@ -17,7 +17,13 @@ export default class AlcanClient extends Client {
 	logger: Logger;
 	constructor() {
 		super({
-			intents: 5638,
+			intents: new Intents([
+				"GUILD_MESSAGES",
+				"DIRECT_MESSAGES",
+				"GUILD_BANS",
+				"GUILD_MEMBERS",
+				"GUILD_MESSAGE_REACTIONS",
+			]),
 			allowedMentions: { repliedUser: false },
 		});
 		this.config = require(`${__dirname}/../../config.json`);

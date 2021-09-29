@@ -3,7 +3,11 @@ import { Message, MessageEmbed } from "discord.js";
 import r from "rethinkdb";
 
 export async function run(client: AlcanClient, message: Message) {
-	console.log(" s");
+	if (message.channel.type === "DM") {
+		return message.reply(
+			"Cześć! Komendy nie działają na prywatnych wiadomościach, spróbuj napisać `a!help` na serwerze na którym jestem."
+		);
+	}
 	const settings: any = await r
 		.table("config")
 		.get(message.guild!.id)
