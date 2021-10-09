@@ -1,6 +1,7 @@
 import AlcanClient from "@classes/Client";
 import Embed from "@classes/Embed";
 import { Message } from "discord.js";
+import clean from "@util/clean";
 
 export async function run(
 	client: AlcanClient,
@@ -16,19 +17,18 @@ export async function run(
 	const code = codex.replace("client.token", '"no"');
 	try {
 		const evaled = eval(code);
-		const clean = await client.functions.clean(client, evaled);
+		const cleant = await clean(client, evaled);
 
 		const embed = new Embed()
 			.setTitle("Wykonano!")
-			.setDescription(`\`\`\`js\n${clean}\n\`\`\``);
+			.setDescription(`\`\`\`js\n${cleant}\n\`\`\``);
 		message.reply({ embeds: [embed] });
 		message.react("✅");
 	} catch (err) {
-		message.channel.send(`ERROR`);
 		const errorEmbed = new Embed()
 			.setTitle("Error")
 			.setDescription(
-				`\`\`\`xl\n${await client.functions.clean(client, err)}\n\`\`\``
+				`\`\`\`xl\n${await clean(client, err)}\n\`\`\``
 			)
 			.setFooter(client.footer);
 		message.reply({ embeds: [errorEmbed] });

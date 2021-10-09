@@ -25,12 +25,15 @@ export async function run(client: AlcanClient, message: Message) {
 	} else if (message.content === `<@!${client.user!.id}>`) {
 		const embed = new MessageEmbed()
 			.setTitle("Alcan")
-			.setDescription("Mój prefix na tym serwerze to" + settings!.prefix)
+			.setDescription(
+				"Cześć! Jestem Alcan.\nMój prefix na tym serwerze to " +
+					settings!.prefix
+			)
 			.addField("Serwery", client.guilds.cache.size.toString())
 			.addField("Użytkownicy", client.users.cache.size.toString())
 			.addField("Komendy", client.cmds.size.toString())
 			.addField("Kanały", client.channels.cache.size.toString())
-			.setFooter("Alcan " + client.version);
+			.setFooter(client.footer);
 		message.channel.send({ embeds: [embed] });
 	}
 }

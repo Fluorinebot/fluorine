@@ -3,6 +3,7 @@ import Embed from "@classes/Embed";
 import { Message } from "discord.js";
 import r from "rethinkdb";
 import { command } from "types/command.type";
+import category from "@util/category";
 
 export async function run(
 	client: AlcanClient,
@@ -50,11 +51,11 @@ export async function run(
 		default:
 			if (args[0] && client.cmds.get(args[0])) {
 				const cmd = client.cmds.get(args[0])!;
-				const category = client.functions.category(cmd);
+				const categorys = category(cmd);
 				const helpEmbed = new Embed()
 					.setTitle("Informacje o komendzie")
 					.addField("Nazwa", cmd.help.name)
-					.addField("Kategoria", category)
+					.addField("Kategoria", categorys!)
 					.addField("Aliasy", cmd.help.aliases.toString());
 				message.reply({ embeds: [helpEmbed] });
 			} else {

@@ -13,7 +13,6 @@ export default class AlcanClient extends Client {
 	version: string;
 	footer: string;
 	color: ColorResolvable;
-	functions: any;
 	logger: Logger;
 	constructor() {
 		super({
@@ -32,10 +31,9 @@ export default class AlcanClient extends Client {
 		r.connect(this.config.rethink).then((conn) => {
 			this.conn = conn;
 		});
-		this.version = "1.0.0-beta";
+		this.version = "1.1.0-beta";
 		this.footer = `Alcan ${this.version}`;
 		this.color = "#3872f2";
-		this.functions = functions;
 		this.logger = new Logger();
 	}
 	async init() {
