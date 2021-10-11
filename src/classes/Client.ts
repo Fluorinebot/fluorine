@@ -1,7 +1,6 @@
 import { Client, ColorResolvable, Intents } from "discord.js";
 import CommandHandler from "./handlers/CommandHandler";
 import EventHandler from "./handlers/EventHandler";
-import { functions } from "../util";
 import r from "rethinkdb";
 import Logger from "./Logger";
 import { command } from "types/command.type";
@@ -31,7 +30,7 @@ export default class AlcanClient extends Client {
 		r.connect(this.config.rethink).then((conn) => {
 			this.conn = conn;
 		});
-		this.version = "1.1.0-beta";
+		this.version = "1.2.0-beta";
 		this.footer = `Alcan ${this.version}`;
 		this.color = "#3872f2";
 		this.logger = new Logger();

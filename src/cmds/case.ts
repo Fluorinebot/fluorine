@@ -7,16 +7,16 @@ export async function run(
 	message: Message,
 	args: Array<string>
 ) {
-	if (message.member?.permissions.has("KICK_MEMBERS"))
+	if (!message.member?.permissions.has("KICK_MEMBERS"))
 		return message.reply(
 			"Nie posiadasz wymaganych permisji!\n Wymagane permisje: Wyrzucanie członków"
 		);
-	const type = {
-		ban: "Ban",
-		kick: "Wyrzucenie",
-		warn: "Warn",
-		mute: "Wyciszenie",
-	};
+	enum type {
+		ban = "Ban",
+		kick = "Wyrzucenie",
+		warn = "Warn",
+		mute = "Wyciszenie",
+	}
 	if (!args[0]) return message.reply("Musisz podać ID kary!");
 	const caseArray = await getCase(client, message.guild!, parseInt(args[0]));
 	const Case = caseArray[0];
@@ -30,12 +30,13 @@ export async function run(
 		.addField("Ukarany przez", creator?.tag || "Nie znaleziono")
 		// @ts-ignore
 		.addField("Typ kary", type[Case.type])
-		.addField("Powód", Case.dscp);
+		.addField("Powód", Case.dscp)
+		.setFooter(client.footer);
 	message.reply({ embeds: [embed] });
 }
 export const help = {
 	name: "case",
 	description: "Sprawdź informacje o karze.",
-	aliases: ["Kara"],
+	aliases: ["kara"],
 	category: "mod",
 };
