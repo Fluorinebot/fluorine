@@ -7,10 +7,6 @@ export async function run(
 	message: Message,
 	args: Array<string>
 ) {
-	if (!message.member?.permissions.has("KICK_MEMBERS"))
-		return message.reply(
-			"Nie posiadasz wymaganych permisji!\n Wymagane permisje: Wyrzucanie członków"
-		);
 	enum type {
 		ban = "Ban",
 		kick = "Wyrzucenie",
