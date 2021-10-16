@@ -15,7 +15,7 @@ export async function run(
 				"Nie posiadasz permisji do wykonania tego!\nWymagane permisje: Administrator"
 			)
 			.setFooter(client.footer);
-		message.reply({ embeds: [permEmbed] });
+		return message.reply({ embeds: [permEmbed] });
 	}
 	if (args[0] === "set") {
 		switch (args[1]) {
@@ -45,21 +45,22 @@ export async function run(
 
 				const logEmbed = new Embed()
 					.setTitle("Status logów ustawiony!")
-					.addField("Nowy status", args[2] ? "Włączone" : "Wyłączone")
+					.addField("Nowy status", bool ? "Włączone" : "Wyłączone")
 					.setFooter(client.footer);
 
 				message.reply({ embeds: [logEmbed] });
 				break;
-			case "logChannel":
+			case "logsChannel":
 				const channel = message.mentions.channels.first()?.id || args[2];
-				if (message.guild?.channels.cache.get(channel)) {
+				console.log(channel);
+				if (!message.guild?.channels.cache.get(channel)) {
 					return message.reply(
 						"Nieprawidłowy kanał! Oznacz kanał lub podaj jego id."
 					);
 				}
 				r.table("config")
 					.get(message.guild!.id)
-					.update({ logChannel: channel })
+					.update({ logsChannel: channel })
 					.run(client.conn);
 
 				const channelEmbed = new Embed()
@@ -72,14 +73,23 @@ export async function run(
 				break;
 		}
 	} else {
+		const settings: any = await r
+			.table("config")
+			.get(message.guild!.id)
+			.run(client.conn);
 		const listEmbed = new Embed()
 			.setTitle("Konfiguracja")
-			.setDescription("Lista wszystkich opcji do konfiguracji")
-			.addField("Prefix", "a!config set prefix <prefix>")
-			.addField("Logi", "a!config set logs <y/n>")
-			.addField("Kanał logów", "a!config set logChannel <kanal>")
+			.setDescription(
+				"Lista wszystkich opcji do konfiguracji\nUżyj config set <opcja> <wartość> aby ustawić!"
+			)
+			.addField("prefix", settings.prefix)
+			.addField("logs", settings.logs ? "Włączone" : "Wyłączone")
 			.setFooter(client.footer);
-
+		if (settings.logsChannel) {
+			listEmbed.addField("logsChannel", `<#${settings.logsChannel}>`);
+		} else {
+			listEmbed.addField("logsChannel", "Nie ustawiono");
+		}
 		message.reply({ embeds: [listEmbed] });
 	}
 }

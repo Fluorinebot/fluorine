@@ -5,7 +5,8 @@
 	"main": "dist/index.js",
 	"scripts": {
 		"test": "tsc && tspath && node .",
-		"build": "tsc && tspath"
+		"build": "tsc && tspath",
+		"run": "node ."
 	},
 	"repository": {
 		"type": "git",
