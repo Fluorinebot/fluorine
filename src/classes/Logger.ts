@@ -1,4 +1,4 @@
-import { bold, yellow, blue, red } from "nanocolors";
+import { bold, yellow, blue, red } from "picocolors";
 import dayjs from "dayjs";
 export default class Logger {
 	constructor() {}

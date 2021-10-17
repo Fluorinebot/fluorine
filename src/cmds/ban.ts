@@ -3,6 +3,7 @@ import Embed from "@classes/Embed";
 import { Message } from "discord.js";
 import createCase from "@util/createCase";
 import r from "rethinkdb";
+import modLog from "@util/modLog";
 export async function run(
 	client: AlcanClient,
 	message: Message,
@@ -38,7 +39,7 @@ export async function run(
 		reason
 	);
 	member.ban({ reason: `Zbanowano przez ${message.author.tag} | ${reason}` });
-
+	modLog(client, create, message.guild!);
 	const embed = new Embed()
 		.setTitle("Zbanowano!")
 		.setDescription("Pomyślnie zbanowano członka!")

@@ -3,6 +3,7 @@ import Embed from "@classes/Embed";
 import createCase from "@util/createCase";
 import r from "rethinkdb";
 import { Message } from "discord.js";
+import modLog from "@util/modLog";
 
 export async function run(
 	client: AlcanClient,
@@ -38,6 +39,8 @@ export async function run(
 		"kick",
 		reason
 	);
+	r.table("case").insert(create);
+	modLog(client, create, message.guild!);
 	const embed = new Embed()
 		.setTitle("Wyrzucono!")
 		.setDescription("Pomyślnie wyrzucono członka!")

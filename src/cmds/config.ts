@@ -37,6 +37,10 @@ export async function run(
 				message.reply({ embeds: [prefixEmbed] });
 				break;
 			case "logs":
+				if (args[2] !== "y" && args[2] !== "n") {
+					return message.reply("Wartość tej opcji powinna być y, lub n.");
+				}
+
 				const bool = args[2] === "y";
 				r.table("config")
 					.get(message.guild!.id)
@@ -71,6 +75,23 @@ export async function run(
 				message.reply({ embeds: [channelEmbed] });
 
 				break;
+			case "modlog":
+				if (args[2] !== "y" && args[2] !== "n") {
+					return message.reply("Wartość tej opcji powinna być y, lub n.");
+				}
+				const modBool = args[2] === "y";
+				r.table("config")
+					.get(message.guild!.id)
+					.update({ modLogs: modBool })
+					.run(client.conn);
+
+				const modEmbed = new Embed()
+					.setTitle("Status modlogów ustawiony!")
+					.addField("Nowy status", modBool ? "Włączone" : "Wyłączone")
+					.setFooter(client.footer);
+
+				message.reply({ embeds: [modEmbed] });
+				break;
 		}
 	} else {
 		const settings: any = await r
@@ -84,6 +105,8 @@ export async function run(
 			)
 			.addField("prefix", settings.prefix)
 			.addField("logs", settings.logs ? "Włączone" : "Wyłączone")
+
+			.addField("modlog", settings.modLogs ? "Włączone" : "Wyłączone")
 			.setFooter(client.footer);
 		if (settings.logsChannel) {
 			listEmbed.addField("logsChannel", `<#${settings.logsChannel}>`);

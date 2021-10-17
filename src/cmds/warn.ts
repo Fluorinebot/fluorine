@@ -1,6 +1,7 @@
 import AlcanClient from "@classes/Client";
 import Embed from "@classes/Embed";
 import createCase from "@util/createCase";
+import modLog from "@util/modLog";
 import { Message } from "discord.js";
 import r from "rethinkdb";
 
@@ -35,6 +36,8 @@ export async function run(
 		"warn",
 		reason
 	);
+	r.table("case").insert(create);
+	modLog(client, create, message.guild!);
 	const embed = new Embed()
 		.setTitle("Zwarnowano!")
 		.setDescription("Pomyślnie zwarnowano członka!")
