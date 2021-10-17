@@ -13,7 +13,9 @@ export async function run(
 	}
 	exec("git pull", (err, stdout, stderr) => {
 		exec("npm run build", () => {
-			message.reply("zaktualizowano");
+			exec("npm i", () => {
+				message.reply("pomyślnie zaktualizowano");
+			});
 		});
 	});
 }
