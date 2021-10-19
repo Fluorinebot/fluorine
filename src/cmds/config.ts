@@ -56,7 +56,6 @@ export async function run(
 				break;
 			case "logsChannel":
 				const channel = message.mentions.channels.first()?.id || args[2];
-				console.log(channel);
 				if (!message.guild?.channels.cache.get(channel)) {
 					return message.reply(
 						"Nieprawidłowy kanał! Oznacz kanał lub podaj jego id."

@@ -42,8 +42,14 @@ export async function run(
 		.setTitle("Zwarnowano!")
 		.setDescription("Pomyślnie zwarnowano członka!")
 		.setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
-		.addField("Zwarnowany przez:", message.author.tag)
-		.addField("Zwarnowany:", member.user.tag)
+		.addField(
+			"Zwarnowany przez:",
+			message.author.tag || "Nie znaleziono (prawdopodobnie błąd w bocie)"
+		)
+		.addField(
+			"Zwarnowany:",
+			member.user.tag || "Nie znaleziono (prawdopodobnie błąd w bocie)"
+		)
 		.addField("Powód", reason)
 		.addField("ID kary", create.id.toString())
 		.setFooter(client.footer);

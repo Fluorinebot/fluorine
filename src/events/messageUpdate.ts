@@ -7,7 +7,7 @@ export async function run(
 	oldMessage: Message,
 	newMessage: Message
 ) {
-	if (!newMessage) return;
+	if (!newMessage || newMessage.content === oldMessage.content) return;
 
 	const settings: any = await r
 		.table("config")

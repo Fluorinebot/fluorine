@@ -6,6 +6,7 @@ export async function run(
 	message: Message,
 	args: string[]
 ) {
+	
 	const responses = [
 		"Tak",
 		"Nie",

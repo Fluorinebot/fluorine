@@ -30,7 +30,7 @@ export default class AlcanClient extends Client {
 		r.connect(this.config.rethink).then((conn) => {
 			this.conn = conn;
 		});
-		this.version = "1.5.0-beta";
+		this.version = "1.7.0-beta";
 		this.footer = `Alcan ${this.version}`;
 		this.color = "#3872f2";
 		this.logger = new Logger();

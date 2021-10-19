@@ -46,8 +46,8 @@ export async function run(
 		.setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
 		.addField("Zbanowany przez:", message.author.tag)
 		.addField("Zbanowany:", member.user.tag)
-		.addField("Powód", reason)
-		.addField("ID kary", create.id)
+		.addField("Powód", reason || "Brak")
+		.addField("ID kary", create.id.toString())
 		.setFooter(client.footer);
 	message.reply({ embeds: [embed] });
 

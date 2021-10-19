@@ -8,8 +8,8 @@ export default class EventHandler {
 		dir.forEach(async (event) => {
 			const name = event.split(".")[0];
 			const code: any = await import(`${__dirname}/../../events/${event}`);
-			client.on(name, (event, event2) => {
-				code.run(client, event, event2);
+			client.on(name, (...event) => {
+				code.run(client, ...event);
 			});
 		});
 	}

@@ -48,7 +48,7 @@ export async function run(
 		.addField("Wyrzucony przez:", message.author.tag)
 		.addField("Wyrzucony:", member.user.tag)
 		.addField("Powód", reason)
-		.addField("ID kary", create.id)
+		.addField("ID kary", create.id.toString())
 		.setFooter(client.footer);
 	message.reply({ embeds: [embed] });
 	r.table("case").insert(create).run(client.conn);
