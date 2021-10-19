@@ -23,6 +23,7 @@
 		"axios": "^0.23.0",
 		"dayjs": "^1.10.7",
 		"discord.js": "^13.2.0",
+		"hot-shots": "^8.5.2",
 		"picocolors": "^1.0.0",
 		"rethinkdb": "^2.4.2"
 	}

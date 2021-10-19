@@ -4,7 +4,7 @@ import EventHandler from "./handlers/EventHandler";
 import r from "rethinkdb";
 import Logger from "./Logger";
 import { command } from "types/command.type";
-
+import statsd from "hot-shots";
 export default class AlcanClient extends Client {
 	conn: any;
 	config: any;
@@ -51,7 +51,17 @@ export default class AlcanClient extends Client {
 			this.logger.log(
 				`Loaded ${this.cmds.size} commands, checked ${this.guilds.cache.size} guilds`
 			);
+
+			const stats = new statsd();
+			stats.set("bot.guilds", this.guilds.cache.size);
+			stats.set("bot.users", this.users.cache.size);
+
+			setInterval(() => {
+				stats.set("bot.guilds", this.guilds.cache.size);
+				stats.set("bot.users", this.users.cache.size);
+			}, 60000);
 		});
+
 		process.on("unhandledRejection", (error: Error) => {
 			this.logger.error(error.stack!);
 		});
