@@ -53,13 +53,13 @@ export default class AlcanClient extends Client {
 			);
 
 			const stats = new statsd();
-			stats.set("bot.guilds", this.guilds.cache.size);
-			stats.set("bot.users", this.users.cache.size);
+			stats.set("bot.guilds", 0);
+			stats.set("bot.users", 0);
 
 			setInterval(() => {
-				stats.set("bot.guilds", 10);
-				stats.set("bot.users", 100);
-				console.log(this.users.cache.size);
+				stats.set("bot.guilds", this.guilds.cache.size);
+				stats.set("bot.users", this.users.cache.size);
+				console.log(this.users.cache.size)
 			}, 10000);
 		});
 
