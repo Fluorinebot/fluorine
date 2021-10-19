@@ -41,8 +41,8 @@ export async function run(
 	message.reply({ embeds: [bedEmbed] });
 }
 export const help = {
-	name: "bedwars",
-	description: "Sprawdź statystyki gracza na bedwarsach z hypixel.net",
+	name: "skywars",
+	description: "Sprawdź statystyki gracza na skywarsach z hypixel.net",
 	aliases: [],
 	category: "fun",
 };
