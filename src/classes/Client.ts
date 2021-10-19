@@ -59,7 +59,6 @@ export default class AlcanClient extends Client {
 			setInterval(() => {
 				stats.set("bot.guilds", this.guilds.cache.size);
 				stats.set("bot.users", this.users.cache.size);
-				console.log(this.users.cache.size)
 			}, 10000);
 		});
 
