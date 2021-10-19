@@ -59,7 +59,7 @@ export default class AlcanClient extends Client {
 			setInterval(() => {
 				stats.set("bot.guilds", this.guilds.cache.size);
 				stats.set("bot.users", this.users.cache.size);
-			}, 60000);
+			}, 10000);
 		});
 
 		process.on("unhandledRejection", (error: Error) => {
