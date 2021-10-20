@@ -19,6 +19,9 @@ export async function run(client: AlcanClient, message: Message) {
 		const code = client.cmds.get(command!);
 		if (code) {
 			code.run(client, message, args);
+			if (code.help.category !== "dev") {
+				client.statcord.postCommand(code.help.name, message.author.id);
+			}
 		} else {
 			return message.react("❌");
 		}

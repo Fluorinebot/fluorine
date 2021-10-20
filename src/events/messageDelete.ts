@@ -3,6 +3,7 @@ import Embed from "@classes/Embed";
 import { Message, TextChannel } from "discord.js";
 import r from "rethinkdb";
 export async function run(client: AlcanClient, message: Message) {
+	if (!message.content) return;
 	const settings: any = await r
 		.table("config")
 		.get(message.guild!.id)
