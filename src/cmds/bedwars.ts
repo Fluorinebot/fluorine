@@ -22,8 +22,8 @@ export async function run(
 		`https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${client.config.hypixel}`
 	);
 
-	const bedStats = data.player.stats.Bedwars;
-	if (!data.player?.stats?.Bedwars) {
+	const bedStats = data.player?.stats?.Bedwars;
+	if (!bedStats) {
 		return message.reply("Nie istnieje taki gracz!");
 	}
 

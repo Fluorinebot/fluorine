@@ -22,8 +22,10 @@ export async function run(
 		`https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${client.config.hypixel}`
 	);
 
-	const skyStats = data.player.stats.SkyWars;
-
+	const skyStats = data.player?.stats?.SkyWars;
+	if (!skyStats) {
+		return message.reply("Nie istnieje taki gracz!");
+	}
 	const kd = (skyStats.kills / skyStats.deaths).toFixed(2);
 	const winratio = (skyStats.wins / skyStats.deaths).toFixed(2);
 	const bedEmbed = new Embed()
