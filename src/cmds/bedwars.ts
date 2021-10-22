@@ -23,6 +23,9 @@ export async function run(
 	);
 
 	const bedStats = data.player.stats.Bedwars;
+	if (!data.player?.stats) {
+		return message.reply("Nie istnieje taki gracz!")
+	}
 
 	const kd = (bedStats.kills_bedwars / bedStats.deaths_bedwars).toFixed(2);
 	const winratio = (bedStats.wins_bedwars / bedStats.losses_bedwars).toFixed(2);
