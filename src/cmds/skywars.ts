@@ -23,6 +23,9 @@ export async function run(
 	);
 
 	const skyStats = data.player.stats.SkyWars;
+
+	if (!skyStats.wins && !skyStats.deaths)
+		return message.reply("Gracz którego podałeś nigdy nie grał w skywarsy!");
 	const { kills, deaths, wins, assists } = skyStats;
 	const kd = (kills / deaths).toFixed(2);
 	const winratio = (wins / deaths).toFixed(2);

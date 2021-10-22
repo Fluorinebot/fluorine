@@ -23,6 +23,8 @@ export async function run(
 	);
 
 	const bedStats = data.player.stats.Bedwars;
+	if (!bedStats.wins_bedwars && !bedStats.losses_bedwars)
+		return message.reply("Gracz którego podałeś nigdy nie grał w bedwarsy!");
 	const {
 		beds_broken_bedwars,
 		kills_bedwars,
