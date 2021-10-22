@@ -24,19 +24,16 @@ export async function run(
 
 	const skyStats = data.player.stats.SkyWars;
 
-	if (!skyStats.wins && !skyStats.deaths)
-		return message.reply("Gracz którego podałeś nigdy nie grał w skywarsy!");
-	const { kills, deaths, wins, assists } = skyStats;
-	const kd = (kills / deaths).toFixed(2);
-	const winratio = (wins / deaths).toFixed(2);
+	const kd = (skyStats.kills / skyStats.deaths).toFixed(2);
+	const winratio = (skyStats.wins / skyStats.deaths).toFixed(2);
 	const bedEmbed = new Embed()
 		.setDescription(`K/D: ${kd}\n Win/loss ratio: ${winratio}`)
 		.setTitle(`Statystyki gracza ${args[0]}`)
-		.addField("Wygrane gry", `${wins || "0"}`, true)
-		.addField("Przegrane gry", `${deaths || "0"}`, true)
+		.addField("Wygrane gry", `${skyStats.wins || "0"}`, true)
+		.addField("Przegrane gry", `${skyStats.deaths || "0"}`, true)
 		.addField("\u200B", "\u200B", true)
-		.addField("Zabójstwa", `${kills || "0"} `, true)
-		.addField("Asysty", `${assists || "0"}`, true)
+		.addField("Zabójstwa", `${skyStats.kills || "0"} `, true)
+		.addField("Asysty", `${skyStats.assists || "0"}`, true)
 		.setThumbnail(
 			`https://crafatar.com/avatars/${uuid.data.id}?default=MHF_Steve&overlay`
 		)

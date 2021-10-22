@@ -23,29 +23,24 @@ export async function run(
 	);
 
 	const bedStats = data.player.stats.Bedwars;
-	if (!bedStats.wins_bedwars && !bedStats.losses_bedwars)
-		return message.reply("Gracz którego podałeś nigdy nie grał w bedwarsy!");
-	const {
-		beds_broken_bedwars,
-		kills_bedwars,
-		deaths_bedwars,
-		wins_bedwars,
-		losses_bedwars,
-		beds_lost_bedwars,
-	} = bedStats;
-	const kd = (kills_bedwars / deaths_bedwars).toFixed(2);
-	const winratio = (wins_bedwars / losses_bedwars).toFixed(2);
+
+	const kd = (bedStats.kills_bedwars / bedStats.deaths_bedwars).toFixed(2);
+	const winratio = (bedStats.wins_bedwars / bedStats.losses_bedwars).toFixed(2);
 	const bedEmbed = new Embed()
 		.setDescription(`K/D: ${kd}\n Win/loss ratio: ${winratio}`)
 		.setTitle(`Statystyki gracza ${args[0]}`)
-		.addField("Wygrane gry", `${wins_bedwars || "0"}`, true)
-		.addField("Przegrane gry", `${losses_bedwars || "0"}`, true)
+		.addField("Wygrane gry", `${bedStats.wins_bedwars || "0"}`, true)
+		.addField("Przegrane gry", `${bedStats.losses_bedwars || "0"}`, true)
 		.addField("\u200B", "\u200B", true)
-		.addField("Zabójstwa", `${kills_bedwars || "0"} `, true)
-		.addField("Śmierci", `${deaths_bedwars || "0"}`, true)
+		.addField("Zabójstwa", `${bedStats.kills_bedwars || "0"} `, true)
+		.addField("Śmierci", `${bedStats.deaths_bedwars || "0"}`, true)
 		.addField("\u200B", "\u200B", true)
-		.addField("Zniszczone łóżka", `${beds_broken_bedwars || "0"}`, true)
-		.addField("Stracone łóżka", `${beds_lost_bedwars || "0"}`, true)
+		.addField(
+			"Zniszczone łóżka",
+			`${bedStats.beds_broken_bedwars || "0"}`,
+			true
+		)
+		.addField("Stracone łóżka", `${bedStats.beds_lost_bedwars || "0"}`, true)
 		.setThumbnail(
 			`https://crafatar.com/avatars/${uuid.data.id}?default=MHF_Steve&overlay`
 		)
