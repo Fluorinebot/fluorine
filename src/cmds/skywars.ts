@@ -9,7 +9,7 @@ export async function run(
 ) {
 	if (!args[0])
 		return message.reply(
-			"Musisz podać gracza! Prawidłowe użycie: bedwars <gracz>"
+			"Musisz podać gracza! Prawidłowe użycie: skywars <gracz>"
 		);
 
 	const uuid: any = await axios(
