@@ -1,6 +1,7 @@
 import AlcanClient from "@classes/Client";
 import Embed from "@classes/Embed";
 import { Message } from "discord.js";
+import { HypixelType } from "types/hypixel.type";
 import axios from "axios";
 export async function run(
 	client: AlcanClient,
@@ -12,16 +13,15 @@ export async function run(
 			"Musisz podać gracza! Prawidłowe użycie: bedwars <gracz>"
 		);
 
-	const uuid: any = await axios(
+	let uuid: any = await axios(
 		`https://api.mojang.com/users/profiles/minecraft/${args[0]}`
 	);
 	if (!uuid.data.id)
 		return message.reply("Podano nieprawidłowego użytkownika!");
-
-	const { data }: any = await axios(
+	// @ts-ignore
+	const { data }: HypixelType = await axios(
 		`https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${client.config.hypixel}`
 	);
-
 	const bedStats = data.player?.stats?.Bedwars;
 	if (!bedStats) {
 		return message.reply("Nie istnieje taki gracz!");

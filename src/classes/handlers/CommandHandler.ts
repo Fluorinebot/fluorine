@@ -1,7 +1,7 @@
 import { readdirSync } from "fs";
-
+import { command } from "types/command.type";
 export default class CommandHandler {
-	map: Map<any, any>;
+	map: Map<string, command>;
 	constructor() {
 		// import commands
 		this.map = new Map();

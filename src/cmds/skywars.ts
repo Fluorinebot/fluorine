@@ -1,5 +1,6 @@
 import AlcanClient from "@classes/Client";
 import Embed from "@classes/Embed";
+import { HypixelType } from "types/hypixel.type";
 import { Message } from "discord.js";
 import axios from "axios";
 export async function run(
@@ -21,8 +22,8 @@ export async function run(
 	const { data }: any = await axios(
 		`https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${client.config.hypixel}`
 	);
-
-	const skyStats = data.player?.stats?.SkyWars;
+	const body: HypixelType = data;
+	const skyStats = body.player?.stats?.SkyWars;
 	if (!skyStats) {
 		return message.reply("Nie istnieje taki gracz!");
 	}

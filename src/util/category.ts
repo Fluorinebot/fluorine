@@ -1,4 +1,6 @@
-export default function category(cmd: any) {
+import { command } from "types/command.type";
+
+export default function category(cmd: command) {
 	switch (cmd.help.category) {
 		case "tools":
 			return "Narzędzia";

@@ -1,13 +1,15 @@
 import { Client, ColorResolvable, Intents } from "discord.js";
-import CommandHandler from "./handlers/CommandHandler";
-import EventHandler from "./handlers/EventHandler";
+import Statcord from "statcord.js";
 import r from "rethinkdb";
 import Logger from "./Logger";
+import CommandHandler from "@handlers/CommandHandler";
+import EventHandler from "@handlers/EventHandler";
 import { command } from "types/command.type";
-import Statcord from "statcord.js";
+import { ConfigType } from "types/config.type";
+
 export default class AlcanClient extends Client {
-	conn: any;
-	config: any;
+	conn!: r.Connection;
+	config: ConfigType;
 	cmds!: Map<string, command>;
 	version: string;
 	footer: string;

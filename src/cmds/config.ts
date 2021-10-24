@@ -2,6 +2,7 @@ import AlcanClient from "@classes/Client";
 import Embed from "@classes/Embed";
 import { Message } from "discord.js";
 import r from "rethinkdb";
+import { SettingsType } from "types/settings.type";
 
 export async function run(
 	client: AlcanClient,
@@ -93,7 +94,8 @@ export async function run(
 				break;
 		}
 	} else {
-		const settings: any = await r
+		// @ts-ignore
+		const settings: SettingsType = await r
 			.table("config")
 			.get(message.guild!.id)
 			.run(client.conn);

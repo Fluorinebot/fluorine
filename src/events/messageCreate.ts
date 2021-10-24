@@ -1,6 +1,7 @@
 import AlcanClient from "@classes/Client";
 import { Message, MessageEmbed } from "discord.js";
 import r from "rethinkdb";
+import { SettingsType } from "types/settings.type";
 
 export async function run(client: AlcanClient, message: Message) {
 	if (message.channel.type === "DM") {
@@ -8,7 +9,8 @@ export async function run(client: AlcanClient, message: Message) {
 			"Cześć! Komendy nie działają na prywatnych wiadomościach, spróbuj napisać `a!help` na serwerze na którym jestem."
 		);
 	}
-	const settings: any = await r
+	// @ts-ignore
+	const settings: SettingsType = await r
 		.table("config")
 		.get(message.guild!.id)
 		.run(client.conn);

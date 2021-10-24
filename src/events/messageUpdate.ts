@@ -2,14 +2,15 @@ import AlcanClient from "@classes/Client";
 import Embed from "@classes/Embed";
 import { Message, TextChannel } from "discord.js";
 import r from "rethinkdb";
+import { SettingsType } from "types/settings.type";
 export async function run(
 	client: AlcanClient,
 	oldMessage: Message,
 	newMessage: Message
 ) {
 	if (!newMessage || newMessage.content === oldMessage.content) return;
-
-	const settings: any = await r
+	// @ts-ignore
+	const settings: SettingsType = await r
 		.table("config")
 		.get(newMessage.guild!.id)
 		.run(client.conn);

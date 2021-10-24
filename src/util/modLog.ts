@@ -2,12 +2,18 @@ import AlcanClient from "@classes/Client";
 import Embed from "@classes/Embed";
 import { Guild, TextChannel, User } from "discord.js";
 import r from "rethinkdb";
+import { Case } from "types/case.type";
+import { SettingsType } from "types/settings.type";
 export default async function modLog(
 	client: AlcanClient,
-	Case: any,
+	Case: Case,
 	guild: Guild
 ) {
-	const settings: any = await r.table("config").get(guild.id).run(client.conn);
+	// @ts-ignore
+	const settings: SettingsType = await r
+		.table("config")
+		.get(guild.id)
+		.run(client.conn);
 	enum type {
 		ban = "Ban",
 		kick = "Wyrzucenie",
