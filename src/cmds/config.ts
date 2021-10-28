@@ -57,9 +57,10 @@ export async function run(
 				break;
 			case "logsChannel":
 				const channel = message.mentions.channels.first()?.id || args[2];
-				if (!message.guild?.channels.cache.get(channel)) {
+				const channelobj = message.guild?.channels.cache.get(channel);
+				if (!channelobj || channelobj.type !== "GUILD_TEXT") {
 					return message.reply(
-						"Nieprawidłowy kanał! Oznacz kanał lub podaj jego id."
+						"Nieprawidłowy kanał! Oznacz kanał tekstowy lub podaj jego id."
 					);
 				}
 				r.table("config")
@@ -73,8 +74,8 @@ export async function run(
 					.setFooter(client.footer);
 
 				message.reply({ embeds: [channelEmbed] });
-
 				break;
+
 			case "modlog":
 				if (args[2] !== "y" && args[2] !== "n") {
 					return message.reply("Wartość tej opcji powinna być y, lub n.");
@@ -91,6 +92,20 @@ export async function run(
 					.setFooter(client.footer);
 
 				message.reply({ embeds: [modEmbed] });
+				break;
+			case "muteRole":
+				const role = message.mentions.roles.first()?.id || args[2];
+				if (!message.guild?.roles.cache.get(role))
+					return message.reply("Oznacz prawidłową role lub podaj jej id!");
+				r.table("config")
+					.get(message.guild.id)
+					.update({ muteRole: role })
+					.run(client.conn);
+				const muteEmbed = new Embed()
+					.setTitle("Rola do mute ustawiona!")
+					.addField("Nowa rola", `<@&${role}>`)
+					.setFooter(client.footer);
+				message.reply({ embeds: [muteEmbed] });
 				break;
 		}
 	} else {
