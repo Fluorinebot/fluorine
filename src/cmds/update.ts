@@ -12,7 +12,7 @@ export async function run(
 		return message.reply("ta komenda jest dostepna tylko dla developerów.");
 	}
 	exec("git pull", (err, stdout, stderr) => {
-		exec("tsc && tspath", () => {
+		exec("npm run build", () => {
 			exec("npm i", () => {
 				message.reply("pomyślnie zaktualizowano");
 			});
