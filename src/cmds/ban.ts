@@ -38,6 +38,7 @@ export async function run(
 		"ban",
 		reason
 	);
+	
 	member.ban({ reason: `Zbanowano przez ${message.author.tag} | ${reason}` });
 	modLog(client, create, message.guild!);
 	const embed = new Embed()

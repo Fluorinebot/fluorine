@@ -36,7 +36,7 @@ export async function run(
 		"warn",
 		reason
 	);
-	r.table("case").insert(create);
+	r.table("case").insert(create).run(client.conn);
 	modLog(client, create, message.guild!);
 	const embed = new Embed()
 		.setTitle("Zwarnowano!")

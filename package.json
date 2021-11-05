@@ -4,8 +4,8 @@
 	"description": "A discord bot",
 	"main": "dist/index.js",
 	"scripts": {
-		"test": "tsc && tspath && node .",
-		"build": "tsc && tspath",
+		"test": "tsc && resolve-tspaths && node .",
+		"build": "tsc && resolve-tspaths",
 		"run": "node ."
 	},
 	"repository": {
@@ -23,8 +23,12 @@
 		"axios": "^0.24.0",
 		"dayjs": "^1.10.7",
 		"discord.js": "^13.2.0",
+		"express": "^4.17.1",
 		"picocolors": "^1.0.0",
 		"rethinkdb": "^2.4.2",
 		"statcord.js": "^3.3.0"
+	},
+	"devDependencies": {
+		"@types/express": "^4.17.13"
 	}
 }

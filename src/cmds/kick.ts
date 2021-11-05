@@ -39,7 +39,7 @@ export async function run(
 		"kick",
 		reason
 	);
-	r.table("case").insert(create);
+	r.table("case").insert(create).run(client.conn);
 	modLog(client, create, message.guild!);
 	const embed = new Embed()
 		.setTitle("Wyrzucono!")
