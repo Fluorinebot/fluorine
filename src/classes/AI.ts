@@ -4,6 +4,7 @@ import Embed from "@classes/Embed";
 import { TextChannel } from "discord.js";
 
 export default class AI extends Array {
+    isGenerating: boolean;
     constructor() {
         super();
     }
@@ -15,10 +16,12 @@ export default class AI extends Array {
         channel: string
     ) {
         this.push({ user, msg, text, channel });
+        this.isGenerating = false;
     }
 
     async generate(client: AlcanClient, obj: any) {
         // @ts-ignore
+        this.isGenerating = true;
         let url = await axios.get(
             `${client.config.aiurls[0]}?token=${client.config.aitoken}`,
             {
@@ -27,10 +30,15 @@ export default class AI extends Array {
                 },
             }
         );
-        let request = await axios.get(
-            `${url.data.text}/?token=${client.config.aitoken}&topic=${obj.text}`
-        );
-        const text = request.data.text;
+        let request = await axios
+            .get(
+                `${url.data.text}/?token=${client.config.aitoken}&topic=${obj.text}`
+            )
+            .catch(() => {
+                this.isGenerating = false;
+            });
+        // @ts-ignore
+        const text = request?.data.text;
         const embed = new Embed()
             .setTitle("Wygenerowano!")
             .setDescription("Twój tekst:\n" + text)
@@ -43,5 +51,6 @@ export default class AI extends Array {
         if (this.length > 1) {
             this.generate(client, this[0]);
         }
+        this.isGenerating = false;
     }
 }
