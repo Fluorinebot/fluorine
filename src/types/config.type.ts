@@ -6,4 +6,6 @@ export interface ConfigType {
 	rethink: ConnectionOptions;
 	hypixel: string;
 	statcord: string;
+	aiurls: string[];
+	aitoken: string;
 }

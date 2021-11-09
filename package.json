@@ -22,8 +22,8 @@
 		"@types/rethinkdb": "^2.3.17",
 		"axios": "^0.24.0",
 		"dayjs": "^1.10.7",
-		"express": "^4.17.1",
 		"discord.js": "^13.3.1",
+		"express": "^4.17.1",
 		"picocolors": "^1.0.0",
 		"rethinkdb": "^2.4.2",
 		"statcord.js": "^3.3.0"

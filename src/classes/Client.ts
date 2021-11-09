@@ -4,6 +4,7 @@ import r from "rethinkdb";
 import Logger from "./Logger";
 import CommandHandler from "@handlers/CommandHandler";
 import EventHandler from "@handlers/EventHandler";
+import AI from "@classes/AI";
 import { command } from "types/command.type";
 import { ConfigType } from "types/config.type";
 
@@ -16,6 +17,8 @@ export default class AlcanClient extends Client {
     color: ColorResolvable;
     logger: Logger;
     statcord!: Statcord.Client;
+    ai!: AI;
+    generating: boolean;
     constructor() {
         super({
             intents: [
@@ -38,6 +41,8 @@ export default class AlcanClient extends Client {
         this.footer = `Alcan ${this.version}`;
         this.color = "#3872f2";
         this.logger = new Logger();
+        this.ai = new AI();
+        this.generating = false;
     }
     async init() {
         new EventHandler(this);
