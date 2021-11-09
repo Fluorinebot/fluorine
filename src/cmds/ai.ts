@@ -20,7 +20,7 @@ export async function run(
     message.reply(
         `Jesteś ${queue} w kolejce. Poczekaj na wygenerowanie wiadomości.`
     );
-    if (!client.ai.isGenerating) client.ai.generate(client, client.ai[0]);
+    client.ai.generate(client, client.ai[0]);
 }
 export const help = {
     name: "ai",
