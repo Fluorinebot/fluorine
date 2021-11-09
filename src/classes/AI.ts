@@ -44,6 +44,8 @@ export default class AI extends Array {
             .setDescription("Twój tekst:\n" + text)
             .setFooter(client.footer);
         this.shift();
+        // @ts-ignore
+        console.log(request.data);
         const channel = (await client.channels.cache.get(
             obj.channel
         )) as TextChannel;
