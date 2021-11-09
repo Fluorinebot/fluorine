@@ -12,7 +12,7 @@ export async function run(
         client,
         message.author.id,
         message.id,
-        text,
+        encodeURIComponent(text),
         message.channel.id
     );
     let queue = client.ai.length;
@@ -20,7 +20,7 @@ export async function run(
     message.reply(
         `Jesteś ${queue} w kolejce. Poczekaj na wygenerowanie wiadomości.`
     );
-    client.ai.generate(client, client.ai[0]);
+    if (client.ai.length === 1) client.ai.generate(client, client.ai[0]);
 }
 export const help = {
     name: "ai",
