@@ -1,7 +1,7 @@
 import axios, { Axios, AxiosResponse } from "axios";
 import AlcanClient from "@classes/Client";
 import Embed from "@classes/Embed";
-import { TextChannel } from "discord.js";
+import { Message, TextChannel } from "discord.js";
 
 export default class AI extends Array {
     isGenerating: boolean;
@@ -21,11 +21,17 @@ export default class AI extends Array {
 
     async generate(client: AlcanClient, obj: any) {
         this.isGenerating = true;
+        const channel = client.channels.cache.get(obj.channel) as TextChannel;
 
         let request: any = await axios
             .get(`${client.config.aiurl}/?topic=${obj.text}`)
             .catch(() => {
                 this.isGenerating = false;
+                return channel.messages.cache
+                    .get(obj.msg)
+                    .reply(
+                        "AI aktualnie nie działa, spróbuj ponownie wykonać komendę za chwilę!"
+                    );
             });
 
         const text = request?.data.text;
@@ -35,9 +41,6 @@ export default class AI extends Array {
             .setFooter(client.footer);
         this.shift();
 
-        const channel = (await client.channels.cache.get(
-            obj.channel
-        )) as TextChannel;
         channel.messages.cache.get(obj.msg).reply({ embeds: [embed] });
         if (this.length > 0) {
             this.generate(client, this[0]);
