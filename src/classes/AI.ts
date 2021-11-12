@@ -22,9 +22,11 @@ export default class AI extends Array {
     async generate(client: AlcanClient, obj: any) {
         this.isGenerating = true;
 
-        let request = await axios.get(
-            `${client.config.aiurl}/?topic=${obj.text}`
-        );
+        let request: any = await axios
+            .get(`${client.config.aiurl}/?topic=${obj.text}`)
+            .catch(() => {
+                this.isGenerating = false;
+            });
 
         const text = request?.data.text;
         const embed = new Embed()
