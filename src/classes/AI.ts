@@ -19,18 +19,9 @@ export default class AI extends Array {
 
     async generate(client: AlcanClient, obj: any) {
         // @ts-ignore
-        this.isGenerating = true;
-        let url = await axios.get(
-            `${client.config.aiurls[0]}?token=${client.config.aitoken}`,
-            {
-                validateStatus: function (s) {
-                    return s < 503;
-                },
-            }
-        );
 
         let request = await axios.get(
-            `${url.data.url}/?token=${client.config.aitoken}&topic=${obj.text}`
+            `${client.config.aiurl}/?topic=${obj.text}`
         );
 
         const text = request?.data.text;
