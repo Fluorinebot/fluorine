@@ -19,6 +19,7 @@ export default class AlcanClient extends Client {
     statcord!: Statcord.Client;
     ai!: AI;
     generating: boolean;
+    cooldown: Set<string>;
     constructor() {
         super({
             intents: [
@@ -37,12 +38,13 @@ export default class AlcanClient extends Client {
         r.connect(this.config.rethink).then((conn) => {
             this.conn = conn;
         });
-        this.version = "1.0.0";
+        this.version = "1.2.0";
         this.footer = `Alcan ${this.version}`;
         this.color = "#3872f2";
         this.logger = new Logger();
         this.ai = new AI();
         this.generating = false;
+        this.cooldown = new Set();
     }
     async init() {
         new EventHandler(this);
