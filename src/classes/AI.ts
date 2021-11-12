@@ -27,6 +27,7 @@ export default class AI extends Array {
             .get(`${client.config.aiurl}/?topic=${obj.text}`)
             .catch(() => {
                 this.isGenerating = false;
+                this.shift();
                 return channel.messages.cache
                     .get(obj.msg)
                     .reply(
