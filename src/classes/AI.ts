@@ -20,7 +20,7 @@ export default class AI extends Array {
     }
 
     async generate(client: AlcanClient, obj: any) {
-        // @ts-ignore
+        this.isGenerating = true;
 
         let request = await axios.get(
             `${client.config.aiurl}/?topic=${obj.text}`
@@ -37,7 +37,7 @@ export default class AI extends Array {
             obj.channel
         )) as TextChannel;
         channel.messages.cache.get(obj.msg).reply({ embeds: [embed] });
-        if (this.length > 1) {
+        if (this.length > 0) {
             this.generate(client, this[0]);
         } else {
             this.isGenerating = false;
