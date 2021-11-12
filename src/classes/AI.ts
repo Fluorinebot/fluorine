@@ -4,8 +4,10 @@ import Embed from "@classes/Embed";
 import { TextChannel } from "discord.js";
 
 export default class AI extends Array {
+    isGenerating: boolean;
     constructor() {
         super();
+        this.isGenerating = false;
     }
     async add(
         client: AlcanClient,
@@ -37,6 +39,8 @@ export default class AI extends Array {
         channel.messages.cache.get(obj.msg).reply({ embeds: [embed] });
         if (this.length > 1) {
             this.generate(client, this[0]);
+        } else {
+            this.isGenerating = false;
         }
     }
 }
