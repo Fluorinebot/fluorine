@@ -23,9 +23,7 @@ export default class AI extends Array {
         let url = await axios.get(
             `${client.config.aiurls[0]}?token=${client.config.aitoken}`,
             {
-                validateStatus: function (s) {
-                    return s < 503;
-                },
+                validateStatus: s => s < 503,
             }
         );
 
