@@ -15,8 +15,7 @@ export async function run(
         encodeURIComponent(text),
         message.channel.id
     );
-    let queue = client.ai.length;
-    if (queue === 0) queue = 1;
+    const queue = client.ai.length || 1;
     message.reply(
         `Jesteś ${queue} w kolejce. Poczekaj na wygenerowanie wiadomości.`
     );

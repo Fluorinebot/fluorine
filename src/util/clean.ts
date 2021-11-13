@@ -4,10 +4,6 @@ export default async function clean(
 	client: AlcanClient,
 	text: any
 ): Promise<string> {
-	if (text && text.constructor.name == "Promise") text = await text;
-	if (typeof text !== "string") text = inspect(text, { depth: 1 });
-
-	text = text.replaceAll(client.token, "ok");
-
-	return text;
+	const inspectedText = inspect(await text, { depth: 1 });
+	return inspectedText.replaceAll(client.token, "ok");
 }

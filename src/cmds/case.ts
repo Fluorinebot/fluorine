@@ -21,7 +21,7 @@ export async function run(
 	const creator = client.users.cache.get(Case.creator);
 	const embed = new Embed()
 		.setTitle("Kara")
-		.setThumbnail(user?.displayAvatarURL({ dynamic: true }) || "")
+		.setThumbnail(user?.displayAvatarURL({ dynamic: true }))
 		.addField("Ukarany", user?.tag || "Nie znaleziono")
 		.addField("Ukarany przez", creator?.tag || "Nie znaleziono")
 		// @ts-ignore
