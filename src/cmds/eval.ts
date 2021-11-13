@@ -14,7 +14,7 @@ export async function run(
     if (args.includes("client.token"))
         return message.reply("usun client.token ");
     const codex = args
-        .join("")
+        .join(" ")
         .replaceAll("```js", "")
         .replaceAll("```ts", "")
         .slice(0, -3);
