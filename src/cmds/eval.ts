@@ -13,7 +13,7 @@ export async function run(
 	}
 	if (args.includes("client.token")) return message.reply("usun client.token ");
 
-	const codex = Util.escapeCodeBlock(args.join(" "));
+	const codex = Util.cleanCodeBlock(args.join(" ");
 	const code = codex.replace("client.token", '"no"');
 	try {
 		const evaled = eval(code);
