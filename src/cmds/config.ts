@@ -9,11 +9,11 @@ export async function run(
 	message: Message,
 	args: string[]
 ) {
-	if (!message.member?.permissions.has("ADMINISTRATOR")) {
+	if (!message.member?.permissions.has("MANAGE_GUILD")) {
 		const permEmbed = new Embed()
 			.setTitle("Błąd!")
 			.setDescription(
-				"Nie posiadasz permisji do wykonania tego!\nWymagane permisje: Administrator"
+				"Nie posiadasz permisji do wykonania tego!\nWymagane permisje: Manage Server"
 			)
 			.setFooter(client.footer);
 		return message.reply({ embeds: [permEmbed] });
