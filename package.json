@@ -1,6 +1,6 @@
 {
 	"name": "alcan",
-	"version": "1.0.0",
+	"version": "1.2.0",
 	"description": "A discord bot",
 	"main": "dist/index.js",
 	"scripts": {
