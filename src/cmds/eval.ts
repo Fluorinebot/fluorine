@@ -1,6 +1,7 @@
 import AlcanClient from "@classes/Client";
 import Embed from "@classes/Embed";
 import { Message } from "discord.js";
+import { Util } from "discord.js";
 import clean from "@util/clean";
 
 export async function run(
@@ -13,7 +14,7 @@ export async function run(
 	}
 	if (args.includes("client.token")) return message.reply("usun client.token ");
 
-	const codex = args.join(" ");
+	const codex = Util.escapeCodeBlock(args.join(" "));
 	const code = codex.replace("client.token", '"no"');
 	try {
 		const evaled = eval(code);
