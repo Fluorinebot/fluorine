@@ -1,29 +1,24 @@
-import AlcanClient from "@classes/Client";
-import Embed from "@classes/Embed";
-import { Message } from "discord.js";
+import AlcanClient from '@classes/Client';
+import { Message } from 'discord.js';
 export async function run(
-    client: AlcanClient,
-    message: Message,
-    args: string[]
+  client: AlcanClient,
+  message: Message,
+  args: string[]
 ) {
-    const text = args.join(" ");
-    if (!args[0]) return message.reply("Musisz podać tekst!");
-    client.ai.add(
-        client,
-        message.author.id,
-        message.id,
-        encodeURIComponent(text),
-        message.channel.id
-    );
-    const queue = client.ai.length || 1;
-    message.reply(
-        `Jesteś ${queue} w kolejce. Poczekaj na wygenerowanie wiadomości.`
-    );
-    if (!client.ai.isGenerating) client.ai.generate(client, client.ai[0]);
+  const text = args.join(' ');
+  if (!args[0]) return message.reply('Musisz podać tekst!');
+  client.ai.add(
+    client, message.author.id, message.id, encodeURIComponent(text), message.channel.id
+  );
+  const queue = client.ai.length || 1;
+  message.reply(
+    `Jesteś ${queue} w kolejce. Poczekaj na wygenerowanie wiadomości.`
+  );
+  if (!client.ai.isGenerating) client.ai.generate(client, client.ai[0]);
 }
 export const help = {
-    name: "ai",
-    description: "Wygeneruj wiadomość za pomocą sztucznej inteligencji!",
-    aliases: ["si"],
-    category: "tools",
+  name: 'ai',
+  description: 'Wygeneruj wiadomość za pomocą sztucznej inteligencji!',
+  aliases: ['si'],
+  category: 'tools'
 };

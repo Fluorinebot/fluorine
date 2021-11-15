@@ -1,29 +1,30 @@
-import AlcanClient from "@classes/Client";
-import { Guild, User } from "discord.js";
-import r from "rethinkdb";
+import AlcanClient from '@classes/Client';
+import { Guild, User } from 'discord.js';
+import r from 'rethinkdb';
 
 export default async function caseCreate(
-	client: AlcanClient,
-	guild: Guild,
-	user: User,
-	creator: User,
-	type: string,
-	dscp: string
+  client: AlcanClient,
+  guild: Guild,
+  user: User,
+  creator: User,
+  type: string,
+  dscp: string
 ) {
-	const values = await r
-		.table("case")
-		.getAll(guild!.id, { index: "guild" })
-		.orderBy(r.desc("id"))
-		.limit(1)
-		.coerceTo("array")
-		.run(client.conn);
+  const values = await r
+    .table('case')
+    .getAll(guild?.id, { index: 'guild' })
+    .orderBy(r.desc('id'))
+    .limit(1)
+    .coerceTo('array')
+    .run(client.conn);
 
-	return {
-		id: values[0]?.id + 1 || 1,
-		guild: guild.id,
-		user: user.id,
-		creator: creator.id,
-		type: type,
-		dscp: dscp,
-	};
+  return {
+    // eslint-disable-next-line no-unsafe-optional-chaining
+    id: values[0]?.id + 1 || 1,
+    guild: guild.id,
+    user: user.id,
+    creator: creator.id,
+    type,
+    dscp
+  };
 }

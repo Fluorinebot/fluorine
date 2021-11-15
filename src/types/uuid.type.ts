@@ -1,4 +1,4 @@
 export interface UUIDType {
     name: string;
-    id:   string;
+    id: string;
 }

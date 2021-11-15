@@ -1,27 +1,25 @@
-import AlcanClient from "@classes/Client";
-import Embed from "@classes/Embed";
-import { Message } from "discord.js";
-import { exec } from "child_process";
+import AlcanClient from '@classes/Client';
+import { Message } from 'discord.js';
+import { exec } from 'child_process';
 
 export async function run(
-	client: AlcanClient,
-	message: Message,
-	args: string[]
+  client: AlcanClient,
+  message: Message
 ) {
-	if (message.author.id !== "707675871355600967") {
-		return message.reply("ta komenda jest dostepna tylko dla developerów.");
-	}
-	exec("git pull", (err, stdout, stderr) => {
-		exec("npm run build", () => {
-			exec("npm i", () => {
-				message.reply("pomyślnie zaktualizowano");
-			});
-		});
-	});
+  if (message.author.id !== '707675871355600967') {
+    return message.reply('ta komenda jest dostepna tylko dla developerów.');
+  }
+  exec('git pull', () => {
+    exec('npm run build', () => {
+      exec('npm i', () => {
+        message.reply('pomyślnie zaktualizowano');
+      });
+    });
+  });
 }
 export const help = {
-	name: "update",
-	description: "Aktualizuj bota",
-	aliases: ["aktualizuj"],
-	category: "dev",
+  name: 'update',
+  description: 'Aktualizuj bota',
+  aliases: ['aktualizuj'],
+  category: 'dev'
 };
