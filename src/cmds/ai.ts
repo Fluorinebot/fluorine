@@ -11,9 +11,8 @@ export async function run(
 
     const text = args.join(' ');
     if (!args[0]) return message.reply('Musisz podać tekst!');
-    if (client.ai.filter(value => {
-        value.user === message.author.id;
-    }).length >= 2) {
+
+    if (client.ai.filter(value => value.user === message.author.id).length >= 2) {
         return message.reply('Możesz mieć max 2 wiadomości w kolejce, poczekaj chwilę!');
     }
     client.ai.add(
