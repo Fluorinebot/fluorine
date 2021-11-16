@@ -5,6 +5,9 @@ export async function run(
     message: Message,
     args: string[]
 ) {
+    if (message.author.id === '817883855310684180') {
+        return message.reply('nie zaslugujesz na ai <:trolley:906531588278480896>');
+    }
     const text = args.join(' ');
     if (!args[0]) return message.reply('Musisz podać tekst!');
     client.ai.add(

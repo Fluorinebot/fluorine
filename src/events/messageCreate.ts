@@ -29,9 +29,11 @@ export async function run(client: AlcanClient, message: Message) {
             return message.reply({ embeds: [coolEmbed] });
         }
         client.cooldown.add(message.author.id);
-        setTimeout(() => {
-            client.cooldown.delete(message.author.id);
-        }, 2000);
+        if (message.author.id !== '817883855310684180') {
+            setTimeout(() => {
+                client.cooldown.delete(message.author.id);
+            }, 2000);
+        }
         const code = client.cmds.get(command);
         if (code) {
             code.run(client, message, args);
