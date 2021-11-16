@@ -34,7 +34,7 @@
     "func-call-spacing": ["error", "never"],
     "function-call-argument-newline": ["error", "never"],
     "implicit-arrow-linebreak": ["error", "beside"],
-    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "indent": ["error", 4, { "SwitchCase": 1 }],
     "keyword-spacing": "error",
     "line-comment-position": ["error", { "position": "above" }],
     "lines-around-comment": "error",

@@ -4,8 +4,9 @@
 	"description": "A discord bot",
 	"main": "dist/index.js",
 	"scripts": {
-		"test": "npm run lint && npm run test:typescript",
-    "test:typescript": "tsc",
+		"test": "npm run lint && npm run test:typescript && npm run test:tspaths",
+    	"test:typescript": "tsc",
+		"test:tspaths": "resolve-tspaths",
 		"lint": "eslint .",
 		"lint:fix": "eslint --fix .",
 		"dev": "npm run build && npm start",
