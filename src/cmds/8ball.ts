@@ -1,8 +1,8 @@
-import AlcanClient from '@classes/Client';
+import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
 export async function run(
-    client: AlcanClient,
+    client: FluorineClient,
     message: Message,
     args: string[]
 ) {
@@ -27,7 +27,8 @@ export async function run(
         .setDescription(args.join(' '))
         .setFooter(client.footer)
         .addField(
-            'Odpowiedź', responses[Math.floor(Math.random() * responses.length)]
+            'Odpowiedź',
+            responses[Math.floor(Math.random() * responses.length)]
         );
     message.reply({ embeds: [embed] });
 }

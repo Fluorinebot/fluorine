@@ -1,9 +1,9 @@
-import AlcanClient from '../classes/Client';
+import FluorineClient from '../classes/Client';
 import Embed from '../classes/Embed';
 import { Message } from 'discord.js';
 import getCase from '@util/getCase';
 export async function run(
-    client: AlcanClient,
+    client: FluorineClient,
     message: Message,
     args: Array<string>
 ) {
@@ -11,7 +11,7 @@ export async function run(
         ban = 'Ban',
         kick = 'Wyrzucenie',
         warn = 'Warn',
-        mute = 'Wyciszenie',
+        mute = 'Wyciszenie'
     }
     if (!args[0]) return message.reply('Musisz podać ID kary!');
     const caseArray = await getCase(client, message.guild, parseInt(args[0]));

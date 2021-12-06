@@ -1,11 +1,11 @@
-import AlcanClient from '@classes/Client';
+import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
 import r from 'rethinkdb';
 import { SettingsType } from 'types/settings.type';
 
 export async function run(
-    client: AlcanClient,
+    client: FluorineClient,
     message: Message,
     args: string[]
 ) {
@@ -102,9 +102,10 @@ export async function run(
                 break;
             case 'muteRole':
                 const role = message.mentions.roles.first()?.id || args[2];
-                if (!message.guild?.roles.cache.get(role)) return message.reply(
-                    'Oznacz prawidłową role lub podaj jej id!'
-                );
+                if (!message.guild?.roles.cache.get(role))
+                    return message.reply(
+                        'Oznacz prawidłową role lub podaj jej id!'
+                    );
                 r.table('config')
                     .get(message.guild.id)
                     .update({ muteRole: role })

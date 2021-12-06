@@ -1,21 +1,19 @@
-import AlcanClient from '@classes/Client';
+import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
 import clean from '@util/clean';
 
 export async function run(
-    client: AlcanClient,
+    client: FluorineClient,
     message: Message,
     args: string[]
 ) {
     if (message.author.id !== '707675871355600967') {
         return message.reply('ta komenda jest dostepna tylko dla developerow');
     }
-    if (args.includes('client.token')) return message.reply('usun client.token ');
-    let codex = args
-        .join(' ')
-        .replaceAll('```js', '')
-        .replaceAll('```ts', '');
+    if (args.includes('client.token'))
+        return message.reply('usun client.token ');
+    let codex = args.join(' ').replaceAll('```js', '').replaceAll('```ts', '');
 
     if (codex.indexOf('```', codex.length - 4) !== -1) {
         codex = codex.slice(0, -3);

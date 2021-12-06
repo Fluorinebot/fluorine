@@ -1,7 +1,7 @@
-import AlcanClient from '@classes/Client';
+import FluorineClient from '@classes/Client';
 import { inspect } from 'util';
 export default async function clean(
-    client: AlcanClient,
+    client: FluorineClient,
     text: any
 ): Promise<string> {
     const inspectedText = inspect(await text, { depth: 1 });

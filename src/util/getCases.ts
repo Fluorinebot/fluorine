@@ -1,8 +1,8 @@
-import AlcanClient from '@classes/Client';
+import FluorineClient from '@classes/Client';
 import r from 'rethinkdb';
 
 export default async function getCases(
-    client: AlcanClient,
+    client: FluorineClient,
     guild: string,
     user: string
 ) {

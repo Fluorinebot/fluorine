@@ -1,10 +1,10 @@
-import AlcanClient from '@classes/Client';
+import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { Message, MessageEmbed } from 'discord.js';
 import r from 'rethinkdb';
 import { SettingsType } from 'types/settings.type';
 
-export async function run(client: AlcanClient, message: Message) {
+export async function run(client: FluorineClient, message: Message) {
     if (message.channel.type === 'DM') {
         return message.reply(
             'Cześć! Komendy nie działają na prywatnych wiadomościach, spróbuj napisać `a!help` na serwerze na którym jestem.'
@@ -45,9 +45,9 @@ export async function run(client: AlcanClient, message: Message) {
         }
     } else if (message.content === `<@!${client.user.id}>`) {
         const embed = new MessageEmbed()
-            .setTitle('Alcan')
+            .setTitle('Fluorine')
             .setDescription(
-                `Cześć! Jestem Alcan.\nMój prefix na tym serwerze to ${settings.prefix}`
+                `Cześć! Jestem Fluorine.\nMój prefix na tym serwerze to ${settings.prefix}`
             )
             .addField('Serwery', client.guilds.cache.size.toString())
             .addField('Użytkownicy', client.users.cache.size.toString())

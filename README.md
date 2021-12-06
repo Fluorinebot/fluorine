@@ -1,4 +1,4 @@
-# Alcan
+# Fluorine
 
 A powerful discord bot, ideal for your discord server
 

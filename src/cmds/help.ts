@@ -1,4 +1,4 @@
-import AlcanClient from '@classes/Client';
+import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
 import r from 'rethinkdb';
@@ -6,7 +6,7 @@ import { command } from 'types/command.type';
 import category from '@util/category';
 
 export async function run(
-    client: AlcanClient,
+    client: FluorineClient,
     message: Message,
     args: string[]
 ) {

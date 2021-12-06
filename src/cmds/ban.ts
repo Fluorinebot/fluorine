@@ -1,11 +1,11 @@
-import AlcanClient from '../classes/Client';
+import FluorineClient from '../classes/Client';
 import Embed from '../classes/Embed';
 import { Message } from 'discord.js';
 import createCase from '../util/createCase';
 import r from 'rethinkdb';
 import modLog from '@util/modLog';
 export async function run(
-    client: AlcanClient,
+    client: FluorineClient,
     message: Message,
     args: string[]
 ) {
@@ -19,19 +19,26 @@ export async function run(
 
     const member =
         message.mentions.members?.first() ??
-        await message.guild?.members.fetch(args[0]).catch(() => null);
+        (await message.guild?.members.fetch(args[0]).catch(() => null));
     const reason = args.slice(1).join(' ') || 'Brak powodu';
 
-    if (!member) return message.reply('Członek którego chcesz zbanować nie istnieje!');
-    if (!member?.bannable) return message.reply(
-        'Nie można zbanować tego członka, sprawdź czy bot posiada permisje'
-    );
+    if (!member)
+        return message.reply('Członek którego chcesz zbanować nie istnieje!');
+    if (!member?.bannable)
+        return message.reply(
+            'Nie można zbanować tego członka, sprawdź czy bot posiada permisje'
+        );
     if (reason.length > 1024) {
         message.reply('Powód nie może być dłuższy niż 1024');
     }
 
     const create = await createCase(
-        client, message?.guild, member.user, message.author, 'ban', reason
+        client,
+        message?.guild,
+        member.user,
+        message.author,
+        'ban',
+        reason
     );
 
     member.ban({ reason: `Zbanowano przez ${message.author.tag} | ${reason}` });

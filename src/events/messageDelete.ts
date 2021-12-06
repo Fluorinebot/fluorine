@@ -1,9 +1,9 @@
-import AlcanClient from '@classes/Client';
+import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
 import r from 'rethinkdb';
 import { SettingsType } from 'types/settings.type';
-export async function run(client: AlcanClient, message: Message) {
+export async function run(client: FluorineClient, message: Message) {
     if (!message.content) return;
     // @ts-ignore
     const settings: SettingsType = await r

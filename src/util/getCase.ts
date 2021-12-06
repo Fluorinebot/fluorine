@@ -1,15 +1,15 @@
 import { Guild } from 'discord.js';
 import r from 'rethinkdb';
-import AlcanClient from '@classes/Client';
+import FluorineClient from '@classes/Client';
 export default async function caseGet(
-    client: AlcanClient,
+    client: FluorineClient,
     guild: Guild,
     nr: number
 ) {
     return (
         r
             .table('case')
-        // @ts-ignore
+            // @ts-ignore
             .getAll([guild.id, nr], { index: 'case' })
             .coerceTo('array')
             .run(client.conn)

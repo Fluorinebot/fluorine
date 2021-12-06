@@ -1,8 +1,8 @@
-import AlcanClient from '@classes/Client';
+import FluorineClient from '@classes/Client';
 import { readdirSync } from 'fs';
 
 export default class EventHandler {
-    constructor(client: AlcanClient) {
+    constructor(client: FluorineClient) {
         // import events
         const dir = readdirSync(`${__dirname}/../../events`);
         dir.forEach(async event => {

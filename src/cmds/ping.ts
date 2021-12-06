@@ -1,8 +1,8 @@
-import AlcanClient from '@classes/Client';
+import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
 
-export async function run(client: AlcanClient, message: Message) {
+export async function run(client: FluorineClient, message: Message) {
     const embed = new Embed()
         .setTitle('Ping')
         .addField('Opóźnienie', `${client.ws.ping}ms`)

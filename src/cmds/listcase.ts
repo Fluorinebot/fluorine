@@ -1,10 +1,10 @@
-import AlcanClient from '@classes/Client';
+import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import getCases from '@util/getCases';
 import { Message, MessageActionRow, MessageButton } from 'discord.js';
 
 export async function run(
-    client: AlcanClient,
+    client: FluorineClient,
     message: Message,
     args: string[]
 ) {

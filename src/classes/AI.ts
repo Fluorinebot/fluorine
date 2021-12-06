@@ -1,5 +1,5 @@
 import axios from 'axios';
-import AlcanClient from '@classes/Client';
+import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { TextChannel } from 'discord.js';
 
@@ -10,7 +10,7 @@ export default class AI extends Array {
         this.isGenerating = false;
     }
     async add(
-        client: AlcanClient,
+        client: FluorineClient,
         user: string,
         msg: string,
         text: string,
@@ -19,7 +19,7 @@ export default class AI extends Array {
         this.push({ user, msg, text, channel });
     }
 
-    async generate(client: AlcanClient, obj: any) {
+    async generate(client: FluorineClient, obj: any) {
         this.isGenerating = true;
         const channel = client.channels.cache.get(obj.channel) as TextChannel;
 

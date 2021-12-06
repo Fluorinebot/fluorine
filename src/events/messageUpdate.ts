@@ -1,10 +1,10 @@
-import AlcanClient from '@classes/Client';
+import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
 import r from 'rethinkdb';
 import { SettingsType } from 'types/settings.type';
 export async function run(
-    client: AlcanClient,
+    client: FluorineClient,
     oldMessage: Message,
     newMessage: Message
 ) {

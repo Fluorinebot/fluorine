@@ -1,43 +1,47 @@
 {
-	"name": "alcan",
-	"version": "1.2.0",
-	"description": "A discord bot",
-	"main": "dist/index.js",
-	"scripts": {
-		"test": "npm run lint && npm run test:typescript && npm run test:tspaths",
-    	"test:typescript": "tsc",
-		"test:tspaths": "resolve-tspaths",
-		"lint": "eslint .",
-		"lint:fix": "eslint --fix .",
-		"dev": "npm run build && npm start",
-		"build": "tsc && resolve-tspaths",
-		"start": "node ."
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/Xiboon/Alcan.git"
-	},
-	"author": "Xiboon",
-	"license": "GPL-3.0-or-later",
-	"bugs": {
-		"url": "https://github.com/Xiboon/Alcan/issues"
-	},
-	"homepage": "https://github.com/Xiboon/Alcan#readme",
-	"dependencies": {
-		"@types/rethinkdb": "^2.3.17",
-		"axios": "^0.24.0",
-		"dayjs": "^1.10.7",
-		"discord.js": "^13.3.1",
-		"express": "^4.17.1",
-		"picocolors": "^1.0.0",
-		"rethinkdb": "^2.4.2",
-		"statcord.js": "^3.3.0"
-	},
-	"devDependencies": {
-		"@types/express": "^4.17.13",
-		"@typescript-eslint/eslint-plugin": "^5.4.0",
-		"@typescript-eslint/parser": "^5.4.0",
-		"eslint": "^8.2.0",
-		"typescript": "^4.4.4"
-	}
+    "name": "Fluorine",
+    "version": "1.2.0",
+    "description": "A discord bot",
+    "main": "dist/index.js",
+    "scripts": {
+        "test": "npm run lint && npm run test:typescript && npm run test:tspaths",
+        "test:typescript": "tsc",
+        "test:tspaths": "resolve-tspaths",
+        "lint": "eslint .",
+        "lint:fix": "eslint --fix .",
+        "dev": "npm run build && npm start",
+        "build": "tsc && resolve-tspaths",
+        "start": "node ."
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Xiboon/Fluorine.git"
+    },
+    "author": "Xiboon",
+    "license": "GPL-3.0-or-later",
+    "bugs": {
+        "url": "https://github.com/Xiboon/Fluorine/issues"
+    },
+    "homepage": "https://github.com/Xiboon/Fluorine#readme",
+    "dependencies": {
+        "@types/rethinkdb": "^2.3.17",
+        "axios": "^0.24.0",
+        "cookie-parser": "^1.4.6",
+        "dayjs": "^1.10.7",
+        "discord.js": "^13.3.1",
+        "express": "^4.17.1",
+        "picocolors": "^1.0.0",
+        "rethinkdb": "^2.4.2",
+        "statcord.js": "^3.3.0"
+    },
+    "devDependencies": {
+        "@types/cookie-parser": "^1.4.2",
+        "@types/express": "^4.17.13",
+        "@typescript-eslint/eslint-plugin": "^5.4.0",
+        "@typescript-eslint/parser": "^5.4.0",
+        "eslint": "^8.2.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "typescript": "^4.4.4"
+    }
 }

@@ -1,3 +1,5 @@
-import AlcanClient from '@classes/Client';
-const client = new AlcanClient();
+import FluorineClient from '@classes/Client';
+import Dashboard from '@dash/index';
+const client = new FluorineClient();
 client.init();
+new Dashboard(client).listen(3000);

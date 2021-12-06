@@ -8,7 +8,7 @@ import AI from '@classes/AI';
 import { command } from 'types/command.type';
 import { ConfigType } from 'types/config.type';
 
-export default class AlcanClient extends Client {
+export default class FluorineClient extends Client {
     conn!: r.Connection;
     config: ConfigType;
     cmds!: Map<string, command>;
@@ -39,7 +39,7 @@ export default class AlcanClient extends Client {
             this.conn = conn;
         });
         this.version = '1.2.0';
-        this.footer = `Alcan ${this.version}`;
+        this.footer = `Fluorine ${this.version}`;
         this.color = '#3872f2';
         this.logger = new Logger();
         this.ai = new AI();
@@ -67,12 +67,9 @@ export default class AlcanClient extends Client {
             this.statcord = new Statcord.Client({
                 client,
                 key: client.config.statcord,
-                postCpuStatistics:
-                    true /* Whether to post memory statistics or not, defaults to true */,
-                postMemStatistics:
-                    true /* Whether to post memory statistics or not, defaults to true */,
-                postNetworkStatistics:
-                    false /* Whether to post memory statistics or not, defaults to true */
+                postCpuStatistics: true,
+                postMemStatistics: true,
+                postNetworkStatistics: false
             });
         });
 
