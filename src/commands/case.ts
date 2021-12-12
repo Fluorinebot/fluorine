@@ -1,7 +1,7 @@
-import FluorineClient from '../classes/Client';
-import Embed from '../classes/Embed';
+import FluorineClient from '@classes/Client';
+import Embed from '@classes/Embed';
 import { CommandInteraction } from 'discord.js';
-import { CaseType } from 'types/case';
+import { CaseType } from '../types/case';
 import getCase from '@util/getCase';
 export async function run(
     client: FluorineClient,
