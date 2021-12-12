@@ -9,9 +9,10 @@ export async function run(
     interaction: CommandInteraction<'cached'>
 ) {
     if (!interaction.member?.permissions.has('BAN_MEMBERS')) {
-        return interaction.reply(
-            'Nie masz permisji do zbanowania tego użytkownika!'
-        );
+        return interaction.reply({
+            content: 'Nie masz permisji do zbanowania tego użytkownika!',
+            ephemeral: true
+        });
     }
 
     const member = interaction.options.getMember('user');
