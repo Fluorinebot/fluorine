@@ -29,12 +29,16 @@ export async function run(
         });
     }
 
-    const kd = (bedStats.kills_bedwars / bedStats.deaths_bedwars).toFixed(2);
-    const winratio = (bedStats.wins_bedwars / bedStats.losses_bedwars).toFixed(
-        2
+    const kd = Number(
+        (bedStats.kills_bedwars / bedStats.deaths_bedwars).toFixed(2)
     );
+
+    const winratio = Number(
+        (bedStats.wins_bedwars / bedStats.losses_bedwars).toFixed(2)
+    );
+
     const bedEmbed = new Embed()
-        .setDescription(`K/D: ${kd}\n Win/loss ratio: ${winratio}`)
+        .setDescription(`K/D: ${kd || 0}\n Win/loss ratio: ${winratio || 0}`)
         .setTitle(`Statystyki gracza ${player}`)
         .addField('Wygrane gry', `${bedStats.wins_bedwars || 0}`, true)
         .addField('Przegrane gry', `${bedStats.losses_bedwars || 0}`, true)
