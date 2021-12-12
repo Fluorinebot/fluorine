@@ -31,7 +31,7 @@ export async function run(
         });
 
     if (reason.length > 1024) {
-        interaction.reply({
+        return interaction.reply({
             content: 'Powód nie może być dłuższy niż 1024',
             ephemeral: true
         });
@@ -46,7 +46,7 @@ export async function run(
         reason
     );
 
-    member.ban({
+    await member.ban({
         reason: `Zbanowano przez ${interaction.user.tag} | ${reason}`
     });
     modLog(client, create, interaction.guild);
