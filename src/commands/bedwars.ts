@@ -43,7 +43,7 @@ export async function run(
         .addField('Wygrane gry', `${bedStats.wins_bedwars || 0}`, true)
         .addField('Przegrane gry', `${bedStats.losses_bedwars || 0}`, true)
         .addField('\u200B', '\u200B', true)
-        .addField('Zabójstwa', `${bedStats.kills_bedwars || 0} `, true)
+        .addField('Zabójstwa', `${bedStats.kills_bedwars || 0}`, true)
         .addField('Śmierci', `${bedStats.deaths_bedwars || 0}`, true)
         .addField('\u200B', '\u200B', true)
         .addField(
