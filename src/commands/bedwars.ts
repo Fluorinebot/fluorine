@@ -10,8 +10,8 @@ export async function run(
     const player = interaction.options.getString('player');
     const uuid = await axios(
         `https://api.mojang.com/users/profiles/minecraft/${player}`
-    );
-    if (!uuid.data.id)
+    ).catch(() => null);
+    if (!uuid)
         return interaction.reply({
             content: 'Podano nieprawidłowego użytkownika!',
             ephemeral: true
