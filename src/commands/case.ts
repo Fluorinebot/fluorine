@@ -30,7 +30,7 @@ export async function run(
 }
 export const help = {
     name: 'case',
-    description: 'Sprawdź informacje o karze.',
+    description: 'Sprawdź informacje o karze',
     aliases: ['kara'],
     category: 'mod'
 };
