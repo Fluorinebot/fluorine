@@ -17,7 +17,7 @@ export async function run(
             )
         );
 
-    const uuid: any = await axios(
+    const uuid = await axios(
         `https://api.mojang.com/users/profiles/minecraft/${args[0]}`
     );
     if (!uuid.data.id)
