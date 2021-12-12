@@ -6,10 +6,3 @@ export interface Case {
     type: string;
     dscp: string;
 }
-
-export const CaseType = {
-    ban = 'Ban',
-    kick = 'Wyrzucenie',
-    warn = 'Warn',
-    mute = 'Wyciszenie'
-} as const;

@@ -1,12 +1,18 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { CommandInteraction } from 'discord.js';
-import { CaseType } from 'types/case';
 import getCase from '@util/getCase';
 export async function run(
     client: FluorineClient,
     interaction: CommandInteraction
 ) {
+    enum CaseType {
+        ban = 'Ban',
+        kick = 'Wyrzucenie',
+        warn = 'Warn',
+        mute = 'Wyciszenie'
+    }
+
     const id = interaction.options.getInteger('id');
     const [userCase] = await getCase(client, interaction.guild, id);
 
