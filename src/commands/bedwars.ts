@@ -11,6 +11,7 @@ export async function run(
     const uuid = await axios(
         `https://api.mojang.com/users/profiles/minecraft/${player}`
     ).catch(() => null);
+
     if (!uuid)
         return interaction.reply({
             content: 'Podano nieprawidłowego użytkownika!',
@@ -19,9 +20,9 @@ export async function run(
 
     const { data }: { data: HypixelType } = await axios(
         `https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${client.config.hypixel}`
-    );
+    ).catch(() => null);
 
-    const bedStats = data.player?.stats?.Bedwars;
+    const bedStats = data?.player?.stats?.Bedwars;
     if (!bedStats) {
         return interaction.reply({
             content: 'Nie istnieje taki gracz!',
