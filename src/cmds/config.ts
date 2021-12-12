@@ -2,7 +2,7 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
 import r from 'rethinkdb';
-import { SettingsType } from 'types/settings.type';
+import { SettingsType } from 'types/settings';
 
 export async function run(
     client: FluorineClient,

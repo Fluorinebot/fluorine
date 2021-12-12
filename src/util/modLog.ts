@@ -2,8 +2,8 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { Guild } from 'discord.js';
 import r from 'rethinkdb';
-import { Case } from 'types/case.type';
-import { SettingsType } from 'types/settings.type';
+import { Case } from 'types/case';
+import { SettingsType } from 'types/settings';
 export default async function modLog(
     client: FluorineClient,
     Case: Case,

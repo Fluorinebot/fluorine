@@ -1,5 +1,5 @@
 import { readdirSync } from 'fs';
-import { applicationCommand } from 'types/applicationcommand.type';
+import { applicationCommand } from 'types/applicationCommand';
 export default class ApplicationCommandHandler {
     map: Map<string, applicationCommand>;
     constructor() {

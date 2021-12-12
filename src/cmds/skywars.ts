@@ -1,6 +1,6 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { HypixelType } from 'types/hypixel.type';
+import { HypixelType } from 'types/hypixel';
 import { Message } from 'discord.js';
 import axios from 'axios';
 export async function run(

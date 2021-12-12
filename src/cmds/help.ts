@@ -2,7 +2,7 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
 import r from 'rethinkdb';
-import { command } from 'types/command.type';
+import { command } from 'types/command';
 import category from '@util/category';
 
 export async function run(

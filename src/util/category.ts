@@ -1,4 +1,4 @@
-import { command } from 'types/command.type';
+import { command } from 'types/command';
 
 export default function category(cmd: command) {
     enum Category {

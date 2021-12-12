@@ -5,9 +5,9 @@ import Logger from './Logger';
 import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
 import CommandHandler from '@handlers/CommandHandler';
 import EventHandler from '@handlers/EventHandler';
-import { command } from 'types/command.type';
-import { applicationCommand } from 'types/applicationcommand.type';
-import { ConfigType } from 'types/config.type';
+import { command } from 'types/command';
+import { applicationCommand } from 'types/applicationCommand';
+import { ConfigType } from 'types/config';
 import LanguageHandler from './handlers/LanguageHandler';
 // @ts-ignore
 import { version } from '../../package.json';
