@@ -2,18 +2,22 @@ import { Client, ColorResolvable, Intents } from 'discord.js';
 import Statcord from 'statcord.js';
 import r from 'rethinkdb';
 import Logger from './Logger';
+import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
 import CommandHandler from '@handlers/CommandHandler';
 import EventHandler from '@handlers/EventHandler';
 import { command } from 'types/command.type';
+import { applicationCommand } from 'types/applicationcommand.type';
 import { ConfigType } from 'types/config.type';
 import LanguageHandler from './handlers/LanguageHandler';
 // @ts-ignore
 import { version } from '../../package.json';
 
 export default class FluorineClient extends Client {
+    applicationCommands!: Map<string, applicationCommand>;
     conn!: r.Connection;
     config: ConfigType;
     cmds!: Map<string, command>;
+    invite: string;
     version: string;
     footer: string;
     color: ColorResolvable;
@@ -41,6 +45,8 @@ export default class FluorineClient extends Client {
             this.conn = conn;
         });
         this.version = version;
+        this.invite =
+            'https://discord.com/api/oauth2/authorize?client_id=831932409943425064&scope=bot+applications.commands&permissions=474527689975';
         this.footer = `Fluorine ${this.version}`;
         this.color = '#3872f2';
         this.logger = new Logger();
@@ -51,6 +57,8 @@ export default class FluorineClient extends Client {
     async init() {
         new EventHandler(this);
         this.cmds = new CommandHandler().loadCommands();
+        this.applicationCommands =
+            new ApplicationCommandHandler().loadCommands();
         this.logger.log('loaded events and commands');
         this.login(this.config.token).then(() => {
             this.guilds.cache.forEach(async g => {

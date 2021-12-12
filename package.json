@@ -2,7 +2,7 @@
     "name": "fluorine",
     "version": "1.5.0",
     "description": "A discord bot",
-    "main": "dist/index.js",
+    "main": "dist",
     "scripts": {
         "test": "npm run lint && npm run test:typescript && npm run test:tspaths",
         "test:typescript": "tsc",
