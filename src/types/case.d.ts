@@ -7,9 +7,9 @@ export interface Case {
     dscp: string;
 }
 
-export declare enum CaseType {
+export const CaseType = {
     ban = 'Ban',
     kick = 'Wyrzucenie',
     warn = 'Warn',
     mute = 'Wyciszenie'
-}
+} as const;
