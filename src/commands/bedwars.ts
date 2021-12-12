@@ -20,7 +20,7 @@ export async function run(
 
     const { data }: { data: HypixelType } = await axios(
         `https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${client.config.hypixel}`
-    ).catch(() => null);
+    ).catch(() => ({ data: null }));
 
     const bedStats = data?.player?.stats?.Bedwars;
     if (!bedStats) {
