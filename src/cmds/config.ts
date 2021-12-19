@@ -132,6 +132,7 @@ export async function run(
             .addField('logs', settings.logs ? 'Włączone' : 'Wyłączone')
 
             .addField('modlog', settings.modLogs ? 'Włączone' : 'Wyłączone')
+            .addField('muteRole', `<@&${settings.muteRole}>` || 'Brak')
             .setFooter(client.footer);
         if (settings.logsChannel) {
             listEmbed.addField('logsChannel', `<#${settings.logsChannel}>`);

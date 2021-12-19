@@ -42,7 +42,6 @@
         "eqeqeq": ["error", "always"],
         "eol-last": ["error", "always"],
         "func-call-spacing": ["error", "never"],
-        "implicit-arrow-linebreak": ["error", "beside"],
         "keyword-spacing": "error",
         "line-comment-position": ["error", { "position": "above" }],
         "lines-around-comment": "error",
