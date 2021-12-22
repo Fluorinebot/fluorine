@@ -1,10 +1,11 @@
 import { readdirSync } from 'fs';
 import { applicationCommand } from 'types/applicationCommand';
+import { Collection } from 'discord.js';
 export default class ApplicationCommandHandler {
-    map: Map<string, applicationCommand>;
+    map: Collection<string, applicationCommand>;
     constructor() {
         // import commands
-        this.map = new Map();
+        this.map = new Collection();
     }
     loadCommands() {
         const dir = readdirSync(`${__dirname}/../../commands`);
