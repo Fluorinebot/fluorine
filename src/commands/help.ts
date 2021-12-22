@@ -8,9 +8,9 @@ import {
 } from 'discord.js';
 
 enum HelpTitles {
-    fun = '🎮 Fun Komendy',
-    tools = '🛠️ Narzędzia Komendy',
-    moderation = '🔨 Moderacja Komendy'
+    fun = '🎮 Fun',
+    tools = '🛠️ Narzędzia',
+    moderation = '🔨 Moderacja'
 }
 
 export async function run(
