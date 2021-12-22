@@ -12,7 +12,7 @@ export async function run(client: FluorineClient, message: Message) {
     dayjs.locale('pl');
     const uptime = dayjs.duration(client.uptime || 0).humanize();
     const embed = new Embed()
-        .setTitle('Statystyki Fluorinea')
+        .setTitle("Statystyki Fluorine'a")
         .addField(
             'Użycie pamięci',
             `${(process.memoryUsage.rss() / 1000 / 1000).toFixed(1)} MB`

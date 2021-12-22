@@ -7,7 +7,7 @@ import { SettingsType } from 'types/settings.type';
 export async function run(client: FluorineClient, message: Message) {
     if (message.channel.type === 'DM') {
         return message.reply(
-            'Cześć! Komendy nie działają na prywatnych wiadomościach, spróbuj napisać `a!help` na serwerze na którym jestem.'
+            'Cześć! Komendy nie działają na prywatnych wiadomościach, spróbuj napisać `f!help` na serwerze na którym jestem.'
         );
     }
     // @ts-ignore

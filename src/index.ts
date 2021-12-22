@@ -1,2 +1,5 @@
 import FluorineClient from '@classes/Client';
-new FluorineClient().init();
+import Dashboard from '@dash/index';
+const client = new FluorineClient();
+client.init();
+new Dashboard(client).listen(3000);

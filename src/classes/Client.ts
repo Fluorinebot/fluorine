@@ -4,9 +4,9 @@ import r from 'rethinkdb';
 import Logger from './Logger';
 import CommandHandler from '@handlers/CommandHandler';
 import EventHandler from '@handlers/EventHandler';
-import AI from '@classes/AI';
 import { command } from 'types/command.type';
 import { ConfigType } from 'types/config.type';
+import LanguageHandler from './handlers/LanguageHandler';
 
 export default class FluorineClient extends Client {
     conn!: r.Connection;
@@ -17,9 +17,9 @@ export default class FluorineClient extends Client {
     color: ColorResolvable;
     logger: Logger;
     statcord!: Statcord.Client;
-    ai!: AI;
     generating: boolean;
     cooldown: Set<string>;
+    language: LanguageHandler;
     constructor() {
         super({
             intents: [
@@ -42,9 +42,9 @@ export default class FluorineClient extends Client {
         this.footer = `Fluorine ${this.version}`;
         this.color = '#3872f2';
         this.logger = new Logger();
-        this.ai = new AI();
         this.generating = false;
         this.cooldown = new Set();
+        this.language = new LanguageHandler();
     }
     async init() {
         new EventHandler(this);

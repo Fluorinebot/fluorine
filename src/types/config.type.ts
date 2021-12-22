@@ -10,4 +10,5 @@ export interface ConfigType {
     secret: string;
     redirect_uri: string;
     domain: string;
+    cors: string;
 }

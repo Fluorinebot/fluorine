@@ -1,21 +1,22 @@
 {
-	"compilerOptions": {
-		"target": "es2021",
-		"module": "commonjs",
-		"allowJs": true,
-		"outDir": "dist",
-		"moduleResolution": "node",
-		"baseUrl": "./src",
-		"paths": {
-			"@classes/*": ["classes/*"],
-			"@handlers/*": ["classes/handlers/*"],
-			"@util/*": ["util/*"],
-			"@dash/*": ["api/*"],
-			"@dash/oauth/*": ["api/oauth/*"]
-		},
-		"allowSyntheticDefaultImports": true,
-		"esModuleInterop": true,
-		"skipLibCheck": true,
-		"forceConsistentCasingInFileNames": true
-	}
+    "compilerOptions": {
+        "target": "es2021",
+        "module": "commonjs",
+        "allowJs": true,
+        "outDir": "dist",
+        "moduleResolution": "node",
+        "baseUrl": "./src",
+        "paths": {
+            "@classes/*": ["classes/*"],
+            "@handlers/*": ["classes/handlers/*"],
+            "@util/*": ["util/*"],
+            "@dash/*": ["api/*"],
+            "@dash/oauth/*": ["api/oauth/*"],
+            "@i18n/*": ["i18n/*"]
+        },
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true
+    }
 }
