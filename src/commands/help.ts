@@ -2,43 +2,58 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import {
     CommandInteraction,
+    EmbedFieldData,
     MessageActionRow,
     MessageSelectMenu
 } from 'discord.js';
+
+enum HelpTitles {
+    fun = '🎮 Fun Komendy',
+    tools = '🛠️ Narzędzia Komendy',
+    moderation = '🔨 Moderacja Komendy'
+}
 
 export async function run(
     client: FluorineClient,
     interaction: CommandInteraction
 ) {
+    const category = interaction.options.getString('category');
+    const commands = client.cmds.filter(c => c.help.category === category);
+
+    const fields: EmbedFieldData[] = commands.map(c => ({
+        name: c.help.name,
+        value: c.help.description
+    }));
+
+    const embed = new Embed()
+        .setTitle(HelpTitles[category])
+        .setFields(fields)
+        .setFooter(client.footer);
+
     const row = new MessageActionRow().addComponents([
         new MessageSelectMenu()
             .setCustomId(`help:${interaction.user.id}`)
             .setOptions([
                 {
-                    label: 'Home',
-                    value: 'home',
-                    emoji: '🏠',
-                    default: true
-                },
-                {
                     label: 'Fun',
                     value: 'fun',
-                    emoji: '🎮'
+                    emoji: '🎮',
+                    default: category === 'fun'
                 },
                 {
                     label: 'Narzędzia',
                     value: 'tools',
-                    emoji: '🛠️'
+                    emoji: '🛠️',
+                    default: category === 'tools'
                 },
                 {
                     label: 'Moderacja',
                     value: 'moderation',
-                    emoji: '🔨'
+                    emoji: '🔨',
+                    default: category === 'moderation'
                 }
             ])
     ]);
-
-    const embed = new Embed().setTitle('Help').setDescription('select');
 
     interaction.reply({
         embeds: [embed],
