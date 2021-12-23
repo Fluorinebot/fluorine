@@ -6,28 +6,16 @@ export async function run(
     message: Message,
     args: string[]
 ) {
-    const responses = [
-        'Tak',
-        'Nie',
-        'Możliwe',
-        'Prawdopodobnie',
-        'Nie jestem pewien',
-        'Wątpię'
-    ];
+    const responses = client.language.get('pl', '8BALL_RESPONSES');
     if (!args[0]) {
-        const errorEmbed = new Embed()
-            .setTitle('Błąd')
-            .setDescription('Musisz podać pytanie!')
-            .setFooter(client.footer)
-            .setColor(client.color);
-        return message.reply({ embeds: [errorEmbed] });
+        return message.reply(client.language.get('pl', '8BALL_ERROR'));
     }
 
     const embed = new Embed()
         .setDescription(args.join(' '))
         .setFooter(client.footer)
         .addField(
-            'Odpowiedź',
+            client.language.get('pl', '8BALL_RESPONSE'),
             responses[Math.floor(Math.random() * responses.length)]
         );
     message.reply({ embeds: [embed] });
