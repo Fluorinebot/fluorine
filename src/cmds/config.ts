@@ -21,10 +21,10 @@ export async function run(
     if (args[0] === 'set') {
         switch (args[1]) {
             case 'prefix':
-                if (!args[2]) return message.reply('Musisz podać prefix!');
+                if (!args[2]) return message.reply('Musisz podać prefix!');
                 if (args[2].length > 10) {
                     return message.reply(
-                        'Prefix powinien mieć poniżej 10 znaków'
+                        'Prefix powinien mieć poniżej 10 znaków'
                     );
                 }
 

@@ -65,7 +65,7 @@ export async function run(
         )
         .addField(client.language.get('pl', 'BAN_USER'), member.user.tag)
         .addField(
-            client.language.get('pl', 'BAN_REASON_FIELD'),
+            client.language.get('pl', 'REASON'),
             reason || client.language.get('pl', 'NO_REASON')
         )
         .addField(
