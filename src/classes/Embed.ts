@@ -23,24 +23,24 @@ export default class Embed extends MessageEmbed {
     }
 
     public setLocaleTitle(title: LanguageStrings, args = {}): this {
-        return super.setTitle(this.language.get(this.locale, title, args));
+        return super.setTitle(
+            this.language.get(this.locale, title, args).toString()
+        );
     }
 
     public setLocaleDescription(description: LanguageStrings, args = {}): this {
         return super.setDescription(
-            this.language.get(this.locale, description, args)
+            this.language.get(this.locale, description, args).toString()
         );
     }
 
     public addLocaleField(field: LocaleFieldOptions): this {
         return super.addField(
-            this.language.get(this.locale, field.name, field.args),
+            this.language.get(this.locale, field.name, field.args).toString(),
             field.localeValue
-                ? this.language.get(
-                      this.locale,
-                      field.localeValue,
-                      field.valueArgs
-                  )
+                ? this.language
+                      .get(this.locale, field.localeValue, field.valueArgs)
+                      .toString()
                 : field.value,
             field.inline
         );

@@ -6,7 +6,7 @@ export async function run(
     message: Message,
     args: string[]
 ) {
-    const responses: string[] = client.language.get('pl', '8BALL_RESPONSES');
+    const responses = client.language.get('pl', '8BALL_RESPONSES');
     if (!args[0]) {
         return message.reply(client.language.get('pl', '8BALL_ERROR'));
     }

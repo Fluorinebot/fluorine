@@ -1,7 +1,7 @@
 import { readdirSync } from 'fs';
-import { Languages, LanguageStrings } from 'types/language.type';
+import { Languages, LanguageStrings, LanguageType } from 'types/language.type';
 export default class LanguageHandler {
-    languages: Record<string, any>;
+    languages: Record<string, LanguageType>;
     constructor() {
         this.languages = {};
         const languageFiles = readdirSync(`${__dirname}/../../../i18n`);
@@ -13,11 +13,11 @@ export default class LanguageHandler {
         });
     }
 
-    get(
+    get<Key extends LanguageStrings>(
         language: Languages,
-        key: LanguageStrings,
+        key: Key,
         args: Record<string, unknown> = {}
-    ) {
+    ): LanguageType[Key] {
         const lang = this.languages[language];
         let string;
         if (key.includes('.')) {
