@@ -13,7 +13,7 @@ export async function run(
         message.author;
 
     const embed = new Embed()
-        .setTitle('Avatar')
+        .setTitle(client.language.get('pl', 'AVATAR'))
         .setFooter(client.footer)
         .setImage(user.displayAvatarURL({ dynamic: true, size: 512 }));
     message.reply({ embeds: [embed] });
