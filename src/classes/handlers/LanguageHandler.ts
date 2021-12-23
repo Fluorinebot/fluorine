@@ -14,6 +14,9 @@ export default class LanguageHandler {
     }
 
     get(language: string, key: string, args: Record<string, unknown> = {}) {
+        if (language !== 'en' && language !== 'pl') {
+            language = 'en';
+        }
         const lang = this.languages[language];
         let string;
         if (key.includes('.')) {

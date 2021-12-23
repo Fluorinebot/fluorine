@@ -106,5 +106,7 @@
     "MESSAGE_UPDATE_OLD_CONTENT": "Stara treść",
     "MESSAGE_CREATE_COOLDOWN": "Poczekaj 2 sekundy przed wykonaniem kolejnej komendy!",
     "MESSAGE_CREATE_DESCRIPTION": "Cześć! Jestem Fluorine.\nMój prefix na tym serwerze to [prefix]",
-    "MESSAGE_CREATE_DM": "Cześć! Komendy nie działają na prywatnych wiadomościach, spróbuj napisać f!help na serwerze  na którym jestem"
+    "MESSAGE_CREATE_DM": "Cześć! Komendy nie działają na prywatnych wiadomościach, spróbuj napisać f!help na serwerze  na którym jestem",
+    "HOWGAY": "🏳️‍🌈 [thing] jest gejem na [percent]%",
+    "HOWGAY_ARGS": "Nie podałeś rzeczy do sprawdzenia!"
 }
