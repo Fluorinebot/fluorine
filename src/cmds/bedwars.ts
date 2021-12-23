@@ -10,21 +10,25 @@ export async function run(
 ) {
     if (!args[0])
         return message.reply(
-            'Musisz podać gracza! Prawidłowe użycie: bedwars <gracz>'
+            client.language.get('pl', 'HYPIXEL_NO_ARGS', { command: 'bedwars' })
         );
 
     const uuid: any = await axios(
         `https://api.mojang.com/users/profiles/minecraft/${args[0]}`
     );
     if (!uuid.data.id)
-        return message.reply('Podano nieprawidłowego użytkownika!');
+        return message.reply(
+            client.language.get('pl', 'HYPIXEL_INVALID_PLAYER')
+        );
     // @ts-ignore
     const { data }: HypixelType = await axios(
         `https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${client.config.hypixel}`
     );
     const bedStats = data.player?.stats?.Bedwars;
     if (!bedStats) {
-        return message.reply('Nie istnieje taki gracz!');
+        return message.reply(
+            client.language.get('pl', 'HYPIXEL_PLAYER_NOT_FOUND')
+        );
     }
 
     const kd = (bedStats.kills_bedwars / bedStats.deaths_bedwars).toFixed(2);
@@ -32,22 +36,42 @@ export async function run(
         2
     );
     const bedEmbed = new Embed()
+        .setTitle(
+            client.language.get('pl', 'HYPIXEL_STATISTICS_TITLE', {
+                player: args[0]
+            })
+        )
         .setDescription(`K/D: ${kd}\n Win/loss ratio: ${winratio}`)
-        .setTitle(`Statystyki gracza ${args[0]}`)
-        .addField('Wygrane gry', `${bedStats.wins_bedwars || '0'}`, true)
-        .addField('Przegrane gry', `${bedStats.losses_bedwars || '0'}`, true)
-        .addField('\u200B', '\u200B', true)
-        .addField('Zabójstwa', `${bedStats.kills_bedwars || '0'} `, true)
-        .addField('Śmierci', `${bedStats.deaths_bedwars || '0'}`, true)
-        .addField('\u200B', '\u200B', true)
         .addField(
-            'Zniszczone łóżka',
-            `${bedStats.beds_broken_bedwars || '0'}`,
+            client.language.get('pl', 'HYPIXEL_WON_GAMES'),
+            `${bedStats.wins_bedwars || 0}`,
             true
         )
         .addField(
-            'Stracone łóżka',
-            `${bedStats.beds_lost_bedwars || '0'}`,
+            client.language.get('pl', 'HYPIXEL_LOST_GAMES'),
+            `${bedStats.losses_bedwars || 0}`,
+            true
+        )
+        .addField('\u200B', '\u200B', true)
+        .addField(
+            client.language.get('pl', 'HYPIXEL_KILLS'),
+            `${bedStats.kills_bedwars || 0} `,
+            true
+        )
+        .addField(
+            client.language.get('pl', 'HYPIXEL_DEATHS'),
+            `${bedStats.deaths_bedwars || 0}`,
+            true
+        )
+        .addField('\u200B', '\u200B', true)
+        .addField(
+            client.language.get('pl', 'HYPIXEL_BEDS_DESTROYED'),
+            `${bedStats.beds_broken_bedwars || 0}`,
+            true
+        )
+        .addField(
+            client.language.get('pl', 'HYPIXEL_BEDS_LOST'),
+            `${bedStats.beds_lost_bedwars || 0}`,
             true
         )
         .setThumbnail(

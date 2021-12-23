@@ -27,7 +27,7 @@
     "HYPIXEL_NO_ARGS": "Musisz podać gracza! Prawidłowe użycie: [command] <gracz>",
     "HYPIXEL_PLAYER_NOT_FOUND": "Nie istnieje taki gracz!",
     "HYPIXEL_STATISTICS_TITLE": "Statystyki gracza [player]",
-    "HYPIXEL_WINNED_GAMES": "Wygrane gry",
+    "HYPIXEL_WON_GAMES": "Wygrane gry",
     "HYPIXEL_LOST_GAMES": "Przegrane gry",
     "HYPIXEL_KILLS": "Zabójstwa",
     "HYPIXEL_DEATHS": "Śmierci",
