@@ -8,7 +8,10 @@ export async function run(
     message: Message,
     args: string[]
 ) {
-    if (message.author.id !== '707675871355600967') {
+    if (
+        message.author.id !== '707675871355600967' &&
+        message.author.id !== '478823932913516544'
+    ) {
         return message.reply('ta komenda jest dostepna tylko dla developerow');
     }
     if (args.includes('client.token'))

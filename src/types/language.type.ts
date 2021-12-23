@@ -1,5 +1,5 @@
-export type Languages = 'pl' | 'en-US';
 
+export type Languages = 'pl' | 'en-US';
 export type LanguageStrings =
     | '8BALL_RESPONSES'
     | '8BALL_RESPONSE'
