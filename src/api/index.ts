@@ -4,7 +4,6 @@ import { RateLimiterMemory } from 'rate-limiter-flexible';
 import BotConnection from './classes/BotConnection';
 import OAuthHandler from './classes/OAuthHandler';
 import cookieParser from 'cookie-parser';
-import csrf from 'csurf';
 import { createRouter } from './routes';
 export default class Dashboard {
     app: express.Application;
@@ -30,7 +29,6 @@ export default class Dashboard {
             next();
         });
         this.app.use('/', this.router);
-        this.app.use(csrf({ cookie: true }));
     }
     listen(port: number) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
