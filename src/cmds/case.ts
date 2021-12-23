@@ -7,26 +7,25 @@ export async function run(
     message: Message,
     args: Array<string>
 ) {
-    enum Type {
-        ban = 'Ban',
-        kick = 'Wyrzucenie',
-        warn = 'Warn',
-        mute = 'Wyciszenie'
-    }
-    if (!args[0]) return message.reply('Musisz podać ID kary!');
-    const caseArray = await getCase(client, message.guild, parseInt(args[0]));
-    const [Case] = caseArray;
-    if (!Case) return message.reply('Nie istnieje kara o tym ID');
-    const user = client.users.cache.get(Case.user);
-    const creator = client.users.cache.get(Case.creator);
+    if (!args[0])
+        return message.reply(client.language.get('pl', 'CASE_INVALID_CASE_ID'));
+
+    const [Case] = await getCase(client, message.guild, parseInt(args[0]));
+    if (!Case)
+        return message.reply(client.language.get('pl', 'CASE_NOT_FOUND'));
+    const user = await client.users.fetch(Case.user);
+    const creator = await client.users.fetch(Case.creator);
     const embed = new Embed()
-        .setTitle('Kara')
+        .setTitle(client.language.get('pl', 'CASE_TITLE', { id: args[0] }))
         .setThumbnail(user?.displayAvatarURL({ dynamic: true }))
-        .addField('Ukarany', user?.tag || 'Nie znaleziono')
-        .addField('Ukarany przez', creator?.tag || 'Nie znaleziono')
+        .addField(client.language.get('pl', 'CASE_USER'), user.tag)
+        .addField(client.language.get('pl', 'CASE_MODERATOR'), creator.tag)
         // @ts-ignore
-        .addField('Typ kary', Type[Case.type])
-        .addField('Powód', Case.dscp)
+        .addField(
+            client.language.get('pl', 'CASE_TYPE'),
+            client.language.get('pl', Case.type.toUpperCase())
+        )
+        .addField(client.language.get('pl', 'CASE_REASON'), Case.dscp)
         .setFooter(client.footer);
     message.reply({ embeds: [embed] });
 }
