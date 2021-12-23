@@ -1,6 +1,7 @@
 import { readdirSync } from 'fs';
+import { LanguageType } from 'types/language.type';
 export default class LanguageHandler {
-    languages: any;
+    languages: Record<string, LanguageType>;
     constructor() {
         this.languages = {};
         const languageFiles = readdirSync(`${__dirname}/../../../i18n`);
