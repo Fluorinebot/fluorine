@@ -1,4 +1,5 @@
 import { readdirSync } from 'fs';
+import { LanguageStrings } from 'types/language.type';
 export default class LanguageHandler {
     languages: any;
     constructor() {
@@ -12,7 +13,11 @@ export default class LanguageHandler {
         });
     }
 
-    get(language: string, key: string, args: Record<string, unknown> = {}) {
+    get(
+        language: string,
+        key: LanguageStrings,
+        args: Record<string, unknown> = {}
+    ) {
         const lang = this.languages[language];
         let string;
         if (key.includes('.')) {

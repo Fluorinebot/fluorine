@@ -7,7 +7,8 @@
         "Nie jestem pewien",
         "Wątpię"
     ],
-
+    "8BALL_RESPONSE": "Odpowiedź",
+    "8BALL_ERROR": "Musisz podać pytanie!",
     "BAN_PERMISSIONS_MISSING": "Nie masz permisji do zbanowania tego użytkownika!",
     "BAN_ARGUMENTS_MISSING": "Nie podałeś użytkownika do zbanowania!",
     "BAN_MEMBER_MISSING": "Użytkownik którego chcesz zbanować nie istnieje!",
