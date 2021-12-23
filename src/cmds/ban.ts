@@ -47,7 +47,13 @@ export async function run(
         reason
     );
 
-    member.ban({ reason: `Zbanowano przez ${message.author.tag} | ${reason}` });
+    member.ban({
+        reason: client.language.get('pl', 'BAN_REASON', {
+            user: message.author.tag,
+            reason
+        })
+    });
+
     modLog(client, create, message.guild);
     const embed = new Embed()
         .setTitle(client.language.get('pl', 'BAN_SUCCESS_TITLE'))
