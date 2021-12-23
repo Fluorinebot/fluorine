@@ -12,8 +12,8 @@ export async function run(
         client.users.cache.get(args[0]) ??
         message.author;
 
-    const embed = new Embed()
-        .setTitle(client.language.get('pl', 'AVATAR'))
+    const embed = new Embed('pl')
+        .setLocaleTitle('AVATAR')
         .setFooter(client.footer)
         .setImage(user.displayAvatarURL({ dynamic: true, size: 512 }));
     message.reply({ embeds: [embed] });

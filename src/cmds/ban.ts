@@ -55,23 +55,20 @@ export async function run(
     });
 
     modLog(client, create, message.guild);
-    const embed = new Embed()
-        .setTitle(client.language.get('pl', 'BAN_SUCCESS_TITLE'))
-        .setDescription(client.language.get('pl', 'BAN_SUCCESS_DESCRIPTION'))
+    const embed = new Embed('pl')
+        .setLocaleTitle('BAN_SUCCESS_TITLE')
+        .setLocaleDescription('BAN_SUCCESS_DESCRIPTION')
         .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
-        .addField(
-            client.language.get('pl', 'BAN_MODERATOR'),
-            message.author.tag
-        )
-        .addField(client.language.get('pl', 'BAN_USER'), member.user.tag)
-        .addField(
-            client.language.get('pl', 'REASON'),
-            reason || client.language.get('pl', 'NO_REASON')
-        )
-        .addField(
-            client.language.get('pl', 'PUNISHMENT_ID'),
-            create.id.toString()
-        )
+        .addLocaleField({ name: 'BAN_MODERATOR', value: message.author.tag })
+        .addLocaleField({ name: 'BAN_USER', value: member.user.tag })
+        .addLocaleField({
+            name: 'REASON',
+            value: reason || client.language.get('pl', 'NO_REASON')
+        })
+        .addLocaleField({
+            name: 'PUNISHMENT_ID',
+            value: create.id.toString()
+        })
         .setFooter(client.footer);
     message.reply({ embeds: [embed] });
 

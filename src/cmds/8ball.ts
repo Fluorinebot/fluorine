@@ -6,18 +6,18 @@ export async function run(
     message: Message,
     args: string[]
 ) {
-    const responses = client.language.get('pl', '8BALL_RESPONSES');
+    const responses: string[] = client.language.get('pl', '8BALL_RESPONSES');
     if (!args[0]) {
         return message.reply(client.language.get('pl', '8BALL_ERROR'));
     }
 
-    const embed = new Embed()
+    const embed = new Embed('pl')
         .setDescription(args.join(' '))
         .setFooter(client.footer)
-        .addField(
-            client.language.get('pl', '8BALL_RESPONSE'),
-            responses[Math.floor(Math.random() * responses.length)]
-        );
+        .addLocaleField({
+            name: '8BALL_RESPONSE',
+            value: responses[Math.floor(Math.random() * responses.length)]
+        });
     message.reply({ embeds: [embed] });
 }
 export const help = {

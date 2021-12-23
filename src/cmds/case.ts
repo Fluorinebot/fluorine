@@ -15,17 +15,16 @@ export async function run(
         return message.reply(client.language.get('pl', 'CASE_NOT_FOUND'));
     const user = await client.users.fetch(Case.user);
     const creator = await client.users.fetch(Case.creator);
-    const embed = new Embed()
-        .setTitle(client.language.get('pl', 'CASE_TITLE', { id: args[0] }))
+    const embed = new Embed('pl')
+        .setLocaleTitle('CASE_TITLE', { id: args[0] })
         .setThumbnail(user?.displayAvatarURL({ dynamic: true }))
-        .addField(client.language.get('pl', 'CASE_USER'), user.tag)
-        .addField(client.language.get('pl', 'CASE_MODERATOR'), creator.tag)
-        // @ts-ignore
-        .addField(
-            client.language.get('pl', 'CASE_TYPE'),
-            client.language.get('pl', Case.type.toUpperCase())
-        )
-        .addField(client.language.get('pl', 'CASE_REASON'), Case.dscp)
+        .addLocaleField({ name: 'CASE_USER', value: user.tag })
+        .addLocaleField({ name: 'CASE_MODERATOR', value: creator.tag })
+        .addLocaleField({
+            name: 'CASE_TYPE',
+            localeValue: Case.type.toUpperCase()
+        })
+        .addLocaleField({ name: 'CASE_REASON', value: Case.dscp })
         .setFooter(client.footer);
     message.reply({ embeds: [embed] });
 }

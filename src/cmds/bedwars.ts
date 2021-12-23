@@ -35,45 +35,43 @@ export async function run(
     const winratio = (bedStats.wins_bedwars / bedStats.losses_bedwars).toFixed(
         2
     );
-    const bedEmbed = new Embed()
-        .setTitle(
-            client.language.get('pl', 'HYPIXEL_STATISTICS_TITLE', {
-                player: args[0]
-            })
-        )
+    const bedEmbed = new Embed('pl')
+        .setLocaleTitle('HYPIXEL_STATISTICS_TITLE', {
+            player: args[0]
+        })
         .setDescription(`K/D: ${kd}\n Win/loss ratio: ${winratio}`)
-        .addField(
-            client.language.get('pl', 'HYPIXEL_WON_GAMES'),
-            `${bedStats.wins_bedwars || 0}`,
-            true
-        )
-        .addField(
-            client.language.get('pl', 'HYPIXEL_LOST_GAMES'),
-            `${bedStats.losses_bedwars || 0}`,
-            true
-        )
+        .addLocaleField({
+            name: 'HYPIXEL_WON_GAMES',
+            value: `${bedStats.wins_bedwars || 0}`,
+            inline: true
+        })
+        .addLocaleField({
+            name: 'HYPIXEL_LOST_GAMES',
+            value: `${bedStats.losses_bedwars || 0}`,
+            inline: true
+        })
         .addField('\u200B', '\u200B', true)
-        .addField(
-            client.language.get('pl', 'HYPIXEL_KILLS'),
-            `${bedStats.kills_bedwars || 0} `,
-            true
-        )
-        .addField(
-            client.language.get('pl', 'HYPIXEL_DEATHS'),
-            `${bedStats.deaths_bedwars || 0}`,
-            true
-        )
+        .addLocaleField({
+            name: 'HYPIXEL_KILLS',
+            value: `${bedStats.kills_bedwars || 0} `,
+            inline: true
+        })
+        .addLocaleField({
+            name: 'HYPIXEL_DEATHS',
+            value: `${bedStats.deaths_bedwars || 0}`,
+            inline: true
+        })
         .addField('\u200B', '\u200B', true)
-        .addField(
-            client.language.get('pl', 'HYPIXEL_BEDS_DESTROYED'),
-            `${bedStats.beds_broken_bedwars || 0}`,
-            true
-        )
-        .addField(
-            client.language.get('pl', 'HYPIXEL_BEDS_LOST'),
-            `${bedStats.beds_lost_bedwars || 0}`,
-            true
-        )
+        .addLocaleField({
+            name: 'HYPIXEL_BEDS_DESTROYED',
+            value: `${bedStats.beds_broken_bedwars || 0}`,
+            inline: true
+        })
+        .addLocaleField({
+            name: 'HYPIXEL_BEDS_LOST',
+            value: `${bedStats.beds_lost_bedwars || 0}`,
+            inline: true
+        })
         .setThumbnail(
             `https://crafatar.com/avatars/${uuid.data.id}?default=MHF_Steve&overlay`
         )
