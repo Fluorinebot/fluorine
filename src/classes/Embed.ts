@@ -1,4 +1,5 @@
 import { MessageEmbed } from 'discord.js';
+import Client from '@classes/Client';
 import LanguageHandler from './handlers/LanguageHandler';
 import { LanguageStrings } from 'types/language.type';
 
@@ -14,11 +15,11 @@ export interface LocaleFieldOptions {
 export default class Embed extends MessageEmbed {
     language: LanguageHandler;
     locale?: string;
-    constructor(locale?: string) {
+    constructor(client: Client, locale?: string) {
         super({});
         this.setColor('#3872f2');
         this.setTimestamp();
-        this.language = new LanguageHandler();
+        this.language = client.language;
         this.locale = locale;
     }
 

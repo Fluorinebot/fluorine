@@ -3,7 +3,7 @@ import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
 
 export async function run(client: FluorineClient, message: Message) {
-    const embed = new Embed()
+    const embed = new Embed(client)
         .setTitle('Informacje o serwerze')
         .addField('Nazwa', message.guild?.name)
         .addField(

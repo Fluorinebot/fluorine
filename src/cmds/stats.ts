@@ -11,7 +11,7 @@ export async function run(client: FluorineClient, message: Message) {
     dayjs.extend(relativeTime);
     dayjs.locale('pl');
     const uptime = dayjs.duration(client.uptime || 0).humanize();
-    const embed = new Embed()
+    const embed = new Embed(client)
         .setTitle("Statystyki Fluorine'a")
         .addField(
             'Użycie pamięci',

@@ -13,7 +13,7 @@ export async function run(client: FluorineClient, message: Message) {
     if (!settings.logs || !settings.logsChannel) return;
     const channel = client.channels.cache.get(settings.logsChannel);
     if (!channel.isText()) return;
-    const embed = new Embed()
+    const embed = new Embed(client)
         .setTitle('Usunięto wiadomość')
         .addField('Autor', message.author.tag)
         .addField('Treść', message.content);

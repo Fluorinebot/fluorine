@@ -23,7 +23,7 @@ export default async function modLog(
     if (settings.modLogs && settings.logsChannel) {
         const creator = client.users.cache.get(Case.creator);
         const user = client.users.cache.get(Case.user);
-        const embed = new Embed()
+        const embed = new Embed(client)
             .setTitle('Nowa kara!')
             .setDescription(`Powód: ${Case.dscp}`)
             .addField('ID', `#${Case.id}`)

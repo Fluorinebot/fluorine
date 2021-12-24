@@ -45,7 +45,7 @@ export async function run(
     const winratio = (bedStats.wins_bedwars / bedStats.losses_bedwars).toFixed(
         2
     );
-    const bedEmbed = new Embed(message.guild.preferredLocale)
+    const bedEmbed = new Embed(client, message.guild.preferredLocale)
         .setLocaleTitle('HYPIXEL_STATISTICS_TITLE', {
             player: args[0]
         })

@@ -20,7 +20,7 @@ export async function run(client: FluorineClient, message: Message) {
 
     if (message.content.startsWith(settings.prefix)) {
         if (client.cooldown.has(message.author.id)) {
-            const coolEmbed = new Embed()
+            const coolEmbed = new Embed(client)
                 .setTitle('Zwolnij!')
                 .setDescription(
                     'Poczekaj 2 sekundy przed wykonaniem kolejnej komendy!'

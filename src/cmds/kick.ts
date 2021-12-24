@@ -73,7 +73,7 @@ export async function run(
     );
     r.table('case').insert(create).run(client.conn);
     modLog(client, create, message.guild);
-    const embed = new Embed(message.guild.preferredLocale)
+    const embed = new Embed(client, message.guild.preferredLocale)
         .setLocaleTitle('KICK_SUCCESS_TITLE')
         .setLocaleDescription('KICK_SUCCESS_DESCRIPTION')
         .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))

@@ -22,7 +22,7 @@ export async function run(
         );
     const user = await client.users.fetch(Case.user);
     const creator = await client.users.fetch(Case.creator);
-    const embed = new Embed(message.guild.preferredLocale)
+    const embed = new Embed(client, message.guild.preferredLocale)
         .setLocaleTitle('CASE_TITLE', { id: args[0] })
         .setThumbnail(user?.displayAvatarURL({ dynamic: true }))
         .addLocaleField({ name: 'CASE_USER', value: user.tag })

@@ -18,7 +18,7 @@ export async function run(
     const channel = client.channels.cache.get(settings.logsChannel);
     if (!channel.isText()) return;
     const { author } = newMessage;
-    const embed = new Embed()
+    const embed = new Embed(client)
         .setTitle('Zedytowano wiadomość')
         .addField('Autor', author.tag)
         .addField('Stara treść', oldMessage.content)

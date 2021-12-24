@@ -29,7 +29,7 @@ export async function run(
     }
     const kd = (skyStats.kills / skyStats.deaths).toFixed(2);
     const winratio = (skyStats.wins / skyStats.deaths).toFixed(2);
-    const bedEmbed = new Embed()
+    const bedEmbed = new Embed(client)
         .setDescription(`K/D: ${kd}\n Win/loss ratio: ${winratio}`)
         .setTitle(`Statystyki gracza ${args[0]}`)
         .addField('Wygrane gry', `${skyStats.wins || '0'}`, true)
