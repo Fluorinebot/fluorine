@@ -30,7 +30,8 @@ export async function run(
         message.mentions.members?.first() ??
         (await message.guild?.members.fetch(args[0]).catch(() => null));
     const reason =
-        args.slice(1).join(' ') || client.language.get('pl', 'NO_REASON');
+        args.slice(1).join(' ') ||
+        client.language.get(message.guild.preferredLocale, 'NO_REASON');
     if (member === message.member)
         return message.reply(
             client.language.get(

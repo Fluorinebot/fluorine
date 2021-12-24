@@ -11,31 +11,51 @@ export async function run(
 ) {
     if (!message.member?.permissions.has('BAN_MEMBERS')) {
         return message.reply(
-            client.language.get('pl', 'BAN_PERMISSIONS_MISSING')
+            client.language.get(
+                message.guild.preferredLocale,
+                'BAN_PERMISSIONS_MISSING'
+            )
         );
     }
 
     if (!args[0])
         return message.reply(
-            client.language.get('pl', 'BAN_ARGUMENTS_MISSING')
+            client.language.get(
+                message.guild.preferredLocale,
+                'BAN_ARGUMENTS_MISSING'
+            )
         );
 
     const member =
         message.mentions.members?.first() ??
         (await message.guild?.members.fetch(args[0]).catch(() => null));
     const reason =
-        args.slice(1).join(' ') || client.language.get('pl', 'NO_REASON');
+        args.slice(1).join(' ') ||
+        client.language.get(message.guild.preferredLocale, 'NO_REASON');
 
     if (!member)
-        return message.reply(client.language.get('pl', 'BAN_MEMBER_MISSING'));
+        return message.reply(
+            client.language.get(
+                message.guild.preferredLocale,
+                'BAN_MEMBER_MISSING'
+            )
+        );
 
     if (!member?.bannable)
         return message.reply(
-            client.language.get('pl', 'BAN_BOT_PERMISSIONS_MISSING')
+            client.language.get(
+                message.guild.preferredLocale,
+                'BAN_BOT_PERMISSIONS_MISSING'
+            )
         );
 
     if (reason.length > 1024) {
-        message.reply(client.language.get('pl', 'REASON_LONGER_THAN_1024'));
+        message.reply(
+            client.language.get(
+                message.guild.preferredLocale,
+                'REASON_LONGER_THAN_1024'
+            )
+        );
     }
 
     const create = await createCase(
@@ -48,10 +68,14 @@ export async function run(
     );
 
     member.ban({
-        reason: client.language.get('pl', 'BAN_REASON', {
-            user: message.author.tag,
-            reason
-        })
+        reason: client.language.get(
+            message.guild.preferredLocale,
+            'BAN_REASON',
+            {
+                user: message.author.tag,
+                reason
+            }
+        )
     });
 
     modLog(client, create, message.guild);
