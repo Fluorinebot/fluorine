@@ -1,6 +1,6 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { Message, MessageEmbed } from 'discord.js';
+import { Message } from 'discord.js';
 import r from 'rethinkdb';
 import { SettingsType } from 'types/settings.type';
 
@@ -20,7 +20,7 @@ export async function run(client: FluorineClient, message: Message) {
 
     if (message.content.startsWith(settings.prefix)) {
         if (client.cooldown.has(message.author.id)) {
-            const coolEmbed = new Embed(client)
+            const coolEmbed = new Embed(client, message.guild.preferredLocale)
                 .setTitle('Zwolnij!')
                 .setDescription(
                     'Poczekaj 2 sekundy przed wykonaniem kolejnej komendy!'
@@ -44,7 +44,7 @@ export async function run(client: FluorineClient, message: Message) {
             return message.react('❌');
         }
     } else if (message.content === `<@!${client.user.id}>`) {
-        const embed = new MessageEmbed()
+        const embed = new Embed(client, message.guild.preferredLocale)
             .setTitle('Fluorine')
             .setDescription(
                 `Cześć! Jestem Fluorine.\nMój prefix na tym serwerze to ${settings.prefix}`

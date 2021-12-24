@@ -40,7 +40,7 @@ export async function run(
     );
     r.table('case').insert(create).run(client.conn);
     modLog(client, create, message.guild);
-    const embed = new Embed(client)
+    const embed = new Embed(client, message.guild.preferredLocale)
         .setTitle('Zwarnowano!')
         .setDescription('Pomyślnie zwarnowano członka!')
         .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))

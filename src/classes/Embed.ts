@@ -14,8 +14,8 @@ export interface LocaleFieldOptions {
 
 export default class Embed extends MessageEmbed {
     language: LanguageHandler;
-    locale?: string;
-    constructor(client: Client, locale?: string) {
+    locale: string;
+    constructor(client: Client, locale: string) {
         super({});
         this.setColor('#3872f2');
         this.setTimestamp();
