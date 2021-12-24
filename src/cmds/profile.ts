@@ -24,12 +24,18 @@ export async function run(
     const image = await canvas.loadImage(
         `${__dirname}/../../assets/template.png`
     );
+    const avatar = await canvas.loadImage(
+        message.author.displayAvatarURL({ format: 'png' })
+    );
     const canva = canvas.createCanvas(image.width, image.height);
     const ctx = canva.getContext('2d');
     ctx.drawImage(image, 0, 0);
     ctx.font = 'bold 55px "Poppins"';
     ctx.fillStyle = '#ffffff';
-    ctx.fillText(message.author.tag, 150, 80);
+    ctx.fillText(message.author.tag, 170, 83);
+    ctx.arc(85, 62, 55, 0, Math.PI * 2, true);
+    ctx.clip();
+    ctx.drawImage(avatar, 30, 7, 110, 110);
     const attachment = new MessageAttachment(canva.toBuffer(), 'profile.png');
     message.reply({ files: [attachment] });
 }
