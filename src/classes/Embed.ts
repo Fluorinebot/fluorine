@@ -1,6 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 import LanguageHandler from './handlers/LanguageHandler';
-import { Languages, LanguageStrings } from 'types/language.type';
+import { LanguageStrings } from 'types/language.type';
 
 export interface LocaleFieldOptions {
     name: LanguageStrings;
@@ -13,13 +13,13 @@ export interface LocaleFieldOptions {
 
 export default class Embed extends MessageEmbed {
     language: LanguageHandler;
-    locale?: Languages;
-    constructor(locale?) {
+    locale?: string;
+    constructor(locale?: string) {
         super({});
         this.setColor('#3872f2');
         this.setTimestamp();
         this.language = new LanguageHandler();
-        locale;
+        this.locale = locale;
     }
 
     public setLocaleTitle(title: LanguageStrings, args = {}): this {

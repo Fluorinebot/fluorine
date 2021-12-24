@@ -55,7 +55,7 @@ export async function run(
     });
 
     modLog(client, create, message.guild);
-    const embed = new Embed('pl')
+    const embed = new Embed(message.guild.preferredLocale)
         .setLocaleTitle('BAN_SUCCESS_TITLE')
         .setLocaleDescription('BAN_SUCCESS_DESCRIPTION')
         .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))

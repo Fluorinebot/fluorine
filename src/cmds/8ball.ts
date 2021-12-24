@@ -6,12 +6,17 @@ export async function run(
     message: Message,
     args: string[]
 ) {
-    const responses = client.language.get('pl', '8BALL_RESPONSES');
+    const responses = client.language.get(
+        message.guild.preferredLocale,
+        '8BALL_RESPONSES'
+    );
     if (!args[0]) {
-        return message.reply(client.language.get('pl', '8BALL_ERROR'));
+        return message.reply(
+            client.language.get(message.guild.preferredLocale, '8BALL_ERROR')
+        );
     }
 
-    const embed = new Embed('pl')
+    const embed = new Embed(message.guild.preferredLocale)
         .setDescription(args.join(' '))
         .setFooter(client.footer)
         .addLocaleField({

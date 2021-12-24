@@ -10,7 +10,11 @@ export async function run(
 ) {
     if (!args[0])
         return message.reply(
-            client.language.get('pl', 'HYPIXEL_NO_ARGS', { command: 'bedwars' })
+            client.language.get(
+                message.guild.preferredLocale,
+                'HYPIXEL_NO_ARGS',
+                { command: 'bedwars' }
+            )
         );
 
     const uuid: any = await axios(
@@ -18,7 +22,10 @@ export async function run(
     );
     if (!uuid.data.id)
         return message.reply(
-            client.language.get('pl', 'HYPIXEL_INVALID_PLAYER')
+            client.language.get(
+                message.guild.preferredLocale,
+                'HYPIXEL_INVALID_PLAYER'
+            )
         );
     // @ts-ignore
     const { data }: HypixelType = await axios(
@@ -27,7 +34,10 @@ export async function run(
     const bedStats = data.player?.stats?.Bedwars;
     if (!bedStats) {
         return message.reply(
-            client.language.get('pl', 'HYPIXEL_PLAYER_NOT_FOUND')
+            client.language.get(
+                message.guild.preferredLocale,
+                'HYPIXEL_PLAYER_NOT_FOUND'
+            )
         );
     }
 
@@ -35,7 +45,7 @@ export async function run(
     const winratio = (bedStats.wins_bedwars / bedStats.losses_bedwars).toFixed(
         2
     );
-    const bedEmbed = new Embed('pl')
+    const bedEmbed = new Embed(message.guild.preferredLocale)
         .setLocaleTitle('HYPIXEL_STATISTICS_TITLE', {
             player: args[0]
         })

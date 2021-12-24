@@ -102,6 +102,8 @@ export interface LanguageType {
     MESSAGE_CREATE_COOLDOWN: string;
     MESSAGE_CREATE_DESCRIPTION: string;
     MESSAGE_CREATE_DM: string;
+    HOWGAY: string;
+    HOWGAY_ARGS: string;
 }
 
 export type LanguageStrings = keyof LanguageType;
