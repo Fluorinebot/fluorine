@@ -55,7 +55,7 @@ export async function run(
     );
     member.roles.add(config.muteRole, `${reason} | ${message.author.tag}`);
     modLog(client, create, message.guild);
-    const embed = new Embed(client)
+    const embed = new Embed(client, message.guild.preferredLocale)
         .setTitle('Zmutowano!')
         .setDescription('Pomyślnie zmutowano członka!')
         .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))

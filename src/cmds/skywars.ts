@@ -43,7 +43,7 @@ export async function run(
     }
     const kd = (skyStats.kills / skyStats.deaths).toFixed(2);
     const winratio = (skyStats.wins / skyStats.deaths).toFixed(2);
-    const bedEmbed = new Embed(client)
+    const bedEmbed = new Embed(client, message.guild.preferredLocale)
         .setLocaleTitle('HYPIXEL_STATISTICS_TITLE', {
             player: args[0]
         })
