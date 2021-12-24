@@ -26,6 +26,7 @@
     "dependencies": {
         "@types/rethinkdb": "^2.3.17",
         "axios": "^0.24.0",
+        "canvas": "^2.8.0",
         "cookie-parser": "^1.4.6",
         "dayjs": "^1.10.7",
         "discord.js": "^13.3.1",
