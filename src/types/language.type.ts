@@ -89,6 +89,7 @@ export interface LanguageType {
     WARN_PERMISSIONS_MISSING: string;
     WARN_ARGUMENTS_MISSING: string;
     WARN_MEMBER_MISSING: string;
+    WARN_ERROR_YOURSELF: string;
     WARN_SUCCESS_TITLE: string;
     WARN_SUCCESS_DESCRIPTION: string;
     WARN_MODERATOR: string;

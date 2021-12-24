@@ -61,14 +61,8 @@ export async function run(
         .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
         .addLocaleField({ name: 'BAN_MODERATOR', value: message.author.tag })
         .addLocaleField({ name: 'BAN_USER', value: member.user.tag })
-        .addLocaleField({
-            name: 'REASON',
-            value: reason || client.language.get('pl', 'NO_REASON')
-        })
-        .addLocaleField({
-            name: 'PUNISHMENT_ID',
-            value: create.id.toString()
-        })
+        .addLocaleField({ name: 'REASON', value: reason })
+        .addLocaleField({ name: 'PUNISHMENT_ID', value: create.id.toString() })
         .setFooter(client.footer);
     message.reply({ embeds: [embed] });
 

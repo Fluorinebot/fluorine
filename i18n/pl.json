@@ -94,6 +94,7 @@
     "WARN_PERMISSIONS_MISSING": "Nie masz permisji do ostrzeżenia tego użytkownika!",
     "WARN_ARGUMENTS_MISSING": "Nie podałeś użytkownika do ostrzeżenia!",
     "WARN_MEMBER_MISSING": "Użytkownik którego chcesz ostrzeżyć nie istnieje!",
+    "WARN_ERROR_YOURSELF": "Nie możesz zwarnować samego siebie!",
     "WARN_SUCCESS_TITLE": "Ostrzeżono!",
     "WARN_SUCCESS_DESCRIPTION": "Pomyślnie ostrzeżono użytkownika!",
     "WARN_MODERATOR": "Ostrzeżony przez",

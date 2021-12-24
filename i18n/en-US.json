@@ -94,6 +94,7 @@
     "WARN_PERMISSIONS_MISSING": "You don't have the permissions needed to warn a member!",
     "WARN_ARGUMENTS_MISSING": "You haven't provided a member to warn!",
     "WARN_MEMBER_MISSING": "The member that you want to warn doesn't exist!",
+    "WARN_ERROR_YOURSELF": "You can't warn yourself!",
     "WARN_SUCCESS_TITLE": "Warned!",
     "WARN_SUCCESS_DESCRIPTION": "Successfully warned a member!",
     "WARN_MODERATOR": "Warned by",
