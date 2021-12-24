@@ -9,17 +9,26 @@ import('dayjs/locale/pl');
 export async function run(client: FluorineClient, message: Message) {
     dayjs.extend(duration);
     dayjs.extend(relativeTime);
-    dayjs.locale('pl');
+    dayjs.locale(message.guild.preferredLocale);
     const uptime = dayjs.duration(client.uptime || 0).humanize();
-    const embed = new Embed(client)
-        .setTitle("Statystyki Fluorine'a")
-        .addField(
-            'Użycie pamięci',
-            `${(process.memoryUsage.rss() / 1000 / 1000).toFixed(1)} MB`
-        )
-        .addField('Ilość użytkowników', client.users.cache.size.toString())
-        .addField('Ilość serwerów', client.guilds.cache.size.toString())
-        .addField('Uptime', uptime);
+    const embed = new Embed(client, message.guild.preferredLocale)
+        .setLocaleTitle('STATS_TITLE')
+        .addLocaleField({
+            name: 'STATS_MEMORY_USAGE',
+            value: `${(process.memoryUsage.rss() / 1_000_000).toFixed(1)} MB`
+        })
+        .addLocaleField({
+            name: 'STATS_USER_COUNT',
+            value: client.users.cache.size.toString()
+        })
+        .addLocaleField({
+            name: 'STATS_SERVER_COUNT',
+            value: client.guilds.cache.size.toString()
+        })
+        .addLocaleField({
+            name: 'STATS_UPTIME',
+            value: uptime
+        });
     message.reply({ embeds: [embed] });
 }
 export const help = {
