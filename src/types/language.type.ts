@@ -63,11 +63,13 @@ export interface LanguageType {
     MUTE_REASON: string;
     PING: string;
     SERVER_INFO: string;
+    SERVER_INFO_NAME: string;
     SERVER_INFO_DESCRIPTION: string;
     SERVER_INFO_MEMBERS: string;
     SERVER_INFO_CHANNELS: string;
     SERVER_INFO_CREATED: string;
     SERVER_INFO_OWNER: string;
+    SERVER_INFO_ROLES: string;
     SERVER_INFO_REGION: string;
     STATS_TITLE: string;
     STATS_MEMORY_USAGE: string;
