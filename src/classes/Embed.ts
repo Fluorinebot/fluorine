@@ -18,6 +18,7 @@ export default class Embed extends MessageEmbed {
     constructor(client: Client, locale: string) {
         super({});
         this.setColor('#3872f2');
+        this.setFooter(client.footer);
         this.setTimestamp();
         this.language = client.language;
         this.locale = locale;
