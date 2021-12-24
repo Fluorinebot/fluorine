@@ -1,6 +1,6 @@
 import FluorineClient from '@classes/Client';
 import { Message } from 'discord.js';
-import { exec } from 'child_process';
+import { execSync } from 'child_process';
 
 export async function run(client: FluorineClient, message: Message) {
     if (
@@ -9,13 +9,10 @@ export async function run(client: FluorineClient, message: Message) {
     ) {
         return message.reply('ta komenda jest dostepna tylko dla developerów.');
     }
-    exec('git pull', () => {
-        exec('npm run build', () => {
-            exec('npm i', () => {
-                message.reply('pomyślnie zaktualizowano');
-            });
-        });
-    });
+    execSync('git pull');
+    execSync('npm run build');
+    execSync('npm i');
+    message.reply('pomyślnie zaktualizowano');
 }
 export const help = {
     name: 'update',
