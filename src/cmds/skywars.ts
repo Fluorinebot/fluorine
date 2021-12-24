@@ -10,33 +10,71 @@ export async function run(
 ) {
     if (!args[0])
         return message.reply(
-            'Musisz podać gracza! Prawidłowe użycie: skywars <gracz>'
+            client.language.get(
+                message.guild.preferredLocale,
+                'HYPIXEL_NO_ARGS',
+                { command: 'bedwars' }
+            )
         );
 
     const uuid: any = await axios(
         `https://api.mojang.com/users/profiles/minecraft/${args[0]}`
     );
     if (!uuid.data.id)
-        return message.reply('Podano nieprawidłowego użytkownika!');
+        return message.reply(
+            client.language.get(
+                message.guild.preferredLocale,
+                'HYPIXEL_INVALID_PLAYER'
+            )
+        );
 
-    const { data }: any = await axios(
+    const { data }: { data: HypixelType } = await axios(
         `https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${client.config.hypixel}`
     );
-    const body: HypixelType = data;
-    const skyStats = body.player?.stats?.SkyWars;
+
+    const skyStats = data.player?.stats?.SkyWars;
     if (!skyStats) {
-        return message.reply('Nie istnieje taki gracz!');
+        return message.reply(
+            client.language.get(
+                message.guild.preferredLocale,
+                'HYPIXEL_PLAYER_NOT_FOUND'
+            )
+        );
     }
     const kd = (skyStats.kills / skyStats.deaths).toFixed(2);
     const winratio = (skyStats.wins / skyStats.deaths).toFixed(2);
     const bedEmbed = new Embed(client)
+        .setLocaleTitle('HYPIXEL_STATISTICS_TITLE', {
+            player: args[0]
+        })
         .setDescription(`K/D: ${kd}\n Win/loss ratio: ${winratio}`)
-        .setTitle(`Statystyki gracza ${args[0]}`)
-        .addField('Wygrane gry', `${skyStats.wins || '0'}`, true)
-        .addField('Przegrane gry', `${skyStats.deaths || '0'}`, true)
+        .addLocaleField({
+            name: 'HYPIXEL_WON_GAMES',
+            value: `${skyStats.wins || 0}`,
+            inline: true
+        })
+        .addLocaleField({
+            name: 'HYPIXEL_LOST_GAMES',
+            value: `${skyStats.losses || 0}`,
+            inline: true
+        })
         .addField('\u200B', '\u200B', true)
-        .addField('Zabójstwa', `${skyStats.kills || '0'} `, true)
-        .addField('Asysty', `${skyStats.assists || '0'}`, true)
+        .addLocaleField({
+            name: 'HYPIXEL_KILLS',
+            value: `${skyStats.kills || 0}`,
+            inline: true
+        })
+        .addLocaleField({
+            name: 'HYPIXEL_DEATHS',
+            value: `${skyStats.deaths || 0}`,
+            inline: true
+        })
+        .addField('\u200B', '\u200B', true)
+        .addLocaleField({
+            name: 'HYPIXEL_ASSISTS',
+            value: `${skyStats.assists || 0}`,
+            inline: true
+        })
         .setThumbnail(
             `https://crafatar.com/avatars/${uuid.data.id}?default=MHF_Steve&overlay`
         )

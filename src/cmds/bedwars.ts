@@ -27,8 +27,8 @@ export async function run(
                 'HYPIXEL_INVALID_PLAYER'
             )
         );
-    // @ts-ignore
-    const { data }: HypixelType = await axios(
+
+    const { data }: { data: HypixelType } = await axios(
         `https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${client.config.hypixel}`
     );
     const bedStats = data.player?.stats?.Bedwars;
@@ -63,7 +63,7 @@ export async function run(
         .addField('\u200B', '\u200B', true)
         .addLocaleField({
             name: 'HYPIXEL_KILLS',
-            value: `${bedStats.kills_bedwars || 0} `,
+            value: `${bedStats.kills_bedwars || 0}`,
             inline: true
         })
         .addLocaleField({
