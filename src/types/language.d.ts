@@ -41,6 +41,12 @@ export interface LanguageType {
     CASE_MODERATOR: string;
     CASE_TYPE: string;
     CASE_REASON: string;
+    FUN: string;
+    HELP_TITLE_FUN: string;
+    TOOLS: string;
+    HELP_TITLE_TOOLS: string;
+    MODERATION: string;
+    HELP_TITLE_MODERATION: string;
     KICK_PERMISSIONS_MISSING: string;
     KICK_BOT_PERMISSIONS_MISSING: string;
     KICK_ARGUMENTS_MISSING: string;

@@ -9,8 +9,7 @@ export async function run(
     const member = interaction.options.getMember('user') ?? interaction.member;
 
     const embed = new Embed(client, interaction.guild.preferredLocale)
-        .setTitle('Avatar')
-        .setFooter(client.footer)
+        .setLocaleTitle('AVATAR')
         .setImage(member.displayAvatarURL({ dynamic: true, size: 512 }));
     interaction.reply({ embeds: [embed] });
 }

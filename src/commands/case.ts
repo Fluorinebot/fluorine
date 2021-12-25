@@ -3,13 +3,6 @@ import Embed from '@classes/Embed';
 import { CommandInteraction } from 'discord.js';
 import getCase from '@util/getCase';
 
-enum CaseType {
-    ban = 'Ban',
-    kick = 'Wyrzucenie',
-    warn = 'Warn',
-    mute = 'Wyciszenie'
-}
-
 export async function run(
     client: FluorineClient,
     interaction: CommandInteraction
@@ -19,20 +12,25 @@ export async function run(
 
     if (!userCase)
         return interaction.reply({
-            content: 'Nie istnieje kara o tym ID',
+            content: client.language.get(
+                interaction.guild.preferredLocale,
+                'CASE_NOT_FOUND'
+            ),
             ephemeral: true
         });
 
-    const user = client.users.cache.get(userCase.user);
-    const creator = client.users.cache.get(userCase.creator);
+    const user = await client.users.fetch(userCase.user);
+    const creator = await client.users.fetch(userCase.creator);
     const embed = new Embed(client, interaction.guild.preferredLocale)
-        .setTitle('Kara')
-        .setThumbnail(user?.displayAvatarURL({ dynamic: true }))
-        .addField('Ukarany', user?.tag || 'Nie znaleziono')
-        .addField('Ukarany przez', creator?.tag || 'Nie znaleziono')
-        .addField('Typ kary', CaseType[userCase.type])
-        .addField('Powód', userCase.dscp)
-        .setFooter(client.footer);
+        .setLocaleTitle('CASE_TITLE', { id })
+        .setThumbnail(user.displayAvatarURL({ dynamic: true }))
+        .addLocaleField({ name: 'CASE_USER', value: user.tag })
+        .addLocaleField({ name: 'CASE_MODERATOR', value: creator.tag })
+        .addLocaleField({
+            name: 'CASE_TYPE',
+            localeValue: userCase.type.toUpperCase()
+        })
+        .addLocaleField({ name: 'CASE_REASON', value: userCase.dscp });
     interaction.reply({ embeds: [embed] });
 }
 export const help = {

@@ -1,4 +1,5 @@
 import FluorineClient from '@classes/Client';
+import { LanguageType } from 'types/language';
 import Embed from '@classes/Embed';
 import {
     CommandInteraction,
@@ -6,12 +7,6 @@ import {
     MessageActionRow,
     MessageSelectMenu
 } from 'discord.js';
-
-enum HelpTitles {
-    fun = '🎮 Fun',
-    tools = '🛠️ Narzędzia',
-    moderation = '🔨 Moderacja'
-}
 
 export async function run(
     client: FluorineClient,
@@ -26,28 +21,38 @@ export async function run(
     }));
 
     const embed = new Embed(client, interaction.guild.preferredLocale)
-        .setTitle(HelpTitles[category])
-        .setFields(fields)
-        .setFooter(client.footer);
+        .setLocaleTitle(
+            `HELP_TITLE${category.toUpperCase}` as keyof LanguageType
+        )
+        .setFields(fields);
 
     const row = new MessageActionRow().addComponents([
         new MessageSelectMenu()
             .setCustomId(`help:${interaction.user.id}`)
             .setOptions([
                 {
-                    label: 'Fun',
+                    label: client.language.get(
+                        interaction.guild.preferredLocale,
+                        'FUN'
+                    ),
                     value: 'fun',
                     emoji: '🎮',
                     default: category === 'fun'
                 },
                 {
-                    label: 'Narzędzia',
+                    label: client.language.get(
+                        interaction.guild.preferredLocale,
+                        'TOOLS'
+                    ),
                     value: 'tools',
                     emoji: '🛠️',
                     default: category === 'tools'
                 },
                 {
-                    label: 'Moderacja',
+                    label: client.language.get(
+                        interaction.guild.preferredLocale,
+                        'MODERATION'
+                    ),
                     value: 'moderation',
                     emoji: '🔨',
                     default: category === 'moderation'

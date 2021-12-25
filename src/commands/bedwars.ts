@@ -14,7 +14,10 @@ export async function run(
 
     if (!uuid)
         return interaction.reply({
-            content: 'Podano nieprawidłowego użytkownika!',
+            content: client.language.get(
+                interaction.guild.preferredLocale,
+                'HYPIXEL_INVALID_PLAYER'
+            ),
             ephemeral: true
         });
 
@@ -25,7 +28,10 @@ export async function run(
     const bedStats = data?.player?.stats?.Bedwars;
     if (!bedStats) {
         return interaction.reply({
-            content: 'Nie istnieje taki gracz!',
+            content: client.language.get(
+                interaction.guild.preferredLocale,
+                'HYPIXEL_PLAYER_NOT_FOUND'
+            ),
             ephemeral: true
         });
     }
@@ -39,24 +45,43 @@ export async function run(
     );
 
     const bedEmbed = new Embed(client, interaction.guild.preferredLocale)
-        .setDescription(`K/D: ${kd || 0}\n Win/loss ratio: ${winratio || 0}`)
-        .setTitle(`Statystyki gracza ${player}`)
-        .addField('Wygrane gry', `${bedStats.wins_bedwars || 0}`, true)
-        .addField('Przegrane gry', `${bedStats.losses_bedwars || 0}`, true)
+        .setLocaleTitle('HYPIXEL_STATISTICS_TITLE', { player })
+        .setDescription(`K/D: ${kd}\n Win/loss ratio: ${winratio}`)
+        .addLocaleField({
+            name: 'HYPIXEL_WON_GAMES',
+            value: `${bedStats.wins_bedwars || 0}`,
+            inline: true
+        })
+        .addLocaleField({
+            name: 'HYPIXEL_LOST_GAMES',
+            value: `${bedStats.losses_bedwars || 0}`,
+            inline: true
+        })
         .addField('\u200B', '\u200B', true)
-        .addField('Zabójstwa', `${bedStats.kills_bedwars || 0}`, true)
-        .addField('Śmierci', `${bedStats.deaths_bedwars || 0}`, true)
+        .addLocaleField({
+            name: 'HYPIXEL_KILLS',
+            value: `${bedStats.kills_bedwars || 0}`,
+            inline: true
+        })
+        .addLocaleField({
+            name: 'HYPIXEL_DEATHS',
+            value: `${bedStats.deaths_bedwars || 0}`,
+            inline: true
+        })
         .addField('\u200B', '\u200B', true)
-        .addField(
-            'Zniszczone łóżka',
-            `${bedStats.beds_broken_bedwars || 0}`,
-            true
-        )
-        .addField('Stracone łóżka', `${bedStats.beds_lost_bedwars || 0}`, true)
+        .addLocaleField({
+            name: 'HYPIXEL_BEDS_DESTROYED',
+            value: `${bedStats.beds_broken_bedwars || 0}`,
+            inline: true
+        })
+        .addLocaleField({
+            name: 'HYPIXEL_BEDS_LOST',
+            value: `${bedStats.beds_lost_bedwars || 0}`,
+            inline: true
+        })
         .setThumbnail(
             `https://crafatar.com/avatars/${uuid.data.id}?default=MHF_Steve&overlay`
-        )
-        .setFooter(client.footer);
+        );
     interaction.reply({ embeds: [bedEmbed] });
 }
 export const help = {
