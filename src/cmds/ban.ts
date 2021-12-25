@@ -11,25 +11,51 @@ export async function run(
 ) {
     if (!message.member?.permissions.has('BAN_MEMBERS')) {
         return message.reply(
-            'Nie masz permisji do zbanowania tego użytkownika!'
+            client.language.get(
+                message.guild.preferredLocale,
+                'BAN_PERMISSIONS_MISSING'
+            )
         );
     }
 
-    if (!args[0]) return message.reply('Musisz podać użykownika');
+    if (!args[0])
+        return message.reply(
+            client.language.get(
+                message.guild.preferredLocale,
+                'BAN_ARGUMENTS_MISSING'
+            )
+        );
 
     const member =
         message.mentions.members?.first() ??
         (await message.guild?.members.fetch(args[0]).catch(() => null));
-    const reason = args.slice(1).join(' ') || 'Brak powodu';
+    const reason =
+        args.slice(1).join(' ') ||
+        client.language.get(message.guild.preferredLocale, 'NO_REASON');
 
     if (!member)
-        return message.reply('Członek którego chcesz zbanować nie istnieje!');
+        return message.reply(
+            client.language.get(
+                message.guild.preferredLocale,
+                'BAN_MEMBER_MISSING'
+            )
+        );
+
     if (!member?.bannable)
         return message.reply(
-            'Nie można zbanować tego członka, sprawdź czy bot posiada permisje'
+            client.language.get(
+                message.guild.preferredLocale,
+                'BAN_BOT_PERMISSIONS_MISSING'
+            )
         );
+
     if (reason.length > 1024) {
-        message.reply('Powód nie może być dłuższy niż 1024');
+        message.reply(
+            client.language.get(
+                message.guild.preferredLocale,
+                'REASON_LONGER_THAN_1024'
+            )
+        );
     }
 
     const create = await createCase(
@@ -41,16 +67,26 @@ export async function run(
         reason
     );
 
-    member.ban({ reason: `Zbanowano przez ${message.author.tag} | ${reason}` });
+    member.ban({
+        reason: client.language.get(
+            message.guild.preferredLocale,
+            'BAN_REASON',
+            {
+                user: message.author.tag,
+                reason
+            }
+        )
+    });
+
     modLog(client, create, message.guild);
-    const embed = new Embed()
-        .setTitle('Zbanowano!')
-        .setDescription('Pomyślnie zbanowano członka!')
+    const embed = new Embed(client, message.guild.preferredLocale)
+        .setLocaleTitle('BAN_SUCCESS_TITLE')
+        .setLocaleDescription('BAN_SUCCESS_DESCRIPTION')
         .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
-        .addField('Zbanowany przez:', message.author.tag)
-        .addField('Zbanowany:', member.user.tag)
-        .addField('Powód', reason || 'Brak')
-        .addField('ID kary', create.id.toString())
+        .addLocaleField({ name: 'BAN_MODERATOR', value: message.author.tag })
+        .addLocaleField({ name: 'BAN_USER', value: member.user.tag })
+        .addLocaleField({ name: 'REASON', value: reason })
+        .addLocaleField({ name: 'PUNISHMENT_ID', value: create.id.toString() })
         .setFooter(client.footer);
     message.reply({ embeds: [embed] });
 

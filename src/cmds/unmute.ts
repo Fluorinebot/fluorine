@@ -37,7 +37,7 @@ export async function run(
     }
 
     member.roles.remove(config.muteRole, `${reason} | ${message.author.tag}`);
-    const embed = new Embed()
+    const embed = new Embed(client, message.guild.preferredLocale)
         .setTitle('Odmutowano!')
         .setDescription('Pomyślnie odmutowano członka!')
         .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))

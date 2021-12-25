@@ -25,21 +25,21 @@ export async function run(
     });
     switch (args[0]) {
         case 'fun':
-            const funEmbed = new Embed()
+            const funEmbed = new Embed(client, message.guild.preferredLocale)
                 .setTitle('4Fun')
                 .setDescription(list.fun)
                 .setFooter(client.footer);
             message.reply({ embeds: [funEmbed] });
             break;
         case 'tools':
-            const toolEmbed = new Embed()
+            const toolEmbed = new Embed(client, message.guild.preferredLocale)
                 .setTitle('Narzędzia')
                 .setDescription(list.tools)
                 .setFooter(client.footer);
             message.reply({ embeds: [toolEmbed] });
             break;
         case 'moderation':
-            const modEmbed = new Embed()
+            const modEmbed = new Embed(client, message.guild.preferredLocale)
                 .setTitle('Moderacja')
                 .setDescription(list.moderation)
                 .setFooter(client.footer);
@@ -52,14 +52,20 @@ export async function run(
             if (client.cmds.get(args[0])) {
                 const cmd = client.cmds.get(args[0]);
                 const categorys = category(cmd);
-                const helpEmbed = new Embed()
+                const helpEmbed = new Embed(
+                    client,
+                    message.guild.preferredLocale
+                )
                     .setTitle('Informacje o komendzie')
                     .addField('Nazwa', cmd.help.name)
                     .addField('Kategoria', categorys)
                     .addField('Aliasy', cmd.help.aliases.toString() || 'Brak');
                 message.reply({ embeds: [helpEmbed] });
             } else {
-                const defaultEmbed = new Embed()
+                const defaultEmbed = new Embed(
+                    client,
+                    message.guild.preferredLocale
+                )
                     .setTitle('Pomoc')
                     .setDescription('Kategorie')
                     .addField('4Fun', `${prefix}help fun`)
