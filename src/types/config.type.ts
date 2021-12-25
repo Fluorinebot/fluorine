@@ -11,4 +11,6 @@ export interface ConfigType {
     redirect_uri: string;
     domain: string;
     cors: string;
+    aiurls: string[];
+    aitoken: string;
 }
