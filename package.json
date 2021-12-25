@@ -5,12 +5,12 @@
     "main": "dist/index.js",
     "scripts": {
         "test": "npm run lint && npm run test:typescript && npm run test:tspaths",
-        "test:typescript": "tsc --resolveJsonModule",
+        "test:typescript": "tsc",
         "test:tspaths": "resolve-tspaths",
         "lint": "eslint .",
         "lint:fix": "eslint --fix .",
         "dev": "npm run build && npm start",
-        "build": "tsc --resolveJsonModule && resolve-tspaths",
+        "build": "tsc && resolve-tspaths",
         "start": "node ."
     },
     "repository": {
