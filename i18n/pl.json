@@ -41,6 +41,7 @@
     "CASE_INVALID_CASE_ID": "Podano nieprawidłowy ID kary!",
     "CASE_NOT_FOUND": "Nie istnieje kara o tym ID!",
     "CASE_TITLE": "Kara #[id]",
+    "CASE_NEW": "Nowa kara!",
     "CASE_USER": "Ukarany",
     "CASE_MODERATOR": "Ukarany przez",
     "CASE_TYPE": "Typ kary",

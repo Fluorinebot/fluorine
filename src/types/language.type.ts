@@ -36,6 +36,7 @@ export interface LanguageType {
     CASE_INVALID_CASE_ID: string;
     CASE_NOT_FOUND: string;
     CASE_TITLE: string;
+    CASE_NEW: string;
     CASE_USER: string;
     CASE_MODERATOR: string;
     CASE_TYPE: string;

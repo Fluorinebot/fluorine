@@ -41,6 +41,7 @@
     "CASE_INVALID_CASE_ID": "You provided an invalid punishment ID",
     "CASE_NOT_FOUND": "There doesn't exist a punishment with that ID",
     "CASE_TITLE": "Case #[id]",
+    "CASE_NEW": "New case!",
     "CASE_USER": "Punished",
     "CASE_MODERATOR": "Punished by",
     "CASE_TYPE": "Case type",
