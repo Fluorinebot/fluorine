@@ -3,6 +3,6 @@ export interface Case {
     guild: string;
     user: string;
     creator: string;
-    type: 'ban' | 'kick' | 'warn' | 'mute';
+    type: string;
     dscp: string;
 }
