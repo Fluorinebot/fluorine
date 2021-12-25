@@ -9,13 +9,6 @@ export default async function modLog(
     Case: Case,
     guild: Guild
 ) {
-    enum CaseType {
-        ban = 'Ban',
-        kick = 'Wyrzucenie',
-        warn = 'Warn',
-        mute = 'Wyciszenie'
-    }
-
     // @ts-ignore
     const settings: SettingsType = await r
         .table('config')

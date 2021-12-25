@@ -1,7 +1,7 @@
 import { MessageEmbed } from 'discord.js';
 import Client from '@classes/Client';
 import LanguageHandler from './handlers/LanguageHandler';
-import { LanguageStrings } from 'types/language.type';
+import { LanguageStrings } from 'types/language';
 
 export interface LocaleFieldOptions {
     name: LanguageStrings;
