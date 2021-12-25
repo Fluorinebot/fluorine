@@ -29,6 +29,17 @@ export async function run(
     );
     const canva = canvas.createCanvas(image.width, image.height);
     const ctx = canva.getContext('2d');
+    ctx.font = 'bold 20px Poppins';
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(
+        client.language.get(
+            message.guild.preferredLocale,
+            'PROFILE_DESCRIPTION'
+        ),
+        15,
+        140
+    );
+
     ctx.drawImage(image, 0, 0);
     ctx.font = 'bold 55px "Poppins"';
     ctx.fillStyle = '#ffffff';
