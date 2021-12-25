@@ -19,12 +19,17 @@ export async function run(
     if (!channel.isText()) return;
     const { author } = newMessage;
     const embed = new Embed(client, newMessage.guild.preferredLocale)
-        .setTitle('Zedytowano wiadomość')
-        .addField('Autor', author.tag)
-        .addField('Stara treść', oldMessage.content)
-        .addField('Nowa treść', newMessage.content)
+        .setLocaleTitle('MESSAGE_UPDATE_TITLE')
         .setThumbnail(author.displayAvatarURL({ dynamic: true }))
-        .setFooter(client.footer);
+        .addLocaleField({ name: 'MESSAGE_UPDATE_AUTHOR', value: author.tag })
+        .addLocaleField({
+            name: 'MESSAGE_UPDATE_OLD_CONTENT',
+            value: oldMessage.content
+        })
+        .addLocaleField({
+            name: 'MESSAGE_UPDATE_NEW_CONTENT',
+            value: newMessage.content
+        });
 
     channel?.send({ embeds: [embed] });
 }

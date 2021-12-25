@@ -14,10 +14,15 @@ export async function run(client: FluorineClient, message: Message) {
     const channel = client.channels.cache.get(settings.logsChannel);
     if (!channel.isText()) return;
     const embed = new Embed(client, message.guild.preferredLocale)
-        .setTitle('Usunięto wiadomość')
-        .addField('Autor', message.author.tag)
-        .addField('Treść', message.content);
-    embed.setThumbnail(message.author.displayAvatarURL({ dynamic: true }));
-    embed.setFooter(client.footer);
+        .setLocaleTitle('MESSAGE_DELETE_TITLE')
+        .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
+        .addLocaleField({
+            name: 'MESSAGE_DELETE_AUTHOR',
+            value: message.author.tag
+        })
+        .addLocaleField({
+            name: 'MESSAGE_DELETE_CONTENT',
+            value: message.content
+        });
     channel?.send({ embeds: [embed] });
 }

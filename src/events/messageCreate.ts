@@ -7,7 +7,10 @@ import { SettingsType } from 'types/settings.type';
 export async function run(client: FluorineClient, message: Message) {
     if (message.channel.type === 'DM') {
         return message.reply(
-            'Cześć! Komendy nie działają na prywatnych wiadomościach, spróbuj napisać `f!help` na serwerze na którym jestem.'
+            client.language.get(
+                message.guild.preferredLocale,
+                'MESSAGE_CREATE_DM'
+            )
         );
     }
     // @ts-ignore
@@ -21,11 +24,8 @@ export async function run(client: FluorineClient, message: Message) {
     if (message.content.startsWith(settings.prefix)) {
         if (client.cooldown.has(message.author.id)) {
             const coolEmbed = new Embed(client, message.guild.preferredLocale)
-                .setTitle('Zwolnij!')
-                .setDescription(
-                    'Poczekaj 2 sekundy przed wykonaniem kolejnej komendy!'
-                )
-                .setFooter(client.footer);
+                .setLocaleTitle('MESSAGE_CREATE_COOLDOWN_TITLE')
+                .setLocaleDescription('MESSAGE_CREATE_COOLDOWN_DESCRIPTION');
             return message.reply({ embeds: [coolEmbed] });
         }
         client.cooldown.add(message.author.id);
@@ -46,13 +46,25 @@ export async function run(client: FluorineClient, message: Message) {
     } else if (message.content === `<@!${client.user.id}>`) {
         const embed = new Embed(client, message.guild.preferredLocale)
             .setTitle('Fluorine')
-            .setDescription(
-                `Cześć! Jestem Fluorine.\nMój prefix na tym serwerze to ${settings.prefix}`
-            )
-            .addField('Serwery', client.guilds.cache.size.toString())
-            .addField('Użytkownicy', client.users.cache.size.toString())
-            .addField('Komendy', client.cmds.size.toString())
-            .addField('Kanały', client.channels.cache.size.toString())
+            .setLocaleDescription('MESSAGE_CREATE_DESCRIPTION', {
+                prefix: settings.prefix
+            })
+            .addLocaleField({
+                name: 'STATS_SERVER_COUNT',
+                value: client.guilds.cache.size.toString()
+            })
+            .addLocaleField({
+                name: 'STATS_USER_COUNT',
+                value: client.users.cache.size.toString()
+            })
+            .addLocaleField({
+                name: 'STATS_COMMAND_COUNT',
+                value: client.cmds.size.toString()
+            })
+            .addLocaleField({
+                name: 'STATS_CHANNELS_COUNT',
+                value: client.channels.cache.size.toString()
+            })
             .setFooter(client.footer);
         message.channel.send({ embeds: [embed] });
     }
