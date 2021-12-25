@@ -30,7 +30,7 @@ export default class AI {
                 `${this.url[1]}/?token=${this.token}&topic=${item.text}`
             );
             res = await req.json().catch(() => {
-                // h
+                // hh
             });
         }
         const message = (
