@@ -113,5 +113,7 @@
     "MESSAGE_CREATE_DESCRIPTION": "Hi! I'm Fluorine. My prefix on this guild is [prefix]",
     "MESSAGE_CREATE_DM": "Hi! Commands don't work on DMs! Try typing f!help in a server where i am in!",
     "HOWGAY": "🏳️‍🌈 [thing] is [percent]% gay",
-    "HOWGAY_ARGS": "You haven't provided a thing to check!"
+    "HOWGAY_ARGS": "You haven't provided a thing to check!",
+    "AI_TITLE": "Generated!",
+    "AI_DESCRIPTION": "Your text: [text]"
 }

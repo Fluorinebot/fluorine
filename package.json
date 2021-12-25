@@ -9,8 +9,8 @@
         "lint": "eslint .",
         "lint:fix": "eslint --fix .",
         "dev": "npm run build && npm start",
-        "build": "tsc",
-        "start": "node -r tsconfig-paths/register ."
+        "build": "tsc && resolve-tspaths",
+        "start": "node ."
     },
     "repository": {
         "type": "git",
@@ -43,7 +43,6 @@
         "eslint": "^8.5.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-prettier": "^4.0.0",
-        "tsconfig-paths": "^3.12.0",
         "typescript": "^4.5.4"
     }
 }

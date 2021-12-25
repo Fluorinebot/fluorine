@@ -7,6 +7,7 @@ import EventHandler from '@handlers/EventHandler';
 import { command } from 'types/command.type';
 import { ConfigType } from 'types/config.type';
 import LanguageHandler from './handlers/LanguageHandler';
+import AI from './AI';
 // @ts-ignore
 import { version } from '../../package.json';
 
@@ -22,6 +23,7 @@ export default class FluorineClient extends Client {
     generating: boolean;
     cooldown: Set<string>;
     language: LanguageHandler;
+    ai: AI;
     constructor() {
         super({
             intents: [
@@ -40,6 +42,7 @@ export default class FluorineClient extends Client {
         r.connect(this.config.rethink).then(conn => {
             this.conn = conn;
         });
+        this.ai = new AI(this);
         this.version = version;
         this.footer = `Fluorine ${this.version}`;
         this.color = '#3872f2';
