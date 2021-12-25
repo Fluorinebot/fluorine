@@ -7,6 +7,7 @@ import EventHandler from '@handlers/EventHandler';
 import { command } from 'types/command.type';
 import { ConfigType } from 'types/config.type';
 import LanguageHandler from './handlers/LanguageHandler';
+// @ts-ignore
 import { version } from '../../package.json';
 
 export default class FluorineClient extends Client {
