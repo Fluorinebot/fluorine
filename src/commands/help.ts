@@ -22,7 +22,7 @@ export async function run(
 
     const embed = new Embed(client, interaction.guild.preferredLocale)
         .setLocaleTitle(
-            `HELP_TITLE${category.toUpperCase}` as keyof LanguageType
+            `HELP_TITLE_${category.toUpperCase}` as keyof LanguageType
         )
         .setFields(fields);
 
