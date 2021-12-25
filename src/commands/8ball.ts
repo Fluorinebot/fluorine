@@ -15,7 +15,7 @@ export async function run(
         'Wątpię'
     ];
 
-    const embed = new Embed()
+    const embed = new Embed(client, interaction.guild.preferredLocale)
         .setDescription(question)
         .setFooter(client.footer)
         .addField(

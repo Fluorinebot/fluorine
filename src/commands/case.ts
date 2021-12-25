@@ -25,7 +25,7 @@ export async function run(
 
     const user = client.users.cache.get(userCase.user);
     const creator = client.users.cache.get(userCase.creator);
-    const embed = new Embed()
+    const embed = new Embed(client, interaction.guild.preferredLocale)
         .setTitle('Kara')
         .setThumbnail(user?.displayAvatarURL({ dynamic: true }))
         .addField('Ukarany', user?.tag || 'Nie znaleziono')

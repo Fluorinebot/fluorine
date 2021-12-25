@@ -13,7 +13,7 @@ export async function run(client: FluorineClient, interaction: Interaction) {
     }
 
     if (client.cooldown.has(interaction.user.id)) {
-        const coolEmbed = new Embed()
+        const coolEmbed = new Embed(client, interaction.guild.preferredLocale)
             .setTitle('Zwolnij!')
             .setDescription(
                 'Poczekaj 2 sekundy przed wykonaniem kolejnej komendy!'

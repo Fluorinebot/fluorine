@@ -8,7 +8,7 @@ export async function run(
 ) {
     const member = interaction.options.getMember('user') ?? interaction.member;
 
-    const embed = new Embed()
+    const embed = new Embed(client, interaction.guild.preferredLocale)
         .setTitle('Avatar')
         .setFooter(client.footer)
         .setImage(member.displayAvatarURL({ dynamic: true, size: 512 }));

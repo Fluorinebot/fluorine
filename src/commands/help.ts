@@ -25,7 +25,7 @@ export async function run(
         value: c.help.description
     }));
 
-    const embed = new Embed()
+    const embed = new Embed(client, interaction.guild.preferredLocale)
         .setTitle(HelpTitles[category])
         .setFields(fields)
         .setFooter(client.footer);

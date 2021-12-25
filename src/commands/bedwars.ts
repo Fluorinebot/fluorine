@@ -38,7 +38,7 @@ export async function run(
         (bedStats.wins_bedwars / bedStats.losses_bedwars).toFixed(2)
     );
 
-    const bedEmbed = new Embed()
+    const bedEmbed = new Embed(client, interaction.guild.preferredLocale)
         .setDescription(`K/D: ${kd || 0}\n Win/loss ratio: ${winratio || 0}`)
         .setTitle(`Statystyki gracza ${player}`)
         .addField('Wygrane gry', `${bedStats.wins_bedwars || 0}`, true)

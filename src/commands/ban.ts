@@ -51,7 +51,7 @@ export async function run(
         reason: `Zbanowano przez ${interaction.user.tag} | ${reason}`
     });
     modLog(client, create, interaction.guild);
-    const embed = new Embed()
+    const embed = new Embed(client, interaction.guild.preferredLocale)
         .setTitle('Zbanowano!')
         .setDescription('Pomyślnie zbanowano członka!')
         .setThumbnail(member.displayAvatarURL({ dynamic: true }))
