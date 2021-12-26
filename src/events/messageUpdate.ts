@@ -18,13 +18,18 @@ export async function run(
     const channel = client.channels.cache.get(settings.logsChannel);
     if (!channel.isText()) return;
     const { author } = newMessage;
-    const embed = new Embed()
-        .setTitle('Zedytowano wiadomość')
-        .addField('Autor', author.tag)
-        .addField('Stara treść', oldMessage.content)
-        .addField('Nowa treść', newMessage.content)
+    const embed = new Embed(client, newMessage.guild.preferredLocale)
+        .setLocaleTitle('MESSAGE_UPDATE_TITLE')
         .setThumbnail(author.displayAvatarURL({ dynamic: true }))
-        .setFooter(client.footer);
+        .addLocaleField({ name: 'MESSAGE_UPDATE_AUTHOR', value: author.tag })
+        .addLocaleField({
+            name: 'MESSAGE_UPDATE_OLD_CONTENT',
+            value: oldMessage.content
+        })
+        .addLocaleField({
+            name: 'MESSAGE_UPDATE_NEW_CONTENT',
+            value: newMessage.content
+        });
 
     channel?.send({ embeds: [embed] });
 }
