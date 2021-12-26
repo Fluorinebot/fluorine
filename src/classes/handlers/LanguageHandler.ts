@@ -1,9 +1,9 @@
 import { readdirSync } from 'fs';
-import { Languages, LanguageStrings, LanguageType } from 'types/language.type';
+import { LanguageType } from 'types/language.type';
 export default class LanguageHandler {
-    languages: Record<Languages, LanguageType>;
+    languages: Record<string, LanguageType>;
     constructor() {
-        this.languages = {} as Record<Languages, LanguageType>;
+        this.languages = {};
         const languageFiles = readdirSync(`${__dirname}/../../../i18n`);
         languageFiles.forEach(async file => {
             const [name] = file.split('.');
@@ -13,12 +13,11 @@ export default class LanguageHandler {
         });
     }
 
-    get<Key extends LanguageStrings>(
-        language: string,
-        key: Key,
-        args: Record<string, unknown> = {}
-    ): LanguageType[Key] {
-        const lang = this.languages[language] ?? this.languages['en-US'];
+    get(language: string, key: string, args: Record<string, unknown> = {}) {
+        if (language !== 'en' && language !== 'pl') {
+            language = 'en';
+        }
+        const lang = this.languages[language];
         let string;
         if (key.includes('.')) {
             const keys = key.split('.');

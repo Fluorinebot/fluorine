@@ -15,7 +15,7 @@ export async function run(
         message.member;
 
     const cases = await getCases(client, message.guild?.id, member?.id);
-    const embed = new Embed(client, message.guild.preferredLocale)
+    const embed = new Embed()
         .setTitle('Historia kar dla użytkownika')
         .setThumbnail(member?.user.displayAvatarURL({ dynamic: true }))
         .setFooter(
@@ -77,10 +77,7 @@ export async function run(
                 caseLength = page * 10;
                 start = caseLength - 10;
 
-                const nextEmbed = new Embed(
-                    client,
-                    message.guild.preferredLocale
-                )
+                const nextEmbed = new Embed()
                     .setTitle('Historia kar dla użytkownika')
                     .setFooter(
                         `Więcej informacji otrzymasz za pomocą komendy a!case | ${client.footer}`
@@ -135,10 +132,7 @@ export async function run(
                 page--;
                 caseLength = page * 10;
                 start = caseLength - 10;
-                const backEmbed = new Embed(
-                    client,
-                    message.guild.preferredLocale
-                )
+                const backEmbed = new Embed()
                     .setTitle('Historia kar dla użytkownika')
                     .setFooter(
                         `Więcej informacji otrzymasz za pomocą komendy a!case | ${client.footer}`

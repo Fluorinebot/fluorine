@@ -7,31 +7,26 @@ export async function run(
     message: Message,
     args: Array<string>
 ) {
-    if (!args[0])
-        return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'CASE_INVALID_CASE_ID'
-            )
-        );
-
-    const [Case] = await getCase(client, message.guild, parseInt(args[0]));
-    if (!Case)
-        return message.reply(
-            client.language.get(message.guild.preferredLocale, 'CASE_NOT_FOUND')
-        );
-    const user = await client.users.fetch(Case.user);
-    const creator = await client.users.fetch(Case.creator);
-    const embed = new Embed(client, message.guild.preferredLocale)
-        .setLocaleTitle('CASE_TITLE', { id: args[0] })
+    enum Type {
+        ban = 'Ban',
+        kick = 'Wyrzucenie',
+        warn = 'Warn',
+        mute = 'Wyciszenie'
+    }
+    if (!args[0]) return message.reply('Musisz podać ID kary!');
+    const caseArray = await getCase(client, message.guild, parseInt(args[0]));
+    const [Case] = caseArray;
+    if (!Case) return message.reply('Nie istnieje kara o tym ID');
+    const user = client.users.cache.get(Case.user);
+    const creator = client.users.cache.get(Case.creator);
+    const embed = new Embed()
+        .setTitle('Kara')
         .setThumbnail(user?.displayAvatarURL({ dynamic: true }))
-        .addLocaleField({ name: 'CASE_USER', value: user.tag })
-        .addLocaleField({ name: 'CASE_MODERATOR', value: creator.tag })
-        .addLocaleField({
-            name: 'CASE_TYPE',
-            localeValue: Case.type.toUpperCase()
-        })
-        .addLocaleField({ name: 'CASE_REASON', value: Case.dscp })
+        .addField('Ukarany', user?.tag || 'Nie znaleziono')
+        .addField('Ukarany przez', creator?.tag || 'Nie znaleziono')
+        // @ts-ignore
+        .addField('Typ kary', Type[Case.type])
+        .addField('Powód', Case.dscp)
         .setFooter(client.footer);
     message.reply({ embeds: [embed] });
 }

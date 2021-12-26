@@ -15,19 +15,11 @@ export async function run(
         .run(client.conn);
     if (!message.member?.permissions.has('MANAGE_ROLES'))
         return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'MUTE_PERMISSIONS_MISSING'
-            )
+            'Nie masz permisji do zmutowania tego użytkownika!'
         );
 
     if (!message.guild?.me?.permissions.has('MANAGE_ROLES'))
-        return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'MUTE_BOT_PERMISSIONS_MISSING'
-            )
-        );
+        return message.reply('Nie posiadam permisji do zarządzania rolami!');
     if (!config.muteRole)
         return message.reply(
             'Nie ustawiono roli do mute, ustaw ją komendą config!'
@@ -55,7 +47,7 @@ export async function run(
     );
     member.roles.add(config.muteRole, `${reason} | ${message.author.tag}`);
     modLog(client, create, message.guild);
-    const embed = new Embed(client, message.guild.preferredLocale)
+    const embed = new Embed()
         .setTitle('Zmutowano!')
         .setDescription('Pomyślnie zmutowano członka!')
         .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))

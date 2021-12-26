@@ -3,28 +3,16 @@ import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
 
 export async function run(client: FluorineClient, message: Message) {
-    const embed = new Embed(client, message.guild.preferredLocale)
-        .setLocaleTitle('SERVER_INFO')
-        .addLocaleField({
-            name: 'SERVER_INFO_NAME',
-            value: message.guild.name
-        })
-        .addLocaleField({
-            name: 'SERVER_INFO_CREATED',
-            value: `<t:${Math.round(message.guild.createdTimestamp / 1000)}>`
-        })
-        .addLocaleField({
-            name: 'SERVER_INFO_MEMBERS',
-            value: `${message.guild?.memberCount}`
-        })
-        .addLocaleField({
-            name: 'SERVER_INFO_CHANNELS',
-            value: `${message.guild?.channels.cache.size}`
-        })
-        .addLocaleField({
-            name: 'SERVER_INFO_ROLES',
-            value: `${message.guild?.roles.cache.size}`
-        })
+    const embed = new Embed()
+        .setTitle('Informacje o serwerze')
+        .addField('Nazwa', message.guild?.name)
+        .addField(
+            'Data utworzenia',
+            `<t:${Math.round(message.guild.createdTimestamp / 1000)}>`
+        )
+        .addField('Ilość członków', `${message.guild?.memberCount}`)
+        .addField('Ilość kanałów', `${message.guild?.channels.cache.size}`)
+        .addField('Ilość roli', `${message.guild?.roles.cache.size}`)
         .setFooter(client.footer);
     message.reply({ embeds: [embed] });
 }

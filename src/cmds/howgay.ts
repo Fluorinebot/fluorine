@@ -7,11 +7,14 @@ export async function run(
 ) {
     if (!args[0])
         return message.reply(
-            client.language.get(message.guild.preferredLocale, 'HOWGAY_ARGS')
+            client.language.get(
+                message.guild.preferredLocale || 'en',
+                'HOWGAY_ARGS'
+            )
         );
     const number = Math.floor(Math.random() * 100);
     message.reply(
-        client.language.get(message.guild.preferredLocale, 'HOWGAY', {
+        client.language.get(message.guild.preferredLocale || 'en', 'HOWGAY', {
             percent: number,
             thing: message.mentions.members.first() || args.join(' ')
         })

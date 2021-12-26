@@ -3,9 +3,9 @@ import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
 
 export async function run(client: FluorineClient, message: Message) {
-    const embed = new Embed(client, message.guild.preferredLocale)
+    const embed = new Embed()
         .setTitle('Ping')
-        .addLocaleField({ name: 'PING', value: `${client.ws.ping}ms` })
+        .addField('Opóźnienie', `${client.ws.ping}ms`)
         .setFooter(client.footer);
     message.reply({ embeds: [embed] });
 }

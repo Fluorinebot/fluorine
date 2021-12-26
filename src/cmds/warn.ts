@@ -12,47 +12,22 @@ export async function run(
 ) {
     if (!message.member?.permissions.has('KICK_MEMBERS')) {
         return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'WARN_PERMISSIONS_MISSING'
-            )
+            'Nie masz permisji aby zwarnować tego użytkownika'
         );
     }
     if (!args[0])
-        return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'WARN_ARGUMENTS_MISSING'
-            )
-        );
+        return message.reply('Członek którego chcesz zwarnować nie istnieje!');
 
     const member =
         message.mentions.members?.first() ??
         (await message.guild?.members.fetch(args[0]).catch(() => null));
-    const reason =
-        args.slice(1).join(' ') ||
-        client.language.get(message.guild.preferredLocale, 'NO_REASON');
+    const reason = args.slice(1).join(' ') || 'Brak powodu';
     if (member === message.member)
-        return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'WARN_ERROR_YOURSELF'
-            )
-        );
+        return message.reply('Nie możesz zwarnować samego siebie!a');
     if (!member)
-        return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'WARN_MEMBER_MISSING'
-            )
-        );
+        return message.reply('Członek którego chcesz zwarnować nie istnieje!');
     if (reason.length > 1024) {
-        message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'REASON_LONGER_THAN_1024'
-            )
-        );
+        message.reply('Powód nie może być dłuższy niż 1024');
     }
 
     const create = await createCase(
@@ -65,14 +40,21 @@ export async function run(
     );
     r.table('case').insert(create).run(client.conn);
     modLog(client, create, message.guild);
-    const embed = new Embed(client, message.guild.preferredLocale)
-        .setLocaleTitle('WARN_SUCCESS_TITLE')
-        .setLocaleDescription('WARN_SUCCESS_DESCRIPTION')
+    const embed = new Embed()
+        .setTitle('Zwarnowano!')
+        .setDescription('Pomyślnie zwarnowano członka!')
         .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
-        .addLocaleField({ name: 'WARN_MODERATOR', value: message.author.tag })
-        .addLocaleField({ name: 'WARN_USER', value: member.user.tag })
-        .addLocaleField({ name: 'REASON', value: reason })
-        .addLocaleField({ name: 'PUNISHMENT_ID', value: create.id.toString() });
+        .addField(
+            'Zwarnowany przez:',
+            message.author.tag || 'Nie znaleziono (prawdopodobnie błąd w bocie)'
+        )
+        .addField(
+            'Zwarnowany:',
+            member.user.tag || 'Nie znaleziono (prawdopodobnie błąd w bocie)'
+        )
+        .addField('Powód', reason)
+        .addField('ID kary', create.id.toString())
+        .setFooter(client.footer);
     message.reply({ embeds: [embed] });
 
     r.table('case').insert(create).run(client.conn);

@@ -6,23 +6,30 @@ export async function run(
     message: Message,
     args: string[]
 ) {
-    const responses = client.language.get(
-        message.guild.preferredLocale,
-        '8BALL_RESPONSES'
-    );
+    const responses = [
+        'Tak',
+        'Nie',
+        'Możliwe',
+        'Prawdopodobnie',
+        'Nie jestem pewien',
+        'Wątpię'
+    ];
     if (!args[0]) {
-        return message.reply(
-            client.language.get(message.guild.preferredLocale, '8BALL_ERROR')
-        );
+        const errorEmbed = new Embed()
+            .setTitle('Błąd')
+            .setDescription('Musisz podać pytanie!')
+            .setFooter(client.footer)
+            .setColor(client.color);
+        return message.reply({ embeds: [errorEmbed] });
     }
 
-    const embed = new Embed(client, message.guild.preferredLocale)
+    const embed = new Embed()
         .setDescription(args.join(' '))
         .setFooter(client.footer)
-        .addLocaleField({
-            name: '8BALL_RESPONSE',
-            value: responses[Math.floor(Math.random() * responses.length)]
-        });
+        .addField(
+            'Odpowiedź',
+            responses[Math.floor(Math.random() * responses.length)]
+        );
     message.reply({ embeds: [embed] });
 }
 export const help = {

@@ -26,13 +26,13 @@ export async function run(
         const evaled = eval(code);
         const cleant = await clean(client, evaled);
 
-        const embed = new Embed(client, message.guild.preferredLocale)
+        const embed = new Embed()
             .setTitle('Wykonano!')
             .setDescription(`\`\`\`js\n${cleant}\n\`\`\``);
         message.reply({ embeds: [embed] });
         message.react('✅');
     } catch (err) {
-        const errorEmbed = new Embed(client, message.guild.preferredLocale)
+        const errorEmbed = new Embed()
             .setTitle('Error')
             .setDescription(`\`\`\`xl\n${await clean(client, err)}\n\`\`\``)
             .setFooter(client.footer);

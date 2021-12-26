@@ -10,7 +10,7 @@ export async function run(
     args: string[]
 ) {
     if (!message.member?.permissions.has('MANAGE_GUILD')) {
-        const permEmbed = new Embed(client, message.guild.preferredLocale)
+        const permEmbed = new Embed()
             .setTitle('Błąd!')
             .setDescription(
                 'Nie posiadasz permisji do wykonania tego!\nWymagane permisje: Manage Server'
@@ -21,10 +21,10 @@ export async function run(
     if (args[0] === 'set') {
         switch (args[1]) {
             case 'prefix':
-                if (!args[2]) return message.reply('Musisz podać prefix!');
+                if (!args[2]) return message.reply('Musisz podać prefix!');
                 if (args[2].length > 10) {
                     return message.reply(
-                        'Prefix powinien mieć poniżej 10 znaków'
+                        'Prefix powinien mieć poniżej 10 znaków'
                     );
                 }
 
@@ -32,10 +32,7 @@ export async function run(
                     .get(message.guild?.id)
                     .update({ prefix: args[2] })
                     .run(client.conn);
-                const prefixEmbed = new Embed(
-                    client,
-                    message.guild.preferredLocale
-                )
+                const prefixEmbed = new Embed()
                     .setTitle('Prefix ustawiony!')
                     .addField('Nowy prefix', args[2])
                     .setFooter(client.footer);
@@ -55,10 +52,7 @@ export async function run(
                     .update({ logs: bool })
                     .run(client.conn);
 
-                const logEmbed = new Embed(
-                    client,
-                    message.guild.preferredLocale
-                )
+                const logEmbed = new Embed()
                     .setTitle('Status logów ustawiony!')
                     .addField('Nowy status', bool ? 'Włączone' : 'Wyłączone')
                     .setFooter(client.footer);
@@ -79,10 +73,7 @@ export async function run(
                     .update({ logsChannel: channel })
                     .run(client.conn);
 
-                const channelEmbed = new Embed(
-                    client,
-                    message.guild.preferredLocale
-                )
+                const channelEmbed = new Embed()
                     .setTitle('Kanał logów ustawiony!')
                     .addField('Nowy kanał', `<#${channel}>`)
                     .setFooter(client.footer);
@@ -102,10 +93,7 @@ export async function run(
                     .update({ modLogs: modBool })
                     .run(client.conn);
 
-                const modEmbed = new Embed(
-                    client,
-                    message.guild.preferredLocale
-                )
+                const modEmbed = new Embed()
                     .setTitle('Status modlogów ustawiony!')
                     .addField('Nowy status', modBool ? 'Włączone' : 'Wyłączone')
                     .setFooter(client.footer);
@@ -122,10 +110,7 @@ export async function run(
                     .get(message.guild.id)
                     .update({ muteRole: role })
                     .run(client.conn);
-                const muteEmbed = new Embed(
-                    client,
-                    message.guild.preferredLocale
-                )
+                const muteEmbed = new Embed()
                     .setTitle('Rola do mute ustawiona!')
                     .addField('Nowa rola', `<@&${role}>`)
                     .setFooter(client.footer);
@@ -138,7 +123,7 @@ export async function run(
             .table('config')
             .get(message.guild?.id)
             .run(client.conn);
-        const listEmbed = new Embed(client, message.guild.preferredLocale)
+        const listEmbed = new Embed()
             .setTitle('Konfiguracja')
             .setDescription(
                 'Lista wszystkich opcji do konfiguracji\nUżyj config set <opcja> <wartość> aby ustawić!'
