@@ -9,7 +9,7 @@ export default class OAuthHandler {
         this.client = client;
     }
     async getToken(code: string) {
-        const returned = await (
+        const returned: any = await (
             await fetch('https://discord.com/api/oauth2/token', {
                 method: 'POST',
                 body: new URLSearchParams({
@@ -29,7 +29,7 @@ export default class OAuthHandler {
         return returned;
     }
     async getUser(token: string) {
-        const returned = await (
+        const returned: any = await (
             await fetch('https://discord.com/api/users/@me', {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -39,7 +39,7 @@ export default class OAuthHandler {
         return returned;
     }
     async getGuilds(token: string) {
-        const returned = await (
+        const returned: any = await (
             await fetch('https://discord.com/api/users/@me/guilds', {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -49,7 +49,7 @@ export default class OAuthHandler {
         return returned;
     }
     async refreshToken(refresh_token: string) {
-        const returned = await (
+        const returned: any = await (
             await fetch('https://discord.com/api/oauth2/token', {
                 body: new URLSearchParams({
                     client_id: this.client.user.id,
