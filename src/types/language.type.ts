@@ -111,6 +111,9 @@ export interface LanguageType {
     HOWGAY_ARGS: string;
     AI_TITLE: string;
     AI_DESCRIPTION: string;
+    AI_ERROR: string;
+    AI_LIMIT: string;
+    AI_QUEUE: string;
 }
 
 export type LanguageStrings = keyof LanguageType;

@@ -2,7 +2,7 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
 import { HypixelType } from 'types/hypixel.type';
-import axios from 'axios';
+import { fetch } from 'undici';
 export async function run(
     client: FluorineClient,
     message: Message,
@@ -17,20 +17,24 @@ export async function run(
             )
         );
 
-    const uuid: any = await axios(
-        `https://api.mojang.com/users/profiles/minecraft/${args[0]}`
-    );
-    if (!uuid.data.id)
+    const uuid: any = await (
+        await fetch(
+            `https://api.mojang.com/users/profiles/minecraft/${args[0]}`
+        )
+    ).json();
+    if (!uuid.id)
         return message.reply(
             client.language.get(
                 message.guild.preferredLocale,
                 'HYPIXEL_INVALID_PLAYER'
             )
         );
-
-    const { data }: { data: HypixelType } = await axios(
-        `https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${client.config.hypixel}`
-    );
+    // @ts-ignore
+    const data: HypixelType = await (
+        await fetch(
+            `https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${client.config.hypixel}`
+        )
+    ).json();
     const bedStats = data.player?.stats?.Bedwars;
     if (!bedStats) {
         return message.reply(
