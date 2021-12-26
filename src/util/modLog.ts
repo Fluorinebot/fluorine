@@ -14,25 +14,26 @@ export default async function modLog(
         .table('config')
         .get(guild.id)
         .run(client.conn);
-    enum type {
-        ban = 'Ban',
-        kick = 'Wyrzucenie',
-        warn = 'Warn',
-        mute = 'Wyciszenie'
-    }
+
     if (settings.modLogs && settings.logsChannel) {
         const creator = client.users.cache.get(Case.creator);
         const user = client.users.cache.get(Case.user);
-        const embed = new Embed()
-            .setTitle('Nowa kara!')
-            .setDescription(`Powód: ${Case.dscp}`)
-            .addField('ID', `#${Case.id}`)
-            .addField('Moderator', creator.tag)
-            .addField('Użytkownik', user.tag)
+        const embed = new Embed(client, guild.preferredLocale)
+            .setLocaleTitle('CASE_NEW')
             .setThumbnail(user.displayAvatarURL())
-            .setFooter(client.footer)
-            // @ts-ignore
-            .addField('Typ kary', type[Case.type]);
+            .addLocaleField({ name: 'REASON', value: Case.dscp })
+            .addField('ID', `#${Case.id}`)
+            .addLocaleField({ name: 'CASE_MODERATOR', value: creator.tag })
+            .addLocaleField({ name: 'CASE_USER', value: user.tag })
+            .addLocaleField({
+                name: 'CASE_TYPE',
+                localeValue: Case.type.toUpperCase() as
+                    | 'BAN'
+                    | 'KICK'
+                    | 'WARN'
+                    | 'MUTE'
+            });
+
         const channel = client.channels.cache.get(settings.logsChannel);
         if (!channel.isText()) return;
         channel.send({ embeds: [embed] });

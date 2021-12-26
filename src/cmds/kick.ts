@@ -10,29 +10,59 @@ export async function run(
     message: Message,
     args: string[]
 ) {
-    if (!args[0]) return message.reply('Musisz podać użytkownika!');
+    if (!args[0])
+        return message.reply(
+            client.language.get(
+                message.guild.preferredLocale,
+                'KICK_ARGUMENTS_MISSING'
+            )
+        );
     if (!message.member?.permissions.has('KICK_MEMBERS')) {
         return message.reply(
-            'Nie masz permisji do wyrzucenia tego użytkownika!'
+            client.language.get(
+                message.guild.preferredLocale,
+                'KICK_PERMISSIONS_MISSING'
+            )
         );
     }
     const member =
         message.mentions.members?.first() ??
         (await message.guild?.members.fetch(args[0]).catch(() => null));
-    const reason = args.slice(1).join(' ') || 'Brak powodu';
+    const reason =
+        args.slice(1).join(' ') ||
+        client.language.get(message.guild.preferredLocale, 'NO_REASON');
 
     if (!member)
-        return message.reply('Członek którego chcesz wyrzucić nie istnieje!');
+        return message.reply(
+            client.language.get(
+                message.guild.preferredLocale,
+                'KICK_MEMBER_MISSING'
+            )
+        );
     if (!member?.kickable)
         return message.reply(
-            'Nie można wyrzucić tego członka, sprawdź czy bot posiada permisje'
+            client.language.get(
+                message.guild.preferredLocale,
+                'KICK_BOT_PERMISSIONS_MISSING'
+            )
         );
 
     if (reason.length > 1024) {
-        message.reply('Powód nie może być dłuższy niż 1024');
+        message.reply(
+            client.language.get(
+                message.guild.preferredLocale,
+                'REASON_LONGER_THAN_1024'
+            )
+        );
     }
 
-    member.kick(`Wyrzucono przez ${message.author.tag} | ${reason}`);
+    member.kick(
+        client.language.get(message.guild.preferredLocale, 'KICK_REASON', {
+            user: message.author.tag,
+            reason
+        })
+    );
+
     const create = await createCase(
         client,
         message?.guild,
@@ -43,14 +73,14 @@ export async function run(
     );
     r.table('case').insert(create).run(client.conn);
     modLog(client, create, message.guild);
-    const embed = new Embed()
-        .setTitle('Wyrzucono!')
-        .setDescription('Pomyślnie wyrzucono członka!')
+    const embed = new Embed(client, message.guild.preferredLocale)
+        .setLocaleTitle('KICK_SUCCESS_TITLE')
+        .setLocaleDescription('KICK_SUCCESS_DESCRIPTION')
         .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
-        .addField('Wyrzucony przez:', message.author.tag)
-        .addField('Wyrzucony:', member.user.tag)
-        .addField('Powód', reason)
-        .addField('ID kary', create.id.toString())
+        .addLocaleField({ name: 'KICK_MODERATOR', value: message.author.tag })
+        .addLocaleField({ name: 'KICK_USER', value: member.user.tag })
+        .addLocaleField({ name: 'REASON', value: reason })
+        .addLocaleField({ name: 'PUNISHMENT_ID', value: create.id.toString() })
         .setFooter(client.footer);
     message.reply({ embeds: [embed] });
     r.table('case').insert(create).run(client.conn);
