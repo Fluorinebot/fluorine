@@ -113,7 +113,9 @@ export interface LanguageType {
     AI_DESCRIPTION: string;
     AI_ERROR: string;
     AI_LIMIT: string;
-    AI_QUEUE: string;
+    AI_WAIT: string;
+    TIME_MINUTES: string;
+    TIME_SECONDS: string;
 }
 
 export type LanguageStrings = keyof LanguageType;

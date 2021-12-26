@@ -118,5 +118,7 @@
     "AI_DESCRIPTION": "Your text: [text]",
     "AI_ERROR": "Our AI is currently down, try again in a few minutes!",
     "AI_LIMIT": "You can only have one AI request in the queue at a time!",
-    "AI_WAIT": "You're [queue] in the queue! Estimated response time: <t:[time]:R>"
+    "AI_WAIT": "You're [queue] in the queue! Estimated response time: [time]",
+    "TIME_MINUTES": "in [time] minutes",
+    "TIME_SECONDS": "in [time] seconds"
 }

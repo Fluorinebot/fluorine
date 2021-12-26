@@ -118,5 +118,7 @@
     "AI_DESCRIPTION": "Wygenerowany tekst: [text]",
     "AI_ERROR": "Nasze AI aktualnie nie działa! Spróbuj ponownie za parę minut",
     "AI_LIMIT": "Możesz mieć tylko jedno zapytanie do AI w kolejce na raz!",
-    "AI_QUEUE": "Jesteś [queue] w kolejce! Przewidywany czas odpowiedzi: <t:[time]:R>"
+    "AI_WAIT": "Jesteś [queue] w kolejce! Przewidywany czas odpowiedzi: [time]",
+    "TIME_MINUTES": "za [time] minut",
+    "TIME_SECONDS": "za [time] sekund"
 }
