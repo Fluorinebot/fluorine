@@ -7,7 +7,7 @@ export default class Logger {
             `0${date.getMinutes()}`.slice(-2),
             `0${date.getSeconds()}`.slice(-2)
         ];
-        const time = `${hour}-${minutes}-${seconds}`;
+        const time = `${hour}:${minutes}:${seconds}`;
         console.log(bold(red(`${time} ERROR`)), msg);
     }
     log(msg: string) {
@@ -17,7 +17,7 @@ export default class Logger {
             `0${date.getMinutes()}`.slice(-2),
             `0${date.getSeconds()}`.slice(-2)
         ];
-        const time = `${hour}-${minutes}-${seconds}`;
+        const time = `${hour}:${minutes}:${seconds}`;
         console.log(bold(blue(`${time} LOG`)), msg);
     }
     warn(msg: string) {
@@ -27,7 +27,7 @@ export default class Logger {
             `0${date.getMinutes()}`.slice(-2),
             `0${date.getSeconds()}`.slice(-2)
         ];
-        const time = `${hour}-${minutes}-${seconds}`;
+        const time = `${hour}:${minutes}:${seconds}`;
         console.log(bold(yellow(`${time} WARN`)), msg);
     }
 }
