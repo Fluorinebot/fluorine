@@ -29,21 +29,21 @@ export async function run(
     );
     const canva = canvas.createCanvas(image.width, image.height);
     const ctx = canva.getContext('2d');
-    ctx.font = 'bold 20px Poppins';
+
+    ctx.drawImage(image, 0, 0);
+    ctx.font = 'bold 55px "Poppins"';
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(message.author.tag, 170, 83);
+    ctx.font = 'bold 47px Poppins';
     ctx.fillStyle = '#ffffff';
     ctx.fillText(
         client.language.get(
             message.guild.preferredLocale,
             'PROFILE_DESCRIPTION'
         ),
-        15,
-        140
+        25,
+        180
     );
-
-    ctx.drawImage(image, 0, 0);
-    ctx.font = 'bold 55px "Poppins"';
-    ctx.fillStyle = '#ffffff';
-    ctx.fillText(message.author.tag, 170, 83);
     ctx.arc(85, 62, 55, 0, Math.PI * 2, true);
     ctx.clip();
     ctx.drawImage(avatar, 30, 7, 110, 110);

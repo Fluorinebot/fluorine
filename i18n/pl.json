@@ -113,5 +113,6 @@
     "MESSAGE_CREATE_DESCRIPTION": "Cześć! Jestem Fluorine.\nMój prefix na tym serwerze to [prefix]",
     "MESSAGE_CREATE_DM": "Cześć! Komendy nie działają na prywatnych wiadomościach, spróbuj napisać f!help na serwerze na którym jestem",
     "HOWGAY": "🏳️‍🌈 [thing] jest gejem na [percent]%",
-    "HOWGAY_ARGS": "Nie podałeś rzeczy do sprawdzenia!"
+    "HOWGAY_ARGS": "Nie podałeś rzeczy do sprawdzenia!",
+    "PROFILE_DESCRIPTION": "Opis"
 }

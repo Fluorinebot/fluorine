@@ -109,6 +109,7 @@ export interface LanguageType {
     MESSAGE_CREATE_DM: string;
     HOWGAY: string;
     HOWGAY_ARGS: string;
+    PROFILE_DESCRIPTION: string;
 }
 
 export type LanguageStrings = keyof LanguageType;
