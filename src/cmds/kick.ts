@@ -80,8 +80,7 @@ export async function run(
         .addLocaleField({ name: 'KICK_MODERATOR', value: message.author.tag })
         .addLocaleField({ name: 'KICK_USER', value: member.user.tag })
         .addLocaleField({ name: 'REASON', value: reason })
-        .addLocaleField({ name: 'PUNISHMENT_ID', value: create.id.toString() })
-        .setFooter(client.footer);
+        .addLocaleField({ name: 'PUNISHMENT_ID', value: create.id.toString() });
     message.reply({ embeds: [embed] });
     r.table('case').insert(create).run(client.conn);
 }

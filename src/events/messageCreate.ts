@@ -64,8 +64,7 @@ export async function run(client: FluorineClient, message: Message) {
             .addLocaleField({
                 name: 'STATS_CHANNELS_COUNT',
                 value: client.channels.cache.size.toString()
-            })
-            .setFooter(client.footer);
+            });
         message.channel.send({ embeds: [embed] });
     }
 }

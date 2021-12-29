@@ -17,8 +17,7 @@ export async function run(client: FluorineClient, interaction: Interaction) {
             .setTitle('Zwolnij!')
             .setDescription(
                 'Poczekaj 2 sekundy przed wykonaniem kolejnej komendy!'
-            )
-            .setFooter(client.footer);
+            );
         return interaction.reply({ embeds: [coolEmbed], ephemeral: true });
     }
 

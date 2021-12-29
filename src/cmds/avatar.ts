@@ -14,7 +14,7 @@ export async function run(
 
     const embed = new Embed(client, message.guild.preferredLocale)
         .setLocaleTitle('AVATAR')
-        .setFooter(client.footer)
+
         .setImage(user.displayAvatarURL({ dynamic: true, size: 512 }));
     message.reply({ embeds: [embed] });
 }
