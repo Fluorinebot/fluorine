@@ -87,12 +87,12 @@ export async function run(
 }
 
 export const data = new SlashCommandBuilder()
-    .setName('8ball')
-    .setDescription('Ask the magic ball a question')
-    .addStringOption(option =>
+    .setName('ban')
+    .setDescription('Ban an user from the server')
+    .addUserOption(option =>
         option
-            .setName('question')
-            .setDescription('Ask a question')
+            .setName('user')
+            .setDescription('Provide an user to ban')
             .setRequired(true)
     )
     .toJSON();
