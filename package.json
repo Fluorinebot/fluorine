@@ -24,6 +24,7 @@
     },
     "homepage": "https://github.com/Xiboon/Fluorine#readme",
     "dependencies": {
+        "@discordjs/builders": "^0.11.0",
         "@types/rethinkdb": "^2.3.17",
         "axios": "^0.24.0",
         "cookie-parser": "^1.4.6",

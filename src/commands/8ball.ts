@@ -1,6 +1,8 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { CommandInteraction } from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
+
 export async function run(
     client: FluorineClient,
     interaction: CommandInteraction
@@ -19,6 +21,18 @@ export async function run(
         });
     interaction.reply({ embeds: [embed] });
 }
+
+export const data = new SlashCommandBuilder()
+    .setName('8ball')
+    .setDescription('Ask the magic ball a question')
+    .addStringOption(option =>
+        option
+            .setName('question')
+            .setDescription('Ask a question')
+            .setRequired(true)
+    )
+    .toJSON();
+
 export const help = {
     name: '8ball',
     description: 'Magiczna kula',
