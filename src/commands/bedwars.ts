@@ -95,8 +95,7 @@ export const data = new SlashCommandBuilder()
             .setName('player')
             .setDescription('The player to search')
             .setRequired(true)
-    )
-    .toJSON();
+    );
 
 export const help = {
     name: 'bedwars',

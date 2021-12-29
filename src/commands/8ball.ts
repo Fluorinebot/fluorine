@@ -30,8 +30,7 @@ export const data = new SlashCommandBuilder()
             .setName('question')
             .setDescription('Ask a question')
             .setRequired(true)
-    )
-    .toJSON();
+    );
 
 export const help = {
     name: '8ball',

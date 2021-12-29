@@ -23,8 +23,7 @@ export const data = new SlashCommandBuilder()
             .setName('user')
             .setDescription('Select an user')
             .setRequired(false)
-    )
-    .toJSON();
+    );
 
 export const help = {
     name: 'avatar',

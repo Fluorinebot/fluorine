@@ -94,8 +94,7 @@ export const data = new SlashCommandBuilder()
             .setName('user')
             .setDescription('Provide an user to ban')
             .setRequired(true)
-    )
-    .toJSON();
+    );
 
 export const help = {
     name: 'ban',
