@@ -10,7 +10,7 @@ export async function run(
     message: Message,
     args: string[]
 ) {
-    if (!message.member?.permissions.has('KICK_MEMBERS')) {
+    if (!message.member?.permissions.has('MODERATE_MEMBERS')) {
         return message.reply(
             client.language.get(
                 message.guild.preferredLocale,
