@@ -1,8 +1,10 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { CommandInteraction } from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
 import { HypixelType } from 'types/hypixel';
 import axios from 'axios';
+
 export async function run(
     client: FluorineClient,
     interaction: CommandInteraction
@@ -84,6 +86,18 @@ export async function run(
         );
     interaction.reply({ embeds: [bedEmbed] });
 }
+
+export const data = new SlashCommandBuilder()
+    .setName('bedwars')
+    .setDescription("Check a player's bedwars stats from Hypixel")
+    .addStringOption(option =>
+        option
+            .setName('player')
+            .setDescription('The player to search')
+            .setRequired(true)
+    )
+    .toJSON();
+
 export const help = {
     name: 'bedwars',
     description: 'Sprawdź statystyki gracza na bedwarsach z hypixel.net',
