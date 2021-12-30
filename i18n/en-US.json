@@ -114,5 +114,10 @@
     "MESSAGE_CREATE_DM": "Hi! Commands don't work on DMs! Try typing f!help in a server where i am in!",
     "HOWGAY": "🏳️‍🌈 [thing] is [percent]% gay",
     "HOWGAY_ARGS": "You haven't provided a thing to check!",
-    "PROFILE_DESCRIPTION": "Description"
+    "PROFILE_DESCRIPTION": "Description",
+    "PROFILE_WEBSITE": "Website",
+    "PROFILE_BIRTHDAY": "Birthday",
+    "PROFILE_LOCATION": "Location",
+    "PROFILE_SET_DESCRIPTION": "Successfully set your description to \n[description]",
+    "PROFILE_DESCRIPTION_LENGTH": "Your description is too long! \nThe maximum length of profile's description is 300 letters."
 }

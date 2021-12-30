@@ -110,6 +110,11 @@ export interface LanguageType {
     HOWGAY: string;
     HOWGAY_ARGS: string;
     PROFILE_DESCRIPTION: string;
+    PROFILE_WEBSITE: string;
+    PROFILE_BIRTHDAY: string;
+    PROFILE_LOCATION: string;
+    PROFILE_SET_DESCRIPTION: string;
+    PROFILE_DESCRIPTION_LENGTH: string;
 }
 
 export type LanguageStrings = keyof LanguageType;

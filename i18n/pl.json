@@ -114,5 +114,10 @@
     "MESSAGE_CREATE_DM": "Cześć! Komendy nie działają na prywatnych wiadomościach, spróbuj napisać f!help na serwerze na którym jestem",
     "HOWGAY": "🏳️‍🌈 [thing] jest gejem na [percent]%",
     "HOWGAY_ARGS": "Nie podałeś rzeczy do sprawdzenia!",
-    "PROFILE_DESCRIPTION": "Opis"
+    "PROFILE_DESCRIPTION": "Opis",
+    "PROFILE_WEBSITE": "Strona WWW",
+    "PROFILE_BIRTHDAY": "Urodziny",
+    "PROFILE_LOCATION": "Lokalizacja",
+    "PROFILE_SET_DESCRIPTION": "Pomyślnie ustawiono twój opis na\n [description]",
+    "PROFILE_DESCRIPTION_LENGTH": "Opis może mieć maks 300 liter!"
 }
