@@ -11,37 +11,39 @@ export async function run(
     if (args[0] === 'set') {
         switch (args[1]) {
             case 'description':
-                if (args[2]) {
-                    const user = r.table('profile').get(message.author.id);
-                    const description = args.slice(2).join(' ');
-                    if (description.length < 300) {
-                        if (user) {
-                            await user.update({ description }).run(client.conn);
-                        } else {
-                            await r
-                                .table('profile')
-                                .insert({
-                                    id: message.author.id,
-                                    description
-                                })
-                                .run(client.conn);
-                            message.reply(
-                                client.language.get(
-                                    message.guild.preferredLocale,
-                                    'PROFILE_SET_DESCRIPTION',
-                                    { description }
-                                )
-                            );
-                        }
-                    } else {
-                        message.reply(
-                            client.language.get(
-                                message.guild.preferredLocale,
-                                'PROFILE_DESCRIPTION_LENGTH'
-                            )
-                        );
-                    }
+                if (!args[2]) {
+                    break;
                 }
+                const user = r.table('profile').get(message.author.id);
+                const description = args.slice(2).join(' ');
+                if (description.length > 300) {
+                    return message.reply(
+                        client.language.get(
+                            message.guild.preferredLocale,
+                            'PROFILE_DESCRIPTION_LENGTH'
+                        )
+                    );
+                }
+
+                if (user) {
+                    await user.update({ description }).run(client.conn);
+                } else {
+                    await r
+                        .table('profile')
+                        .insert({
+                            id: message.author.id,
+                            description
+                        })
+                        .run(client.conn);
+                }
+
+                message.reply(
+                    client.language.get(
+                        message.guild.preferredLocale,
+                        'PROFILE_SET_DESCRIPTION',
+                        { description }
+                    )
+                );
                 break;
         }
     }
