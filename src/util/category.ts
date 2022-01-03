@@ -1,6 +1,6 @@
-import { command } from 'types/command';
+import { Command } from 'types/command';
 
-export default function category(cmd: command) {
+export default function category(cmd: Command) {
     enum Category {
         tools = 'Narzędzia',
         fun = 'Zabawa',

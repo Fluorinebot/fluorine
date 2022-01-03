@@ -5,18 +5,18 @@ import Logger from './Logger';
 import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
 import CommandHandler from '@handlers/CommandHandler';
 import EventHandler from '@handlers/EventHandler';
-import { command } from 'types/command';
-import { applicationCommand } from 'types/applicationCommand';
+import { Command } from 'types/command';
+import { ApplicationCommand } from 'types/applicationCommand';
 import { ConfigType } from 'types/config';
 import LanguageHandler from './handlers/LanguageHandler';
 // @ts-ignore
 import { version } from '../../package.json';
 
 export default class FluorineClient extends Client {
-    applicationCommands!: Collection<string, applicationCommand>;
+    applicationCommands!: Collection<string, ApplicationCommand>;
     conn!: r.Connection;
     config: ConfigType;
-    cmds!: Collection<string, command>;
+    cmds!: Collection<string, Command>;
     invite: string;
     version: string;
     footer: string;

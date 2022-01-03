@@ -2,7 +2,7 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
 import r from 'rethinkdb';
-import { command } from 'types/command';
+import { Command } from 'types/command';
 import category from '@util/category';
 
 export async function run(
@@ -19,7 +19,7 @@ export async function run(
     ['fun', 'tools', 'moderation', 'dev'].forEach(key => {
         list[key] =
             cmds
-                .filter((cmd: command) => cmd.help.category === key)
+                .filter((cmd: Command) => cmd.help.category === key)
                 .map(c => c.help.name)
                 .join(' \n ') || 'None';
     });
