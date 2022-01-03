@@ -115,6 +115,19 @@ export interface LanguageType {
     PROFILE_LOCATION: string;
     PROFILE_SET_DESCRIPTION: string;
     PROFILE_DESCRIPTION_LENGTH: string;
+    PROFILE_INVALID_WEBSITE: string;
+    PROFILE_SET_WEBSITE: string;
+    PROFILE_NOT_SET: string;
+    PROFILE_NOT_SET_DESCRIPTION: string;
+    PROFILE_INVALID_BIRTHDAY: string;
+    PROFILE_SET_BIRTHDAY: string;
+    PROFILE_SUCCESS: string;
+    PROFILE_SET_LOCATION: string;
+    PROFILE_SET_PRONOUNS: string;
+    PROFILE_INVALID_PRONOUNS: string;
+    PROFILE_INVALID_LOCATION: string;
+    PROFILE_INVALID_OPTION: string;
+    MONTHS: string[];
 }
 
 export type LanguageStrings = keyof LanguageType;
