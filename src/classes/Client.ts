@@ -9,6 +9,7 @@ import { ConfigType } from 'types/config.type';
 import LanguageHandler from './handlers/LanguageHandler';
 // @ts-ignore
 import { version } from '../../package.json';
+import LinkHandler from './handlers/LinkHandler';
 
 export default class FluorineClient extends Client {
     conn!: r.Connection;
@@ -22,6 +23,7 @@ export default class FluorineClient extends Client {
     generating: boolean;
     cooldown: Set<string>;
     language: LanguageHandler;
+    phishing: string[];
     constructor() {
         super({
             intents: [
@@ -51,6 +53,7 @@ export default class FluorineClient extends Client {
     async init() {
         new EventHandler(this);
         this.cmds = new CommandHandler().loadCommands();
+        this.phishing = new LinkHandler().getLinks();
         this.logger.log('loaded events and commands');
         this.login(this.config.token).then(() => {
             this.guilds.cache.forEach(async g => {
@@ -64,15 +67,6 @@ export default class FluorineClient extends Client {
             this.logger.log(
                 `Loaded ${this.cmds.size} commands, checked ${this.guilds.cache.size} guilds`
             );
-            // eslint-disable-next-line @typescript-eslint/no-this-alias
-            const client = this;
-            this.statcord = new Statcord.Client({
-                client,
-                key: client.config.statcord,
-                postCpuStatistics: true,
-                postMemStatistics: true,
-                postNetworkStatistics: false
-            });
         });
 
         process.on('unhandledRejection', (error: Error) => {
