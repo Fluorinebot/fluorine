@@ -4,9 +4,11 @@ import r from 'rethinkdb';
 import Logger from './Logger';
 import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
 import CommandHandler from '@handlers/CommandHandler';
+import ComponentHandler from '@handlers/ComponentHandler';
 import EventHandler from '@handlers/EventHandler';
 import { Command } from 'types/command';
 import { ApplicationCommand } from 'types/applicationCommand';
+import { Component } from 'types/component';
 import { ConfigType } from 'types/config';
 import LanguageHandler from './handlers/LanguageHandler';
 // @ts-ignore
@@ -17,6 +19,7 @@ export default class FluorineClient extends Client {
     conn!: r.Connection;
     config: ConfigType;
     cmds!: Collection<string, Command>;
+    components!: Collection<string, Component>;
     invite: string;
     version: string;
     footer: string;
@@ -59,6 +62,7 @@ export default class FluorineClient extends Client {
         this.cmds = new CommandHandler().loadCommands();
         this.applicationCommands =
             new ApplicationCommandHandler().loadCommands();
+        this.components = new ComponentHandler().loadComponents();
         this.logger.log('loaded events and commands');
         this.login(this.config.token).then(() => {
             this.guilds.cache.forEach(async g => {
