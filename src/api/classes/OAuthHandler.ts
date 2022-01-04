@@ -33,12 +33,18 @@ export default class OAuthHandler {
         return returned?.data;
     }
     async getUser(token: string) {
-        const returned = await axios.get('https://discord.com/api/users/@me', {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
-        return returned?.data;
+        const returned = await axios
+            .get('https://discord.com/api/users/@me', {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+
+            .catch(() => {
+                // h
+            });
+        // @ts-ignore
+        return returned?.data || null;
     }
     async getGuilds(token: string) {
         const returned = await axios.get(

@@ -9,7 +9,7 @@ export default class Dashboard {
     app: express.Application;
     bot: BotConnection;
     oauth: OAuthHandler;
-    router: any;
+    router: express.Router;
     ratelimit: RateLimiterMemory;
     constructor(client: FluorineClient) {
         this.app = express();
