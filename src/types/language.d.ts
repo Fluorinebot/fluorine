@@ -113,6 +113,7 @@ export interface LanguageType {
     MESSAGE_CREATE_COOLDOWN_DESCRIPTION: string;
     MESSAGE_CREATE_DESCRIPTION: string;
     MESSAGE_CREATE_DM: string;
+    COMPONENT_PRIVATE: string;
     HOWGAY: string;
     HOWGAY_ARGS: string;
     PROFILE_DESCRIPTION: string;
