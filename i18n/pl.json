@@ -145,5 +145,8 @@
         "Październik",
         "Listopad",
         "Grudzień"
-    ]
+    ],
+    "BIRB": "Randomowy ptak",
+    "DOG": "Randomowy pies",
+    "CAT": "Randomowy kot"
 }

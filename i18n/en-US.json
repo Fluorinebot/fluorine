@@ -145,5 +145,8 @@
         "October",
         "November",
         "December"
-    ]
+    ],
+    "BIRB": "Random birb",
+    "DOG": "Random dog",
+    "CAT": "Random cat"
 }
