@@ -6,7 +6,6 @@ export async function messageBot(client: FluorineClient, message: Message) {
     const authorDate = new Date(message.author.createdTimestamp + 12096e5);
     const memberDate = new Date(message.member.joinedTimestamp + 1800000);
     const url = message.content.match(/\bhttps?:\/\/\S+/giu);
-    const urlBoolean = false;
     const currentDate = new Date();
     const urls = [];
     if (client.phishingUsers.includes(message.author.id)) {
@@ -18,7 +17,6 @@ export async function messageBot(client: FluorineClient, message: Message) {
         }
     });
     url?.forEach(link => {
-        if (urlBoolean) return;
         bot += 5;
         link = link.replaceAll('www.', '');
         urls.push({ url: link });

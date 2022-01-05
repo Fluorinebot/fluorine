@@ -21,7 +21,7 @@ export async function run(client: FluorineClient, message: Message) {
         .table('config')
         .get(message.guild?.id)
         .run(client.conn);
-    if (settings.antibot !== 0) {
+    if (settings.antibot) {
         const factor = await messageBot(client, message);
         if (factor >= settings.antibot) {
             message.delete();
