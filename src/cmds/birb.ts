@@ -15,5 +15,5 @@ export async function run(client: FluorineClient, message: Message) {
 export const help = {
     name: 'birb',
     description: 'Random bird picture',
-    category: '4fun'
+    category: 'fun'
 };
