@@ -1,7 +1,6 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { CommandInteraction } from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
 
@@ -39,11 +38,13 @@ export async function run(
     try {
         if (name === 'all') {
             await Promise.all(
-                client.applicationCommands.map(command =>
-                    rest.post(route, {
-                        body: command.data?.toJSON()
-                    })
-                )
+                client.applicationCommands
+                    .filter(c => c.data.name !== 'all')
+                    .map(command =>
+                        rest.post(route, {
+                            body: command.data.toJSON()
+                        })
+                    )
             );
         } else {
             await rest.post(route, {
@@ -58,26 +59,3 @@ export async function run(
         interaction.reply({ embeds: [embed] });
     }
 }
-
-export const data = new SlashCommandBuilder()
-    .setName('deploy')
-    .setDescription('Deploy application commands')
-    .addStringOption(option =>
-        option
-            .setName('command')
-            .setDescription('Provide a command to deploy')
-            .setRequired(true)
-    )
-    .addStringOption(option =>
-        option
-            .setName('guild')
-            .setDescription('Provide a guild to deploy')
-            .setRequired(false)
-    );
-
-export const help = {
-    name: 'deploy',
-    description: 'Deploy application commands',
-    aliases: [],
-    category: 'tools'
-};
