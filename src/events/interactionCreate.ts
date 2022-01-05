@@ -34,7 +34,7 @@ export async function run(client: FluorineClient, interaction: Interaction) {
         setTimeout(() => client.cooldown.delete(interaction.user.id), 2000);
     }
 
-    const subcommand = interaction.options.getSubcommand();
+    const subcommand = interaction.options.getSubcommand(false);
     const command = subcommand
         ? client.applicationCommands.get(
               `${interaction.commandName}/${subcommand}`

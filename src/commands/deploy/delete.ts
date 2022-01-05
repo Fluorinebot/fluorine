@@ -21,21 +21,27 @@ export async function run(
     }
 
     try {
-        const { commands } = guildId
-            ? client.guilds.cache.get(guildId)
-            : client.application;
-
-        await commands.fetch(null, {});
+        await client.application.commands.fetch(null, {
+            guildId
+        });
+        const { commands } =
+            client.guilds.cache.get(guildId) ?? client.application;
         if (name === 'all') {
-            commands.set([]);
+            await commands.set([]);
         } else {
-            commands.cache.get(name).delete();
+            const command = commands.cache.get(name);
+            if (!command)
+                return interaction.reply({
+                    content: 'Command not found',
+                    ephemeral: true
+                });
+            await command.delete();
         }
         interaction.reply('done');
     } catch (error) {
         const embed = new Embed(client, interaction.guild.preferredLocale)
             .setTitle('fail')
-            .setDescription(`\`\`\`js\n${error}\`\`\``);
+            .setDescription(`\`\`\`js\n${error}\n${error.stack}\`\`\``);
         interaction.reply({ embeds: [embed] });
     }
 }
