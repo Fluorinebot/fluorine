@@ -145,5 +145,6 @@
         "Październik",
         "Listopad",
         "Grudzień"
-    ]
+    ],
+    "ANTIBOT_REASON": "Wykryto bota! \nPewność, że użytkownik jest botem: [factor]%"
 }

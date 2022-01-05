@@ -145,5 +145,6 @@
         "October",
         "November",
         "December"
-    ]
+    ],
+    "ANTIBOT_REASON": "User detected as a bot! \nConfidence that the user is a bot: [factor]%"
 }

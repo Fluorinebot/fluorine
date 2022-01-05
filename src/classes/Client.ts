@@ -9,7 +9,7 @@ import { ConfigType } from 'types/config.type';
 import LanguageHandler from './handlers/LanguageHandler';
 // @ts-ignore
 import { version } from '../../package.json';
-import LinkHandler from './handlers/LinkHandler';
+import PhishingHandler from './handlers/PhishingHandler';
 
 export default class FluorineClient extends Client {
     conn!: r.Connection;
@@ -25,6 +25,8 @@ export default class FluorineClient extends Client {
     language: LanguageHandler;
     links: string[];
     words: string[];
+    phishing: PhishingHandler;
+    phishingUsers: string[];
     constructor() {
         super({
             intents: [
@@ -47,15 +49,15 @@ export default class FluorineClient extends Client {
         this.footer = `Fluorine ${this.version}`;
         this.color = '#3872f2';
         this.logger = new Logger();
-        this.generating = false;
         this.cooldown = new Set();
         this.language = new LanguageHandler();
     }
     async init() {
         new EventHandler(this);
         this.cmds = new CommandHandler().loadCommands();
-        this.links = new LinkHandler().getLinks();
-        this.words = new LinkHandler().getWords();
+        this.phishing = new PhishingHandler(this);
+        this.words = this.phishing.getWords();
+        this.phishingUsers = this.phishing.getUsers();
         this.logger.log('loaded events and commands');
         this.login(this.config.token).then(() => {
             this.guilds.cache.forEach(async g => {
