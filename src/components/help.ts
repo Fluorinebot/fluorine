@@ -62,7 +62,7 @@ export async function run(
             ])
     ]);
 
-    interaction.reply({
+    interaction.update({
         embeds: [embed],
         components: [row]
     });
