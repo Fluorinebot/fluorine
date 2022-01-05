@@ -21,15 +21,16 @@ export async function run(
     }
 
     try {
-        await client.application.commands.fetch(null, {
-            guildId
-        });
         const { commands } =
             client.guilds.cache.get(guildId) ?? client.application;
+
+        // @ts-ignore
+        await commands.fetch();
+
         if (name === 'all') {
             await commands.set([]);
         } else {
-            const command = commands.cache.get(name);
+            const command = commands.cache.find(c => c.name === name);
             if (!command)
                 return interaction.reply({
                     content: 'Command not found',
