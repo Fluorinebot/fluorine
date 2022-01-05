@@ -6,16 +6,15 @@ export async function messageBot(client: FluorineClient, message: Message) {
     const authorDate = new Date(message.author.createdTimestamp + 12096e5);
     const memberDate = new Date(message.member.joinedTimestamp + 1800000);
     const url = message.content.match(/\bhttps?:\/\/\S+/giu);
-    const words = message.content.split(' ');
     const urlBoolean = false;
     const currentDate = new Date();
     const urls = [];
     if (client.phishingUsers.includes(message.author.id)) {
         bot += 15;
     }
-    words.forEach(word => {
-        if (client.words.includes(word)) {
-            bot += 15;
+    client.words.forEach(word => {
+        if (message.content.includes(word)) {
+            bot += 5;
         }
     });
     url?.forEach(link => {
