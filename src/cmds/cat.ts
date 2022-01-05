@@ -13,7 +13,7 @@ export async function run(client: FluorineClient, message: Message) {
     message.reply({ embeds: [embed] });
 }
 export const help = {
-    name: 'birb',
-    description: 'Random bird picture',
-    category: '4fun'
+    name: 'dog',
+    description: 'Random dog picture',
+    category: 'fun'
 };
