@@ -6,7 +6,7 @@ export const data = new SlashCommandBuilder()
     .addSubcommand(subcommand =>
         subcommand
             .setName('create')
-            .setDescription('Create application commans')
+            .setDescription('Create application commands')
             .addStringOption(option =>
                 option
                     .setName('command')
@@ -23,7 +23,7 @@ export const data = new SlashCommandBuilder()
     .addSubcommand(subcommand =>
         subcommand
             .setName('delete')
-            .setDescription('Delete application commans')
+            .setDescription('Delete application commands')
             .addStringOption(option =>
                 option
                     .setName('command')
