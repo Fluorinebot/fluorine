@@ -1,5 +1,5 @@
 import FluorineClient from '@classes/Client';
-import { LanguageType } from 'types/language';
+import { LanguageStrings } from 'types/language';
 import Embed from '@classes/Embed';
 import {
     CommandInteraction,
@@ -22,7 +22,7 @@ export async function run(
 
     const embed = new Embed(client, interaction.guild.preferredLocale)
         .setLocaleTitle(
-            `HELP_TITLE_${category.toUpperCase()}` as keyof LanguageType
+            `HELP_TITLE_${category.toUpperCase()}` as LanguageStrings
         )
         .setFields(fields);
 
