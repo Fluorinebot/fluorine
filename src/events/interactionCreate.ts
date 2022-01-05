@@ -43,7 +43,7 @@ export async function run(client: FluorineClient, interaction: Interaction) {
     if (!command) return;
 
     command.run(client, interaction);
-    if (command.help.category !== 'dev') {
+    if (!subcommand && command.help.category !== 'dev') {
         client.statcord.postCommand(command.help.name, interaction.user.id);
     }
 }
