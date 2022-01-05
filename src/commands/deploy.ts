@@ -26,7 +26,7 @@ export async function run(
         });
     }
 
-    if (!command)
+    if (!command && name !== 'all')
         return interaction.reply({
             content: 'Command not found',
             ephemeral: true
@@ -37,10 +37,19 @@ export async function run(
         : Routes.applicationCommands(client.user.id);
 
     try {
-        await rest.post(route, {
-            body: command.data.toJSON()
-        });
-
+        if (name === 'all') {
+            await Promise.all(
+                client.applicationCommands.map(command =>
+                    rest.post(route, {
+                        body: command.data?.toJSON()
+                    })
+                )
+            );
+        } else {
+            await rest.post(route, {
+                body: command.data.toJSON()
+            });
+        }
         interaction.reply('done');
     } catch (error) {
         const embed = new Embed(client, interaction.guild.preferredLocale)
