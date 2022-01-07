@@ -17,7 +17,7 @@ export default async function set(
             return res.status(401).send('Unauthorized');
         }
         if (isNaN(req.body.antibot)) {
-            return res.send('Invalid antibot value');
+            return res.status(400).send('Invalid antibot value');
         }
         if (!bot.checkPerms(user.id, req.params.guildId)) {
             return res.status(403).send('Forbidden');
