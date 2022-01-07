@@ -128,6 +128,9 @@ export interface LanguageType {
     PROFILE_INVALID_LOCATION: string;
     PROFILE_INVALID_OPTION: string;
     MONTHS: string[];
+    BIRB: string;
+    DOG: string;
+    CAT: string;
 }
 
 export type LanguageStrings = keyof LanguageType;
