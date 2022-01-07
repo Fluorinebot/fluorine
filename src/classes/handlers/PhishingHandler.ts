@@ -43,6 +43,6 @@ export default class PhishingHandler {
         return this.word.split('\n');
     }
     getUsers() {
-        return this.word.split('\n');
+        return this.users.split('\n');
     }
 }
