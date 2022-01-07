@@ -1,6 +1,11 @@
 import FluorineClient from '@classes/Client';
 import { readFileSync } from 'fs';
 import { fetch } from 'undici';
+
+export interface PhishingLink {
+    url: string;
+}
+
 export default class PhishingHandler {
     word: string;
     client: FluorineClient;
@@ -14,7 +19,7 @@ export default class PhishingHandler {
             `${__dirname}/../../../assets/words.txt`
         ).toString();
     }
-    async getLink(links: string[]) {
+    async getLink(links: PhishingLink[]) {
         const request = await fetch(
             `https://safebrowsing.googleapis.com/v4/threatMatches:find?key=${this.client.config.safeBrowsing}`,
             {

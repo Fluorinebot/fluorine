@@ -7,21 +7,19 @@ export async function messageBot(client: FluorineClient, message: Message) {
     const memberDate = new Date(message.member.joinedTimestamp + 1800000);
     const url = message.content.match(/\bhttps?:\/\/\S+/giu);
     const currentDate = new Date();
-    const urls = [];
-    if (client.phishingUsers.includes(message.author.id)) {
-        bot += 15;
-    }
-    client.words
-        .filter(word => message.content.includes(word))
-        .forEach(() => bot += 5);
-    url?.forEach(link => {
+
+    const urls = url?.map(link => {
         bot += 5;
         link = link.replaceAll('www.', '');
-        urls.push({ url: link });
+        return { url: link };
     });
     const urlResponse = await client.phishing.getLink(urls);
+
     if (urlResponse === {}) {
         bot += 25;
+    }
+    if (client.phishingUsers.includes(message.author.id)) {
+        bot += 15;
     }
     if (authorDate > currentDate) {
         bot += 10;
@@ -35,5 +33,8 @@ export async function messageBot(client: FluorineClient, message: Message) {
     if (!message.author.avatar) {
         bot += 5;
     }
+    client.words
+        .filter(word => message.content.includes(word))
+        .forEach(() => (bot += 5));
     return bot;
 }
