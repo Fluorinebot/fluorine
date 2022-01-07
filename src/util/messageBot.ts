@@ -11,11 +11,9 @@ export async function messageBot(client: FluorineClient, message: Message) {
     if (client.phishingUsers.includes(message.author.id)) {
         bot += 15;
     }
-    client.words.forEach(word => {
-        if (message.content.includes(word)) {
-            bot += 5;
-        }
-    });
+    client.words
+        .filter(word => message.content.includes(word))
+        .forEach(() => bot += 5);
     url?.forEach(link => {
         bot += 5;
         link = link.replaceAll('www.', '');
