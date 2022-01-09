@@ -1,5 +1,4 @@
 import { Client, Collection, ColorResolvable, Intents } from 'discord.js';
-import Statcord from 'statcord.js';
 import r from 'rethinkdb';
 import Logger from './Logger';
 import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
@@ -26,7 +25,6 @@ export default class FluorineClient extends Client {
     footer: string;
     color: ColorResolvable;
     logger: Logger;
-    statcord!: Statcord.Client;
     generating: boolean;
     cooldown: Set<string>;
     language: LanguageHandler;

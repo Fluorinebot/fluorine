@@ -109,8 +109,4 @@ export async function run(client: FluorineClient, message: Message) {
     if (!code) return message.react('❌');
 
     code.run(client, message, args);
-
-    if (code.help.category !== 'dev') {
-        client.statcord.postCommand(code.help.name, message.author.id);
-    }
 }

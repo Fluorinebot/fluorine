@@ -40,10 +40,6 @@ export async function run(client: FluorineClient, interaction: Interaction) {
               `${interaction.commandName}/${subcommand}`
           )
         : client.applicationCommands.get(interaction.commandName);
-    if (!command) return;
 
-    command.run(client, interaction);
-    if (!subcommand && command.help.category !== 'dev') {
-        client.statcord.postCommand(command.help.name, interaction.user.id);
-    }
+    command?.run(client, interaction);
 }
