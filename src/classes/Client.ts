@@ -1,5 +1,4 @@
 import { Client, ColorResolvable, Intents } from 'discord.js';
-import Statcord from 'statcord.js';
 import r from 'rethinkdb';
 import Logger from './Logger';
 import CommandHandler from '@handlers/CommandHandler';
