@@ -8,7 +8,7 @@ export default class OAuthHandler {
         this.scopes = scopes;
         this.client = client;
     }
-    async getToken(code: string) {
+    async getToken(code: string): Promise<any> {
         const returned = await fetch('https://discord.com/api/oauth2/token', {
             method: 'POST',
             body: new URLSearchParams({
@@ -28,7 +28,7 @@ export default class OAuthHandler {
         // @ts-ignore
         return returned?.data.json();
     }
-    async getUser(token: string) {
+    async getUser(token: string): Promise<any> {
         const returned = await fetch('https://discord.com/api/users/@me', {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -37,7 +37,7 @@ export default class OAuthHandler {
         // @ts-ignore
         return returned?.data.json() || null;
     }
-    async getGuilds(token: string) {
+    async getGuilds(token: string): Promise<any> {
         const returned = await fetch(
             'https://discord.com/api/users/@me/guilds',
             {
