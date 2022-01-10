@@ -28,7 +28,7 @@
         "canvas": "^2.8.0",
         "cookie-parser": "^1.4.6",
         "dayjs": "^1.10.7",
-        "discord.js": "^13.5.0",
+        "discord.js": "^13.5.1",
         "express": "^4.17.2",
         "picocolors": "^1.0.0",
         "rate-limiter-flexible": "^2.3.6",
