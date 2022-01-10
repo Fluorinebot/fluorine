@@ -1,8 +1,15 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
+import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import { Message } from 'discord.js';
+import('dayjs/locale/pl');
 
 export async function run(client: FluorineClient, message: Message) {
+    dayjs.extend(duration);
+    dayjs.extend(relativeTime);
+    dayjs.locale(message.guild.preferredLocale);
     const embed = new Embed(client, message.guild.preferredLocale)
         .setLocaleTitle('STATS_TITLE')
         .addLocaleField({
@@ -19,7 +26,7 @@ export async function run(client: FluorineClient, message: Message) {
         })
         .addLocaleField({
             name: 'STATS_UPTIME',
-            value: `<t:${client.uptime}:R>`
+            value: `<t:${Date.now() - client.uptime}:R>`
         });
     message.reply({ embeds: [embed] });
 }
