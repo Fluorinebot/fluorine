@@ -1,10 +1,10 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { CommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction } from 'discord.js';
 
 export async function run(
     client: FluorineClient,
-    interaction: CommandInteraction
+    interaction: ChatInputCommandInteraction
 ) {
     const embed = new Embed(client, interaction.guild.preferredLocale)
         .setLocaleTitle('SERVER_INFO')

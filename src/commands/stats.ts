@@ -1,6 +1,6 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { CommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction } from 'discord.js';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -8,7 +8,7 @@ import('dayjs/locale/pl');
 
 export async function run(
     client: FluorineClient,
-    interaction: CommandInteraction
+    interaction: ChatInputCommandInteraction
 ) {
     dayjs.extend(duration);
     dayjs.extend(relativeTime);

@@ -1,12 +1,12 @@
 import FluorineClient from '../classes/Client';
 import Embed from '../classes/Embed';
-import { CommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction } from 'discord.js';
 import createCase from '../util/createCase';
 import r from 'rethinkdb';
 import modLog from '@util/modLog';
 export async function run(
     client: FluorineClient,
-    interaction: CommandInteraction<'cached'>
+    interaction: ChatInputCommandInteraction<'cached'>
 ) {
     if (!interaction.member?.permissions.has('KICK_MEMBERS')) {
         return interaction.reply({

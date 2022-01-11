@@ -1,11 +1,11 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { CommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction } from 'discord.js';
 import getCase from '@util/getCase';
 
 export async function run(
     client: FluorineClient,
-    interaction: CommandInteraction
+    interaction: ChatInputCommandInteraction
 ) {
     const id = interaction.options.getInteger('id');
     const [userCase] = await getCase(client, interaction.guild, id);

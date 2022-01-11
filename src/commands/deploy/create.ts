@@ -1,12 +1,12 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { CommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction } from 'discord.js';
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
 
 export async function run(
     client: FluorineClient,
-    interaction: CommandInteraction
+    interaction: ChatInputCommandInteraction
 ) {
     const rest = new REST({ version: '9' }).setToken(client.token);
 

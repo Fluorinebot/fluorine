@@ -32,7 +32,7 @@
         "cookie-parser": "^1.4.6",
         "dayjs": "^1.10.7",
         "discord-api-types": "^0.26.0",
-        "discord.js": "^13.5.0",
+        "discord.js": "^14.0.0-dev.1641902624.db25f52",
         "express": "^4.17.2",
         "picocolors": "^1.0.0",
         "rate-limiter-flexible": "^2.3.6",
