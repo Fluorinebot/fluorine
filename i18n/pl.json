@@ -149,5 +149,9 @@
     "ANTIBOT_REASON": "Wykryto bota! \nPewność, że użytkownik jest botem: [factor]%",
     "BIRB": "Randomowy ptak",
     "DOG": "Randomowy pies",
-    "CAT": "Randomowy kot"
+    "CAT": "Randomowy kot",
+    "INPOST_ARGS": "Musisz podać ID paczki!",
+    "INPOST_NOT_FOUND": "Paczka o ID [id] nie istnieje!",
+    "INPOST_TITLE": "Paczka [id]",
+    "INPOST_DESCRIPTION": "Informacje o paczkomacie\nNazwa: [name]\nLokalizacja: [location_description]\nGodziny: [opening_hours]"
 }

@@ -132,6 +132,10 @@ export interface LanguageType {
     BIRB: string;
     DOG: string;
     CAT: string;
+    INPOST_ARGS: string;
+    INPOST_NOT_FOUND: string;
+    INPOST_TITLE: string;
+    INPOST_DESCRIPTION: string;
 }
 
 export type LanguageStrings = keyof LanguageType;

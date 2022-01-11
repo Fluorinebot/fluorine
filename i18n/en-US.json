@@ -110,7 +110,7 @@
     "MESSAGE_UPDATE_OLD_CONTENT": "Old content",
     "MESSAGE_CREATE_COOLDOWN_TITLE": "Slow down!",
     "MESSAGE_CREATE_COOLDOWN_DESCRIPTION": "Wait 2 seconds before running another command!",
-    "MESSAGE_CREATE_DESCRIPTION": "Hi! I'm Fluorine. My prefix on this guild is [prefix]",
+    "MESSAGE_CREATE_DESCRIPTION": "Hi! I'm Fluorine.\nMy prefix on this guild is [prefix]",
     "MESSAGE_CREATE_DM": "Hi! Commands don't work on DMs! Try typing f!help in a server where i am in!",
     "HOWGAY": "🏳️‍🌈 [thing] is [percent]% gay",
     "HOWGAY_ARGS": "You haven't provided a thing to check!",
@@ -149,5 +149,9 @@
     "ANTIBOT_REASON": "User detected as a bot! \nConfidence that the user is a bot: [factor]%",
     "BIRB": "Random birb",
     "DOG": "Random dog",
-    "CAT": "Random cat"
+    "CAT": "Random cat",
+    "INPOST_ARGS": "You need to provide a package ID!",
+    "INPOST_NOT_FOUND": "The package with the ID [id] was not found!",
+    "INPOST_TITLE": "Package [id]",
+    "INPOST_DESCRIPTION": "Parcel machine details\nName: [name]\nLocation: [location_description]\nOpening hours: [opening_hours]"
 }
