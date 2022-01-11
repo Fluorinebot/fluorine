@@ -17,7 +17,7 @@ export async function run(
     if (!uuid)
         return interaction.reply({
             content: client.language.get(
-                interaction.guild.preferredLocale,
+                interaction.locale,
                 'HYPIXEL_INVALID_PLAYER'
             ),
             ephemeral: true
@@ -31,7 +31,7 @@ export async function run(
     if (!bedStats) {
         return interaction.reply({
             content: client.language.get(
-                interaction.guild.preferredLocale,
+                interaction.locale,
                 'HYPIXEL_PLAYER_NOT_FOUND'
             ),
             ephemeral: true
@@ -46,7 +46,7 @@ export async function run(
         (bedStats.wins_bedwars / bedStats.losses_bedwars).toFixed(2)
     );
 
-    const bedEmbed = new Embed(client, interaction.guild.preferredLocale)
+    const bedEmbed = new Embed(client, interaction.locale)
         .setLocaleTitle('HYPIXEL_STATISTICS_TITLE', { player })
         .setDescription(`K/D: ${kd}\n Win/loss ratio: ${winratio}`)
         .addLocaleField({

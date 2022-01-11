@@ -6,7 +6,7 @@ export async function run(
     client: FluorineClient,
     interaction: ChatInputCommandInteraction
 ) {
-    const embed = new Embed(client, interaction.guild.preferredLocale)
+    const embed = new Embed(client, interaction.locale)
         .setTitle('Ping')
         .addLocaleField({ name: 'PING', value: `${client.ws.ping}ms` });
     interaction.reply({ embeds: [embed] });

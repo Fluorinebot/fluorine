@@ -12,9 +12,9 @@ export async function run(
 ) {
     dayjs.extend(duration);
     dayjs.extend(relativeTime);
-    dayjs.locale(interaction.guild.preferredLocale);
+    dayjs.locale(interaction.locale);
     const uptime = dayjs.duration(client.uptime).humanize();
-    const embed = new Embed(client, interaction.guild.preferredLocale)
+    const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('STATS_TITLE')
         .addLocaleField({
             name: 'STATS_MEMORY_USAGE',

@@ -15,7 +15,7 @@ export async function run(
     if (!uuid)
         return interaction.reply({
             content: client.language.get(
-                interaction.guild.preferredLocale,
+                interaction.locale,
                 'HYPIXEL_INVALID_PLAYER'
             ),
             ephemeral: true
@@ -29,7 +29,7 @@ export async function run(
     if (!skyStats) {
         return interaction.reply({
             content: client.language.get(
-                interaction.guild.preferredLocale,
+                interaction.locale,
                 'HYPIXEL_PLAYER_NOT_FOUND'
             ),
             ephemeral: true
@@ -40,7 +40,7 @@ export async function run(
 
     const winratio = Number((skyStats.wins / skyStats.deaths).toFixed(2));
 
-    const embed = new Embed(client, interaction.guild.preferredLocale)
+    const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('HYPIXEL_STATISTICS_TITLE', { player })
         .setDescription(`K/D: ${kd}\n Win/loss ratio: ${winratio}`)
         .addLocaleField({

@@ -11,7 +11,7 @@ export async function run(
     if (!interaction.member?.permissions.has('MODERATE_MEMBERS')) {
         return interaction.reply({
             content: client.language.get(
-                interaction.guild.preferredLocale,
+                interaction.locale,
                 'WARN_PERMISSIONS_MISSING'
             ),
             ephemeral: true
@@ -21,12 +21,12 @@ export async function run(
     const member = interaction.options.getMember('user');
     const reason =
         interaction.options.getString('reason') ??
-        client.language.get(interaction.guild.preferredLocale, 'NO_REASON');
+        client.language.get(interaction.locale, 'NO_REASON');
 
     if (!member)
         return interaction.reply({
             content: client.language.get(
-                interaction.guild.preferredLocale,
+                interaction.locale,
                 'WARN_MEMBER_MISSING'
             ),
             ephemeral: true
@@ -35,7 +35,7 @@ export async function run(
     if (reason.length > 1024) {
         return interaction.reply({
             content: client.language.get(
-                interaction.guild.preferredLocale,
+                interaction.locale,
                 'REASON_LONGER_THAN_1024'
             ),
             ephemeral: true
@@ -52,7 +52,7 @@ export async function run(
     );
 
     modLog(client, create, interaction.guild);
-    const embed = new Embed(client, interaction.guild.preferredLocale)
+    const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('WARN_SUCCESS_TITLE')
         .setLocaleDescription('WARN_SUCCESS_DESCRIPTION')
         .setThumbnail(member.displayAvatarURL({ dynamic: true }))

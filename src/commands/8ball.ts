@@ -9,11 +9,11 @@ export async function run(
 ) {
     const question = interaction.options.getString('question');
     const responses = client.language.get(
-        interaction.guild.preferredLocale,
+        interaction.locale,
         '8BALL_RESPONSES'
     );
 
-    const embed = new Embed(client, interaction.guild.preferredLocale)
+    const embed = new Embed(client, interaction.locale)
         .setDescription(question)
         .addLocaleField({
             name: '8BALL_RESPONSE',

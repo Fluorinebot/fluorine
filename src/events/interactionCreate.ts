@@ -10,7 +10,7 @@ export async function run(client: FluorineClient, interaction: Interaction) {
         if (component.authorOnly && interaction.user.id !== user) {
             return interaction.reply({
                 content: client.language.get(
-                    interaction.guild.preferredLocale,
+                    interaction.locale,
                     'COMPONENT_PRIVATE'
                 ),
                 ephemeral: true
@@ -23,7 +23,7 @@ export async function run(client: FluorineClient, interaction: Interaction) {
     if (!interaction.isChatInputCommand()) return;
 
     if (client.cooldown.has(interaction.user.id)) {
-        const coolEmbed = new Embed(client, interaction.guild.preferredLocale)
+        const coolEmbed = new Embed(client, interaction.locale)
             .setLocaleTitle('MESSAGE_CREATE_COOLDOWN_TITLE')
             .setLocaleDescription('MESSAGE_CREATE_COOLDOWN_DESCRIPTION');
         return interaction.reply({ embeds: [coolEmbed], ephemeral: true });

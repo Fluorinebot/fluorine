@@ -11,7 +11,7 @@ export async function run(
     if (!interaction.member?.permissions.has('KICK_MEMBERS')) {
         return interaction.reply({
             content: client.language.get(
-                interaction.guild.preferredLocale,
+                interaction.locale,
                 'KICK_PERMISSIONS_MISSING'
             ),
             ephemeral: true
@@ -21,12 +21,12 @@ export async function run(
     const member = interaction.options.getMember('user');
     const reason =
         interaction.options.getString('reason') ??
-        client.language.get(interaction.guild.preferredLocale, 'NO_REASON');
+        client.language.get(interaction.locale, 'NO_REASON');
 
     if (!member)
         return interaction.reply({
             content: client.language.get(
-                interaction.guild.preferredLocale,
+                interaction.locale,
                 'KICK_MEMBER_MISSING'
             ),
             ephemeral: true
@@ -35,7 +35,7 @@ export async function run(
     if (!member.kickable)
         return interaction.reply({
             content: client.language.get(
-                interaction.guild.preferredLocale,
+                interaction.locale,
                 'KICK_BOT_PERMISSIONS_MISSING'
             ),
             ephemeral: true
@@ -44,7 +44,7 @@ export async function run(
     if (reason.length > 1024) {
         return interaction.reply({
             content: client.language.get(
-                interaction.guild.preferredLocale,
+                interaction.locale,
                 'REASON_LONGER_THAN_1024'
             ),
             ephemeral: true
@@ -61,13 +61,13 @@ export async function run(
     );
 
     await member.kick(
-        client.language.get(interaction.guild.preferredLocale, 'KICK_REASON', {
+        client.language.get(interaction.locale, 'KICK_REASON', {
             user: interaction.user.tag,
             reason
         })
     );
     modLog(client, create, interaction.guild);
-    const embed = new Embed(client, interaction.guild.preferredLocale)
+    const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('KICK_SUCCESS_TITLE')
         .setLocaleDescription('KICK_SUCCESS_DESCRIPTION')
         .setThumbnail(member.displayAvatarURL({ dynamic: true }))

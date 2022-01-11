@@ -22,7 +22,7 @@ export async function run(
         value: c.help.description
     }));
 
-    const embed = new Embed(client, interaction.guild.preferredLocale)
+    const embed = new Embed(client, interaction.locale)
         .setLocaleTitle(
             `HELP_TITLE_${category.toUpperCase()}` as keyof LanguageType
         )
@@ -33,26 +33,20 @@ export async function run(
             .setCustomId(`help:${interaction.user.id}`)
             .setOptions([
                 {
-                    label: client.language.get(
-                        interaction.guild.preferredLocale,
-                        'FUN'
-                    ),
+                    label: client.language.get(interaction.locale, 'FUN'),
                     value: 'fun',
                     emoji: '🎮',
                     default: category === 'fun'
                 },
                 {
-                    label: client.language.get(
-                        interaction.guild.preferredLocale,
-                        'TOOLS'
-                    ),
+                    label: client.language.get(interaction.locale, 'TOOLS'),
                     value: 'tools',
                     emoji: '🛠️',
                     default: category === 'tools'
                 },
                 {
                     label: client.language.get(
-                        interaction.guild.preferredLocale,
+                        interaction.locale,
                         'MODERATION'
                     ),
                     value: 'moderation',

@@ -12,16 +12,13 @@ export async function run(
 
     if (!userCase)
         return interaction.reply({
-            content: client.language.get(
-                interaction.guild.preferredLocale,
-                'CASE_NOT_FOUND'
-            ),
+            content: client.language.get(interaction.locale, 'CASE_NOT_FOUND'),
             ephemeral: true
         });
 
     const user = await client.users.fetch(userCase.user);
     const creator = await client.users.fetch(userCase.creator);
-    const embed = new Embed(client, interaction.guild.preferredLocale)
+    const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('CASE_TITLE', { id })
         .setThumbnail(user.displayAvatarURL({ dynamic: true }))
         .addLocaleField({ name: 'CASE_USER', value: user.tag })
