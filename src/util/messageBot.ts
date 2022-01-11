@@ -7,6 +7,8 @@ export async function messageBot(client: FluorineClient, message: Message) {
     const memberDate = new Date(message.member.joinedTimestamp + 1800000);
     const url = message.content.match(/\bhttps?:\/\/\S+/giu);
     const currentDate = new Date();
+    const words = client.phishing.getWords();
+    const users = client.phishing.getUsers();
 
     const urls = url?.map(link => {
         bot += 5;
@@ -18,7 +20,7 @@ export async function messageBot(client: FluorineClient, message: Message) {
     if (Object.keys(urlResponse).length !== 0) {
         bot += 25;
     }
-    if (client.phishingUsers.includes(message.author.id)) {
+    if (users.includes(message.author.id)) {
         bot += 15;
     }
     if (authorDate > currentDate) {
@@ -33,7 +35,7 @@ export async function messageBot(client: FluorineClient, message: Message) {
     if (!message.author.avatar) {
         bot += 5;
     }
-    client.words
+    words
         .filter(word => message.content.includes(word))
         .forEach(() => (bot += 5));
     return bot;

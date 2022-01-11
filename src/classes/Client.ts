@@ -1,5 +1,4 @@
 import { Client, ColorResolvable, Intents } from 'discord.js';
-import Statcord from 'statcord.js';
 import r from 'rethinkdb';
 import Logger from './Logger';
 import CommandHandler from '@handlers/CommandHandler';
@@ -19,14 +18,9 @@ export default class FluorineClient extends Client {
     footer: string;
     color: ColorResolvable;
     logger: Logger;
-    statcord!: Statcord.Client;
-    generating: boolean;
     cooldown: Set<string>;
     language: LanguageHandler;
-    links: string[];
-    words: string[];
     phishing: PhishingHandler;
-    phishingUsers: string[];
     constructor() {
         super({
             intents: [
@@ -56,8 +50,6 @@ export default class FluorineClient extends Client {
         new EventHandler(this);
         this.cmds = new CommandHandler().loadCommands();
         this.phishing = new PhishingHandler(this);
-        this.words = this.phishing.getWords();
-        this.phishingUsers = this.phishing.getUsers();
         this.logger.log('loaded events and commands');
         this.login(this.config.token).then(() => {
             this.guilds.cache.forEach(async g => {
