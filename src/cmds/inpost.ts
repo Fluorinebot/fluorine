@@ -39,7 +39,8 @@ export async function run(
             })
         )
         .setColor('#ffcb39');
-    if (response.custom_attributes.target_machine_detail_name) {
+    console.log(response);
+    if (response.custom_attributes.target_machine_detail.name) {
         embed.setDescription(
             client.language.get(
                 message.guild.preferredLocale,
