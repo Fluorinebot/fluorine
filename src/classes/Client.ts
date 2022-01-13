@@ -50,7 +50,6 @@ export default class FluorineClient extends Client {
         new EventHandler(this);
         this.cmds = new CommandHandler().loadCommands();
         this.phishing = new PhishingHandler(this);
-        this.logger.log('loaded events and commands');
         this.login(this.config.token).then(() => {
             this.guilds.cache.forEach(async g => {
                 const guild = await r.table('config').get(g.id).run(this.conn);
