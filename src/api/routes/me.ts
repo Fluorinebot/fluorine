@@ -19,13 +19,11 @@ export default async function me(
             .then(async () => {
                 const user = await oauth.getUser(req.cookies.token);
                 if (user.message) {
-                    console.log(user.message);
                     return res.status(401).send('Unauthorized');
                 }
                 res.send(user);
             })
             .catch(e => {
-                console.log(e);
                 res.status(429).send({ error: 'Too Many Requests' });
             });
     });

@@ -27,7 +27,7 @@ export default class OAuthHandler {
                 }
             )
             .catch(e => {
-                console.log(e);
+                // yeah in 99% of cases this is a bad token
             });
         // @ts-ignore
         return returned?.data;
@@ -74,7 +74,7 @@ export default class OAuthHandler {
                 }
             )
             .catch(e => {
-                console.log(e);
+                this.client.logger.error(e);
             });
         // @ts-ignore
         return returned?.data;
