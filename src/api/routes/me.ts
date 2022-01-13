@@ -23,7 +23,7 @@ export default async function me(
                 }
                 res.send(user);
             })
-            .catch(e => {
+            .catch(() => {
                 res.status(429).send({ error: 'Too Many Requests' });
             });
     });

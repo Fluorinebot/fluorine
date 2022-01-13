@@ -26,7 +26,7 @@ export default class OAuthHandler {
                     }
                 }
             )
-            .catch(e => {
+            .catch(() => {
                 // yeah in 99% of cases this is a bad token
             });
         // @ts-ignore
