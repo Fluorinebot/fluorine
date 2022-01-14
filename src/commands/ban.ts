@@ -1,6 +1,6 @@
 import FluorineClient from '../classes/Client';
 import Embed from '../classes/Embed';
-import { ChatInputCommandInteraction } from 'discord.js';
+import { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import createCase from '../util/createCase';
 import r from 'rethinkdb';
@@ -8,7 +8,7 @@ import modLog from '@util/modLog';
 
 export async function run(
     client: FluorineClient,
-    interaction: ChatInputCommandInteraction<'cached'>
+    interaction: CommandInteraction<'cached'>
 ) {
     if (!interaction.member?.permissions.has('BAN_MEMBERS')) {
         return interaction.reply({

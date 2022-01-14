@@ -20,7 +20,7 @@ export async function run(client: FluorineClient, interaction: Interaction) {
         component?.run(client, interaction, value);
     }
 
-    if (!interaction.isChatInputCommand()) return;
+    if (!interaction.isCommand()) return;
 
     if (client.cooldown.has(interaction.user.id)) {
         const coolEmbed = new Embed(client, interaction.locale)

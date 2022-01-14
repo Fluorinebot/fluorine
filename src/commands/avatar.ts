@@ -1,11 +1,11 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { ChatInputCommandInteraction } from 'discord.js';
+import { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 
 export async function run(
     client: FluorineClient,
-    interaction: ChatInputCommandInteraction<'cached'>
+    interaction: CommandInteraction<'cached'>
 ) {
     const member = interaction.options.getMember('user') ?? interaction.member;
 

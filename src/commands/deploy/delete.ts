@@ -1,10 +1,10 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { ChatInputCommandInteraction } from 'discord.js';
+import { CommandInteraction } from 'discord.js';
 
 export async function run(
     client: FluorineClient,
-    interaction: ChatInputCommandInteraction
+    interaction: CommandInteraction
 ) {
     const name = interaction.options.getString('command');
     const guildId = interaction.options.getString('guild');

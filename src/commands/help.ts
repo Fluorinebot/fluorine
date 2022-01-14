@@ -2,7 +2,7 @@ import FluorineClient from '@classes/Client';
 import { LanguageStrings } from 'types/language';
 import Embed from '@classes/Embed';
 import {
-    ChatInputCommandInteraction,
+    CommandInteraction,
     EmbedFieldData,
     MessageActionRow,
     MessageSelectMenu
@@ -10,7 +10,7 @@ import {
 
 export async function run(
     client: FluorineClient,
-    interaction: ChatInputCommandInteraction
+    interaction: CommandInteraction
 ) {
     const category = interaction.options.getString('category');
     const commands = client.cmds.filter(c => c.help.category === category);

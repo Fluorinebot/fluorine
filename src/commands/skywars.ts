@@ -1,11 +1,11 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { ChatInputCommandInteraction } from 'discord.js';
+import { CommandInteraction } from 'discord.js';
 import { HypixelType } from 'types/hypixel';
 import axios from 'axios';
 export async function run(
     client: FluorineClient,
-    interaction: ChatInputCommandInteraction
+    interaction: CommandInteraction
 ) {
     const player = interaction.options.getString('player');
     const uuid = await axios(
