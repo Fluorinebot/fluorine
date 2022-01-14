@@ -28,10 +28,7 @@ export default class FluorineClient extends Client {
     generating: boolean;
     cooldown: Set<string>;
     language: LanguageHandler;
-    links: string[];
-    words: string[];
     phishing: PhishingHandler;
-    phishingUsers: string[];
     constructor() {
         super({
             intents: [
@@ -66,8 +63,6 @@ export default class FluorineClient extends Client {
             new ApplicationCommandHandler().loadCommands();
         this.components = new ComponentHandler().loadComponents();
         this.phishing = new PhishingHandler(this);
-        this.words = this.phishing.getWords();
-        this.phishingUsers = this.phishing.getUsers();
         this.logger.log('loaded events and commands');
         this.login(this.config.token).then(() => {
             this.guilds.cache.forEach(async g => {
