@@ -40,7 +40,7 @@ export async function run(
         }
         interaction.reply('done');
     } catch (error) {
-        const embed = new Embed(client, interaction.guild.preferredLocale)
+        const embed = new Embed(client, interaction.locale)
             .setTitle('fail')
             .setDescription(`\`\`\`js\n${error}\n${error.stack}\`\`\``);
         interaction.reply({ embeds: [embed] });
