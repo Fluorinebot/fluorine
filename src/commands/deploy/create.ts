@@ -52,7 +52,7 @@ export async function run(
                         })
                     )
             );
-            interaction.followUp('done');
+            await interaction.editReply('done');
         } else {
             await rest.post(route, {
                 body: command.data.toJSON()
@@ -63,6 +63,8 @@ export async function run(
         const embed = new Embed(client, interaction.locale)
             .setTitle('fail')
             .setDescription(`\`\`\`js\n${error}\`\`\``);
-        interaction.reply({ embeds: [embed] });
+        interaction.deferred
+            ? interaction.editReply({ embeds: [embed] })
+            : interaction.reply({ embeds: [embed] });
     }
 }

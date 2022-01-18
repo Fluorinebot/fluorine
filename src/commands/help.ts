@@ -14,11 +14,13 @@ export async function run(
     interaction: CommandInteraction
 ) {
     const category = interaction.options.getString('category');
-    const commands = client.cmds.filter(c => c.help.category === category);
+    const commands = client.applicationCommands.filter(
+        c => c.category === category
+    );
 
     const fields: EmbedFieldData[] = commands.map(c => ({
-        name: c.help.name,
-        value: c.help.description
+        name: c.data.name,
+        value: c.data.description
     }));
 
     const embed = new Embed(client, interaction.locale)
@@ -76,9 +78,4 @@ export const data = new SlashCommandBuilder()
             .setRequired(true)
     );
 
-export const help = {
-    name: 'help',
-    description: 'Lista komend',
-    aliases: ['pomoc', 'h'],
-    category: 'tools'
-};
+export const category = 'tools';

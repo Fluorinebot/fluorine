@@ -32,9 +32,4 @@ export const data = new SlashCommandBuilder()
             .setRequired(true)
     );
 
-export const help = {
-    name: '8ball',
-    description: 'Magiczna kula',
-    aliases: [],
-    category: 'fun'
-};
+export const category = 'fun';

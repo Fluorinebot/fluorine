@@ -15,11 +15,13 @@ export async function run(
     interaction: SelectMenuInteraction
 ) {
     const [category] = interaction.values;
-    const commands = client.cmds.filter(c => c.help.category === category);
+    const commands = client.applicationCommands.filter(
+        c => c.category === category
+    );
 
     const fields: EmbedFieldData[] = commands.map(c => ({
-        name: c.help.name,
-        value: c.help.description
+        name: c.data.name,
+        value: c.data.description
     }));
 
     const embed = new Embed(client, interaction.locale)

@@ -92,9 +92,4 @@ export const data = new SlashCommandBuilder()
             .setRequired(true)
     );
 
-export const help = {
-    name: 'kick',
-    description: 'Wyrzuć kogoś z serwera',
-    aliases: ['wyrzuć'],
-    category: 'moderation'
-};
+export const category = 'moderation';

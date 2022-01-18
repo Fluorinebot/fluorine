@@ -97,9 +97,4 @@ export const data = new SlashCommandBuilder()
             .setRequired(true)
     );
 
-export const help = {
-    name: 'bedwars',
-    description: 'Sprawdź statystyki gracza na bedwarsach z hypixel.net',
-    aliases: [],
-    category: 'fun'
-};
+export const category = 'fun';

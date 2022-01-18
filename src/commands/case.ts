@@ -43,9 +43,4 @@ export const data = new SlashCommandBuilder()
             .setRequired(true)
     );
 
-export const help = {
-    name: 'case',
-    description: 'Sprawdź informacje o karze',
-    aliases: ['kara'],
-    category: 'mod'
-};
+export const category = 'moderation';

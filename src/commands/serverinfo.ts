@@ -38,9 +38,4 @@ export const data = new SlashCommandBuilder()
     .setName('serverinfo')
     .setDescription('Information about this server');
 
-export const help = {
-    name: 'serverinfo',
-    description: 'Informacje o serwerze',
-    aliases: ['server', 'si'],
-    category: 'tools'
-};
+export const category = 'tools';

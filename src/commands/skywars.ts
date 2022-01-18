@@ -88,9 +88,4 @@ export const data = new SlashCommandBuilder()
             .setRequired(true)
     );
 
-export const help = {
-    name: 'skywars',
-    description: 'Sprawdź statystyki gracza na skywarsach z hypixel.net',
-    aliases: [],
-    category: 'fun'
-};
+export const category = 'fun';

@@ -40,9 +40,4 @@ export const data = new SlashCommandBuilder()
     .setName('stats')
     .setDescription('Statistics of the bot');
 
-export const help = {
-    name: 'stats',
-    description: 'Statystyki bota',
-    aliases: ['statystyki', 'statistics'],
-    category: 'tools'
-};
+export const category = 'tools';

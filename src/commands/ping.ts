@@ -17,9 +17,4 @@ export const data = new SlashCommandBuilder()
     .setName('ping')
     .setDescription("Check the bot's ping");
 
-export const help = {
-    name: 'ping',
-    description: 'Opóźnienie pomiędzy discordem a botem',
-    aliases: ['opoznienie', 'pong'],
-    category: 'tools'
-};
+export const category = 'tools';

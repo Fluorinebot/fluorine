@@ -25,9 +25,4 @@ export const data = new SlashCommandBuilder()
             .setRequired(false)
     );
 
-export const help = {
-    name: 'avatar',
-    description: 'Pokaż avatar wybranego użytkownika',
-    aliases: ['av'],
-    category: 'tools'
-};
+export const category = 'tools';

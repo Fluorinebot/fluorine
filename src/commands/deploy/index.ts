@@ -38,9 +38,4 @@ export const data = new SlashCommandBuilder()
             )
     );
 
-export const help = {
-    name: 'deploy',
-    description: 'Deploy application commands',
-    aliases: [],
-    category: 'tools'
-};
+export const category = 'tools';
