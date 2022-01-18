@@ -37,21 +37,28 @@ export async function run(
 
     try {
         if (name === 'all') {
+            await interaction.deferReply();
             await Promise.all(
                 client.applicationCommands
-                    .filter(c => c.data.name !== 'all')
+                    .filter(
+                        c =>
+                            c.data &&
+                            c.data.name !== 'deploy' &&
+                            !c.data.name.includes('/')
+                    )
                     .map(command =>
                         rest.post(route, {
                             body: command.data.toJSON()
                         })
                     )
             );
+            interaction.followUp('done');
         } else {
             await rest.post(route, {
                 body: command.data.toJSON()
             });
+            interaction.reply('done');
         }
-        interaction.reply('done');
     } catch (error) {
         const embed = new Embed(client, interaction.locale)
             .setTitle('fail')
