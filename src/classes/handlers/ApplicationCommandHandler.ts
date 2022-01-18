@@ -17,6 +17,7 @@ export default class ApplicationCommandHandler {
                 );
                 subcommands.forEach(async subfile => {
                     const [subname] = subfile.split('.');
+                    if (subname === 'index') return;
                     this.map.set(
                         `${file}/${subname}`,
                         await import(

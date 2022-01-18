@@ -20,7 +20,7 @@ export async function run(
     );
 
     const fields: EmbedFieldData[] = commands.map(c => ({
-        name: c.data.name,
+        name: `/${c.data.name}`,
         value: c.data.description
     }));
 
