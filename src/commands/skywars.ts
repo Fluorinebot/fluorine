@@ -3,6 +3,8 @@ import Embed from '@classes/Embed';
 import { CommandInteraction } from 'discord.js';
 import { HypixelType } from 'types/hypixel';
 import axios from 'axios';
+import { SlashCommandBuilder } from '@discordjs/builders';
+
 export async function run(
     client: FluorineClient,
     interaction: CommandInteraction
@@ -75,6 +77,17 @@ export async function run(
         );
     interaction.reply({ embeds: [embed] });
 }
+
+export const data = new SlashCommandBuilder()
+    .setName('skywars')
+    .setDescription("Check a player's skywars stats from Hypixel")
+    .addStringOption(option =>
+        option
+            .setName('player')
+            .setDescription('The player to search')
+            .setRequired(true)
+    );
+
 export const help = {
     name: 'skywars',
     description: 'Sprawdź statystyki gracza na skywarsach z hypixel.net',

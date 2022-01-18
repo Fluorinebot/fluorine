@@ -4,6 +4,7 @@ import { CommandInteraction } from 'discord.js';
 import createCase from '../util/createCase';
 import r from 'rethinkdb';
 import modLog from '@util/modLog';
+import { SlashCommandBuilder } from '@discordjs/builders';
 export async function run(
     client: FluorineClient,
     interaction: CommandInteraction<'cached'>
@@ -64,6 +65,17 @@ export async function run(
 
     r.table('case').insert(create).run(client.conn);
 }
+
+export const data = new SlashCommandBuilder()
+    .setName('warn')
+    .setDescription('Warn an user from the server')
+    .addUserOption(option =>
+        option
+            .setName('user')
+            .setDescription('Provide an user to warn')
+            .setRequired(true)
+    );
+
 export const help = {
     name: 'warn',
     description: 'Zwarnuj kogoś z serwera',

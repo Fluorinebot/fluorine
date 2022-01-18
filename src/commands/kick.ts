@@ -1,9 +1,11 @@
 import FluorineClient from '../classes/Client';
 import Embed from '../classes/Embed';
 import { CommandInteraction } from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
 import createCase from '../util/createCase';
 import r from 'rethinkdb';
 import modLog from '@util/modLog';
+
 export async function run(
     client: FluorineClient,
     interaction: CommandInteraction<'cached'>
@@ -79,6 +81,17 @@ export async function run(
 
     r.table('case').insert(create).run(client.conn);
 }
+
+export const data = new SlashCommandBuilder()
+    .setName('kick')
+    .setDescription('Kick an user from the server')
+    .addUserOption(option =>
+        option
+            .setName('user')
+            .setDescription('Provide an user to kick')
+            .setRequired(true)
+    );
+
 export const help = {
     name: 'kick',
     description: 'Wyrzuć kogoś z serwera',

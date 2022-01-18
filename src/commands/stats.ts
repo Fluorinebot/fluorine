@@ -4,6 +4,7 @@ import { CommandInteraction } from 'discord.js';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { SlashCommandBuilder } from '@discordjs/builders';
 import('dayjs/locale/pl');
 
 export async function run(
@@ -34,6 +35,11 @@ export async function run(
         });
     interaction.reply({ embeds: [embed] });
 }
+
+export const data = new SlashCommandBuilder()
+    .setName('stats')
+    .setDescription('Statistics of the bot');
+
 export const help = {
     name: 'stats',
     description: 'Statystyki bota',

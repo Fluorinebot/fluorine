@@ -7,6 +7,7 @@ import {
     MessageActionRow,
     MessageSelectMenu
 } from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
 
 export async function run(
     client: FluorineClient,
@@ -59,6 +60,21 @@ export async function run(
         components: [row]
     });
 }
+
+export const data = new SlashCommandBuilder()
+    .setName('help')
+    .setDescription('Display the list of commands')
+    .addStringOption(option =>
+        option
+            .setName('category')
+            .setDescription('The category to display')
+            .addChoices([
+                ['Fun', 'fun'],
+                ['Tools', 'tools'],
+                ['Moderation', 'moderation']
+            ])
+            .setRequired(true)
+    );
 
 export const help = {
     name: 'help',

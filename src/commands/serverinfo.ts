@@ -1,5 +1,6 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
+import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
 
 export async function run(
@@ -32,6 +33,11 @@ export async function run(
         });
     interaction.reply({ embeds: [embed] });
 }
+
+export const data = new SlashCommandBuilder()
+    .setName('serverinfo')
+    .setDescription('Information about this server');
+
 export const help = {
     name: 'serverinfo',
     description: 'Informacje o serwerze',
