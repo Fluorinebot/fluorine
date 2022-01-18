@@ -1,6 +1,7 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { CommandInteraction } from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
 import getCase from '@util/getCase';
 
 export async function run(
@@ -30,6 +31,18 @@ export async function run(
         .addLocaleField({ name: 'CASE_REASON', value: userCase.dscp });
     interaction.reply({ embeds: [embed] });
 }
+
+export const data = new SlashCommandBuilder()
+    .setName('case')
+    .setDescription('Check a moderation case')
+    .addIntegerOption(option =>
+        option
+            .setName('id')
+            .setDescription('The case ID to search')
+            .setMinValue(1)
+            .setRequired(true)
+    );
+
 export const help = {
     name: 'case',
     description: 'Sprawdź informacje o karze',
