@@ -25,7 +25,7 @@
     "homepage": "https://github.com/Xiboon/Fluorine#readme",
     "dependencies": {
         "axios": "^0.24.0",
-        "canvas": "^2.8.0",
+        "canvas": "^2.9.0",
         "cookie-parser": "^1.4.6",
         "discord.js": "^13.6.0",
         "express": "^4.17.2",
