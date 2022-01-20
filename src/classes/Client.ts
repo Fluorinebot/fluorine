@@ -22,8 +22,8 @@ export default class FluorineClient extends Client {
     statcord!: Statcord.Client;
     generating: boolean;
     cooldown: Set<string>;
-    language: LanguageHandler;
     ai: AI;
+    language: LanguageHandler;
     constructor() {
         super({
             intents: [
@@ -42,7 +42,6 @@ export default class FluorineClient extends Client {
         r.connect(this.config.rethink).then(conn => {
             this.conn = conn;
         });
-        this.ai = new AI(this);
         this.version = version;
         this.footer = `Fluorine ${this.version}`;
         this.color = '#3872f2';
@@ -54,6 +53,7 @@ export default class FluorineClient extends Client {
     async init() {
         new EventHandler(this);
         this.cmds = new CommandHandler().loadCommands();
+        this.ai = new AI(this);
         this.logger.log('loaded events and commands');
         this.login(this.config.token).then(() => {
             this.guilds.cache.forEach(async g => {
