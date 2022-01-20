@@ -119,7 +119,7 @@
     "AI_ERROR": "Nasze AI aktualnie nie działa! Spróbuj ponownie za parę minut",
     "AI_LIMIT": "Możesz mieć tylko jedno zapytanie do AI w kolejce na raz!",
     "AI_ARGS": "Nie podałeś tekstu do wygenerowania!",
-    "AI_WAIT": "Dodano twój tekst do kolejki! Jesteś [queue] w kolejce"
+    "AI_WAIT": "Dodano twój tekst do kolejki! Jesteś [queue] w kolejce",
     "PROFILE_SUCCESS": "Sukces!",
     "PROFILE_DESCRIPTION": "Opis",
     "PROFILE_WEBSITE": "Strona WWW",
