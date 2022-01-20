@@ -27,6 +27,7 @@ export default class Logger {
             `0${date.getMinutes()}`.slice(-2),
             `0${date.getSeconds()}`.slice(-2)
         ];
-        console.log(bold(yellow(`${time} WARN`)), msg)
-  }
+        const time = `${hour}:${minutes}:${seconds}`;
+        console.log(bold(yellow(`${time} WARN`)), msg);
+    }
 }

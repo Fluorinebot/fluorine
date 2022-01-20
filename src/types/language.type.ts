@@ -138,7 +138,6 @@ export interface LanguageType {
     BIRB: string;
     DOG: string;
     CAT: string;
-
 }
 
 export type LanguageStrings = keyof LanguageType;
