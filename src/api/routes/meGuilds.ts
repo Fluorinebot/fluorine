@@ -9,6 +9,7 @@ export default async function meGuilds(
     router: Router
 ) {
     router.get('/me/guilds', async (req, res) => {
+        console.log(req.cookies);
         if (!req.cookies.token) {
             return res.status(400).send({ error: 'You need to get a token' });
         }

@@ -37,6 +37,12 @@ export default class OAuthHandler {
             })
         ).json();
         return returned;
+
+            .catch(() => {
+                // h
+            });
+        // @ts-ignore
+        return returned?.data || null;
     }
     async getGuilds(token: string) {
         const returned: any = await (

@@ -6,10 +6,11 @@ export interface ConfigType {
     rethink: ConnectionOptions;
     hypixel: string;
     statcord: string;
+    aiurl: string;
     secret: string;
     redirect_uri: string;
     domain: string;
     cors: string;
-    aiurl: string;
     aitoken: string;
+    safeBrowsing: string;
 }

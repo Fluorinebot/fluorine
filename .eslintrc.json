@@ -91,7 +91,6 @@
         "padded-blocks": ["error", "never"],
         "prefer-arrow-callback": ["error", { "allowUnboundThis": false }],
         "prefer-const": "error",
-        "prefer-destructuring": "error",
         "prefer-numeric-literals": "error",
         "prefer-rest-params": "error",
         "prefer-spread": "error",

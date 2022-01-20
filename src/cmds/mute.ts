@@ -62,8 +62,7 @@ export async function run(
         .addField('Zmutowany przez:', message.author.tag)
         .addField('Zmutowany:', member.user.tag)
         .addField('Powód', reason || 'Brak')
-        .addField('ID kary', create.id.toString())
-        .setFooter(client.footer);
+        .addField('ID kary', create.id.toString());
     message.reply({ embeds: [embed] });
 
     r.table('case').insert(create).run(client.conn);

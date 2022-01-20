@@ -27,22 +27,19 @@ export async function run(
         case 'fun':
             const funEmbed = new Embed(client, message.guild.preferredLocale)
                 .setTitle('4Fun')
-                .setDescription(list.fun)
-                .setFooter(client.footer);
+                .setDescription(list.fun);
             message.reply({ embeds: [funEmbed] });
             break;
         case 'tools':
             const toolEmbed = new Embed(client, message.guild.preferredLocale)
                 .setTitle('Narzędzia')
-                .setDescription(list.tools)
-                .setFooter(client.footer);
+                .setDescription(list.tools);
             message.reply({ embeds: [toolEmbed] });
             break;
         case 'moderation':
             const modEmbed = new Embed(client, message.guild.preferredLocale)
                 .setTitle('Moderacja')
-                .setDescription(list.moderation)
-                .setFooter(client.footer);
+                .setDescription(list.moderation);
 
             message.reply({ embeds: [modEmbed] });
             break;

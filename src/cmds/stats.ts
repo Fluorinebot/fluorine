@@ -3,7 +3,6 @@ import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
 
 export async function run(client: FluorineClient, message: Message) {
-    const uptime = `<t:${client.uptime}:R>`;
     const embed = new Embed(client, message.guild.preferredLocale)
         .setLocaleTitle('STATS_TITLE')
         .addLocaleField({
@@ -20,7 +19,7 @@ export async function run(client: FluorineClient, message: Message) {
         })
         .addLocaleField({
             name: 'STATS_UPTIME',
-            value: uptime
+            value: `<t:${Math.floor((Date.now() - client.uptime) / 1000)}:R>`
         });
     message.reply({ embeds: [embed] });
 }

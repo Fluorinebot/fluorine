@@ -18,7 +18,6 @@ export async function run(
 
     const embed = new Embed(client, message.guild.preferredLocale)
         .setDescription(args.join(' '))
-        .setFooter(client.footer)
         .addLocaleField({
             name: '8BALL_RESPONSE',
             value: responses[Math.floor(Math.random() * responses.length)]

@@ -22,12 +22,10 @@ export default async function oauth(
                     'There was an error! Maybe your discord code is malformed? Try again.'
                 );
         }
-        res.cookie('token', token.access_token, {
-            maxAge: Date.now() + token.expires_in * 1000
-        });
-        res.cookie('refresh_token', token.refresh_token, {
-            maxAge: Date.now() + token.expires_in * 1000
-        });
+        res.header(
+            'Set-Cookie',
+            `token=${token.access_token}; SameSite=None; Secure; Max-Age=${token.expires_in}`
+        );
 
         res.send('done!');
     });

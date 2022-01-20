@@ -1,5 +1,4 @@
 import { Client, ColorResolvable, Intents } from 'discord.js';
-import Statcord from 'statcord.js';
 import r from 'rethinkdb';
 import Logger from './Logger';
 import CommandHandler from '@handlers/CommandHandler';
@@ -10,6 +9,7 @@ import LanguageHandler from './handlers/LanguageHandler';
 import AI from './AI';
 // @ts-ignore
 import { version } from '../../package.json';
+import PhishingHandler from './handlers/PhishingHandler';
 
 export default class FluorineClient extends Client {
     conn!: r.Connection;
@@ -19,11 +19,10 @@ export default class FluorineClient extends Client {
     footer: string;
     color: ColorResolvable;
     logger: Logger;
-    statcord!: Statcord.Client;
-    generating: boolean;
     cooldown: Set<string>;
     ai: AI;
     language: LanguageHandler;
+    phishing: PhishingHandler;
     constructor() {
         super({
             intents: [
@@ -46,7 +45,6 @@ export default class FluorineClient extends Client {
         this.footer = `Fluorine ${this.version}`;
         this.color = '#3872f2';
         this.logger = new Logger();
-        this.generating = false;
         this.cooldown = new Set();
         this.language = new LanguageHandler();
     }
@@ -54,6 +52,7 @@ export default class FluorineClient extends Client {
         new EventHandler(this);
         this.cmds = new CommandHandler().loadCommands();
         this.ai = new AI(this);
+        this.phishing = new PhishingHandler(this);
         this.logger.log('loaded events and commands');
         this.login(this.config.token).then(() => {
             this.guilds.cache.forEach(async g => {
@@ -67,15 +66,6 @@ export default class FluorineClient extends Client {
             this.logger.log(
                 `Loaded ${this.cmds.size} commands, checked ${this.guilds.cache.size} guilds`
             );
-            // eslint-disable-next-line @typescript-eslint/no-this-alias
-            const client = this;
-            this.statcord = new Statcord.Client({
-                client,
-                key: client.config.statcord,
-                postCpuStatistics: true,
-                postMemStatistics: true,
-                postNetworkStatistics: false
-            });
         });
 
         process.on('unhandledRejection', (error: Error) => {
