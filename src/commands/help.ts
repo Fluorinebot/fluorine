@@ -8,6 +8,7 @@ import {
     MessageSelectMenu
 } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { Category } from 'types/applicationCommand';
 
 export async function run(
     client: FluorineClient,
@@ -78,4 +79,4 @@ export const data = new SlashCommandBuilder()
             .setRequired(true)
     );
 
-export const category = 'tools';
+export const category: Category = 'tools';

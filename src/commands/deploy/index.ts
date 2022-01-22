@@ -1,4 +1,5 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { Category } from 'types/applicationCommand';
 
 export const data = new SlashCommandBuilder()
     .setName('deploy')
@@ -38,4 +39,4 @@ export const data = new SlashCommandBuilder()
             )
     );
 
-export const category = 'tools';
+export const category: Category = 'tools';

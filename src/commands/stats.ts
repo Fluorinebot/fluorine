@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { Category } from 'types/applicationCommand';
 import('dayjs/locale/pl');
 
 export async function run(
@@ -40,4 +41,4 @@ export const data = new SlashCommandBuilder()
     .setName('stats')
     .setDescription('Statistics of the bot');
 
-export const category = 'tools';
+export const category: Category = 'tools';

@@ -2,6 +2,7 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
+import { Category } from 'types/applicationCommand';
 
 export async function run(
     client: FluorineClient,
@@ -17,4 +18,4 @@ export const data = new SlashCommandBuilder()
     .setName('ping')
     .setDescription("Check the bot's ping");
 
-export const category = 'tools';
+export const category: Category = 'tools';

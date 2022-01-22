@@ -5,6 +5,7 @@ import createCase from '../util/createCase';
 import r from 'rethinkdb';
 import modLog from '@util/modLog';
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { Category } from 'types/applicationCommand';
 export async function run(
     client: FluorineClient,
     interaction: CommandInteraction<'cached'>
@@ -76,4 +77,4 @@ export const data = new SlashCommandBuilder()
             .setRequired(true)
     );
 
-export const category = 'moderation';
+export const category: Category = 'moderation';

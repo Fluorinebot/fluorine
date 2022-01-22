@@ -3,6 +3,7 @@ import Embed from '@classes/Embed';
 import { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import getCase from '@util/getCase';
+import { Category } from 'types/applicationCommand';
 
 export async function run(
     client: FluorineClient,
@@ -43,4 +44,4 @@ export const data = new SlashCommandBuilder()
             .setRequired(true)
     );
 
-export const category = 'moderation';
+export const category: Category = 'moderation';

@@ -4,6 +4,7 @@ import { CommandInteraction } from 'discord.js';
 import { HypixelType } from 'types/hypixel';
 import axios from 'axios';
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { Category } from 'types/applicationCommand';
 
 export async function run(
     client: FluorineClient,
@@ -88,4 +89,4 @@ export const data = new SlashCommandBuilder()
             .setRequired(true)
     );
 
-export const category = 'fun';
+export const category: Category = 'fun';

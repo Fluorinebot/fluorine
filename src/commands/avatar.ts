@@ -2,6 +2,7 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { Category } from 'types/applicationCommand';
 
 export async function run(
     client: FluorineClient,
@@ -25,4 +26,4 @@ export const data = new SlashCommandBuilder()
             .setRequired(false)
     );
 
-export const category = 'tools';
+export const category: Category = 'tools';
