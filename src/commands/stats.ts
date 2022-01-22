@@ -1,21 +1,13 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { CommandInteraction } from 'discord.js';
-import dayjs from 'dayjs';
-import duration from 'dayjs/plugin/duration';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { Category } from 'types/applicationCommand';
-import('dayjs/locale/pl');
 
 export async function run(
     client: FluorineClient,
     interaction: CommandInteraction
 ) {
-    dayjs.extend(duration);
-    dayjs.extend(relativeTime);
-    dayjs.locale(interaction.locale);
-    const uptime = dayjs.duration(client.uptime).humanize();
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('STATS_TITLE')
         .addLocaleField({
@@ -32,7 +24,7 @@ export async function run(
         })
         .addLocaleField({
             name: 'STATS_UPTIME',
-            value: uptime
+            value: `<t:${Math.floor((Date.now() - client.uptime) / 1000)}:R>`
         });
     interaction.reply({ embeds: [embed] });
 }
