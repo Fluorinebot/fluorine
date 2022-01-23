@@ -1,54 +1,54 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { Message } from 'discord.js';
+import { CommandInteraction } from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
 import { HypixelType } from 'types/hypixel';
 import axios from 'axios';
+import { Category } from 'types/applicationCommand';
+
 export async function run(
     client: FluorineClient,
-    message: Message,
-    args: string[]
+    interaction: CommandInteraction
 ) {
-    if (!args[0])
-        return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'HYPIXEL_NO_ARGS',
-                { command: 'bedwars' }
-            )
-        );
-
+    const player = interaction.options.getString('player');
     const uuid = await axios(
-        `https://api.mojang.com/users/profiles/minecraft/${args[0]}`
-    );
-    if (!uuid.data.id)
-        return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
+        `https://api.mojang.com/users/profiles/minecraft/${player}`
+    ).catch(() => null);
+
+    if (!uuid)
+        return interaction.reply({
+            content: client.language.get(
+                interaction.locale,
                 'HYPIXEL_INVALID_PLAYER'
-            )
-        );
+            ),
+            ephemeral: true
+        });
 
     const { data }: { data: HypixelType } = await axios(
         `https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${client.config.hypixel}`
-    );
-    const bedStats = data.player?.stats?.Bedwars;
+    ).catch(() => ({ data: null }));
+
+    const bedStats = data?.player?.stats?.Bedwars;
     if (!bedStats) {
-        return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
+        return interaction.reply({
+            content: client.language.get(
+                interaction.locale,
                 'HYPIXEL_PLAYER_NOT_FOUND'
-            )
-        );
+            ),
+            ephemeral: true
+        });
     }
 
-    const kd = (bedStats.kills_bedwars / bedStats.deaths_bedwars).toFixed(2);
-    const winratio = (bedStats.wins_bedwars / bedStats.losses_bedwars).toFixed(
-        2
+    const kd = Number(
+        (bedStats.kills_bedwars / bedStats.deaths_bedwars).toFixed(2)
     );
-    const bedEmbed = new Embed(client, message.guild.preferredLocale)
-        .setLocaleTitle('HYPIXEL_STATISTICS_TITLE', {
-            player: args[0]
-        })
+
+    const winratio = Number(
+        (bedStats.wins_bedwars / bedStats.losses_bedwars).toFixed(2)
+    );
+
+    const bedEmbed = new Embed(client, interaction.locale)
+        .setLocaleTitle('HYPIXEL_STATISTICS_TITLE', { player })
         .setDescription(`K/D: ${kd}\n Win/loss ratio: ${winratio}`)
         .addLocaleField({
             name: 'HYPIXEL_WON_GAMES',
@@ -85,11 +85,17 @@ export async function run(
         .setThumbnail(
             `https://crafatar.com/avatars/${uuid.data.id}?default=MHF_Steve&overlay`
         );
-    message.reply({ embeds: [bedEmbed] });
+    interaction.reply({ embeds: [bedEmbed] });
 }
-export const help = {
-    name: 'bedwars',
-    description: 'Sprawdź statystyki gracza na bedwarsach z hypixel.net',
-    aliases: [],
-    category: 'fun'
-};
+
+export const data = new SlashCommandBuilder()
+    .setName('bedwars')
+    .setDescription("Check a player's bedwars stats from Hypixel")
+    .addStringOption(option =>
+        option
+            .setName('player')
+            .setDescription('The player to search')
+            .setRequired(true)
+    );
+
+export const category: Category = 'fun';

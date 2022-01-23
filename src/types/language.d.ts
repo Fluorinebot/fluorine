@@ -9,6 +9,7 @@ export interface LanguageType {
     BAN_BOT_PERMISSIONS_MISSING: string;
     BAN_ARGUMENTS_MISSING: string;
     BAN_MEMBER_MISSING: string;
+    BAN_ERROR_YOURSELF: string;
     BAN_SUCCESS_TITLE: string;
     BAN_SUCCESS_DESCRIPTION: string;
     BAN_MODERATOR: string;
@@ -16,7 +17,7 @@ export interface LanguageType {
     PUNISHMENT_ID: string;
     BAN_REASON: string;
     REASON: string;
-    NO_REASON: string;
+    NONE: string;
     REASON_LONGER_THAN_1024: string;
     HYPIXEL_INVALID_PLAYER: string;
     HYPIXEL_NO_ARGS: string;
@@ -33,6 +34,7 @@ export interface LanguageType {
     KICK: string;
     WARN: string;
     MUTE: string;
+    TIMEOUT: string;
     CASE_INVALID_CASE_ID: string;
     CASE_NOT_FOUND: string;
     CASE_TITLE: string;
@@ -41,10 +43,17 @@ export interface LanguageType {
     CASE_MODERATOR: string;
     CASE_TYPE: string;
     CASE_REASON: string;
+    FUN: string;
+    HELP_TITLE_FUN: string;
+    TOOLS: string;
+    HELP_TITLE_TOOLS: string;
+    MODERATION: string;
+    HELP_TITLE_MODERATION: string;
     KICK_PERMISSIONS_MISSING: string;
     KICK_BOT_PERMISSIONS_MISSING: string;
     KICK_ARGUMENTS_MISSING: string;
     KICK_MEMBER_MISSING: string;
+    KICK_ERROR_YOURSELF: string;
     KICK_SUCCESS_TITLE: string;
     KICK_SUCCESS_DESCRIPTION: string;
     KICK_MODERATOR: string;
@@ -107,6 +116,7 @@ export interface LanguageType {
     MESSAGE_CREATE_COOLDOWN_DESCRIPTION: string;
     MESSAGE_CREATE_DESCRIPTION: string;
     MESSAGE_CREATE_DM: string;
+    COMPONENT_PRIVATE: string;
     HOWGAY: string;
     HOWGAY_ARGS: string;
     PROFILE_DESCRIPTION: string;
@@ -132,6 +142,17 @@ export interface LanguageType {
     BIRB: string;
     DOG: string;
     CAT: string;
+    DURATION: string;
+    TIMEOUT_PERMISSIONS_MISSING: string;
+    TIMEOUT_BOT_PERMISSIONS_MISSING: string;
+    TIMEOUT_MEMBER_MISSING: string;
+    TIMEOUT_ERROR_YOURSELF: string;
+    TIMEOUT_DURATION_INVALID: string;
+    TIMEOUT_SUCCESS_TITLE: string;
+    TIMEOUT_SUCCESS_DESCRIPTION: string;
+    TIMEOUT_MODERATOR: string;
+    TIMEOUT_USER: string;
+    TIMEOUT_REASON: string;
 }
 
 export type LanguageStrings = keyof LanguageType;
