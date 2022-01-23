@@ -41,5 +41,14 @@ export async function run(client: FluorineClient, interaction: Interaction) {
           )
         : client.applicationCommands.get(interaction.commandName);
 
-    command?.run(client, interaction);
+    if (!command) return;
+
+    const { dev } = client.applicationCommands.get(interaction.commandName);
+    if (dev && !client.devs.includes(interaction.user.id))
+        return interaction.reply({
+            content: 'You need to be a developer to do that!',
+            ephemeral: true
+        });
+
+    command.run(client, interaction);
 }

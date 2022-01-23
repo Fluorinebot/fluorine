@@ -8,4 +8,5 @@ export interface ApplicationCommand {
     run: (client: FluorineClient, interaction: CommandInteraction) => void;
     data: SlashCommandBuilder;
     category: Category;
+    dev?: boolean;
 }

@@ -14,17 +14,6 @@ export async function run(
     const guildId = interaction.options.getString('guild');
     const command = client.applicationCommands.get(name);
 
-    if (
-        !['707675871355600967', '478823932913516544'].includes(
-            interaction.user.id
-        )
-    ) {
-        return interaction.reply({
-            content: "You don't have perms LOOOOOL",
-            ephemeral: true
-        });
-    }
-
     if (!command && name !== 'all')
         return interaction.reply({
             content: 'Command not found',

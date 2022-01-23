@@ -40,3 +40,4 @@ export const data = new SlashCommandBuilder()
     );
 
 export const category: Category = 'tools';
+export const dev = true;
