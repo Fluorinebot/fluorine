@@ -34,6 +34,7 @@ export interface LanguageType {
     KICK: string;
     WARN: string;
     MUTE: string;
+    TIMEOUT: string;
     CASE_INVALID_CASE_ID: string;
     CASE_NOT_FOUND: string;
     CASE_TITLE: string;
@@ -141,6 +142,16 @@ export interface LanguageType {
     BIRB: string;
     DOG: string;
     CAT: string;
+    TIMEOUT_PERMISSIONS_MISSING: string;
+    TIMEOUT_BOT_PERMISSIONS_MISSING: string;
+    TIMEOUT_MEMBER_MISSING: string;
+    TIMEOUT_ERROR_YOURSELF: string;
+    TIMEOUT_DURATION_INVALID: string;
+    TIMEOUT_SUCCESS_TITLE: string;
+    TIMEOUT_SUCCESS_DESCRIPTION: string;
+    TIMEOUT_MODERATOR: string;
+    TIMEOUT_USER: string;
+    TIMEOUT_REASON: string;
 }
 
 export type LanguageStrings = keyof LanguageType;

@@ -39,6 +39,7 @@
     "KICK": "Kick",
     "WARN": "Warn",
     "MUTE": "Mute",
+    "TIMEOUT": "Timeout",
     "CASE_INVALID_CASE_ID": "You provided an invalid punishment ID",
     "CASE_NOT_FOUND": "There doesn't exist a punishment with that ID",
     "CASE_TITLE": "Case #[id]",
@@ -158,5 +159,15 @@
     "ANTIBOT_REASON": "User detected as a bot! \nConfidence that the user is a bot: [factor]%",
     "BIRB": "Random birb",
     "DOG": "Random dog",
-    "CAT": "Random cat"
+    "CAT": "Random cat",
+    "TIMEOUT_PERMISSIONS_MISSING": "You don't have the permissions needed to timeout a member!",
+    "TIMEOUT_BOT_PERMISSIONS_MISSING": "I can't timeout this member, I don't have the permissions needed to timeout!",
+    "TIMEOUT_MEMBER_MISSING": "The member that you want to timeout doesn't exist!",
+    "TIMEOUT_ERROR_YOURSELF": "You can't timeout yourself!",
+    "TIMEOUT_DURATION_INVALID": "The duration you provided is invalid!",
+    "TIMEOUT_SUCCESS_TITLE": "Timed out!",
+    "TIMEOUT_SUCCESS_DESCRIPTION": "Successfully timed out a member!",
+    "TIMEOUT_MODERATOR": "Timed out by",
+    "TIMEOUT_USER": "Timed out",
+    "TIMEOUT_REASON": "Timed out by [user] for [reason]"
 }

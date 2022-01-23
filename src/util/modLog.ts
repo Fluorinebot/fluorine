@@ -32,6 +32,7 @@ export default async function modLog(
                     | 'KICK'
                     | 'WARN'
                     | 'MUTE'
+                    | 'TIMEOUT'
             });
 
         const channel = client.channels.cache.get(settings.logsChannel);
