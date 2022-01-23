@@ -24,8 +24,7 @@ export async function run(client: FluorineClient, message: Message) {
         .addLocaleField({
             name: 'SERVER_INFO_ROLES',
             value: `${message.guild?.roles.cache.size}`
-        })
-        .setFooter(client.footer);
+        });
     message.reply({ embeds: [embed] });
 }
 export const help = {

@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import FluorineClient from '@classes/Client';
-import axios from 'axios';
+import { fetch } from 'undici';
 export default class OAuthHandler {
     scopes: string[];
     client: FluorineClient;
@@ -9,10 +9,10 @@ export default class OAuthHandler {
         this.client = client;
     }
     async getToken(code: string) {
-        const returned = await axios
-            .post(
-                'https://discord.com/api/oauth2/token',
-                new URLSearchParams({
+        const returned: any = await (
+            await fetch('https://discord.com/api/oauth2/token', {
+                method: 'POST',
+                body: new URLSearchParams({
                     client_id: this.client.user.id,
                     client_secret: this.client.config.secret,
                     grant_type: 'authorization_code',
@@ -20,62 +20,48 @@ export default class OAuthHandler {
                     scope: this.scopes.join(),
                     redirect_uri: this.client.config.redirect_uri
                 }),
-                {
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 }
-            )
-            .catch(e => {
-                console.log(e);
-            });
+            })
+        ).json();
         // @ts-ignore
-        return returned?.data;
+        return returned;
     }
     async getUser(token: string) {
-        const returned = await axios
-            .get('https://discord.com/api/users/@me', {
+        const returned: any = await (
+            await fetch('https://discord.com/api/users/@me', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })
-
-            .catch(() => {
-                // h
-            });
-        // @ts-ignore
-        return returned?.data || null;
+        ).json();
+        return returned;
     }
     async getGuilds(token: string) {
-        const returned = await axios.get(
-            'https://discord.com/api/users/@me/guilds',
-            {
+        const returned: any = await (
+            await fetch('https://discord.com/api/users/@me/guilds', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
-            }
-        );
-        return returned?.data;
+            })
+        ).json();
+        return returned;
     }
     async refreshToken(refresh_token: string) {
-        const returned = await axios
-            .post(
-                'https://discord.com/api/oauth2/token',
-                new URLSearchParams({
+        const returned: any = await (
+            await fetch('https://discord.com/api/oauth2/token', {
+                body: new URLSearchParams({
                     client_id: this.client.user.id,
                     client_secret: this.client.config.secret,
                     grant_type: 'refresh_token',
                     refresh_token
                 }),
-                {
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 }
-            )
-            .catch(e => {
-                console.log(e);
-            });
+            })
+        ).json();
         // @ts-ignore
         return returned?.data;
     }
