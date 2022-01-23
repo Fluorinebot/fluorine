@@ -108,5 +108,11 @@ export async function run(client: FluorineClient, message: Message) {
     const code = client.cmds.get(command);
     if (!code) return message.react('❌');
 
+    const random = Math.floor(Math.random() * 20) + 1;
+    if (random === 20)
+        message.channel.send(
+            '<:SlashCommands:934768130474004500> Use Slash Commands!\nFluorine will stop responding to prefix commands soon!'
+        );
+
     code.run(client, message, args);
 }
