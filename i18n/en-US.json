@@ -22,7 +22,7 @@
     "PUNISHMENT_ID": "Punishment ID",
     "BAN_REASON": "Banned by [user] for [reason]",
     "REASON": "Reason",
-    "NO_REASON": "None",
+    "NONE": "None",
     "REASON_LONGER_THAN_1024": "Reason can't be longer than 1024 characters",
     "HYPIXEL_INVALID_PLAYER": "You provided an invalid user!",
     "HYPIXEL_NO_ARGS": "You need to provide a player! Correct use: [command] <player>",

@@ -17,7 +17,7 @@ export interface LanguageType {
     PUNISHMENT_ID: string;
     BAN_REASON: string;
     REASON: string;
-    NO_REASON: string;
+    NONE: string;
     REASON_LONGER_THAN_1024: string;
     HYPIXEL_INVALID_PLAYER: string;
     HYPIXEL_NO_ARGS: string;

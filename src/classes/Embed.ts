@@ -42,11 +42,10 @@ export default class Embed extends MessageEmbed {
     public addLocaleField(field: LocaleFieldOptions): this {
         return super.addField(
             this.language.get(this.locale, field.name, field.args).toString(),
-            field.localeValue
-                ? this.language
-                      .get(this.locale, field.localeValue, field.valueArgs)
-                      .toString()
-                : field.value,
+            field.value ||
+                this.language
+                    .get(this.locale, field.localeValue, field.valueArgs)
+                    .toString(),
             field.inline
         );
     }

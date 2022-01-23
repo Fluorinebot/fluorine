@@ -24,7 +24,7 @@ export async function run(
     const member = interaction.options.getMember('user');
     const reason =
         interaction.options.getString('reason') ??
-        client.language.get(interaction.locale, 'NO_REASON');
+        client.language.get(interaction.locale, 'NONE');
 
     if (!member)
         return interaction.reply({

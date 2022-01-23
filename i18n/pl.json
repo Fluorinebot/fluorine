@@ -22,7 +22,7 @@
     "PUNISHMENT_ID": "ID kary",
     "BAN_REASON": "Zbanowano przez [user] z powodu: [reason]",
     "REASON": "Powód",
-    "NO_REASON": "Brak",
+    "NONE": "Brak",
     "REASON_LONGER_THAN_1024": "Powód nie może być dłuższy niż 1024",
     "HYPIXEL_INVALID_PLAYER": "Podano nieprawidłowego użytkownika!",
     "HYPIXEL_NO_ARGS": "Musisz podać gracza! Prawidłowe użycie: [command] <gracz>",

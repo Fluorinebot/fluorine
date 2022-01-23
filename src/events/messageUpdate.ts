@@ -27,10 +27,12 @@ export async function run(
         })
         .addLocaleField({
             name: 'MESSAGE_UPDATE_OLD_CONTENT',
+            localeValue: 'NONE',
             value: oldMessage.content
         })
         .addLocaleField({
             name: 'MESSAGE_UPDATE_NEW_CONTENT',
+            localeValue: 'NONE',
             value: newMessage.content
         });
 
