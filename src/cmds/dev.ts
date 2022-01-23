@@ -3,7 +3,6 @@ import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
 import clean from '@util/clean';
 import { execSync } from 'child_process';
-import { transpile, transpileModule } from 'typescript';
 export async function run(
     client: FluorineClient,
     message: Message,
@@ -16,29 +15,10 @@ export async function run(
         return message.reply('ta komenda jest dostepna tylko dla developerow');
     }
     if (args.includes('client.token')) return message.reply('you wish');
-    let codex: any = args.join(' ').replaceAll('```js', '');
-    if (codex.indexOf('```ts') !== -1) {
-        codex = codex.replaceAll('```ts', '').replaceAll('```', '');
-        codex = transpileModule(codex, {});
-        console.log(codex);
-        try {
-            const evaled = eval(codex);
-            const cleant = await clean(client, evaled);
-            const embed = new Embed(client, message.guild.preferredLocale)
-                .setTitle('Done!')
-                .setDescription(`\`\`\`js\n${cleant}\n\`\`\``);
-            message.reply({ embeds: [embed] });
-            return message.react('✅');
-        } catch (err) {
-            const errorEmbed = new Embed(client, message.guild.preferredLocale)
-                .setTitle('Error')
-                .setDescription(
-                    `\`\`\`xl\n${await clean(client, err)}\n\`\`\``
-                );
-            message.reply({ embeds: [errorEmbed] });
-            return message.react('❌');
-        }
-    }
+    let codex: any = args
+        .join(' ')
+        .replaceAll('```js', '')
+        .replaceAll('```ts', '');
     if (codex.indexOf('```sh') !== -1) {
         codex = codex.replaceAll('```sh', '').replaceAll('```', '');
         const output = execSync(codex).toString();

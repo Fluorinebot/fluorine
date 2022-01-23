@@ -12,11 +12,9 @@ import ComponentHandler from '@handlers/ComponentHandler';
 import EventHandler from '@handlers/EventHandler';
 import LanguageHandler from '@handlers/LanguageHandler';
 import PhishingHandler from '@handlers/PhishingHandler';
-import EconomyHandler from './handlers/EconomyHandler';
+import EconomyHandler from '@handlers/EconomyHandler';
 import { ApplicationCommand } from 'types/applicationCommand';
 import AI from './AI';
-// @ts-ignore
-import { version } from '../../package.json';
 
 export default class FluorineClient extends Client {
     applicationCommands!: Collection<string, ApplicationCommand>;
