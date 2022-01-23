@@ -1,7 +1,7 @@
-import { CanvasRenderingContext2D } from 'canvas';
+import { NodeCanvasRenderingContext2D } from 'canvas';
 
 export default function fragmentText(
-    ctx: CanvasRenderingContext2D,
+    ctx: NodeCanvasRenderingContext2D,
     text: string,
     maxWidth: number
 ) {

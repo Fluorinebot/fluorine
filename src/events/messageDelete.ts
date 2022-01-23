@@ -2,7 +2,7 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
 import r from 'rethinkdb';
-import { SettingsType } from 'types/settings';
+import { SettingsType } from 'types/settings.type';
 export async function run(client: FluorineClient, message: Message) {
     if (!message.content) return;
     // @ts-ignore
@@ -15,7 +15,7 @@ export async function run(client: FluorineClient, message: Message) {
     if (!channel.isText()) return;
     const embed = new Embed(client, message.guild.preferredLocale)
         .setLocaleTitle('MESSAGE_DELETE_TITLE')
-        .setThumbnail(message.member.displayAvatarURL({ dynamic: true }))
+        .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
         .addLocaleField({
             name: 'MESSAGE_DELETE_AUTHOR',
             value: message.author.tag

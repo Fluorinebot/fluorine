@@ -98,7 +98,6 @@ export async function run(
                 if (!args[2]) {
                     break;
                 }
-                // eslint-disable-next-line prefer-destructuring
                 const birthday = args[2];
                 let [day, month]: any = birthday.split('/');
                 day = parseInt(day) || 0;
@@ -168,7 +167,6 @@ export async function run(
                 message.reply({ embeds: [locEmbed] });
                 break;
             case 'pronouns':
-                // eslint-disable-next-line prefer-destructuring
                 const pronouns = args[2];
                 if (
                     !pronouns ||

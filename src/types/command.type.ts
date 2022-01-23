@@ -1,7 +1,7 @@
 import FluorineClient from '@classes/Client';
 import { Message } from 'discord.js';
 
-export interface Command {
+export interface command {
     run: (client: FluorineClient, message: Message, args: string[]) => void;
     help: {
         name: string;
