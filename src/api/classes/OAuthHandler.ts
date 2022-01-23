@@ -8,26 +8,6 @@ export default class OAuthHandler {
         this.scopes = scopes;
         this.client = client;
     }
-    async getToken(code: string): Promise<any> {
-        const returned = await fetch('https://discord.com/api/oauth2/token', {
-            method: 'POST',
-            body: new URLSearchParams({
-                client_id: this.client.user.id,
-                client_secret: this.client.config.secret,
-                grant_type: 'authorization_code',
-                code,
-                scope: this.scopes.join(),
-                redirect_uri: this.client.config.redirect_uri
-            }),
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        }).catch(e => {
-            console.log(e);
-        });
-        // @ts-ignore
-        return returned?.data.json();
-    }
     async getUser(token: string): Promise<any> {
         const returned = await fetch('https://discord.com/api/users/@me', {
             headers: {
@@ -80,8 +60,7 @@ export default class OAuthHandler {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
-        });
-        ).then(res => res.json());
+        }).then(res => res.json());
         return returned;
     }
 }
