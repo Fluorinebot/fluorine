@@ -109,6 +109,12 @@ export interface LanguageType {
     MESSAGE_CREATE_DM: string;
     HOWGAY: string;
     HOWGAY_ARGS: string;
+    AI_TITLE: string;
+    AI_DESCRIPTION: string;
+    AI_ERROR: string;
+    AI_LIMIT: string;
+    AI_ARGS: string;
+    AI_WAIT: string;
     PROFILE_DESCRIPTION: string;
     PROFILE_WEBSITE: string;
     PROFILE_BIRTHDAY: string;
@@ -128,6 +134,10 @@ export interface LanguageType {
     PROFILE_INVALID_LOCATION: string;
     PROFILE_INVALID_OPTION: string;
     MONTHS: string[];
+    ANTIBOT_REASON: string;
+    BIRB: string;
+    DOG: string;
+    CAT: string;
 }
 
 export type LanguageStrings = keyof LanguageType;

@@ -34,8 +34,7 @@ export async function run(
     } catch (err) {
         const errorEmbed = new Embed(client, message.guild.preferredLocale)
             .setTitle('Error')
-            .setDescription(`\`\`\`xl\n${await clean(client, err)}\n\`\`\``)
-            .setFooter(client.footer);
+            .setDescription(`\`\`\`xl\n${await clean(client, err)}\n\`\`\``);
         message.reply({ embeds: [errorEmbed] });
         message.react('❌');
     }
