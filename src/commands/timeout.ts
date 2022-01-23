@@ -86,7 +86,7 @@ export async function run(
 
     await member.timeout(
         duration,
-        client.language.get(interaction.locale, 'KICK_REASON', {
+        client.language.get(interaction.locale, 'TIMEOUT_REASON', {
             user: interaction.user.tag,
             reason
         })
