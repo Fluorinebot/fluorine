@@ -21,16 +21,14 @@ export default class AI {
     }
     async generate(): Promise<any> {
         const [{ object, text }] = this.queue;
-        const ai: any = await (
-            await fetch(
-                `${this.client.config.aiurl}/${text}?token=${this.client.config.aitoken}`
-            ).catch(err => {
+        const ai: any = await fetch(
+            `${this.client.config.aiurl}/${text}?token=${this.client.config.aitoken}`
+        )
+            .catch(err => {
                 this.isGenerating = false;
                 return err;
             })
-        )
-            // @ts-ignore
-            .json();
+            .then(res => res.json());
         if (!ai.result) {
             return object.reply(
                 this.client.language.get(
