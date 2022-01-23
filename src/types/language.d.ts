@@ -119,6 +119,12 @@ export interface LanguageType {
     COMPONENT_PRIVATE: string;
     HOWGAY: string;
     HOWGAY_ARGS: string;
+    AI_TITLE: string;
+    AI_DESCRIPTION: string;
+    AI_ERROR: string;
+    AI_LIMIT: string;
+    AI_ARGS: string;
+    AI_WAIT: string;
     PROFILE_DESCRIPTION: string;
     PROFILE_WEBSITE: string;
     PROFILE_BIRTHDAY: string;

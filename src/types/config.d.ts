@@ -10,5 +10,6 @@ export interface ConfigType {
     redirect_uri: string;
     domain: string;
     cors: string;
+    aitoken: string;
     safeBrowsing: string;
 }

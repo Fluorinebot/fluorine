@@ -10,6 +10,7 @@ import { ApplicationCommand } from 'types/applicationCommand';
 import { Component } from 'types/component';
 import { ConfigType } from 'types/config';
 import LanguageHandler from './handlers/LanguageHandler';
+import AI from './AI';
 // @ts-ignore
 import { version } from '../../package.json';
 import PhishingHandler from './handlers/PhishingHandler';
@@ -28,6 +29,7 @@ export default class FluorineClient extends Client {
     logger: Logger;
     generating: boolean;
     cooldown: Set<string>;
+    ai: AI;
     language: LanguageHandler;
     phishing: PhishingHandler;
     constructor() {
@@ -61,6 +63,7 @@ export default class FluorineClient extends Client {
     async init() {
         new EventHandler(this);
         this.cmds = new CommandHandler().loadCommands();
+        this.ai = new AI(this);
         this.applicationCommands =
             new ApplicationCommandHandler().loadCommands();
         this.components = new ComponentHandler().loadComponents();
