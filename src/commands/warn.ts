@@ -34,6 +34,15 @@ export async function run(
             ephemeral: true
         });
 
+    if (member.user.id === interaction.user.id)
+        return interaction.reply({
+            content: client.language.get(
+                interaction.locale,
+                'WARN_ERROR_YOURSELF'
+            ),
+            ephemeral: true
+        });
+
     if (reason.length > 1024) {
         return interaction.reply({
             content: client.language.get(
@@ -75,6 +84,12 @@ export const data = new SlashCommandBuilder()
             .setName('user')
             .setDescription('Provide an user to warn')
             .setRequired(true)
+    )
+    .addStringOption(option =>
+        option
+            .setName('reason')
+            .setDescription('Provide a reason for warning this user')
+            .setRequired(false)
     );
 
 export const category: Category = 'moderation';

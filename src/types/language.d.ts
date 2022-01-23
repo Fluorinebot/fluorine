@@ -9,6 +9,7 @@ export interface LanguageType {
     BAN_BOT_PERMISSIONS_MISSING: string;
     BAN_ARGUMENTS_MISSING: string;
     BAN_MEMBER_MISSING: string;
+    BAN_ERROR_YOURSELF: string;
     BAN_SUCCESS_TITLE: string;
     BAN_SUCCESS_DESCRIPTION: string;
     BAN_MODERATOR: string;
@@ -51,6 +52,7 @@ export interface LanguageType {
     KICK_BOT_PERMISSIONS_MISSING: string;
     KICK_ARGUMENTS_MISSING: string;
     KICK_MEMBER_MISSING: string;
+    KICK_ERROR_YOURSELF: string;
     KICK_SUCCESS_TITLE: string;
     KICK_SUCCESS_DESCRIPTION: string;
     KICK_MODERATOR: string;

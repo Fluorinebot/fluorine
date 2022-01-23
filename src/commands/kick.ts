@@ -35,6 +35,15 @@ export async function run(
             ephemeral: true
         });
 
+    if (member.user.id === interaction.user.id)
+        return interaction.reply({
+            content: client.language.get(
+                interaction.locale,
+                'KICK_ERROR_YOURSELF'
+            ),
+            ephemeral: true
+        });
+
     if (!member.kickable)
         return interaction.reply({
             content: client.language.get(
@@ -91,6 +100,12 @@ export const data = new SlashCommandBuilder()
             .setName('user')
             .setDescription('Provide an user to kick')
             .setRequired(true)
+    )
+    .addStringOption(option =>
+        option
+            .setName('reason')
+            .setDescription('Provide a reason for kicking this user')
+            .setRequired(false)
     );
 
 export const category: Category = 'moderation';
