@@ -159,6 +159,7 @@
     "BIRB": "Randomowy ptak",
     "DOG": "Randomowy pies",
     "CAT": "Randomowy kot",
+    "DURATION": "Długość",
     "TIMEOUT_PERMISSIONS_MISSING": "Nie masz wystarczających permisji aby wyciszyć członka!",
     "TIMEOUT_BOT_PERMISSIONS_MISSING": "Nie mogę wyciszyć tego członka, nie posiadam potrzebnych permisji!",
     "TIMEOUT_MEMBER_MISSING": "Członek którego chcesz wyciszyć nie istnieje!",

@@ -101,6 +101,7 @@ export async function run(
             value: interaction.user.tag
         })
         .addLocaleField({ name: 'TIMEOUT_USER', value: member.user.tag })
+        .addLocaleField({ name: 'DURATION', value: ms(duration) })
         .addLocaleField({ name: 'REASON', value: reason })
         .addLocaleField({ name: 'PUNISHMENT_ID', value: create.id.toString() });
     interaction.reply({ embeds: [embed] });

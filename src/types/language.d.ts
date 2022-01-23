@@ -142,6 +142,7 @@ export interface LanguageType {
     BIRB: string;
     DOG: string;
     CAT: string;
+    DURATION: string;
     TIMEOUT_PERMISSIONS_MISSING: string;
     TIMEOUT_BOT_PERMISSIONS_MISSING: string;
     TIMEOUT_MEMBER_MISSING: string;

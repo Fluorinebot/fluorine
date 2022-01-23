@@ -160,6 +160,7 @@
     "BIRB": "Random birb",
     "DOG": "Random dog",
     "CAT": "Random cat",
+    "DURATION": "Duration",
     "TIMEOUT_PERMISSIONS_MISSING": "You don't have the permissions needed to timeout a member!",
     "TIMEOUT_BOT_PERMISSIONS_MISSING": "I can't timeout this member, I don't have the permissions needed to timeout!",
     "TIMEOUT_MEMBER_MISSING": "The member that you want to timeout doesn't exist!",
