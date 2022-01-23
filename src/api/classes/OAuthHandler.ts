@@ -84,5 +84,4 @@ export default class OAuthHandler {
         ).then(res => res.json());
         return returned;
     }
-    }
 }
