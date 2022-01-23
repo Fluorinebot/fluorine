@@ -1,7 +1,7 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
-import { HypixelType } from 'types/hypixel.type';
+import { HypixelType } from 'types/hypixel';
 import axios from 'axios';
 export async function run(
     client: FluorineClient,
@@ -17,7 +17,7 @@ export async function run(
             )
         );
 
-    const uuid: any = await axios(
+    const uuid = await axios(
         `https://api.mojang.com/users/profiles/minecraft/${args[0]}`
     );
     if (!uuid.data.id)
@@ -84,8 +84,7 @@ export async function run(
         })
         .setThumbnail(
             `https://crafatar.com/avatars/${uuid.data.id}?default=MHF_Steve&overlay`
-        )
-        .setFooter(client.footer);
+        );
     message.reply({ embeds: [bedEmbed] });
 }
 export const help = {

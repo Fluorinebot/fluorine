@@ -30,7 +30,7 @@ export async function run(
         (await message.guild?.members.fetch(args[0]).catch(() => null));
     const reason =
         args.slice(1).join(' ') ||
-        client.language.get(message.guild.preferredLocale, 'NO_REASON');
+        client.language.get(message.guild.preferredLocale, 'NONE');
 
     if (!member)
         return message.reply(
@@ -80,8 +80,7 @@ export async function run(
         .addLocaleField({ name: 'KICK_MODERATOR', value: message.author.tag })
         .addLocaleField({ name: 'KICK_USER', value: member.user.tag })
         .addLocaleField({ name: 'REASON', value: reason })
-        .addLocaleField({ name: 'PUNISHMENT_ID', value: create.id.toString() })
-        .setFooter(client.footer);
+        .addLocaleField({ name: 'PUNISHMENT_ID', value: create.id.toString() });
     message.reply({ embeds: [embed] });
     r.table('case').insert(create).run(client.conn);
 }
