@@ -2,8 +2,8 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { Guild } from 'discord.js';
 import r from 'rethinkdb';
-import { Case } from 'types/case.type';
-import { SettingsType } from 'types/settings.type';
+import { Case } from 'types/case';
+import { SettingsType } from 'types/settings';
 export default async function modLog(
     client: FluorineClient,
     Case: Case,
@@ -16,15 +16,11 @@ export default async function modLog(
         .run(client.conn);
 
     if (settings.modLogs && settings.logsChannel) {
-        const creator = client.users.cache.get(Case.creator);
-        const user = client.users.cache.get(Case.user);
+        const creator = await client.users.fetch(Case.creator);
+        const member = await guild.members.fetch(Case.user);
         const embed = new Embed(client, guild.preferredLocale)
             .setLocaleTitle('CASE_NEW')
-            .setThumbnail(user.displayAvatarURL())
-            .addLocaleField({ name: 'REASON', value: Case.dscp })
-            .addField('ID', `#${Case.id}`)
-            .addLocaleField({ name: 'CASE_MODERATOR', value: creator.tag })
-            .addLocaleField({ name: 'CASE_USER', value: user.tag })
+            .setThumbnail(member.displayAvatarURL())
             .addLocaleField({
                 name: 'CASE_TYPE',
                 localeValue: Case.type.toUpperCase() as
@@ -32,9 +28,14 @@ export default async function modLog(
                     | 'KICK'
                     | 'WARN'
                     | 'MUTE'
-            });
+                    | 'TIMEOUT'
+            })
+            .addLocaleField({ name: 'CASE_MODERATOR', value: creator.tag })
+            .addLocaleField({ name: 'CASE_USER', value: member.user.tag })
+            .addLocaleField({ name: 'REASON', value: Case.dscp })
+            .addField('ID', `#${Case.id}`);
 
-        const channel = client.channels.cache.get(settings.logsChannel);
+        const channel = guild.channels.cache.get(settings.logsChannel);
         if (!channel.isText()) return;
         channel.send({ embeds: [embed] });
     }
