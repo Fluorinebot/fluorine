@@ -17,11 +17,14 @@ export async function run(
     if (!settings.logs || !settings.logsChannel) return;
     const channel = client.channels.cache.get(settings.logsChannel);
     if (!channel.isText()) return;
-    const { author } = newMessage;
+    const { member } = newMessage;
     const embed = new Embed(client, newMessage.guild.preferredLocale)
         .setLocaleTitle('MESSAGE_UPDATE_TITLE')
-        .setThumbnail(author.displayAvatarURL({ dynamic: true }))
-        .addLocaleField({ name: 'MESSAGE_UPDATE_AUTHOR', value: author.tag })
+        .setThumbnail(member.displayAvatarURL({ dynamic: true }))
+        .addLocaleField({
+            name: 'MESSAGE_UPDATE_AUTHOR',
+            value: member.user.tag
+        })
         .addLocaleField({
             name: 'MESSAGE_UPDATE_OLD_CONTENT',
             value: oldMessage.content

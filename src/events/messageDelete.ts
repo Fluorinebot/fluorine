@@ -15,7 +15,7 @@ export async function run(client: FluorineClient, message: Message) {
     if (!channel.isText()) return;
     const embed = new Embed(client, message.guild.preferredLocale)
         .setLocaleTitle('MESSAGE_DELETE_TITLE')
-        .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
+        .setThumbnail(message.member.displayAvatarURL({ dynamic: true }))
         .addLocaleField({
             name: 'MESSAGE_DELETE_AUTHOR',
             value: message.author.tag
