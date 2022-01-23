@@ -68,7 +68,7 @@ export async function run(client: FluorineClient, message: Message) {
             client.cooldown.add(message.author.id);
             setTimeout(() => {
                 client.cooldown.delete(message.author.id);
-            }, 2000);
+            }, 1000);
         } else {
             return message.react('❌');
         }

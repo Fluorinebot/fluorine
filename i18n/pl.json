@@ -149,5 +149,8 @@
     "ANTIBOT_REASON": "Wykryto bota! \nPewność, że użytkownik jest botem: [factor]%",
     "BIRB": "Randomowy ptak",
     "DOG": "Randomowy pies",
-    "CAT": "Randomowy kot"
+    "CAT": "Randomowy kot",
+    "BALANCE": "Saldo",
+    "BALANCE_WALLET": "Portfel",
+    "BALANCE_BANK": "Bank"
 }

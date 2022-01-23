@@ -1,42 +1,112 @@
 import FluorineClient from '@classes/Client';
 import r from 'rethinkdb';
 export default class EconomyHandler {
-    client: any;
-    conn: any;
+    client: FluorineClient;
     constructor(client: FluorineClient) {
         this.client = client;
-        this.conn = this.client.conn;
-    }
-    async add(user: string, guild: string, amount: number) {
-        const userData: any = await r.table('economy').get(user).run(this.conn);
-        if (!userData) {
-            return r
-                .table('economy')
-                .insert({ id: `${user}-${guild}`, amount })
-                .run(this.conn);
-        }
-        return r
-            .table('economy')
-            .get(`${user}-${guild}`)
-            .update({ amount: userData.amount + amount })
-            .run(this.conn);
-    }
-    async subtract(user: string, guild: string, amount: number) {
-        const userData: any = await r.table('economy').get(user).run(this.conn);
-        if (!userData) {
-            return r
-                .table('economy')
-                .insert({ id: `${user}-${guild}`, amount: 0 - amount })
-                .run(this.conn);
-        }
-        return r
-            .table('economy')
-            .get(`${user}-${guild}`)
-            .update({ amount: userData.amount - amount })
-            .run(this.conn);
     }
     async get(user: string, guild: string) {
-        const userData: any = await r.table('economy').get(user).run(this.conn);
-        return userData ?? { id: `${user}-${guild}`, amount: 0 };
+        const data: any = await r
+            .table('economy')
+            .get(`${user}-${guild}`)
+            .run(this.client.conn);
+        return data?.balance || { wallet: 0, bank: 0 };
+    }
+    async add(user: string, guild: string, amount: string) {
+        const userObj: any = await r
+            .table('economy')
+            .get(`${user}-${guild}`)
+            .run(this.client.conn);
+        if (!userObj) {
+            return r
+                .table('economy')
+                .insert({
+                    id: `${user}-${guild}`,
+                    balance: { wallet: amount, bank: 0 }
+                })
+                .run(this.client.conn);
+        }
+        return r
+            .table('economy')
+            .get(`${user}-${guild}`)
+            .update({
+                balance: {
+                    wallet: userObj.balance.wallet + amount,
+                    bank: userObj.balance.bank
+                }
+            });
+    }
+    async subtract(user: string, guild: string, amount: number) {
+        const userObj: any = await r
+            .table('economy')
+            .get(`${user}-${guild}`)
+            .run(this.client.conn);
+        if (!userObj) {
+            return r
+                .table('economy')
+                .insert({
+                    id: `${user}-${guild}`,
+                    balance: { wallet: 0 - amount, bank: 0 }
+                })
+                .run(this.client.conn);
+        }
+        return r
+            .table('economy')
+            .get(`${user}-${guild}`)
+            .update({
+                balance: {
+                    wallet: userObj.balance.wallet - amount,
+                    bank: userObj.balance.bank
+                }
+            });
+    }
+    async deposit(user: string, guild: string, amount: number) {
+        const userObj: any = await r
+            .table('economy')
+            .get(`${user}-${guild}`)
+            .run(this.client.conn);
+        if (!userObj) {
+            return r
+                .table('economy')
+                .insert({
+                    id: `${user}-${guild}`,
+                    balance: { wallet: 0, bank: 0 }
+                })
+                .run(this.client.conn);
+        }
+        return r
+            .table('economy')
+            .get(`${user}-${guild}`)
+            .update({
+                balance: {
+                    wallet: userObj.balance.wallet - amount,
+                    bank: userObj.balance.bank + amount
+                }
+            })
+            .run(this.client.conn);
+    }
+    async withdraw(user: string, guild: string, amount: number) {
+        const userObj: any = await r
+            .table('economy')
+            .get(`${user}-${guild}`)
+            .run(this.client.conn);
+        if (!userObj) {
+            return r
+                .table('economy')
+                .insert({
+                    id: `${user}-${guild}`,
+                    balance: { wallet: 0, bank: 0 }
+                })
+                .run(this.client.conn);
+        }
+        return r
+            .table('economy')
+            .get(`${user}-${guild}`)
+            .update({
+                balance: {
+                    wallet: userObj.balance.wallet + amount,
+                    bank: userObj.balance.bank - amount
+                }
+            });
     }
 }

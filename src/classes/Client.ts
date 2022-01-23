@@ -1,24 +1,26 @@
+// @ts-ignore
+import { version } from '../../package.json';
 import { Client, ColorResolvable, Intents } from 'discord.js';
 import r from 'rethinkdb';
+import { Command } from 'types/command.type';
+import { ConfigType } from 'types/config.type';
 import Logger from './Logger';
 import CommandHandler from '@handlers/CommandHandler';
 import EventHandler from '@handlers/EventHandler';
-import { command } from 'types/command.type';
-import { ConfigType } from 'types/config.type';
-import LanguageHandler from './handlers/LanguageHandler';
-// @ts-ignore
-import { version } from '../../package.json';
-import PhishingHandler from './handlers/PhishingHandler';
+import LanguageHandler from '@handlers/LanguageHandler';
+import PhishingHandler from '@handlers/PhishingHandler';
+import EconomyHandler from './handlers/EconomyHandler';
 
 export default class FluorineClient extends Client {
     conn!: r.Connection;
     config: ConfigType;
-    cmds!: Map<string, command>;
+    cmds!: Map<string, Command>;
     version: string;
     footer: string;
     color: ColorResolvable;
     logger: Logger;
     cooldown: Set<string>;
+    economy: EconomyHandler;
     language: LanguageHandler;
     phishing: PhishingHandler;
     constructor() {
@@ -45,11 +47,12 @@ export default class FluorineClient extends Client {
         this.logger = new Logger();
         this.cooldown = new Set();
         this.language = new LanguageHandler();
+        this.phishing = new PhishingHandler(this);
+        this.economy = new EconomyHandler(this);
     }
     async init() {
         new EventHandler(this);
         this.cmds = new CommandHandler().loadCommands();
-        this.phishing = new PhishingHandler(this);
         this.login(this.config.token).then(() => {
             this.guilds.cache.forEach(async g => {
                 const guild = await r.table('config').get(g.id).run(this.conn);

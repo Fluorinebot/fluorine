@@ -132,6 +132,9 @@ export interface LanguageType {
     BIRB: string;
     DOG: string;
     CAT: string;
+    BALANCE: string;
+    BALANCE_WALLET: string;
+    BALANCE_BANK: string;
 }
 
 export type LanguageStrings = keyof LanguageType;

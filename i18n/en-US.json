@@ -109,7 +109,7 @@
     "MESSAGE_UPDATE_NEW_CONTENT": "New content",
     "MESSAGE_UPDATE_OLD_CONTENT": "Old content",
     "MESSAGE_CREATE_COOLDOWN_TITLE": "Slow down!",
-    "MESSAGE_CREATE_COOLDOWN_DESCRIPTION": "Wait 2 seconds before running another command!",
+    "MESSAGE_CREATE_COOLDOWN_DESCRIPTION": "Wait a second before running another command!",
     "MESSAGE_CREATE_DESCRIPTION": "Hi! I'm Fluorine. My prefix on this guild is [prefix]",
     "MESSAGE_CREATE_DM": "Hi! Commands don't work on DMs! Try typing f!help in a server where i am in!",
     "HOWGAY": "🏳️‍🌈 [thing] is [percent]% gay",
@@ -149,5 +149,8 @@
     "ANTIBOT_REASON": "User detected as a bot! \nConfidence that the user is a bot: [factor]%",
     "BIRB": "Random birb",
     "DOG": "Random dog",
-    "CAT": "Random cat"
+    "CAT": "Random cat",
+    "BALANCE": "Balance",
+    "BALANCE_WALLET": "Wallet",
+    "BALANCE_BANK": "Bank"
 }
