@@ -1,6 +1,6 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { HypixelType } from 'types/hypixel.type';
+import { HypixelType } from 'types/hypixel';
 import { Message } from 'discord.js';
 import { fetch } from 'undici';
 export async function run(
@@ -16,12 +16,10 @@ export async function run(
                 { command: 'bedwars' }
             )
         );
+    const uuid: any = await fetch(
+        `https://api.mojang.com/users/profiles/minecraft/${args[0]}`
+    ).then(res => res.json());
 
-    const uuid: any = await (
-        await fetch(
-            `https://api.mojang.com/users/profiles/minecraft/${args[0]}`
-        )
-    ).json();
     if (!uuid.data.id)
         return message.reply(
             client.language.get(
@@ -29,12 +27,9 @@ export async function run(
                 'HYPIXEL_INVALID_PLAYER'
             )
         );
-    // @ts-ignore
-    const { data }: { data: HypixelType } = await (
-        await fetch(
-            `https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${client.config.hypixel}`
-        )
-    ).json();
+    const data = (await fetch(
+        `https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${client.config.hypixel}`
+    ).then(res => res.json())) as HypixelType;
 
     const skyStats = data.player?.stats?.SkyWars;
     if (!skyStats) {
@@ -47,7 +42,7 @@ export async function run(
     }
     const kd = (skyStats.kills / skyStats.deaths).toFixed(2);
     const winratio = (skyStats.wins / skyStats.deaths).toFixed(2);
-    const bedEmbed = new Embed(client, message.guild.preferredLocale)
+    const embed = new Embed(client, message.guild.preferredLocale)
         .setLocaleTitle('HYPIXEL_STATISTICS_TITLE', {
             player: args[0]
         })
@@ -81,9 +76,8 @@ export async function run(
         })
         .setThumbnail(
             `https://crafatar.com/avatars/${uuid.data.id}?default=MHF_Steve&overlay`
-        )
-        .setFooter(client.footer);
-    message.reply({ embeds: [bedEmbed] });
+        );
+    message.reply({ embeds: [embed] });
 }
 export const help = {
     name: 'skywars',

@@ -37,8 +37,28 @@ export default class OAuthHandler {
         // @ts-ignore
         return returned?.data.json() || null;
     }
-    async getGuilds(token: string): Promise<any> {
-        const returned = await fetch(
+    async getToken(code: string) {
+        const returned: any = await fetch(
+            'https://discord.com/api/oauth2/token',
+            {
+                method: 'POST',
+                body: new URLSearchParams({
+                    client_id: this.client.user.id,
+                    client_secret: this.client.config.secret,
+                    grant_type: 'authorization_code',
+                    code,
+                    scope: this.scopes.join(),
+                    redirect_uri: this.client.config.redirect_uri
+                }),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }
+        ).then(res => res.json());
+        return returned;
+    }
+    async getGuilds(token: string) {
+        const returned: any = await fetch(
             'https://discord.com/api/users/@me/guilds',
             {
                 headers: {
@@ -61,8 +81,8 @@ export default class OAuthHandler {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         });
-
-        // @ts-ignore
-        return returned?.data.json();
+        ).then(res => res.json());
+        return returned;
+    }
     }
 }

@@ -1,7 +1,7 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
-import { HypixelType } from 'types/hypixel.type';
+import { HypixelType } from 'types/hypixel';
 import { fetch } from 'undici';
 export async function run(
     client: FluorineClient,
@@ -17,12 +17,11 @@ export async function run(
             )
         );
 
-    const uuid: any = await (
-        await fetch(
-            `https://api.mojang.com/users/profiles/minecraft/${args[0]}`
-        )
-    ).json();
-    if (!uuid.data.id)
+    const uuid: any = await fetch(
+        `https://api.mojang.com/users/profiles/minecraft/${args[0]}`
+    ).then(res => res.json());
+
+    if (!uuid.id)
         return message.reply(
             client.language.get(
                 message.guild.preferredLocale,
@@ -30,12 +29,9 @@ export async function run(
             )
         );
 
-    // @ts-ignore
-    const { data }: { data: HypixelType } = await (
-        await fetch(
-            `https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${client.config.hypixel}`
-        )
-    ).json();
+    const data = (await fetch(
+        `https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${client.config.hypixel}`
+    ).then(res => res.json())) as HypixelType;
     const bedStats = data.player?.stats?.Bedwars;
     if (!bedStats) {
         return message.reply(
@@ -89,8 +85,7 @@ export async function run(
         })
         .setThumbnail(
             `https://crafatar.com/avatars/${uuid.data.id}?default=MHF_Steve&overlay`
-        )
-        .setFooter(client.footer);
+        );
     message.reply({ embeds: [bedEmbed] });
 }
 export const help = {

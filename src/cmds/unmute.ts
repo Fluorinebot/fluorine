@@ -43,8 +43,7 @@ export async function run(
         .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
         .addField('Odmutowany przez:', message.author.tag)
         .addField('Odmutowany:', member.user.tag)
-        .addField('Powód', reason || 'Brak')
-        .setFooter(client.footer);
+        .addField('Powód', reason || 'Brak');
     message.reply({ embeds: [embed] });
 }
 export const help = {
