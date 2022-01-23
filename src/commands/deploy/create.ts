@@ -29,7 +29,7 @@ export async function run(
             await interaction.deferReply();
             await Promise.all(
                 client.applicationCommands
-                    .filter(c => c.data && c.data.name !== 'deploy')
+                    .filter(c => c.data && !c.dev)
                     .map(command =>
                         rest.post(route, {
                             body: command.data.toJSON()
