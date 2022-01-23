@@ -15,7 +15,7 @@ export async function run(
             .setDescription(
                 'Nie posiadasz permisji do wykonania tego!\nWymagane permisje: Manage Server'
             )
-            .setFooter({ text: client.footer });
+            .setFooter(client.footer);
         return message.reply({ embeds: [permEmbed] });
     }
     if (args[0] === 'set') {

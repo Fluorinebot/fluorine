@@ -114,12 +114,6 @@
     "MESSAGE_CREATE_DM": "Hi! Commands don't work on DMs! Try typing f!help in a server where i am in!",
     "HOWGAY": "🏳️‍🌈 [thing] is [percent]% gay",
     "HOWGAY_ARGS": "You haven't provided a thing to check!",
-    "AI_TITLE": "Generated!",
-    "AI_DESCRIPTION": "Your text: [text]",
-    "AI_ERROR": "Our AI is currently down, try again in a few minutes!",
-    "AI_LIMIT": "You can only have one AI request in the queue at a time!",
-    "AI_ARGS": "You haven't provided a text to generate!",
-    "AI_WAIT": "Added to queue! You're number [queue] in queue"
     "PROFILE_SUCCESS": "Success",
     "PROFILE_DESCRIPTION": "Description",
     "PROFILE_WEBSITE": "Website",
@@ -151,9 +145,5 @@
         "October",
         "November",
         "December"
-    ],
-    "ANTIBOT_REASON": "User detected as a bot! \nConfidence that the user is a bot: [factor]%",
-    "BIRB": "Random birb",
-    "DOG": "Random dog",
-    "CAT": "Random cat"
+    ]
 }

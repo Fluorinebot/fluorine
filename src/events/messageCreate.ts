@@ -3,9 +3,7 @@ import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
 import r from 'rethinkdb';
 import { SettingsType } from 'types/settings.type';
-import caseCreate from '@util/createCase';
-import modLog from '@util/modLog';
-import { messageBot } from '@util/messageBot';
+
 export async function run(client: FluorineClient, message: Message) {
     if (message.channel.type === 'DM') {
         return message.reply(
@@ -15,46 +13,14 @@ export async function run(client: FluorineClient, message: Message) {
             )
         );
     }
-
     // @ts-ignore
     const settings: SettingsType = await r
         .table('config')
         .get(message.guild?.id)
         .run(client.conn);
-    if (settings.antibot) {
-        const factor = await messageBot(client, message);
-        if (factor >= settings.antibot) {
-            message.delete();
-            const Case = await caseCreate(
-                client,
-                message.guild,
-                message.author,
-                client.user,
-                settings.antibotAction,
-                client.language.get(
-                    message.guild.preferredLocale,
-                    'ANTIBOT_REASON',
-                    { factor }
-                )
-            );
-            switch (settings.antibotAction) {
-                case 'kick':
-                    message.member.kick();
-                    break;
-                case 'ban':
-                    message.member.ban();
-                    break;
-                case 'mute':
-                    if (settings.muteRole) {
-                        message.member.roles.add(settings.muteRole);
-                    }
-                    break;
-            }
-            modLog(client, Case, message.guild);
-        }
-    }
     const args = message.content.slice(settings.prefix.length).split(' ');
     const command = args.shift();
+
     if (message.content.startsWith(settings.prefix)) {
         if (client.cooldown.has(message.author.id)) {
             const coolEmbed = new Embed(client, message.guild.preferredLocale)
@@ -62,20 +28,22 @@ export async function run(client: FluorineClient, message: Message) {
                 .setLocaleDescription('MESSAGE_CREATE_COOLDOWN_DESCRIPTION');
             return message.reply({ embeds: [coolEmbed] });
         }
-        const code = client.cmds.get(command);
-        if (code) {
-            code.run(client, message, args);
-            client.cooldown.add(message.author.id);
+        client.cooldown.add(message.author.id);
+        if (message.author.id !== '817883855310684180') {
             setTimeout(() => {
                 client.cooldown.delete(message.author.id);
             }, 2000);
+        }
+        const code = client.cmds.get(command);
+        if (code) {
+            code.run(client, message, args);
+            if (code.help.category !== 'dev') {
+                client.statcord.postCommand(code.help.name, message.author.id);
+            }
         } else {
             return message.react('❌');
         }
-    } else if (
-        message.content === `<@!${client.user.id}>` ||
-        message.content === `<@${client.user.id}`
-    ) {
+    } else if (message.content === `<@!${client.user.id}>`) {
         const embed = new Embed(client, message.guild.preferredLocale)
             .setTitle('Fluorine')
             .setLocaleDescription('MESSAGE_CREATE_DESCRIPTION', {
@@ -96,7 +64,8 @@ export async function run(client: FluorineClient, message: Message) {
             .addLocaleField({
                 name: 'STATS_CHANNELS_COUNT',
                 value: client.channels.cache.size.toString()
-            });
+            })
+            .setFooter(client.footer);
         message.channel.send({ embeds: [embed] });
     }
 }

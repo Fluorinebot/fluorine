@@ -2,7 +2,7 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { HypixelType } from 'types/hypixel.type';
 import { Message } from 'discord.js';
-import { fetch } from 'undici';
+import axios from 'axios';
 export async function run(
     client: FluorineClient,
     message: Message,
@@ -17,11 +17,9 @@ export async function run(
             )
         );
 
-    const uuid: any = await (
-        await fetch(
-            `https://api.mojang.com/users/profiles/minecraft/${args[0]}`
-        )
-    ).json();
+    const uuid: any = await axios(
+        `https://api.mojang.com/users/profiles/minecraft/${args[0]}`
+    );
     if (!uuid.data.id)
         return message.reply(
             client.language.get(
@@ -29,12 +27,10 @@ export async function run(
                 'HYPIXEL_INVALID_PLAYER'
             )
         );
-    // @ts-ignore
-    const data: HypixelType = await (
-        await fetch(
-            `https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${client.config.hypixel}`
-        )
-    ).json();
+
+    const { data }: { data: HypixelType } = await axios(
+        `https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${client.config.hypixel}`
+    );
 
     const skyStats = data.player?.stats?.SkyWars;
     if (!skyStats) {
@@ -81,7 +77,8 @@ export async function run(
         })
         .setThumbnail(
             `https://crafatar.com/avatars/${uuid.data.id}?default=MHF_Steve&overlay`
-        );
+        )
+        .setFooter(client.footer);
     message.reply({ embeds: [bedEmbed] });
 }
 export const help = {

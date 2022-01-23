@@ -31,7 +31,8 @@ export async function run(
             name: 'CASE_TYPE',
             localeValue: Case.type.toUpperCase()
         })
-        .addLocaleField({ name: 'CASE_REASON', value: Case.dscp });
+        .addLocaleField({ name: 'CASE_REASON', value: Case.dscp })
+        .setFooter(client.footer);
     message.reply({ embeds: [embed] });
 }
 export const help = {
