@@ -5,6 +5,4 @@ export interface SettingsType {
     modLogs?: boolean;
     muteRole?: string;
     prefix: string;
-    antibot: number;
-    antibotAction: string;
 }

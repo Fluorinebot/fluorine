@@ -84,7 +84,8 @@ export async function run(
         })
         .setThumbnail(
             `https://crafatar.com/avatars/${uuid.data.id}?default=MHF_Steve&overlay`
-        );
+        )
+        .setFooter(client.footer);
     message.reply({ embeds: [bedEmbed] });
 }
 export const help = {

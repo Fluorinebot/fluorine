@@ -18,9 +18,9 @@ export async function run(
     const embed = new Embed(client, message.guild.preferredLocale)
         .setTitle('Historia kar dla użytkownika')
         .setThumbnail(member?.user.displayAvatarURL({ dynamic: true }))
-        .setFooter({
-            text: `Więcej informacji otrzymasz za pomocą komendy case | ${client.footer}`
-        });
+        .setFooter(
+            `Więcej informacji otrzymasz za pomocą komendy case | ${client.footer}`
+        );
 
     let caseLength;
 
@@ -82,9 +82,9 @@ export async function run(
                     message.guild.preferredLocale
                 )
                     .setTitle('Historia kar dla użytkownika')
-                    .setFooter({
-                        text: `Więcej informacji otrzymasz za pomocą komendy a!case | ${client.footer}`
-                    });
+                    .setFooter(
+                        `Więcej informacji otrzymasz za pomocą komendy a!case | ${client.footer}`
+                    );
 
                 for (let i = start; i < caseLength; i++) {
                     const Case = cases[i];
@@ -140,9 +140,9 @@ export async function run(
                     message.guild.preferredLocale
                 )
                     .setTitle('Historia kar dla użytkownika')
-                    .setFooter({
-                        text: `Więcej informacji otrzymasz za pomocą komendy a!case | ${client.footer}`
-                    });
+                    .setFooter(
+                        `Więcej informacji otrzymasz za pomocą komendy a!case | ${client.footer}`
+                    );
 
                 for (let i = start; i < caseLength; i++) {
                     const Case = cases[i];
