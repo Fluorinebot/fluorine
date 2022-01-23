@@ -2,7 +2,7 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
 import r from 'rethinkdb';
-import { SettingsType } from 'types/settings.type';
+import { SettingsType } from 'types/settings';
 
 export async function run(
     client: FluorineClient,
@@ -14,8 +14,7 @@ export async function run(
             .setTitle('Błąd!')
             .setDescription(
                 'Nie posiadasz permisji do wykonania tego!\nWymagane permisje: Manage Server'
-            )
-            .setFooter({ text: client.footer });
+            );
         return message.reply({ embeds: [permEmbed] });
     }
     if (args[0] === 'set') {
@@ -37,9 +36,7 @@ export async function run(
                     message.guild.preferredLocale
                 )
                     .setTitle('Prefix ustawiony!')
-                    .addField('Nowy prefix', args[2])
-                    .setFooter(client.footer);
-
+                    .addField('Nowy prefix', args[2]);
                 message.reply({ embeds: [prefixEmbed] });
                 break;
             case 'logs':
@@ -60,9 +57,7 @@ export async function run(
                     message.guild.preferredLocale
                 )
                     .setTitle('Status logów ustawiony!')
-                    .addField('Nowy status', bool ? 'Włączone' : 'Wyłączone')
-                    .setFooter(client.footer);
-
+                    .addField('Nowy status', bool ? 'Włączone' : 'Wyłączone');
                 message.reply({ embeds: [logEmbed] });
                 break;
             case 'logsChannel':
@@ -84,9 +79,7 @@ export async function run(
                     message.guild.preferredLocale
                 )
                     .setTitle('Kanał logów ustawiony!')
-                    .addField('Nowy kanał', `<#${channel}>`)
-                    .setFooter(client.footer);
-
+                    .addField('Nowy kanał', `<#${channel}>`);
                 message.reply({ embeds: [channelEmbed] });
                 break;
 
@@ -107,9 +100,10 @@ export async function run(
                     message.guild.preferredLocale
                 )
                     .setTitle('Status modlogów ustawiony!')
-                    .addField('Nowy status', modBool ? 'Włączone' : 'Wyłączone')
-                    .setFooter(client.footer);
-
+                    .addField(
+                        'Nowy status',
+                        modBool ? 'Włączone' : 'Wyłączone'
+                    );
                 message.reply({ embeds: [modEmbed] });
                 break;
             case 'muteRole':
@@ -127,8 +121,7 @@ export async function run(
                     message.guild.preferredLocale
                 )
                     .setTitle('Rola do mute ustawiona!')
-                    .addField('Nowa rola', `<@&${role}>`)
-                    .setFooter(client.footer);
+                    .addField('Nowa rola', `<@&${role}>`);
                 message.reply({ embeds: [muteEmbed] });
                 break;
         }
@@ -150,9 +143,7 @@ export async function run(
         if (!settings.muteRole) {
             listEmbed.addField('muteRole', 'Brak');
         }
-        listEmbed
-            .addField('muteRole', `<@&${settings.muteRole || 'Brak'}>`)
-            .setFooter(client.footer);
+        listEmbed.addField('muteRole', `<@&${settings.muteRole || 'Brak'}>`);
         if (settings.logsChannel) {
             listEmbed.addField('logsChannel', `<#${settings.logsChannel}>`);
         } else {
