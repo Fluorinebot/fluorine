@@ -1,26 +1,39 @@
 // @ts-ignore
 import { version } from '../../package.json';
-import { Client, ColorResolvable, Intents } from 'discord.js';
+import { Client, Collection, ColorResolvable, Intents } from 'discord.js';
 import r from 'rethinkdb';
-import { Command } from 'types/command.type';
-import { ConfigType } from 'types/config.type';
+import { Command } from 'types/command';
+import { ConfigType } from 'types/config';
+import { Component } from 'types/component';
 import Logger from './Logger';
+import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
 import CommandHandler from '@handlers/CommandHandler';
+import ComponentHandler from '@handlers/ComponentHandler';
 import EventHandler from '@handlers/EventHandler';
 import LanguageHandler from '@handlers/LanguageHandler';
 import PhishingHandler from '@handlers/PhishingHandler';
 import EconomyHandler from './handlers/EconomyHandler';
+import { ApplicationCommand } from 'types/applicationCommand';
+import AI from './AI';
+// @ts-ignore
+import { version } from '../../package.json';
 
 export default class FluorineClient extends Client {
+    applicationCommands!: Collection<string, ApplicationCommand>;
     conn!: r.Connection;
     config: ConfigType;
-    cmds!: Map<string, Command>;
+    cmds!: Collection<string, Command>;
+    components!: Collection<string, Component>;
+    invite: string;
     version: string;
     footer: string;
     color: ColorResolvable;
+    devs: string[];
     logger: Logger;
+    generating: boolean;
     cooldown: Set<string>;
     economy: EconomyHandler;
+    ai: AI;
     language: LanguageHandler;
     phishing: PhishingHandler;
     constructor() {
@@ -42,8 +55,11 @@ export default class FluorineClient extends Client {
             this.conn = conn;
         });
         this.version = version;
+        this.invite =
+            'https://discord.com/api/oauth2/authorize?client_id=831932409943425064&scope=bot+applications.commands&permissions=474527689975';
         this.footer = `Fluorine ${this.version}`;
         this.color = '#3872f2';
+        this.devs = ['707675871355600967', '478823932913516544'];
         this.logger = new Logger();
         this.cooldown = new Set();
         this.language = new LanguageHandler();
@@ -53,6 +69,12 @@ export default class FluorineClient extends Client {
     async init() {
         new EventHandler(this);
         this.cmds = new CommandHandler().loadCommands();
+        this.ai = new AI(this);
+        this.applicationCommands =
+            new ApplicationCommandHandler().loadCommands();
+        this.components = new ComponentHandler().loadComponents();
+        this.phishing = new PhishingHandler(this);
+        this.logger.log('loaded events and commands');
         this.login(this.config.token).then(() => {
             this.guilds.cache.forEach(async g => {
                 const guild = await r.table('config').get(g.id).run(this.conn);

@@ -1,5 +1,5 @@
 import { readdirSync } from 'fs';
-import { Languages, LanguageStrings, LanguageType } from 'types/language.type';
+import { Languages, LanguageStrings, LanguageType } from 'types/language';
 export default class LanguageHandler {
     languages: Record<Languages, LanguageType>;
     constructor() {

@@ -2,11 +2,10 @@
     "name": "fluorine",
     "version": "2.0.0",
     "description": "A discord bot",
-    "main": "dist/index.js",
+    "main": "dist",
     "scripts": {
-        "test": "npm run lint && npm run test:typescript && npm run test:tspaths",
+        "test": "npm run lint && npm run test:typescript",
         "test:typescript": "tsc",
-        "test:tspaths": "resolve-tspaths",
         "lint": "eslint .",
         "lint:fix": "eslint --fix .",
         "dev": "npm run build && npm start",
@@ -24,14 +23,28 @@
     },
     "homepage": "https://github.com/Xiboon/Fluorine#readme",
     "dependencies": {
-        "canvas": "^2.9.0",
-        "axios": "^0.25.0",
+<<<<<<< HEAD
         "cookie-parser": "^1.4.6",
+        "discord.js": "^13.3.1",
+        "axios": "^0.24.0",
+        "canvas": "^2.8.0",
+=======
+        "@discordjs/builders": "^0.11.0",
+        "@discordjs/rest": "^0.2.0-canary.0",
+        "@types/rethinkdb": "^2.3.17",
+        "axios": "^0.25.0",
+        "canvas": "^2.9.0",
+>>>>>>> 0cba41e46f75e811b26e184f4e4d7c48e4b55167
+        "cookie-parser": "^1.4.6",
+        "discord-api-types": "^0.26.0",
         "discord.js": "^13.6.0",
         "express": "^4.17.2",
+        "ms": "^3.0.0-canary.1",
+        "murmurhash-v3": "^1.0.2",
         "picocolors": "^1.0.0",
         "rate-limiter-flexible": "^2.3.6",
         "rethinkdb": "^2.4.2",
+        "statcord.js": "^3.3.0",
         "undici": "^4.12.2"
     },
     "devDependencies": {
