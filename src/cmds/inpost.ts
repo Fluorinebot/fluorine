@@ -43,7 +43,7 @@ export async function run(
             response.custom_attributes.target_machine_detail
         );
     }
-    response.tracking_details.reverse().forEach((data: any) => {
+    response.tracking_details.reverse().forEach(data => {
         const statusObj = statuses.items.find(
             element => element.name === data.status
         );
