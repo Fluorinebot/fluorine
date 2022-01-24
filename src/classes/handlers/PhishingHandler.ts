@@ -10,6 +10,7 @@ export default class PhishingHandler {
     word: string;
     client: FluorineClient;
     users: string;
+    url: string;
     constructor(client: FluorineClient) {
         this.client = client;
         this.users = readFileSync(
@@ -17,6 +18,9 @@ export default class PhishingHandler {
         ).toString();
         this.word = readFileSync(
             `${__dirname}/../../../assets/words.txt`
+        ).toString();
+        this.url = readFileSync(
+            `${__dirname}/../../../assets/url.txt`
         ).toString();
     }
     async getLink(links: PhishingLink[]) {
@@ -49,5 +53,8 @@ export default class PhishingHandler {
     }
     getUsers() {
         return this.users.split('\n');
+    }
+    getURLs() {
+        return this.url.split('\n');
     }
 }
