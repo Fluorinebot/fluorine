@@ -10,7 +10,7 @@ export async function run(
     message: Message,
     args: string[]
 ) {
-    if (!message.member?.permissions.has('KICK_MEMBERS')) {
+    if (!message.member?.permissions.has('MODERATE_MEMBERS')) {
         return message.reply(
             client.language.get(
                 message.guild.preferredLocale,
@@ -31,7 +31,7 @@ export async function run(
         (await message.guild?.members.fetch(args[0]).catch(() => null));
     const reason =
         args.slice(1).join(' ') ||
-        client.language.get(message.guild.preferredLocale, 'NO_REASON');
+        client.language.get(message.guild.preferredLocale, 'NONE');
     if (member === message.member)
         return message.reply(
             client.language.get(
