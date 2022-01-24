@@ -149,6 +149,7 @@ export interface LanguageType {
     DOG: string;
     CAT: string;
     INPOST_ARGS: string;
+    INPOST_URL: string;
     INPOST_NOT_FOUND: string;
     INPOST_TITLE: string;
     INPOST_DESCRIPTION: string;

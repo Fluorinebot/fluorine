@@ -12,12 +12,11 @@ export async function run(
             client.language.get(message.guild.preferredLocale, 'INPOST_ARGS')
         );
     }
-    let statusURL;
-    if (message.guild.preferredLocale === 'pl') {
-        statusURL = 'https://api-shipx-pl.easypack24.net/v1/statuses';
-    } else {
-        statusURL = 'https://api-shipx-pl.easypack24.net/v1/statuses?lang=en';
-    }
+
+    const statusURL = client.language.get(
+        message.guild.preferredLocale,
+        'INPOST_URL'
+    );
     const statuses: any = await fetch(statusURL).then(res => res.json());
     const req: any = await fetch(
         `https://api-shipx-pl.easypack24.net/v1/tracking/${args[0]}`
@@ -33,20 +32,15 @@ export async function run(
         );
     }
     const embed = new Embed(client, message.guild.preferredLocale)
-        .setTitle(
-            client.language.get(message.guild.preferredLocale, 'INPOST_TITLE', {
-                id: args[0]
-            })
-        )
+        .setLocaleTitle('INPOST_TITLE', {
+            id: args[0]
+        })
         .setColor('#ffcb39');
-    console.log(response);
+
     if (response.custom_attributes.target_machine_detail.name) {
-        embed.setDescription(
-            client.language.get(
-                message.guild.preferredLocale,
-                'INPOST_DESCRIPTION',
-                response.custom_attributes.target_machine_detail
-            )
+        embed.setLocaleDescription(
+            'INPOST_DESCRIPTION',
+            response.custom_attributes.target_machine_detail
         );
     }
     response.tracking_details.reverse().forEach((data: any) => {

@@ -167,6 +167,7 @@
     "DOG": "Random dog",
     "CAT": "Random cat",
     "INPOST_ARGS": "You need to provide a package ID!",
+    "INPOST_URL": "https://api-shipx-pl.easypack24.net/v1/statuses?lang=en",
     "INPOST_NOT_FOUND": "The package with the ID [id] was not found!",
     "INPOST_TITLE": "Package [id]",
     "INPOST_DESCRIPTION": "Parcel machine details\nName: [name]\nLocation: [location_description]\nOpening hours: [opening_hours]",
