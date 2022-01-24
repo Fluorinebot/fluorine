@@ -25,12 +25,11 @@ export async function run(
             ),
             ephemeral: true
         });
-    // @ts-ignore
-    const data: HypixelType = await fetch(
+    const data = (await fetch(
         `https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${client.config.hypixel}`
     )
         .then(res => res.json())
-        .catch(() => ({ data: null }));
+        .catch(() => ({ data: null }))) as HypixelType;
 
     const skyStats = data.player?.stats?.SkyWars;
     if (!skyStats) {
