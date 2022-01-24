@@ -56,14 +56,14 @@ export async function run(client: FluorineClient, message: Message) {
         }
     }
 
-    const random = Math.floor(Math.random() * 20) + 1;
-    if (random === 20)
-        message.channel.send(
-            '<:SlashCommands:934768130474004500> Use Slash Commands!\nFluorine will stop responding to prefix commands soon!'
-        );
     const args = message.content.slice(settings.prefix.length).split(' ');
     const command = args.shift();
     if (message.content.startsWith(settings.prefix)) {
+        const random = Math.floor(Math.random() * 20) + 1;
+        if (random === 20)
+            message.channel.send(
+                '<:SlashCommands:934768130474004500> Use Slash Commands!\nFluorine will stop responding to prefix commands soon!'
+            );
         if (client.cooldown.has(message.author.id)) {
             const coolEmbed = new Embed(client, message.guild.preferredLocale)
                 .setLocaleTitle('MESSAGE_CREATE_COOLDOWN_TITLE')
@@ -107,7 +107,4 @@ export async function run(client: FluorineClient, message: Message) {
             });
         message.channel.send({ embeds: [embed] });
     }
-
-    const code = client.cmds.get(command);
-    if (!code) return message.react('❌');
 }

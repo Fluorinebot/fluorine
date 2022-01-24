@@ -30,17 +30,29 @@ export default class AI {
             })
             .then(res => res.json());
         if (!ai.result) {
-            return object.reply(
-                this.client.language.get(
-                    object.guild.preferredLocale,
-                    'AI_ERROR'
-                )
+            if (object instanceof Message) {
+                return object.reply(
+                    this.client.language.get(
+                        object.guild.preferredLocale,
+                        'AI_ERROR'
+                    )
+                );
+            }
+            object.followup(
+                this.client.language.get(object.locale, 'AI_ERROR')
             );
         }
-        const embed = new Embed(this.client, object.guild.preferredLocale)
+        const embed = new Embed(
+            this.client,
+            object.locale || object.guild.preferredLocale
+        )
             .setLocaleTitle('AI_TITLE')
             .setDescription(ai.result);
-        object.reply({ embeds: [embed] });
+        if (object instanceof Message) {
+            object.reply({ embeds: [embed] });
+        } else {
+            object.followUp({ embeds: [embed] });
+        }
         this.queue.shift();
         if (this.queue.length === 0) {
             this.isGenerating = false;
