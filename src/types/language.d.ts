@@ -148,6 +148,11 @@ export interface LanguageType {
     BIRB: string;
     DOG: string;
     CAT: string;
+    INPOST_ARGS: string;
+    INPOST_URL: string;
+    INPOST_NOT_FOUND: string;
+    INPOST_TITLE: string;
+    INPOST_DESCRIPTION: string;
     DURATION: string;
     TIMEOUT_PERMISSIONS_MISSING: string;
     TIMEOUT_BOT_PERMISSIONS_MISSING: string;
