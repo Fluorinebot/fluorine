@@ -16,12 +16,10 @@ export async function run(
                 { command: 'bedwars' }
             )
         );
+    const uuid: any = await fetch(
+        `https://api.mojang.com/users/profiles/minecraft/${args[0]}`
+    ).then(res => res.json());
 
-    const uuid: any = await (
-        await fetch(
-            `https://api.mojang.com/users/profiles/minecraft/${args[0]}`
-        )
-    ).json();
     if (!uuid.data.id)
         return message.reply(
             client.language.get(
@@ -29,12 +27,9 @@ export async function run(
                 'HYPIXEL_INVALID_PLAYER'
             )
         );
-    // @ts-ignore
-    const data: HypixelType = await (
-        await fetch(
-            `https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${client.config.hypixel}`
-        )
-    ).json();
+    const data = (await fetch(
+        `https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${client.config.hypixel}`
+    ).then(res => res.json())) as HypixelType;
 
     const skyStats = data.player?.stats?.SkyWars;
     if (!skyStats) {

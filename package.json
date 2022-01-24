@@ -26,7 +26,6 @@
         "@discordjs/builders": "^0.11.0",
         "@discordjs/rest": "^0.2.0-canary.0",
         "@types/rethinkdb": "^2.3.17",
-        "axios": "^0.25.0",
         "canvas": "^2.9.0",
         "cookie-parser": "^1.4.6",
         "discord-api-types": "^0.26.0",
@@ -37,7 +36,6 @@
         "picocolors": "^1.0.0",
         "rate-limiter-flexible": "^2.3.6",
         "rethinkdb": "^2.4.2",
-        "statcord.js": "^3.3.0",
         "undici": "^4.12.2"
     },
     "devDependencies": {

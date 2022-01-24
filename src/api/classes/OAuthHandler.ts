@@ -8,9 +8,19 @@ export default class OAuthHandler {
         this.scopes = scopes;
         this.client = client;
     }
+    async getUser(token: string): Promise<any> {
+        const returned = await fetch('https://discord.com/api/users/@me', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        // @ts-ignore
+        return returned?.data.json() || null;
+    }
     async getToken(code: string) {
-        const returned: any = await (
-            await fetch('https://discord.com/api/oauth2/token', {
+        const returned: any = await fetch(
+            'https://discord.com/api/oauth2/token',
+            {
                 method: 'POST',
                 body: new URLSearchParams({
                     client_id: this.client.user.id,
@@ -23,46 +33,34 @@ export default class OAuthHandler {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
-            })
-        ).json();
-        // @ts-ignore
-        return returned;
-    }
-    async getUser(token: string) {
-        const returned: any = await (
-            await fetch('https://discord.com/api/users/@me', {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-        ).json();
+            }
+        ).then(res => res.json());
         return returned;
     }
     async getGuilds(token: string) {
-        const returned: any = await (
-            await fetch('https://discord.com/api/users/@me/guilds', {
+        const returned: any = await fetch(
+            'https://discord.com/api/users/@me/guilds',
+            {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
-            })
-        ).json();
-        return returned;
+            }
+        );
+        return returned?.json();
     }
     async refreshToken(refresh_token: string) {
-        const returned: any = await (
-            await fetch('https://discord.com/api/oauth2/token', {
-                body: new URLSearchParams({
-                    client_id: this.client.user.id,
-                    client_secret: this.client.config.secret,
-                    grant_type: 'refresh_token',
-                    refresh_token
-                }),
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            })
-        ).json();
-        // @ts-ignore
-        return returned?.data;
+        const returned = await fetch('https://discord.com/api/oauth2/token', {
+            body: new URLSearchParams({
+                client_id: this.client.user.id,
+                client_secret: this.client.config.secret,
+                grant_type: 'refresh_token',
+                refresh_token
+            }),
+
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(res => res.json());
+        return returned;
     }
 }
