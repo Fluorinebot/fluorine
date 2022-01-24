@@ -1,9 +1,14 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { Message } from 'discord.js';
+import { CommandInteraction } from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { Category } from 'types/applicationCommand';
 
-export async function run(client: FluorineClient, message: Message) {
-    const embed = new Embed(client, message.guild.preferredLocale)
+export async function run(
+    client: FluorineClient,
+    interaction: CommandInteraction
+) {
+    const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('STATS_TITLE')
         .addLocaleField({
             name: 'STATS_MEMORY_USAGE',
@@ -21,11 +26,11 @@ export async function run(client: FluorineClient, message: Message) {
             name: 'STATS_UPTIME',
             value: `<t:${Math.floor((Date.now() - client.uptime) / 1000)}:R>`
         });
-    message.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed] });
 }
-export const help = {
-    name: 'stats',
-    description: 'Statystyki bota',
-    aliases: ['statystyki', 'statistics'],
-    category: 'tools'
-};
+
+export const data = new SlashCommandBuilder()
+    .setName('stats')
+    .setDescription('Statistics of the bot');
+
+export const category: Category = 'tools';

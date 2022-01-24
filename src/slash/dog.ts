@@ -1,19 +1,26 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { Message } from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { CommandInteraction } from 'discord.js';
 import { fetch } from 'undici';
+import { Category } from 'types/applicationCommand';
 
-export async function run(client: FluorineClient, message: Message) {
-    const { file }: any = await (
-        await fetch('https://api.alexflipnote.dev/dogs')
-    ).json();
-    const embed = new Embed(client, message.guild.preferredLocale)
+export async function run(
+    client: FluorineClient,
+    interaction: CommandInteraction
+) {
+    const { file } = (await fetch('https://api.alexflipnote.dev/dogs').then(
+        response => response.json()
+    )) as { file: string };
+
+    const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('DOG')
         .setImage(file);
-    message.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed] });
 }
-export const help = {
-    name: 'dog',
-    description: 'Random dog picture',
-    category: 'fun'
-};
+
+export const data = new SlashCommandBuilder()
+    .setName('dog')
+    .setDescription('Random dog picture');
+
+export const category: Category = 'fun';

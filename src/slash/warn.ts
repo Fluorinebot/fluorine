@@ -1,85 +1,95 @@
-import FluorineClient from '@classes/Client';
-import Embed from '@classes/Embed';
-import createCase from '@util/createCase';
-import modLog from '@util/modLog';
-import { Message } from 'discord.js';
+import FluorineClient from '../classes/Client';
+import Embed from '../classes/Embed';
+import { CommandInteraction } from 'discord.js';
+import createCase from '../util/createCase';
 import r from 'rethinkdb';
-
+import modLog from '@util/modLog';
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { Category } from 'types/applicationCommand';
 export async function run(
     client: FluorineClient,
-    message: Message,
-    args: string[]
+    interaction: CommandInteraction<'cached'>
 ) {
-    if (!message.member?.permissions.has('MODERATE_MEMBERS')) {
-        return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
+    if (!interaction.member?.permissions.has('MODERATE_MEMBERS')) {
+        return interaction.reply({
+            content: client.language.get(
+                interaction.locale,
                 'WARN_PERMISSIONS_MISSING'
-            )
-        );
+            ),
+            ephemeral: true
+        });
     }
-    if (!args[0])
-        return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'WARN_ARGUMENTS_MISSING'
-            )
-        );
 
-    const member =
-        message.mentions.members?.first() ??
-        (await message.guild?.members.fetch(args[0]).catch(() => null));
+    const member = interaction.options.getMember('user');
     const reason =
-        args.slice(1).join(' ') ||
-        client.language.get(message.guild.preferredLocale, 'NONE');
-    if (member === message.member)
-        return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'WARN_ERROR_YOURSELF'
-            )
-        );
+        interaction.options.getString('reason') ??
+        client.language.get(interaction.locale, 'NONE');
+
     if (!member)
-        return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
+        return interaction.reply({
+            content: client.language.get(
+                interaction.locale,
                 'WARN_MEMBER_MISSING'
-            )
-        );
+            ),
+            ephemeral: true
+        });
+
+    if (member.user.id === interaction.user.id)
+        return interaction.reply({
+            content: client.language.get(
+                interaction.locale,
+                'WARN_ERROR_YOURSELF'
+            ),
+            ephemeral: true
+        });
+
     if (reason.length > 1024) {
-        message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
+        return interaction.reply({
+            content: client.language.get(
+                interaction.locale,
                 'REASON_LONGER_THAN_1024'
-            )
-        );
+            ),
+            ephemeral: true
+        });
     }
 
     const create = await createCase(
         client,
-        message?.guild,
+        interaction?.guild,
         member.user,
-        message.author,
+        interaction.user,
         'warn',
         reason
     );
-    r.table('case').insert(create).run(client.conn);
-    modLog(client, create, message.guild);
-    const embed = new Embed(client, message.guild.preferredLocale)
+
+    modLog(client, create, interaction.guild);
+    const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('WARN_SUCCESS_TITLE')
         .setLocaleDescription('WARN_SUCCESS_DESCRIPTION')
-        .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
-        .addLocaleField({ name: 'WARN_MODERATOR', value: message.author.tag })
+        .setThumbnail(member.displayAvatarURL({ dynamic: true }))
+        .addLocaleField({ name: 'WARN_MODERATOR', value: interaction.user.tag })
         .addLocaleField({ name: 'WARN_USER', value: member.user.tag })
         .addLocaleField({ name: 'REASON', value: reason })
         .addLocaleField({ name: 'PUNISHMENT_ID', value: create.id.toString() });
-    message.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed] });
 
     r.table('case').insert(create).run(client.conn);
 }
-export const help = {
-    name: 'warn',
-    description: 'Zwarnuj kogoś z serwera',
-    aliases: ['zbanuj'],
-    category: 'moderation'
-};
+
+export const data = new SlashCommandBuilder()
+    .setName('warn')
+    .setDescription('Warn an user from the server')
+    .addUserOption(option =>
+        option
+            .setName('user')
+            .setDescription('Provide an user to warn')
+            .setRequired(true)
+    )
+    .addStringOption(option =>
+        option
+            .setName('reason')
+            .setDescription('Provide a reason for warning this user')
+            .setRequired(false)
+    );
+
+export const category: Category = 'moderation';

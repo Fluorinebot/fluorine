@@ -1,92 +1,111 @@
-import FluorineClient from '@classes/Client';
-import Embed from '@classes/Embed';
-import createCase from '@util/createCase';
+import FluorineClient from '../classes/Client';
+import Embed from '../classes/Embed';
+import { CommandInteraction } from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
+import createCase from '../util/createCase';
 import r from 'rethinkdb';
-import { Message } from 'discord.js';
 import modLog from '@util/modLog';
+import { Category } from 'types/applicationCommand';
 
 export async function run(
     client: FluorineClient,
-    message: Message,
-    args: string[]
+    interaction: CommandInteraction<'cached'>
 ) {
-    if (!args[0])
-        return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'KICK_ARGUMENTS_MISSING'
-            )
-        );
-    if (!message.member?.permissions.has('KICK_MEMBERS')) {
-        return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
+    if (!interaction.member?.permissions.has('KICK_MEMBERS')) {
+        return interaction.reply({
+            content: client.language.get(
+                interaction.locale,
                 'KICK_PERMISSIONS_MISSING'
-            )
-        );
+            ),
+            ephemeral: true
+        });
     }
-    const member =
-        message.mentions.members?.first() ??
-        (await message.guild?.members.fetch(args[0]).catch(() => null));
+
+    const member = interaction.options.getMember('user');
     const reason =
-        args.slice(1).join(' ') ||
-        client.language.get(message.guild.preferredLocale, 'NONE');
+        interaction.options.getString('reason') ??
+        client.language.get(interaction.locale, 'NONE');
 
     if (!member)
-        return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
+        return interaction.reply({
+            content: client.language.get(
+                interaction.locale,
                 'KICK_MEMBER_MISSING'
-            )
-        );
-    if (!member?.kickable)
-        return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
+            ),
+            ephemeral: true
+        });
+
+    if (member.user.id === interaction.user.id)
+        return interaction.reply({
+            content: client.language.get(
+                interaction.locale,
+                'KICK_ERROR_YOURSELF'
+            ),
+            ephemeral: true
+        });
+
+    if (!member.kickable)
+        return interaction.reply({
+            content: client.language.get(
+                interaction.locale,
                 'KICK_BOT_PERMISSIONS_MISSING'
-            )
-        );
+            ),
+            ephemeral: true
+        });
 
     if (reason.length > 1024) {
-        message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
+        return interaction.reply({
+            content: client.language.get(
+                interaction.locale,
                 'REASON_LONGER_THAN_1024'
-            )
-        );
+            ),
+            ephemeral: true
+        });
     }
-
-    member.kick(
-        client.language.get(message.guild.preferredLocale, 'KICK_REASON', {
-            user: message.author.tag,
-            reason
-        })
-    );
 
     const create = await createCase(
         client,
-        message?.guild,
+        interaction?.guild,
         member.user,
-        message.author,
+        interaction.user,
         'kick',
         reason
     );
-    r.table('case').insert(create).run(client.conn);
-    modLog(client, create, message.guild);
-    const embed = new Embed(client, message.guild.preferredLocale)
+
+    await member.kick(
+        client.language.get(interaction.locale, 'KICK_REASON', {
+            user: interaction.user.tag,
+            reason
+        })
+    );
+    modLog(client, create, interaction.guild);
+    const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('KICK_SUCCESS_TITLE')
         .setLocaleDescription('KICK_SUCCESS_DESCRIPTION')
-        .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
-        .addLocaleField({ name: 'KICK_MODERATOR', value: message.author.tag })
+        .setThumbnail(member.displayAvatarURL({ dynamic: true }))
+        .addLocaleField({ name: 'KICK_MODERATOR', value: interaction.user.tag })
         .addLocaleField({ name: 'KICK_USER', value: member.user.tag })
         .addLocaleField({ name: 'REASON', value: reason })
         .addLocaleField({ name: 'PUNISHMENT_ID', value: create.id.toString() });
-    message.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed] });
+
     r.table('case').insert(create).run(client.conn);
 }
-export const help = {
-    name: 'kick',
-    description: 'Wyrzuć kogoś z serwera',
-    aliases: ['wyrzuć'],
-    category: 'moderation'
-};
+
+export const data = new SlashCommandBuilder()
+    .setName('kick')
+    .setDescription('Kick an user from the server')
+    .addUserOption(option =>
+        option
+            .setName('user')
+            .setDescription('Provide an user to kick')
+            .setRequired(true)
+    )
+    .addStringOption(option =>
+        option
+            .setName('reason')
+            .setDescription('Provide a reason for kicking this user')
+            .setRequired(false)
+    );
+
+export const category: Category = 'moderation';

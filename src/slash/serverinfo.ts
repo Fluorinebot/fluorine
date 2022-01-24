@@ -1,35 +1,42 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { Message } from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { CommandInteraction } from 'discord.js';
+import { Category } from 'types/applicationCommand';
 
-export async function run(client: FluorineClient, message: Message) {
-    const embed = new Embed(client, message.guild.preferredLocale)
+export async function run(
+    client: FluorineClient,
+    interaction: CommandInteraction
+) {
+    const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('SERVER_INFO')
         .addLocaleField({
             name: 'SERVER_INFO_NAME',
-            value: message.guild.name
+            value: interaction.guild.name
         })
         .addLocaleField({
             name: 'SERVER_INFO_CREATED',
-            value: `<t:${Math.round(message.guild.createdTimestamp / 1000)}>`
+            value: `<t:${Math.round(
+                interaction.guild.createdTimestamp / 1000
+            )}>`
         })
         .addLocaleField({
             name: 'SERVER_INFO_MEMBERS',
-            value: `${message.guild?.memberCount}`
+            value: `${interaction.guild?.memberCount}`
         })
         .addLocaleField({
             name: 'SERVER_INFO_CHANNELS',
-            value: `${message.guild?.channels.cache.size}`
+            value: `${interaction.guild?.channels.cache.size}`
         })
         .addLocaleField({
             name: 'SERVER_INFO_ROLES',
-            value: `${message.guild?.roles.cache.size}`
+            value: `${interaction.guild?.roles.cache.size}`
         });
-    message.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed] });
 }
-export const help = {
-    name: 'serverinfo',
-    description: 'Informacje o serwerze',
-    aliases: ['server', 'si'],
-    category: 'tools'
-};
+
+export const data = new SlashCommandBuilder()
+    .setName('serverinfo')
+    .setDescription('Information about this server');
+
+export const category: Category = 'tools';

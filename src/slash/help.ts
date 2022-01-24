@@ -1,50 +1,82 @@
 import FluorineClient from '@classes/Client';
+import { LanguageStrings } from 'types/language';
 import Embed from '@classes/Embed';
-import { Message, MessageActionRow, MessageSelectMenu } from 'discord.js';
+import {
+    CommandInteraction,
+    EmbedFieldData,
+    MessageActionRow,
+    MessageSelectMenu
+} from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { Category } from 'types/applicationCommand';
 
-export async function run(client: FluorineClient, message: Message) {
-    const embed = new Embed(client, message.guild.preferredLocale)
-        .setTitle('Help')
-        .setDescription('Select a category');
+export async function run(
+    client: FluorineClient,
+    interaction: CommandInteraction
+) {
+    const category = interaction.options.getString('category');
+    const commands = client.applicationCommands.filter(
+        c => c.category === category && !c.dev
+    );
+
+    const fields: EmbedFieldData[] = commands.map(c => ({
+        name: `/${c.data.name}`,
+        value: c.data.description
+    }));
+
+    const embed = new Embed(client, interaction.locale)
+        .setLocaleTitle(
+            `HELP_TITLE_${category.toUpperCase()}` as LanguageStrings
+        )
+        .setFields(fields);
+
     const row = new MessageActionRow().addComponents([
         new MessageSelectMenu()
-            .setCustomId(`help:${message.author.id}`)
+            .setCustomId(`help:${interaction.user.id}`)
             .setOptions([
                 {
-                    label: client.language.get(
-                        message.guild.preferredLocale,
-                        'FUN'
-                    ),
+                    label: client.language.get(interaction.locale, 'FUN'),
                     value: 'fun',
-                    emoji: '🎮'
+                    emoji: '🎮',
+                    default: category === 'fun'
                 },
                 {
-                    label: client.language.get(
-                        message.guild.preferredLocale,
-                        'TOOLS'
-                    ),
+                    label: client.language.get(interaction.locale, 'TOOLS'),
                     value: 'tools',
-                    emoji: '🛠️'
+                    emoji: '🛠️',
+                    default: category === 'tools'
                 },
                 {
                     label: client.language.get(
-                        message.guild.preferredLocale,
+                        interaction.locale,
                         'MODERATION'
                     ),
                     value: 'moderation',
-                    emoji: '🔨'
+                    emoji: '🔨',
+                    default: category === 'moderation'
                 }
             ])
     ]);
 
-    message.channel.send({
+    interaction.reply({
         embeds: [embed],
         components: [row]
     });
 }
-export const help = {
-    name: 'help',
-    description: 'Lista komend',
-    aliases: ['pomoc', 'h'],
-    category: 'tools'
-};
+
+export const data = new SlashCommandBuilder()
+    .setName('help')
+    .setDescription('Display the list of commands')
+    .addStringOption(option =>
+        option
+            .setName('category')
+            .setDescription('The category to display')
+            .addChoices([
+                ['Fun', 'fun'],
+                ['Tools', 'tools'],
+                ['Moderation', 'moderation']
+            ])
+            .setRequired(true)
+    );
+
+export const category: Category = 'tools';

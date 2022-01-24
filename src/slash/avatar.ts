@@ -1,25 +1,29 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { Message } from 'discord.js';
+import { CommandInteraction } from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { Category } from 'types/applicationCommand';
 
 export async function run(
     client: FluorineClient,
-    message: Message,
-    args: string[]
+    interaction: CommandInteraction<'cached'>
 ) {
-    const user =
-        message.mentions.users.first() ??
-        client.users.cache.get(args[0]) ??
-        message.author;
+    const member = interaction.options.getMember('user') ?? interaction.member;
 
-    const embed = new Embed(client, message.guild.preferredLocale)
+    const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('AVATAR')
-        .setImage(user.displayAvatarURL({ dynamic: true, size: 512 }));
-    message.reply({ embeds: [embed] });
+        .setImage(member.displayAvatarURL({ dynamic: true, size: 512 }));
+    interaction.reply({ embeds: [embed] });
 }
-export const help = {
-    name: 'avatar',
-    description: 'Pokaż avatar wybranego użytkownika',
-    aliases: ['av'],
-    category: 'tools'
-};
+
+export const data = new SlashCommandBuilder()
+    .setName('avatar')
+    .setDescription('Show avatar of an user')
+    .addUserOption(option =>
+        option
+            .setName('user')
+            .setDescription('Select an user')
+            .setRequired(false)
+    );
+
+export const category: Category = 'tools';

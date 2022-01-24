@@ -1,22 +1,23 @@
 import FluorineClient from '@classes/Client';
-import { Message } from 'discord.js';
 import { execSync } from 'child_process';
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { CommandInteraction } from 'discord.js';
+import { Category } from 'types/applicationCommand';
 
-export async function run(client: FluorineClient, message: Message) {
-    if (
-        message.author.id !== '707675871355600967' &&
-        message.author.id !== '478823932913516544'
-    ) {
-        return message.reply('ta komenda jest dostepna tylko dla developerów.');
-    }
+export async function run(
+    client: FluorineClient,
+    interaction: CommandInteraction
+) {
+    await interaction.deferReply();
     execSync('git pull');
     execSync('npm run build');
     execSync('npm i');
-    message.reply('pomyślnie zaktualizowano');
+    interaction.editReply('done');
 }
-export const help = {
-    name: 'update',
-    description: 'Aktualizuj bota',
-    aliases: ['aktualizuj'],
-    category: 'dev'
-};
+
+export const data = new SlashCommandBuilder()
+    .setName('update')
+    .setDescription('Update the bot');
+
+export const category: Category = 'tools';
+export const dev = true;

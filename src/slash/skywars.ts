@@ -1,51 +1,53 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
+import { CommandInteraction } from 'discord.js';
 import { HypixelType } from 'types/hypixel';
-import { Message } from 'discord.js';
 import { fetch } from 'undici';
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { Category } from 'types/applicationCommand';
+
 export async function run(
     client: FluorineClient,
-    message: Message,
-    args: string[]
+    interaction: CommandInteraction
 ) {
-    if (!args[0])
-        return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'HYPIXEL_NO_ARGS',
-                { command: 'bedwars' }
-            )
-        );
+    const player = interaction.options.getString('player');
     const uuid: any = await fetch(
-        `https://api.mojang.com/users/profiles/minecraft/${args[0]}`
-    ).then(res => res.json());
+        `https://api.mojang.com/users/profiles/minecraft/${player}`
+    )
+        .then(res => res.json())
+        .catch(() => null);
 
-    if (!uuid.data.id)
-        return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
+    if (!uuid)
+        return interaction.reply({
+            content: client.language.get(
+                interaction.locale,
                 'HYPIXEL_INVALID_PLAYER'
-            )
-        );
+            ),
+            ephemeral: true
+        });
     const data = (await fetch(
         `https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${client.config.hypixel}`
-    ).then(res => res.json())) as HypixelType;
+    )
+        .then(res => res.json())
+        .catch(() => ({ data: null }))) as HypixelType;
 
     const skyStats = data.player?.stats?.SkyWars;
     if (!skyStats) {
-        return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
+        return interaction.reply({
+            content: client.language.get(
+                interaction.locale,
                 'HYPIXEL_PLAYER_NOT_FOUND'
-            )
-        );
+            ),
+            ephemeral: true
+        });
     }
-    const kd = (skyStats.kills / skyStats.deaths).toFixed(2);
-    const winratio = (skyStats.wins / skyStats.deaths).toFixed(2);
-    const embed = new Embed(client, message.guild.preferredLocale)
-        .setLocaleTitle('HYPIXEL_STATISTICS_TITLE', {
-            player: args[0]
-        })
+
+    const kd = Number((skyStats.kills / skyStats.deaths).toFixed(2));
+
+    const winratio = Number((skyStats.wins / skyStats.deaths).toFixed(2));
+
+    const embed = new Embed(client, interaction.locale)
+        .setLocaleTitle('HYPIXEL_STATISTICS_TITLE', { player })
         .setDescription(`K/D: ${kd}\n Win/loss ratio: ${winratio}`)
         .addLocaleField({
             name: 'HYPIXEL_WON_GAMES',
@@ -77,11 +79,17 @@ export async function run(
         .setThumbnail(
             `https://crafatar.com/avatars/${uuid.data.id}?default=MHF_Steve&overlay`
         );
-    message.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed] });
 }
-export const help = {
-    name: 'skywars',
-    description: 'Sprawdź statystyki gracza na skywarsach z hypixel.net',
-    aliases: [],
-    category: 'fun'
-};
+
+export const data = new SlashCommandBuilder()
+    .setName('skywars')
+    .setDescription("Check a player's skywars stats from Hypixel")
+    .addStringOption(option =>
+        option
+            .setName('player')
+            .setDescription('The player to search')
+            .setRequired(true)
+    );
+
+export const category: Category = 'fun';

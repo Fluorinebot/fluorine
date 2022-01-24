@@ -1,24 +1,37 @@
 import FluorineClient from '@classes/Client';
-import { Message } from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { CommandInteraction } from 'discord.js';
+import { Category } from 'types/applicationCommand';
+import hash from 'murmurhash-v3';
+
 export async function run(
     client: FluorineClient,
-    message: Message,
-    args: string[]
+    interaction: CommandInteraction
 ) {
-    if (!args[0])
-        return message.reply(
-            client.language.get(message.guild.preferredLocale, 'HOWGAY_ARGS')
-        );
-    const number = Math.floor(Math.random() * 100);
-    message.reply(
-        client.language.get(message.guild.preferredLocale, 'HOWGAY', {
-            percent: number,
-            thing: message.mentions.members.first() || args.join(' ')
+    const thing =
+        interaction.options.resolved.users?.first() ??
+        interaction.options.getString('thing') ??
+        interaction.user;
+
+    const percent =
+        `${thing}` === '<@478823932913516544>' ? 100 : hash(`${thing}`) % 101;
+
+    interaction.reply(
+        client.language.get(interaction.locale, 'HOWGAY', {
+            percent,
+            thing
         })
     );
 }
-export const help = {
-    name: 'howgay',
-    description: 'How gay',
-    category: 'fun'
-};
+
+export const data = new SlashCommandBuilder()
+    .setName('howgay')
+    .setDescription('Check how gay something is')
+    .addStringOption(option =>
+        option
+            .setName('thing')
+            .setDescription('Provide a thing to check')
+            .setRequired(false)
+    );
+
+export const category: Category = 'fun';

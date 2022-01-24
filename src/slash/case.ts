@@ -1,42 +1,47 @@
-import FluorineClient from '../classes/Client';
-import Embed from '../classes/Embed';
-import { Message } from 'discord.js';
+import FluorineClient from '@classes/Client';
+import Embed from '@classes/Embed';
+import { CommandInteraction } from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
 import getCase from '@util/getCase';
+import { Category } from 'types/applicationCommand';
+
 export async function run(
     client: FluorineClient,
-    message: Message,
-    args: Array<string>
+    interaction: CommandInteraction
 ) {
-    if (!args[0])
-        return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'CASE_INVALID_CASE_ID'
-            )
-        );
+    const id = interaction.options.getInteger('id');
+    const [userCase] = await getCase(client, interaction.guild, id);
 
-    const [Case] = await getCase(client, message.guild, parseInt(args[0]));
-    if (!Case)
-        return message.reply(
-            client.language.get(message.guild.preferredLocale, 'CASE_NOT_FOUND')
-        );
-    const user = await client.users.fetch(Case.user);
-    const creator = await client.users.fetch(Case.creator);
-    const embed = new Embed(client, message.guild.preferredLocale)
-        .setLocaleTitle('CASE_TITLE', { id: args[0] })
-        .setThumbnail(user?.displayAvatarURL({ dynamic: true }))
+    if (!userCase)
+        return interaction.reply({
+            content: client.language.get(interaction.locale, 'CASE_NOT_FOUND'),
+            ephemeral: true
+        });
+
+    const user = await client.users.fetch(userCase.user);
+    const creator = await client.users.fetch(userCase.creator);
+    const embed = new Embed(client, interaction.locale)
+        .setLocaleTitle('CASE_TITLE', { id })
+        .setThumbnail(user.displayAvatarURL({ dynamic: true }))
         .addLocaleField({ name: 'CASE_USER', value: user.tag })
         .addLocaleField({ name: 'CASE_MODERATOR', value: creator.tag })
         .addLocaleField({
             name: 'CASE_TYPE',
-            localeValue: Case.type.toUpperCase()
+            localeValue: userCase.type.toUpperCase()
         })
-        .addLocaleField({ name: 'CASE_REASON', value: Case.dscp });
-    message.reply({ embeds: [embed] });
+        .addLocaleField({ name: 'CASE_REASON', value: userCase.dscp });
+    interaction.reply({ embeds: [embed] });
 }
-export const help = {
-    name: 'case',
-    description: 'Sprawdź informacje o karze.',
-    aliases: ['kara'],
-    category: 'mod'
-};
+
+export const data = new SlashCommandBuilder()
+    .setName('case')
+    .setDescription('Check a moderation case')
+    .addIntegerOption(option =>
+        option
+            .setName('id')
+            .setDescription('The case ID to search')
+            .setMinValue(1)
+            .setRequired(true)
+    );
+
+export const category: Category = 'moderation';
