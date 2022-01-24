@@ -26,7 +26,7 @@ export async function run(
             ephemeral: true
         });
     // @ts-ignore
-    const { data }: { data: HypixelType } = await fetch(
+    const data: HypixelType = await fetch(
         `https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${client.config.hypixel}`
     )
         .then(res => res.json())
