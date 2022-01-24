@@ -32,7 +32,6 @@ export async function run(
     const data = (await fetch(
         `https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${client.config.hypixel}`
     ).then(res => res.json())) as HypixelType;
-
     const bedStats = data.player?.stats?.Bedwars;
     if (!bedStats) {
         return message.reply(

@@ -16,7 +16,6 @@ export async function run(
                 { command: 'bedwars' }
             )
         );
-
     const uuid: any = await fetch(
         `https://api.mojang.com/users/profiles/minecraft/${args[0]}`
     ).then(res => res.json());
@@ -28,7 +27,6 @@ export async function run(
                 'HYPIXEL_INVALID_PLAYER'
             )
         );
-
     const data = (await fetch(
         `https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${client.config.hypixel}`
     ).then(res => res.json())) as HypixelType;

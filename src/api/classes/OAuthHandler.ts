@@ -8,6 +8,15 @@ export default class OAuthHandler {
         this.scopes = scopes;
         this.client = client;
     }
+    async getUser(token: string): Promise<any> {
+        const returned = await fetch('https://discord.com/api/users/@me', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        // @ts-ignore
+        return returned?.data.json() || null;
+    }
     async getToken(code: string) {
         const returned: any = await fetch(
             'https://discord.com/api/oauth2/token',
@@ -28,14 +37,6 @@ export default class OAuthHandler {
         ).then(res => res.json());
         return returned;
     }
-    async getUser(token: string) {
-        const returned: any = await fetch('https://discord.com/api/users/@me', {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then(res => res.json());
-        return returned;
-    }
     async getGuilds(token: string) {
         const returned: any = await fetch(
             'https://discord.com/api/users/@me/guilds',
@@ -44,24 +45,22 @@ export default class OAuthHandler {
                     Authorization: `Bearer ${token}`
                 }
             }
-        ).then(res => res.json());
-        return returned;
+        );
+        return returned?.json();
     }
     async refreshToken(refresh_token: string) {
-        const returned: any = await fetch(
-            'https://discord.com/api/oauth2/token',
-            {
-                body: new URLSearchParams({
-                    client_id: this.client.user.id,
-                    client_secret: this.client.config.secret,
-                    grant_type: 'refresh_token',
-                    refresh_token
-                }),
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
+        const returned = await fetch('https://discord.com/api/oauth2/token', {
+            body: new URLSearchParams({
+                client_id: this.client.user.id,
+                client_secret: this.client.config.secret,
+                grant_type: 'refresh_token',
+                refresh_token
+            }),
+
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
             }
-        ).then(res => res.json());
-        return returned?.data;
+        }).then(res => res.json());
+        return returned;
     }
 }

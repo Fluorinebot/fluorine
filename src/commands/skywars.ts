@@ -2,7 +2,7 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { CommandInteraction } from 'discord.js';
 import { HypixelType } from 'types/hypixel';
-import axios from 'axios';
+import { fetch } from 'undici';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { Category } from 'types/applicationCommand';
 
@@ -11,9 +11,11 @@ export async function run(
     interaction: CommandInteraction
 ) {
     const player = interaction.options.getString('player');
-    const uuid = await axios(
+    const uuid: any = await fetch(
         `https://api.mojang.com/users/profiles/minecraft/${player}`
-    ).catch(() => null);
+    )
+        .then(res => res.json())
+        .catch(() => null);
 
     if (!uuid)
         return interaction.reply({
@@ -23,10 +25,11 @@ export async function run(
             ),
             ephemeral: true
         });
-
-    const { data }: { data: HypixelType } = await axios(
+    const data = (await fetch(
         `https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${client.config.hypixel}`
-    ).catch(() => ({ data: null }));
+    )
+        .then(res => res.json())
+        .catch(() => ({ data: null }))) as HypixelType;
 
     const skyStats = data.player?.stats?.SkyWars;
     if (!skyStats) {
