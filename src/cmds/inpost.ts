@@ -18,7 +18,7 @@ export async function run(
     } else {
         statusURL = 'https://api-shipx-pl.easypack24.net/v1/statuses?lang=en';
     }
-    const statuses: any = await (await fetch(statusURL)).json();
+    const statuses: any = await fetch(statusURL).then(res => res.json());
     const req: any = await fetch(
         `https://api-shipx-pl.easypack24.net/v1/tracking/${args[0]}`
     );
