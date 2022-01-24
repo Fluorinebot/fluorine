@@ -8,11 +8,14 @@ export default class CommandHandler {
         this.map = new Collection();
     }
     loadCommands() {
-        const dir = readdirSync(`${__dirname}/../../cmds`);
+        const dir = readdirSync(`${__dirname}/../../slash`);
         console.log(dir);
         dir.forEach(async file => {
             const [name] = file.split('.');
-            this.map.set(name, await import(`${__dirname}/../../cmds/${file}`));
+            this.map.set(
+                name,
+                await import(`${__dirname}/../../slash/${file}`)
+            );
         });
         return this.map;
     }
