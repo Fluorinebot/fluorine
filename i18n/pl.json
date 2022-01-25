@@ -142,7 +142,7 @@
     "PROFILE_SET_LOCATION": "Pomyślnie ustawiono twoją lokalizację na [location]",
     "PROFILE_SET_PRONOUNS": "Pomyślnie ustawiono twoje zaimki na [pronouns]",
     "PROFILE_NOT_SET": "Nie ustawiono!",
-    "PROFILE_NOT_SET_DESCRIPTION": "Nie ustawiono! Ustaw swój profil za pomocą /profile",
+    "PROFILE_NOT_SET_DESCRIPTION": "Nie ustawiono! Ustaw swój profil za pomocą /profile set",
     "PROFILE_INVALID_BIRTHDAY": "Podałeś nieprawidłową datę urodzin! Prawidłowy format: DD/MM.",
     "PROFILE_INVALID_PRONOUNS": "Podałeś nieprawidłowe zaimki! Prawidłowy format: they/them, she/her, he/him",
     "PROFILE_INVALID_LOCATION": "Podałeś nieprawidłową lokalizację!\nMinimalna długość lokalizacji: 2 znaki, maksymalna długość: 15 znaków!",

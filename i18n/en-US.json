@@ -144,7 +144,7 @@
     "PROFILE_SET_PRONOUNS": "Successfully set your pronouns to [pronouns]",
     "PROFILE_NOT_SET": "Not set!",
     "PROFILE_INVALID_PRONOUNS": "Your pronouns are invalid! Please provide a valid pronouns.\nSupported formats: they/them, she/her, he/him",
-    "PROFILE_NOT_SET_DESCRIPTION": "Not set! Setup your profile using /config set",
+    "PROFILE_NOT_SET_DESCRIPTION": "Not set! Setup your profile using /profile set",
     "PROFILE_INVALID_BIRTHDAY": "You provided a invalid birthday! Valid format: DD/MM.",
     "PROFILE_INVALID_LOCATION": "You provided a invalid location!\nLocation must have at least 3 characters and max 20 characters.",
     "PROFILE_INVALID_OPTION": "You provided an invalid option!\nSupported options: description, website, birthday, location, pronouns",
