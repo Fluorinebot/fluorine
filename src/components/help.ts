@@ -16,7 +16,7 @@ export async function run(
 ) {
     const [category] = interaction.values;
     const commands = client.applicationCommands.filter(
-        c => c.category === category
+        c => c.category === category && !c.dev
     );
 
     const fields: EmbedFieldData[] = commands.map(c => ({
