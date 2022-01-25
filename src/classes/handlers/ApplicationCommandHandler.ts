@@ -8,12 +8,12 @@ export default class ApplicationCommandHandler {
         this.map = new Collection();
     }
     loadCommands() {
-        const dir = readdirSync(`${__dirname}/../../slash`);
+        const dir = readdirSync(`${__dirname}/../../commands`);
         console.log(dir);
         dir.forEach(async file => {
             if (!file.endsWith('.js')) {
                 const subcommands = readdirSync(
-                    `${__dirname}/../../slash/${file}`
+                    `${__dirname}/../../commands/${file}`
                 );
                 subcommands.forEach(async subfile => {
                     const [subname] = subfile.split('.');
@@ -21,7 +21,7 @@ export default class ApplicationCommandHandler {
                     this.map.set(
                         `${file}/${subname}`,
                         await import(
-                            `${__dirname}/../../slash/${file}/${subname}`
+                            `${__dirname}/../../commands/${file}/${subname}`
                         )
                     );
                 });
@@ -29,7 +29,7 @@ export default class ApplicationCommandHandler {
             const [name] = file.split('.');
             this.map.set(
                 name,
-                await import(`${__dirname}/../../slash/${file}`)
+                await import(`${__dirname}/../../commands/${file}`)
             );
         });
         return this.map;
