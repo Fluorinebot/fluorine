@@ -59,10 +59,10 @@ export async function run(client: FluorineClient, message: Message) {
     const args = message.content.slice(settings.prefix.length).split(' ');
     const command = args.shift();
     if (message.content.startsWith(settings.prefix)) {
-        const random = Math.floor(Math.random() * 20) + 1;
-        if (random === 20)
+        const random = Math.floor(Math.random() * 15) + 1;
+        if (random === 15)
             message.channel.send(
-                '<:SlashCommands:934768130474004500> Use Slash Commands!\nFluorine will stop responding to prefix commands soon!'
+                '<:SlashCommands:934768130474004500> Use Slash Commands!\nPrefix commands are not supported and will be deleted in march!'
             );
         if (client.cooldown.has(message.author.id)) {
             const coolEmbed = new Embed(client, message.guild.preferredLocale)
