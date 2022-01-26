@@ -18,22 +18,23 @@ import AI from './AI';
 
 export default class FluorineClient extends Client {
     applicationCommands!: Collection<string, ApplicationCommand>;
-    conn!: r.Connection;
-    config: ConfigType;
     cmds!: Collection<string, Command>;
     components!: Collection<string, Component>;
+    language: LanguageHandler;
+    economy: EconomyHandler;
+    phishing: PhishingHandler;
+    conn!: r.Connection;
+    config: ConfigType;
+    cooldown: Set<string>;
+    ai: AI;
+    logger: Logger;
     invite: string;
     version: string;
     footer: string;
     color: ColorResolvable;
     devs: string[];
-    logger: Logger;
     generating: boolean;
-    cooldown: Set<string>;
-    economy: EconomyHandler;
-    ai: AI;
-    language: LanguageHandler;
-    phishing: PhishingHandler;
+
     constructor() {
         super({
             intents: [
@@ -48,30 +49,34 @@ export default class FluorineClient extends Client {
             partials: ['MESSAGE'],
             allowedMentions: { repliedUser: false }
         });
+
         this.config = require(`${__dirname}/../../config.json`);
-        r.connect(this.config.rethink).then(conn => {
-            this.conn = conn;
-        });
         this.version = version;
         this.invite =
             'https://discord.com/api/oauth2/authorize?client_id=831932409943425064&scope=bot+applications.commands&permissions=474527689975';
         this.footer = `Fluorine ${this.version}`;
         this.color = '#3872f2';
         this.devs = ['707675871355600967', '478823932913516544'];
+
         this.logger = new Logger();
         this.cooldown = new Set();
-        this.language = new LanguageHandler();
-        this.phishing = new PhishingHandler(this);
-        this.economy = new EconomyHandler(this);
     }
     async init() {
         new EventHandler(this);
+        r.connect(this.config.rethink).then(conn => {
+            this.conn = conn;
+        });
+        this.language = new LanguageHandler();
+
         this.cmds = new CommandHandler().loadCommands();
-        this.ai = new AI(this);
         this.applicationCommands =
             new ApplicationCommandHandler().loadCommands();
         this.components = new ComponentHandler().loadComponents();
+
+        this.ai = new AI(this);
         this.phishing = new PhishingHandler(this);
+        this.economy = new EconomyHandler(this);
+
         this.logger.log('loaded events and commands');
         this.login(this.config.token).then(() => {
             this.guilds.cache.forEach(async g => {
