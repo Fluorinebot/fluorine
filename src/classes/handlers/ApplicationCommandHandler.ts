@@ -40,13 +40,13 @@ export default class ApplicationCommandHandler {
     }
 
     loadContextMenu() {
-        const dir = readdirSync(`${__dirname}/../../cmds`);
+        const dir = readdirSync(`${__dirname}/../../context`);
         console.log(dir);
         dir.forEach(async file => {
             const [name] = file.split('.');
             this.contextMenu.set(
                 name,
-                await import(`${__dirname}/../../cmds/${file}`)
+                await import(`${__dirname}/../../context/${file}`)
             );
         });
         return this.contextMenu;
