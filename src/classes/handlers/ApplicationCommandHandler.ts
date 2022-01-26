@@ -45,7 +45,7 @@ export default class ApplicationCommandHandler {
         dir.forEach(async file => {
             const [name] = file.split('.');
             this.contextMenu.set(
-                `${name}.con`,
+                name,
                 await import(`${__dirname}/../../context/${file}`)
             );
         });

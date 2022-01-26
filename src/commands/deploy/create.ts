@@ -12,9 +12,9 @@ export async function run(
 
     const name = interaction.options.getString('command');
     const guildId = interaction.options.getString('guild');
-    const command =
-        client.applicationCommands.chatInput.get(name) ??
-        client.applicationCommands.contextMenu.get(name);
+    const command = name.endsWith('.con')
+        ? client.applicationCommands.contextMenu.get(name.replace('.con', ''))
+        : client.applicationCommands.chatInput.get(name);
 
     if (!command && name !== 'all')
         return interaction.reply({
