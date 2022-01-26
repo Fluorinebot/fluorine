@@ -1,12 +1,12 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { ContextMenuInteraction } from 'discord.js';
+import { UserContextMenuInteraction } from 'discord.js';
 import { ContextMenuCommandBuilder } from '@discordjs/builders';
 import { ApplicationCommandType } from 'discord-api-types';
 
 export async function run(
     client: FluorineClient,
-    interaction: ContextMenuInteraction<'cached'>
+    interaction: UserContextMenuInteraction<'cached'>
 ) {
     const member = interaction.targetMember;
 
