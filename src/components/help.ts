@@ -54,6 +54,12 @@ export async function run(
                     value: 'moderation',
                     emoji: '🔨',
                     default: category === 'moderation'
+                },
+                {
+                    label: client.language.get(interaction.locale, 'ECONOMY'),
+                    value: 'economy',
+                    emoji: '💰',
+                    default: category === 'economy'
                 }
             ])
     ]);

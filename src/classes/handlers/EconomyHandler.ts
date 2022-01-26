@@ -110,4 +110,34 @@ export default class EconomyHandler {
                 }
             });
     }
+    async getCooldown(user: string, guild: string) {
+        const userObj = (await r
+            .table('economy')
+            .get(`${user}-${guild}`)
+            .run(this.client.conn)) as EconomyUser;
+        return userObj?.cooldown || { work: 0 };
+    }
+    async setCooldown(
+        user: string,
+        guild: string,
+        cooldown: EconomyUser['cooldown']
+    ) {
+        const userObj: any = await r
+            .table('economy')
+            .get(`${user}-${guild}`)
+            .run(this.client.conn);
+        if (!userObj) {
+            return r
+                .table('economy')
+                .insert({
+                    id: `${user}-${guild}`,
+                    balance: { wallet: 0, bank: 0 },
+                    cooldown
+                })
+                .run(this.client.conn);
+        }
+        return r.table('economy').get(`${user}-${guild}`).update({
+            cooldown
+        });
+    }
 }

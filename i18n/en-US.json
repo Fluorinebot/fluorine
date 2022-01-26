@@ -52,6 +52,7 @@
     "HELP_TITLE_FUN": "🎮 Fun",
     "TOOLS": "Tools",
     "ECONOMY": "Economy",
+    "HELP_TITLE_ECONOMY": "💰 Economy",
     "HELP_TITLE_TOOLS": "🛠️ Tools",
     "MODERATION": "Moderation",
     "HELP_TITLE_MODERATION": "🔨 Moderation",
@@ -185,5 +186,7 @@
     "TIMEOUT_SUCCESS_DESCRIPTION": "Successfully timed out a member!",
     "TIMEOUT_MODERATOR": "Timed out by",
     "TIMEOUT_USER": "Timed out",
-    "TIMEOUT_REASON": "Timed out by [user] for [reason]"
+    "TIMEOUT_REASON": "Timed out by [user] for [reason]",
+    "WORK_COOLDOWN": "You're on cooldown!",
+    "WORK_COOLDOWN_DESCRIPTION": "You'll be able to work <t:[time]:R>"
 }

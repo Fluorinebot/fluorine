@@ -5,4 +5,7 @@ export interface EconomyUser {
         wallet: number;
         bank: number;
     };
+    cooldown?: {
+        work?: number;
+    };
 }

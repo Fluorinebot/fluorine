@@ -185,5 +185,9 @@
     "TIMEOUT_SUCCESS_DESCRIPTION": "Wyciszono członka!",
     "TIMEOUT_MODERATOR": "Wyciszono przez",
     "TIMEOUT_USER": "Wyciszono",
-    "TIMEOUT_REASON": "Wyciszono przez [user] za [reason]"
+    "TIMEOUT_REASON": "Wyciszono przez [user] za [reason]",
+    "WORK_COOLDOWN": "Nie możesz pracować!",
+    "WORK_COOLDOWN_DESCRIPTION": "Następny raz możesz pracować [time]",
+    "WORK_SUCCESS": "Pracowałeś!",
+    "WORK_SUCCESS_DESCRIPTION": "Pracowałeś! Zarobiłeś [amount]."
 }
