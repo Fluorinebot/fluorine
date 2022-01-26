@@ -151,6 +151,11 @@ export interface LanguageType {
     BALANCE: string;
     BALANCE_WALLET: string;
     BALANCE_BANK: string;
+    INPOST_ARGS: string;
+    INPOST_URL: string;
+    INPOST_NOT_FOUND: string;
+    INPOST_TITLE: string;
+    INPOST_DESCRIPTION: string;
     DURATION: string;
     TIMEOUT_PERMISSIONS_MISSING: string;
     TIMEOUT_BOT_PERMISSIONS_MISSING: string;
@@ -162,6 +167,8 @@ export interface LanguageType {
     TIMEOUT_MODERATOR: string;
     TIMEOUT_USER: string;
     TIMEOUT_REASON: string;
+    ECONOMY: string;
+    HELP_TITLE_ECONOMY: string;
 }
 
 export type LanguageStrings = keyof LanguageType;
