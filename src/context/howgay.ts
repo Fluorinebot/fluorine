@@ -1,5 +1,6 @@
 import FluorineClient from '@classes/Client';
 import { ContextMenuCommandBuilder } from '@discordjs/builders';
+import { ApplicationCommandType } from 'discord-api-types';
 import { UserContextMenuInteraction } from 'discord.js';
 import hash from 'murmurhash-v3';
 
@@ -22,6 +23,6 @@ export async function run(
 
 export const data = new ContextMenuCommandBuilder()
     .setName('How Gay')
-    .setType(2);
+    .setType(ApplicationCommandType.User);
 
 export const dev = true;
