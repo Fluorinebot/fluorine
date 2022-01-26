@@ -60,7 +60,11 @@ export default class FluorineClient extends Client {
             'https://discord.com/api/oauth2/authorize?client_id=831932409943425064&scope=bot+applications.commands&permissions=474527689975';
         this.footer = `Fluorine ${this.version}`;
         this.color = '#3872f2';
-        this.devs = ['707675871355600967', '478823932913516544'];
+        this.devs = [
+            '707675871355600967',
+            '478823932913516544',
+            '348591272476540928'
+        ];
         this.logger = new Logger();
         this.cooldown = new Set();
         this.language = new LanguageHandler();
