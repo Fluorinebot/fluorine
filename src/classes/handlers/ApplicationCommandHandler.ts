@@ -1,13 +1,18 @@
 import { readdirSync } from 'fs';
-import { ApplicationCommand } from 'types/applicationCommand';
+import { ChatInputCommand, ContextMenuCommand } from 'types/applicationCommand';
 import { Collection } from 'discord.js';
+
 export default class ApplicationCommandHandler {
-    map: Collection<string, ApplicationCommand>;
+    chatInput: Collection<string, ChatInputCommand>;
+    contextMenu: Collection<string, ContextMenuCommand>;
+
     constructor() {
         // import commands
-        this.map = new Collection();
+        this.chatInput = new Collection();
+        this.contextMenu = new Collection();
     }
-    loadCommands() {
+
+    loadChatInput() {
         const dir = readdirSync(`${__dirname}/../../commands`);
         console.log(dir);
         dir.forEach(async file => {
@@ -18,7 +23,7 @@ export default class ApplicationCommandHandler {
                 subcommands.forEach(async subfile => {
                     const [subname] = subfile.split('.');
                     if (subname === 'index') return;
-                    this.map.set(
+                    this.chatInput.set(
                         `${file}/${subname}`,
                         await import(
                             `${__dirname}/../../commands/${file}/${subname}`
@@ -27,11 +32,24 @@ export default class ApplicationCommandHandler {
                 });
             }
             const [name] = file.split('.');
-            this.map.set(
+            this.chatInput.set(
                 name,
                 await import(`${__dirname}/../../commands/${file}`)
             );
         });
-        return this.map;
+        return this.chatInput;
+    }
+
+    loadContextMenu() {
+        const dir = readdirSync(`${__dirname}/../../cmds`);
+        console.log(dir);
+        dir.forEach(async file => {
+            const [name] = file.split('.');
+            this.contextMenu.set(
+                name,
+                await import(`${__dirname}/../../cmds/${file}`)
+            );
+        });
+        return this.contextMenu;
     }
 }

@@ -13,11 +13,15 @@ import EventHandler from '@handlers/EventHandler';
 import LanguageHandler from '@handlers/LanguageHandler';
 import PhishingHandler from '@handlers/PhishingHandler';
 import EconomyHandler from '@handlers/EconomyHandler';
-import { ApplicationCommand } from 'types/applicationCommand';
+import { ChatInputCommand, ContextMenuCommand } from 'types/applicationCommand';
 import AI from './AI';
 
+interface applicationCommands {
+    chatInput: Collection<string, ChatInputCommand>;
+    contextMenu: Collection<string, ContextMenuCommand>;
+}
 export default class FluorineClient extends Client {
-    applicationCommands!: Collection<string, ApplicationCommand>;
+    applicationCommands!: applicationCommands;
     conn!: r.Connection;
     config: ConfigType;
     cmds!: Collection<string, Command>;
@@ -68,8 +72,11 @@ export default class FluorineClient extends Client {
         new EventHandler(this);
         this.cmds = new CommandHandler().loadCommands();
         this.ai = new AI(this);
-        this.applicationCommands =
-            new ApplicationCommandHandler().loadCommands();
+        this.applicationCommands.chatInput =
+            new ApplicationCommandHandler().loadChatInput();
+        this.applicationCommands.contextMenu =
+            new ApplicationCommandHandler().loadContextMenu();
+
         this.components = new ComponentHandler().loadComponents();
         this.phishing = new PhishingHandler(this);
         this.logger.log('loaded events and commands');
