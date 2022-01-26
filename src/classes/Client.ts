@@ -65,7 +65,7 @@ export default class FluorineClient extends Client {
         this.cmds = new CommandHandler().loadCommands();
         this.ai = new AI(this);
         this.applicationCommands =
-            new ApplicationCommandHandler().loadCommands();
+            new ApplicationCommandHandler().loadChatInput();
         this.components = new ComponentHandler().loadComponents();
         this.phishing = new PhishingHandler(this);
         this.logger.log('loaded events and commands');
