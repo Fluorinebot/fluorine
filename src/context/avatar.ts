@@ -1,14 +1,14 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { CommandInteraction } from 'discord.js';
+import { ContextMenuInteraction } from 'discord.js';
 import { ContextMenuCommandBuilder } from '@discordjs/builders';
 import { ApplicationCommandType } from 'discord-api-types';
 
 export async function run(
     client: FluorineClient,
-    interaction: CommandInteraction<'cached'>
+    interaction: ContextMenuInteraction<'cached'>
 ) {
-    const member = interaction.options.getMember('user');
+    const member = interaction.targetMember;
 
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('AVATAR')
