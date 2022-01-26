@@ -13,8 +13,11 @@ export async function run(
         interaction.options.getString('thing') ??
         interaction.user;
 
-    const percent =
-        `${thing}` === '<@478823932913516544>' ? 100 : hash(`${thing}`) % 101;
+    const percent = ['<@478823932913516544>', '<@348591272476540928>'].includes(
+        thing.toString()
+    )
+        ? 100
+        : hash(thing.toString()) % 101;
 
     interaction.reply(
         client.language.get(interaction.locale, 'HOWGAY', {

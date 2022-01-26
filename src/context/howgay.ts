@@ -8,15 +8,18 @@ export async function run(
     client: FluorineClient,
     interaction: UserContextMenuInteraction
 ): Promise<void> {
-    const thing = interaction.targetMember;
+    const member = interaction.targetMember;
 
-    const percent =
-        `${thing}` === '<@478823932913516544>' ? 100 : hash(`${thing}`) % 101;
+    const percent = ['478823932913516544', '348591272476540928'].includes(
+        member.user.id
+    )
+        ? 100
+        : hash(`${member.user.id}`) % 101;
 
     interaction.reply(
         client.language.get(interaction.locale, 'HOWGAY', {
             percent,
-            thing
+            thing: member
         })
     );
 }
