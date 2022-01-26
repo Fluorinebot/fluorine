@@ -13,7 +13,8 @@
             "types/*": ["types/*"],
             "@dash/*": ["api/*"],
             "@dash/oauth/*": ["api/oauth/*"],
-            "@i18n/*": ["i18n/*"]
+            "@i18n/*": ["i18n/*"],
+            "@context/*": ["context/*"]
         },
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
