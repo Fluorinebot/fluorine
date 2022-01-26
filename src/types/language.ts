@@ -171,6 +171,8 @@ export interface LanguageType {
     HELP_TITLE_ECONOMY: string;
     WORK_COOLDOWN: string;
     WORK_COOLDOWN_DESCRIPTION: string;
+    WORK_SUCCESS: string;
+    WORK_SUCCESS_DESCRIPTION: string[];
 }
 
 export type LanguageStrings = keyof LanguageType;

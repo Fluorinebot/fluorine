@@ -189,5 +189,9 @@
     "WORK_COOLDOWN": "Nie możesz pracować!",
     "WORK_COOLDOWN_DESCRIPTION": "Następny raz możesz pracować [time]",
     "WORK_SUCCESS": "Pracowałeś!",
-    "WORK_SUCCESS_DESCRIPTION": "Pracowałeś! Zarobiłeś [amount]."
+    "WORK_SUCCESS_DESCRIPTIONS": [
+        "Stworzyłeś bota na discorda! Zarobiłeś [amount]",
+        "Pracowałeś w McDonaldzie i zarobiłeś [amount]",
+        "Stworzyłeś stronę dla małej firmy! Zapłacili ci [amount]"
+    ]
 }

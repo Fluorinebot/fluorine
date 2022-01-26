@@ -188,5 +188,11 @@
     "TIMEOUT_USER": "Timed out",
     "TIMEOUT_REASON": "Timed out by [user] for [reason]",
     "WORK_COOLDOWN": "You're on cooldown!",
-    "WORK_COOLDOWN_DESCRIPTION": "You'll be able to work <t:[time]:R>"
+    "WORK_COOLDOWN_DESCRIPTION": "You'll be able to work <t:[time]:R>",
+    "WORK_SUCCESS": "You worked!",
+    "WORK_SUCCESS_DESCRIPTIONS": [
+        "You coded a discord bot! You earned [amount]",
+        "You worked at McDonald's and earned [amount]",
+        "You coded a website for a small company! They paid you [amount]"
+    ]
 }

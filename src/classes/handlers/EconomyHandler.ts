@@ -1,4 +1,5 @@
 import FluorineClient from '@classes/Client';
+import { Snowflake } from 'discord-api-types';
 import r from 'rethinkdb';
 import { EconomyUser } from 'types/economyUser';
 export default class EconomyHandler {
@@ -6,14 +7,14 @@ export default class EconomyHandler {
     constructor(client: FluorineClient) {
         this.client = client;
     }
-    async get(user: string, guild: string) {
+    async get(user: Snowflake, guild: Snowflake) {
         const data = (await r
             .table('economy')
             .get(`${user}-${guild}`)
             .run(this.client.conn)) as EconomyUser;
         return data?.balance || { wallet: 0, bank: 0 };
     }
-    async add(user: string, guild: string, amount: string) {
+    async add(user: string, guild: string, amount: number) {
         const userObj: any = await r
             .table('economy')
             .get(`${user}-${guild}`)

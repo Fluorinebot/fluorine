@@ -21,7 +21,19 @@ export async function run(
             .setLocaleDescription('WORK_COOLDOWN_DESCRIPTION');
         return interaction.reply({ embeds: [embed], ephemeral: true });
     }
+    const random = Math.floor(Math.random() * 3);
     const money = Math.floor(Math.random() * 200 + 1);
+    const description = client.language.get(
+        interaction.locale,
+        'WORK_SUCCESS_DESCRIPTION'
+    );
+    const embed = new Embed(client, interaction.locale)
+        .setLocaleTitle('WORK_SUCCESS')
+        .setDescription(
+            description[random].replaceAll('[amount]', money.toString())
+        );
+    client.economy.add(interaction.user.id, interaction.guild.id, money);
+    interaction.reply({ embeds: [embed] });
 }
 
 export const data = new SlashCommandBuilder()

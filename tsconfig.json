@@ -11,8 +11,6 @@
             "@handlers/*": ["classes/handlers/*"],
             "@util/*": ["util/*"],
             "types/*": ["types/*"],
-            "@dash/*": ["api/*"],
-            "@dash/oauth/*": ["api/oauth/*"],
             "@i18n/*": ["i18n/*"]
         },
         "allowSyntheticDefaultImports": true,
