@@ -20,7 +20,7 @@ export async function run(client: FluorineClient, interaction: Interaction) {
         component?.run(client, interaction, value);
     } else if (interaction.isContextMenu()) {
         const contextCommand = client.applicationCommands.contextMenu.find(
-            cmd => cmd?.data.name === interaction.commandName
+            cmd => cmd.data?.name === interaction.commandName
         );
 
         if (contextCommand.dev && !client.devs.includes(interaction.user.id))
