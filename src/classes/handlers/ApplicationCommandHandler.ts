@@ -1,12 +1,9 @@
 import { readdirSync } from 'fs';
-import {
-    ApplicationCommand,
-    ContextMenuCommand
-} from 'types/applicationCommand';
+import { ChatInputCommand, ContextMenuCommand } from 'types/applicationCommand';
 import { Collection } from 'discord.js';
 
 export default class ApplicationCommandHandler {
-    chatInput: Collection<string, ApplicationCommand>;
+    chatInput: Collection<string, ChatInputCommand>;
     contextMenu: Collection<string, ContextMenuCommand>;
     constructor() {
         // import commands

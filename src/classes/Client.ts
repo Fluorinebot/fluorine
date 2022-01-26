@@ -6,7 +6,7 @@ import CommandHandler from '@handlers/CommandHandler';
 import ComponentHandler from '@handlers/ComponentHandler';
 import EventHandler from '@handlers/EventHandler';
 import { Command } from 'types/command';
-import { ApplicationCommand } from 'types/applicationCommand';
+import { ChatInputCommand, ContextMenuCommand } from 'types/applicationCommand';
 import { Component } from 'types/component';
 import { ConfigType } from 'types/config';
 import LanguageHandler from './handlers/LanguageHandler';
@@ -15,8 +15,13 @@ import AI from './AI';
 import { version } from '../../package.json';
 import PhishingHandler from './handlers/PhishingHandler';
 
+interface applicationCommands {
+    chatInput: Collection<string, ChatInputCommand>;
+    contextMenu: Collection<string, ContextMenuCommand>;
+}
+
 export default class FluorineClient extends Client {
-    applicationCommands!: Collection<string, ApplicationCommand>;
+    applicationCommands!: applicationCommands;
     conn!: r.Connection;
     config: ConfigType;
     cmds!: Collection<string, Command>;
@@ -63,11 +68,16 @@ export default class FluorineClient extends Client {
     async init() {
         new EventHandler(this);
         this.cmds = new CommandHandler().loadCommands();
-        this.ai = new AI(this);
-        this.applicationCommands =
+
+        this.applicationCommands.chatInput =
             new ApplicationCommandHandler().loadChatInput();
+        this.applicationCommands.contextMenu =
+            new ApplicationCommandHandler().loadContextMenu();
+
         this.components = new ComponentHandler().loadComponents();
         this.phishing = new PhishingHandler(this);
+        this.ai = new AI(this);
+
         this.logger.log('loaded events and commands');
         this.login(this.config.token).then(() => {
             this.guilds.cache.forEach(async g => {
