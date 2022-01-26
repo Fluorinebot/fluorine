@@ -6,7 +6,7 @@ import hash from 'murmurhash-v3';
 export async function run(
     client: FluorineClient,
     interaction: UserContextMenuInteraction
-) {
+): Promise<void> {
     const thing = interaction.targetMember;
 
     const percent =

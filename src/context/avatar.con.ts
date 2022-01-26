@@ -7,7 +7,7 @@ import { ApplicationCommandType } from 'discord-api-types';
 export async function run(
     client: FluorineClient,
     interaction: UserContextMenuInteraction<'cached'>
-) {
+): Promise<void> {
     const member = interaction.targetMember;
 
     const embed = new Embed(client, interaction.locale)
