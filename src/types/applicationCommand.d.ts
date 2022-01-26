@@ -17,4 +17,5 @@ export interface ChatInputCommand {
 export interface ContextMenuCommand {
     run: (client: FluorineClient, interaction: ContextMenuInteraction) => void;
     data: ContextMenuCommandBuilder;
+    dev?: boolean;
 }

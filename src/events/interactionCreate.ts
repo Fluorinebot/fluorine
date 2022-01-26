@@ -18,8 +18,18 @@ export async function run(client: FluorineClient, interaction: Interaction) {
         }
 
         component?.run(client, interaction, value);
-    }
+    } else if (interaction.isContextMenu()) {
+        const contextCommand = client.applicationCommands.contextMenu.find(
+            cmd => cmd?.data.name === interaction.commandName
+        );
 
+        if (contextCommand.dev && !client.devs.includes(interaction.user.id))
+            return interaction.reply({
+                content: 'You need to be a developer to do that!',
+                ephemeral: true
+            });
+        contextCommand.run(client, interaction);
+    }
     if (!interaction.isCommand()) return;
 
     if (client.cooldown.has(interaction.user.id)) {
@@ -36,14 +46,16 @@ export async function run(client: FluorineClient, interaction: Interaction) {
 
     const subcommand = interaction.options.getSubcommand(false);
     const command = subcommand
-        ? client.applicationCommands.get(
+        ? client.applicationCommands.chatInput.get(
               `${interaction.commandName}/${subcommand}`
           )
-        : client.applicationCommands.get(interaction.commandName);
+        : client.applicationCommands.chatInput.get(interaction.commandName);
 
     if (!command) return;
 
-    const { dev } = client.applicationCommands.get(interaction.commandName);
+    const { dev } = client.applicationCommands.chatInput.get(
+        interaction.commandName
+    );
     if (dev && !client.devs.includes(interaction.user.id))
         return interaction.reply({
             content: 'You need to be a developer to do that!',
