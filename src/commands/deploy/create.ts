@@ -12,7 +12,9 @@ export async function run(
 
     const name = interaction.options.getString('command');
     const guildId = interaction.options.getString('guild');
-    const command = client.applicationCommands.get(name);
+    const command =
+        client.applicationCommands.chatInput.get(name) ??
+        client.applicationCommands.contextMenu.get(name);
 
     if (!command && name !== 'all')
         return interaction.reply({
@@ -28,7 +30,16 @@ export async function run(
         if (name === 'all') {
             await interaction.deferReply();
             await Promise.all(
-                client.applicationCommands
+                client.applicationCommands.chatInput
+                    .filter(c => c.data && !c.dev)
+                    .map(command =>
+                        rest.post(route, {
+                            body: command.data.toJSON()
+                        })
+                    )
+            );
+            await Promise.all(
+                client.applicationCommands.contextMenu
                     .filter(c => c.data && !c.dev)
                     .map(command =>
                         rest.post(route, {
