@@ -24,7 +24,7 @@ export async function run(
     message.reply(
         client.language.get(message.guild.preferredLocale, 'HOWGAY', {
             percent,
-            thing: message.mentions.members.first() || args.join(' ')
+            thing
         })
     );
 }
