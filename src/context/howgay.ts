@@ -10,11 +10,11 @@ export async function run(
 ): Promise<void> {
     const member = interaction.targetMember;
 
-    const percent = ['478823932913516544', '348591272476540928'].includes(
-        member.id
+    const percent = ['<@478823932913516544>', '<@348591272476540928>'].includes(
+        `<@${member.user.id}>`
     )
         ? 100
-        : hash(member.id) % 101;
+        : hash(`<@${member.user.id}>`) % 101;
 
     interaction.reply(
         client.language.get(interaction.locale, 'HOWGAY', {
