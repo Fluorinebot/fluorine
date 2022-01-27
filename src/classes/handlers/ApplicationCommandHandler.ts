@@ -11,7 +11,7 @@ export default class ApplicationCommandHandler {
         this.contextMenu = new Collection();
     }
 
-    loadChatInput(): Collection<string, ChatInputCommand> {
+    loadChatInput = (): Collection<string, ChatInputCommand> => {
         const dir = readdirSync(`${__dirname}/../../commands`);
         console.log(dir);
         dir.forEach(async file => {
@@ -37,9 +37,9 @@ export default class ApplicationCommandHandler {
             );
         });
         return this.chatInput;
-    }
+    };
 
-    loadContextMenu(): Collection<string, ContextMenuCommand> {
+    loadContextMenu = (): Collection<string, ContextMenuCommand> => {
         const dir = readdirSync(`${__dirname}/../../context`);
         console.log(dir);
         dir.forEach(async file => {
@@ -50,5 +50,5 @@ export default class ApplicationCommandHandler {
             );
         });
         return this.contextMenu;
-    }
+    };
 }
