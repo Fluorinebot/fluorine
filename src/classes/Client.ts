@@ -6,7 +6,7 @@ import CommandHandler from '@handlers/CommandHandler';
 import ComponentHandler from '@handlers/ComponentHandler';
 import EventHandler from '@handlers/EventHandler';
 import { Command } from 'types/command';
-import { ChatInputCommand, ContextMenuCommand } from 'types/applicationCommand';
+import { applicationCommands } from 'types/applicationCommand';
 import { Component } from 'types/component';
 import { ConfigType } from 'types/config';
 import LanguageHandler from './handlers/LanguageHandler';
@@ -14,11 +14,6 @@ import AI from './AI';
 // @ts-ignore
 import { version } from '../../package.json';
 import PhishingHandler from './handlers/PhishingHandler';
-
-interface applicationCommands {
-    chatInput: Collection<string, ChatInputCommand>;
-    contextMenu: Collection<string, ContextMenuCommand>;
-}
 
 export default class FluorineClient extends Client {
     applicationCommands!: applicationCommands;

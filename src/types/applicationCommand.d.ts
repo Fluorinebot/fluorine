@@ -1,5 +1,9 @@
 import FluorineClient from '@classes/Client';
-import { CommandInteraction, ContextMenuInteraction } from 'discord.js';
+import {
+    CommandInteraction,
+    ContextMenuInteraction,
+    Collection
+} from 'discord.js';
 import {
     ContextMenuCommandBuilder,
     SlashCommandBuilder
@@ -18,4 +22,9 @@ export interface ContextMenuCommand {
     run: (client: FluorineClient, interaction: ContextMenuInteraction) => void;
     data: ContextMenuCommandBuilder;
     dev?: boolean;
+}
+
+export interface applicationCommands {
+    chatInput: Collection<string, ChatInputCommand>;
+    contextMenu: Collection<string, ContextMenuCommand>;
 }
