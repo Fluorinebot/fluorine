@@ -12,8 +12,7 @@ export async function run(
             client.language.get(message.guild.preferredLocale, 'HOWGAY_ARGS')
         );
 
-    const thing =
-        message.mentions.members.first() ?? args.join(' ');
+    const thing = message.mentions.members.first() ?? args.join(' ');
 
     const percent = ['<@478823932913516544>', '<@348591272476540928>'].includes(
         thing.toString()
