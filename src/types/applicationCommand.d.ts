@@ -24,7 +24,7 @@ export interface ContextMenuCommand {
     dev?: boolean;
 }
 
-export interface applicationCommands {
+export interface ApplicationCommands {
     chatInput: Collection<string, ChatInputCommand>;
     contextMenu: Collection<string, ContextMenuCommand>;
 }

@@ -6,7 +6,7 @@ import CommandHandler from '@handlers/CommandHandler';
 import ComponentHandler from '@handlers/ComponentHandler';
 import EventHandler from '@handlers/EventHandler';
 import { Command } from 'types/command';
-import { applicationCommands } from 'types/applicationCommand';
+import { ApplicationCommands } from 'types/applicationCommand';
 import { Component } from 'types/component';
 import { ConfigType } from 'types/config';
 import LanguageHandler from './handlers/LanguageHandler';
@@ -16,7 +16,7 @@ import { version } from '../../package.json';
 import PhishingHandler from './handlers/PhishingHandler';
 
 export default class FluorineClient extends Client {
-    applicationCommands!: applicationCommands;
+    applicationCommands!: ApplicationCommands;
     conn!: r.Connection;
     config: ConfigType;
     cmds!: Collection<string, Command>;
