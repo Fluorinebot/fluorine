@@ -20,7 +20,6 @@ export async function run(
         ? 100
         : hash(thing.toString()) % 101;
 
-    const number = Math.floor(Math.random() * 100);
     message.reply(
         client.language.get(message.guild.preferredLocale, 'HOWGAY', {
             percent,
