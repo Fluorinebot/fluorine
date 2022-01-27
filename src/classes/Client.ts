@@ -2,10 +2,12 @@
 import { version } from '../../package.json';
 import { Client, Collection, ColorResolvable, Intents } from 'discord.js';
 import r from 'rethinkdb';
+
 import { Command } from 'types/command';
 import { ConfigType } from 'types/config';
 import { Component } from 'types/component';
-import Logger from './Logger';
+import { ApplicationCommand } from 'types/applicationCommand';
+
 import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
 import CommandHandler from '@handlers/CommandHandler';
 import ComponentHandler from '@handlers/ComponentHandler';
@@ -13,8 +15,9 @@ import EventHandler from '@handlers/EventHandler';
 import LanguageHandler from '@handlers/LanguageHandler';
 import PhishingHandler from '@handlers/PhishingHandler';
 import EconomyHandler from '@handlers/EconomyHandler';
-import { ApplicationCommand } from 'types/applicationCommand';
+
 import AI from './AI';
+import Logger from './Logger';
 
 export default class FluorineClient extends Client {
     applicationCommands!: Collection<string, ApplicationCommand>;
