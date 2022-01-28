@@ -41,7 +41,7 @@ export async function run(
             )
             .setLabel(client.language.get(interaction.locale, 'LISTCASE_NEXT'))
             .setStyle('PRIMARY')
-            .setDisabled(page === chunk.length)
+            .setDisabled(page + 1 === chunk.length)
     );
 
     const embed = new Embed(client, interaction.locale)
