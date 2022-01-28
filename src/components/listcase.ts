@@ -16,12 +16,21 @@ export async function run(
     const member = client.users.cache.get(user);
     const cases = await getCases(client, interaction.guild?.id, member.id);
 
-    const lastPage = Math.round(cases.length / 10) + 1;
+    const chunk = cases.reduce((resultArray, item, index) => {
+        const chunkIndex = Math.floor(index / 9);
+
+        if (!resultArray[chunkIndex]) resultArray[chunkIndex] = [];
+        resultArray[chunkIndex].push(item);
+
+        return resultArray;
+    }, []);
 
     const row = new MessageActionRow();
     row.addComponents(
         new MessageButton()
-            .setCustomId(`listcase:${interaction.user.id}:${member.id}.1`)
+            .setCustomId(
+                `listcase:${interaction.user.id}:${member.id}.${page - 1}`
+            )
             .setLabel(client.language.get(interaction.locale, 'LISTCASE_BACK'))
             .setStyle('PRIMARY')
             .setDisabled(page === 1)
@@ -29,14 +38,14 @@ export async function run(
 
     row.addComponents(
         new MessageButton()
-            .setCustomId(`listcase:${interaction.user.id}:${member.id}.2`)
+            .setCustomId(`listcase:${interaction.user.id}:${member.id}.${page}`)
             .setLabel(client.language.get(interaction.locale, 'LISTCASE_NEXT'))
             .setStyle('PRIMARY')
-            .setDisabled(page === lastPage)
+            .setDisabled(page === chunk.length)
     );
 
     const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle('LISTCASE_TITLE', { user: interaction.user.tag })
+        .setLocaleTitle('LISTCASE_TITLE', { user: member.tag })
         .setThumbnail(member.displayAvatarURL({ dynamic: true }))
         .setFooter({
             text: `${client.language.get(
@@ -45,14 +54,9 @@ export async function run(
             )} | ${client.footer}`
         });
 
-    const chunk = 10;
-    let currChunkItem = 0;
-    for (let i = 0, j = cases.length; i < j; i += chunk) {
-        const temporary = cases.slice(i, i + chunk);
-        const caseData = temporary[currChunkItem];
+    chunk[page - 1].forEach(caseData => {
         embed.addField(`#${caseData.id} ${caseData.type}`, caseData.dscp);
-        currChunkItem++;
-    }
+    });
 
     interaction.update({ embeds: [embed], components: [row] });
 }

@@ -18,7 +18,7 @@ export async function run(
 
     const cases = await getCases(client, interaction.guild?.id, member.user.id);
     const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle('LISTCASE_TITLE', { user: interaction.user.tag })
+        .setLocaleTitle('LISTCASE_TITLE', { user: member.user.tag })
         .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
         .setFooter({
             text: `${client.language.get(
@@ -27,12 +27,18 @@ export async function run(
             )} | ${client.footer}`
         });
 
-    const caseLength = cases.length < 10 ? cases.length : 10;
+    const chunk = cases.reduce((resultArray, item, index) => {
+        const chunkIndex = Math.floor(index / 9);
 
-    for (let i = 0; i < caseLength; i++) {
-        const caseData = cases[i];
+        if (!resultArray[chunkIndex]) resultArray[chunkIndex] = [];
+        resultArray[chunkIndex].push(item);
+
+        return resultArray;
+    }, []);
+
+    chunk[0].forEach(caseData => {
         embed.addField(`#${caseData.id} ${caseData.type}`, caseData.dscp);
-    }
+    });
 
     row.addComponents(
         new MessageButton()
