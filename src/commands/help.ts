@@ -15,7 +15,7 @@ export async function run(
     interaction: CommandInteraction
 ) {
     const category = interaction.options.getString('category');
-    const commands = client.applicationCommands.filter(
+    const commands = client.applicationCommands.chatInput.filter(
         c => c.category === category && !c.dev
     );
 
