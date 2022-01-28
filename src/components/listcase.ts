@@ -28,17 +28,17 @@ export async function run(
     const row = new MessageActionRow();
     row.addComponents(
         new MessageButton()
-            .setCustomId(
-                `listcase:${interaction.user.id}:${member.id}.${page - 1}`
-            )
+            .setCustomId(`listcase:${interaction.user.id}:${member.id}.${page}`)
             .setLabel(client.language.get(interaction.locale, 'LISTCASE_BACK'))
             .setStyle('PRIMARY')
-            .setDisabled(page === 1)
+            .setDisabled(page === 0)
     );
 
     row.addComponents(
         new MessageButton()
-            .setCustomId(`listcase:${interaction.user.id}:${member.id}.${page}`)
+            .setCustomId(
+                `listcase:${interaction.user.id}:${member.id}.${page + 1}`
+            )
             .setLabel(client.language.get(interaction.locale, 'LISTCASE_NEXT'))
             .setStyle('PRIMARY')
             .setDisabled(page === chunk.length)
@@ -54,7 +54,7 @@ export async function run(
             )} | ${client.footer}`
         });
 
-    chunk[page - 1].forEach(caseData => {
+    chunk[page > chunk.length ? page - 1 : page].forEach(caseData => {
         embed.addField(`#${caseData.id} ${caseData.type}`, caseData.dscp);
     });
 

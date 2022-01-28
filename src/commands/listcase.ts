@@ -42,7 +42,7 @@ export async function run(
 
     row.addComponents(
         new MessageButton()
-            .setCustomId(`listcase:${interaction.user.id}:${member.user.id}.1`)
+            .setCustomId(`listcase:${interaction.user.id}:${member.user.id}.0`)
             .setLabel(client.language.get(interaction.locale, 'LISTCASE_BACK'))
             .setStyle('PRIMARY')
             .setDisabled(true)
@@ -50,7 +50,7 @@ export async function run(
 
     row.addComponents(
         new MessageButton()
-            .setCustomId(`listcase:${interaction.user.id}:${member.user.id}.2`)
+            .setCustomId(`listcase:${interaction.user.id}:${member.user.id}.1`)
             .setLabel(client.language.get(interaction.locale, 'LISTCASE_NEXT'))
             .setStyle('PRIMARY')
     );
