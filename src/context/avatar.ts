@@ -19,5 +19,3 @@ export async function run(
 export const data = new ContextMenuCommandBuilder()
     .setName('Avatar')
     .setType(ApplicationCommandType.User);
-
-export const dev = true;
