@@ -27,5 +27,3 @@ export async function run(
 export const data = new ContextMenuCommandBuilder()
     .setName('How Gay')
     .setType(ApplicationCommandType.User);
-
-export const dev = true;
