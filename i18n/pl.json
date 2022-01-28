@@ -64,7 +64,7 @@
     "KICK_USER": "Wyrzucony",
     "KICK_REASON": "Wyrzucony przez [user] z powodu: [reason]",
     "LISTCASE_TITLE": "Historia kar dla [user]",
-    "LISTCASE_FOOTER": "Więcej informacji otrzymasz za pomocą komendy `/case`",
+    "LISTCASE_FOOTER": "Więcej informacji otrzymasz za pomocą komendy /case",
     "LISTCASE_BACK": "Poprzednia strona",
     "LISTCASE_NEXT": "Następna strona",
     "MUTE_BOT_PERMISSIONS_MISSING": "Nie posiadam permisji do wyciszenia tego użytkownika!",
