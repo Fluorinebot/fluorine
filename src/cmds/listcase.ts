@@ -16,13 +16,24 @@ export async function run(
 
     const cases = await getCases(client, message.guild?.id, member?.id);
     const embed = new Embed(client, message.guild.preferredLocale)
-        .setTitle('Historia kar dla użytkownika')
+        .setLocaleTitle('LISTCASE_TITLE')
         .setThumbnail(member?.user.displayAvatarURL({ dynamic: true }))
         .setFooter({
-            text: `Więcej informacji otrzymasz za pomocą komendy case | ${client.footer}`
+            text: `${client.language.get(
+                message.guild.preferredLocale,
+                'LISTCASE_FOOTER'
+            )}| ${client.footer}`
         });
 
     let caseLength;
+    const back = client.language.get(
+        message.guild.preferredLocale,
+        'LISTCASE_BACK'
+    );
+    const next = client.language.get(
+        message.guild.preferredLocale,
+        'LISTCASE_NEXT'
+    );
 
     if (cases.length < 10) caseLength = cases.length;
     else caseLength = 10;
@@ -37,7 +48,7 @@ export async function run(
         row.addComponents(
             new MessageButton()
                 .setCustomId('back')
-                .setLabel('Poprzednia strona')
+                .setLabel(back)
                 .setStyle('PRIMARY')
                 .setDisabled(true)
         );
@@ -45,7 +56,7 @@ export async function run(
         row.addComponents(
             new MessageButton()
                 .setCustomId('back')
-                .setLabel('Poprzednia strona')
+                .setLabel(back)
                 .setStyle('PRIMARY')
         );
     }
@@ -53,7 +64,7 @@ export async function run(
         row.addComponents(
             new MessageButton()
                 .setCustomId('next')
-                .setLabel('Następna strona')
+                .setLabel(next)
                 .setStyle('PRIMARY')
                 .setDisabled(true)
         );
@@ -61,7 +72,7 @@ export async function run(
         row.addComponents(
             new MessageButton()
                 .setCustomId('next')
-                .setLabel('Następna strona')
+                .setLabel(next)
                 .setStyle('PRIMARY')
         );
     }
@@ -81,9 +92,12 @@ export async function run(
                     client,
                     message.guild.preferredLocale
                 )
-                    .setTitle('Historia kar dla użytkownika')
+                    .setLocaleTitle('LISTCASE_TITLE')
                     .setFooter({
-                        text: `Więcej informacji otrzymasz za pomocą komendy a!case | ${client.footer}`
+                        text: `${client.language.get(
+                            message.guild.preferredLocale,
+                            'LISTCASE_FOOTER'
+                        )} | ${client.footer}`
                     });
 
                 for (let i = start; i < caseLength; i++) {
@@ -98,7 +112,7 @@ export async function run(
                     nextrow.addComponents(
                         new MessageButton()
                             .setCustomId('back')
-                            .setLabel('Poprzednia strona')
+                            .setLabel(back)
                             .setStyle('PRIMARY')
                             .setDisabled(true)
                     );
@@ -106,7 +120,7 @@ export async function run(
                     nextrow.addComponents(
                         new MessageButton()
                             .setCustomId('back')
-                            .setLabel('Poprzednia strona')
+                            .setLabel(back)
                             .setStyle('PRIMARY')
                     );
                 }
@@ -114,7 +128,7 @@ export async function run(
                     nextrow.addComponents(
                         new MessageButton()
                             .setCustomId('next')
-                            .setLabel('Następna strona')
+                            .setLabel(next)
                             .setStyle('PRIMARY')
                             .setDisabled(true)
                     );
@@ -122,7 +136,7 @@ export async function run(
                     nextrow.addComponents(
                         new MessageButton()
                             .setCustomId('next')
-                            .setLabel('Następna strona')
+                            .setLabel(next)
                             .setStyle('PRIMARY')
                     );
                 }
@@ -139,9 +153,12 @@ export async function run(
                     client,
                     message.guild.preferredLocale
                 )
-                    .setTitle('Historia kar dla użytkownika')
+                    .setLocaleTitle('LISTCASE_TITLE')
                     .setFooter({
-                        text: `Więcej informacji otrzymasz za pomocą komendy a!case | ${client.footer}`
+                        text: `${client.language.get(
+                            message.guild.preferredLocale,
+                            'LISTCASE_FOOTER'
+                        )} | ${client.footer}`
                     });
 
                 for (let i = start; i < caseLength; i++) {
@@ -155,7 +172,7 @@ export async function run(
                     backrow.addComponents(
                         new MessageButton()
                             .setCustomId('back')
-                            .setLabel('Poprzednia strona')
+                            .setLabel(back)
                             .setStyle('PRIMARY')
                             .setDisabled(true)
                     );
@@ -163,7 +180,7 @@ export async function run(
                     backrow.addComponents(
                         new MessageButton()
                             .setCustomId('back')
-                            .setLabel('Poprzednia strona')
+                            .setLabel(back)
                             .setStyle('PRIMARY')
                     );
                 }
@@ -171,7 +188,7 @@ export async function run(
                     backrow.addComponents(
                         new MessageButton()
                             .setCustomId('next')
-                            .setLabel('Następna strona')
+                            .setLabel(next)
                             .setStyle('PRIMARY')
                             .setDisabled(true)
                     );
@@ -179,7 +196,7 @@ export async function run(
                     backrow.addComponents(
                         new MessageButton()
                             .setCustomId('next')
-                            .setLabel('Następna strona')
+                            .setLabel(next)
                             .setStyle('PRIMARY')
                     );
                 }
@@ -191,7 +208,10 @@ export async function run(
             }
         } else {
             interaction.reply({
-                content: 'Nie możesz korzystać z tych przycisków!',
+                content: client.language.get(
+                    message.guild.preferredLocale,
+                    'COMPONENT_PRIVATE'
+                ),
                 ephemeral: true
             });
         }

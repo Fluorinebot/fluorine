@@ -15,11 +15,15 @@ export async function run(
         .setLocaleTitle('BALANCE')
         .addLocaleField({
             name: 'BALANCE_WALLET',
-            value: `${balance.wallet.toString()} 🪙`
+            value: `${balance.wallet.toString()} ${await client.economy.getCurrency(
+                interaction.guildId
+            )}`
         })
         .addLocaleField({
             name: 'BALANCE_BANK',
-            value: `${balance.bank.toString()} 🪙`
+            value: `${balance.bank.toString()} ${await client.economy.getCurrency(
+                interaction.guildId
+            )}`
         });
     interaction.reply({ embeds: [embed] });
 }

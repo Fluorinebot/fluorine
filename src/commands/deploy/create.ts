@@ -11,7 +11,7 @@ export async function run(
     const rest = new REST({ version: '9' }).setToken(client.token);
 
     const name = interaction.options.getString('command');
-    const guildId = interaction.options.getString('guild');
+    let guildId = interaction.options.getString('guild');
     const command = name.endsWith('.con')
         ? client.applicationCommands.contextMenu.get(name.replace('.con', ''))
         : client.applicationCommands.chatInput.get(name);
@@ -21,7 +21,7 @@ export async function run(
             content: 'Command not found',
             ephemeral: true
         });
-
+    if (guildId === 'this') guildId = interaction.guild.id;
     const route = guildId
         ? Routes.applicationGuildCommands(client.user.id, guildId)
         : Routes.applicationCommands(client.user.id);

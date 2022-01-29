@@ -7,11 +7,15 @@ export async function run(
     interaction: CommandInteraction
 ) {
     const args = interaction.options.getString('start');
-    interaction.reply(
-        client.language.get(interaction.locale, 'AI_WAIT', {
-            queue: client.ai.queue.length + 1
-        })
-    );
+    interaction.deferReply();
+    if (
+        client.ai.queue.filter(q => q.id === interaction.user.id).length !== 0
+    ) {
+        interaction.reply({
+            content: client.language.get(interaction.locale, 'AI_LIMIT'),
+            ephemeral: true
+        });
+    }
     const argsbase = Buffer.from(args, 'utf8')
         .toString('base64')
         .replaceAll('/', '_')

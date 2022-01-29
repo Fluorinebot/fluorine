@@ -46,10 +46,15 @@ export async function run(client: FluorineClient, message: Message) {
                 case 'ban':
                     message.member.ban();
                     break;
-                case 'mute':
-                    if (settings.muteRole) {
-                        message.member.roles.add(settings.muteRole);
-                    }
+                case 'timeout':
+                    message.member.timeout(
+                        3600 * 24,
+                        client.language.get(
+                            message.guild.preferredLocale,
+                            'ANTIBOT_REASON',
+                            { factor }
+                        )
+                    );
                     break;
             }
             modLog(client, Case, message.guild);

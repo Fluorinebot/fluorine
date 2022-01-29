@@ -173,6 +173,20 @@ export interface LanguageType {
     WORK_COOLDOWN_DESCRIPTION: string;
     WORK_SUCCESS: string;
     WORK_SUCCESS_DESCRIPTION: string[];
+    CONFIG_FAIL: string;
+    CONFIG_SET_SUCCESS_TITLE: string;
+    CONFIG_SET_SUCCESS_DESCRIPTION: string;
+    CONFIG_PREFIX: string;
+    CONFIG_LOGS: string;
+    CONFIG_MODLOG: string;
+    CONFIG_LOGS_CHANNEL: string;
+    CONFIG_ANTIBOT: string;
+    CONFIG_ANTIBOT_ACTION: string;
+    DEPOSIT_NOT_ENOUGH: string;
+    DEPOSIT_SUCCESS: string;
+    CONFIG_CURRENCY: string;
+    WITHDRAW_NOT_ENOUGH: string;
+    WITHDRAW_SUCCESS: string;
 }
 
 export type LanguageStrings = keyof LanguageType;

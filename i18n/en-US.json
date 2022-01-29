@@ -188,11 +188,25 @@
     "TIMEOUT_USER": "Timed out",
     "TIMEOUT_REASON": "Timed out by [user] for [reason]",
     "WORK_COOLDOWN": "You're on cooldown!",
-    "WORK_COOLDOWN_DESCRIPTION": "You'll be able to work <t:[time]:R>",
+    "WORK_COOLDOWN_DESCRIPTION": "You'll be able to work [time]",
     "WORK_SUCCESS": "You worked!",
-    "WORK_SUCCESS_DESCRIPTIONS": [
+    "WORK_SUCCESS_DESCRIPTION": [
         "You coded a discord bot! You earned [amount]",
         "You worked at McDonald's and earned [amount]",
         "You coded a website for a small company! They paid you [amount]"
-    ]
+    ],
+    "CONFIG_FAIL": "You don't have the permissions needed to configure me!",
+    "CONFIG_SET_SUCCESS_TITLE": "Success!",
+    "CONFIG_SET_SUCCESS_DESCRIPTION": "Successfully set [key] to [value]",
+    "CONFIG_PREFIX": "Prefix",
+    "CONFIG_LOGS": "Logs",
+    "CONFIG_MODLOG": "Moderation logs",
+    "CONFIG_LOGS_CHANNEL": "Logs channel",
+    "CONFIG_ANTIBOT": "Anti-bot",
+    "CONFIG_ANTIBOT_ACTION": "Anti-bot action",
+    "DEPOSIT_NOT_ENOUGH": "You don't have that much money!",
+    "DEPOSIT_SUCCESS": "Successfully deposited [amount] to your bank!",
+    "CONFIG_CURRENCY": "Currency",
+    "WITHDRAW_NOT_ENOUGH": "You don't have that much money in your bank!",
+    "WITHDRAW_SUCCESS": "Successfully withdrew [amount] from your bank!"
 }

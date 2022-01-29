@@ -1,13 +1,13 @@
 import FluorineClient from '@classes/Client';
-import { Snowflake } from 'discord-api-types';
 import r from 'rethinkdb';
 import { EconomyUser } from 'types/economyUser';
+import { SettingsType } from 'types/settings';
 export default class EconomyHandler {
     client: FluorineClient;
     constructor(client: FluorineClient) {
         this.client = client;
     }
-    async get(user: Snowflake, guild: Snowflake) {
+    async get(user: string, guild: string) {
         const data = (await r
             .table('economy')
             .get(`${user}-${guild}`)
@@ -36,7 +36,8 @@ export default class EconomyHandler {
                     wallet: userObj.balance.wallet + amount,
                     bank: userObj.balance.bank
                 }
-            });
+            })
+            .run(this.client.conn);
     }
     async subtract(user: string, guild: string, amount: number) {
         const userObj: any = await r
@@ -60,7 +61,8 @@ export default class EconomyHandler {
                     wallet: userObj.balance.wallet - amount,
                     bank: userObj.balance.bank
                 }
-            });
+            })
+            .run(this.client.conn);
     }
     async deposit(user: string, guild: string, amount: number) {
         const userObj: any = await r
@@ -109,7 +111,8 @@ export default class EconomyHandler {
                     wallet: userObj.balance.wallet + amount,
                     bank: userObj.balance.bank - amount
                 }
-            });
+            })
+            .run(this.client.conn);
     }
     async getCooldown(user: string, guild: string) {
         const userObj = (await r
@@ -137,8 +140,19 @@ export default class EconomyHandler {
                 })
                 .run(this.client.conn);
         }
-        return r.table('economy').get(`${user}-${guild}`).update({
-            cooldown
-        });
+        return r
+            .table('economy')
+            .get(`${user}-${guild}`)
+            .update({
+                cooldown
+            })
+            .run(this.client.conn);
+    }
+    async getCurrency(guild: string) {
+        const guildObj = (await r
+            .table('config')
+            .get(guild)
+            .run(this.client.conn)) as SettingsType;
+        return guildObj?.currency || '🪙';
     }
 }

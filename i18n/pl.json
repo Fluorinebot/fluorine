@@ -189,9 +189,23 @@
     "WORK_COOLDOWN": "Nie możesz pracować!",
     "WORK_COOLDOWN_DESCRIPTION": "Następny raz możesz pracować [time]",
     "WORK_SUCCESS": "Pracowałeś!",
-    "WORK_SUCCESS_DESCRIPTIONS": [
+    "WORK_SUCCESS_DESCRIPTION": [
         "Stworzyłeś bota na discorda! Zarobiłeś [amount]",
         "Pracowałeś w McDonaldzie i zarobiłeś [amount]",
         "Stworzyłeś stronę dla małej firmy! Zapłacili ci [amount]"
-    ]
+    ],
+    "CONFIG_FAIL": "Nie masz wystarczających permisji aby zmienić konfigurację!",
+    "CONFIG_SET_SUCCESS_TITLE": "Sukces!",
+    "CONFIG_SET_SUCCESS_DESCRIPTION": "Zmieniono [key] na [value]!",
+    "CONFIG_PREFIX": "Prefix",
+    "CONFIG_LOGS": "Logi",
+    "CONFIG_MODLOG": "Logi moderacyjne",
+    "CONFIG_LOGS_CHANNEL": "Kanał logów",
+    "CONFIG_ANTIBOT": "Anti-bot",
+    "CONFIG_ANTIBOT_ACTION": "Akcja anti-bota",
+    "DEPOSIT_NOT_ENOUGH": "Nie masz tyle pieniędzy!",
+    "DEPOSIT_SUCCESS": "Wpłacono [amount] do twojego banku!",
+    "CONFIG_CURRENCY": "Waluta",
+    "WITHDRAW_NOT_ENOUGH": "Nie masz tyle pieniędzy w twoim banku!",
+    "WITHDRAW_SUCCESS": "Wypłacono [amount] z twojego banku!"
 }

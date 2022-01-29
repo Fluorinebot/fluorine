@@ -18,6 +18,13 @@ export const data = new SlashCommandBuilder()
                     .setName('value')
                     .setDescription('Value to set')
                     .setRequired(true)
+                    .setChoices([
+                        ['Description', 'description'],
+                        ['Website', 'website'],
+                        ['Birthday', 'birthday'],
+                        ['Location', 'location'],
+                        ['Pronouns', 'pronouns']
+                    ])
             )
     )
     .addSubcommand(command =>
