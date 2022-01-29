@@ -12,7 +12,6 @@ export async function run(
 ) {
     const [user, _page] = value.split('.');
     const page = parseInt(_page);
-
     const member = client.users.cache.get(user);
     const cases = await getCases(client, interaction.guild?.id, member.id);
 
@@ -28,7 +27,9 @@ export async function run(
     const row = new MessageActionRow();
     row.addComponents(
         new MessageButton()
-            .setCustomId(`listcase:${interaction.user.id}:${member.id}.${page}`)
+            .setCustomId(
+                `listcase:${interaction.user.id}:${member.id}.${page - 1}`
+            )
             .setLabel(client.language.get(interaction.locale, 'LISTCASE_BACK'))
             .setStyle('PRIMARY')
             .setDisabled(page === 0)
