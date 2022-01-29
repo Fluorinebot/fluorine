@@ -29,11 +29,16 @@ export async function run(
         });
 
     if (!cases.length)
-        return interaction.reply(
-            client.language.get(interaction.locale, 'LISTCASE_NO_CASES', {
-                user: member.user.tag
-            })
-        );
+        return interaction.reply({
+            content: client.language.get(
+                interaction.locale,
+                'LISTCASE_NO_CASES',
+                {
+                    user: member.user.tag
+                }
+            ),
+            ephemeral: true
+        });
 
     const chunk = cases.reduce((resultArray, item, index) => {
         const chunkIndex = Math.floor(index / 9);
