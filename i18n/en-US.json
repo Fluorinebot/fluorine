@@ -66,6 +66,7 @@
     "KICK_REASON": "Kicked by [user] for [reason]",
     "LISTCASE_TITLE": "Punishment history for [user]",
     "LISTCASE_FOOTER": "To get more information use /case",
+    "LISTCASE_NO_CASES": "[user] doesn't have any cases!",
     "LISTCASE_BACK": "Back",
     "LISTCASE_NEXT": "Next",
     "MUTE_BOT_PERMISSIONS_MISSING": "I can't mute this member, because I don't have the permissions needed to mute!",

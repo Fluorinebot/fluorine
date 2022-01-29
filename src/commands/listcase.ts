@@ -2,6 +2,7 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import {
     CommandInteraction,
+    InteractionReplyOptions,
     MessageActionRow,
     MessageButton
 } from 'discord.js';
@@ -27,6 +28,13 @@ export async function run(
             )} | ${client.footer}`
         });
 
+    if (!cases.length)
+        return interaction.reply(
+            client.language.get(interaction.locale, 'LISTCASE_NO_CASES', {
+                user: member.user.tag
+            })
+        );
+
     const chunk = cases.reduce((resultArray, item, index) => {
         const chunkIndex = Math.floor(index / 9);
 
@@ -40,22 +48,36 @@ export async function run(
         embed.addField(`#${caseData.id} ${caseData.type}`, caseData.dscp);
     });
 
-    row.addComponents(
-        new MessageButton()
-            .setCustomId(`listcase:${interaction.user.id}:${member.user.id}.0`)
-            .setLabel(client.language.get(interaction.locale, 'LISTCASE_BACK'))
-            .setStyle('PRIMARY')
-            .setDisabled(true)
-    );
+    const replyOptions: InteractionReplyOptions = { embeds: [embed] };
 
-    row.addComponents(
-        new MessageButton()
-            .setCustomId(`listcase:${interaction.user.id}:${member.user.id}.1`)
-            .setLabel(client.language.get(interaction.locale, 'LISTCASE_NEXT'))
-            .setStyle('PRIMARY')
-    );
+    if (chunk.length > 1) {
+        row.addComponents(
+            new MessageButton()
+                .setCustomId(
+                    `listcase:${interaction.user.id}:${member.user.id}.0`
+                )
+                .setLabel(
+                    client.language.get(interaction.locale, 'LISTCASE_BACK')
+                )
+                .setStyle('PRIMARY')
+                .setDisabled(true)
+        );
 
-    interaction.reply({ embeds: [embed], components: [row] });
+        row.addComponents(
+            new MessageButton()
+                .setCustomId(
+                    `listcase:${interaction.user.id}:${member.user.id}.1`
+                )
+                .setLabel(
+                    client.language.get(interaction.locale, 'LISTCASE_NEXT')
+                )
+                .setStyle('PRIMARY')
+        );
+
+        replyOptions.components = [row];
+    }
+
+    interaction.reply(replyOptions);
 }
 
 export const data = new SlashCommandBuilder()

@@ -61,6 +61,7 @@ export interface LanguageType {
     KICK_REASON: string;
     LISTCASE_TITLE: string;
     LISTCASE_FOOTER: string;
+    LISTCASE_NO_CASES: string;
     LISTCASE_BACK: string;
     LISTCASE_NEXT: string;
     MUTE_BOT_PERMISSIONS_MISSING: string;
