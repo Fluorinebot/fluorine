@@ -7,7 +7,6 @@ import {
     UserContextMenuInteraction
 } from 'discord.js';
 import { ContextMenuCommandBuilder } from '@discordjs/builders';
-import { Category } from 'types/applicationCommand';
 import getCases from '@util/getCases';
 import { ApplicationCommandType } from 'discord-api-types';
 
@@ -89,6 +88,3 @@ export async function run(
 export const data = new ContextMenuCommandBuilder()
     .setName('List Cases')
     .setType(ApplicationCommandType.User);
-
-export const category: Category = 'tools';
-export const dev = true;
