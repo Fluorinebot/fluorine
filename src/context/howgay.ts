@@ -6,7 +6,7 @@ import hash from 'murmurhash-v3';
 
 export async function run(
     client: FluorineClient,
-    interaction: UserContextMenuInteraction
+    interaction: UserContextMenuInteraction<'cached'>
 ): Promise<void> {
     const user = interaction.targetUser;
 
