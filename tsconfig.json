@@ -11,7 +11,8 @@
             "@handlers/*": ["classes/handlers/*"],
             "@util/*": ["util/*"],
             "types/*": ["types/*"],
-            "@i18n/*": ["i18n/*"]
+            "@i18n/*": ["i18n/*"],
+            "@context/*": ["context/*"]
         },
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
