@@ -18,6 +18,57 @@ export default class TagHandler {
         return tag as Tag;
     }
 
+    functionObjects(type: 'variables' | 'functions') {
+        const returnables = {
+            variables: {
+                interUserTag: (interaction: CommandInteraction) =>
+                    interaction.user.tag,
+                interUserName: (interaction: CommandInteraction) =>
+                    interaction.user.username,
+                interUserPing: (interaction: CommandInteraction) =>
+                    interaction.user.toString()
+            },
+            functions: {
+                rand: (interaction: CommandInteraction, params: string[]) => {
+                    const min = parseInt(params[0]);
+                    const max = parseInt(params[1]);
+                    return Math.floor(Math.random() * (max - min)) + min;
+                },
+                choose: (interaction: CommandInteraction, params: string[]) => {
+                    const cleanParams = [];
+
+                    for (const param of params) {
+                        cleanParams.push(
+                            this.parseVars(
+                                param.replaceAll('--', ' '),
+                                '$',
+                                '$',
+                                interaction
+                            )
+                        );
+                    }
+
+                    return cleanParams[
+                        Math.floor(Math.random() * cleanParams.length)
+                    ];
+                },
+                user: (interaction: CommandInteraction, params: string[]) => {
+                    const user = this.client.users.cache.get(params[0]);
+
+                    const customVarmap = {
+                        userTag: user.tag,
+                        userName: user.username,
+                        userPing: user.toString()
+                    };
+
+                    return customVarmap[params[1]];
+                }
+            }
+        };
+
+        return returnables[type];
+    }
+
     parseMethods(text: string): string[] {
         const checkReserved = text.split('{');
         const strippedVars = checkReserved.map(x => x.split('}'));
@@ -37,19 +88,13 @@ export default class TagHandler {
         interaction: CommandInteraction
     ) {
         let returnString = content;
-        const contentVariables = {
-            interUserTag: (interaction: CommandInteraction) =>
-                interaction.user.tag,
-            interUserName: (interaction: CommandInteraction) =>
-                interaction.user.username,
-            interUserPing: (interaction: CommandInteraction) =>
-                interaction.user.toString()
-        };
 
-        for (const [key, value] of Object.entries(contentVariables)) {
+        for (const [key, value] of Object.entries(
+            this.functionObjects('variables')
+        )) {
             returnString = returnString.replaceAll(
                 `${start}${key}${end}`,
-                value(interaction)
+                value(interaction, [])
             );
         }
 
@@ -59,45 +104,7 @@ export default class TagHandler {
     parseContent(tagContent: string, interaction: CommandInteraction) {
         let returnString = tagContent;
 
-        const specialParse = {
-            rand: (interaction: CommandInteraction, params: string[]) => {
-                const min = parseInt(params[0]);
-                const max = parseInt(params[1]);
-                return Math.floor(Math.random() * (max - min)) + min;
-            },
-            choose: (interaction: CommandInteraction, params: string[]) => {
-                const cleanParams = [];
-
-                for (const param of params) {
-                    cleanParams.push(
-                        this.parseVars(
-                            param.replaceAll('--', ' '),
-                            '$',
-                            '$',
-                            interaction
-                        )
-                    );
-                }
-
-                return cleanParams[
-                    Math.floor(Math.random() * cleanParams.length)
-                ];
-            },
-            user: (interaction: CommandInteraction, params: string[]) => {
-                const user = this.client.users.cache.get(params[0]);
-
-                const customVarmap = {
-                    userTag: user.tag,
-                    userName: user.username,
-                    userPing: user.toString()
-                };
-
-                return customVarmap[params[1]];
-            }
-        };
-
-        returnString = this.parseVars(returnString, '{', '}', interaction);
-
+        const specialParse = this.functionObjects('functions');
         const reserved = ['rand', 'choose', 'user'];
         const toVar = this.parseMethods(returnString);
 
