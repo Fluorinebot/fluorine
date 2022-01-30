@@ -207,5 +207,15 @@
     "DEPOSIT_SUCCESS": "Wpłacono [amount] do twojego banku!",
     "CONFIG_CURRENCY": "Waluta",
     "WITHDRAW_NOT_ENOUGH": "Nie masz tyle pieniędzy w twoim banku!",
-    "WITHDRAW_SUCCESS": "Wypłacono [amount] z twojego banku!"
+    "WITHDRAW_SUCCESS": "Wypłacono [amount] z twojego banku!",
+    "CRIME_SUCCESS": "Sukces!",
+    "CRIME_SUCCESS_DESCRIPTION": [
+        "Okradłeś bank! Zarobiłeś [amount]",
+        "Ukradłeś kogoś portfel! Znalazłeś w nim [amount]",
+        "Włamałeś się do domu i ukradłeś [amount]"
+    ],
+    "CRIME_FAIL": "Nie udało ci się!",
+    "CRIME_FAIL_DESCRIPTION": "Policja cię złapała! Dostałeś mandat [amount]",
+    "AI_TOO_LONG": "Za długa wiadomość! Maksymalna długość to 65 znaki.",
+    "CRIME_COOLDOWN_DESCRIPTION": "Następny raz możesz popełnić przestępstwo [time]"
 }

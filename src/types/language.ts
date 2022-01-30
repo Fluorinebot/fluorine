@@ -68,6 +68,7 @@ export interface LanguageType {
     MUTE_MEMBER_MISSING: string;
     MUTE_SUCCESS_TITLE: string;
     MUTE_SUCCESS_DESCRIPTION: string;
+    AI_TOO_LONG: string;
     MUTE_MODERATOR: string;
     MUTE_USER: string;
     MUTE_REASON: string;
@@ -187,6 +188,10 @@ export interface LanguageType {
     CONFIG_CURRENCY: string;
     WITHDRAW_NOT_ENOUGH: string;
     WITHDRAW_SUCCESS: string;
+    CRIME_SUCCESS: string;
+    CRIME_SUCCESS_DESCRIPTION: string[];
+    CRIME_FAIL_DESCRIPTION: string;
+    CRIME_COOLDOWN_DESCRIPTION: string;
 }
 
 export type LanguageStrings = keyof LanguageType;

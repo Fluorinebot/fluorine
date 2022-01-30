@@ -7,5 +7,6 @@ export interface EconomyUser {
     };
     cooldown?: {
         work?: number;
+        crime?: number;
     };
 }

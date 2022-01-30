@@ -30,10 +30,10 @@
         "cookie-parser": "^1.4.6",
         "discord-api-types": "^0.26.0",
         "discord.js": "^13.6.0",
-        "express": "^4.17.2",
         "ms": "^3.0.0-canary.1",
         "murmurhash-v3": "^1.0.2",
         "picocolors": "^1.0.0",
+        "prom-client": "^14.0.1",
         "rate-limiter-flexible": "^2.3.6",
         "rethinkdb": "^2.4.2",
         "undici": "^4.12.2"

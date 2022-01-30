@@ -208,5 +208,14 @@
     "DEPOSIT_SUCCESS": "Successfully deposited [amount] to your bank!",
     "CONFIG_CURRENCY": "Currency",
     "WITHDRAW_NOT_ENOUGH": "You don't have that much money in your bank!",
-    "WITHDRAW_SUCCESS": "Successfully withdrew [amount] from your bank!"
+    "WITHDRAW_SUCCESS": "Successfully withdrew [amount] from your bank!",
+    "CRIME_SUCCESS": "You commited a crime!",
+    "CRIME_SUCCESS_DESCRIPTION": [
+        "You robbed a bank! You got [amount]",
+        "You stole someone's wallet! You found [amount]",
+        "You broke into a house and stole [amount]"
+    ],
+    "CRIME_FAIL_DESCRIPTION": "The police caught you! You got fined [amount]",
+    "AI_TOO_LONG": "Your text is too long! The maximum length is 65 characters.",
+    "CRIME_COOLDOWN_DESCRIPTION": "You'll be able to commit a crime [time]"
 }

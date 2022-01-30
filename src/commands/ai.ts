@@ -7,15 +7,22 @@ export async function run(
     interaction: CommandInteraction
 ) {
     const args = interaction.options.getString('start');
-    interaction.deferReply();
+    if (args.length > 65) {
+        interaction.reply({
+            content: client.language.get(interaction.locale, 'AI_TOO_LONG'),
+            ephemeral: true
+        });
+    }
     if (
-        client.ai.queue.filter(q => q.id === interaction.user.id).length !== 0
+        client.ai.queue.filter(q => q.object.user.id === interaction.user.id)
+            .length !== 0
     ) {
         interaction.reply({
             content: client.language.get(interaction.locale, 'AI_LIMIT'),
             ephemeral: true
         });
     }
+    interaction.deferReply();
     const argsbase = Buffer.from(args, 'utf8')
         .toString('base64')
         .replaceAll('/', '_')
