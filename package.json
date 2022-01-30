@@ -14,33 +14,31 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Xiboon/Fluorine.git"
+        "url": "git+https://github.com/Fluorinebot/fluorine.git"
     },
-    "author": "Xiboon",
+    "contributors": [
+        "Xiboon",
+        "Superchupu <53496941+SuperchupuDev@users.noreply.github.com>",
+        "night-lake <senkodev@gmail.com>"
+    ],
     "license": "GPL-3.0-or-later",
     "bugs": {
-        "url": "https://github.com/Xiboon/Fluorine/issues"
+        "url": "https://github.com/Fluorinebot/fluorine/issues"
     },
-    "homepage": "https://github.com/Xiboon/Fluorine#readme",
+    "homepage": "https://github.com/Fluorinebot/fluorine/#readme",  
     "dependencies": {
         "@discordjs/builders": "^0.12.0",
         "@discordjs/rest": "^0.3.0",
-        "@types/rethinkdb": "^2.3.17",
         "canvas": "^2.9.0",
-        "cookie-parser": "^1.4.6",
         "discord-api-types": "^0.26.0",
         "discord.js": "^13.6.0",
-        "express": "^4.17.2",
         "ms": "^3.0.0-canary.1",
         "murmurhash-v3": "^1.0.2",
         "picocolors": "^1.0.0",
-        "rate-limiter-flexible": "^2.3.6",
         "rethinkdb": "^2.4.2",
         "undici": "^4.12.2"
     },
     "devDependencies": {
-        "@types/cookie-parser": "^1.4.2",
-        "@types/express": "^4.17.13",
         "@types/rethinkdb": "^2.3.17",
         "@typescript-eslint/eslint-plugin": "^5.10.1",
         "@typescript-eslint/parser": "^5.10.1",
