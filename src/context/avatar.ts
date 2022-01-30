@@ -8,11 +8,11 @@ export async function run(
     client: FluorineClient,
     interaction: UserContextMenuInteraction<'cached'>
 ): Promise<void> {
-    const member = interaction.targetMember;
+    const user = interaction.targetMember ?? interaction.targetUser;
 
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('AVATAR')
-        .setImage(member.displayAvatarURL({ dynamic: true, size: 512 }));
+        .setImage(user.displayAvatarURL({ dynamic: true, size: 512 }));
     interaction.reply({ embeds: [embed] });
 }
 
