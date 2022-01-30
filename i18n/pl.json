@@ -66,6 +66,7 @@
     "LISTCASE_TITLE": "Historia kar dla [user]",
     "LISTCASE_FOOTER": "Więcej informacji otrzymasz za pomocą komendy /case",
     "LISTCASE_NO_CASES": "[user] nie ma żadnych kar!",
+    "LISTCASE_MEMBER_MISSING": "Ten użytkownik nie istnieje!",
     "LISTCASE_BACK": "Poprzednia strona",
     "LISTCASE_NEXT": "Następna strona",
     "MUTE_BOT_PERMISSIONS_MISSING": "Nie posiadam permisji do wyciszenia tego użytkownika!",

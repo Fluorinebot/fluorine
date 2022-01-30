@@ -17,6 +17,15 @@ export async function run(
     const row = new MessageActionRow();
     const member = interaction.options.getMember('user');
 
+    if (!member)
+        return interaction.reply({
+            content: client.language.get(
+                interaction.locale,
+                'LISTCASE_MEMBER_MISSING'
+            ),
+            ephemeral: true
+        });
+
     const cases = await getCases(client, interaction.guild?.id, member.user.id);
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('LISTCASE_TITLE', { user: member.user.tag })
