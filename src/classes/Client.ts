@@ -14,6 +14,7 @@ import AI from './AI';
 // @ts-ignore
 import { version } from '../../package.json';
 import PhishingHandler from './handlers/PhishingHandler';
+import TagHandler from '@handlers/TagHandler';
 
 export default class FluorineClient extends Client {
     applicationCommands!: ApplicationCommands;
@@ -32,6 +33,7 @@ export default class FluorineClient extends Client {
     ai: AI;
     language: LanguageHandler;
     phishing: PhishingHandler;
+    tags: TagHandler;
     constructor() {
         super({
             intents: [
@@ -78,6 +80,7 @@ export default class FluorineClient extends Client {
         this.components = new ComponentHandler().loadComponents();
         this.phishing = new PhishingHandler(this);
         this.ai = new AI(this);
+        this.tags = new TagHandler(this);
 
         this.logger.log('loaded events and commands');
         this.login(this.config.token).then(() => {

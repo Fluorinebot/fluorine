@@ -51,7 +51,12 @@ export async function run(client: FluorineClient, interaction: Interaction) {
           )
         : client.applicationCommands.chatInput.get(interaction.commandName);
 
-    if (!command) return;
+    if (!command) {
+        const tag = await client.tags.get(interaction, interaction.commandName);
+
+        if (!tag) return;
+        return interaction.reply(client.tags.parse(tag, interaction));
+    }
 
     const { dev } = client.applicationCommands.chatInput.get(
         interaction.commandName
