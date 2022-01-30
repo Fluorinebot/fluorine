@@ -98,13 +98,13 @@ export default class TagHandler {
 
         returnString = this.parseVars(returnString, '{', '}', interaction);
 
-        const reserved = ['rand', 'choose'];
+        const reserved = ['rand', 'choose', 'user'];
         const toVar = this.parseMethods(returnString);
 
         for (const elem of toVar) {
-            const [action, props] = elem.split('::');
+            const [action, props] = elem.split(':');
             if (reserved.includes(action)) {
-                const params = props.split('&&');
+                const params = props.split('|');
                 const method = specialParse[action];
 
                 returnString = returnString.replace(
