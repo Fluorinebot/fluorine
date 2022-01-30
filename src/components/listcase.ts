@@ -11,7 +11,7 @@ export async function run(
     value: string
 ) {
     const [user, _page] = value.split('.');
-    const page = parseInt(_page);
+    const page = Number(_page);
     const member = client.users.cache.get(user);
     const cases = await getCases(client, interaction.guild?.id, member.id);
 
