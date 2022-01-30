@@ -18,7 +18,7 @@ export const data = new SlashCommandBuilder()
                 option
                     .setName('content')
                     .setDescription(
-                        'Content of the tag. Can have variables and embeds, see https://docs.fluorine.me/tags/syntax for info.'
+                        'Content of the tag. See docs.fluorine.me/tags/syntax for syntax.'
                     )
                     .setRequired(true)
             )
