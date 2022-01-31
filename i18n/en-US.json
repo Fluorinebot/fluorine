@@ -187,5 +187,8 @@
     "TAG_DOESNT_EXIST": "That tag doesn't exist!",
     "TAGS_CREATE_FLUORINE_OVERRIDE": "`[name]` already exists in Fluorine.",
     "TAGS_CREATE_EXISTING": "That tag already exists!",
-    "TAGS_CREATE_SUCCESS": "Created tag `[tag]`!"
+    "TAGS_CREATE_SUCCESS": "Created tag `[tag]`!",
+    "TAGS_TRANSFER_NOT_TRANSFERABLE": "The owner of that tag is still in the server!",
+    "TAGS_TRANSFER_SUCCESS": "`[tag]` has been transferred to you!",
+    "TAG_DELETE_NOT_TAG_OWNER": "You do not own that tag."
 }

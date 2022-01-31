@@ -170,6 +170,9 @@ export interface LanguageType {
     TAGS_CREATE_FLUORINE_OVERRIDE: string;
     TAGS_CREATE_EXISTING: string;
     TAGS_CREATE_SUCCESS: string;
+    TAGS_TRANSFER_NOT_TRANSFERABLE: string;
+    TAGS_TRANSFER_SUCCESS: string;
+    TAG_DELETE_NOT_TAG_OWNER: string;
 }
 
 export type LanguageStrings = keyof LanguageType;
