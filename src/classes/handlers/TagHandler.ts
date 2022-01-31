@@ -1,6 +1,5 @@
 import FluorineClient from '@classes/Client';
 import { CommandInteraction, InteractionReplyOptions } from 'discord.js';
-import r from 'rethinkdb';
 import { Tag } from 'types/tag';
 
 export default class TagHandler {
@@ -9,16 +8,7 @@ export default class TagHandler {
         this.client = client;
     }
 
-    async get(interaction: CommandInteraction, name: string): Promise<Tag> {
-        const tag = await r
-            .table('tags')
-            .get(`${interaction.guild.id}-${name}`)
-            .run(this.client.conn);
-
-        return tag as Tag;
-    }
-
-    functionObjects(type: 'variables' | 'functions') {
+    getParsingFunctions(type: 'variables' | 'functions') {
         const returnables = {
             variables: {
                 interUserTag: (interaction: CommandInteraction) =>
@@ -39,7 +29,7 @@ export default class TagHandler {
 
                     for (const param of params) {
                         cleanParams.push(
-                            this.parseVars(
+                            this.getParsedStaticVars(
                                 param.replaceAll('--', ' '),
                                 '$',
                                 '$',
@@ -69,8 +59,8 @@ export default class TagHandler {
         return returnables[type];
     }
 
-    parseMethods(text: string): string[] {
-        const checkReserved = text.split('{');
+    splitForActions(content: string): string[] {
+        const checkReserved = content.split('{');
         const strippedVars = checkReserved.map(x => x.split('}'));
         const workingArr = [];
         for (const arr of strippedVars) {
@@ -81,7 +71,7 @@ export default class TagHandler {
         return workingArr;
     }
 
-    parseVars(
+    getParsedStaticVars(
         content: string,
         start: string,
         end: string,
@@ -90,7 +80,7 @@ export default class TagHandler {
         let returnString = content;
 
         for (const [key, value] of Object.entries(
-            this.functionObjects('variables')
+            this.getParsingFunctions('variables')
         )) {
             returnString = returnString.replaceAll(
                 `${start}${key}${end}`,
@@ -101,12 +91,12 @@ export default class TagHandler {
         return returnString;
     }
 
-    parseContent(tagContent: string, interaction: CommandInteraction) {
+    getParsedTagContent(tagContent: string, interaction: CommandInteraction) {
         let returnString = tagContent;
-
-        const specialParse = this.functionObjects('functions');
+        const specialParse = this.getParsingFunctions('functions');
         const reserved = ['rand', 'choose', 'user'];
-        const toVar = this.parseMethods(returnString);
+
+        const toVar = this.splitForActions(returnString);
 
         for (const elem of toVar) {
             const [action, props] = elem.split(':');
@@ -124,13 +114,16 @@ export default class TagHandler {
         return returnString;
     }
 
-    parse(tag: Tag, interaction: CommandInteraction) {
+    getParsedReplyOptions(tag: Tag, interaction: CommandInteraction) {
         const replyOptions: InteractionReplyOptions = {};
         const tagString = tag.content;
-        const [tagContent, tagEmbed] = tagString.split('$e.start');
+        const [tagContent, tagEmbed] = tagString.split('@embed');
 
         if (tagContent)
-            replyOptions.content = this.parseContent(tagContent, interaction);
+            replyOptions.content = this.getParsedTagContent(
+                tagContent,
+                interaction
+            );
 
         // TODO: add embed support
         // if (tagEmbed)
