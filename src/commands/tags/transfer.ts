@@ -26,7 +26,7 @@ export async function run(
         .get(`${interaction.guild.id}-${name}`)
         .run(client.conn)) as Tag;
 
-    const creator = interaction.guild.members.fetch(tag.creator);
+    const creator = interaction.guild.members.fetch(tag.user);
 
     if (creator)
         return interaction.reply({

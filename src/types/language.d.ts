@@ -172,7 +172,12 @@ export interface LanguageType {
     TAGS_CREATE_SUCCESS: string;
     TAGS_TRANSFER_NOT_TRANSFERABLE: string;
     TAGS_TRANSFER_SUCCESS: string;
-    TAG_DELETE_NOT_TAG_OWNER: string;
+    TAGS_DELETE_NOT_TAG_OWNER: string;
+    TAGS_DELETE_PROMPT: string;
+    TAGS_DELETE_CONTINUE: string;
+    TAGS_DELETE_EXIT: string;
+    TAGS_DELETE_SUCCESS: string;
+    TAGS_DELETE_ABORT: string;
 }
 
 export type LanguageStrings = keyof LanguageType;

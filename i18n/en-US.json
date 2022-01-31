@@ -190,5 +190,10 @@
     "TAGS_CREATE_SUCCESS": "Created tag `[tag]`!",
     "TAGS_TRANSFER_NOT_TRANSFERABLE": "The owner of that tag is still in the server!",
     "TAGS_TRANSFER_SUCCESS": "`[tag]` has been transferred to you!",
-    "TAG_DELETE_NOT_TAG_OWNER": "You do not own that tag."
+    "TAGS_DELETE_NOT_TAG_OWNER": "You do not own that tag.",
+    "TAGS_DELETE_PROMPT": "Are you sure you want to delete that tag?",
+    "TAGS_DELETE_CONTINUE": "Yes",
+    "TAGS_DELETE_EXIT": "No",
+    "TAGS_DELETE_SUCCESS": "Deleted `[tag]`!",
+    "TAGS_DELETE_ABORT": "You have cancelled the deletion!"
 }

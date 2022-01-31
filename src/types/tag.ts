@@ -3,7 +3,7 @@ export interface Tag {
     name: string;
     content: string;
     ephemeral: boolean;
-    creator: string;
+    user: string;
     date: Date;
     uses: number;
 }
