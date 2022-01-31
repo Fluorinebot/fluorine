@@ -184,6 +184,7 @@
     "TIMEOUT_MODERATOR": "Timed out by",
     "TIMEOUT_USER": "Timed out",
     "TIMEOUT_REASON": "Timed out by [user] for [reason]",
+    "TAG_DOESNT_EXIST": "That tag doesn't exist!",
     "TAGS_CREATE_FLUORINE_OVERRIDE": "`[name]` already exists in Fluorine.",
     "TAGS_CREATE_EXISTING": "That tag already exists!",
     "TAGS_CREATE_SUCCESS": "Created tag `[tag]`!"
