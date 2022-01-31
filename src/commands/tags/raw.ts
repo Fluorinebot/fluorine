@@ -31,7 +31,7 @@ export async function run(
 
     const tag = (await r
         .table('tags')
-        .get(`${interaction.guild.id}-${interaction.commandName}`)
+        .get(`${interaction.guild.id}-${name}`)
         .run(client.conn)) as Tag;
 
     const exportData = `
