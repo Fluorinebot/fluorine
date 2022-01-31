@@ -11,14 +11,20 @@ export const data = new SlashCommandBuilder()
             .addStringOption(option =>
                 option
                     .setName('name')
-                    .setDescription('Name of the tag')
+                    .setDescription('Name of the tag. 32 characters max.')
+                    .setRequired(true)
+            )
+            .addStringOption(option =>
+                option
+                    .setName('description')
+                    .setDescription('Content of the tag. 100 characters max.')
                     .setRequired(true)
             )
             .addStringOption(option =>
                 option
                     .setName('content')
                     .setDescription(
-                        'Content of the tag. See docs.fluorine.me/tags/syntax for syntax.'
+                        'Content of the tag. See docs.fluorine.me/tags#syntax for syntax.'
                     )
                     .setRequired(true)
             )

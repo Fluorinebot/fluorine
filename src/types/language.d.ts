@@ -168,6 +168,7 @@ export interface LanguageType {
     TIMEOUT_REASON: string;
     TAGS_CREATE_FLUORINE_OVERRIDE: string;
     TAGS_CREATE_EXISTING: string;
+    TAGS_CREATE_SUCCESS: string;
 }
 
 export type LanguageStrings = keyof LanguageType;

@@ -1,16 +1,63 @@
 import FluorineClient from '@classes/Client';
-import Embed from '@classes/Embed';
+import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
+import r from 'rethinkdb';
 
 export async function run(
     client: FluorineClient,
     interaction: CommandInteraction
 ) {
     const name = interaction.options.getString('name');
+    const description = interaction.options.getString('description');
     const content = interaction.options.getString('content');
-    const ephemeral = interaction.options.getString('ephemeral');
+    const ephemeral = interaction.options.getBoolean('ephemeral') ?? false;
 
-    interaction.reply({
-        content: client.tags.parseContent(content, interaction)
-    });
+    const fluorineCommands = [...client.applicationCommands.chatInput.keys()];
+    const guildCommands = [
+        ...(await interaction.guild.commands.fetch()).keys()
+    ];
+
+    if (fluorineCommands.includes(name))
+        return interaction.reply({
+            content: client.language.get(
+                interaction.locale,
+                'TAGS_CREATE_FLUORINE_OVERRIDE',
+                {
+                    name
+                }
+            ),
+            ephemeral: true
+        });
+
+    if (guildCommands.includes(name))
+        return interaction.reply({
+            content: client.language.get(
+                interaction.locale,
+                'TAGS_CREATE_EXISTING'
+            ),
+            ephemeral: true
+        });
+
+    interaction.guild.commands.create(
+        new SlashCommandBuilder()
+            .setName(name)
+            .setDescription(description)
+            .toJSON()
+    );
+
+    const tagData = {
+        id: `${interaction.guild.id}-${name}`,
+        content,
+        ephemeral,
+        created: Date.now(),
+        user: interaction.user.id,
+        uses: 0
+    };
+
+    r.table('tags').insert(tagData).run(client.conn);
+    interaction.reply(
+        client.language.get(interaction.locale, 'TAGS_CREATE_SUCCESS', {
+            tag: name
+        })
+    );
 }

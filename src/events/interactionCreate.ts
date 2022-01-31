@@ -57,9 +57,12 @@ export async function run(client: FluorineClient, interaction: Interaction) {
         const tag = (await r
             .table('tags')
             .get(`${interaction.guild.id}-${interaction.commandName}`)
-            .run(this.client.conn)) as Tag;
+            .run(client.conn)) as Tag;
 
         if (!tag) return;
+        tag.uses++;
+
+        await r.table('tags').update(tag).run(client.conn);
         return interaction.reply(
             client.tags.getParsedReplyOptions(tag, interaction)
         );
