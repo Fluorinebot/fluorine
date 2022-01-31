@@ -13,9 +13,8 @@ export async function run(
     const ephemeral = interaction.options.getBoolean('ephemeral') ?? false;
 
     const fluorineCommands = [...client.applicationCommands.chatInput.keys()];
-    const guildCommands = [
-        ...(await interaction.guild.commands.fetch()).keys()
-    ];
+    const _guildCommands = [...(await interaction.guild.commands.fetch())];
+    const guildCommands = _guildCommands.map(x => x[0]);
 
     if (fluorineCommands.includes(name))
         return interaction.reply({

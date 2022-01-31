@@ -1,14 +1,8 @@
 import FluorineClient from '@classes/Client';
-import {
-    BufferResolvable,
-    CommandInteraction,
-    FileOptions,
-    HTTPAttachmentData
-} from 'discord.js';
+import { codeBlock } from '@discordjs/builders';
+import { CommandInteraction } from 'discord.js';
 import r from 'rethinkdb';
 import { Tag } from 'types/tag';
-import { writeFile, readFile } from 'fs';
-import { Stream } from 'stream';
 
 export async function run(
     client: FluorineClient,
@@ -16,9 +10,8 @@ export async function run(
 ) {
     const name = interaction.options.getString('tag');
 
-    const guildCommands = [
-        ...(await interaction.guild.commands.fetch()).keys()
-    ];
+    const _guildCommands = [...(await interaction.guild.commands.fetch())];
+    const guildCommands = _guildCommands.map(x => x[1].name);
 
     if (!guildCommands.includes(name))
         return interaction.reply({
@@ -35,21 +28,10 @@ export async function run(
         .run(client.conn)) as Tag;
 
     const exportData = `
-    %NAME ${tag.id.split('.')[1]}
-    %CONTENT ${tag.content}
-    %EPHEMERAL ${tag.ephemeral}
-    `;
+name: ${tag.id.split('.')[1]}
+content: ${tag.content}
+ephemeral: ${tag.ephemeral}
+`;
 
-    await writeFile('/assets/writes/export.txt', exportData, error => {
-        client.logger.error(error.stack);
-    });
-
-    let file: FileOptions | BufferResolvable | Stream | HTTPAttachmentData;
-
-    await readFile('/assets/writes/export.txt', (err, data) => {
-        if (data) file = data;
-        client.logger.error(err.stack);
-    });
-
-    interaction.reply({ files: [file] });
+    interaction.reply(codeBlock('yaml', exportData));
 }
