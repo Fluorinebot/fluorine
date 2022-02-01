@@ -67,20 +67,19 @@ export default class FluorineClient extends Client {
     }
     async init() {
         new EventHandler(this);
-        this.cmds = new CommandHandler().loadCommands();
+        this.cmds = new CommandHandler(this).loadCommands();
 
         const { loadChatInput, loadContextMenu } =
-            new ApplicationCommandHandler();
+            new ApplicationCommandHandler(this);
         this.applicationCommands = {
             chatInput: loadChatInput(),
             contextMenu: loadContextMenu()
         };
 
-        this.components = new ComponentHandler().loadComponents();
+        this.components = new ComponentHandler(this).loadComponents();
         this.phishing = new PhishingHandler(this);
         this.ai = new AI(this);
 
-        this.logger.log('Loaded events and commands');
         this.login().then(() => {
             this.guilds.cache.forEach(async g => {
                 const guild = await r.table('config').get(g.id).run(this.conn);
@@ -93,9 +92,8 @@ export default class FluorineClient extends Client {
                         .run(this.conn);
                 }
             });
-            this.logger.log(
-                `Loaded ${this.cmds.size} commands, checked ${this.guilds.cache.size} guilds`
-            );
+
+            this.logger.log(`Checked ${this.guilds.cache.size} guilds.`);
         });
 
         process.on('unhandledRejection', (error: Error) => {
