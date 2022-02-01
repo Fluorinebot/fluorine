@@ -8,7 +8,6 @@ import EventHandler from '@handlers/EventHandler';
 import { Command } from 'types/command';
 import { ApplicationCommands } from 'types/applicationCommand';
 import { Component } from 'types/component';
-import { ConfigType } from 'types/config';
 import LanguageHandler from './handlers/LanguageHandler';
 import AI from './AI';
 // @ts-ignore
@@ -18,7 +17,6 @@ import PhishingHandler from './handlers/PhishingHandler';
 export default class FluorineClient extends Client {
     applicationCommands!: ApplicationCommands;
     conn!: r.Connection;
-    config: ConfigType;
     cmds!: Collection<string, Command>;
     components!: Collection<string, Component>;
     invite: string;
@@ -46,8 +44,11 @@ export default class FluorineClient extends Client {
             partials: ['MESSAGE'],
             allowedMentions: { repliedUser: false }
         });
-        this.config = require(`${__dirname}/../../config.json`);
-        r.connect(this.config.rethink).then(conn => {
+        r.connect({
+            host: process.env.RETHINK_HOSTNAME,
+            password: process.env.RETHINK_PASSWORD,
+            db: process.env.RETHINK_DATABASE
+        }).then(conn => {
             this.conn = conn;
         });
         this.version = version;
@@ -79,13 +80,16 @@ export default class FluorineClient extends Client {
         this.phishing = new PhishingHandler(this);
         this.ai = new AI(this);
 
-        this.logger.log('loaded events and commands');
-        this.login(this.config.token).then(() => {
+        this.logger.log('Loaded events and commands');
+        this.login().then(() => {
             this.guilds.cache.forEach(async g => {
                 const guild = await r.table('config').get(g.id).run(this.conn);
                 if (!guild) {
                     r.table('config')
-                        .insert({ id: g.id, prefix: this.config.prefix })
+                        .insert({
+                            id: g.id,
+                            prefix: process.env.DISCORD_PREFIX
+                        })
                         .run(this.conn);
                 }
             });

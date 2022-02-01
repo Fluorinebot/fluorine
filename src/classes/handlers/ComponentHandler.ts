@@ -8,7 +8,6 @@ export default class ComponentHandler {
     }
     loadComponents() {
         const dir = readdirSync(`${__dirname}/../../components`);
-        console.log(dir);
         dir.forEach(async file => {
             const [name] = file.split('.');
             this.map.set(
