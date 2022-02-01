@@ -21,8 +21,8 @@ export default class AI {
     }
     async generate(): Promise<any> {
         const [{ object, text }] = this.queue;
-        const ai: any = await fetch(
-            `${this.client.config.aiurl}/${text}?token=${this.client.config.aitoken}`
+        const ai = await fetch(
+            `${process.env.AI_URL}/${text}?token=${process.env.AI_TOKEN}`
         )
             .catch(err => {
                 this.isGenerating = false;

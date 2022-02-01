@@ -21,7 +21,7 @@ export default class PhishingHandler {
     }
     async getLink(links: PhishingLink[]) {
         const request = await fetch(
-            `https://safebrowsing.googleapis.com/v4/threatMatches:find?key=${this.client.config.safeBrowsing}`,
+            `https://safebrowsing.googleapis.com/v4/threatMatches:find?key=${process.env.SAFEBROWSING_TOKEN}`,
             {
                 method: 'POST',
                 body: JSON.stringify({
