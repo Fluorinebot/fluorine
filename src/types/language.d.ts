@@ -178,6 +178,10 @@ export interface LanguageType {
     TAGS_DELETE_EXIT: string;
     TAGS_DELETE_SUCCESS: string;
     TAGS_DELETE_ABORT: string;
+    TAGS_LIST_SPECIFIC_TITLE: string;
+    TAGS_LIST_SPECIFIC_USER: string;
+    TAGS_LIST_SPECIFIC_DATE: string;
+    TAGS_LIST_SPECIFIC_USES: string;
 }
 
 export type LanguageStrings = keyof LanguageType;

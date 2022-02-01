@@ -195,5 +195,9 @@
     "TAGS_DELETE_CONTINUE": "Yes",
     "TAGS_DELETE_EXIT": "No",
     "TAGS_DELETE_SUCCESS": "Deleted `[tag]`!",
-    "TAGS_DELETE_ABORT": "You have cancelled the deletion!"
+    "TAGS_DELETE_ABORT": "You have cancelled the deletion!",
+    "TAGS_LIST_SPECIFIC_TITLE": "Tag Info",
+    "TAGS_LIST_SPECIFIC_USER": "Tag Author",
+    "TAGS_LIST_SPECIFIC_DATE": "Date Created",
+    "TAGS_LIST_SPECIFIC_USES": "Uses"
 }
