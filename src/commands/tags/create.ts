@@ -28,6 +28,16 @@ export async function run(
             ephemeral: true
         });
 
+    if (guildCommands.length >= 100) {
+        return interaction.reply({
+            content: client.language.get(
+                interaction.locale,
+                'TAGS_CREATE_MAXIMUM'
+            ),
+            ephemeral: true
+        });
+    }
+
     if (guildCommands.includes(name))
         return interaction.reply({
             content: client.language.get(

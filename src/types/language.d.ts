@@ -168,6 +168,7 @@ export interface LanguageType {
     TIMEOUT_REASON: string;
     TAG_DOESNT_EXIST: string;
     TAGS_CREATE_FLUORINE_OVERRIDE: string;
+    TAGS_CREATE_MAXIMUM: string;
     TAGS_CREATE_EXISTING: string;
     TAGS_CREATE_SUCCESS: string;
     TAGS_TRANSFER_NOT_TRANSFERABLE: string;

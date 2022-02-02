@@ -182,5 +182,22 @@
     "TIMEOUT_SUCCESS_DESCRIPTION": "Wyciszono członka!",
     "TIMEOUT_MODERATOR": "Wyciszono przez",
     "TIMEOUT_USER": "Wyciszono",
-    "TIMEOUT_REASON": "Wyciszono przez [user] za [reason]"
+    "TIMEOUT_REASON": "Wyciszono przez [user] za [reason]",
+    "TAG_DOESNT_EXIST": "That tag doesn't exist!",
+    "TAGS_CREATE_FLUORINE_OVERRIDE": "`[name]` already exists in Fluorine.",
+    "TAGS_CREATE_MAXIMUM": "You have reached the 100 tag limit for your server.",
+    "TAGS_CREATE_EXISTING": "That tag already exists!",
+    "TAGS_CREATE_SUCCESS": "Created tag `[tag]`!",
+    "TAGS_TRANSFER_NOT_TRANSFERABLE": "The owner of that tag is still in the server!",
+    "TAGS_TRANSFER_SUCCESS": "`[tag]` has been transferred to you!",
+    "TAGS_DELETE_NOT_TAG_OWNER": "You do not own that tag.",
+    "TAGS_DELETE_PROMPT": "Are you sure you want to delete that tag?",
+    "TAGS_DELETE_CONTINUE": "Yes",
+    "TAGS_DELETE_EXIT": "No",
+    "TAGS_DELETE_SUCCESS": "Deleted `[tag]`!",
+    "TAGS_DELETE_ABORT": "You have cancelled the deletion!",
+    "TAGS_LIST_SPECIFIC_TITLE": "Tag Info",
+    "TAGS_LIST_SPECIFIC_USER": "Tag Author",
+    "TAGS_LIST_SPECIFIC_DATE": "Date Created",
+    "TAGS_LIST_SPECIFIC_USES": "Uses"
 }
