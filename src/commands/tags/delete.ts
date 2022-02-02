@@ -18,7 +18,12 @@ export async function run(
     const _guildCommands = [...(await interaction.guild.commands.fetch())];
     const guildCommands = _guildCommands.map(x => x[1].name);
 
-    if (!guildCommands.includes(name))
+    const tag = (await r
+        .table('tags')
+        .get(`${interaction.guild.id}-${name}`)
+        .run(client.conn)) as Tag;
+
+    if (!guildCommands.includes(name) || !tag)
         return interaction.reply({
             content: client.language.get(
                 interaction.locale,
@@ -26,11 +31,6 @@ export async function run(
             ),
             ephemeral: true
         });
-
-    const tag = (await r
-        .table('tags')
-        .get(`${interaction.guild.id}-${name}`)
-        .run(client.conn)) as Tag;
 
     if (tag.user !== interaction.user.id)
         return interaction.reply({

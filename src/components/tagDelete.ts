@@ -12,16 +12,26 @@ export async function run(
     const [action, tag] = value.split('.');
     let response;
 
+    // @ts-ignore
+    await interaction.guild.commands.fetch();
+
     switch (action) {
         case 'yes': {
-            const tagCommand = interaction.guild.commands.cache.get(tag);
-            interaction.guild.commands.delete(tagCommand.id);
+            r.table('tags')
+                .get(`${interaction.guild.id}-${tag}`)
+                .delete()
+                .run(client.conn);
+
+            const command = interaction.guild.commands.cache.find(
+                c => c.name === tag
+            );
+            await command.delete();
+
             response = client.language.get(
                 interaction.locale,
                 'TAGS_DELETE_SUCCESS',
                 { tag }
             );
-            // rethink statement
             break;
         }
 
