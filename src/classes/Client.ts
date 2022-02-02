@@ -69,9 +69,6 @@ export default class FluorineClient extends Client {
     }
     async init() {
         new EventHandler(this);
-        r.connect(this.config.rethink).then(conn => {
-            this.conn = conn;
-        });
         this.language = new LanguageHandler();
 
         this.cmds = new CommandHandler().loadCommands();
