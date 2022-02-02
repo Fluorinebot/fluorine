@@ -54,15 +54,18 @@ export async function run(client: FluorineClient, interaction: Interaction) {
         : client.applicationCommands.chatInput.get(interaction.commandName);
 
     if (!command) {
-        const tag = (await r
+        const [tag] = (await r
             .table('tags')
-            .get(`${interaction.guild.id}-${interaction.commandName}`)
-            .run(client.conn)) as Tag;
+            .getAll([interaction.guild.id, interaction.commandName], {
+                index: 'tag'
+            })
+            .coerceTo('array')
+            .run(client.conn)) as Tag[];
 
         if (!tag) return;
         tag.uses++;
 
-        await r.table('tags').update(tag).run(client.conn);
+        await r.table('tags').get(tag.id).update(tag).run(client.conn);
         return interaction.reply(
             client.tags.getParsedReplyOptions(tag, interaction)
         );

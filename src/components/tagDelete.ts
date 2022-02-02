@@ -15,6 +15,13 @@ export async function run(
     switch (action) {
         case 'yes': {
             const tagCommand = interaction.guild.commands.cache.get(tag);
+            const [{ id }] = await r
+                .table('tags')
+                .getAll([interaction.guild.id, tagCommand.name], {
+                    index: 'tag'
+                })
+                .coerceTo('array')
+                .run(client.conn);
             interaction.guild.commands.delete(tagCommand.id);
             response = client.language.get(
                 interaction.locale,
@@ -22,6 +29,7 @@ export async function run(
                 { tag }
             );
             // rethink statement
+            r.table('tags').get(id).delete().run(client.conn);
             break;
         }
 

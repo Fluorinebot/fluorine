@@ -27,12 +27,7 @@ export async function run(
             ephemeral: true
         });
 
-    const tag = (await r
-        .table('tags')
-        .get(`${interaction.guild.id}-${name}`)
-        .run(client.conn)) as Tag;
-
-    if (tag.user !== interaction.user.id)
+    if (interaction.memberPermissions.has('MANAGE_GUILD'))
         return interaction.reply({
             content: client.language.get(
                 interaction.locale,

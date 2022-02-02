@@ -22,10 +22,11 @@ export async function run(
             ephemeral: true
         });
 
-    const tag = (await r
+    const [tag] = (await r
         .table('tags')
-        .get(`${interaction.guild.id}-${name}`)
-        .run(client.conn)) as Tag;
+        .getAll([interaction.guild.id, name], { index: 'tag' })
+        .coerceTo('array')
+        .run(client.conn)) as Tag[];
 
     const exportData = `
 name: ${tag.id.split('.')[1]}

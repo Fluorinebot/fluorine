@@ -182,5 +182,19 @@
     "TIMEOUT_SUCCESS_DESCRIPTION": "Wyciszono członka!",
     "TIMEOUT_MODERATOR": "Wyciszono przez",
     "TIMEOUT_USER": "Wyciszono",
-    "TIMEOUT_REASON": "Wyciszono przez [user] za [reason]"
+    "TIMEOUT_REASON": "Wyciszono przez [user] za [reason]",
+    "TAG_DOESNT_EXIST": "Ten tag nie istnieje!",
+    "TAGS_CREATE_FLUORINE_OVERRIDE": "`[name]` już istnieje w Fluorine.",
+    "TAGS_CREATE_EXISTING": "Ten tag już istnieje!",
+    "TAGS_CREATE_SUCCESS": "Stworzono tag `[tag]`",
+    "TAGS_DELETE_NOT_TAG_OWNER": "Nie masz wystarczających permisji aby usunąć ten tag! Potrzebne permisje: Manage guild",
+    "TAGS_DELETE_PROMPT": "Czy jesteś pewien że chcesz usunąć ten tag?",
+    "TAGS_DELETE_CONTINUE": "Tak",
+    "TAGS_DELETE_EXIT": "Nie",
+    "TAGS_DELETE_SUCCESS": "Usunąłeś `[tag]`!",
+    "TAGS_DELETE_ABORT": "Anulowałeś usunięcie!",
+    "TAGS_LIST_SPECIFIC_TITLE": "Informacje",
+    "TAGS_LIST_SPECIFIC_USER": "Twórca tagu",
+    "TAGS_LIST_SPECIFIC_DATE": "Stworzono",
+    "TAGS_LIST_SPECIFIC_USES": "Użycia"
 }

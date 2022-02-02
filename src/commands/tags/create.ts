@@ -45,7 +45,8 @@ export async function run(
     );
 
     const tagData = {
-        id: `${interaction.guild.id}-${name}`,
+        guild: interaction.guild.id,
+        name,
         content,
         ephemeral,
         created: Date.now(),
