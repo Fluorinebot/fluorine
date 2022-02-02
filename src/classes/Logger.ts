@@ -13,11 +13,3 @@ export class Logger {
         console.log(bold(yellow(`${time} WARN`)), msg);
     }
 }
-
-const exposedLoggerProps = {
-    log: Logger.log,
-    error: Logger.error,
-    warn: Logger.warn
-};
-
-export default exposedLoggerProps;

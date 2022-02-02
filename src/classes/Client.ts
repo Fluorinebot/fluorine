@@ -1,6 +1,6 @@
 import { Client, Collection, ColorResolvable, Intents } from 'discord.js';
 import r from 'rethinkdb';
-import exposedLoggerProps from './Logger';
+import { Logger } from './Logger';
 import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
 import CommandHandler from '@handlers/CommandHandler';
 import ComponentHandler from '@handlers/ComponentHandler';
@@ -24,7 +24,7 @@ export default class FluorineClient extends Client {
     footer: string;
     color: ColorResolvable;
     devs: string[];
-    logger: typeof exposedLoggerProps;
+    logger: typeof Logger;
     generating: boolean;
     cooldown: Set<string>;
     ai: AI;
@@ -61,7 +61,7 @@ export default class FluorineClient extends Client {
             '478823932913516544',
             '348591272476540928'
         ];
-        this.logger = exposedLoggerProps;
+        this.logger = Logger;
         this.cooldown = new Set();
         this.language = new LanguageHandler();
     }
