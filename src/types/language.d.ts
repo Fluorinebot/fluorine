@@ -183,6 +183,8 @@ export interface LanguageType {
     TAGS_LIST_SPECIFIC_USER: string;
     TAGS_LIST_SPECIFIC_DATE: string;
     TAGS_LIST_SPECIFIC_USES: string;
+    TAGS_LIST_NO_TAGS: string;
+    TAGS_LIST_TITLE: string;
 }
 
 export type LanguageStrings = keyof LanguageType;

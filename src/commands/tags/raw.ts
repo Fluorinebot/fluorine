@@ -29,7 +29,7 @@ export async function run(
         .run(client.conn)) as Tag[];
 
     const exportData = `
-name: ${tag.id.split('-')[1]}
+name: ${tag.name.split('-')[1]}
 content: ${tag.content}
 ephemeral: ${tag.ephemeral}
 `;

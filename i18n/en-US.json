@@ -200,5 +200,7 @@
     "TAGS_LIST_SPECIFIC_TITLE": "Tag Info",
     "TAGS_LIST_SPECIFIC_USER": "Tag Author",
     "TAGS_LIST_SPECIFIC_DATE": "Date Created",
-    "TAGS_LIST_SPECIFIC_USES": "Uses"
+    "TAGS_LIST_SPECIFIC_USES": "Uses",
+    "TAGS_LIST_NO_TAGS": "[server] doesn't have any tags to list!",
+    "TAGS_LIST_TITLE": "[server]'s tags"
 }

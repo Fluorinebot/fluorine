@@ -6,6 +6,7 @@ import {
 } from 'discord.js';
 import { MessageButtonStyles } from 'discord.js/typings/enums';
 import r from 'rethinkdb';
+import { Tag } from 'types/tag';
 
 export async function run(
     client: FluorineClient,
@@ -13,13 +14,13 @@ export async function run(
 ) {
     const name = interaction.options.getString('tag');
     const row = new MessageActionRow();
-    const tag = await r
+    const [tag] = (await r
         .table('tags')
         .getAll([interaction.guild.id, name], { index: 'tag' })
         .coerceTo('array')
-        .run(client.conn);
+        .run(client.conn)) as Tag[];
 
-    if (!tag[0])
+    if (!tag)
         return interaction.reply({
             content: client.language.get(
                 interaction.locale,
