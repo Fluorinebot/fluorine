@@ -1,18 +1,18 @@
 // @ts-ignore
 import { version } from '../../package.json';
 import { Client, Collection, ColorResolvable, Intents } from 'discord.js';
+import { Command } from 'types/command';
+import { ApplicationCommands } from 'types/applicationCommand';
+import { Component } from 'types/component';
 import r from 'rethinkdb';
 import PhishingHandler from '@handlers/PhishingHandler';
 import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
 import CommandHandler from '@handlers/CommandHandler';
 import ComponentHandler from '@handlers/ComponentHandler';
 import EventHandler from '@handlers/EventHandler';
-import { Command } from 'types/command';
-import { ApplicationCommands } from 'types/applicationCommand';
-import { Component } from 'types/component';
 import EconomyHandler from '@handlers/EconomyHandler';
-import LanguageHandler from './handlers/LanguageHandler';
-import ShopHandler from './handlers/ShopHandler';
+import LanguageHandler from '@handlers/LanguageHandler';
+import ShopHandler from '@handlers/ShopHandler';
 import AI from './AI';
 import Logger from './Logger';
 
@@ -29,7 +29,6 @@ export default class FluorineClient extends Client {
     logger: Logger;
     invite: string;
     version: string;
-    footer: string;
     color: ColorResolvable;
     devs: string[];
     generating: boolean;
@@ -59,7 +58,6 @@ export default class FluorineClient extends Client {
         this.version = version;
         this.invite =
             'https://discord.com/api/oauth2/authorize?client_id=831932409943425064&scope=bot+applications.commands&permissions=474527689975';
-        this.footer = `Fluorine ${this.version}`;
         this.color = '#3872f2';
         this.devs = [
             '707675871355600967',
@@ -72,18 +70,14 @@ export default class FluorineClient extends Client {
     async init() {
         new EventHandler(this);
         this.language = new LanguageHandler();
-
         this.cmds = new CommandHandler().loadCommands();
-
         const { loadChatInput, loadContextMenu } =
             new ApplicationCommandHandler();
         this.applicationCommands = {
             chatInput: loadChatInput(),
             contextMenu: loadContextMenu()
         };
-
         this.components = new ComponentHandler().loadComponents();
-
         this.ai = new AI(this);
         this.phishing = new PhishingHandler(this);
         this.economy = new EconomyHandler(this);
