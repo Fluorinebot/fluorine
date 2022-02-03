@@ -8,7 +8,7 @@ export async function run(
     interaction: CommandInteraction
 ) {
     const id = interaction.options.getString('id');
-    const statusURL = client.language.get(interaction.locale, 'INPOST_URL');
+    const statusURL = client.i18n.t('INPOST_URL', { lng: interaction.locale });
     const statuses: any = await fetch(statusURL).then(res => res.json());
     const req: any = await fetch(
         `https://api-shipx-pl.easypack24.net/v1/tracking/${id}`
@@ -16,11 +16,10 @@ export async function run(
     const response = await req.json();
     if (req.status !== 200) {
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'INPOST_NOT_FOUND',
-                { id }
-            ),
+            content: client.i18n.t('INPOST_NOT_FOUND', {
+                lng: interaction.locale,
+                id
+            }),
             ephemeral: true
         });
     }

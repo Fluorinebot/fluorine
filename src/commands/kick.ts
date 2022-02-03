@@ -13,10 +13,9 @@ export async function run(
 ) {
     if (!interaction.member?.permissions.has('KICK_MEMBERS')) {
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'KICK_PERMISSIONS_MISSING'
-            ),
+            content: client.i18n.t('KICK_PERMISSIONS_MISSING', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
     }
@@ -24,41 +23,39 @@ export async function run(
     const member = interaction.options.getMember('user');
     const reason =
         interaction.options.getString('reason') ??
-        client.language.get(interaction.locale, 'NONE');
+        client.i18n.t('NONE', {
+            lng: interaction.locale
+        });
 
     if (!member)
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'KICK_MEMBER_MISSING'
-            ),
+            content: client.i18n.t('KICK_MEMBER_MISSING', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
 
     if (member.user.id === interaction.user.id)
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'KICK_ERROR_YOURSELF'
-            ),
+            content: client.i18n.t('KICK_ERROR_YOURSELF', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
 
     if (!member.kickable)
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'KICK_BOT_PERMISSIONS_MISSING'
-            ),
+            content: client.i18n.t('KICK_BOT_PERMISSIONS_MISSING', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
 
     if (reason.length > 1024) {
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'REASON_LONGER_THAN_1024'
-            ),
+            content: client.i18n.t('REASON_LONGER_THAN_1024', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
     }
@@ -73,7 +70,8 @@ export async function run(
     );
 
     await member.kick(
-        client.language.get(interaction.locale, 'KICK_REASON', {
+        client.i18n.t('KICK_REASON', {
+            lng: interaction.locale,
             user: interaction.user.tag,
             reason
         })
