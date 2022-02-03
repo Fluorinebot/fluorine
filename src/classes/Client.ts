@@ -1,6 +1,6 @@
 import { Client, Collection, ColorResolvable, Intents } from 'discord.js';
 import r from 'rethinkdb';
-import Logger from './Logger';
+import { Logger } from './Logger';
 import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
 import CommandHandler from '@handlers/CommandHandler';
 import ComponentHandler from '@handlers/ComponentHandler';
@@ -25,7 +25,7 @@ export default class FluorineClient extends Client {
     footer: string;
     color: ColorResolvable;
     devs: string[];
-    logger: Logger;
+    logger: typeof Logger;
     generating: boolean;
     cooldown: Set<string>;
     ai: AI;
@@ -63,27 +63,26 @@ export default class FluorineClient extends Client {
             '478823932913516544',
             '348591272476540928'
         ];
-        this.logger = new Logger();
+        this.logger = Logger;
         this.cooldown = new Set();
         this.language = new LanguageHandler();
     }
     async init() {
         new EventHandler(this);
-        this.cmds = new CommandHandler().loadCommands();
+        this.cmds = new CommandHandler(this).loadCommands();
 
         const { loadChatInput, loadContextMenu } =
-            new ApplicationCommandHandler();
+            new ApplicationCommandHandler(this);
         this.applicationCommands = {
             chatInput: loadChatInput(),
             contextMenu: loadContextMenu()
         };
 
-        this.components = new ComponentHandler().loadComponents();
+        this.components = new ComponentHandler(this).loadComponents();
         this.phishing = new PhishingHandler(this);
         this.ai = new AI(this);
         this.tags = new TagHandler(this);
 
-        this.logger.log('Loaded events and commands');
         this.login().then(() => {
             this.guilds.cache.forEach(async g => {
                 const guild = await r.table('config').get(g.id).run(this.conn);
@@ -96,9 +95,8 @@ export default class FluorineClient extends Client {
                         .run(this.conn);
                 }
             });
-            this.logger.log(
-                `Loaded ${this.cmds.size} commands, checked ${this.guilds.cache.size} guilds`
-            );
+
+            this.logger.log(`Checked ${this.guilds.cache.size} guilds.`);
         });
 
         process.on('unhandledRejection', (error: Error) => {

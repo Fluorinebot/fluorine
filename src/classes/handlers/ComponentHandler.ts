@@ -1,9 +1,12 @@
 import { readdirSync } from 'fs';
 import { Component } from 'types/component';
 import { Collection } from 'discord.js';
+import FluorineClient from '@classes/Client';
 export default class ComponentHandler {
+    client: FluorineClient;
     map: Collection<string, Component>;
-    constructor() {
+    constructor(client) {
+        this.client = client;
         this.map = new Collection();
     }
     loadComponents() {
@@ -15,6 +18,7 @@ export default class ComponentHandler {
                 await import(`${__dirname}/../../components/${file}`)
             );
         });
+        this.client.logger.log(`Loaded ${dir.length} components.`);
         return this.map;
     }
 }

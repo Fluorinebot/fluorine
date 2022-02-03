@@ -1,12 +1,15 @@
 import { readdirSync } from 'fs';
 import { ChatInputCommand, ContextMenuCommand } from 'types/applicationCommand';
 import { Collection } from 'discord.js';
+import FluorineClient from '@classes/Client';
 
 export default class ApplicationCommandHandler {
     chatInput: Collection<string, ChatInputCommand>;
     contextMenu: Collection<string, ContextMenuCommand>;
-    constructor() {
+    client: FluorineClient;
+    constructor(client) {
         // import commands
+        this.client = client;
         this.chatInput = new Collection();
         this.contextMenu = new Collection();
     }
@@ -35,6 +38,7 @@ export default class ApplicationCommandHandler {
                 await import(`${__dirname}/../../commands/${file}`)
             );
         });
+        this.client.logger.log(`Loaded ${dir.length} chat input commands.`);
         return this.chatInput;
     };
 
@@ -47,6 +51,8 @@ export default class ApplicationCommandHandler {
                 await import(`${__dirname}/../../context/${file}`)
             );
         });
+
+        this.client.logger.log(`Loaded ${dir.length} context menu commands.`);
         return this.contextMenu;
     };
 }
