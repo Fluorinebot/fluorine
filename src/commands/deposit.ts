@@ -13,15 +13,15 @@ export async function run(
     );
     if (balance.wallet < toDeposit) {
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'DEPOSIT_NOT_ENOUGH'
-            ),
+            content: client.i18n.t('DEPOSIT_NOT_ENOUGH', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
     }
     interaction.reply(
-        client.language.get(interaction.locale, 'DEPOSIT_SUCCESS', {
+        client.i18n.t('DEPOSIT_SUCCESS', {
+            lng: interaction.locale,
             amount: `${toDeposit} ${await client.economy.getCurrency(
                 interaction.guildId
             )}`

@@ -52,7 +52,9 @@ export async function run(
                     default: category === 'moderation'
                 },
                 {
-                    label: client.language.get(interaction.locale, 'ECONOMY'),
+                    label: client.i18n.t('ECONOMY', {
+                        lng: interaction.locale
+                    }),
                     value: 'economy',
                     emoji: '💰',
                     default: category === 'economy'

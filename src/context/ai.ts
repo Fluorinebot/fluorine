@@ -9,7 +9,7 @@ export async function run(
     const { content } = interaction.targetMessage;
     if (content.length > 65) {
         interaction.reply({
-            content: client.language.get(interaction.locale, 'AI_TOO_LONG'),
+            content: client.i18n.t('AI_TOO_LONG', { lng: interaction.locale }),
             ephemeral: true
         });
     }
@@ -18,7 +18,7 @@ export async function run(
             .length !== 0
     ) {
         interaction.reply({
-            content: client.language.get(interaction.locale, 'AI_LIMIT'),
+            content: client.i18n.t('AI_LIMIT', { lng: interaction.locale }),
             ephemeral: true
         });
     }

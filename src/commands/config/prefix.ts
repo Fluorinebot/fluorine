@@ -8,7 +8,7 @@ export async function run(
 ) {
     if (!interaction.memberPermissions.has('MANAGE_GUILD')) {
         return interaction.reply({
-            content: client.language.get(interaction.locale, 'CONFIG_FAIL'),
+            content: client.i18n.t('CONFIG_FAIL', { lng: interaction.locale }),
             ephemeral: true
         });
     }
@@ -18,7 +18,7 @@ export async function run(
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('CONFIG_SET_SUCCESS_TITLE')
         .setLocaleDescription('CONFIG_SET_SUCCESS_DESCRIPTION', {
-            key: client.language.get(interaction.locale, 'CONFIG_PREFIX'),
+            key: client.i18n.t('CONFIG_PREFIX', { lng: interaction.locale }),
             value: prefix
         });
     interaction.reply({ embeds: [embed] });

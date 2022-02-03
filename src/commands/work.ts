@@ -21,20 +21,15 @@ export async function run(
     }
     const random = Math.floor(Math.random() * 3);
     const money = Math.floor(Math.random() * 150 + 50);
-    const description = client.language.get(
-        interaction.locale,
-        'WORK_SUCCESS_DESCRIPTION'
-    );
+    const description = client.i18n.t(`WORK_SUCCESS_DESCRIPTION.${random}`, {
+        lng: interaction.locale,
+        amount: `${money} ${await client.economy.getCurrency(
+            interaction.guildId
+        )}`
+    });
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('WORK_SUCCESS')
-        .setDescription(
-            description[random].replaceAll(
-                '{{- amount }}',
-                `${money} ${await client.economy.getCurrency(
-                    interaction.guildId
-                )}`
-            )
-        );
+        .setDescription(description);
     client.economy.add(interaction.user.id, interaction.guild.id, money);
     client.economy.setCooldown(interaction.user.id, interaction.guild.id, {
         work: Math.round(Date.now() / 1000 + 1800)

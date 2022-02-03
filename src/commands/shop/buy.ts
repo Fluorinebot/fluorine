@@ -12,16 +12,17 @@ export async function run(
     );
     if (!itemObj) {
         return interaction.reply(
-            client.language.get(interaction.locale, 'SHOP_BUY_NOT_FOUND')
+            client.i18n.t('SHOP_BUY_NOT_FOUND', { lng: interaction.locale })
         );
     }
     if (itemObj.price > user.wallet) {
         return interaction.reply(
-            client.language.get(interaction.locale, 'SHOP_BUY_NOT_ENOUGH')
+            client.i18n.t('SHOP_BUY_NOT_ENOUGH', { lng: interaction.locale })
         );
     }
     interaction.reply(
-        client.language.get(interaction.locale, 'SHOP_BUY_SUCCESS', {
+        client.i18n.t('SHOP_BUY_SUCCESS', {
+            lng: interaction.locale,
             item: itemObj.name,
             price:
                 itemObj.price +

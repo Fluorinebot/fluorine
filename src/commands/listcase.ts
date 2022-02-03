@@ -35,7 +35,7 @@ export async function run(
         .setLocaleTitle('LISTCASE_TITLE', { user: member.user.tag })
         .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
         .setFooter({
-            text: `${footer} | ${client.footer}`
+            text: footer
         });
 
     if (!cases.length)

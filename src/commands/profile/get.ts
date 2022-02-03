@@ -9,16 +9,17 @@ export async function run(
 ) {
     const userOption = interaction.options.getUser('user');
     const user = userOption || interaction.user;
-    const notSet = client.language.get(interaction.locale, 'PROFILE_NOT_SET');
+    const notSet = client.i18n.t('PROFILE_NOT_SET', {
+        lng: interaction.locale
+    });
     const profile: any =
         (await r.table('profile').get(user.id).run(client.conn)) || {};
     if (profile?.birthday) {
         const birthday = profile.birthday.split('/');
-        profile.birthday = `${
-            client.language.get(interaction.locale, 'MONTHS')[
-                parseInt(birthday[1]) - 1
-            ]
-        } ${birthday[0]}`;
+        profile.birthday = `${client.i18n.t(
+            `MONTHS.${parseInt(birthday[1]) - 1}`,
+            { lng: interaction.locale }
+        )} ${birthday[0]}`;
     } else {
         profile.birthday = notSet;
     }
@@ -49,7 +50,7 @@ export async function run(
     ctx.font = 'bold 47px "Poppins"';
     ctx.fillStyle = '#ffffff';
     ctx.fillText(
-        client.language.get(interaction.locale, 'PROFILE_DESCRIPTION'),
+        client.i18n.t('PROFILE_DESCRIPTION', { lng: interaction.locale }),
         30,
         190
     );
@@ -57,17 +58,17 @@ export async function run(
     ctx.font = 'bold 42px "Poppins"';
     ctx.fillStyle = '#ffffff';
     ctx.fillText(
-        client.language.get(interaction.locale, 'PROFILE_WEBSITE'),
+        client.i18n.t('PROFILE_WEBSITE', { lng: interaction.locale }),
         986,
         205
     );
     ctx.fillText(
-        client.language.get(interaction.locale, 'PROFILE_BIRTHDAY'),
+        client.i18n.t('PROFILE_BIRTHDAY', { lng: interaction.locale }),
         986,
         435
     );
     ctx.fillText(
-        client.language.get(interaction.locale, 'PROFILE_LOCATION'),
+        client.i18n.t('PROFILE_LOCATION', { lng: interaction.locale }),
         986,
         655
     );
@@ -79,10 +80,9 @@ export async function run(
         fragmentText(
             ctx,
             profile?.description ||
-                client.language.get(
-                    interaction.locale,
-                    'PROFILE_NOT_SET_DESCRIPTION'
-                ),
+                client.i18n.t('PROFILE_NOT_SET_DESCRIPTION', {
+                    lng: interaction.locale
+                }),
             900
         ).join('\n'),
         30,

@@ -17,10 +17,9 @@ export async function run(
         case 'location':
             if (value.length > 15 || value.length < 3) {
                 return interaction.reply({
-                    content: client.language.get(
-                        interaction.guild.preferredLocale,
-                        'PROFILE_INVALID_LOCATION'
-                    ),
+                    content: client.i18n.t('PROFILE_INVALID_LOCATION', {
+                        lng: interaction.locale
+                    }),
                     ephemeral: true
                 });
             }
@@ -52,10 +51,9 @@ export async function run(
                 /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,20}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/gu;
             if (!website.match(regex)) {
                 return interaction.reply(
-                    client.language.get(
-                        interaction.guild.preferredLocale,
-                        'PROFILE_INVALID_WEBSITE'
-                    )
+                    client.i18n.t('PROFILE_INVALID_WEBSITE', {
+                        lng: interaction.locale
+                    })
                 );
             }
             if (profile) {
@@ -82,10 +80,9 @@ export async function run(
             const pronouns = value;
             if (!['she/her', 'he/him', 'they/them'].includes(pronouns)) {
                 return interaction.reply({
-                    content: client.language.get(
-                        interaction.locale,
-                        'PROFILE_INVALID_PRONOUNS'
-                    ),
+                    content: client.i18n.t('PROFILE_INVALID_PRONOUNS', {
+                        lng: interaction.locale
+                    }),
                     ephemeral: true
                 });
             }
@@ -115,10 +112,9 @@ export async function run(
             const description = value;
             if (description.length > 300) {
                 return interaction.reply({
-                    content: client.language.get(
-                        interaction.locale,
-                        'PROFILE_DESCRIPTION_LENGTH'
-                    ),
+                    content: client.i18n.t('PROFILE_DESCRIPTION_LENGTH', {
+                        lng: interaction.locale
+                    }),
                     ephemeral: true
                 });
             }
@@ -151,10 +147,9 @@ export async function run(
             month = parseInt(month) || 0;
             if (day > 31 || day < 1 || month > 12 || month < 1) {
                 interaction.reply({
-                    content: client.language.get(
-                        interaction.locale,
-                        'PROFILE_INVALID_BIRTHDAY'
-                    ),
+                    content: client.i18n.t('PROFILE_INVALID_BIRTHDAY', {
+                        lng: interaction.locale
+                    }),
                     ephemeral: true
                 });
                 break;
@@ -181,10 +176,9 @@ export async function run(
             break;
         default:
             interaction.reply({
-                content: client.language.get(
-                    interaction.locale,
-                    'PROFILE_INVALID_OPTION'
-                ),
+                content: client.i18n.t('PROFILE_INVALID_OPTION', {
+                    lng: interaction.locale
+                }),
                 ephemeral: true
             });
             break;

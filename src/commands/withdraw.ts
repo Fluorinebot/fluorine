@@ -13,15 +13,15 @@ export async function run(
     );
     if (balance.wallet > toWithdraw) {
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'WITHDRAW_NOT_ENOUGH'
-            ),
+            content: client.i18n.t('WITHDRAW_NOT_ENOUGH', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
     }
     interaction.reply(
-        client.language.get(interaction.locale, 'WITHDRAW_SUCCESS', {
+        client.i18n.t('WITHDRAW_SUCCESS', {
+            lng: interaction.locale,
             amount: `${toWithdraw} ${await client.economy.getCurrency(
                 interaction.guildId
             )}`
