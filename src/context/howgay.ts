@@ -17,7 +17,8 @@ export async function run(
         : hash(user.toString()) % 101;
 
     interaction.reply(
-        client.language.get(interaction.locale, 'HOWGAY', {
+        client.i18n.t('HOWGAY', {
+            lng: interaction.locale,
             percent,
             thing: user
         })

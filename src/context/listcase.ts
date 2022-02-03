@@ -19,33 +19,31 @@ export async function run(
 
     if (!member)
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'LISTCASE_MEMBER_MISSING'
-            ),
+            content: client.i18n.t('LISTCASE_MEMBER_MISSING', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
 
     const cases = await getCases(client, interaction.guild?.id, member.user.id);
+
+    const footer = client.i18n.t('LISTCASE_FOOTER', {
+        lng: interaction.locale
+    });
+
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('LISTCASE_TITLE', { user: member.user.tag })
         .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
         .setFooter({
-            text: `${client.language.get(
-                interaction.locale,
-                'LISTCASE_FOOTER'
-            )} | ${client.footer}`
+            text: `${footer} | ${client.footer}`
         });
 
     if (!cases.length)
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'LISTCASE_NO_CASES',
-                {
-                    user: member.user.tag
-                }
-            ),
+            content: client.i18n.t('LISTCASE_NO_CASES', {
+                lng: interaction.locale,
+                user: member.user.tag
+            }),
             ephemeral: true
         });
 
@@ -71,7 +69,9 @@ export async function run(
                     `listcase:${interaction.user.id}:${member.user.id}.0`
                 )
                 .setLabel(
-                    client.language.get(interaction.locale, 'LISTCASE_BACK')
+                    client.i18n.t('LISTCASE_BACK', {
+                        lng: interaction.locale
+                    })
                 )
                 .setStyle('PRIMARY')
                 .setDisabled(true)
@@ -83,7 +83,7 @@ export async function run(
                     `listcase:${interaction.user.id}:${member.user.id}.1`
                 )
                 .setLabel(
-                    client.language.get(interaction.locale, 'LISTCASE_NEXT')
+                    client.i18n.t('LISTCASE_NEXT', { lng: interaction.locale })
                 )
                 .setStyle('PRIMARY')
         );
