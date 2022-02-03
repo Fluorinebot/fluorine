@@ -31,10 +31,9 @@ export default class AI {
             .then(res => res.json());
         if (!ai.result) {
             return object.reply(
-                this.client.language.get(
-                    object.guild.preferredLocale,
-                    'AI_ERROR'
-                )
+                this.client.i18n.t('AI_ERROR', {
+                    lng: object.guild.preferredLocale
+                })
             );
         }
         const embed = new Embed(this.client, object.guild.preferredLocale)

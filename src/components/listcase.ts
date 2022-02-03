@@ -30,7 +30,9 @@ export async function run(
             .setCustomId(
                 `listcase:${interaction.user.id}:${member.id}.${page - 1}`
             )
-            .setLabel(client.language.get(interaction.locale, 'LISTCASE_BACK'))
+            .setLabel(
+                client.i18n.t('LISTCASE_BACK', { lng: interaction.locale })
+            )
             .setStyle('PRIMARY')
             .setDisabled(page === 0)
     );
@@ -40,19 +42,22 @@ export async function run(
             .setCustomId(
                 `listcase:${interaction.user.id}:${member.id}.${page + 1}`
             )
-            .setLabel(client.language.get(interaction.locale, 'LISTCASE_NEXT'))
+            .setLabel(
+                client.i18n.t('LISTCASE_NEXT', { lng: interaction.locale })
+            )
             .setStyle('PRIMARY')
             .setDisabled(page + 1 === chunk.length)
     );
+
+    const footer = client.i18n.t('LISTCASE_FOOTER', {
+        lng: interaction.locale
+    });
 
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('LISTCASE_TITLE', { user: member.tag })
         .setThumbnail(member.displayAvatarURL({ dynamic: true }))
         .setFooter({
-            text: `${client.language.get(
-                interaction.locale,
-                'LISTCASE_FOOTER'
-            )} | ${client.footer}`
+            text: `${footer} | ${client.footer}`
         });
 
     chunk[page > chunk.length ? page - 1 : page].forEach(caseData => {
