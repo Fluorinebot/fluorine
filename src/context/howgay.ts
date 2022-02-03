@@ -20,7 +20,7 @@ export async function run(
         client.i18n.t('HOWGAY', {
             lng: interaction.locale,
             percent,
-            thing: user
+            thing: user.toString()
         })
     );
 }

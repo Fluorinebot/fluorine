@@ -26,7 +26,7 @@ export async function run(
         client.i18n.t('HOWGAY', {
             lng: message.guild.preferredLocale,
             percent,
-            thing
+            thing: thing.toString()
         })
     );
 }
