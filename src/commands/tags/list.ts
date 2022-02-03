@@ -6,6 +6,7 @@ export async function run(
     interaction: CommandInteraction
 ) {
     const guild = interaction.guild.id;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const list = await r
         .table('tags')
         .getAll(guild, { index: 'guild' })
