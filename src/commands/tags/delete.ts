@@ -22,19 +22,17 @@ export async function run(
 
     if (!tag)
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'TAG_DOESNT_EXIST'
-            ),
+            content: client.i18n.t('TAG_DOESNT_EXIST', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
 
     if (!interaction.memberPermissions.has('MANAGE_GUILD'))
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'TAGS_DELETE_NOT_TAG_OWNER'
-            ),
+            content: client.i18n.t('TAGS_DELETE_NOT_TAG_OWNER', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
 
@@ -42,20 +40,25 @@ export async function run(
         new MessageButton()
             .setCustomId(`tagDelete:${interaction.user.id}:yes.${name}`)
             .setLabel(
-                client.language.get(interaction.locale, 'TAGS_DELETE_CONTINUE')
+                client.i18n.t('TAGS_DELETE_CONTINUE', {
+                    lng: interaction.locale
+                })
             )
             .setStyle(MessageButtonStyles.DANGER),
         new MessageButton()
             .setCustomId(`tagDelete:${interaction.user.id}:no.${name}`)
             .setLabel(
-                client.language.get(interaction.locale, 'TAGS_DELETE_EXIT')
+                client.i18n.t('TAGS_DELETE_EXIT', {
+                    lng: interaction.locale
+                })
             )
             .setStyle(MessageButtonStyles.SUCCESS)
     ]);
 
     interaction.reply({
-        content: client.language.get(interaction.locale, 'TAGS_DELETE_PROMPT', {
-            tag: name
+        content: client.i18n.t('TAGS_DELETE_CONTINUE', {
+            tag: name,
+            lng: interaction.locale
         }),
         components: [row]
     });

@@ -18,32 +18,26 @@ export async function run(
 
     if (fluorineCommands.includes(name))
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'TAGS_CREATE_FLUORINE_OVERRIDE',
-                {
-                    name
-                }
-            ),
+            content: client.i18n.t('TAGS_CREATE_FLUORINE_OVERRIDE', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
 
     if (guildCommands.length >= 100) {
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'TAGS_CREATE_MAXIMUM'
-            ),
+            content: client.i18n.t('TAGS_CREATE_MAXIMUM', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
     }
 
     if (guildCommands.includes(name))
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'TAGS_CREATE_EXISTING'
-            ),
+            content: client.i18n.t('TAGS_CREATE_EXISTING', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
 
@@ -66,8 +60,9 @@ export async function run(
 
     r.table('tags').insert(tagData).run(client.conn);
     interaction.reply(
-        client.language.get(interaction.locale, 'TAGS_CREATE_SUCCESS', {
-            tag: name
+        client.i18n.t('TAGS_CREATE_SUCCESS', {
+            tag: name,
+            lng: interaction.locale
         })
     );
 }

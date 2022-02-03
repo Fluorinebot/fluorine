@@ -22,10 +22,9 @@ export async function run(
 
         if (!guildCommands.includes(name))
             return interaction.reply({
-                content: client.language.get(
-                    interaction.locale,
-                    'TAG_DOESNT_EXIST'
-                ),
+                content: client.i18n.t('TAG_DOESNT_EXIST', {
+                    lng: interaction.locale
+                }),
                 ephemeral: true
             });
 
@@ -64,11 +63,10 @@ export async function run(
 
     if (tags.length === 0)
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'TAGS_LIST_NO_TAGS',
-                { server: interaction.guild.id }
-            ),
+            content: client.i18n.t('TAGS_LIST_NO_TAGS', {
+                server: interaction.guild.id,
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
 
@@ -100,7 +98,7 @@ export async function run(
             new MessageButton()
                 .setCustomId(`tagList:${interaction.user.id}:0`)
                 .setLabel(
-                    client.language.get(interaction.locale, 'LISTCASE_BACK')
+                    client.i18n.t('LISTCASE_BACK', { lng: interaction.locale })
                 )
                 .setStyle('PRIMARY')
                 .setDisabled(true)
@@ -110,7 +108,7 @@ export async function run(
             new MessageButton()
                 .setCustomId(`tagList:${interaction.user.id}:1`)
                 .setLabel(
-                    client.language.get(interaction.locale, 'LISTCASE_NEXT')
+                    client.i18n.t('LISTCASE_NEXT', { lng: interaction.locale })
                 )
                 .setStyle('PRIMARY')
         );

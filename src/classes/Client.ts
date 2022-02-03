@@ -5,13 +5,15 @@ import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
 import CommandHandler from '@handlers/CommandHandler';
 import ComponentHandler from '@handlers/ComponentHandler';
 import EventHandler from '@handlers/EventHandler';
+import TagHandler from './handlers/TagHandler';
+import PhishingHandler from './handlers/PhishingHandler';
 import { Command } from 'types/command';
 import { ApplicationCommands } from 'types/applicationCommand';
 import { Component } from 'types/component';
 import AI from './AI';
 // @ts-ignore
 import { version } from '../../package.json';
-import PhishingHandler from './handlers/PhishingHandler';
+
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
 import { join } from 'path';
