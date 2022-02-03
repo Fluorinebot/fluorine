@@ -19,10 +19,9 @@ export async function run(
 
     if (!uuid)
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'HYPIXEL_INVALID_PLAYER'
-            ),
+            content: client.i18n.t('HYPIXEL_INVALID_PLAYER', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
     const data = (await fetch(
@@ -34,10 +33,9 @@ export async function run(
     const skyStats = data.player?.stats?.SkyWars;
     if (!skyStats) {
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'HYPIXEL_PLAYER_NOT_FOUND'
-            ),
+            content: client.i18n.t('HYPIXEL_PLAYER_NOT_FOUND', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
     }

@@ -14,10 +14,9 @@ export async function run(
 ) {
     if (!interaction.member?.permissions.has('MODERATE_MEMBERS')) {
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'TIMEOUT_PERMISSIONS_MISSING'
-            ),
+            content: client.i18n.t('TIMEOUT_PERMISSIONS_MISSING', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
     }
@@ -28,50 +27,45 @@ export async function run(
     );
     const reason =
         interaction.options.getString('reason') ??
-        client.language.get(interaction.locale, 'NONE');
+        client.i18n.t('NONE', { lng: interaction.locale });
 
     if (!member)
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'TIMEOUT_MEMBER_MISSING'
-            ),
+            content: client.i18n.t('TIMEOUT_MEMBER_MISSING', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
 
     if (member.user.id === interaction.user.id)
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'TIMEOUT_ERROR_YOURSELF'
-            ),
+            content: client.i18n.t('TIMEOUT_ERROR_YOURSELF', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
 
     if (!member.moderatable)
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'TIMEOUT_BOT_PERMISSIONS_MISSING'
-            ),
+            content: client.i18n.t('TIMEOUT_BOT_PERMISSIONS_MISSING', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
 
     if (Number.isNaN(duration) || duration > 2419200000)
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'TIMEOUT_DURATION_INVALID'
-            ),
+            content: client.i18n.t('TIMEOUT_DURATION_INVALID', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
 
     if (reason.length > 1024)
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'REASON_LONGER_THAN_1024'
-            ),
+            content: client.i18n.t('REASON_LONGER_THAN_1024', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
 
@@ -86,7 +80,8 @@ export async function run(
 
     await member.timeout(
         duration,
-        client.language.get(interaction.locale, 'TIMEOUT_REASON', {
+        client.i18n.t('TIMEOUT_REASON', {
+            lng: interaction.locale,
             user: interaction.user.tag,
             reason
         })

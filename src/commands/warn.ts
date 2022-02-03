@@ -12,10 +12,9 @@ export async function run(
 ) {
     if (!interaction.member?.permissions.has('MODERATE_MEMBERS')) {
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'WARN_PERMISSIONS_MISSING'
-            ),
+            content: client.i18n.t('WARN_PERMISSIONS_MISSING', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
     }
@@ -23,32 +22,29 @@ export async function run(
     const member = interaction.options.getMember('user');
     const reason =
         interaction.options.getString('reason') ??
-        client.language.get(interaction.locale, 'NONE');
+        client.i18n.t('NONE', { lng: interaction.locale });
 
     if (!member)
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'WARN_MEMBER_MISSING'
-            ),
+            content: client.i18n.t('WARN_MEMBER_MISSING', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
 
     if (member.user.id === interaction.user.id)
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'WARN_ERROR_YOURSELF'
-            ),
+            content: client.i18n.t('WARN_ERROR_YOURSELF', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
 
     if (reason.length > 1024) {
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'REASON_LONGER_THAN_1024'
-            ),
+            content: client.i18n.t('REASON_LONGER_THAN_1024', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
     }

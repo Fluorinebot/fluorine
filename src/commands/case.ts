@@ -14,7 +14,9 @@ export async function run(
 
     if (!userCase)
         return interaction.reply({
-            content: client.language.get(interaction.locale, 'CASE_NOT_FOUND'),
+            content: client.i18n.t('CASE_NOT_FOUND', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
 

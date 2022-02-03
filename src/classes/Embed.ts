@@ -1,19 +1,18 @@
 import { MessageEmbed } from 'discord.js';
 import Client from '@classes/Client';
-import LanguageHandler from './handlers/LanguageHandler';
-import { LanguageStrings } from 'types/language';
+import i18next from 'i18next';
 
 export interface LocaleFieldOptions {
-    name: LanguageStrings;
+    name: string;
     value?: string;
-    localeValue?: LanguageStrings;
+    localeValue?: string;
     inline?: boolean;
     args?: Record<string, unknown>;
     valueArgs?: Record<string, unknown>;
 }
 
 export default class Embed extends MessageEmbed {
-    language: LanguageHandler;
+    i18n: typeof i18next;
     locale: string;
     constructor(client: Client, locale: string) {
         super({});
@@ -23,29 +22,30 @@ export default class Embed extends MessageEmbed {
             iconURL: client.user.avatarURL()
         });
         this.setTimestamp();
-        this.language = client.language;
+        this.i18n = client.i18n;
         this.locale = locale;
     }
 
-    public setLocaleTitle(title: LanguageStrings, args = {}): this {
+    public setLocaleTitle(title: string, args = {}): this {
         return super.setTitle(
-            this.language.get(this.locale, title, args).toString()
+            this.i18n.t(title, { lng: this.locale, ...args })
         );
     }
 
-    public setLocaleDescription(description: LanguageStrings, args = {}): this {
+    public setLocaleDescription(description: string, args = {}): this {
         return super.setDescription(
-            this.language.get(this.locale, description, args).toString()
+            this.i18n.t(description, { lng: this.locale, ...args })
         );
     }
 
     public addLocaleField(field: LocaleFieldOptions): this {
         return super.addField(
-            this.language.get(this.locale, field.name, field.args).toString(),
+            this.i18n.t(field.name, { lng: this.locale, ...field.args }),
             field.value ||
-                this.language
-                    .get(this.locale, field.localeValue, field.valueArgs)
-                    .toString(),
+                this.i18n.t(field.localeValue, {
+                    lng: this.locale,
+                    ...field.valueArgs
+                }),
             field.inline
         );
     }

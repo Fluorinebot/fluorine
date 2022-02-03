@@ -11,26 +11,23 @@ export async function run(client: FluorineClient, message: Message) {
             .setCustomId(`help:${message.author.id}`)
             .setOptions([
                 {
-                    label: client.language.get(
-                        message.guild.preferredLocale,
-                        'FUN'
-                    ),
+                    label: client.i18n.t('FUN', {
+                        lng: message.guild.preferredLocale
+                    }),
                     value: 'fun',
                     emoji: '🎮'
                 },
                 {
-                    label: client.language.get(
-                        message.guild.preferredLocale,
-                        'TOOLS'
-                    ),
+                    label: client.i18n.t('TOOLS', {
+                        lng: message.guild.preferredLocale
+                    }),
                     value: 'tools',
                     emoji: '🛠️'
                 },
                 {
-                    label: client.language.get(
-                        message.guild.preferredLocale,
-                        'MODERATION'
-                    ),
+                    label: client.i18n.t('MODERATION', {
+                        lng: message.guild.preferredLocale
+                    }),
                     value: 'moderation',
                     emoji: '🔨'
                 }

@@ -10,11 +10,10 @@ export async function run(
 ) {
     if (!args[0])
         return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'HYPIXEL_NO_ARGS',
-                { command: 'bedwars' }
-            )
+            client.i18n.t('HYPIXEL_NO_ARGS', {
+                lng: message.guild.preferredLocale,
+                command: 'bedwars'
+            })
         );
 
     const uuid: any = await fetch(
@@ -23,10 +22,9 @@ export async function run(
 
     if (!uuid.id)
         return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'HYPIXEL_INVALID_PLAYER'
-            )
+            client.i18n.t('HYPIXEL_INVALID_PLAYER', {
+                lng: message.guild.preferredLocale
+            })
         );
 
     const data = (await fetch(
@@ -35,10 +33,9 @@ export async function run(
     const bedStats = data.player?.stats?.Bedwars;
     if (!bedStats) {
         return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'HYPIXEL_PLAYER_NOT_FOUND'
-            )
+            client.i18n.t('HYPIXEL_PLAYER_NOT_FOUND', {
+                lng: message.guild.preferredLocale
+            })
         );
     }
 
