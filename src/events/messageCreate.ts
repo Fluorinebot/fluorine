@@ -11,10 +11,9 @@ export async function run(client: FluorineClient, message: Message) {
 
     if (message.channel.type === 'DM') {
         return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'MESSAGE_CREATE_DM'
-            )
+            client.i18n.t('MESSAGE_CREATE_DM', {
+                lng: message.guild.preferredLocale
+            })
         );
     }
 
@@ -33,11 +32,10 @@ export async function run(client: FluorineClient, message: Message) {
                 message.author,
                 client.user,
                 settings.antibotAction,
-                client.language.get(
-                    message.guild.preferredLocale,
-                    'ANTIBOT_REASON',
-                    { factor }
-                )
+                client.i18n.t('ANTIBOT_REASON', {
+                    lng: message.guild.preferredLocale,
+                    factor
+                })
             );
             switch (settings.antibotAction) {
                 case 'kick':
@@ -49,11 +47,10 @@ export async function run(client: FluorineClient, message: Message) {
                 case 'timeout':
                     message.member.timeout(
                         3600 * 24,
-                        client.language.get(
-                            message.guild.preferredLocale,
-                            'ANTIBOT_REASON',
-                            { factor }
-                        )
+                        client.i18n.t('ANTIBOT_REASON', {
+                            lng: message.guild.preferredLocale,
+                            factor
+                        })
                     );
                     break;
             }

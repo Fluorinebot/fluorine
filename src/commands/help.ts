@@ -1,5 +1,4 @@
 import FluorineClient from '@classes/Client';
-import { LanguageStrings } from 'types/language';
 import Embed from '@classes/Embed';
 import {
     CommandInteraction,
@@ -25,9 +24,7 @@ export async function run(
     }));
 
     const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle(
-            `HELP_TITLE_${category.toUpperCase()}` as LanguageStrings
-        )
+        .setLocaleTitle(`HELP_TITLE_${category.toUpperCase()}`)
         .setFields(fields);
 
     const row = new MessageActionRow().addComponents([
@@ -35,22 +32,21 @@ export async function run(
             .setCustomId(`help:${interaction.user.id}`)
             .setOptions([
                 {
-                    label: client.language.get(interaction.locale, 'FUN'),
+                    label: client.i18n.t('FUN', { lng: interaction.locale }),
                     value: 'fun',
                     emoji: '🎮',
                     default: category === 'fun'
                 },
                 {
-                    label: client.language.get(interaction.locale, 'TOOLS'),
+                    label: client.i18n.t('TOOLS', { lng: interaction.locale }),
                     value: 'tools',
                     emoji: '🛠️',
                     default: category === 'tools'
                 },
                 {
-                    label: client.language.get(
-                        interaction.locale,
-                        'MODERATION'
-                    ),
+                    label: client.i18n.t('MODERATION', {
+                        lng: interaction.locale
+                    }),
                     value: 'moderation',
                     emoji: '🔨',
                     default: category === 'moderation'

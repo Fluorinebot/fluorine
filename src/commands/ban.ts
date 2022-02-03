@@ -13,10 +13,9 @@ export async function run(
 ) {
     if (!interaction.member?.permissions.has('BAN_MEMBERS')) {
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'BAN_PERMISSIONS_MISSING'
-            ),
+            content: client.i18n.t('BAN_PERMISSIONS_MISSING', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
     }
@@ -24,41 +23,39 @@ export async function run(
     const member = interaction.options.getMember('user');
     const reason =
         interaction.options.getString('reason') ??
-        client.language.get(interaction.locale, 'NONE');
+        client.i18n.t('NONE', {
+            lng: interaction.locale
+        });
 
     if (!member)
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'BAN_MEMBER_MISSING'
-            ),
+            content: client.i18n.t('BAN_MEMBER_MISSING', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
 
     if (member.user.id === interaction.user.id)
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'BAN_ERROR_YOURSELF'
-            ),
+            content: client.i18n.t('BAN_ERROR_YOURSELF', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
 
     if (!member.bannable)
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'BAN_BOT_PERMISSIONS_MISSING'
-            ),
+            content: client.i18n.t('BAN_BOT_PERMISSIONS_MISSING', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
 
     if (reason.length > 1024) {
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'REASON_LONGER_THAN_1024'
-            ),
+            content: client.i18n.t('REASON_LONGER_THAN_1024', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
     }
@@ -73,7 +70,8 @@ export async function run(
     );
 
     await member.ban({
-        reason: client.language.get(interaction.locale, 'BAN_REASON', {
+        reason: client.i18n.t('BAN_REASON', {
+            lng: interaction.locale,
             user: interaction.user.tag,
             reason
         })

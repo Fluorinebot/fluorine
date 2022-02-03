@@ -14,5 +14,6 @@ export default class EventHandler {
                 code.run(client, ...event);
             });
         });
+        client.logger.log(`Loaded ${dir.length} events.`);
     }
 }

@@ -1,14 +1,14 @@
 import { bold, yellow, blue, red } from 'picocolors';
-export default class Logger {
-    error(msg: string) {
+export class Logger {
+    static error(msg: string) {
         const [time] = new Date().toTimeString().split(' ');
         console.log(bold(red(`${time} ERROR`)), msg);
     }
-    log(msg: string) {
+    static log(msg: string) {
         const [time] = new Date().toTimeString().split(' ');
         console.log(bold(blue(`${time} LOG`)), msg);
     }
-    warn(msg: string) {
+    static warn(msg: string) {
         const [time] = new Date().toTimeString().split(' ');
         console.log(bold(yellow(`${time} WARN`)), msg);
     }

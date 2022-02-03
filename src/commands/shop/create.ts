@@ -17,15 +17,16 @@ export async function run(
     if (role) obj.role = role.id;
     if (name.length > 19) {
         return interaction.reply(
-            client.language.get(interaction.locale, 'SHOP_CREATE_NAME_INVALID')
+            client.i18n.t('SHOP_CREATE_NAME_INVALID', {
+                lng: interaction.locale
+            })
         );
     }
     if (description.length > 49) {
         return interaction.reply(
-            client.language.get(
-                interaction.locale,
-                'SHOP_CREATE_DESCRIPTION_INVALID'
-            )
+            client.i18n.t('SHOP_CREATE_DESCRIPTION_INVALID', {
+                lng: interaction.locale
+            })
         );
     }
     const embed = new Embed(client, interaction.locale)

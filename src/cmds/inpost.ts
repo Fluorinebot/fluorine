@@ -9,14 +9,15 @@ export async function run(
 ) {
     if (!args[0]) {
         return message.reply(
-            client.language.get(message.guild.preferredLocale, 'INPOST_ARGS')
+            client.i18n.t('INPOST_ARGS', {
+                lng: message.guild.preferredLocale
+            })
         );
     }
 
-    const statusURL = client.language.get(
-        message.guild.preferredLocale,
-        'INPOST_URL'
-    );
+    const statusURL = client.i18n.t('INPOST_URL', {
+        lng: message.guild.preferredLocale
+    });
     const statuses: any = await fetch(statusURL).then(res => res.json());
     const req: any = await fetch(
         `https://api-shipx-pl.easypack24.net/v1/tracking/${args[0]}`
@@ -24,11 +25,10 @@ export async function run(
     const response = await req.json();
     if (req.status !== 200) {
         return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'INPOST_NOT_FOUND',
-                { id: args[0] }
-            )
+            client.i18n.t('INPOST_NOT_FOUND', {
+                lng: message.guild.preferredLocale,
+                id: args[0]
+            })
         );
     }
     const embed = new Embed(client, message.guild.preferredLocale)

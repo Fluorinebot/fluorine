@@ -30,16 +30,10 @@ export default class AI {
             })
             .then(res => res.json());
         if (!ai.result) {
-            if (object instanceof Message) {
-                return object.reply(
-                    this.client.language.get(
-                        object.guild.preferredLocale,
-                        'AI_ERROR'
-                    )
-                );
-            }
-            object.followup(
-                this.client.language.get(object.locale, 'AI_ERROR')
+            return object.reply(
+                this.client.i18n.t('AI_ERROR', {
+                    lng: object.guild.preferredLocale
+                })
             );
         }
         const embed = new Embed(

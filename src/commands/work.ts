@@ -29,7 +29,7 @@ export async function run(
         .setLocaleTitle('WORK_SUCCESS')
         .setDescription(
             description[random].replaceAll(
-                '[amount]',
+                '{{- amount }}',
                 `${money} ${await client.economy.getCurrency(
                     interaction.guildId
                 )}`

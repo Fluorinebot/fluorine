@@ -6,22 +6,21 @@ export async function run(
     message: Message,
     args: string[]
 ) {
-    const responses = client.language.get(
-        message.guild.preferredLocale,
-        '8BALL_RESPONSES'
-    );
     if (!args[0]) {
         return message.reply(
-            client.language.get(message.guild.preferredLocale, '8BALL_ERROR')
+            client.i18n.t('8BALL_ERROR', { lng: message.guild.preferredLocale })
         );
     }
+
+    const randNumber = Math.floor(Math.random() * 6);
 
     const embed = new Embed(client, message.guild.preferredLocale)
         .setDescription(args.join(' '))
         .addLocaleField({
             name: '8BALL_RESPONSE',
-            value: responses[Math.floor(Math.random() * responses.length)]
+            localeValue: `8BALL_RESPONSES.${randNumber}`
         });
+
     message.reply({ embeds: [embed] });
 }
 export const help = {

@@ -13,11 +13,10 @@ export async function run(
     );
     if (cooldown.crime > Date.now() / 1000) {
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'CRIME_COOLDOWN_DESCRIPTION',
-                { time: `<t:${cooldown.crime}:R>` }
-            ),
+            content: client.i18n.t('CRIME_COOLDOWN_DESCRIPTION', {
+                lng: interaction.locale,
+                time: `<t:${cooldown.crime}:R>`
+            }),
             ephemeral: true
         });
     }
@@ -28,15 +27,12 @@ export async function run(
     if (random > 7) {
         const money = Math.floor(Math.random() * 200) + 50;
         interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'CRIME_FAIL_DESCRIPTION',
-                {
-                    amount:
-                        money +
-                        (await client.economy.getCurrency(interaction.guild.id))
-                }
-            ),
+            content: client.i18n.t('CRIME_FAIL_DESCRIPTION', {
+                lng: interaction.locale,
+                amount:
+                    money +
+                    (await client.economy.getCurrency(interaction.guild.id))
+            }),
             ephemeral: true
         });
         return client.economy.subtract(
@@ -46,22 +42,20 @@ export async function run(
         );
     }
     const money = Math.floor(Math.random() * 200) + 100;
-    const descriptions = client.language.get(
-        interaction.locale,
-        'CRIME_SUCCESS_DESCRIPTION'
+
+    const description = client.i18n.t(
+        `CRIME_SUCCESS_DESCRIPTION.${Math.floor(Math.random() * 3)}`,
+        {
+            lng: interaction.locale,
+            amount:
+                money.toString() +
+                (await client.economy.getCurrency(interaction.guild.id))
+        }
     );
 
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('CRIME_SUCCESS')
-        .setDescription(
-            descriptions[
-                Math.floor(Math.random() * descriptions.length)
-            ].replaceAll(
-                '[amount]',
-                money.toString() +
-                    (await client.economy.getCurrency(interaction.guild.id))
-            )
-        );
+        .setDescription(description);
     interaction.reply({ embeds: [embed] });
     client.economy.add(interaction.user.id, interaction.guild.id, money);
 }

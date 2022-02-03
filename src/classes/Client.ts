@@ -6,34 +6,35 @@ import { ApplicationCommands } from 'types/applicationCommand';
 import { Component } from 'types/component';
 import r from 'rethinkdb';
 import PhishingHandler from '@handlers/PhishingHandler';
+import { Logger } from './Logger';
 import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
 import CommandHandler from '@handlers/CommandHandler';
 import ComponentHandler from '@handlers/ComponentHandler';
 import EventHandler from '@handlers/EventHandler';
 import EconomyHandler from '@handlers/EconomyHandler';
-import LanguageHandler from '@handlers/LanguageHandler';
 import ShopHandler from '@handlers/ShopHandler';
 import AI from './AI';
-import Logger from './Logger';
+import i18next from 'i18next';
+import Backend from 'i18next-fs-backend';
+import { join } from 'path';
 
 export default class FluorineClient extends Client {
     applicationCommands!: ApplicationCommands;
     conn!: r.Connection;
     cmds!: Collection<string, Command>;
     components!: Collection<string, Component>;
-    language: LanguageHandler;
     economy: EconomyHandler;
     phishing: PhishingHandler;
     cooldown: Set<string>;
     ai: AI;
-    logger: Logger;
     invite: string;
     version: string;
     color: ColorResolvable;
     devs: string[];
     generating: boolean;
     shop: ShopHandler;
-
+    logger: typeof Logger;
+    i18n: typeof i18next;
     constructor() {
         super({
             intents: [
@@ -64,26 +65,32 @@ export default class FluorineClient extends Client {
             '478823932913516544',
             '348591272476540928'
         ];
-        this.logger = new Logger();
+        this.logger = Logger;
         this.cooldown = new Set();
+        this.i18n = i18next;
     }
     async init() {
         new EventHandler(this);
-        this.language = new LanguageHandler();
-        this.cmds = new CommandHandler().loadCommands();
+        this.cmds = new CommandHandler(this).loadCommands();
+
         const { loadChatInput, loadContextMenu } =
-            new ApplicationCommandHandler();
+            new ApplicationCommandHandler(this);
         this.applicationCommands = {
             chatInput: loadChatInput(),
             contextMenu: loadContextMenu()
         };
-        this.components = new ComponentHandler().loadComponents();
-        this.ai = new AI(this);
+
+        this.components = new ComponentHandler(this).loadComponents();
         this.phishing = new PhishingHandler(this);
         this.economy = new EconomyHandler(this);
         this.ai = new AI(this);
         this.shop = new ShopHandler(this);
-        this.logger.log('Loaded events and commands');
+        await this.i18n.use(Backend).init({
+            fallbackLng: 'en-US',
+            preload: ['en-US', 'pl'],
+            backend: { loadPath: join(__dirname, '/../../i18n/{{lng}}.json') }
+        });
+
         this.login().then(() => {
             this.guilds.cache.forEach(async g => {
                 const guild = await r.table('config').get(g.id).run(this.conn);
@@ -96,9 +103,8 @@ export default class FluorineClient extends Client {
                         .run(this.conn);
                 }
             });
-            this.logger.log(
-                `Loaded ${this.cmds.size} commands, checked ${this.guilds.cache.size} guilds`
-            );
+
+            this.logger.log(`Checked ${this.guilds.cache.size} guilds.`);
         });
 
         process.on('unhandledRejection', (error: Error) => {
