@@ -22,7 +22,7 @@ export async function run(
     if (!uuid.data.id)
         return message.reply(
             client.i18n.t('HYPIXEL_INVALID_PLAYER', {
-                lang: message.guild.preferredLocale
+                lng: message.guild.preferredLocale
             })
         );
     const data = (await fetch(
@@ -33,7 +33,7 @@ export async function run(
     if (!skyStats) {
         return message.reply(
             client.i18n.t('HYPIXEL_PLAYER_NOT_FOUND', {
-                lang: message.guild.preferredLocale
+                lng: message.guild.preferredLocale
             })
         );
     }

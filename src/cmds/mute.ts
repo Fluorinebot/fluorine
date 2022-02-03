@@ -16,14 +16,14 @@ export async function run(
     if (!message.member?.permissions.has('MANAGE_ROLES'))
         return message.reply(
             client.i18n.t('MUTE_PERMISSIONS_MISSING', {
-                lang: message.guild.preferredLocale
+                lng: message.guild.preferredLocale
             })
         );
 
     if (!message.guild?.me?.permissions.has('MANAGE_ROLES'))
         return message.reply(
             client.i18n.t('MUTE_BOT_PERMISSIONS_MISSING', {
-                lang: message.guild.preferredLocale
+                lng: message.guild.preferredLocale
             })
         );
     if (!config.muteRole)

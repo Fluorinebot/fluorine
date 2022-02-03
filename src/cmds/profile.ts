@@ -23,7 +23,7 @@ export async function run(
                 if (description.length > 300) {
                     return message.reply(
                         client.i18n.t('PROFILE_DESCRIPTION_LENGTH', {
-                            lang: message.guild.preferredLocale
+                            lng: message.guild.preferredLocale
                         })
                     );
                 }
@@ -64,7 +64,7 @@ export async function run(
                 if (!website.match(regex)) {
                     return message.reply(
                         client.i18n.t('PROFILE_INVALID_WEBSITE', {
-                            lang: message.guild.preferredLocale
+                            lng: message.guild.preferredLocale
                         })
                     );
                 }
@@ -104,7 +104,7 @@ export async function run(
                 if (day > 31 || day < 1 || month > 12 || month < 1) {
                     message.reply(
                         client.i18n.t('PROFILE_INVALID_BIRTHDAY', {
-                            lang: message.guild.preferredLocale
+                            lng: message.guild.preferredLocale
                         })
                     );
                     break;
@@ -134,7 +134,7 @@ export async function run(
                 if (!location || location.length > 15 || location.length < 3) {
                     return message.reply(
                         client.i18n.t('PROFILE_INVALID_LOCATION', {
-                            lang: message.guild.preferredLocale
+                            lng: message.guild.preferredLocale
                         })
                     );
                 }
@@ -172,7 +172,7 @@ export async function run(
                 ) {
                     return message.reply(
                         client.i18n.t('PROFILE_INVALID_PRONOUNS', {
-                            lang: message.guild.preferredLocale
+                            lng: message.guild.preferredLocale
                         })
                     );
                 }
@@ -204,7 +204,7 @@ export async function run(
             default:
                 message.reply(
                     client.i18n.t('PROFILE_INVALID_OPTION', {
-                        lang: message.guild.preferredLocale
+                        lng: message.guild.preferredLocale
                     })
                 );
                 break;
@@ -226,7 +226,7 @@ export async function run(
             profile.birthday = `${client.i18n.t(
                 `MONTHS.${parseInt(birthday[1]) - 1}`,
                 {
-                    lang: message.guild.preferredLocale
+                    lng: message.guild.preferredLocale
                 }
             )} ${birthday[0]}`;
         } else {
@@ -260,7 +260,7 @@ export async function run(
         ctx.fillStyle = '#ffffff';
         ctx.fillText(
             client.i18n.t('PROFILE_DESCRIPTION', {
-                lang: message.guild.preferredLocale
+                lng: message.guild.preferredLocale
             }),
             30,
             190
@@ -270,21 +270,21 @@ export async function run(
         ctx.fillStyle = '#ffffff';
         ctx.fillText(
             client.i18n.t('PROFILE_WEBSITE', {
-                lang: message.guild.preferredLocale
+                lng: message.guild.preferredLocale
             }),
             986,
             205
         );
         ctx.fillText(
             client.i18n.t('PROFILE_BIRTHDAY', {
-                lang: message.guild.preferredLocale
+                lng: message.guild.preferredLocale
             }),
             986,
             435
         );
         ctx.fillText(
             client.i18n.t('PROFILE_LOCATION', {
-                lang: message.guild.preferredLocale
+                lng: message.guild.preferredLocale
             }),
             986,
             655
@@ -298,7 +298,7 @@ export async function run(
                 ctx,
                 profile?.description ||
                     client.i18n.t('PROFILE_NOT_SET_DESCRIPTION', {
-                        lang: message.guild.preferredLocale
+                        lng: message.guild.preferredLocale
                     }),
                 900
             ).join('\n'),
