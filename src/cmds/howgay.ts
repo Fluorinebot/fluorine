@@ -9,7 +9,9 @@ export async function run(
 ) {
     if (!args[0])
         return message.reply(
-            client.language.get(message.guild.preferredLocale, 'HOWGAY_ARGS')
+            client.i18n.t('HOWGAY_ARGS', {
+                lng: message.guild.preferredLocale
+            })
         );
 
     const thing = message.mentions.users.first() ?? args.join(' ');
@@ -21,7 +23,8 @@ export async function run(
         : hash(thing.toString()) % 101;
 
     message.reply(
-        client.language.get(message.guild.preferredLocale, 'HOWGAY', {
+        client.i18n.t('HOWGAY', {
+            lng: message.guild.preferredLocale,
             percent,
             thing
         })

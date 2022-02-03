@@ -12,18 +12,16 @@ export async function run(
 ) {
     if (!message.member?.permissions.has('MODERATE_MEMBERS')) {
         return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'WARN_PERMISSIONS_MISSING'
-            )
+            client.i18n.t('WARN_PERMISSIONS_MISSING', {
+                lng: message.guild.preferredLocale
+            })
         );
     }
     if (!args[0])
         return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'WARN_ARGUMENTS_MISSING'
-            )
+            client.i18n.t('WARN_ARGUMENTS_MISSING', {
+                lng: message.guild.preferredLocale
+            })
         );
 
     const member =
@@ -31,27 +29,26 @@ export async function run(
         (await message.guild?.members.fetch(args[0]).catch(() => null));
     const reason =
         args.slice(1).join(' ') ||
-        client.language.get(message.guild.preferredLocale, 'NONE');
+        client.i18n.t('NONE', {
+            lng: message.guild.preferredLocale
+        });
     if (member === message.member)
         return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'WARN_ERROR_YOURSELF'
-            )
+            client.i18n.t('WARN_ERROR_YOURSELF', {
+                lng: message.guild.preferredLocale
+            })
         );
     if (!member)
         return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'WARN_MEMBER_MISSING'
-            )
+            client.i18n.t('WARN_MEMBER_MISSING', {
+                lng: message.guild.preferredLocale
+            })
         );
     if (reason.length > 1024) {
         message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'REASON_LONGER_THAN_1024'
-            )
+            client.i18n.t('REASON_LONGER_THAN_1024', {
+                lng: message.guild.preferredLocale
+            })
         );
     }
 

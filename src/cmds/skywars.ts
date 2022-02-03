@@ -10,11 +10,10 @@ export async function run(
 ) {
     if (!args[0])
         return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'HYPIXEL_NO_ARGS',
-                { command: 'bedwars' }
-            )
+            client.i18n.t('HYPIXEL_NO_ARGS', {
+                lng: message.guild.preferredLocale,
+                command: 'bedwars'
+            })
         );
     const uuid: any = await fetch(
         `https://api.mojang.com/users/profiles/minecraft/${args[0]}`
@@ -22,10 +21,9 @@ export async function run(
 
     if (!uuid.data.id)
         return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'HYPIXEL_INVALID_PLAYER'
-            )
+            client.i18n.t('HYPIXEL_INVALID_PLAYER', {
+                lang: message.guild.preferredLocale
+            })
         );
     const data = (await fetch(
         `https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${process.env.HYPIXEL_TOKEN}`
@@ -34,10 +32,9 @@ export async function run(
     const skyStats = data.player?.stats?.SkyWars;
     if (!skyStats) {
         return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'HYPIXEL_PLAYER_NOT_FOUND'
-            )
+            client.i18n.t('HYPIXEL_PLAYER_NOT_FOUND', {
+                lang: message.guild.preferredLocale
+            })
         );
     }
     const kd = (skyStats.kills / skyStats.deaths).toFixed(2);

@@ -12,17 +12,15 @@ export async function run(
 ) {
     if (!args[0])
         return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'KICK_ARGUMENTS_MISSING'
-            )
+            client.i18n.t('KICK_ARGUMENTS_MISSING', {
+                lng: message.guild.preferredLocale
+            })
         );
     if (!message.member?.permissions.has('KICK_MEMBERS')) {
         return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'KICK_PERMISSIONS_MISSING'
-            )
+            client.i18n.t('KICK_PERMISSIONS_MISSING', {
+                lng: message.guild.preferredLocale
+            })
         );
     }
     const member =
@@ -30,34 +28,32 @@ export async function run(
         (await message.guild?.members.fetch(args[0]).catch(() => null));
     const reason =
         args.slice(1).join(' ') ||
-        client.language.get(message.guild.preferredLocale, 'NONE');
+        client.i18n.t('NONE', { lng: message.guild.preferredLocale });
 
     if (!member)
         return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'KICK_MEMBER_MISSING'
-            )
+            client.i18n.t('KICK_MEMBER_MISSING', {
+                lng: message.guild.preferredLocale
+            })
         );
     if (!member?.kickable)
         return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'KICK_BOT_PERMISSIONS_MISSING'
-            )
+            client.i18n.t('KICK_BOT_PERMISSIONS_MISSING', {
+                lng: message.guild.preferredLocale
+            })
         );
 
     if (reason.length > 1024) {
         message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'REASON_LONGER_THAN_1024'
-            )
+            client.i18n.t('REASON_LONGER_THAN_1024', {
+                lng: message.guild.preferredLocale
+            })
         );
     }
 
     member.kick(
-        client.language.get(message.guild.preferredLocale, 'KICK_REASON', {
+        client.i18n.t('KICK_REASON', {
+            lng: message.guild.preferredLocale,
             user: message.author.tag,
             reason
         })
