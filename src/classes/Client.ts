@@ -12,6 +12,7 @@ import { ApplicationCommands } from 'types/applicationCommand';
 import { Component } from 'types/component';
 import EconomyHandler from '@handlers/EconomyHandler';
 import LanguageHandler from './handlers/LanguageHandler';
+import ShopHandler from './handlers/ShopHandler';
 import AI from './AI';
 import Logger from './Logger';
 
@@ -32,6 +33,7 @@ export default class FluorineClient extends Client {
     color: ColorResolvable;
     devs: string[];
     generating: boolean;
+    shop: ShopHandler;
 
     constructor() {
         super({
@@ -86,7 +88,7 @@ export default class FluorineClient extends Client {
         this.phishing = new PhishingHandler(this);
         this.economy = new EconomyHandler(this);
         this.ai = new AI(this);
-
+        this.shop = new ShopHandler(this);
         this.logger.log('Loaded events and commands');
         this.login().then(() => {
             this.guilds.cache.forEach(async g => {

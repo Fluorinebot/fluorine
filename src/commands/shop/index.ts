@@ -35,12 +35,19 @@ export const data = new SlashCommandBuilder()
             )
             .addNumberOption(option =>
                 option
-                    .setName('value')
-                    .setDescription('Value of the item')
+                    .setName('price')
+                    .setDescription('price of the item')
                     .setMinValue(1)
                     .setRequired(true)
             )
+            .addRoleOption(option =>
+                option
+                    .setName('role')
+                    .setDescription('The role you want to give')
+                    .setRequired(false)
+            )
     )
+
     .addSubcommand(command =>
         command
             .setName('delete')

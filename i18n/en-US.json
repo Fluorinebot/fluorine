@@ -219,5 +219,20 @@
     ],
     "CRIME_FAIL_DESCRIPTION": "The police caught you! You got fined [amount]",
     "AI_TOO_LONG": "Your text is too long! The maximum length is 65 characters.",
-    "CRIME_COOLDOWN_DESCRIPTION": "You'll be able to commit a crime [time]"
+    "CRIME_COOLDOWN_DESCRIPTION": "You'll be able to commit a crime [time]",
+    "SHOP_CREATE_SUCCESS": "Successfully created a item!",
+    "SHOP_CREATE_PERMISSIONS": "You don't have the permissions needed to create a item! Needed permissions: Manage guild",
+    "SHOP_CREATE_NAME_INVALID": "The name you provided is invalid!\n The name must have max 20 characters.",
+    "SHOP_CREATE_DESCRIPTION_INVALID": "The description you provided is invalid!\n The description must have max 50 characters.",
+    "SHOP_CREATE_NAME": "Name",
+    "SHOP_CREATE_DESCRIPTION": "Description",
+    "SHOP_CREATE_PRICE": "Price",
+    "SHOP_LIST_TITLE": "Shop",
+    "SHOP_BUY_NOT_FOUND": "Item not found. Check items using /shop list",
+    "SHOP_BUY_NOT_ENOUGH": "You don't have that much money!",
+    "SHOP_BUY_SUCCESS": "Successfully bought [item] for [price]",
+    "SHOP_DELETE_PERMISSIONS": "You don't have the permissions needed to delete a item! Needed permissions: Manage guild",
+    "SHOP_DELETE_NOT_FOUND": "Item not found. Check items using /shop list",
+    "SHOP_DELETE_SUCCESS": "Successfully deleted [item]",
+    
 }

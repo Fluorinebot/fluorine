@@ -8,7 +8,7 @@ export async function run(
 ) {
     const args = interaction.options.getString('start');
     if (args.length > 65) {
-        interaction.reply({
+        return interaction.reply({
             content: client.language.get(interaction.locale, 'AI_TOO_LONG'),
             ephemeral: true
         });

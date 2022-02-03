@@ -194,6 +194,17 @@ export interface LanguageType {
     CRIME_SUCCESS_DESCRIPTION: string[];
     CRIME_FAIL_DESCRIPTION: string;
     CRIME_COOLDOWN_DESCRIPTION: string;
+    SHOP_CREATE_SUCCESS: string;
+    SHOP_CREATE_PERMISSIONS: string;
+    SHOP_CREATE_NAME_INVALID: string;
+    SHOP_CREATE_DESCRIPTION_INVALID: string;
+    SHOP_CREATE_NAME: string;
+    SHOP_CREATE_DESCRIPTION: string;
+    SHOP_CREATE_PRICE: string;
+    SHOP_LIST_TITLE: string;
+    SHOP_BUY_NOT_FOUND: string;
+    SHOP_BUY_NOT_ENOUGH: string;
+    SHOP_BUY_SUCCESS: string;
 }
 
 export type LanguageStrings = keyof LanguageType;

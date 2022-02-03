@@ -26,8 +26,8 @@ export async function run(
     });
     const random = Math.floor(Math.random() * 10);
     if (random > 7) {
-        const money = Math.floor(Math.random() * -200) - 100;
-        return interaction.reply({
+        const money = Math.floor(Math.random() * 200) + 50;
+        interaction.reply({
             content: client.language.get(
                 interaction.locale,
                 'CRIME_FAIL_DESCRIPTION',
@@ -39,6 +39,11 @@ export async function run(
             ),
             ephemeral: true
         });
+        return client.economy.subtract(
+            interaction.user.id,
+            interaction.guild.id,
+            money
+        );
     }
     const money = Math.floor(Math.random() * 200) + 100;
     const descriptions = client.language.get(

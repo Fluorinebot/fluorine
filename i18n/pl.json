@@ -219,5 +219,16 @@
     "CRIME_FAIL": "Nie udało ci się!",
     "CRIME_FAIL_DESCRIPTION": "Policja cię złapała! Dostałeś mandat [amount]",
     "AI_TOO_LONG": "Za długa wiadomość! Maksymalna długość to 65 znaki.",
-    "CRIME_COOLDOWN_DESCRIPTION": "Następny raz możesz popełnić przestępstwo [time]"
+    "CRIME_COOLDOWN_DESCRIPTION": "Następny raz możesz popełnić przestępstwo [time]",
+    "SHOP_CREATE_SUCCESS": "Stworzono przedmiot!",
+    "SHOP_CREATE_PERMISSIONS": "Nie masz wystarczających permisji aby stworzyć przedmiot! Potrzebne permisje: Zarządzanie serwerem",
+    "SHOP_CREATE_NAME_INVALID": "Nazwa przedmiotu jest nieprawidłowa! Nazwa może miec maksymalnie 20 znaków",
+    "SHOP_CREATE_DESCRIPTION_INVALID": "Opis przedmiotu jest nieprawidłowy! Opis może mieć maksymalnie 50 znaków",
+    "SHOP_CREATE_NAME": "Nazwa",
+    "SHOP_CREATE_DESCRIPTION": "Opis",
+    "SHOP_CREATE_PRICE": "Cena",
+    "SHOP_LIST_TITLE": "Sklep",
+    "SHOP_BUY_NOT_FOUND": "Przedmiot nie znaleziony. Sprawdź listę przedmiotów używając /shop list",
+    "SHOP_BUY_NOT_ENOUGH": "Nie masz wystarczającej ilości pieniędzy!",
+    "SHOP_BUY_SUCCESS": "Kupiłeś przedmiot [item] za [price]!"
 }
