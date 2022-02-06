@@ -11,19 +11,16 @@ export async function run(
         interaction.user.id,
         interaction.guild.id
     );
+    const currency = await client.economy.getCurrency(interaction.guildId);
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('BALANCE')
         .addLocaleField({
             name: 'BALANCE_WALLET',
-            value: `${balance.wallet.toString()} ${await client.economy.getCurrency(
-                interaction.guildId
-            )}`
+            value: `${balance.wallet} ${currency}`
         })
         .addLocaleField({
             name: 'BALANCE_BANK',
-            value: `${balance.bank.toString()} ${await client.economy.getCurrency(
-                interaction.guildId
-            )}`
+            value: `${balance.bank} ${currency}`
         });
     interaction.reply({ embeds: [embed], ephemeral: true });
 }
