@@ -30,21 +30,19 @@ export async function run(
                 .run(client.conn);
 
             await tagCommand.delete();
-            response = client.language.get(
-                interaction.locale,
-                'TAGS_DELETE_SUCCESS',
-                { tag }
-            );
+            response = client.i18n.t('TAGS_DELETE_SUCCESS', {
+                tag,
+                lng: interaction.locale
+            });
 
             r.table('tags').get(id).delete().run(client.conn);
             break;
         }
 
         case 'no': {
-            response = client.language.get(
-                interaction.locale,
-                'TAGS_DELETE_ABORT'
-            );
+            response = client.i18n.t('TAGS_DELETE_ABORT', {
+                lng: interaction.locale
+            });
             break;
         }
     }

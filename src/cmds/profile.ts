@@ -22,10 +22,9 @@ export async function run(
                 const description = args.slice(2).join(' ');
                 if (description.length > 300) {
                     return message.reply(
-                        client.language.get(
-                            message.guild.preferredLocale,
-                            'PROFILE_DESCRIPTION_LENGTH'
-                        )
+                        client.i18n.t('PROFILE_DESCRIPTION_LENGTH', {
+                            lng: message.guild.preferredLocale
+                        })
                     );
                 }
 
@@ -64,10 +63,9 @@ export async function run(
                     /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,20}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/gu;
                 if (!website.match(regex)) {
                     return message.reply(
-                        client.language.get(
-                            message.guild.preferredLocale,
-                            'PROFILE_INVALID_WEBSITE'
-                        )
+                        client.i18n.t('PROFILE_INVALID_WEBSITE', {
+                            lng: message.guild.preferredLocale
+                        })
                     );
                 }
                 if (profile) {
@@ -105,10 +103,9 @@ export async function run(
                 month = parseInt(month) || 0;
                 if (day > 31 || day < 1 || month > 12 || month < 1) {
                     message.reply(
-                        client.language.get(
-                            message.guild.preferredLocale,
-                            'PROFILE_INVALID_BIRTHDAY'
-                        )
+                        client.i18n.t('PROFILE_INVALID_BIRTHDAY', {
+                            lng: message.guild.preferredLocale
+                        })
                     );
                     break;
                 }
@@ -136,10 +133,9 @@ export async function run(
                 const location = args.slice(2).join(' ');
                 if (!location || location.length > 15 || location.length < 3) {
                     return message.reply(
-                        client.language.get(
-                            message.guild.preferredLocale,
-                            'PROFILE_INVALID_LOCATION'
-                        )
+                        client.i18n.t('PROFILE_INVALID_LOCATION', {
+                            lng: message.guild.preferredLocale
+                        })
                     );
                 }
                 if (profile) {
@@ -175,10 +171,9 @@ export async function run(
                     !['she/her', 'he/him', 'they/them'].includes(pronouns)
                 ) {
                     return message.reply(
-                        client.language.get(
-                            message.guild.preferredLocale,
-                            'PROFILE_INVALID_PRONOUNS'
-                        )
+                        client.i18n.t('PROFILE_INVALID_PRONOUNS', {
+                            lng: message.guild.preferredLocale
+                        })
                     );
                 }
                 if (profile) {
@@ -208,10 +203,9 @@ export async function run(
                 break;
             default:
                 message.reply(
-                    client.language.get(
-                        message.guild.preferredLocale,
-                        'PROFILE_INVALID_OPTION'
-                    )
+                    client.i18n.t('PROFILE_INVALID_OPTION', {
+                        lng: message.guild.preferredLocale
+                    })
                 );
                 break;
         }
@@ -220,21 +214,21 @@ export async function run(
             client.users.cache.get(args[0]) ||
             message.mentions.members.first() ||
             message.author;
-        const notSet = client.language.get(
-            message.guild.preferredLocale,
-            'PROFILE_NOT_SET'
-        );
+        const notSet = client.i18n.t('PROFILE_NOT_SET', {
+            lang: message.guild.preferredLocale
+        });
         const profile: any = await r
             .table('profile')
             .get(user.id)
             .run(client.conn);
         if (profile?.birthday) {
             const birthday = profile.birthday.split('/');
-            profile.birthday = `${
-                client.language.get(message.guild.preferredLocale, 'MONTHS')[
-                    parseInt(birthday[1]) - 1
-                ]
-            } ${birthday[0]}`;
+            profile.birthday = `${client.i18n.t(
+                `MONTHS.${parseInt(birthday[1]) - 1}`,
+                {
+                    lng: message.guild.preferredLocale
+                }
+            )} ${birthday[0]}`;
         } else {
             profile.birthday = notSet;
         }
@@ -265,10 +259,9 @@ export async function run(
         ctx.font = 'bold 47px "Poppins"';
         ctx.fillStyle = '#ffffff';
         ctx.fillText(
-            client.language.get(
-                message.guild.preferredLocale,
-                'PROFILE_DESCRIPTION'
-            ),
+            client.i18n.t('PROFILE_DESCRIPTION', {
+                lng: message.guild.preferredLocale
+            }),
             30,
             190
         );
@@ -276,26 +269,23 @@ export async function run(
         ctx.font = 'bold 42px "Poppins"';
         ctx.fillStyle = '#ffffff';
         ctx.fillText(
-            client.language.get(
-                message.guild.preferredLocale,
-                'PROFILE_WEBSITE'
-            ),
+            client.i18n.t('PROFILE_WEBSITE', {
+                lng: message.guild.preferredLocale
+            }),
             986,
             205
         );
         ctx.fillText(
-            client.language.get(
-                message.guild.preferredLocale,
-                'PROFILE_BIRTHDAY'
-            ),
+            client.i18n.t('PROFILE_BIRTHDAY', {
+                lng: message.guild.preferredLocale
+            }),
             986,
             435
         );
         ctx.fillText(
-            client.language.get(
-                message.guild.preferredLocale,
-                'PROFILE_LOCATION'
-            ),
+            client.i18n.t('PROFILE_LOCATION', {
+                lng: message.guild.preferredLocale
+            }),
             986,
             655
         );
@@ -307,10 +297,9 @@ export async function run(
             fragmentText(
                 ctx,
                 profile?.description ||
-                    client.language.get(
-                        message.guild.preferredLocale,
-                        'PROFILE_NOT_SET_DESCRIPTION'
-                    ),
+                    client.i18n.t('PROFILE_NOT_SET_DESCRIPTION', {
+                        lng: message.guild.preferredLocale
+                    }),
                 900
             ).join('\n'),
             30,

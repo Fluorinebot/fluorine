@@ -10,16 +10,13 @@ export async function run(
     interaction: CommandInteraction
 ) {
     const question = interaction.options.getString('question');
-    const responses = client.language.get(
-        interaction.locale,
-        '8BALL_RESPONSES'
-    );
+    const responseId = hash(question) % 6;
 
     const embed = new Embed(client, interaction.locale)
         .setDescription(question)
         .addLocaleField({
             name: '8BALL_RESPONSE',
-            value: responses[hash(question) % responses.length]
+            localeValue: `8BALL_RESPONSES.${responseId}`
         });
     interaction.reply({ embeds: [embed] });
 }

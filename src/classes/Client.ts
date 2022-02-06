@@ -5,15 +5,18 @@ import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
 import CommandHandler from '@handlers/CommandHandler';
 import ComponentHandler from '@handlers/ComponentHandler';
 import EventHandler from '@handlers/EventHandler';
+import TagHandler from './handlers/TagHandler';
+import PhishingHandler from './handlers/PhishingHandler';
 import { Command } from 'types/command';
 import { ApplicationCommands } from 'types/applicationCommand';
 import { Component } from 'types/component';
-import LanguageHandler from './handlers/LanguageHandler';
 import AI from './AI';
 // @ts-ignore
 import { version } from '../../package.json';
-import PhishingHandler from './handlers/PhishingHandler';
-import TagHandler from '@handlers/TagHandler';
+
+import i18next from 'i18next';
+import Backend from 'i18next-fs-backend';
+import { join } from 'path';
 
 export default class FluorineClient extends Client {
     applicationCommands!: ApplicationCommands;
@@ -29,7 +32,7 @@ export default class FluorineClient extends Client {
     generating: boolean;
     cooldown: Set<string>;
     ai: AI;
-    language: LanguageHandler;
+    i18n: typeof i18next;
     phishing: PhishingHandler;
     tags: TagHandler;
     constructor() {
@@ -65,7 +68,7 @@ export default class FluorineClient extends Client {
         ];
         this.logger = Logger;
         this.cooldown = new Set();
-        this.language = new LanguageHandler();
+        this.i18n = i18next;
     }
     async init() {
         new EventHandler(this);
@@ -82,6 +85,12 @@ export default class FluorineClient extends Client {
         this.phishing = new PhishingHandler(this);
         this.ai = new AI(this);
         this.tags = new TagHandler(this);
+
+        await this.i18n.use(Backend).init({
+            fallbackLng: 'en-US',
+            preload: ['en-US', 'pl'],
+            backend: { loadPath: join(__dirname, '/../../i18n/{{lng}}.json') }
+        });
 
         this.login().then(() => {
             this.guilds.cache.forEach(async g => {

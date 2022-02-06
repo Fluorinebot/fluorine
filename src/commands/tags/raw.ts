@@ -15,10 +15,9 @@ export async function run(
 
     if (!guildCommands.includes(name))
         return interaction.reply({
-            content: client.language.get(
-                interaction.locale,
-                'TAG_DOESNT_EXIST'
-            ),
+            content: client.i18n.t('TAG_DOESNT_EXIST', {
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
 

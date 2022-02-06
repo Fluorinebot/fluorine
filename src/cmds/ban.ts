@@ -11,19 +11,17 @@ export async function run(
 ) {
     if (!message.member?.permissions.has('BAN_MEMBERS')) {
         return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'BAN_PERMISSIONS_MISSING'
-            )
+            client.i18n.t('BAN_PERMISSIONS_MISSING', {
+                lng: message.guild.preferredLocale
+            })
         );
     }
 
     if (!args[0])
         return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'BAN_ARGUMENTS_MISSING'
-            )
+            client.i18n.t('BAN_ARGUMENTS_MISSING', {
+                lng: message.guild.preferredLocale
+            })
         );
 
     const member =
@@ -31,30 +29,29 @@ export async function run(
         (await message.guild?.members.fetch(args[0]).catch(() => null));
     const reason =
         args.slice(1).join(' ') ||
-        client.language.get(message.guild.preferredLocale, 'NONE');
+        client.i18n.t('NONE', {
+            lng: message.guild.preferredLocale
+        });
 
     if (!member)
         return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'BAN_MEMBER_MISSING'
-            )
+            client.i18n.t('BAN_MEMBER_MISSING', {
+                lng: message.guild.preferredLocale
+            })
         );
 
     if (!member?.bannable)
         return message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'BAN_BOT_PERMISSIONS_MISSING'
-            )
+            client.i18n.t('BAN_BOT_PERMISSIONS_MISSING', {
+                lng: message.guild.preferredLocale
+            })
         );
 
     if (reason.length > 1024) {
         message.reply(
-            client.language.get(
-                message.guild.preferredLocale,
-                'REASON_LONGER_THAN_1024'
-            )
+            client.i18n.t('REASON_LONGER_THAN_1024', {
+                lng: message.guild.preferredLocale
+            })
         );
     }
 
@@ -68,14 +65,11 @@ export async function run(
     );
 
     member.ban({
-        reason: client.language.get(
-            message.guild.preferredLocale,
-            'BAN_REASON',
-            {
-                user: message.author.tag,
-                reason
-            }
-        )
+        reason: client.i18n.t('BAN_REASON', {
+            lng: message.guild.preferredLocale,
+            user: message.author.tag,
+            reason
+        })
     });
 
     modLog(client, create, message.guild);

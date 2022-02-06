@@ -7,11 +7,12 @@ export async function run(
 ) {
     if (!args[0]) {
         return message.reply(
-            client.language.get(message.guild.preferredLocale, 'AI_ARGS')
+            client.i18n.t('AI_ARGS', { lng: message.guild.preferredLocale })
         );
     }
     message.reply(
-        client.language.get(message.guild.preferredLocale, 'AI_WAIT', {
+        client.i18n.t('AI_WAIT', {
+            lng: message.guild.preferredLocale,
             queue: client.ai.queue.length + 1
         })
     );

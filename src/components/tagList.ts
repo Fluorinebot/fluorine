@@ -31,7 +31,9 @@ export async function run(
     row.addComponents(
         new MessageButton()
             .setCustomId(`tagsList:${interaction.user.id}:${page - 1}`)
-            .setLabel(client.language.get(interaction.locale, 'LISTCASE_BACK'))
+            .setLabel(
+                client.i18n.t('LISTCASE_BACK', { lng: interaction.locale })
+            )
             .setStyle('PRIMARY')
             .setDisabled(page === 0)
     );
@@ -39,7 +41,9 @@ export async function run(
     row.addComponents(
         new MessageButton()
             .setCustomId(`tagsList:${interaction.user.id}:${page + 1}`)
-            .setLabel(client.language.get(interaction.locale, 'LISTCASE_NEXT'))
+            .setLabel(
+                client.i18n.t('LISTCASE_NEXT', { lng: interaction.locale })
+            )
             .setStyle('PRIMARY')
             .setDisabled(page + 1 === chunk.length)
     );
