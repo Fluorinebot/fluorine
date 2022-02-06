@@ -37,8 +37,8 @@ export const data = new SlashCommandBuilder()
                     .setName('action')
                     .setDescription('Action to do when antibot is triggered')
                     .addChoices([
-                        ['Ban', 'Ban'],
-                        ['Kick', 'Kick'],
+                        ['Ban', 'ban'],
+                        ['Kick', 'kick'],
                         ['Timeout', 'timeout']
                     ])
                     .setRequired(true)
