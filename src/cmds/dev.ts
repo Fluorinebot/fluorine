@@ -50,5 +50,5 @@ export const help = {
     name: 'dev',
     description: 'Execute code',
     aliases: ['wykonaj'],
-    category: 'dev'
+    category: 'Dev'
 };
