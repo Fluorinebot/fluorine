@@ -12,7 +12,6 @@ export async function run(
     const [action, tag] = value.split('.');
     let response;
 
-    // @ts-ignore
     await interaction.guild.commands.fetch();
 
     switch (action) {

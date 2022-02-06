@@ -17,8 +17,7 @@ export async function run(
     const name = interaction.options.getString('tag');
 
     if (name) {
-        const _guildCommands = [...(await interaction.guild.commands.fetch())];
-        const guildCommands = _guildCommands.map(x => x[1].name);
+        const guildCommands = (await interaction.guild.commands.fetch()).map(c => c.name);
 
         if (!guildCommands.includes(name))
             return interaction.reply({
@@ -33,35 +32,32 @@ export async function run(
             .get(`${interaction.guild.id}-${name}`)
             .run(client.conn)) as Tag;
 
-        const embed = new Embed(client, interaction.locale);
-        embed.setLocaleTitle('TAGS_LIST_SPECIFIC_TITLE');
-
-        embed.addLocaleField({
-            name: 'TAGS_LIST_SPECIFIC_USER',
-            value: client.users.cache.get(tag.user).toString()
-        });
-
-        embed.addLocaleField({
-            name: 'TAGS_LIST_SPECIFIC_DATE',
-            value: time(tag.date, 'D')
-        });
-
-        embed.addLocaleField({
-            name: 'TAGS_LIST_SPECIFIC_USES',
-            value: tag.uses.toString()
-        });
+        const embed = new Embed(client, interaction.locale)
+            .setLocaleTitle('TAGS_LIST_SPECIFIC_TITLE')
+            .addLocaleField({
+                name: 'TAGS_LIST_SPECIFIC_USER',
+                value: client.users.cache.get(tag.user).toString()
+            })
+            .addLocaleField({
+                name: 'TAGS_LIST_SPECIFIC_DATE',
+                value: time(tag.date, 'D')
+            })
+            .addLocaleField({
+                name: 'TAGS_LIST_SPECIFIC_USES',
+                value: tag.uses.toString()
+            });
 
         return interaction.reply({ embeds: [embed] });
     }
 
-    const guild = interaction.guild.id;
+    const guild = interaction.guildId;
     const tags = await r
         .table('tags')
         .getAll(guild, { index: 'guild' })
         .coerceTo('array')
         .run(client.conn);
 
-    if (tags.length === 0)
+    if (!tags.length)
         return interaction.reply({
             content: client.i18n.t('TAGS_LIST_NO_TAGS', {
                 server: interaction.guild.id,

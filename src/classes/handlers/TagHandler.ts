@@ -25,25 +25,19 @@ export default class TagHandler {
                     return Math.floor(Math.random() * (max - min)) + min;
                 },
                 choose: (interaction: CommandInteraction, params: string[]) => {
-                    const cleanParams = [];
-
-                    for (const param of params) {
-                        cleanParams.push(
-                            this.getParsedStaticVars(
-                                param.replaceAll('--', ' '),
-                                '$',
-                                '$',
-                                interaction
-                            )
-                        );
-                    }
+                    const cleanParams = params.map(param => this.getParsedStaticVars(
+                        param.replaceAll('--', ' '),
+                        '$',
+                        '$',
+                        interaction
+                    ));
 
                     return cleanParams[
                         Math.floor(Math.random() * cleanParams.length)
                     ];
                 },
-                user: (interaction: CommandInteraction, params: string[]) => {
-                    const user = this.client.users.cache.get(params[0]);
+                user: async (interaction: CommandInteraction, params: string[]) => {
+                    const user = await this.client.users.fetch(params[0]);
 
                     const customVarmap = {
                         userTag: user.tag,
@@ -60,15 +54,7 @@ export default class TagHandler {
     }
 
     splitForActions(content: string): string[] {
-        const checkReserved = content.split('{');
-        const strippedVars = checkReserved.map(x => x.split('}'));
-        const workingArr = [];
-        for (const arr of strippedVars) {
-            for (const elem of arr) {
-                workingArr.push(elem);
-            }
-        }
-        return workingArr;
+        return content.split(/[{}]/);
     }
 
     getParsedStaticVars(
@@ -117,7 +103,7 @@ export default class TagHandler {
     getParsedReplyOptions(tag: Tag, interaction: CommandInteraction) {
         const replyOptions: InteractionReplyOptions = {};
         const tagString = tag.content;
-        const [tagContent, tagEmbed] = tagString.split('@embed');
+        const [tagContent] = tagString.split('@embed');
 
         if (tagContent)
             replyOptions.content = this.getParsedTagContent(
