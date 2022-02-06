@@ -9,7 +9,7 @@ export async function run(
     const toDeposit = interaction.options.getNumber('amount');
     const balance = await client.economy.get(
         interaction.user.id,
-        interaction.guild.id
+        interaction.guildId
     );
     if (balance.wallet < toDeposit) {
         return interaction.reply({
