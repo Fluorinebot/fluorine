@@ -9,7 +9,7 @@ export async function run(
 ) {
     const cooldown = await client.economy.getCooldown(
         interaction.user.id,
-        interaction.guild.id
+        interaction.guildId
     );
     if (cooldown.work > Date.now() / 1000) {
         const embed = new Embed(client, interaction.locale)

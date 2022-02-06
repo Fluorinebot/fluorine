@@ -8,7 +8,7 @@ export async function run(
     const itemObj = await client.shop.get(item, interaction.guildId);
     const user = await client.economy.get(
         interaction.user.id,
-        interaction.guild.id
+        interaction.guildId
     );
     if (!itemObj) {
         return interaction.reply(

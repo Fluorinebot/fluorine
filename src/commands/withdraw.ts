@@ -6,10 +6,10 @@ export async function run(
     client: FluorineClient,
     interaction: CommandInteraction
 ) {
-    const toWithdraw = interaction.options.getNumber('amount');
+    const toWithdraw = interaction.options.getInteger('amount');
     const balance = await client.economy.get(
         interaction.user.id,
-        interaction.guild.id
+        interaction.guildId
     );
     if (balance.wallet > toWithdraw) {
         return interaction.reply({
@@ -29,14 +29,14 @@ export async function run(
     );
     await client.economy.withdraw(
         interaction.user.id,
-        interaction.guild.id,
+        interaction.guildId,
         toWithdraw
     );
 }
 export const data = new SlashCommandBuilder()
     .setName('withdraw')
     .setDescription('Withdraw your money')
-    .addNumberOption(option =>
+    .addIntegerOption(option =>
         option
             .setName('amount')
             .setDescription('Amount of money to withdraw')

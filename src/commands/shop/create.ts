@@ -43,9 +43,7 @@ export async function run(
         .addLocaleField({ name: 'SHOP_CREATE_DESCRIPTION', value: description })
         .addLocaleField({
             name: 'SHOP_CREATE_PRICE',
-            value:
-                price.toString() +
-                (await client.economy.getCurrency(interaction.guildId))
+            value: `${price} ${await client.economy.getCurrency(interaction.guildId)}`
         });
     interaction.reply({ embeds: [embed] });
     client.shop.add(obj);

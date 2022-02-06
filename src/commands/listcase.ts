@@ -33,10 +33,7 @@ export async function run(
 
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('LISTCASE_TITLE', { user: member.user.tag })
-        .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
-        .setFooter({
-            text: footer
-        });
+        .setThumbnail(member.user.displayAvatarURL({ dynamic: true }));
 
     if (!cases.length)
         return interaction.reply({

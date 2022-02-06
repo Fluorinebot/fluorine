@@ -7,8 +7,7 @@ export async function run(
     client: FluorineClient,
     interaction: CommandInteraction
 ) {
-    const userOption = interaction.options.getUser('user');
-    const user = userOption || interaction.user;
+    const user = interaction.options.getUser('user') ?? interaction.user;
     const notSet = client.i18n.t('PROFILE_NOT_SET', {
         lng: interaction.locale
     });
