@@ -15,6 +15,14 @@ export async function run(
     const guild = interaction.guildId;
     const obj: ShopItem = { name, description, price, guild };
     if (role) obj.role = role.id;
+    if (!interaction.memberPermissions.has('MANAGE_GUILD')) {
+        return interaction.reply({
+            content: client.i18n.t('SHOP_CREATE_PERMISSIONS', {
+                lng: interaction.locale
+            }),
+            ephemeral: true
+        });
+    }
     if (name.length > 19) {
         return interaction.reply(
             client.i18n.t('SHOP_CREATE_NAME_INVALID', {

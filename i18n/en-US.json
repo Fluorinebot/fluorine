@@ -233,5 +233,15 @@
     "SHOP_DELETE_PERMISSIONS": "You don't have the permissions needed to delete a item! Needed permissions: Manage guild",
     "SHOP_DELETE_NOT_FOUND": "Item not found. Check items using /shop list",
     "SHOP_DELETE_SUCCESS": "Successfully deleted {{- item }}",
-    "TIMEOUT_REASON": "Timed out by {{- user}} for {{- reason}}"
+    "TIMEOUT_REASON": "Timed out by {{- user}} for {{- reason}}",
+    "ROB_SUCCESS_TITLE": "You robbed {{- user}}!",
+    "ROB_SUCCESS_DESCRIPTION": "You took their wallet! You got {{- amount}}",
+    "ROB_FAIL_NO_MONEY": "You tried to rob them, but they didn't have any money in their wallet!",
+    "ROB_FAIL_CAUGHT": "You tried to rob them, but they caught you! You got fined {{- amount}}",
+    "ROB_COOLDOWN_DESCRIPTION": "You'll be able to rob someone again {{- time}}",
+    "ROB_INVALID_USER": "The user you want to rob doesn't exist!",
+    "ROB_SELF": "You can't rob yourself!",
+    "SLUT_SUCCESS": "You worked as a slut!",
+    "SLUT_SUCCESS_DESCRIPTION": "You worked as a slut for 2 hours! You earned {{- amount }}",
+    "SLUT_COOLDOWN": "You'll be able to work as a slut in {{- time }}"
 }

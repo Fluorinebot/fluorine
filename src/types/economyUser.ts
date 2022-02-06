@@ -8,5 +8,7 @@ export interface EconomyUser {
     cooldown?: {
         work?: number;
         crime?: number;
+        rob?: number;
+        slut?: number;
     };
 }
