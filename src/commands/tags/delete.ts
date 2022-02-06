@@ -36,7 +36,7 @@ export async function run(
         });
 
     const row = new MessageActionRow()
-        addComponents([
+        .addComponents([
             new MessageButton()
                 .setCustomId(`tagDelete:${interaction.user.id}:yes.${name}`)
                 .setLabel(
