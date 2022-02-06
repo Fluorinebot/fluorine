@@ -27,23 +27,22 @@ export async function run(
         return resultArray;
     }, []);
 
-    const row = new MessageActionRow()
-        .addComponents(
-            new MessageButton()
-                .setCustomId(`tagsList:${interaction.user.id}:${page - 1}`)
-                .setLabel(
-                    client.i18n.t('LISTCASE_BACK', { lng: interaction.locale })
-                )
-                .setStyle('PRIMARY')
-                .setDisabled(page === 0),
-            new MessageButton()
-                .setCustomId(`tagsList:${interaction.user.id}:${page + 1}`)
-                .setLabel(
-                    client.i18n.t('LISTCASE_NEXT', { lng: interaction.locale })
-                )
-                .setStyle('PRIMARY')
-                .setDisabled(page + 1 === chunk.length)
-    );
+    const row = new MessageActionRow().addComponents([
+        new MessageButton()
+            .setCustomId(`tagsList:${interaction.user.id}:${page - 1}`)
+            .setLabel(
+                client.i18n.t('LISTCASE_BACK', { lng: interaction.locale })
+            )
+            .setStyle('PRIMARY')
+            .setDisabled(page === 0),
+        new MessageButton()
+            .setCustomId(`tagsList:${interaction.user.id}:${page + 1}`)
+            .setLabel(
+                client.i18n.t('LISTCASE_NEXT', { lng: interaction.locale })
+            )
+            .setStyle('PRIMARY')
+            .setDisabled(page + 1 === chunk.length)
+    ]);
 
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('TAGS_LIST_TITLE', { server: interaction.guild.name })

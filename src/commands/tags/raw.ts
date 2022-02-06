@@ -10,7 +10,9 @@ export async function run(
 ) {
     const name = interaction.options.getString('tag');
 
-    const guildCommands = (await interaction.guild.commands.fetch()).map(c => c.name)
+    const guildCommands = (await interaction.guild.commands.fetch()).map(
+        c => c.name
+    );
 
     if (!guildCommands.includes(name))
         return interaction.reply({
