@@ -19,7 +19,7 @@ export const data = new SlashCommandBuilder()
         command
             .setName('antibot')
             .setDescription('Set antibot factor! (Use 0 for disabled)')
-            .addNumberOption(option =>
+            .addIntegerOption(option =>
                 option
                     .setName('factor')
                     .setDescription('Antibot factor')

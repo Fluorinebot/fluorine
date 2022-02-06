@@ -33,7 +33,7 @@ export const data = new SlashCommandBuilder()
                     .setDescription('Description of the item')
                     .setRequired(true)
             )
-            .addNumberOption(option =>
+            .addIntegerOption(option =>
                 option
                     .setName('price')
                     .setDescription('price of the item')

@@ -12,7 +12,7 @@ export async function run(
             ephemeral: true
         });
     }
-    const value = interaction.options.getNumber('factor');
+    const value = interaction.options.getInteger('factor');
     const guildId = interaction.guild.id;
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('CONFIG_SET_SUCCESS_TITLE')
