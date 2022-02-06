@@ -25,7 +25,7 @@ export async function run(
                 interaction.guildId
             )}`
         });
-    interaction.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed], ephemeral: true });
 }
 export const data = new SlashCommandBuilder()
     .setName('balance')
