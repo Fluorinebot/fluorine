@@ -56,3 +56,12 @@ export default class ApplicationCommandHandler {
         return this.contextMenu;
     };
 }
+export async function setup(client: FluorineClient) {
+    const { loadChatInput, loadContextMenu } = new ApplicationCommandHandler(
+        this
+    );
+    client.applicationCommands = {
+        chatInput: loadChatInput(),
+        contextMenu: loadContextMenu()
+    };
+}
