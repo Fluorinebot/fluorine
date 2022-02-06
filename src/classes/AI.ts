@@ -42,7 +42,9 @@ export default class AI {
         )
             .setLocaleTitle('AI_TITLE')
             .setDescription(ai.result);
-        object instanceof Message ? object.reply({ embeds: [embed] }) : object.followUp({ embeds: [embed] });
+        object instanceof Message
+            ? object.reply({ embeds: [embed] })
+            : object.followUp({ embeds: [embed] });
         this.queue.shift();
         if (this.queue.length === 0) {
             this.isGenerating = false;

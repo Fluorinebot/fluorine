@@ -9,7 +9,11 @@ export async function run(
     args: string[]
 ) {
     if (!client.devs.includes(message.author.id)) {
-        return message.reply(client.i18n.t('EVAL_USER_NOT_DEV', { lng: message.guild.prefferedLocale });
+        return message.reply(
+            client.i18n.t('EVAL_USER_NOT_DEV', {
+                lng: message.guild.preferredLocale
+            })
+        );
     }
     if (args.includes('client.token')) return message.reply('you wish');
     let codex: any = args

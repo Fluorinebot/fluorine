@@ -36,9 +36,10 @@ export async function run(
         rob: Date.now() / 1000 + 3600 * 12
     });
 
-    if (userBalance.wallet < 0) return interaction.reply(
-        client.i18n.t('ROB_FAIL_NO_MONEY', { lng: interaction.locale })
-    );
+    if (userBalance.wallet < 0)
+        return interaction.reply(
+            client.i18n.t('ROB_FAIL_NO_MONEY', { lng: interaction.locale })
+        );
 
     if (chance > 40) {
         const lost = Math.round(
