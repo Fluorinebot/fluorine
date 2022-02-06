@@ -6,7 +6,7 @@ export async function run(
     client: FluorineClient,
     interaction: CommandInteraction
 ) {
-    const toDeposit = interaction.options.getNumber('amount');
+    const toDeposit = interaction.options.getInteger('amount');
     const balance = await client.economy.get(
         interaction.user.id,
         interaction.guildId
@@ -36,7 +36,7 @@ export async function run(
 export const data = new SlashCommandBuilder()
     .setName('deposit')
     .setDescription('Deposit your money')
-    .addNumberOption(option =>
+    .addIntegerOption(option =>
         option
             .setName('amount')
             .setDescription('Amount of money to deposit')
