@@ -64,7 +64,7 @@ export async function run(client: FluorineClient, message: Message) {
         const random = Math.floor(Math.random() * 15) + 1;
         if (random === 15)
             message.channel.send(
-                '<:SlashCommands:934768130474004500> Use Slash Commands!\nPrefix commands are not supported and will be deleted in march!'
+                '<:SlashCommands:934768130474004500> Use Slash Commands!\nPrefix commands are not supported and will be deleted in March!'
             );
         if (client.cooldown.has(message.author.id)) {
             const coolEmbed = new Embed(client, message.guild.preferredLocale)
