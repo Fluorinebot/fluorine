@@ -46,7 +46,7 @@ export async function run(
     );
 
     const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle('TAGS_LIST_TITLE', { server: interaction.guild.name });
+        .setLocaleTitle('TAGS_LIST_TITLE', { server: interaction.guild.name })
         .setDescription(
             codeBlock(
                 'yaml',
