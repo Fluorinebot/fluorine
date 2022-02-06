@@ -9,7 +9,7 @@ export async function run(
     const [name, description, price, role] = [
         interaction.options.getString('name'),
         interaction.options.getString('description'),
-        interaction.options.getNumber('price'),
+        interaction.options.getInteger('price'),
         interaction.options.getRole('role')
     ];
     const guild = interaction.guildId;
