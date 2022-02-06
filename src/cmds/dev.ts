@@ -48,7 +48,7 @@ export async function run(
 
 export const help = {
     name: 'dev',
-    description: 'run code',
+    description: 'Execute code',
     aliases: ['wykonaj'],
     category: 'dev'
 };
