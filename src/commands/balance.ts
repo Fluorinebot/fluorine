@@ -9,7 +9,7 @@ export async function run(
 ) {
     const balance = await client.economy.get(
         interaction.user.id,
-        interaction.guild.id
+        interaction.guildId
     );
     const currency = await client.economy.getCurrency(interaction.guildId);
     const embed = new Embed(client, interaction.locale)

@@ -14,8 +14,7 @@ export async function run(
         });
     }
     if (
-        client.ai.queue.filter(q => q.object.user.id === interaction.user.id)
-            .length !== 0
+        client.ai.queue.some(q => q.object.user.id === interaction.user.id)
     ) {
         interaction.reply({
             content: client.i18n.t('AI_LIMIT', { lng: interaction.locale }),

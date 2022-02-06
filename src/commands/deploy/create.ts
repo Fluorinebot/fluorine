@@ -21,7 +21,7 @@ export async function run(
             content: 'Command not found',
             ephemeral: true
         });
-    if (guildId === 'this') guildId = interaction.guild.id;
+    if (guildId === 'this') guildId = interaction.guildId;
     const route = guildId
         ? Routes.applicationGuildCommands(client.user.id, guildId)
         : Routes.applicationCommands(client.user.id);
