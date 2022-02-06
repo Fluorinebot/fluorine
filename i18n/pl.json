@@ -197,5 +197,7 @@
     "TAGS_LIST_SPECIFIC_TITLE": "Informacje",
     "TAGS_LIST_SPECIFIC_USER": "Twórca tagu",
     "TAGS_LIST_SPECIFIC_DATE": "Stworzono",
-    "TAGS_LIST_SPECIFIC_USES": "Użycia"
+    "TAGS_LIST_SPECIFIC_USES": "Użycia",
+    "TAGS_LIST_NO_TAGS": "{{- server }} nie ma żadnych tagów!",
+    "TAGS_LIST_TITLE": "Tagi {{- server }}"
 }
