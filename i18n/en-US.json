@@ -243,5 +243,6 @@
     "ROB_SELF": "You can't rob yourself!",
     "SLUT_SUCCESS": "You worked as a slut!",
     "SLUT_SUCCESS_DESCRIPTION": "You worked as a slut for 2 hours! You earned {{- amount }}",
-    "SLUT_COOLDOWN": "You'll be able to work as a slut in {{- time }}"
+    "SLUT_COOLDOWN": "You'll be able to work as a slut in {{- time }}",
+    "EVAL_USER_NOT_DEV": "You are not a Fluorine developer."
 }
