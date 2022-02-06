@@ -38,7 +38,7 @@ export default class AI {
         }
         const embed = new Embed(
             this.client,
-            object.locale || object.guild.preferredLocale
+            object.locale ?? object.guild.preferredLocale
         )
             .setLocaleTitle('AI_TITLE')
             .setDescription(ai.result);
