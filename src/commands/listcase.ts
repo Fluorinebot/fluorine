@@ -27,10 +27,6 @@ export async function run(
 
     const cases = await getCases(client, interaction.guild?.id, member.user.id);
 
-    const footer = client.i18n.t('LISTCASE_FOOTER', {
-        lng: interaction.locale
-    });
-
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('LISTCASE_TITLE', { user: member.user.tag })
         .setThumbnail(member.user.displayAvatarURL({ dynamic: true }));

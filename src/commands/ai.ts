@@ -13,9 +13,7 @@ export async function run(
             ephemeral: true
         });
     }
-    if (
-        client.ai.queue.some(q => q.object.user.id === interaction.user.id)
-    ) {
+    if (client.ai.queue.some(q => q.object.user.id === interaction.user.id)) {
         interaction.reply({
             content: client.i18n.t('AI_LIMIT', { lng: interaction.locale }),
             ephemeral: true
