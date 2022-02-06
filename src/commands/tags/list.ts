@@ -71,7 +71,7 @@ export async function run(
     const chunk = tags.reduce((resultArray, item, index) => {
         const chunkIndex = Math.floor(index / 4);
 
-        if (!resultArray[chunkIndex]) resultArray[chunkIndex] = [];
+        resultArray[chunkIndex] ||= [];
         resultArray[chunkIndex].push(item);
 
         return resultArray;
