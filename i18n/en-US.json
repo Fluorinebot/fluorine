@@ -1,5 +1,5 @@
 {
-    "8BALL_RESPONSES": [ 
+    "8BALL_RESPONSES": [
         "Yes",
         "No",
         "Maybe",
@@ -150,7 +150,7 @@
     "PROFILE_INVALID_BIRTHDAY": "You provided a invalid birthday! Valid format: DD/MM.",
     "PROFILE_INVALID_LOCATION": "You provided a invalid location!\nLocation must have at least 3 characters and max 20 characters.",
     "PROFILE_INVALID_OPTION": "You provided an invalid option!\nSupported options: description, website, birthday, location, pronouns",
-    "MONTHS": [ 
+    "MONTHS": [
         "January",
         "February",
         "March",
