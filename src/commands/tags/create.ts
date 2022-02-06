@@ -59,7 +59,7 @@ export async function run(
         name,
         content,
         ephemeral,
-        created: Date.now(),
+        created: Math.round(Date.now() / 1000),
         user: interaction.user.id,
         uses: 0
     };
