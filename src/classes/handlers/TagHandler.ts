@@ -27,13 +27,18 @@ export default class TagHandler {
                     const max = parseInt(params[1]);
                     return Math.floor(Math.random() * (max - min)) + min;
                 },
-                choose: (interaction: CommandInteraction, params: string[]) => {
-                    const cleanParams = params.map(param =>
-                        this.getParsedStaticVars(
-                            param.replaceAll('--', ' '),
-                            '$',
-                            '$',
-                            interaction
+                choose: async (
+                    interaction: CommandInteraction,
+                    params: string[]
+                ) => {
+                    const cleanParams = await Promise.all(
+                        params.map(param =>
+                            this.getParsedStaticVars(
+                                param.replaceAll('--', ' '),
+                                '$',
+                                '$',
+                                interaction
+                            )
                         )
                     );
 
@@ -85,7 +90,10 @@ export default class TagHandler {
         return returnString;
     }
 
-    getParsedTagContent(tagContent: string, interaction: CommandInteraction) {
+    async getParsedTagContent(
+        tagContent: string,
+        interaction: CommandInteraction
+    ) {
         let returnString = tagContent;
         const specialParse = this.getParsingFunctions('functions');
         const reserved = ['rand', 'choose', 'user'];
@@ -100,7 +108,7 @@ export default class TagHandler {
 
                 returnString = returnString.replace(
                     `{${elem}}`,
-                    method(interaction, params)
+                    await method(interaction, params)
                 );
             }
         }
@@ -108,13 +116,13 @@ export default class TagHandler {
         return returnString;
     }
 
-    getParsedReplyOptions(tag: Tag, interaction: CommandInteraction) {
+    async getParsedReplyOptions(tag: Tag, interaction: CommandInteraction) {
         const replyOptions: InteractionReplyOptions = {};
         const tagString = tag.content;
         const [tagContent] = tagString.split('@embed');
 
         if (tagContent)
-            replyOptions.content = this.getParsedTagContent(
+            replyOptions.content = await this.getParsedTagContent(
                 tagContent,
                 interaction
             );
