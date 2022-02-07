@@ -21,5 +21,8 @@ export async function run(
             value: prefix
         });
     interaction.reply({ embeds: [embed] });
-    r.table('config').get(interaction.guildId).update({ prefix }).run(client.conn);
+    r.table('config')
+        .get(interaction.guildId)
+        .update({ prefix })
+        .run(client.conn);
 }

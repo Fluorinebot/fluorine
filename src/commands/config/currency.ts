@@ -20,5 +20,8 @@ export async function run(
             value
         });
     interaction.reply({ embeds: [embed] });
-    r.table('config').get(interaction.guildId).update({ currency: value }).run(client.conn);
+    r.table('config')
+        .get(interaction.guildId)
+        .update({ currency: value })
+        .run(client.conn);
 }
