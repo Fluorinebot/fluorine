@@ -10,15 +10,15 @@ export async function run(
         'SHOP_LIST_TITLE'
     );
     const currency = await client.economy.getCurrency(interaction.guildId);
-    if (!list.length) {
-        embed.setLocaleDescription('NONE');
-    } else {
+    if (list.length) {
         list.forEach(item => {
             embed.addField(
                 `${item.name} - ${item.price} ${currency}`,
                 item.description
             );
         });
+    } else {
+        embed.setLocaleDescription('NONE');
     }
     interaction.reply({ embeds: [embed] });
 }
