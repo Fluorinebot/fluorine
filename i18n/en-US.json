@@ -25,7 +25,7 @@
     "NONE": "None",
     "REASON_LONGER_THAN_1024": "Reason can't be longer than 1024 characters",
     "HYPIXEL_INVALID_PLAYER": "You've provided an invalid user!",
-    "HYPIXEL_NO_ARGS": "You need to provide a player! Correct usege: {{- command}} <player>",
+    "HYPIXEL_NO_ARGS": "You need to provide a player! Correct usage: {{- command}} <player>",
     "HYPIXEL_PLAYER_NOT_FOUND": "I couldn't find that player",
     "HYPIXEL_STATISTICS_TITLE": "{{- player}} statistics",
     "HYPIXEL_WON_GAMES": "Games won",
