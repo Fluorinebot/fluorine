@@ -243,7 +243,8 @@
     "ROB_SELF": "Nie możesz okraść siebie!",
     "SLUT_SUCCESS": "Pracowałeś jako prostytutka!",
     "SLUT_SUCCESS_DESCRIPTION": "Pracowałeś jako prostytutka przez 2 godziny. Zarobiłeś {{- amount }}",
-    "SLUT_COOLDOWN": "Pracować jako prostytutka będziesz mógł {{- time }}"
+    "SLUT_COOLDOWN": "Pracować jako prostytutka będziesz mógł {{- time }}",
+    "EVAL_USER_NOT_DEV": "Nie jesteś developerem Fluorine.",
     "TIMEOUT_REASON": "Wyciszono przez {{- user}} za {{- reason}}",
     "TAG_DOESNT_EXIST": "Ten tag nie istnieje!",
     "TAGS_CREATE_FLUORINE_OVERRIDE": "`{{-name}}` już istnieje w Fluorine.",
