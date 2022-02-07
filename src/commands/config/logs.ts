@@ -13,7 +13,6 @@ export async function run(
         });
     }
     const value = interaction.options.getBoolean('logs');
-    const guildId = interaction.guild.id;
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('CONFIG_SET_SUCCESS_TITLE')
         .setLocaleDescription('CONFIG_SET_SUCCESS_DESCRIPTION', {
@@ -21,5 +20,5 @@ export async function run(
             value
         });
     interaction.reply({ embeds: [embed] });
-    r.table('config').get(guildId).update({ logs: value }).run(client.conn);
+    r.table('config').get(interaction.guildId).update({ logs: value }).run(client.conn);
 }

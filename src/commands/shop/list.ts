@@ -10,7 +10,7 @@ export async function run(
         'SHOP_LIST_TITLE'
     );
     const currency = await client.economy.getCurrency(interaction.guildId);
-    if (list.length === 0) {
+    if (!list.length) {
         embed.setLocaleDescription('NONE');
     } else {
         list.forEach(item => {

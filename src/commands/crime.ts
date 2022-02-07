@@ -20,7 +20,7 @@ export async function run(
             ephemeral: true
         });
     }
-    client.economy.setCooldown(interaction.user.id, interaction.guild.id, {
+    client.economy.setCooldown(interaction.user.id, interaction.guildId, {
         crime: Math.round(Date.now() / 1000) + 60 * 60
     });
     const currency = await client.economy.getCurrency(interaction.guildId);
