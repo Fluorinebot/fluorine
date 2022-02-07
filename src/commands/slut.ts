@@ -27,7 +27,7 @@ export async function run(
                 interaction.guildId
             )}`
         });
-    client.economy.add(interaction.user.id, interaction.guild.id, money);
+    client.economy.add(interaction.user.id, interaction.guildId, money);
     client.economy.setCooldown(interaction.user.id, interaction.guildId, {
         slut: Math.round(Date.now() / 1000 + 3600)
     });
