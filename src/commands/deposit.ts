@@ -29,7 +29,7 @@ export async function run(
     );
     await client.economy.deposit(
         interaction.user.id,
-        interaction.guild.id,
+        interaction.guildId,
         toDeposit
     );
 }
