@@ -1,6 +1,8 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { Interaction } from 'discord.js';
+import r from 'rethinkdb';
+import { Tag } from 'types/tag';
 
 export async function run(client: FluorineClient, interaction: Interaction) {
     if (interaction.isMessageComponent()) {
@@ -50,7 +52,23 @@ export async function run(client: FluorineClient, interaction: Interaction) {
           )
         : client.applicationCommands.chatInput.get(interaction.commandName);
 
-    if (!command) return;
+    if (!command) {
+        const [tag] = (await r
+            .table('tags')
+            .getAll([interaction.guild.id, interaction.commandName], {
+                index: 'tag'
+            })
+            .coerceTo('array')
+            .run(client.conn)) as Tag[];
+
+        if (!tag) return;
+        tag.uses++;
+
+        await r.table('tags').get(tag.name).update(tag).run(client.conn);
+        return interaction.reply(
+            client.tags.getParsedReplyOptions(tag, interaction)
+        );
+    }
 
     const { dev } = client.applicationCommands.chatInput.get(
         interaction.commandName
