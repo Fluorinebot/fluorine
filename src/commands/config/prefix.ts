@@ -14,7 +14,6 @@ export async function run(
     }
 
     const prefix = interaction.options.getString('prefix');
-    const guildId = interaction.guild.id;
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('CONFIG_SET_SUCCESS_TITLE')
         .setLocaleDescription('CONFIG_SET_SUCCESS_DESCRIPTION', {
@@ -22,5 +21,5 @@ export async function run(
             value: prefix
         });
     interaction.reply({ embeds: [embed] });
-    r.table('config').get(guildId).update({ prefix }).run(client.conn);
+    r.table('config').get(interaction.guildId).update({ prefix }).run(client.conn);
 }
