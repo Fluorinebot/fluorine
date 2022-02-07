@@ -5,7 +5,7 @@ import { SlashCommandBuilder } from '@discordjs/builders';
 import ms, { StringValue } from 'ms';
 import createCase from '../utils/createCase';
 import r from 'rethinkdb';
-import modLog from 'utils/modLog';
+import modLog from '@util/modLog';
 import { Category } from 'types/applicationCommand';
 
 export async function run(

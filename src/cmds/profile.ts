@@ -2,7 +2,7 @@ import FluorineClient from '@classes/Client';
 import canvas from 'canvas';
 import { Message, MessageAttachment } from 'discord.js';
 import r from 'rethinkdb';
-import fragmentText from 'utils/fragmentText';
+import fragmentText from '@util/fragmentText';
 import Embed from '@classes/Embed';
 export async function run(
     client: FluorineClient,

@@ -1,6 +1,6 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import getCases from 'utils/getCases';
+import getCases from '@util/getCases';
 import { Message, MessageActionRow, MessageButton } from 'discord.js';
 
 export async function run(

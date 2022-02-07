@@ -3,7 +3,7 @@ import Embed from '../classes/Embed';
 import { Message } from 'discord.js';
 import createCase from '../utils/createCase';
 import r from 'rethinkdb';
-import modLog from 'utils/modLog';
+import modLog from '@util/modLog';
 export async function run(
     client: FluorineClient,
     message: Message,

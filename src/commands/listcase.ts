@@ -8,7 +8,7 @@ import {
 } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { Category } from 'types/applicationCommand';
-import getCases from 'utils/getCases';
+import getCases from '@util/getCases';
 
 export async function run(
     client: FluorineClient,

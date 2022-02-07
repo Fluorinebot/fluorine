@@ -3,7 +3,7 @@ import Embed from '../classes/Embed';
 import { CommandInteraction } from 'discord.js';
 import createCase from '../utils/createCase';
 import r from 'rethinkdb';
-import modLog from 'utils/modLog';
+import modLog from '@util/modLog';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { Category } from 'types/applicationCommand';
 export async function run(

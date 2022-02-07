@@ -1,7 +1,7 @@
 import FluorineClient from '@classes/Client';
-import caseCreate from 'utils/createCase';
-import { messageBot } from 'utils/messageBot';
-import modLog from 'utils/modLog';
+import caseCreate from '@util/createCase';
+import { messageBot } from '@util/messageBot';
+import modLog from '@util/modLog';
 import { Message } from 'discord.js';
 import r from 'rethinkdb';
 import { SettingsType } from 'types/settings';
