@@ -23,21 +23,20 @@ export async function run(
     client.economy.setCooldown(interaction.user.id, interaction.guild.id, {
         crime: Math.round(Date.now() / 1000) + 60 * 60
     });
+    const currency = await client.economy.getCurrency(interaction.guildId);
     const random = Math.floor(Math.random() * 10);
     if (random > 7) {
         const money = Math.floor(Math.random() * 200) + 50;
         interaction.reply({
             content: client.i18n.t('CRIME_FAIL_DESCRIPTION', {
                 lng: interaction.locale,
-                amount:
-                    money +
-                    (await client.economy.getCurrency(interaction.guild.id))
+                amount: `${money} ${currency}`
             }),
             ephemeral: true
         });
         return client.economy.subtract(
             interaction.user.id,
-            interaction.guild.id,
+            interaction.guildId,
             money
         );
     }
@@ -47,9 +46,7 @@ export async function run(
         `CRIME_SUCCESS_DESCRIPTION.${Math.floor(Math.random() * 3)}`,
         {
             lng: interaction.locale,
-            amount:
-                money.toString() +
-                (await client.economy.getCurrency(interaction.guild.id))
+            amount: `${money} ${currency}`
         }
     );
 
