@@ -13,6 +13,8 @@ import Backend from 'i18next-fs-backend';
 import { join } from 'path';
 import Loader from './Loader';
 import { TagHandler } from './handlers/TagHandler';
+import { ShopHandler } from './handlers/ShopHandler';
+import { EconomyHandler } from './handlers/EconomyHandler';
 export default class FluorineClient extends Client {
     applicationCommands!: ApplicationCommands;
     cmds!: Collection<string, Command>;
@@ -28,8 +30,8 @@ export default class FluorineClient extends Client {
     config: any;
     modules: Record<string, any[]>;
     conn: r.Connection;
-    economy: import("/home/xiboon/Projects/Fluorine/Fluorine/src/classes/handlers/EconomyHandler").EconomyHandler;
-    shop: import("/home/xiboon/Projects/Fluorine/Fluorine/src/classes/handlers/ShopHandler").ShopHandler;
+    economy: EconomyHandler;
+    shop: ShopHandler;
     constructor() {
         super({
             intents: [
