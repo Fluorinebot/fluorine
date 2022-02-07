@@ -1,15 +1,11 @@
 import FluorineClient from '@classes/Client';
 import { readFileSync } from 'fs';
-import { fetch } from 'undici';
-
-export interface PhishingLink {
-    url: string;
-}
-
-export default class PhishingHandler {
+import { createHash } from 'crypto';
+export class PhishingHandler {
     word: string;
     client: FluorineClient;
     users: string;
+    links: string;
     constructor(client: FluorineClient) {
         this.client = client;
         this.users = readFileSync(
@@ -18,31 +14,13 @@ export default class PhishingHandler {
         this.word = readFileSync(
             `${__dirname}/../../../assets/words.txt`
         ).toString();
+        this.links = readFileSync(
+            `${__dirname}/../../../assets/links.txt`
+        ).toString();
     }
-    async getLink(links: PhishingLink[]) {
-        const request = await fetch(
-            `https://safebrowsing.googleapis.com/v4/threatMatches:find?key=${process.env.SAFEBROWSING_TOKEN}`,
-            {
-                method: 'POST',
-                body: JSON.stringify({
-                    client: {
-                        clientId: 'fluorine',
-                        clientVersion: '2.0.0'
-                    },
-                    threatInfo: {
-                        threatTypes: [
-                            'MALWARE',
-                            'SOCIAL_ENGINEERING',
-                            'POTENTIALLY_HARMFUL_APPLICATION'
-                        ],
-                        platformTypes: ['ANY_PLATFORM'],
-                        threatEntryTypes: ['URL', 'IP_RANGE'],
-                        threatEntries: links
-                    }
-                })
-            }
-        );
-        return request.json();
+    getLink(link: string) {
+        const hash = createHash('sha256').update(link).digest('hex');
+        return this.links.split('\n').includes(hash);
     }
     getWords() {
         return this.word.split('\n');
@@ -50,4 +28,7 @@ export default class PhishingHandler {
     getUsers() {
         return this.users.split('\n');
     }
+}
+export async function setup(client: FluorineClient) {
+    client.phishing = new PhishingHandler(client);
 }

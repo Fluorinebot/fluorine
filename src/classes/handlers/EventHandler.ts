@@ -17,3 +17,6 @@ export default class EventHandler {
         client.logger.log(`Loaded ${dir.length} events.`);
     }
 }
+export async function setup(client: FluorineClient) {
+    new EventHandler(client);
+}

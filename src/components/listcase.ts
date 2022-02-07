@@ -1,7 +1,7 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { MessageActionRow, MessageButton, ButtonInteraction } from 'discord.js';
-import getCases from '@util/getCases';
+import getCases from 'utils/getCases';
 
 export const authorOnly = true;
 

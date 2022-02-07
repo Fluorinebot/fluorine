@@ -3,7 +3,7 @@ import { ChatInputCommand, ContextMenuCommand } from 'types/applicationCommand';
 import { Collection } from 'discord.js';
 import FluorineClient from '@classes/Client';
 
-export default class ApplicationCommandHandler {
+class ApplicationCommandHandler {
     chatInput: Collection<string, ChatInputCommand>;
     contextMenu: Collection<string, ContextMenuCommand>;
     client: FluorineClient;
@@ -58,7 +58,7 @@ export default class ApplicationCommandHandler {
 }
 export async function setup(client: FluorineClient) {
     const { loadChatInput, loadContextMenu } = new ApplicationCommandHandler(
-        this
+        client
     );
     client.applicationCommands = {
         chatInput: loadChatInput(),

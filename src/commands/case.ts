@@ -2,7 +2,7 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
-import getCase from '@util/getCase';
+import getCase from 'utils/getCase';
 import { Category } from 'types/applicationCommand';
 
 export async function run(

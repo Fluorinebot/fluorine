@@ -1,9 +1,9 @@
 import FluorineClient from '../classes/Client';
 import Embed from '../classes/Embed';
 import { Message } from 'discord.js';
-import createCase from '../util/createCase';
+import createCase from '../utils/createCase';
 import r from 'rethinkdb';
-import modLog from '@util/modLog';
+import modLog from 'utils/modLog';
 export async function run(
     client: FluorineClient,
     message: Message,

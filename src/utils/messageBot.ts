@@ -13,11 +13,10 @@ export async function messageBot(client: FluorineClient, message: Message) {
     const urls = url?.map(link => {
         bot += 5;
         link = link.replaceAll('www.', '');
-        return { url: link };
+        return client.phishing.getLink(link);
     });
-    const urlResponse = await client.phishing.getLink(urls);
 
-    if (Object.keys(urlResponse).length !== 0) {
+    if (urls.includes(true)) {
         bot += 25;
     }
     if (users.includes(message.author.id)) {

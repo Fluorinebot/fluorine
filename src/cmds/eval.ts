@@ -1,14 +1,14 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
-import clean from '@util/clean';
+import clean from 'utils/clean';
 
 export async function run(
     client: FluorineClient,
     message: Message,
     args: string[]
 ) {
-    if (!client.devs.includes(message.author.id)) {
+    if (!client.config.devs.includes(message.author.id)) {
         return message.reply('ta komenda jest dostepna tylko dla developerow');
     }
     if (args.includes('client.token'))

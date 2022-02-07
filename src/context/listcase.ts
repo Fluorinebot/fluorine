@@ -7,7 +7,7 @@ import {
     UserContextMenuInteraction
 } from 'discord.js';
 import { ContextMenuCommandBuilder } from '@discordjs/builders';
-import getCases from '@util/getCases';
+import getCases from 'utils/getCases';
 import { ApplicationCommandType } from 'discord-api-types';
 
 export async function run(

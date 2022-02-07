@@ -24,7 +24,10 @@ export async function run(client: FluorineClient, interaction: Interaction) {
             cmd => cmd.data?.name === interaction.commandName
         );
 
-        if (contextCommand.dev && !client.devs.includes(interaction.user.id))
+        if (
+            contextCommand.dev &&
+            !client.config.devs.includes(interaction.user.id)
+        )
             return interaction.reply({
                 content: 'You need to be a developer to do that!',
                 ephemeral: true
@@ -73,7 +76,7 @@ export async function run(client: FluorineClient, interaction: Interaction) {
     const { dev } = client.applicationCommands.chatInput.get(
         interaction.commandName
     );
-    if (dev && !client.devs.includes(interaction.user.id))
+    if (dev && !client.config.devs.includes(interaction.user.id))
         return interaction.reply({
             content: 'You need to be a developer to do that!',
             ephemeral: true

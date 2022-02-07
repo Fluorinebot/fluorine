@@ -3,9 +3,9 @@ import Embed from '../classes/Embed';
 import { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import ms, { StringValue } from 'ms';
-import createCase from '../util/createCase';
+import createCase from '../utils/createCase';
 import r from 'rethinkdb';
-import modLog from '@util/modLog';
+import modLog from 'utils/modLog';
 import { Category } from 'types/applicationCommand';
 
 export async function run(

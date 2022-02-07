@@ -22,3 +22,6 @@ export default class ComponentHandler {
         return this.map;
     }
 }
+export async function setup(client: FluorineClient) {
+    client.components = new ComponentHandler(client).loadComponents();
+}

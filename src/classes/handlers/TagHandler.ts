@@ -2,7 +2,10 @@ import FluorineClient from '@classes/Client';
 import { CommandInteraction, InteractionReplyOptions } from 'discord.js';
 import { Tag } from 'types/tag';
 
-export default class TagHandler {
+// This is still a dev build of the parser. Don't try to mess with it.
+// Just wait for slate V2.
+
+export class TagHandler {
     client: FluorineClient;
     constructor(client) {
         this.client = client;
@@ -25,24 +28,25 @@ export default class TagHandler {
                     return Math.floor(Math.random() * (max - min)) + min;
                 },
                 choose: (interaction: CommandInteraction, params: string[]) => {
-                    const cleanParams = params.map(param =>
-                        this.getParsedStaticVars(
-                            param.replaceAll('--', ' '),
-                            '$',
-                            '$',
-                            interaction
-                        )
-                    );
+                    const cleanParams = [];
+
+                    for (const param of params) {
+                        cleanParams.push(
+                            this.getParsedStaticVars(
+                                param.replaceAll('--', ' '),
+                                '$',
+                                '$',
+                                interaction
+                            )
+                        );
+                    }
 
                     return cleanParams[
                         Math.floor(Math.random() * cleanParams.length)
                     ];
                 },
-                user: async (
-                    interaction: CommandInteraction,
-                    params: string[]
-                ) => {
-                    const user = await this.client.users.fetch(params[0]);
+                user: (interaction: CommandInteraction, params: string[]) => {
+                    const user = this.client.users.cache.get(params[0]);
 
                     const customVarmap = {
                         userTag: user.tag,
@@ -59,10 +63,18 @@ export default class TagHandler {
     }
 
     splitForActions(content: string): string[] {
-        return content.split(/[{}]/u);
+        const checkReserved = content.split('{');
+        const strippedVars = checkReserved.map(x => x.split('}'));
+        const workingArr = [];
+        for (const arr of strippedVars) {
+            for (const elem of arr) {
+                workingArr.push(elem);
+            }
+        }
+        return workingArr;
     }
 
-    async getParsedStaticVars(
+    getParsedStaticVars(
         content: string,
         start: string,
         end: string,
@@ -75,7 +87,7 @@ export default class TagHandler {
         )) {
             returnString = returnString.replaceAll(
                 `${start}${key}${end}`,
-                await value(interaction, [])
+                value(interaction, [])
             );
         }
 
@@ -116,11 +128,10 @@ export default class TagHandler {
                 interaction
             );
 
-        // TODO: add embed support
-        // if (tagEmbed)
-        //     replyOptions.embeds = [this.parseEmbed(tagEmbed, interaction)];
-
         replyOptions.ephemeral = tag.ephemeral;
         return replyOptions;
     }
+}
+export async function setup(client: FluorineClient) {
+    client.tags = new TagHandler(client);
 }
