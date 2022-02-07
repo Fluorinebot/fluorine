@@ -6,12 +6,10 @@ export async function run(
     client: FluorineClient,
     interaction: CommandInteraction
 ) {
-    const [name, description, price, role] = [
-        interaction.options.getString('name'),
-        interaction.options.getString('description'),
-        interaction.options.getInteger('price'),
-        interaction.options.getRole('role')
-    ];
+    const name = interaction.options.getString('name');
+    const description = interaction.options.getString('description');
+    const price = interaction.options.getString('price');
+    const role =interaction.options.getRole('role');
     const guild = interaction.guildId;
     const obj: ShopItem = { name, description, price, guild };
     if (role) obj.role = role.id;
