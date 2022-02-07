@@ -54,7 +54,7 @@ export async function run(
         .setLocaleTitle('CRIME_SUCCESS')
         .setDescription(description);
     interaction.reply({ embeds: [embed] });
-    client.economy.add(interaction.user.id, interaction.guild.id, money);
+    client.economy.add(interaction.user.id, interaction.guildId, money);
 }
 export const data = new SlashCommandBuilder()
     .setName('crime')
