@@ -1,22 +1,29 @@
 // @ts-ignore
 import { version } from '../../package.json';
+
 import { Client, Collection, ColorResolvable, Intents } from 'discord.js';
+import r from 'rethinkdb';
+import i18next from 'i18next';
+import Backend from 'i18next-fs-backend';
+import { join } from 'path';
+
+import { Command } from 'types/command';
+import { ApplicationCommands } from 'types/applicationCommand';
 import { Command } from 'types/command';
 import { ApplicationCommands } from 'types/applicationCommand';
 import { Component } from 'types/component';
-import r from 'rethinkdb';
-import PhishingHandler from '@handlers/PhishingHandler';
+
 import { Logger } from './Logger';
+import AI from './AI';
+import PhishingHandler from '@handlers/PhishingHandler';
 import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
 import CommandHandler from '@handlers/CommandHandler';
 import ComponentHandler from '@handlers/ComponentHandler';
 import EventHandler from '@handlers/EventHandler';
 import EconomyHandler from '@handlers/EconomyHandler';
 import ShopHandler from '@handlers/ShopHandler';
-import AI from './AI';
-import i18next from 'i18next';
-import Backend from 'i18next-fs-backend';
-import { join } from 'path';
+import TagHandler from './handlers/TagHandler';
+import PhishingHandler from './handlers/PhishingHandler';
 
 export default class FluorineClient extends Client {
     applicationCommands!: ApplicationCommands;
@@ -25,6 +32,8 @@ export default class FluorineClient extends Client {
     components!: Collection<string, Component>;
     economy: EconomyHandler;
     phishing: PhishingHandler;
+    shop: ShopHandler;
+    tags: TagHandler;
     cooldown: Set<string>;
     ai: AI;
     invite: string;
@@ -32,7 +41,6 @@ export default class FluorineClient extends Client {
     color: ColorResolvable;
     devs: string[];
     generating: boolean;
-    shop: ShopHandler;
     logger: typeof Logger;
     i18n: typeof i18next;
     constructor() {
@@ -83,8 +91,10 @@ export default class FluorineClient extends Client {
         this.components = new ComponentHandler(this).loadComponents();
         this.phishing = new PhishingHandler(this);
         this.economy = new EconomyHandler(this);
-        this.ai = new AI(this);
         this.shop = new ShopHandler(this);
+        this.tags = new TagHandler(this);
+        this.ai = new AI(this);
+
         await this.i18n.use(Backend).init({
             fallbackLng: 'en-US',
             preload: ['en-US', 'pl'],
