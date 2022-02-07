@@ -6,28 +6,30 @@ export class ModuleHandler {
         this.client = client;
     }
     loadModules() {
-        const dir = readdirSync(`${__dirname}/../../modules`);
-        console.log(dir);
-        const events = [];
+        const eventModuleDirs = readdirSync(`${__dirname}/../../modules`);
+        console.log(eventModuleDirs);
         let count = 0;
-        const obj = {};
-        for (const file of dir) {
-            events.push(file);
-        }
-        events.forEach(async event => {
-            const eventDir = readdirSync(`${__dirname}/../../modules/${event}`);
+        const eventModules = {};
+
+        for (const eventModuleDir of eventModuleDirs) {
+            const eventDir = readdirSync(
+                `${__dirname}/../../modules/${eventModuleDir}`
+            );
             const eventArray = [];
-            for (const file of eventDir) {
+
+            eventDir.forEach(async event => {
                 const code = await import(
-                    `${__dirname}/../../modules/${event}/${file}`
+                    `${__dirname}/../../modules/${eventModuleDir}/${event}`
                 );
                 eventArray.push(code);
-                count++;
-            }
-            obj[event] = eventArray;
-        });
+            });
+
+            eventModules[eventModuleDir] = eventArray;
+            count += eventDir.length;
+        }
+
         this.client.logger.log(`Loaded ${count} modules.`);
-        return obj;
+        return eventModules;
     }
 }
 export async function setup(client: FluorineClient) {
