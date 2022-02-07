@@ -8,8 +8,8 @@ export async function run(
 ) {
     const name = interaction.options.getString('name');
     const description = interaction.options.getString('description');
-    const price = interaction.options.getString('price');
-    const role =interaction.options.getRole('role');
+    const price = interaction.options.getInteger('price');
+    const role = interaction.options.getRole('role');
     const guild = interaction.guildId;
     const obj: ShopItem = { name, description, price, guild };
     if (role) obj.role = role.id;
