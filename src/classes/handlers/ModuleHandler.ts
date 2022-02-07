@@ -7,7 +7,6 @@ export class ModuleHandler {
     }
     loadModules() {
         const eventModuleDirs = readdirSync(`${__dirname}/../../modules`);
-        console.log(eventModuleDirs);
         let count = 0;
         const eventModules = {};
 
