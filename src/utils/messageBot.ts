@@ -16,7 +16,7 @@ export async function messageBot(client: FluorineClient, message: Message) {
         return client.phishing.getLink(link);
     });
 
-    if (urls.includes(true)) {
+    if (urls?.includes(true)) {
         bot += 25;
     }
     if (users.includes(message.author.id)) {

@@ -15,13 +15,11 @@ import Loader from './Loader';
 import { TagHandler } from './handlers/TagHandler';
 export default class FluorineClient extends Client {
     applicationCommands!: ApplicationCommands;
-    conn!: r.Connection;
     cmds!: Collection<string, Command>;
     components!: Collection<string, Component>;
     version: string;
     footer: string;
     logger: typeof Logger;
-    generating: boolean;
     cooldown: Set<string>;
     ai: AI;
     i18n: typeof i18next;
@@ -29,6 +27,9 @@ export default class FluorineClient extends Client {
     tags: TagHandler;
     config: any;
     modules: Record<string, any[]>;
+    conn: r.Connection;
+    economy: import("/home/xiboon/Projects/Fluorine/Fluorine/src/classes/handlers/EconomyHandler").EconomyHandler;
+    shop: import("/home/xiboon/Projects/Fluorine/Fluorine/src/classes/handlers/ShopHandler").ShopHandler;
     constructor() {
         super({
             intents: [

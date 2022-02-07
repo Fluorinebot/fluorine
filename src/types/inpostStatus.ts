@@ -1,4 +1,4 @@
-export interface statuses {
+export interface Statuses {
     href: string;
     items: Item[];
 }

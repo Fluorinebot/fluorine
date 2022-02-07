@@ -69,7 +69,7 @@ export async function run(client: FluorineClient, interaction: Interaction) {
 
         await r.table('tags').get(tag.name).update(tag).run(client.conn);
         return interaction.reply(
-            client.tags.getParsedReplyOptions(tag, interaction)
+            await client.tags.getParsedReplyOptions(tag, interaction)
         );
     }
 

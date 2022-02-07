@@ -5,11 +5,13 @@ import FluorineClient from '@classes/Client';
 class CommandHandler {
     map: Collection<string, Command>;
     client: FluorineClient;
+
     constructor(client) {
         // import commands
         this.client = client;
         this.map = new Collection();
     }
+
     loadCommands() {
         const dir = readdirSync(`${__dirname}/../../cmds`);
         dir.forEach(async file => {

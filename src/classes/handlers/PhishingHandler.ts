@@ -6,6 +6,7 @@ export class PhishingHandler {
     client: FluorineClient;
     users: string;
     links: string;
+
     constructor(client: FluorineClient) {
         this.client = client;
         this.users = readFileSync(
@@ -29,6 +30,7 @@ export class PhishingHandler {
         return this.users.split('\n');
     }
 }
+
 export async function setup(client: FluorineClient) {
     client.phishing = new PhishingHandler(client);
 }
