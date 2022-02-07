@@ -20,7 +20,7 @@ export async function run(
         .join(' ')
         .replaceAll('```js', '')
         .replaceAll('```ts', '');
-    if (codex.indexOf('```sh') !== -1) {
+    if (codex.includes('```sh')) {
         codex = codex.replaceAll('```sh', '').replaceAll('```', '');
         const output = execSync(codex).toString();
         const embed2 = new Embed(client, message.guild.preferredLocale)
