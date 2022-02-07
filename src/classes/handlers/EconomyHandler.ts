@@ -2,11 +2,13 @@ import FluorineClient from '@classes/Client';
 import r from 'rethinkdb';
 import { EconomyUser } from 'types/economyUser';
 import { SettingsType } from 'types/settings';
-export default class EconomyHandler {
+export class EconomyHandler {
     client: FluorineClient;
+
     constructor(client: FluorineClient) {
         this.client = client;
     }
+
     async get(user: string, guild: string) {
         const data = (await r
             .table('economy')
@@ -14,6 +16,7 @@ export default class EconomyHandler {
             .run(this.client.conn)) as EconomyUser;
         return data?.balance || { wallet: 0, bank: 0 };
     }
+
     async add(user: string, guild: string, amount: number) {
         const userObj: any = await r
             .table('economy')
@@ -39,6 +42,7 @@ export default class EconomyHandler {
             })
             .run(this.client.conn);
     }
+
     async subtract(user: string, guild: string, amount: number) {
         const userObj: any = await r
             .table('economy')
@@ -64,6 +68,7 @@ export default class EconomyHandler {
             })
             .run(this.client.conn);
     }
+
     async deposit(user: string, guild: string, amount: number) {
         const userObj: any = await r
             .table('economy')
@@ -89,6 +94,7 @@ export default class EconomyHandler {
             })
             .run(this.client.conn);
     }
+
     async withdraw(user: string, guild: string, amount: number) {
         const userObj: any = await r
             .table('economy')
@@ -114,6 +120,7 @@ export default class EconomyHandler {
             })
             .run(this.client.conn);
     }
+
     async getCooldown(user: string, guild: string) {
         const userObj = (await r
             .table('economy')
@@ -148,6 +155,7 @@ export default class EconomyHandler {
             })
             .run(this.client.conn);
     }
+
     async getCurrency(guild: string) {
         const guildObj = (await r
             .table('config')

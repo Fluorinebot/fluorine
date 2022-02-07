@@ -1,7 +1,7 @@
 import FluorineClient from '@classes/Client';
 import { readdirSync } from 'fs';
 
-export default class EventHandler {
+export class EventHandler {
     constructor(client: FluorineClient) {
         // import events
         const dir = readdirSync(`${__dirname}/../../events`);
@@ -16,4 +16,8 @@ export default class EventHandler {
         });
         client.logger.log(`Loaded ${dir.length} events.`);
     }
+}
+
+export async function setup(client: FluorineClient) {
+    new EventHandler(client);
 }

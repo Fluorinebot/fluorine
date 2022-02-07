@@ -2,14 +2,16 @@ import { readdirSync } from 'fs';
 import { Command } from 'types/command';
 import { Collection } from 'discord.js';
 import FluorineClient from '@classes/Client';
-export default class CommandHandler {
+export class CommandHandler {
     map: Collection<string, Command>;
     client: FluorineClient;
+
     constructor(client) {
         // import commands
         this.client = client;
         this.map = new Collection();
     }
+
     loadCommands() {
         const dir = readdirSync(`${__dirname}/../../cmds`);
         dir.forEach(async file => {
@@ -19,4 +21,8 @@ export default class CommandHandler {
         this.client.logger.log(`Loaded ${dir.length} text commands`);
         return this.map;
     }
+}
+
+export async function setup(client: FluorineClient) {
+    client.cmds = new CommandHandler(client).loadCommands();
 }

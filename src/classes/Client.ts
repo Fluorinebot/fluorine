@@ -11,35 +11,31 @@ import { ApplicationCommands } from 'types/applicationCommand';
 import { Command } from 'types/command';
 import { Component } from 'types/component';
 
+import Loader from './Loader';
 import { Logger } from './Logger';
 import AI from './AI';
-import EventHandler from '@handlers/EventHandler';
-import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
-import CommandHandler from '@handlers/CommandHandler';
-import ComponentHandler from '@handlers/ComponentHandler';
-import EconomyHandler from '@handlers/EconomyHandler';
-import ShopHandler from '@handlers/ShopHandler';
-import TagHandler from './handlers/TagHandler';
-import PhishingHandler from '@handlers/PhishingHandler';
+import { EconomyHandler } from '@handlers/EconomyHandler';
+import { ShopHandler } from '@handlers/ShopHandler';
+import { TagHandler } from './handlers/TagHandler';
+import { PhishingHandler } from '@handlers/PhishingHandler';
 
 export default class FluorineClient extends Client {
     applicationCommands!: ApplicationCommands;
-    conn!: r.Connection;
     cmds!: Collection<string, Command>;
     components!: Collection<string, Component>;
     economy: EconomyHandler;
     phishing: PhishingHandler;
     shop: ShopHandler;
     tags: TagHandler;
-    cooldown: Set<string>;
     ai: AI;
+    i18n: typeof i18next;
     invite: string;
     version: string;
     color: ColorResolvable;
     devs: string[];
-    generating: boolean;
     logger: typeof Logger;
-    i18n: typeof i18next;
+    cooldown: Set<string>;
+    conn!: r.Connection;
     constructor() {
         super({
             intents: [
@@ -75,23 +71,7 @@ export default class FluorineClient extends Client {
         this.i18n = i18next;
     }
     async init() {
-        new EventHandler(this);
-        this.cmds = new CommandHandler(this).loadCommands();
-
-        const { loadChatInput, loadContextMenu } =
-            new ApplicationCommandHandler(this);
-        this.applicationCommands = {
-            chatInput: loadChatInput(),
-            contextMenu: loadContextMenu()
-        };
-
-        this.components = new ComponentHandler(this).loadComponents();
-        this.phishing = new PhishingHandler(this);
-        this.economy = new EconomyHandler(this);
-        this.shop = new ShopHandler(this);
-        this.tags = new TagHandler(this);
-        this.ai = new AI(this);
-
+        new Loader(this).load();
         await this.i18n.use(Backend).init({
             fallbackLng: 'en-US',
             preload: ['en-US', 'pl'],

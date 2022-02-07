@@ -5,7 +5,7 @@ import { Tag } from 'types/tag';
 // This is still a dev build of the parser. Don't try to mess with it.
 // Just wait for slate V2.
 
-export default class TagHandler {
+export class TagHandler {
     client: FluorineClient;
     constructor(client) {
         this.client = client;
@@ -130,4 +130,8 @@ export default class TagHandler {
         replyOptions.ephemeral = tag.ephemeral;
         return replyOptions;
     }
+}
+
+export async function setup(client: FluorineClient) {
+    client.tags = new TagHandler(client);
 }

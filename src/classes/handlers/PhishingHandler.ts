@@ -6,11 +6,12 @@ export interface PhishingLink {
     url: string;
 }
 
-export default class PhishingHandler {
+export class PhishingHandler {
     word: string;
     client: FluorineClient;
     users: string;
     url: string;
+
     constructor(client: FluorineClient) {
         this.client = client;
         this.users = readFileSync(
@@ -23,6 +24,7 @@ export default class PhishingHandler {
             `${__dirname}/../../../assets/url.txt`
         ).toString();
     }
+
     async getLink(links: PhishingLink[]) {
         const request = await fetch(
             `https://safebrowsing.googleapis.com/v4/threatMatches:find?key=${process.env.SAFEBROWSING_TOKEN}`,
@@ -57,4 +59,8 @@ export default class PhishingHandler {
     getURLs() {
         return this.url.split('\n');
     }
+}
+
+export async function setup(client: FluorineClient) {
+    client.phishing = new PhishingHandler(client);
 }
