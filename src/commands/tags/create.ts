@@ -13,8 +13,7 @@ export async function run(
     const ephemeral = interaction.options.getBoolean('ephemeral') ?? false;
 
     const fluorineCommands = [...client.applicationCommands.chatInput.keys()];
-    const _guildCommands = [...(await interaction.guild.commands.fetch())];
-    const guildCommands = _guildCommands.map(x => x[0]);
+    const guildCommands = await interaction.guild.commands.fetch();
 
     if (fluorineCommands.includes(name))
         return interaction.reply({
@@ -24,7 +23,7 @@ export async function run(
             ephemeral: true
         });
 
-    if (guildCommands.length >= 100) {
+    if (guildCommands.size >= 100) {
         return interaction.reply({
             content: client.i18n.t('TAGS_CREATE_MAXIMUM', {
                 lng: interaction.locale
@@ -33,7 +32,7 @@ export async function run(
         });
     }
 
-    if (guildCommands.includes(name))
+    if (guildCommands.has(name))
         return interaction.reply({
             content: client.i18n.t('TAGS_CREATE_EXISTING', {
                 lng: interaction.locale
