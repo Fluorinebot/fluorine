@@ -50,6 +50,14 @@ export async function run(
                     value: 'moderation',
                     emoji: '🔨',
                     default: category === 'moderation'
+                },
+                {
+                    label: client.i18n.t('ECONOMY', {
+                        lng: interaction.locale
+                    }),
+                    value: 'economy',
+                    emoji: '💰',
+                    default: category === 'economy'
                 }
             ])
     ]);

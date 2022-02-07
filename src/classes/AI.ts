@@ -36,10 +36,15 @@ export default class AI {
                 })
             );
         }
-        const embed = new Embed(this.client, object.guild.preferredLocale)
+        const embed = new Embed(
+            this.client,
+            object.locale ?? object.guild.preferredLocale
+        )
             .setLocaleTitle('AI_TITLE')
             .setDescription(ai.result);
-        object.reply({ embeds: [embed] });
+        object instanceof Message
+            ? object.reply({ embeds: [embed] })
+            : object.followUp({ embeds: [embed] });
         this.queue.shift();
         if (this.queue.length === 0) {
             this.isGenerating = false;

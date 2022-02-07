@@ -18,7 +18,7 @@ export default class Embed extends MessageEmbed {
         super({});
         this.setColor('#3872f2');
         this.setFooter({
-            text: client.footer,
+            text: `Fluorine ${client.version}`,
             iconURL: client.user.avatarURL()
         });
         this.setTimestamp();

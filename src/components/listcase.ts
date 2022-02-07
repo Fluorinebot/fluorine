@@ -49,16 +49,9 @@ export async function run(
             .setDisabled(page + 1 === chunk.length)
     );
 
-    const footer = client.i18n.t('LISTCASE_FOOTER', {
-        lng: interaction.locale
-    });
-
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('LISTCASE_TITLE', { user: member.tag })
-        .setThumbnail(member.displayAvatarURL({ dynamic: true }))
-        .setFooter({
-            text: `${footer} | ${client.footer}`
-        });
+        .setThumbnail(member.displayAvatarURL({ dynamic: true }));
 
     chunk[page > chunk.length ? page - 1 : page].forEach(caseData => {
         embed.addField(`#${caseData.id} ${caseData.type}`, caseData.dscp);

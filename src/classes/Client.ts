@@ -1,40 +1,45 @@
-import { Client, Collection, ColorResolvable, Intents } from 'discord.js';
-import r from 'rethinkdb';
-import { Logger } from './Logger';
-import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
-import CommandHandler from '@handlers/CommandHandler';
-import ComponentHandler from '@handlers/ComponentHandler';
-import EventHandler from '@handlers/EventHandler';
-import TagHandler from './handlers/TagHandler';
-import PhishingHandler from './handlers/PhishingHandler';
-import { Command } from 'types/command';
-import { ApplicationCommands } from 'types/applicationCommand';
-import { Component } from 'types/component';
-import AI from './AI';
 // @ts-ignore
 import { version } from '../../package.json';
 
+import { Client, Collection, ColorResolvable, Intents } from 'discord.js';
+import r from 'rethinkdb';
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
 import { join } from 'path';
+
+import { ApplicationCommands } from 'types/applicationCommand';
+import { Command } from 'types/command';
+import { Component } from 'types/component';
+
+import { Logger } from './Logger';
+import AI from './AI';
+import EventHandler from '@handlers/EventHandler';
+import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
+import CommandHandler from '@handlers/CommandHandler';
+import ComponentHandler from '@handlers/ComponentHandler';
+import EconomyHandler from '@handlers/EconomyHandler';
+import ShopHandler from '@handlers/ShopHandler';
+import TagHandler from './handlers/TagHandler';
+import PhishingHandler from '@handlers/PhishingHandler';
 
 export default class FluorineClient extends Client {
     applicationCommands!: ApplicationCommands;
     conn!: r.Connection;
     cmds!: Collection<string, Command>;
     components!: Collection<string, Component>;
-    invite: string;
-    version: string;
-    footer: string;
-    color: ColorResolvable;
-    devs: string[];
-    logger: typeof Logger;
-    generating: boolean;
+    economy: EconomyHandler;
+    phishing: PhishingHandler;
+    shop: ShopHandler;
+    tags: TagHandler;
     cooldown: Set<string>;
     ai: AI;
+    invite: string;
+    version: string;
+    color: ColorResolvable;
+    devs: string[];
+    generating: boolean;
+    logger: typeof Logger;
     i18n: typeof i18next;
-    phishing: PhishingHandler;
-    tags: TagHandler;
     constructor() {
         super({
             intents: [
@@ -59,7 +64,6 @@ export default class FluorineClient extends Client {
         this.version = version;
         this.invite =
             'https://discord.com/api/oauth2/authorize?client_id=831932409943425064&scope=bot+applications.commands&permissions=474527689975';
-        this.footer = `Fluorine ${this.version}`;
         this.color = '#3872f2';
         this.devs = [
             '707675871355600967',
@@ -83,8 +87,10 @@ export default class FluorineClient extends Client {
 
         this.components = new ComponentHandler(this).loadComponents();
         this.phishing = new PhishingHandler(this);
-        this.ai = new AI(this);
+        this.economy = new EconomyHandler(this);
+        this.shop = new ShopHandler(this);
         this.tags = new TagHandler(this);
+        this.ai = new AI(this);
 
         await this.i18n.use(Backend).init({
             fallbackLng: 'en-US',

@@ -55,7 +55,7 @@ export async function run(
     ]);
 
     interaction.reply({
-        content: client.i18n.t('TAGS_DELETE_CONTINUE', {
+        content: client.i18n.t('TAGS_DELETE_PROMPT', {
             tag: name,
             lng: interaction.locale
         }),

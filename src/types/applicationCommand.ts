@@ -9,7 +9,7 @@ import {
     SlashCommandBuilder
 } from '@discordjs/builders';
 
-export type Category = 'fun' | 'tools' | 'moderation';
+export type Category = 'fun' | 'tools' | 'moderation' | 'economy';
 
 export interface ChatInputCommand {
     run: (client: FluorineClient, interaction: CommandInteraction) => void;
