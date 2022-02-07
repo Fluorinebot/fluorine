@@ -48,7 +48,7 @@ export async function run(
                     message.guild.preferredLocale
                 )
                     .setLocaleTitle('PROFILE_SUCCESS')
-                    .setLocaleDescription('PROFILE_SET_WEBSITE', {
+                    .setLocaleDescription('PROFILE_SET_DESCRIPTION', {
                         description
                     });
                 message.reply({ embeds: [descEmbed] });
@@ -212,7 +212,7 @@ export async function run(
     } else {
         const user =
             client.users.cache.get(args[0]) ||
-            message.mentions.members.first() ||
+            message.mentions.members.first()?.user ||
             message.author;
         const notSet = client.i18n.t('PROFILE_NOT_SET', {
             lang: message.guild.preferredLocale
@@ -255,7 +255,7 @@ export async function run(
         ctx.drawImage(image, 0, 0);
         ctx.font = 'bold 55px "Poppins"';
         ctx.fillStyle = '#ffffff';
-        ctx.fillText(message.author.tag, 170, 83);
+        ctx.fillText(user.tag, 170, 83);
         ctx.font = 'bold 47px "Poppins"';
         ctx.fillStyle = '#ffffff';
         ctx.fillText(

@@ -3,8 +3,8 @@ export interface SettingsType {
     logs?: boolean;
     logsChannel?: string;
     modLogs?: boolean;
-    muteRole?: string;
     prefix: string;
-    antibot: number;
-    antibotAction: string;
+    antibot?: number;
+    antibotAction?: string;
+    currency?: string;
 }
