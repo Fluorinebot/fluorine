@@ -10,4 +10,7 @@ export async function run(client: FluorineClient, message: Message) {
             })
         );
     }
+    client.modules.messageCreate.forEach(async module => {
+        module.run(client, message);
+    });
 }

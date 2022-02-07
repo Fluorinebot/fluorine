@@ -8,6 +8,7 @@ export class ModuleHandler {
     loadModules() {
         const dir = readdirSync('../../modules');
         const events = [];
+        letcount = 0;
         const obj = {};
         for (const file of dir) {
             events.push(file);
@@ -20,6 +21,12 @@ export class ModuleHandler {
                 eventArray.push(code);
             }
             obj[event] = eventArray;
+            count++;
         });
+        this.client.logger.log(`Loaded ${count} modules.`);
+        return obj;
     }
+}
+export async function setup(client: FluorineClient) {
+    client.modules = new ModuleHandler(client).loadModules();
 }

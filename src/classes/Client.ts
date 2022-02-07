@@ -28,6 +28,7 @@ export default class FluorineClient extends Client {
     phishing: PhishingHandler;
     tags: TagHandler;
     config: any;
+    modules: Record<string, any[]>;
     constructor() {
         super({
             intents: [
