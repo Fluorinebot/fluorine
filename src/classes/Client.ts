@@ -7,6 +7,9 @@ import { Component } from 'types/component';
 import AI from './AI';
 // @ts-ignore
 import { version } from '../../package.json';
+// @ts-ignore
+import * as jsonConfig from '../../config.json';
+
 import { PhishingHandler } from './handlers/PhishingHandler';
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
@@ -15,6 +18,7 @@ import Loader from './Loader';
 import { TagHandler } from './handlers/TagHandler';
 import { ShopHandler } from './handlers/ShopHandler';
 import { EconomyHandler } from './handlers/EconomyHandler';
+
 export default class FluorineClient extends Client {
     applicationCommands!: ApplicationCommands;
     cmds!: Collection<string, Command>;
@@ -54,7 +58,7 @@ export default class FluorineClient extends Client {
             this.conn = conn;
         });
         // @ts-ignore
-        this.config = import('../../config.json');
+        this.config = jsonConfig;
         this.version = version;
         this.footer = `Fluorine ${this.version}`;
         this.logger = Logger;
