@@ -7,10 +7,7 @@ import r from 'rethinkdb';
 import modLog from '@util/modLog';
 import { Category } from 'types/applicationCommand';
 
-export async function run(
-    client: FluorineClient,
-    interaction: CommandInteraction<'cached'>
-) {
+export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
     if (!interaction.member?.permissions.has('BAN_MEMBERS')) {
         return interaction.reply({
             content: client.i18n.t('BAN_PERMISSIONS_MISSING', {
@@ -60,14 +57,7 @@ export async function run(
         });
     }
 
-    const create = await createCase(
-        client,
-        interaction?.guild,
-        member.user,
-        interaction.user,
-        'ban',
-        reason
-    );
+    const create = await createCase(client, interaction?.guild, member.user, interaction.user, 'ban', reason);
 
     await member.ban({
         reason: client.i18n.t('BAN_REASON', {
@@ -93,17 +83,9 @@ export async function run(
 export const data = new SlashCommandBuilder()
     .setName('ban')
     .setDescription('Ban an user from the server')
-    .addUserOption(option =>
-        option
-            .setName('user')
-            .setDescription('Provide an user to ban')
-            .setRequired(true)
-    )
+    .addUserOption(option => option.setName('user').setDescription('Provide an user to ban').setRequired(true))
     .addStringOption(option =>
-        option
-            .setName('reason')
-            .setDescription('Provide a reason for banning this user')
-            .setRequired(false)
+        option.setName('reason').setDescription('Provide a reason for banning this user').setRequired(false)
     );
 
 export const category: Category = 'moderation';

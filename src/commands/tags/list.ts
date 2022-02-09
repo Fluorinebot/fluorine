@@ -1,25 +1,15 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { codeBlock, time } from '@discordjs/builders';
-import {
-    CommandInteraction,
-    InteractionReplyOptions,
-    MessageActionRow,
-    MessageButton
-} from 'discord.js';
+import { CommandInteraction, InteractionReplyOptions, MessageActionRow, MessageButton } from 'discord.js';
 import r from 'rethinkdb';
 import { Tag } from 'types/tag';
 
-export async function run(
-    client: FluorineClient,
-    interaction: CommandInteraction
-) {
+export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const name = interaction.options.getString('tag');
 
     if (name) {
-        const guildCommands = (await interaction.guild.commands.fetch()).map(
-            c => c.name
-        );
+        const guildCommands = (await interaction.guild.commands.fetch()).map(c => c.name);
 
         if (!guildCommands.includes(name))
             return interaction.reply({
@@ -29,10 +19,7 @@ export async function run(
                 ephemeral: true
             });
 
-        const tag = (await r
-            .table('tags')
-            .get(`${interaction.guild.id}-${name}`)
-            .run(client.conn)) as Tag;
+        const tag = (await r.table('tags').get(`${interaction.guild.id}-${name}`).run(client.conn)) as Tag;
 
         const embed = new Embed(client, interaction.locale)
             .setLocaleTitle('TAGS_LIST_SPECIFIC_TITLE')
@@ -53,11 +40,7 @@ export async function run(
     }
 
     const guild = interaction.guildId;
-    const tags = await r
-        .table('tags')
-        .getAll(guild, { index: 'guild' })
-        .coerceTo('array')
-        .run(client.conn);
+    const tags = await r.table('tags').getAll(guild, { index: 'guild' }).coerceTo('array').run(client.conn);
 
     if (!tags.length)
         return interaction.reply({
@@ -80,12 +63,7 @@ export async function run(
     const embed = new Embed(client, interaction.locale);
     embed.setLocaleTitle('TAGS_LIST_TITLE', { server: interaction.guild.name });
     embed.setDescription(
-        codeBlock(
-            'yaml',
-            chunk[0]
-                .map(x => x.name.replace(`${interaction.guild.id}-`, ''))
-                .join(', ')
-        )
+        codeBlock('yaml', chunk[0].map(x => x.name.replace(`${interaction.guild.id}-`, '')).join(', '))
     );
 
     const replyOptions: InteractionReplyOptions = { embeds: [embed] };
@@ -95,9 +73,7 @@ export async function run(
         row.addComponents(
             new MessageButton()
                 .setCustomId(`tagList:${interaction.user.id}:0`)
-                .setLabel(
-                    client.i18n.t('LISTCASE_BACK', { lng: interaction.locale })
-                )
+                .setLabel(client.i18n.t('LISTCASE_BACK', { lng: interaction.locale }))
                 .setStyle('PRIMARY')
                 .setDisabled(true)
         );
@@ -105,9 +81,7 @@ export async function run(
         row.addComponents(
             new MessageButton()
                 .setCustomId(`tagList:${interaction.user.id}:1`)
-                .setLabel(
-                    client.i18n.t('LISTCASE_NEXT', { lng: interaction.locale })
-                )
+                .setLabel(client.i18n.t('LISTCASE_NEXT', { lng: interaction.locale }))
                 .setStyle('PRIMARY')
         );
 

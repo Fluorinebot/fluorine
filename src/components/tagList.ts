@@ -6,11 +6,7 @@ import r from 'rethinkdb';
 
 export const authorOnly = true;
 
-export async function run(
-    client: FluorineClient,
-    interaction: ButtonInteraction,
-    value: string
-) {
+export async function run(client: FluorineClient, interaction: ButtonInteraction, value: string) {
     const page = Number(value);
     const tags = await r
         .table('tags')
@@ -30,16 +26,12 @@ export async function run(
     const row = new MessageActionRow().addComponents([
         new MessageButton()
             .setCustomId(`tagsList:${interaction.user.id}:${page - 1}`)
-            .setLabel(
-                client.i18n.t('LISTCASE_BACK', { lng: interaction.locale })
-            )
+            .setLabel(client.i18n.t('LISTCASE_BACK', { lng: interaction.locale }))
             .setStyle('PRIMARY')
             .setDisabled(page === 0),
         new MessageButton()
             .setCustomId(`tagsList:${interaction.user.id}:${page + 1}`)
-            .setLabel(
-                client.i18n.t('LISTCASE_NEXT', { lng: interaction.locale })
-            )
+            .setLabel(client.i18n.t('LISTCASE_NEXT', { lng: interaction.locale }))
             .setStyle('PRIMARY')
             .setDisabled(page + 1 === chunk.length)
     ]);
@@ -47,12 +39,7 @@ export async function run(
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('TAGS_LIST_TITLE', { server: interaction.guild.name })
         .setDescription(
-            codeBlock(
-                'yaml',
-                chunk[0]
-                    .map(x => x.name.replace(`${interaction.guild.id}-`, ''))
-                    .join(', ')
-            )
+            codeBlock('yaml', chunk[0].map(x => x.name.replace(`${interaction.guild.id}-`, '')).join(', '))
         );
 
     interaction.update({ embeds: [embed], components: [row] });

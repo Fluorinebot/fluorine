@@ -4,10 +4,7 @@ import { CommandInteraction } from 'discord.js';
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
 
-export async function run(
-    client: FluorineClient,
-    interaction: CommandInteraction
-) {
+export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const rest = new REST({ version: '9' }).setToken(client.token);
 
     const name = interaction.options.getString('command');
@@ -55,11 +52,7 @@ export async function run(
             interaction.reply('done');
         }
     } catch (error) {
-        const embed = new Embed(client, interaction.locale)
-            .setTitle('fail')
-            .setDescription(`\`\`\`js\n${error}\`\`\``);
-        interaction.deferred
-            ? interaction.editReply({ embeds: [embed] })
-            : interaction.reply({ embeds: [embed] });
+        const embed = new Embed(client, interaction.locale).setTitle('fail').setDescription(`\`\`\`js\n${error}\`\`\``);
+        interaction.deferred ? interaction.editReply({ embeds: [embed] }) : interaction.reply({ embeds: [embed] });
     }
 }

@@ -1,13 +1,6 @@
 import FluorineClient from '@classes/Client';
-import {
-    CommandInteraction,
-    ContextMenuInteraction,
-    Collection
-} from 'discord.js';
-import {
-    ContextMenuCommandBuilder,
-    SlashCommandBuilder
-} from '@discordjs/builders';
+import { CommandInteraction, ContextMenuInteraction, Collection } from 'discord.js';
+import { ContextMenuCommandBuilder, SlashCommandBuilder } from '@discordjs/builders';
 
 export type Category = 'fun' | 'tools' | 'moderation' | 'economy';
 

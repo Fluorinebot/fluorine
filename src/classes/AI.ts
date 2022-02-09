@@ -21,9 +21,7 @@ export default class AI {
     }
     async generate(): Promise<any> {
         const [{ object, text }] = this.queue;
-        const ai = await fetch(
-            `${process.env.AI_URL}/${text}?token=${process.env.AI_TOKEN}`
-        )
+        const ai = await fetch(`${process.env.AI_URL}/${text}?token=${process.env.AI_TOKEN}`)
             .catch(err => {
                 this.isGenerating = false;
                 return err;
@@ -36,15 +34,10 @@ export default class AI {
                 })
             );
         }
-        const embed = new Embed(
-            this.client,
-            object.locale ?? object.guild.preferredLocale
-        )
+        const embed = new Embed(this.client, object.locale ?? object.guild.preferredLocale)
             .setLocaleTitle('AI_TITLE')
             .setDescription(ai.result);
-        object instanceof Message
-            ? object.reply({ embeds: [embed] })
-            : object.followUp({ embeds: [embed] });
+        object instanceof Message ? object.reply({ embeds: [embed] }) : object.followUp({ embeds: [embed] });
         this.queue.shift();
         if (this.queue.length === 0) {
             this.isGenerating = false;

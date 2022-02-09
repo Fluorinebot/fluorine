@@ -4,10 +4,7 @@ import { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { Category } from 'types/applicationCommand';
 
-export async function run(
-    client: FluorineClient,
-    interaction: CommandInteraction<'cached'>
-) {
+export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
     const member = interaction.options.getMember('user') ?? interaction.member;
 
     const embed = new Embed(client, interaction.locale)
@@ -19,11 +16,6 @@ export async function run(
 export const data = new SlashCommandBuilder()
     .setName('avatar')
     .setDescription('Show avatar of an user')
-    .addUserOption(option =>
-        option
-            .setName('user')
-            .setDescription('Select an user')
-            .setRequired(false)
-    );
+    .addUserOption(option => option.setName('user').setDescription('Select an user').setRequired(false));
 
 export const category: Category = 'tools';

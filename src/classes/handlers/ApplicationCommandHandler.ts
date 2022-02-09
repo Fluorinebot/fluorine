@@ -18,25 +18,18 @@ export default class ApplicationCommandHandler {
         const dir = readdirSync(`${__dirname}/../../commands`);
         dir.forEach(async file => {
             if (!file.endsWith('.js')) {
-                const subcommands = readdirSync(
-                    `${__dirname}/../../commands/${file}`
-                );
+                const subcommands = readdirSync(`${__dirname}/../../commands/${file}`);
                 subcommands.forEach(async subfile => {
                     const [subname] = subfile.split('.');
                     if (subname === 'index') return;
                     this.chatInput.set(
                         `${file}/${subname}`,
-                        await import(
-                            `${__dirname}/../../commands/${file}/${subname}`
-                        )
+                        await import(`${__dirname}/../../commands/${file}/${subname}`)
                     );
                 });
             }
             const [name] = file.split('.');
-            this.chatInput.set(
-                name,
-                await import(`${__dirname}/../../commands/${file}`)
-            );
+            this.chatInput.set(name, await import(`${__dirname}/../../commands/${file}`));
         });
         this.client.logger.log(`Loaded ${dir.length} chat input commands.`);
         return this.chatInput;
@@ -46,10 +39,7 @@ export default class ApplicationCommandHandler {
         const dir = readdirSync(`${__dirname}/../../context`);
         dir.forEach(async file => {
             const [name] = file.split('.');
-            this.contextMenu.set(
-                name,
-                await import(`${__dirname}/../../context/${file}`)
-            );
+            this.contextMenu.set(name, await import(`${__dirname}/../../context/${file}`));
         });
 
         this.client.logger.log(`Loaded ${dir.length} context menu commands.`);

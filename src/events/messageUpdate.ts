@@ -3,17 +3,10 @@ import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
 import r from 'rethinkdb';
 import { SettingsType } from 'types/settings';
-export async function run(
-    client: FluorineClient,
-    oldMessage: Message,
-    newMessage: Message
-) {
+export async function run(client: FluorineClient, oldMessage: Message, newMessage: Message) {
     if (!newMessage || newMessage.content === oldMessage.content) return;
     // @ts-ignore
-    const settings: SettingsType = await r
-        .table('config')
-        .get(newMessage.guild?.id)
-        .run(client.conn);
+    const settings: SettingsType = await r.table('config').get(newMessage.guild?.id).run(client.conn);
     if (!settings.logs || !settings.logsChannel) return;
     const channel = client.channels.cache.get(settings.logsChannel);
     if (!channel.isText()) return;

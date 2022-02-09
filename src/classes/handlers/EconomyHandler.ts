@@ -8,17 +8,11 @@ export default class EconomyHandler {
         this.client = client;
     }
     async get(user: string, guild: string) {
-        const data = (await r
-            .table('economy')
-            .get(`${user}-${guild}`)
-            .run(this.client.conn)) as EconomyUser;
+        const data = (await r.table('economy').get(`${user}-${guild}`).run(this.client.conn)) as EconomyUser;
         return data?.balance || { wallet: 0, bank: 0 };
     }
     async add(user: string, guild: string, amount: number) {
-        const userObj: any = await r
-            .table('economy')
-            .get(`${user}-${guild}`)
-            .run(this.client.conn);
+        const userObj: any = await r.table('economy').get(`${user}-${guild}`).run(this.client.conn);
         if (!userObj) {
             return r
                 .table('economy')
@@ -40,10 +34,7 @@ export default class EconomyHandler {
             .run(this.client.conn);
     }
     async subtract(user: string, guild: string, amount: number) {
-        const userObj: any = await r
-            .table('economy')
-            .get(`${user}-${guild}`)
-            .run(this.client.conn);
+        const userObj: any = await r.table('economy').get(`${user}-${guild}`).run(this.client.conn);
         if (!userObj) {
             return r
                 .table('economy')
@@ -65,10 +56,7 @@ export default class EconomyHandler {
             .run(this.client.conn);
     }
     async deposit(user: string, guild: string, amount: number) {
-        const userObj: any = await r
-            .table('economy')
-            .get(`${user}-${guild}`)
-            .run(this.client.conn);
+        const userObj: any = await r.table('economy').get(`${user}-${guild}`).run(this.client.conn);
         if (!userObj) {
             return r
                 .table('economy')
@@ -90,10 +78,7 @@ export default class EconomyHandler {
             .run(this.client.conn);
     }
     async withdraw(user: string, guild: string, amount: number) {
-        const userObj: any = await r
-            .table('economy')
-            .get(`${user}-${guild}`)
-            .run(this.client.conn);
+        const userObj: any = await r.table('economy').get(`${user}-${guild}`).run(this.client.conn);
         if (!userObj) {
             return r
                 .table('economy')
@@ -115,21 +100,11 @@ export default class EconomyHandler {
             .run(this.client.conn);
     }
     async getCooldown(user: string, guild: string) {
-        const userObj = (await r
-            .table('economy')
-            .get(`${user}-${guild}`)
-            .run(this.client.conn)) as EconomyUser;
+        const userObj = (await r.table('economy').get(`${user}-${guild}`).run(this.client.conn)) as EconomyUser;
         return userObj?.cooldown || { work: 0 };
     }
-    async setCooldown(
-        user: string,
-        guild: string,
-        cooldown: EconomyUser['cooldown']
-    ) {
-        const userObj: any = await r
-            .table('economy')
-            .get(`${user}-${guild}`)
-            .run(this.client.conn);
+    async setCooldown(user: string, guild: string, cooldown: EconomyUser['cooldown']) {
+        const userObj: any = await r.table('economy').get(`${user}-${guild}`).run(this.client.conn);
         if (!userObj) {
             return r
                 .table('economy')
@@ -149,10 +124,7 @@ export default class EconomyHandler {
             .run(this.client.conn);
     }
     async getCurrency(guild: string) {
-        const guildObj = (await r
-            .table('config')
-            .get(guild)
-            .run(this.client.conn)) as SettingsType;
+        const guildObj = (await r.table('config').get(guild).run(this.client.conn)) as SettingsType;
         return guildObj?.currency || '🪙';
     }
 }

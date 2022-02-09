@@ -5,11 +5,7 @@ import getCases from '@util/getCases';
 
 export const authorOnly = true;
 
-export async function run(
-    client: FluorineClient,
-    interaction: ButtonInteraction,
-    value: string
-) {
+export async function run(client: FluorineClient, interaction: ButtonInteraction, value: string) {
     const [user, _page] = value.split('.');
     const page = Number(_page);
     const member = client.users.cache.get(user);
@@ -27,24 +23,16 @@ export async function run(
     const row = new MessageActionRow();
     row.addComponents(
         new MessageButton()
-            .setCustomId(
-                `listcase:${interaction.user.id}:${member.id}.${page - 1}`
-            )
-            .setLabel(
-                client.i18n.t('LISTCASE_BACK', { lng: interaction.locale })
-            )
+            .setCustomId(`listcase:${interaction.user.id}:${member.id}.${page - 1}`)
+            .setLabel(client.i18n.t('LISTCASE_BACK', { lng: interaction.locale }))
             .setStyle('PRIMARY')
             .setDisabled(page === 0)
     );
 
     row.addComponents(
         new MessageButton()
-            .setCustomId(
-                `listcase:${interaction.user.id}:${member.id}.${page + 1}`
-            )
-            .setLabel(
-                client.i18n.t('LISTCASE_NEXT', { lng: interaction.locale })
-            )
+            .setCustomId(`listcase:${interaction.user.id}:${member.id}.${page + 1}`)
+            .setLabel(client.i18n.t('LISTCASE_NEXT', { lng: interaction.locale }))
             .setStyle('PRIMARY')
             .setDisabled(page + 1 === chunk.length)
     );

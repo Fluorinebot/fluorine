@@ -27,15 +27,11 @@ export default class Embed extends MessageEmbed {
     }
 
     public setLocaleTitle(title: string, args = {}): this {
-        return super.setTitle(
-            this.i18n.t(title, { lng: this.locale, ...args })
-        );
+        return super.setTitle(this.i18n.t(title, { lng: this.locale, ...args }));
     }
 
     public setLocaleDescription(description: string, args = {}): this {
-        return super.setDescription(
-            this.i18n.t(description, { lng: this.locale, ...args })
-        );
+        return super.setDescription(this.i18n.t(description, { lng: this.locale, ...args }));
     }
 
     public addLocaleField(field: LocaleFieldOptions): this {

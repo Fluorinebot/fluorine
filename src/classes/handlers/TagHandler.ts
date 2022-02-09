@@ -14,12 +14,9 @@ export default class TagHandler {
     getParsingFunctions(type: 'variables' | 'functions') {
         const returnables = {
             variables: {
-                interUserTag: (interaction: CommandInteraction) =>
-                    interaction.user.tag,
-                interUserName: (interaction: CommandInteraction) =>
-                    interaction.user.username,
-                interUserPing: (interaction: CommandInteraction) =>
-                    interaction.user.toString()
+                interUserTag: (interaction: CommandInteraction) => interaction.user.tag,
+                interUserName: (interaction: CommandInteraction) => interaction.user.username,
+                interUserPing: (interaction: CommandInteraction) => interaction.user.toString()
             },
             functions: {
                 rand: (interaction: CommandInteraction, params: string[]) => {
@@ -27,29 +24,16 @@ export default class TagHandler {
                     const max = parseInt(params[1]);
                     return Math.floor(Math.random() * (max - min)) + min;
                 },
-                choose: async (
-                    interaction: CommandInteraction,
-                    params: string[]
-                ) => {
+                choose: async (interaction: CommandInteraction, params: string[]) => {
                     const cleanParams = await Promise.all(
                         params.map(param =>
-                            this.getParsedStaticVars(
-                                param.replaceAll('--', ' '),
-                                '$',
-                                '$',
-                                interaction
-                            )
+                            this.getParsedStaticVars(param.replaceAll('--', ' '), '$', '$', interaction)
                         )
                     );
 
-                    return cleanParams[
-                        Math.floor(Math.random() * cleanParams.length)
-                    ];
+                    return cleanParams[Math.floor(Math.random() * cleanParams.length)];
                 },
-                user: async (
-                    interaction: CommandInteraction,
-                    params: string[]
-                ) => {
+                user: async (interaction: CommandInteraction, params: string[]) => {
                     const user = await this.client.users.fetch(params[0]);
 
                     const customVarmap = {
@@ -70,30 +54,17 @@ export default class TagHandler {
         return content.split(/[{}]/u);
     }
 
-    async getParsedStaticVars(
-        content: string,
-        start: string,
-        end: string,
-        interaction: CommandInteraction
-    ) {
+    async getParsedStaticVars(content: string, start: string, end: string, interaction: CommandInteraction) {
         let returnString = content;
 
-        for (const [key, value] of Object.entries(
-            this.getParsingFunctions('variables')
-        )) {
-            returnString = returnString.replaceAll(
-                `${start}${key}${end}`,
-                await value(interaction, [])
-            );
+        for (const [key, value] of Object.entries(this.getParsingFunctions('variables'))) {
+            returnString = returnString.replaceAll(`${start}${key}${end}`, await value(interaction, []));
         }
 
         return returnString;
     }
 
-    async getParsedTagContent(
-        tagContent: string,
-        interaction: CommandInteraction
-    ) {
+    async getParsedTagContent(tagContent: string, interaction: CommandInteraction) {
         let returnString = tagContent;
         const specialParse = this.getParsingFunctions('functions');
         const reserved = ['rand', 'choose', 'user'];
@@ -106,10 +77,7 @@ export default class TagHandler {
                 const params = props.split('|');
                 const method = specialParse[action];
 
-                returnString = returnString.replace(
-                    `{${elem}}`,
-                    await method(interaction, params)
-                );
+                returnString = returnString.replace(`{${elem}}`, await method(interaction, params));
             }
         }
 
@@ -121,11 +89,7 @@ export default class TagHandler {
         const tagString = tag.content;
         const [tagContent] = tagString.split('@embed');
 
-        if (tagContent)
-            replyOptions.content = await this.getParsedTagContent(
-                tagContent,
-                interaction
-            );
+        if (tagContent) replyOptions.content = await this.getParsedTagContent(tagContent, interaction);
 
         replyOptions.ephemeral = tag.ephemeral;
         return replyOptions;

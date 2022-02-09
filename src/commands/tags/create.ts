@@ -3,10 +3,7 @@ import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
 import r from 'rethinkdb';
 
-export async function run(
-    client: FluorineClient,
-    interaction: CommandInteraction
-) {
+export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const name = interaction.options.getString('name');
     const description = interaction.options.getString('description');
     const content = interaction.options.getString('content');
@@ -40,12 +37,7 @@ export async function run(
             ephemeral: true
         });
 
-    interaction.guild.commands.create(
-        new SlashCommandBuilder()
-            .setName(name)
-            .setDescription(description)
-            .toJSON()
-    );
+    interaction.guild.commands.create(new SlashCommandBuilder().setName(name).setDescription(description).toJSON());
 
     const tagData = {
         guild: interaction.guild.id,

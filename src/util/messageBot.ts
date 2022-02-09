@@ -35,8 +35,6 @@ export async function messageBot(client: FluorineClient, message: Message) {
     if (!message.author.avatar) {
         bot += 5;
     }
-    words
-        .filter(word => message.content.includes(word))
-        .forEach(() => (bot += 5));
+    words.filter(word => message.content.includes(word)).forEach(() => (bot += 5));
     return bot;
 }

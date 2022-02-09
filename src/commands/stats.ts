@@ -4,10 +4,7 @@ import { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { Category } from 'types/applicationCommand';
 
-export async function run(
-    client: FluorineClient,
-    interaction: CommandInteraction
-) {
+export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('STATS_TITLE')
         .addLocaleField({
@@ -29,8 +26,6 @@ export async function run(
     interaction.reply({ embeds: [embed] });
 }
 
-export const data = new SlashCommandBuilder()
-    .setName('stats')
-    .setDescription('Statistics of the bot');
+export const data = new SlashCommandBuilder().setName('stats').setDescription('Statistics of the bot');
 
 export const category: Category = 'tools';

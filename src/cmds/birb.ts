@@ -4,12 +4,8 @@ import { Message } from 'discord.js';
 import { fetch } from 'undici';
 
 export async function run(client: FluorineClient, message: Message) {
-    const { file }: any = await (
-        await fetch('https://api.alexflipnote.dev/birb')
-    ).json();
-    const embed = new Embed(client, message.guild.preferredLocale)
-        .setLocaleTitle('BIRB')
-        .setImage(file);
+    const { file }: any = await (await fetch('https://api.alexflipnote.dev/birb')).json();
+    const embed = new Embed(client, message.guild.preferredLocale).setLocaleTitle('BIRB').setImage(file);
     message.reply({ embeds: [embed] });
 }
 export const help = {

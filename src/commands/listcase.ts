@@ -1,19 +1,11 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import {
-    CommandInteraction,
-    InteractionReplyOptions,
-    MessageActionRow,
-    MessageButton
-} from 'discord.js';
+import { CommandInteraction, InteractionReplyOptions, MessageActionRow, MessageButton } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { Category } from 'types/applicationCommand';
 import getCases from '@util/getCases';
 
-export async function run(
-    client: FluorineClient,
-    interaction: CommandInteraction<'cached'>
-) {
+export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
     const row = new MessageActionRow();
     const member = interaction.options.getMember('user');
 
@@ -58,9 +50,7 @@ export async function run(
     if (chunk.length > 1) {
         row.addComponents(
             new MessageButton()
-                .setCustomId(
-                    `listcase:${interaction.user.id}:${member.user.id}.0`
-                )
+                .setCustomId(`listcase:${interaction.user.id}:${member.user.id}.0`)
                 .setLabel(
                     client.i18n.t('LISTCASE_BACK', {
                         lng: interaction.locale
@@ -72,9 +62,7 @@ export async function run(
 
         row.addComponents(
             new MessageButton()
-                .setCustomId(
-                    `listcase:${interaction.user.id}:${member.user.id}.1`
-                )
+                .setCustomId(`listcase:${interaction.user.id}:${member.user.id}.1`)
                 .setLabel(
                     client.i18n.t('LISTCASE_NEXT', {
                         lng: interaction.locale
@@ -92,11 +80,6 @@ export async function run(
 export const data = new SlashCommandBuilder()
     .setName('listcase')
     .setDescription('Check punishments of a user')
-    .addUserOption(option =>
-        option
-            .setName('user')
-            .setDescription('The user to check')
-            .setRequired(true)
-    );
+    .addUserOption(option => option.setName('user').setDescription('The user to check').setRequired(true));
 
 export const category: Category = 'tools';

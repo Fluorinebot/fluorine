@@ -4,10 +4,7 @@ import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
 import { Category } from 'types/applicationCommand';
 
-export async function run(
-    client: FluorineClient,
-    interaction: CommandInteraction
-) {
+export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('SERVER_INFO')
         .addLocaleField({
@@ -16,9 +13,7 @@ export async function run(
         })
         .addLocaleField({
             name: 'SERVER_INFO_CREATED',
-            value: `<t:${Math.round(
-                interaction.guild.createdTimestamp / 1000
-            )}>`
+            value: `<t:${Math.round(interaction.guild.createdTimestamp / 1000)}>`
         })
         .addLocaleField({
             name: 'SERVER_INFO_MEMBERS',
@@ -35,8 +30,6 @@ export async function run(
     interaction.reply({ embeds: [embed] });
 }
 
-export const data = new SlashCommandBuilder()
-    .setName('serverinfo')
-    .setDescription('Information about this server');
+export const data = new SlashCommandBuilder().setName('serverinfo').setDescription('Information about this server');
 
 export const category: Category = 'tools';

@@ -5,22 +5,15 @@ import { CommandInteraction } from 'discord.js';
 import { fetch } from 'undici';
 import { Category } from 'types/applicationCommand';
 
-export async function run(
-    client: FluorineClient,
-    interaction: CommandInteraction
-) {
-    const { file } = (await fetch('https://api.alexflipnote.dev/birb').then(
-        response => response.json()
-    )) as { file: string };
+export async function run(client: FluorineClient, interaction: CommandInteraction) {
+    const { file } = (await fetch('https://api.alexflipnote.dev/birb').then(response => response.json())) as {
+        file: string;
+    };
 
-    const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle('BIRB')
-        .setImage(file);
+    const embed = new Embed(client, interaction.locale).setLocaleTitle('BIRB').setImage(file);
     interaction.reply({ embeds: [embed] });
 }
 
-export const data = new SlashCommandBuilder()
-    .setName('birb')
-    .setDescription('Random bird picture');
+export const data = new SlashCommandBuilder().setName('birb').setDescription('Random bird picture');
 
 export const category: Category = 'fun';

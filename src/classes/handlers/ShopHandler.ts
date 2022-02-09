@@ -8,11 +8,7 @@ export default class ShopHandler {
         this.client = client;
     }
     async list(guild: string): Promise<ShopItem[]> {
-        return r
-            .table('shop')
-            .getAll(guild, { index: 'guild' })
-            .coerceTo('array')
-            .run(this.client.conn);
+        return r.table('shop').getAll(guild, { index: 'guild' }).coerceTo('array').run(this.client.conn);
     }
     async get(name: string, guild: string): Promise<ShopItem> {
         const all = await r

@@ -7,10 +7,7 @@ import r from 'rethinkdb';
 import modLog from '@util/modLog';
 import { Category } from 'types/applicationCommand';
 
-export async function run(
-    client: FluorineClient,
-    interaction: CommandInteraction<'cached'>
-) {
+export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
     if (!interaction.member?.permissions.has('KICK_MEMBERS')) {
         return interaction.reply({
             content: client.i18n.t('KICK_PERMISSIONS_MISSING', {
@@ -60,14 +57,7 @@ export async function run(
         });
     }
 
-    const create = await createCase(
-        client,
-        interaction?.guild,
-        member.user,
-        interaction.user,
-        'kick',
-        reason
-    );
+    const create = await createCase(client, interaction?.guild, member.user, interaction.user, 'kick', reason);
 
     await member.kick(
         client.i18n.t('KICK_REASON', {
@@ -93,17 +83,9 @@ export async function run(
 export const data = new SlashCommandBuilder()
     .setName('kick')
     .setDescription('Kick an user from the server')
-    .addUserOption(option =>
-        option
-            .setName('user')
-            .setDescription('Provide an user to kick')
-            .setRequired(true)
-    )
+    .addUserOption(option => option.setName('user').setDescription('Provide an user to kick').setRequired(true))
     .addStringOption(option =>
-        option
-            .setName('reason')
-            .setDescription('Provide a reason for kicking this user')
-            .setRequired(false)
+        option.setName('reason').setDescription('Provide a reason for kicking this user').setRequired(false)
     );
 
 export const category: Category = 'moderation';

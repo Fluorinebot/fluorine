@@ -3,11 +3,7 @@ import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
 import clean from '@util/clean';
 import { execSync } from 'child_process';
-export async function run(
-    client: FluorineClient,
-    message: Message,
-    args: string[]
-) {
+export async function run(client: FluorineClient, message: Message, args: string[]) {
     if (!client.devs.includes(message.author.id)) {
         return message.reply(
             client.i18n.t('EVAL_USER_NOT_DEV', {
@@ -16,10 +12,7 @@ export async function run(
         );
     }
     if (args.includes('client.token')) return message.reply('you wish');
-    let codex: any = args
-        .join(' ')
-        .replaceAll('```js', '')
-        .replaceAll('```ts', '');
+    let codex: any = args.join(' ').replaceAll('```js', '').replaceAll('```ts', '');
     if (codex.includes('```sh')) {
         codex = codex.replaceAll('```sh', '').replaceAll('```', '');
         const output = execSync(codex).toString();

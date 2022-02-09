@@ -9,10 +9,7 @@ export const data = new SlashCommandBuilder()
             .setName('prefix')
             .setDescription('Set the prefix for your guild')
             .addStringOption(option =>
-                option
-                    .setName('prefix')
-                    .setDescription('The prefix you want to set')
-                    .setRequired(true)
+                option.setName('prefix').setDescription('The prefix you want to set').setRequired(true)
             )
     )
     .addSubcommand(command =>
@@ -49,10 +46,7 @@ export const data = new SlashCommandBuilder()
             .setName('logs')
             .setDescription('Set if you want to log messages')
             .addBooleanOption(option =>
-                option
-                    .setName('logs')
-                    .setDescription('Set whether you want to log messages')
-                    .setRequired(true)
+                option.setName('logs').setDescription('Set whether you want to log messages').setRequired(true)
             )
     )
 
@@ -75,9 +69,7 @@ export const data = new SlashCommandBuilder()
             .addBooleanOption(option =>
                 option
                     .setName('mod-logs')
-                    .setDescription(
-                        'Set whether you want to log moderation actions'
-                    )
+                    .setDescription('Set whether you want to log moderation actions')
                     .setRequired(true)
             )
     )
@@ -86,10 +78,7 @@ export const data = new SlashCommandBuilder()
             .setName('currency')
             .setDescription('Set the currency')
             .addStringOption(option =>
-                option
-                    .setName('currency')
-                    .setDescription('The currency you want to set')
-                    .setRequired(true)
+                option.setName('currency').setDescription('The currency you want to set').setRequired(true)
             )
     );
 export const category: Category = 'tools';

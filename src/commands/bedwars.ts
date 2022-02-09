@@ -6,14 +6,9 @@ import { HypixelType } from 'types/hypixel';
 import { fetch } from 'undici';
 import { Category } from 'types/applicationCommand';
 
-export async function run(
-    client: FluorineClient,
-    interaction: CommandInteraction
-) {
+export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const player = interaction.options.getString('player');
-    const uuid: any = await fetch(
-        `https://api.mojang.com/users/profiles/minecraft/${player}`
-    ).then(res => res.json());
+    const uuid: any = await fetch(`https://api.mojang.com/users/profiles/minecraft/${player}`).then(res => res.json());
 
     if (!uuid)
         return interaction.reply({
@@ -36,13 +31,9 @@ export async function run(
         });
     }
 
-    const kd = Number(
-        (bedStats.kills_bedwars / bedStats.deaths_bedwars).toFixed(2)
-    );
+    const kd = Number((bedStats.kills_bedwars / bedStats.deaths_bedwars).toFixed(2));
 
-    const winratio = Number(
-        (bedStats.wins_bedwars / bedStats.losses_bedwars).toFixed(2)
-    );
+    const winratio = Number((bedStats.wins_bedwars / bedStats.losses_bedwars).toFixed(2));
 
     const bedEmbed = new Embed(client, interaction.locale)
         .setLocaleTitle('HYPIXEL_STATISTICS_TITLE', { player })
@@ -79,20 +70,13 @@ export async function run(
             value: `${bedStats.beds_lost_bedwars || 0}`,
             inline: true
         })
-        .setThumbnail(
-            `https://crafatar.com/avatars/${uuid.data.id}?default=MHF_Steve&overlay`
-        );
+        .setThumbnail(`https://crafatar.com/avatars/${uuid.data.id}?default=MHF_Steve&overlay`);
     interaction.reply({ embeds: [bedEmbed] });
 }
 
 export const data = new SlashCommandBuilder()
     .setName('bedwars')
     .setDescription("Check a player's bedwars stats from Hypixel")
-    .addStringOption(option =>
-        option
-            .setName('player')
-            .setDescription('The player to search')
-            .setRequired(true)
-    );
+    .addStringOption(option => option.setName('player').setDescription('The player to search').setRequired(true));
 
 export const category: Category = 'fun';
