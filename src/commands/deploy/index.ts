@@ -9,16 +9,10 @@ export const data = new SlashCommandBuilder()
             .setName('create')
             .setDescription('Create application commands')
             .addStringOption(option =>
-                option
-                    .setName('command')
-                    .setDescription('Provide a command to create')
-                    .setRequired(true)
+                option.setName('command').setDescription('Provide a command to create').setRequired(true)
             )
             .addStringOption(option =>
-                option
-                    .setName('guild')
-                    .setDescription('Provide a guild to deploy')
-                    .setRequired(false)
+                option.setName('guild').setDescription('Provide a guild to deploy').setRequired(false)
             )
     )
     .addSubcommand(subcommand =>
@@ -26,16 +20,10 @@ export const data = new SlashCommandBuilder()
             .setName('delete')
             .setDescription('Delete application commands')
             .addStringOption(option =>
-                option
-                    .setName('command')
-                    .setDescription('Provide a command to delete')
-                    .setRequired(true)
+                option.setName('command').setDescription('Provide a command to delete').setRequired(true)
             )
             .addStringOption(option =>
-                option
-                    .setName('guild')
-                    .setDescription('Provide a guild to deploy')
-                    .setRequired(false)
+                option.setName('guild').setDescription('Provide a guild to deploy').setRequired(false)
             )
     );
 

@@ -4,11 +4,7 @@ import r from 'rethinkdb';
 
 export const authorOnly = true;
 
-export async function run(
-    client: FluorineClient,
-    interaction: ButtonInteraction,
-    value: string
-) {
+export async function run(client: FluorineClient, interaction: ButtonInteraction, value: string) {
     const [action, tag] = value.split('.');
     let response;
 
@@ -16,9 +12,7 @@ export async function run(
 
     switch (action) {
         case 'yes': {
-            const tagCommand = interaction.guild.commands.cache.find(
-                c => c.name === tag
-            );
+            const tagCommand = interaction.guild.commands.cache.find(c => c.name === tag);
 
             const [{ id }] = await r
                 .table('tags')

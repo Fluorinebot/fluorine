@@ -8,10 +8,7 @@ import r from 'rethinkdb';
 import modLog from '@util/modLog';
 import { Category } from 'types/applicationCommand';
 
-export async function run(
-    client: FluorineClient,
-    interaction: CommandInteraction<'cached'>
-) {
+export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
     if (!interaction.member?.permissions.has('MODERATE_MEMBERS')) {
         return interaction.reply({
             content: client.i18n.t('TIMEOUT_PERMISSIONS_MISSING', {
@@ -22,12 +19,8 @@ export async function run(
     }
 
     const member = interaction.options.getMember('user');
-    const duration = ms(
-        interaction.options.getString('duration') as StringValue
-    );
-    const reason =
-        interaction.options.getString('reason') ??
-        client.i18n.t('NONE', { lng: interaction.locale });
+    const duration = ms(interaction.options.getString('duration') as StringValue);
+    const reason = interaction.options.getString('reason') ?? client.i18n.t('NONE', { lng: interaction.locale });
 
     if (!member)
         return interaction.reply({
@@ -69,14 +62,7 @@ export async function run(
             ephemeral: true
         });
 
-    const create = await createCase(
-        client,
-        interaction?.guild,
-        member.user,
-        interaction.user,
-        'timeout',
-        reason
-    );
+    const create = await createCase(client, interaction?.guild, member.user, interaction.user, 'timeout', reason);
 
     await member.timeout(
         duration,
@@ -107,23 +93,12 @@ export async function run(
 export const data = new SlashCommandBuilder()
     .setName('timeout')
     .setDescription('Timeout an user from the server')
-    .addUserOption(option =>
-        option
-            .setName('user')
-            .setDescription('Provide an user to timeout')
-            .setRequired(true)
+    .addUserOption(option => option.setName('user').setDescription('Provide an user to timeout').setRequired(true))
+    .addStringOption(option =>
+        option.setName('duration').setDescription('Provide how long the timeout will last').setRequired(true)
     )
     .addStringOption(option =>
-        option
-            .setName('duration')
-            .setDescription('Provide how long the timeout will last')
-            .setRequired(true)
-    )
-    .addStringOption(option =>
-        option
-            .setName('reason')
-            .setDescription('Provide a reason for timing out this user')
-            .setRequired(false)
+        option.setName('reason').setDescription('Provide a reason for timing out this user').setRequired(false)
     );
 
 export const category: Category = 'moderation';

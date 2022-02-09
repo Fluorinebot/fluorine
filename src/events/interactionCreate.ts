@@ -47,9 +47,7 @@ export async function run(client: FluorineClient, interaction: Interaction) {
 
     const subcommand = interaction.options.getSubcommand(false);
     const command = subcommand
-        ? client.applicationCommands.chatInput.get(
-              `${interaction.commandName}/${subcommand}`
-          )
+        ? client.applicationCommands.chatInput.get(`${interaction.commandName}/${subcommand}`)
         : client.applicationCommands.chatInput.get(interaction.commandName);
 
     if (!command) {
@@ -65,14 +63,10 @@ export async function run(client: FluorineClient, interaction: Interaction) {
         tag.uses++;
 
         await r.table('tags').get(tag.name).update(tag).run(client.conn);
-        return interaction.reply(
-            await client.tags.getParsedReplyOptions(tag, interaction)
-        );
+        return interaction.reply(await client.tags.getParsedReplyOptions(tag, interaction));
     }
 
-    const { dev } = client.applicationCommands.chatInput.get(
-        interaction.commandName
-    );
+    const { dev } = client.applicationCommands.chatInput.get(interaction.commandName);
     if (dev && !client.devs.includes(interaction.user.id))
         return interaction.reply({
             content: 'You need to be a developer to do that!',

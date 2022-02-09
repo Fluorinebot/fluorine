@@ -5,11 +5,7 @@ import modLog from '@util/modLog';
 import { Message } from 'discord.js';
 import r from 'rethinkdb';
 
-export async function run(
-    client: FluorineClient,
-    message: Message,
-    args: string[]
-) {
+export async function run(client: FluorineClient, message: Message, args: string[]) {
     if (!message.member?.permissions.has('MODERATE_MEMBERS')) {
         return message.reply(
             client.i18n.t('WARN_PERMISSIONS_MISSING', {
@@ -24,9 +20,7 @@ export async function run(
             })
         );
 
-    const member =
-        message.mentions.members?.first() ??
-        (await message.guild?.members.fetch(args[0]).catch(() => null));
+    const member = message.mentions.members?.first() ?? (await message.guild?.members.fetch(args[0]).catch(() => null));
     const reason =
         args.slice(1).join(' ') ||
         client.i18n.t('NONE', {
@@ -52,14 +46,7 @@ export async function run(
         );
     }
 
-    const create = await createCase(
-        client,
-        message?.guild,
-        member.user,
-        message.author,
-        'warn',
-        reason
-    );
+    const create = await createCase(client, message?.guild, member.user, message.author, 'warn', reason);
     r.table('case').insert(create).run(client.conn);
     modLog(client, create, message.guild);
     const embed = new Embed(client, message.guild.preferredLocale)

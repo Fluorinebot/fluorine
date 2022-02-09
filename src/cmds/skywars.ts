@@ -3,11 +3,7 @@ import Embed from '@classes/Embed';
 import { HypixelType } from 'types/hypixel';
 import { Message } from 'discord.js';
 import { fetch } from 'undici';
-export async function run(
-    client: FluorineClient,
-    message: Message,
-    args: string[]
-) {
+export async function run(client: FluorineClient, message: Message, args: string[]) {
     if (!args[0])
         return message.reply(
             client.i18n.t('HYPIXEL_NO_ARGS', {
@@ -15,9 +11,7 @@ export async function run(
                 command: 'bedwars'
             })
         );
-    const uuid: any = await fetch(
-        `https://api.mojang.com/users/profiles/minecraft/${args[0]}`
-    ).then(res => res.json());
+    const uuid: any = await fetch(`https://api.mojang.com/users/profiles/minecraft/${args[0]}`).then(res => res.json());
 
     if (!uuid.data.id)
         return message.reply(
@@ -71,8 +65,6 @@ export async function run(
             value: `${skyStats.assists || 0}`,
             inline: true
         })
-        .setThumbnail(
-            `https://crafatar.com/avatars/${uuid.data.id}?default=MHF_Steve&overlay`
-        );
+        .setThumbnail(`https://crafatar.com/avatars/${uuid.data.id}?default=MHF_Steve&overlay`);
     message.reply({ embeds: [embed] });
 }

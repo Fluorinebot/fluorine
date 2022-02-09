@@ -13,15 +13,9 @@ export default class PhishingHandler {
     url: string;
     constructor(client: FluorineClient) {
         this.client = client;
-        this.users = readFileSync(
-            `${__dirname}/../../../assets/users.txt`
-        ).toString();
-        this.word = readFileSync(
-            `${__dirname}/../../../assets/words.txt`
-        ).toString();
-        this.url = readFileSync(
-            `${__dirname}/../../../assets/url.txt`
-        ).toString();
+        this.users = readFileSync(`${__dirname}/../../../assets/users.txt`).toString();
+        this.word = readFileSync(`${__dirname}/../../../assets/words.txt`).toString();
+        this.url = readFileSync(`${__dirname}/../../../assets/url.txt`).toString();
     }
     async getLink(links: PhishingLink[]) {
         const request = await fetch(
@@ -34,11 +28,7 @@ export default class PhishingHandler {
                         clientVersion: '2.0.0'
                     },
                     threatInfo: {
-                        threatTypes: [
-                            'MALWARE',
-                            'SOCIAL_ENGINEERING',
-                            'POTENTIALLY_HARMFUL_APPLICATION'
-                        ],
+                        threatTypes: ['MALWARE', 'SOCIAL_ENGINEERING', 'POTENTIALLY_HARMFUL_APPLICATION'],
                         platformTypes: ['ANY_PLATFORM'],
                         threatEntryTypes: ['URL', 'IP_RANGE'],
                         threatEntries: links

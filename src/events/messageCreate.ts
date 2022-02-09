@@ -18,10 +18,7 @@ export async function run(client: FluorineClient, message: Message) {
     }
 
     // @ts-ignore
-    const settings: SettingsType = await r
-        .table('config')
-        .get(message.guild?.id)
-        .run(client.conn);
+    const settings: SettingsType = await r.table('config').get(message.guild?.id).run(client.conn);
     if (settings.antibot) {
         const factor = await messageBot(client, message);
         if (factor >= settings.antibot) {
@@ -82,10 +79,7 @@ export async function run(client: FluorineClient, message: Message) {
         } else {
             return message.react('❌');
         }
-    } else if (
-        message.content === `<@!${client.user.id}>` ||
-        message.content === `<@${client.user.id}>`
-    ) {
+    } else if (message.content === `<@!${client.user.id}>` || message.content === `<@${client.user.id}>`) {
         const embed = new Embed(client, message.guild.preferredLocale)
             .setTitle('Fluorine')
             .setLocaleDescription('MESSAGE_CREATE_DESCRIPTION', {

@@ -4,15 +4,10 @@ import { CommandInteraction } from 'discord.js';
 import r from 'rethinkdb';
 import { Tag } from 'types/tag';
 
-export async function run(
-    client: FluorineClient,
-    interaction: CommandInteraction
-) {
+export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const name = interaction.options.getString('tag');
 
-    const guildCommands = (await interaction.guild.commands.fetch()).map(
-        c => c.name
-    );
+    const guildCommands = (await interaction.guild.commands.fetch()).map(c => c.name);
 
     if (!guildCommands.includes(name))
         return interaction.reply({

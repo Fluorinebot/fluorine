@@ -6,14 +6,9 @@ import { fetch } from 'undici';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { Category } from 'types/applicationCommand';
 
-export async function run(
-    client: FluorineClient,
-    interaction: CommandInteraction
-) {
+export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const player = interaction.options.getString('player');
-    const uuid: any = await fetch(
-        `https://api.mojang.com/users/profiles/minecraft/${player}`
-    )
+    const uuid: any = await fetch(`https://api.mojang.com/users/profiles/minecraft/${player}`)
         .then(res => res.json())
         .catch(() => null);
 
@@ -24,9 +19,7 @@ export async function run(
             }),
             ephemeral: true
         });
-    const data = (await fetch(
-        `https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${process.env.HYPIXEL_TOKEN}`
-    )
+    const data = (await fetch(`https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${process.env.HYPIXEL_TOKEN}`)
         .then(res => res.json())
         .catch(() => ({ data: null }))) as HypixelType;
 
@@ -74,20 +67,13 @@ export async function run(
             value: `${skyStats.assists || 0}`,
             inline: true
         })
-        .setThumbnail(
-            `https://crafatar.com/avatars/${uuid.data.id}?default=MHF_Steve&overlay`
-        );
+        .setThumbnail(`https://crafatar.com/avatars/${uuid.data.id}?default=MHF_Steve&overlay`);
     interaction.reply({ embeds: [embed] });
 }
 
 export const data = new SlashCommandBuilder()
     .setName('skywars')
     .setDescription("Check a player's skywars stats from Hypixel")
-    .addStringOption(option =>
-        option
-            .setName('player')
-            .setDescription('The player to search')
-            .setRequired(true)
-    );
+    .addStringOption(option => option.setName('player').setDescription('The player to search').setRequired(true));
 
 export const category: Category = 'fun';

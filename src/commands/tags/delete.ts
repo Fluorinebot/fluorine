@@ -1,17 +1,10 @@
 import FluorineClient from '@classes/Client';
-import {
-    CommandInteraction,
-    MessageActionRow,
-    MessageButton
-} from 'discord.js';
+import { CommandInteraction, MessageActionRow, MessageButton } from 'discord.js';
 import { MessageButtonStyles } from 'discord.js/typings/enums';
 import r from 'rethinkdb';
 import { Tag } from 'types/tag';
 
-export async function run(
-    client: FluorineClient,
-    interaction: CommandInteraction
-) {
+export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const name = interaction.options.getString('tag');
     const [tag] = (await r
         .table('tags')

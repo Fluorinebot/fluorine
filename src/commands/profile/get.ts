@@ -3,22 +3,17 @@ import { CommandInteraction, MessageAttachment } from 'discord.js';
 import r from 'rethinkdb';
 import canvas from 'canvas';
 import fragmentText from '@util/fragmentText';
-export async function run(
-    client: FluorineClient,
-    interaction: CommandInteraction
-) {
+export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const user = interaction.options.getUser('user') ?? interaction.user;
     const notSet = client.i18n.t('PROFILE_NOT_SET', {
         lng: interaction.locale
     });
-    const profile: any =
-        (await r.table('profile').get(user.id).run(client.conn)) || {};
+    const profile: any = (await r.table('profile').get(user.id).run(client.conn)) || {};
     if (profile?.birthday) {
         const birthday = profile.birthday.split('/');
-        profile.birthday = `${client.i18n.t(
-            `MONTHS.${parseInt(birthday[1]) - 1}`,
-            { lng: interaction.locale }
-        )} ${birthday[0]}`;
+        profile.birthday = `${client.i18n.t(`MONTHS.${parseInt(birthday[1]) - 1}`, { lng: interaction.locale })} ${
+            birthday[0]
+        }`;
     } else {
         profile.birthday = notSet;
     }
@@ -34,12 +29,8 @@ export async function run(
         family: 'Poppins',
         weight: 'bold'
     });
-    const image = await canvas.loadImage(
-        `${__dirname}/../../../assets/template.png`
-    );
-    const avatar = await canvas.loadImage(
-        user.displayAvatarURL({ format: 'png' })
-    );
+    const image = await canvas.loadImage(`${__dirname}/../../../assets/template.png`);
+    const avatar = await canvas.loadImage(user.displayAvatarURL({ format: 'png' }));
     const canva = canvas.createCanvas(image.width, image.height);
     const ctx = canva.getContext('2d');
     ctx.drawImage(image, 0, 0);
@@ -48,29 +39,13 @@ export async function run(
     ctx.fillText(user.tag, 170, 83);
     ctx.font = 'bold 47px "Poppins"';
     ctx.fillStyle = '#ffffff';
-    ctx.fillText(
-        client.i18n.t('PROFILE_DESCRIPTION', { lng: interaction.locale }),
-        30,
-        190
-    );
+    ctx.fillText(client.i18n.t('PROFILE_DESCRIPTION', { lng: interaction.locale }), 30, 190);
     // other info
     ctx.font = 'bold 42px "Poppins"';
     ctx.fillStyle = '#ffffff';
-    ctx.fillText(
-        client.i18n.t('PROFILE_WEBSITE', { lng: interaction.locale }),
-        986,
-        205
-    );
-    ctx.fillText(
-        client.i18n.t('PROFILE_BIRTHDAY', { lng: interaction.locale }),
-        986,
-        435
-    );
-    ctx.fillText(
-        client.i18n.t('PROFILE_LOCATION', { lng: interaction.locale }),
-        986,
-        655
-    );
+    ctx.fillText(client.i18n.t('PROFILE_WEBSITE', { lng: interaction.locale }), 986, 205);
+    ctx.fillText(client.i18n.t('PROFILE_BIRTHDAY', { lng: interaction.locale }), 986, 435);
+    ctx.fillText(client.i18n.t('PROFILE_LOCATION', { lng: interaction.locale }), 986, 655);
     ctx.font = 'light 40px "Inter"';
     ctx.fillText(profile?.website || notSet, 986, 265);
     ctx.fillText(profile?.birthday || notSet, 986, 490);

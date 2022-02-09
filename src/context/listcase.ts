@@ -1,19 +1,11 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import {
-    InteractionReplyOptions,
-    MessageActionRow,
-    MessageButton,
-    UserContextMenuInteraction
-} from 'discord.js';
+import { InteractionReplyOptions, MessageActionRow, MessageButton, UserContextMenuInteraction } from 'discord.js';
 import { ContextMenuCommandBuilder } from '@discordjs/builders';
 import getCases from '@util/getCases';
 import { ApplicationCommandType } from 'discord-api-types';
 
-export async function run(
-    client: FluorineClient,
-    interaction: UserContextMenuInteraction<'cached'>
-) {
+export async function run(client: FluorineClient, interaction: UserContextMenuInteraction<'cached'>) {
     const row = new MessageActionRow();
     const member = interaction.targetMember;
 
@@ -58,9 +50,7 @@ export async function run(
     if (chunk.length > 1) {
         row.addComponents(
             new MessageButton()
-                .setCustomId(
-                    `listcase:${interaction.user.id}:${member.user.id}.0`
-                )
+                .setCustomId(`listcase:${interaction.user.id}:${member.user.id}.0`)
                 .setLabel(
                     client.i18n.t('LISTCASE_BACK', {
                         lng: interaction.locale
@@ -72,12 +62,8 @@ export async function run(
 
         row.addComponents(
             new MessageButton()
-                .setCustomId(
-                    `listcase:${interaction.user.id}:${member.user.id}.1`
-                )
-                .setLabel(
-                    client.i18n.t('LISTCASE_NEXT', { lng: interaction.locale })
-                )
+                .setCustomId(`listcase:${interaction.user.id}:${member.user.id}.1`)
+                .setLabel(client.i18n.t('LISTCASE_NEXT', { lng: interaction.locale }))
                 .setStyle('PRIMARY')
         );
 
@@ -87,6 +73,4 @@ export async function run(
     interaction.reply(replyOptions);
 }
 
-export const data = new ContextMenuCommandBuilder()
-    .setName('List Cases')
-    .setType(ApplicationCommandType.User);
+export const data = new ContextMenuCommandBuilder().setName('List Cases').setType(ApplicationCommandType.User);

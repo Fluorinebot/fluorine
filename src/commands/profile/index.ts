@@ -7,12 +7,7 @@ export const data = new SlashCommandBuilder()
         command
             .setName('set')
             .setDescription('Set a profile')
-            .addStringOption(option =>
-                option
-                    .setName('field')
-                    .setDescription('Field to set')
-                    .setRequired(true)
-            )
+            .addStringOption(option => option.setName('field').setDescription('Field to set').setRequired(true))
             .addStringOption(option =>
                 option
                     .setName('value')
@@ -31,11 +26,6 @@ export const data = new SlashCommandBuilder()
         command
             .setName('get')
             .setDescription('View a profile')
-            .addUserOption(option =>
-                option
-                    .setName('user')
-                    .setDescription('User to view')
-                    .setRequired(false)
-            )
+            .addUserOption(option => option.setName('user').setDescription('User to view').setRequired(false))
     );
 export const category: Category = 'tools';

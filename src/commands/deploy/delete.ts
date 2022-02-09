@@ -2,16 +2,12 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { CommandInteraction } from 'discord.js';
 
-export async function run(
-    client: FluorineClient,
-    interaction: CommandInteraction
-) {
+export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const name = interaction.options.getString('command');
     const guildId = interaction.options.getString('guild');
 
     try {
-        const { commands } =
-            client.guilds.cache.get(guildId) ?? client.application;
+        const { commands } = client.guilds.cache.get(guildId) ?? client.application;
 
         // @ts-ignore
         await commands.fetch();
