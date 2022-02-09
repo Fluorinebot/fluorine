@@ -74,9 +74,3 @@ export async function run(
 
     r.table('case').insert(create).run(client.conn);
 }
-export const help = {
-    name: 'warn',
-    description: 'Zwarnuj kogoś z serwera',
-    aliases: ['zbanuj'],
-    category: 'moderation'
-};

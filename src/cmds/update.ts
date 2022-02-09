@@ -14,9 +14,3 @@ export async function run(client: FluorineClient, message: Message) {
     execSync('npm i');
     message.reply('pomyślnie zaktualizowano');
 }
-export const help = {
-    name: 'update',
-    description: 'Aktualizuj bota',
-    aliases: ['aktualizuj'],
-    category: 'dev'
-};

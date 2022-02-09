@@ -65,9 +65,3 @@ export async function run(
 
     r.table('case').insert(create).run(client.conn);
 }
-export const help = {
-    name: 'mute',
-    description: 'Zmutuj kogoś z serwera',
-    aliases: ['zmutuj', 'cisza'],
-    category: 'moderation'
-};

@@ -23,9 +23,3 @@ export async function run(client: FluorineClient, message: Message) {
         });
     message.reply({ embeds: [embed] });
 }
-export const help = {
-    name: 'stats',
-    description: 'Statystyki bota',
-    aliases: ['statystyki', 'statistics'],
-    category: 'tools'
-};
