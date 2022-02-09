@@ -46,9 +46,3 @@ export async function run(
         .addField('Powód', reason || 'Brak');
     message.reply({ embeds: [embed] });
 }
-export const help = {
-    name: 'unmute',
-    description: 'Odmutuj kogoś z serwera',
-    aliases: ['odmutuj'],
-    category: 'moderation'
-};

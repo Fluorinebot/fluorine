@@ -80,9 +80,3 @@ export async function run(
     message.reply({ embeds: [embed] });
     r.table('case').insert(create).run(client.conn);
 }
-export const help = {
-    name: 'kick',
-    description: 'Wyrzuć kogoś z serwera',
-    aliases: ['wyrzuć'],
-    category: 'moderation'
-};

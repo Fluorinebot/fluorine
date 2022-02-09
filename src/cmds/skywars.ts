@@ -76,9 +76,3 @@ export async function run(
         );
     message.reply({ embeds: [embed] });
 }
-export const help = {
-    name: 'skywars',
-    description: 'Sprawdź statystyki gracza na skywarsach z hypixel.net',
-    aliases: [],
-    category: 'fun'
-};

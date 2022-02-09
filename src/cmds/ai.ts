@@ -22,9 +22,3 @@ export async function run(
         .replaceAll('+', '-');
     client.ai.getAI(message, argsbase);
 }
-export const help = {
-    name: 'ai',
-    description: 'Make AI complete your sentence',
-    aliases: [],
-    category: 'fun'
-};

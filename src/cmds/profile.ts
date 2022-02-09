@@ -317,9 +317,3 @@ export async function run(
         message.reply({ files: [attachment] });
     }
 }
-export const help = {
-    name: 'profile',
-    description: 'Profil użytkownika',
-    aliases: [],
-    category: 'fun'
-};

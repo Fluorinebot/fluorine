@@ -39,9 +39,3 @@ export async function run(client: FluorineClient, message: Message) {
         components: [row]
     });
 }
-export const help = {
-    name: 'help',
-    description: 'Lista komend',
-    aliases: ['pomoc', 'h'],
-    category: 'tools'
-};

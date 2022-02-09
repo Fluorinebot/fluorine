@@ -8,9 +8,3 @@ export async function run(client: FluorineClient, message: Message) {
         .addLocaleField({ name: 'PING', value: `${client.ws.ping}ms` });
     message.reply({ embeds: [embed] });
 }
-export const help = {
-    name: 'ping',
-    description: 'Opóźnienie pomiędzy discordem a botem',
-    aliases: ['opoznienie', 'pong'],
-    category: 'tools'
-};
