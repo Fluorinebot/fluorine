@@ -49,10 +49,3 @@ export async function run(
         message.react('❌');
     }
 }
-
-export const help = {
-    name: 'dev',
-    description: 'Execute code',
-    aliases: ['wykonaj'],
-    category: 'Dev'
-};

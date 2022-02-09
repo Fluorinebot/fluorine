@@ -30,8 +30,3 @@ export async function run(
         })
     );
 }
-export const help = {
-    name: 'howgay',
-    description: 'How gay',
-    category: 'fun'
-};

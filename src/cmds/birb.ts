@@ -12,8 +12,3 @@ export async function run(client: FluorineClient, message: Message) {
         .setImage(file);
     message.reply({ embeds: [embed] });
 }
-export const help = {
-    name: 'birb',
-    description: 'Random bird picture',
-    category: 'fun'
-};

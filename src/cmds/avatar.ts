@@ -17,9 +17,3 @@ export async function run(
         .setImage(user.displayAvatarURL({ dynamic: true, size: 512 }));
     message.reply({ embeds: [embed] });
 }
-export const help = {
-    name: 'avatar',
-    description: 'Pokaż avatar wybranego użytkownika',
-    aliases: ['av'],
-    category: 'tools'
-};

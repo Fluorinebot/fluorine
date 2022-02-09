@@ -35,9 +35,3 @@ export async function run(
         .addLocaleField({ name: 'CASE_REASON', value: Case.dscp });
     message.reply({ embeds: [embed] });
 }
-export const help = {
-    name: 'case',
-    description: 'Sprawdź informacje o karze.',
-    aliases: ['kara'],
-    category: 'mod'
-};
