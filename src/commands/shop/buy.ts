@@ -1,5 +1,6 @@
 import FluorineClient from '@classes/Client';
 import { CommandInteraction } from 'discord.js';
+
 export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
     const item = interaction.options.getString('item');
     const itemObj = await client.shop.get(item, interaction.guildId);

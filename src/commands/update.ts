@@ -1,6 +1,6 @@
 import FluorineClient from '@classes/Client';
-import { execSync } from 'child_process';
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { execSync } from 'child_process';
 import { CommandInteraction } from 'discord.js';
 import { Category } from 'types/applicationCommand';
 

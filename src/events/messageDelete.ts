@@ -3,6 +3,7 @@ import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
 import r from 'rethinkdb';
 import { SettingsType } from 'types/settings';
+
 export async function run(client: FluorineClient, message: Message) {
     if (!message.content) return;
     // @ts-ignore

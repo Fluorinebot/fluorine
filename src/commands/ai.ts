@@ -1,7 +1,8 @@
 import FluorineClient from '@classes/Client';
-import { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { CommandInteraction } from 'discord.js';
 import { Category } from 'types/applicationCommand';
+
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const args = interaction.options.getString('start');
     if (args.length > 65) {

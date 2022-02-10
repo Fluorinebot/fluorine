@@ -1,7 +1,7 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { codeBlock } from '@discordjs/builders';
-import { MessageActionRow, MessageButton, ButtonInteraction } from 'discord.js';
+import { ButtonInteraction, MessageActionRow, MessageButton } from 'discord.js';
 import r from 'rethinkdb';
 
 export const authorOnly = true;

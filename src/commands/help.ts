@@ -1,7 +1,7 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { CommandInteraction, EmbedFieldData, MessageActionRow, MessageSelectMenu } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { CommandInteraction, EmbedFieldData, MessageActionRow, MessageSelectMenu } from 'discord.js';
 import { Category } from 'types/applicationCommand';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {

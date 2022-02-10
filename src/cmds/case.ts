@@ -2,6 +2,7 @@ import getCase from '@util/getCase';
 import { Message } from 'discord.js';
 import FluorineClient from '../classes/Client';
 import Embed from '../classes/Embed';
+
 export async function run(client: FluorineClient, message: Message, args: Array<string>) {
     if (!args[0])
         return message.reply(

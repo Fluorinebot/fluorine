@@ -5,6 +5,7 @@ import EconomyHandler from '@handlers/EconomyHandler';
 import EventHandler from '@handlers/EventHandler';
 import PhishingHandler from '@handlers/PhishingHandler';
 import ShopHandler from '@handlers/ShopHandler';
+import TagHandler from '@handlers/TagHandler';
 import { Client, Collection, ColorResolvable, Intents } from 'discord.js';
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
@@ -16,7 +17,6 @@ import { Component } from 'types/component';
 // @ts-ignore
 import { version } from '../../package.json';
 import AI from './AI';
-import TagHandler from './handlers/TagHandler';
 import { Logger } from './Logger';
 
 export default class FluorineClient extends Client {

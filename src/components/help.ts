@@ -1,6 +1,6 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { SelectMenuInteraction, EmbedFieldData, MessageActionRow, MessageSelectMenu } from 'discord.js';
+import { EmbedFieldData, MessageActionRow, MessageSelectMenu, SelectMenuInteraction } from 'discord.js';
 
 export const authorOnly = true;
 

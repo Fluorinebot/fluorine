@@ -4,6 +4,7 @@ import fragmentText from '@util/fragmentText';
 import canvas from 'canvas';
 import { Message, MessageAttachment } from 'discord.js';
 import r from 'rethinkdb';
+
 export async function run(client: FluorineClient, message: Message, args: string[]) {
     if (args[0] === 'set') {
         const profile = await r.table('profile').get(message.author.id).run(client.conn);

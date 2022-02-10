@@ -2,6 +2,7 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { CommandInteraction } from 'discord.js';
 import r from 'rethinkdb';
+
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     if (!interaction.memberPermissions.has('MANAGE_GUILD')) {
         return interaction.reply({

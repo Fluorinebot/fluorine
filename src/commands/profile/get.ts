@@ -3,6 +3,7 @@ import fragmentText from '@util/fragmentText';
 import canvas from 'canvas';
 import { CommandInteraction, MessageAttachment } from 'discord.js';
 import r from 'rethinkdb';
+
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const user = interaction.options.getUser('user') ?? interaction.user;
     const notSet = client.i18n.t('PROFILE_NOT_SET', {

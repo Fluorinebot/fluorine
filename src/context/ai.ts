@@ -2,6 +2,7 @@ import FluorineClient from '@classes/Client';
 import { ContextMenuCommandBuilder } from '@discordjs/builders';
 import { ApplicationCommandType } from 'discord-api-types';
 import { MessageContextMenuInteraction } from 'discord.js';
+
 export async function run(client: FluorineClient, interaction: MessageContextMenuInteraction) {
     const { content } = interaction.targetMessage;
     if (content.length > 65) {

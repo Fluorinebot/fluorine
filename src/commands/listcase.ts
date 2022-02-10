@@ -1,9 +1,9 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { CommandInteraction, InteractionReplyOptions, MessageActionRow, MessageButton } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { Category } from 'types/applicationCommand';
 import getCases from '@util/getCases';
+import { CommandInteraction, InteractionReplyOptions, MessageActionRow, MessageButton } from 'discord.js';
+import { Category } from 'types/applicationCommand';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
     const row = new MessageActionRow();

@@ -1,8 +1,9 @@
 import FluorineClient from '@classes/Client';
-import { CommandInteraction } from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
-import { Category } from 'types/applicationCommand';
 import Embed from '@classes/Embed';
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { CommandInteraction } from 'discord.js';
+import { Category } from 'types/applicationCommand';
+
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const user = interaction.options.getUser('user');
     if (user.id === interaction.user.id) {

@@ -4,6 +4,7 @@ import r from 'rethinkdb';
 import FluorineClient from '../classes/Client';
 import Embed from '../classes/Embed';
 import createCase from '../util/createCase';
+
 export async function run(client: FluorineClient, message: Message, args: string[]) {
     if (!message.member?.permissions.has('BAN_MEMBERS')) {
         return message.reply(

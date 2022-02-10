@@ -1,11 +1,11 @@
-import FluorineClient from '../classes/Client';
-import Embed from '../classes/Embed';
-import { CommandInteraction } from 'discord.js';
+import FluorineClient from '@classes/Client';
+import Embed from '@classes/Embed';
 import { SlashCommandBuilder } from '@discordjs/builders';
-import ms, { StringValue } from 'ms';
-import createCase from '../util/createCase';
-import r from 'rethinkdb';
+import createCase from '@util/createCase';
 import modLog from '@util/modLog';
+import { CommandInteraction } from 'discord.js';
+import ms, { StringValue } from 'ms';
+import r from 'rethinkdb';
 import { Category } from 'types/applicationCommand';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {

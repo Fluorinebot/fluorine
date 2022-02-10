@@ -1,10 +1,10 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { CommandInteraction } from 'discord.js';
+import { Category } from 'types/applicationCommand';
 import { HypixelType } from 'types/hypixel';
 import { fetch } from 'undici';
-import { Category } from 'types/applicationCommand';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const player = interaction.options.getString('player');

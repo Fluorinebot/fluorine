@@ -1,8 +1,9 @@
-import { CommandInteraction } from 'discord.js';
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { CommandInteraction } from 'discord.js';
 import { Category } from 'types/applicationCommand';
+
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const cooldown = await client.economy.getCooldown(interaction.user.id, interaction.guildId);
     if (cooldown.work > Date.now() / 1000) {

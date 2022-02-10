@@ -1,11 +1,12 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
+import caseCreate from '@util/createCase';
+import { messageBot } from '@util/messageBot';
+import modLog from '@util/modLog';
 import { Message } from 'discord.js';
 import r from 'rethinkdb';
 import { SettingsType } from 'types/settings';
-import caseCreate from '@util/createCase';
-import modLog from '@util/modLog';
-import { messageBot } from '@util/messageBot';
+
 export async function run(client: FluorineClient, message: Message) {
     if (message.author.bot) return;
 

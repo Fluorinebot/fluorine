@@ -4,6 +4,7 @@ import { Message } from 'discord.js';
 import createCase from '@util/createCase';
 import r from 'rethinkdb';
 import modLog from '@util/modLog';
+
 export async function run(client: FluorineClient, message: Message, args: string[]) {
     const config: any = await r.table('config').get(message.guild?.id).run(client.conn);
     if (!message.member?.permissions.has('MANAGE_ROLES'))

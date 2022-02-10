@@ -3,6 +3,7 @@ import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
 import { HypixelType } from 'types/hypixel';
 import { fetch } from 'undici';
+
 export async function run(client: FluorineClient, message: Message, args: string[]) {
     if (!args[0])
         return message.reply(
