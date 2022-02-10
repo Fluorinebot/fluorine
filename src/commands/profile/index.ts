@@ -7,20 +7,20 @@ export const data = new SlashCommandBuilder()
         command
             .setName('set')
             .setDescription('Set a profile')
-            .addStringOption(option => option.setName('field').setDescription('Field to set').setRequired(true))
             .addStringOption(option =>
                 option
-                    .setName('value')
-                    .setDescription('Value to set')
-                    .setRequired(true)
-                    .setChoices([
-                        ['Description', 'description'],
-                        ['Website', 'website'],
+                     .setName('field')
+                     .setDescription('Field to set')
+                     .setRequired(true)
+                     .setChoices([
                         ['Birthday', 'birthday'],
+                        ['Description', 'description'],
                         ['Location', 'location'],
-                        ['Pronouns', 'pronouns']
+                        ['Pronouns', 'pronouns'],
+                        ['Website', 'website']
                     ])
             )
+            .addStringOption(option => option.setName('value').setDescription('Value to set').setRequired(true))
     )
     .addSubcommand(command =>
         command
