@@ -1,4 +1,4 @@
-import { bold, yellow, blue, red } from 'picocolors';
+import { blue, bold, red, yellow } from 'picocolors';
 export class Logger {
     static error(msg: string) {
         const [time] = new Date().toTimeString().split(' ');

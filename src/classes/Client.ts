@@ -1,26 +1,23 @@
-// @ts-ignore
-import { version } from '../../package.json';
-
-import { Client, Collection, ColorResolvable, Intents } from 'discord.js';
-import r from 'rethinkdb';
-import i18next from 'i18next';
-import Backend from 'i18next-fs-backend';
-import { join } from 'path';
-
-import { ApplicationCommands } from 'types/applicationCommand';
-import { Command } from 'types/command';
-import { Component } from 'types/component';
-
-import { Logger } from './Logger';
-import AI from './AI';
-import EventHandler from '@handlers/EventHandler';
 import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
 import CommandHandler from '@handlers/CommandHandler';
 import ComponentHandler from '@handlers/ComponentHandler';
 import EconomyHandler from '@handlers/EconomyHandler';
-import ShopHandler from '@handlers/ShopHandler';
-import TagHandler from './handlers/TagHandler';
+import EventHandler from '@handlers/EventHandler';
 import PhishingHandler from '@handlers/PhishingHandler';
+import ShopHandler from '@handlers/ShopHandler';
+import { Client, Collection, ColorResolvable, Intents } from 'discord.js';
+import i18next from 'i18next';
+import Backend from 'i18next-fs-backend';
+import { join } from 'path';
+import r from 'rethinkdb';
+import { ApplicationCommands } from 'types/applicationCommand';
+import { Command } from 'types/command';
+import { Component } from 'types/component';
+// @ts-ignore
+import { version } from '../../package.json';
+import AI from './AI';
+import TagHandler from './handlers/TagHandler';
+import { Logger } from './Logger';
 
 export default class FluorineClient extends Client {
     applicationCommands!: ApplicationCommands;

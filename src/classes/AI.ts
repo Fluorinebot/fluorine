@@ -1,6 +1,6 @@
-import FluorineClient from './Client';
-import { fetch } from 'undici';
 import { Interaction, Message } from 'discord.js';
+import { fetch } from 'undici';
+import FluorineClient from './Client';
 import Embed from './Embed';
 
 export default class AI {
