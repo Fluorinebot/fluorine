@@ -8,7 +8,11 @@ export const data = new SlashCommandBuilder()
             .setName('set')
             .setDescription('Set a profile')
             .addStringOption(option =>
-                option.setName('field').setDescription('Field to set').setRequired(true).setChoices([
+                option
+                    .setName('field')
+                    .setDescription('Field to set')
+                    .setRequired(true)
+                    .setChoices([
                         ['Birthday', 'birthday'],
                         ['Description', 'description'],
                         ['Location', 'location'],
