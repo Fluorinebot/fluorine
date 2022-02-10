@@ -1,7 +1,7 @@
+import FluorineClient from '@classes/Client';
+import { Collection } from 'discord.js';
 import { readdirSync } from 'fs';
 import { Component } from 'types/component';
-import { Collection } from 'discord.js';
-import FluorineClient from '@classes/Client';
 export default class ComponentHandler {
     client: FluorineClient;
     map: Collection<string, Component>;

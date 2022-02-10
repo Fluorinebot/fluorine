@@ -1,7 +1,7 @@
+import FluorineClient from '@classes/Client';
+import { Collection } from 'discord.js';
 import { readdirSync } from 'fs';
 import { ChatInputCommand, ContextMenuCommand } from 'types/applicationCommand';
-import { Collection } from 'discord.js';
-import FluorineClient from '@classes/Client';
 
 export default class ApplicationCommandHandler {
     chatInput: Collection<string, ChatInputCommand>;
