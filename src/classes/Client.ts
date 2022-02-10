@@ -1,15 +1,10 @@
-// @ts-ignore
-import { version } from '../../package.json';
-
-import { Client, Collection, ColorResolvable, Intents } from 'discord.js';
+import { Client, Intents } from 'discord.js';
 import r from 'rethinkdb';
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
 import { join } from 'path';
 
 import { ApplicationCommands } from 'types/applicationCommand';
-import { Command } from 'types/command';
-import { Component } from 'types/component';
 
 import { Logger } from './Logger';
 import AI from './AI';
@@ -23,23 +18,24 @@ import TagHandler from './handlers/TagHandler';
 import PhishingHandler from '@handlers/PhishingHandler';
 
 export default class FluorineClient extends Client {
-    applicationCommands!: ApplicationCommands;
-    conn!: r.Connection;
-    cmds!: Collection<string, Command>;
-    components!: Collection<string, Component>;
-    economy: EconomyHandler;
-    phishing: PhishingHandler;
-    shop: ShopHandler;
-    tags: TagHandler;
-    cooldown: Set<string>;
-    ai: AI;
-    invite: string;
-    version: string;
-    color: ColorResolvable;
-    devs: string[];
+    logger = Logger;
+
+    applicationCommands: ApplicationCommands;
+    conn: r.Connection;
+    cmds = new CommandHandler(this).loadCommands();
+    components = new ComponentHandler(this).loadComponents();
+    economy = new EconomyHandler(this);
+    phishing = new PhishingHandler(this);
+    shop = new ShopHandler(this);
+    tags = new TagHandler(this);
+    cooldown = new Set<string>();
+    ai = new AI(this);
+    invite =
+        'https://discord.com/api/oauth2/authorize?client_id=831932409943425064&scope=bot+applications.commands&permissions=474527689975';
+    version = process.env.npm_package_version;
+    devs = ['707675871355600967', '478823932913516544', '348591272476540928'];
     generating: boolean;
-    logger: typeof Logger;
-    i18n: typeof i18next;
+    i18n = i18next;
     constructor() {
         super({
             intents: [
@@ -61,31 +57,15 @@ export default class FluorineClient extends Client {
         }).then(conn => {
             this.conn = conn;
         });
-        this.version = version;
-        this.invite =
-            'https://discord.com/api/oauth2/authorize?client_id=831932409943425064&scope=bot+applications.commands&permissions=474527689975';
-        this.color = '#3872f2';
-        this.devs = ['707675871355600967', '478823932913516544', '348591272476540928'];
-        this.logger = Logger;
-        this.cooldown = new Set();
-        this.i18n = i18next;
     }
     async init() {
         new EventHandler(this);
-        this.cmds = new CommandHandler(this).loadCommands();
-
         const { loadChatInput, loadContextMenu } = new ApplicationCommandHandler(this);
+
         this.applicationCommands = {
             chatInput: loadChatInput(),
             contextMenu: loadContextMenu()
         };
-
-        this.components = new ComponentHandler(this).loadComponents();
-        this.phishing = new PhishingHandler(this);
-        this.economy = new EconomyHandler(this);
-        this.shop = new ShopHandler(this);
-        this.tags = new TagHandler(this);
-        this.ai = new AI(this);
 
         await this.i18n.use(Backend).init({
             fallbackLng: 'en-US',
@@ -93,21 +73,21 @@ export default class FluorineClient extends Client {
             backend: { loadPath: join(__dirname, '/../../i18n/{{lng}}.json') }
         });
 
-        this.login().then(() => {
-            this.guilds.cache.forEach(async g => {
-                const guild = await r.table('config').get(g.id).run(this.conn);
-                if (!guild) {
-                    r.table('config')
-                        .insert({
-                            id: g.id,
-                            prefix: process.env.DISCORD_PREFIX
-                        })
-                        .run(this.conn);
-                }
-            });
+        await this.login();
 
-            this.logger.log(`Checked ${this.guilds.cache.size} guilds.`);
+        this.guilds.cache.forEach(async g => {
+            const guild = await r.table('config').get(g.id).run(this.conn);
+            if (!guild) {
+                r.table('config')
+                    .insert({
+                        id: g.id,
+                        prefix: process.env.DISCORD_PREFIX
+                    })
+                    .run(this.conn);
+            }
         });
+
+        this.logger.log(`Checked ${this.guilds.cache.size} guilds.`);
 
         process.on('unhandledRejection', (error: Error) => {
             this.logger.error(error.stack);
