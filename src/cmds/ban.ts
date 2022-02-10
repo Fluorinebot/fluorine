@@ -1,9 +1,9 @@
+import modLog from '@util/modLog';
+import { Message } from 'discord.js';
+import r from 'rethinkdb';
 import FluorineClient from '../classes/Client';
 import Embed from '../classes/Embed';
-import { Message } from 'discord.js';
 import createCase from '../util/createCase';
-import r from 'rethinkdb';
-import modLog from '@util/modLog';
 export async function run(client: FluorineClient, message: Message, args: string[]) {
     if (!message.member?.permissions.has('BAN_MEMBERS')) {
         return message.reply(

@@ -1,7 +1,7 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { HypixelType } from 'types/hypixel';
 import { Message } from 'discord.js';
+import { HypixelType } from 'types/hypixel';
 import { fetch } from 'undici';
 export async function run(client: FluorineClient, message: Message, args: string[]) {
     if (!args[0])
