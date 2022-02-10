@@ -1,6 +1,6 @@
-import { CommandInteraction } from 'discord.js';
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
+import { CommandInteraction } from 'discord.js';
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const list = await client.shop.list(interaction.guildId);
     const embed = new Embed(client, interaction.locale).setLocaleTitle('SHOP_LIST_TITLE');

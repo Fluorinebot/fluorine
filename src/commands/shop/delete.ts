@@ -1,5 +1,5 @@
-import { CommandInteraction } from 'discord.js';
 import FluorineClient from '@classes/Client';
+import { CommandInteraction } from 'discord.js';
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const name = interaction.options.getString('name');
     const itemObj = await client.shop.get(name, interaction.guildId);

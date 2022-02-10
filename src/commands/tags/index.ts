@@ -46,12 +46,6 @@ export const data = new SlashCommandBuilder()
     )
     .addSubcommand(subcommand =>
         subcommand
-            .setName('transfer')
-            .setDescription('Transfer a tag from an owner who has left the server')
-            .addStringOption(option => option.setName('tag').setDescription('The tag to transfer').setRequired(true))
-    )
-    .addSubcommand(subcommand =>
-        subcommand
             .setName('raw')
             .setDescription('Export the raw content data of a tag')
             .addStringOption(option => option.setName('tag').setDescription('The tag to export').setRequired(true))
