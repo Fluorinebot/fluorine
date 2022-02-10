@@ -4,6 +4,7 @@ import { Guild } from 'discord.js';
 import r from 'rethinkdb';
 import { Case } from 'types/case';
 import { SettingsType } from 'types/settings';
+
 export default async function modLog(client: FluorineClient, Case: Case, guild: Guild) {
     // @ts-ignore
     const settings: SettingsType = await r.table('config').get(guild.id).run(client.conn);
