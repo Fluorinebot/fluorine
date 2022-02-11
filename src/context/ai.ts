@@ -32,7 +32,7 @@ export async function run(client: FluorineClient, interaction: MessageContextMen
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('AI_TITLE')
         .setLocaleDescription('AI_DESCRIPTION', { text: response.answers[0] });
-    interaction.reply({ embeds: [embed] });
+    interaction.editReply({ embeds: [embed] });
     client.aiCooldown.add(interaction.user.id);
     setTimeout(() => {
         client.aiCooldown.delete(interaction.user.id);
