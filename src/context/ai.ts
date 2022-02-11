@@ -16,6 +16,7 @@ export async function run(client: FluorineClient, interaction: MessageContextMen
             content: client.i18n.t('AI_COOLDOWN', { lng: interaction.locale })
         });
     }
+    await interaction.deferReply();
     const response = (await fetch('https://api.openai.com/v1/answers', {
         headers: {
             Authorization: `Bearer ${process.env.AI_TOKEN}`,
