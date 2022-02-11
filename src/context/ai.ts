@@ -3,6 +3,7 @@ import Embed from '@classes/Embed';
 import { ContextMenuCommandBuilder } from '@discordjs/builders';
 import { ApplicationCommandType } from 'discord-api-types';
 import { MessageContextMenuInteraction } from 'discord.js';
+import { fetch } from 'undici';
 export async function run(client: FluorineClient, interaction: MessageContextMenuInteraction) {
     const { content } = interaction.targetMessage;
     if (content.length > 80) {
@@ -26,7 +27,14 @@ export async function run(client: FluorineClient, interaction: MessageContextMen
         body: JSON.stringify({
             model: 'ada',
             question: content,
-            temperature: 0.8
+            temperature: 0.3,
+            examples: [
+                ['Hello!', 'Hi! How are you?'],
+                ['Do you like me?', 'Of course!']
+            ],
+            // eslint-disable-next-line camelcase
+            examples_context: 'The AI likes you!',
+            documents: []
         })
     }).then(res => res.json())) as any;
     const embed = new Embed(client, interaction.locale)
