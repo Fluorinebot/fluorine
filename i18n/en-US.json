@@ -124,6 +124,7 @@
     "AI_TITLE": "Generated!",
     "AI_DESCRIPTION": "Your text: {{- text}}",
     "AI_ERROR": "Our AI is currently down, try again in a few minutes!",
+    "AI_TOO_LONG": "Your text is too long! The maximum length is 80 characters.",
     "AI_ARGS": "You haven't provided a text to generate!",
     "AI_COOLDOWN": "You can generate answers once every 10 seconds",
     "PROFILE_SUCCESS": "Success",
@@ -209,7 +210,6 @@
         "You broke into a house and stole {{- amount }}"
     ],
     "CRIME_FAIL_DESCRIPTION": "The police caught you! You got fined {{- amount }}",
-    "AI_TOO_LONG": "Your text is too long! The maximum length is 65 characters.",
     "CRIME_COOLDOWN_DESCRIPTION": "You'll be able to commit a crime {{- time }}",
     "SHOP_CREATE_SUCCESS": "Successfully created a item!",
     "SHOP_CREATE_PERMISSIONS": "You don't have the permissions needed to create a item! Needed permissions: Manage guild",
