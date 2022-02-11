@@ -3,6 +3,8 @@
     "8BALL_RESPONSE": "Response",
     "8BALL_ERROR": "You need to provide a question!",
     "AVATAR": "Avatar",
+    "AVATAR_GUILD": "Server Avatar",
+    "AVATAR_USER": "User Avatar",
     "BAN_PERMISSIONS_MISSING": "You don't have permissions needed to ban a member!",
     "BAN_BOT_PERMISSIONS_MISSING": "I can't ban this member, because I don't have permissions needed to ban!",
     "BAN_ARGUMENTS_MISSING": "You haven't provided a user to ban!",
