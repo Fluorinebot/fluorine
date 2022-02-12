@@ -60,6 +60,8 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
             replyOptions.components = [row];
         }
+
+        interaction.reply(replyOptions);
     }
 }
 
