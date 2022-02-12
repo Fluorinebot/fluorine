@@ -1,5 +1,12 @@
 {
-    "8BALL_RESPONSES": ["Yes", "No", "Maybe", "Probably", "I'm not sure", "I don't think so"],
+    "8BALL_RESPONSES": [
+        "Yes",
+        "No",
+        "Maybe",
+        "Probably",
+        "I'm not sure",
+        "I don't think so"
+    ],
     "8BALL_RESPONSE": "Response",
     "8BALL_ERROR": "You need to provide a question!",
     "AVATAR": "Avatar",
@@ -124,9 +131,9 @@
     "AI_TITLE": "Generated!",
     "AI_DESCRIPTION": "Your text: {{- text}}",
     "AI_ERROR": "Our AI is currently down, try again in a few minutes!",
-    "AI_TOO_LONG": "Your text is too long! The maximum length is 80 characters.",
+    "AI_LIMIT": "You can have only one AI request in the queue at the time!",
     "AI_ARGS": "You haven't provided a text to generate!",
-    "AI_COOLDOWN": "You can generate answers once every 10 seconds",
+    "AI_WAIT": "Added to queue! You're a number {{- queue}} in the queue",
     "PROFILE_SUCCESS": "Success",
     "PROFILE_DESCRIPTION": "Description",
     "PROFILE_WEBSITE": "Website",
@@ -210,6 +217,7 @@
         "You broke into a house and stole {{- amount }}"
     ],
     "CRIME_FAIL_DESCRIPTION": "The police caught you! You got fined {{- amount }}",
+    "AI_TOO_LONG": "Your text is too long! The maximum length is 65 characters.",
     "CRIME_COOLDOWN_DESCRIPTION": "You'll be able to commit a crime {{- time }}",
     "SHOP_CREATE_SUCCESS": "Successfully created a item!",
     "SHOP_CREATE_PERMISSIONS": "You don't have the permissions needed to create a item! Needed permissions: Manage guild",
@@ -225,6 +233,7 @@
     "SHOP_DELETE_PERMISSIONS": "You don't have the permissions needed to delete a item! Needed permissions: Manage guild",
     "SHOP_DELETE_NOT_FOUND": "Item not found. Check items using /shop list",
     "SHOP_DELETE_SUCCESS": "Successfully deleted {{- item }}",
+    "TIMEOUT_REASON": "Timed out by {{- user}} for {{- reason}}",
     "ROB_SUCCESS_TITLE": "You robbed {{- user}}!",
     "ROB_SUCCESS_DESCRIPTION": "You took their wallet! You got {{- amount}}",
     "ROB_FAIL_NO_MONEY": "You tried to rob them, but they didn't have any money in their wallet!",
