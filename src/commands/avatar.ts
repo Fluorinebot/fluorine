@@ -5,23 +5,23 @@ import { SlashCommandBuilder } from '@discordjs/builders';
 import { Category } from 'types/applicationCommand';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
-    const member = interaction.options.getMember('user') ?? interaction.options.getUser('user') ?? interaction.member;
+    const user = interaction.options.getMember('user') ?? interaction.options.getUser('user') ?? interaction.member;
 
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('AVATAR')
-        .setImage(member.displayAvatarURL({ dynamic: true, size: 512 }));
+        .setImage(user.displayAvatarURL({ dynamic: true, size: 512 }));
 
     const replyOptions: InteractionReplyOptions = { embeds: [embed] };
 
-    if (member instanceof GuildMember && member.avatar) {
+    if (user instanceof GuildMember && user.avatar) {
         const row = new MessageActionRow().addComponents(
             new MessageButton()
-                .setCustomId(`avatar:${interaction.user.id}:${member.id}.guild`)
+                .setCustomId(`avatar:${interaction.user.id}:${user.id}.guild`)
                 .setLabel(client.i18n.t('AVATAR_GUILD', { lng: interaction.locale }))
                 .setDisabled(true)
                 .setStyle('PRIMARY'),
             new MessageButton()
-                .setCustomId(`avatar:${interaction.user.id}:${member.id}.user`)
+                .setCustomId(`avatar:${interaction.user.id}:${user.id}.user`)
                 .setLabel(client.i18n.t('AVATAR_USER', { lng: interaction.locale }))
                 .setStyle('PRIMARY')
         );
