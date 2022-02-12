@@ -1,6 +1,6 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { MessageActionRow, MessageButton, ButtonInteraction, InteractionReplyOptions } from 'discord.js';
+import { MessageActionRow, MessageButton, ButtonInteraction } from 'discord.js';
 
 export async function run(client: FluorineClient, interaction: ButtonInteraction, value: string) {
     const [memberId, action] = value.split('.');
@@ -19,25 +19,20 @@ export async function run(client: FluorineClient, interaction: ButtonInteraction
             .setDisabled(action === 'user')
     );
 
-    let embed;
+    const embed = new Embed(client, interaction.locale).setLocaleTitle('AVATAR');
 
     switch (action) {
         case 'guild': {
-            embed = new Embed(client, interaction.locale)
-                .setLocaleTitle('AVATAR')
-                .setImage(member.displayAvatarURL({ dynamic: true, size: 512 }));
+            embed.setImage(member.displayAvatarURL({ dynamic: true, size: 512 }));
             break;
         }
 
         case 'user': {
-            embed = new Embed(client, interaction.locale)
-                .setLocaleTitle('AVATAR')
-                .setImage(member.user.displayAvatarURL({ dynamic: true, size: 512 }));
+            embed.setImage(member.user.displayAvatarURL({ dynamic: true, size: 512 }));
         }
     }
 
-    const replyOptions: InteractionReplyOptions = { components: [row], embeds: [embed] };
-    interaction.update(replyOptions);
+    interaction.update({ components: [row], embeds: [embed] });
 }
 
 export const authorOnly = true;
