@@ -3,8 +3,8 @@ import Embed from '@classes/Embed';
 import { MessageActionRow, MessageButton, ButtonInteraction, InteractionReplyOptions } from 'discord.js';
 
 export async function run(client: FluorineClient, interaction: ButtonInteraction, value: string) {
-    const [memberID, action] = value.split('.');
-    const member = await interaction.guild.members.fetch(memberID);
+    const [memberId, action] = value.split('.');
+    const member = await interaction.guild.members.fetch(memberId);
 
     const row = new MessageActionRow().addComponents(
         new MessageButton()
