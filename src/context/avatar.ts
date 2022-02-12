@@ -5,8 +5,6 @@ import { ContextMenuCommandBuilder } from '@discordjs/builders';
 import { ApplicationCommandType } from 'discord-api-types';
 
 export async function run(client: FluorineClient, interaction: UserContextMenuInteraction<'cached'>): Promise<void> {
-    const user = interaction.targetMember ?? interaction.targetUser;
-
     if (interaction.targetMember) {
         const member = interaction.targetMember;
 
