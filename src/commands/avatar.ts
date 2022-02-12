@@ -41,7 +41,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     } else {
         const embed = new Embed(client, interaction.locale)
             .setLocaleTitle('AVATAR')
-            .setImage(member.displayAvatarURL({ dynamic: true, size: 512 }));
+            .setImage(author.displayAvatarURL({ dynamic: true, size: 512 }));
 
         const replyOptions: InteractionReplyOptions = { embeds: [embed] };
 
