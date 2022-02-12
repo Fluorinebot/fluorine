@@ -12,6 +12,7 @@ import { Command } from 'types/command';
 import { Component } from 'types/component';
 
 import { Logger } from './Logger';
+import AI from './AI';
 import EventHandler from '@handlers/EventHandler';
 import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
 import CommandHandler from '@handlers/CommandHandler';
@@ -31,6 +32,7 @@ export default class FluorineClient extends Client {
     shop: ShopHandler;
     tags: TagHandler;
     cooldown: Set<string>;
+    ai: AI;
     invite: string;
     version: string;
     color: ColorResolvable;
@@ -38,7 +40,6 @@ export default class FluorineClient extends Client {
     generating: boolean;
     logger: typeof Logger;
     i18n: typeof i18next;
-    aiCooldown: Set<string>;
     constructor() {
         super({
             intents: [
@@ -84,7 +85,7 @@ export default class FluorineClient extends Client {
         this.economy = new EconomyHandler(this);
         this.shop = new ShopHandler(this);
         this.tags = new TagHandler(this);
-        this.aiCooldown = new Set();
+        this.ai = new AI(this);
 
         await this.i18n.use(Backend).init({
             fallbackLng: 'en-US',
