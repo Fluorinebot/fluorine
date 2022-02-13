@@ -2,6 +2,8 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { MessageActionRow, MessageButton, ButtonInteraction } from 'discord.js';
 
+export const authorOnly = true;
+
 export async function run(client: FluorineClient, interaction: ButtonInteraction, value: string) {
     const [memberId, action] = value.split('.');
     const member = await interaction.guild.members.fetch(memberId);
@@ -35,5 +37,3 @@ export async function run(client: FluorineClient, interaction: ButtonInteraction
 
     interaction.update({ components: [row], embeds: [embed] });
 }
-
-export const authorOnly = true;
