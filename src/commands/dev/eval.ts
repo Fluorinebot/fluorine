@@ -12,17 +12,17 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     await interaction.deferReply();
     const code = interaction.options.getString('code');
     code.replace('```\njs', '').replace('\n```', '');
-    let embed;
+    const embed = new Embed(client, interaction.locale);
 
     try {
         const evaluated = eval(code);
         const cleaned = await clean(client, evaluated);
 
-        embed = new Embed(client, interaction.locale).setTitle('Done').setDescription(codeBlock('js', cleaned));
+        embed.setTitle('Done').setDescription(codeBlock('js', cleaned));
     } catch (error) {
         const cleaned = await clean(client, error);
 
-        embed = new Embed(client, interaction.locale).setTitle('Failed').setDescription(codeBlock('js', cleaned));
+        embed.setTitle('Failed').setDescription(codeBlock('js', cleaned));
     }
 
     interaction.editReply({ embeds: [embed] });
