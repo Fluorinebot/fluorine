@@ -44,6 +44,8 @@ if (process.env.NODE_ENV === 'development') {
                     .setRequired(false)
             )
     );
+} else if (process.env.NODE_ENV === 'production') {
+    data.addSubcommand(subcommand => subcommand.setName('update').setDescription('Update the bot.'));
 }
 
 export const category: Category = 'tools';
