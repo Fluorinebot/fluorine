@@ -12,7 +12,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const module = interaction.options.getString('module');
 
     try {
-        execSync('npm run build');
+        if (process.env.NODE_ENV === 'development') execSync('npm run build');
         delete require.cache[require.resolve(`./../../${type}/${module}.js`)];
 
         switch (type) {
