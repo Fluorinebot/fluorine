@@ -3,6 +3,8 @@ import Embed from '@classes/Embed';
 import { codeBlock } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
 import { execSync } from 'child_process';
+import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
+import ComponentHandler from '@classes/handlers/ComponentHandler';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     await interaction.deferReply({ ephemeral: true, fetchReply: true });
@@ -33,6 +35,12 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
                     );
                 }
 
+                if (module === 'all') {
+                    const { loadChatInput } = new ApplicationCommandHandler(client);
+                    client.applicationCommands.chatInput = loadChatInput();
+                    return interaction.editReply('Reloaded `all` chat input commands.');
+                }
+
                 const commandFile = await import(`./../../commands/${module}`);
                 client.applicationCommands.chatInput.set(module, commandFile);
 
@@ -41,6 +49,12 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             }
 
             case 'context': {
+                if (module === 'all') {
+                    const { loadContextMenu } = new ApplicationCommandHandler(client);
+                    client.applicationCommands.contextMenu = loadContextMenu();
+                    return interaction.editReply('Reloaded `all` context menu commands.');
+                }
+
                 const commandFile = await import(`./../../context/${module}`);
                 client.applicationCommands.contextMenu.set(module, commandFile);
 
@@ -49,6 +63,11 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             }
 
             case 'components': {
+                if (module === 'all') {
+                    client.components = new ComponentHandler(client).loadComponents();
+                    return interaction.editReply('Reloaded `all` components.');
+                }
+
                 const commandFile = await import(`./../../components/${module}`);
                 client.components.set(module, commandFile);
 
