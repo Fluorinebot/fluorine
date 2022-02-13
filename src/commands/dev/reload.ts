@@ -4,7 +4,7 @@ import { codeBlock } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
 import { execSync } from 'child_process';
 import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
-import ComponentHandler from '@classes/handlers/ComponentHandler';
+import ComponentHandler from '@handlers/ComponentHandler';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     await interaction.deferReply({ ephemeral: true, fetchReply: true });
