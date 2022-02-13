@@ -29,6 +29,7 @@ export async function run(client: FluorineClient, interaction: ButtonInteraction
 
         case 'user': {
             embed.setImage(member.user.displayAvatarURL({ dynamic: true, size: 512 }));
+            break;
         }
     }
 
