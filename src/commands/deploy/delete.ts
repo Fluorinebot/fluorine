@@ -22,11 +22,12 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
                     ephemeral: true
                 });
             await command.delete();
+            return interaction.reply(`Deleted \`${name}\`.`);
         }
-        interaction.reply('done');
+        interaction.reply('Deleted all commands.');
     } catch (error) {
         const embed = new Embed(client, interaction.locale)
-            .setTitle('fail')
+            .setTitle('Failed')
             .setDescription(`\`\`\`js\n${error}\n${error.stack}\`\`\``);
         interaction.reply({ embeds: [embed] });
     }

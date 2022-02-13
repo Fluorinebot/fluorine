@@ -44,15 +44,17 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
                         })
                     )
             );
-            await interaction.editReply('done');
+            await interaction.editReply('Added all commands.');
         } else {
             await rest.post(route, {
                 body: command.data.toJSON()
             });
-            interaction.reply('done');
+            interaction.reply(`Added \`${command.data.name}\``);
         }
     } catch (error) {
-        const embed = new Embed(client, interaction.locale).setTitle('fail').setDescription(`\`\`\`js\n${error}\`\`\``);
+        const embed = new Embed(client, interaction.locale)
+            .setTitle('Failed')
+            .setDescription(`\`\`\`js\n${error}\`\`\``);
         interaction.deferred ? interaction.editReply({ embeds: [embed] }) : interaction.reply({ embeds: [embed] });
     }
 }
