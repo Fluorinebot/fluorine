@@ -11,6 +11,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
     await interaction.deferReply();
     const script = interaction.options.getString('script');
+    script.replace('```\nsh', '').replace('\n```', '');
     const embed = new Embed(client, interaction.locale);
 
     try {
