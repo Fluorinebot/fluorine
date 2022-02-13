@@ -7,7 +7,7 @@ import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
 import ComponentHandler from '@handlers/ComponentHandler';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
-    await interaction.deferReply({ ephemeral: true, fetchReply: true });
+    await interaction.deferReply({ ephemeral: true });
     const type = interaction.options.getString('type');
     const module = interaction.options.getString('module');
 

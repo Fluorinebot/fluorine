@@ -11,14 +11,13 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
     await interaction.deferReply();
     const script = interaction.options.getString('script');
-    let embed;
+    const embed = new Embed(client, interaction.locale);
 
     try {
-        embed = new Embed(client, interaction.locale)
-            .setTitle('Done')
-            .setDescription(codeBlock('sh', execSync(script).toString()));
+        const result = execSync(script).toString();
+        embed.setTitle('Done').setDescription(codeBlock('sh', result));
     } catch (error) {
-        embed = new Embed(client, interaction.locale).setTitle('Failed').setDescription(codeBlock('sh', error));
+        embed.setTitle('Failed').setDescription(codeBlock('sh', error));
     }
 
     interaction.editReply({ embeds: [embed] });
