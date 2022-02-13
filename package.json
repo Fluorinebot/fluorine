@@ -9,7 +9,7 @@
         "lint": "eslint .",
         "lint:fix": "eslint --fix .",
         "dev": "npm run build && npm start",
-        "build": "tsc && resolve-tspaths",
+        "build": "rm -rf ./dist/ && tsc && resolve-tspaths",
         "start": "node ."
     },
     "repository": {
