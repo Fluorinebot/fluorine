@@ -77,7 +77,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         }
     } catch (error) {
         const embed = new Embed(client, interaction.locale)
-            .setTitle('Epic Fail')
+            .setTitle('Failed')
             .setDescription(codeBlock('js', error.stack));
 
         interaction.editReply({ embeds: [embed] });

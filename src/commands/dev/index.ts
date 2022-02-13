@@ -37,12 +37,6 @@ if (process.env.NODE_ENV === 'development') {
             .setName('eval')
             .setDescription('Evaluates a given exprssion.')
             .addStringOption(option => option.setName('code').setDescription('The code to evaluate.').setRequired(true))
-            .addBooleanOption(option =>
-                option
-                    .setName('shell')
-                    .setDescription('Whether to execute as a shell command or Javascript code')
-                    .setRequired(false)
-            )
     );
 } else if (process.env.NODE_ENV === 'production') {
     data.addSubcommand(subcommand => subcommand.setName('update').setDescription('Update the bot.'));
