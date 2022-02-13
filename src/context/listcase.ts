@@ -3,7 +3,7 @@ import Embed from '@classes/Embed';
 import { InteractionReplyOptions, MessageActionRow, MessageButton, UserContextMenuInteraction } from 'discord.js';
 import { ContextMenuCommandBuilder } from '@discordjs/builders';
 import getCases from '@util/getCases';
-import { ApplicationCommandType } from 'discord-api-types';
+import { ApplicationCommandType } from 'discord-api-types/v9';
 
 export async function run(client: FluorineClient, interaction: UserContextMenuInteraction<'cached'>) {
     const row = new MessageActionRow();

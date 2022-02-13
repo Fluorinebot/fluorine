@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { ChannelType } from 'discord-api-types';
+import { ChannelType } from 'discord-api-types/v9';
 import { Category } from 'types/applicationCommand';
 export const data = new SlashCommandBuilder()
     .setName('config')

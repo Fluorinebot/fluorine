@@ -8,7 +8,7 @@ import {
     GuildMember
 } from 'discord.js';
 import { ContextMenuCommandBuilder } from '@discordjs/builders';
-import { ApplicationCommandType } from 'discord-api-types';
+import { ApplicationCommandType } from 'discord-api-types/v9';
 
 export async function run(client: FluorineClient, interaction: UserContextMenuInteraction<'cached'>): Promise<void> {
     const user = interaction.targetMember ?? interaction.targetUser;
