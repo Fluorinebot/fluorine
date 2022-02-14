@@ -3,7 +3,7 @@ import Embed from '@classes/Embed';
 import { ButtonInteraction, MessageActionRow, MessageButton } from 'discord.js';
 export const authorOnly = true;
 export async function run(client: FluorineClient, interaction: ButtonInteraction, value: string) {
-    const embed: = new Embed(client, interaction.locale);
+    const embed = new Embed(client, interaction.locale);
     const row = new MessageActionRow().addComponents([
         new MessageButton()
             .setLabel(client.i18n.t('INFO', { lng: interaction.locale }))
