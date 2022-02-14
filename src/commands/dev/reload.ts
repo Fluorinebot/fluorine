@@ -29,10 +29,6 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             }
 
             case 'commands': {
-                if (module.includes('\\index')) {
-                    return interaction.editReply(`Did you mean \`${module.split('/')[0]}\`?`);
-                }
-
                 if (module === 'all') {
                     const { loadChatInput } = new ApplicationCommandHandler(client);
                     client.applicationCommands.chatInput = loadChatInput();
@@ -40,7 +36,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
                 }
 
                 const commandFile = await import(`./../../commands/${module}`);
-                client.applicationCommands.chatInput.set(module, commandFile);
+                client.applicationCommands.chatInput.set(module.split('/')[0], commandFile);
 
                 interaction.editReply(`Reloaded the \`${module}\` chat input command.`);
                 break;
