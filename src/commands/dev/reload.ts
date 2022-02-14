@@ -19,8 +19,10 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         switch (type) {
             case 'events': {
                 if (module === 'all') {
+                    client.logger.warn(`All events taken offline.`);
                     client.removeAllListeners();
                     new EventHandler(client);
+                    client.logger.log(`All events back online.`);
 
                     return interaction.editReply('Reloaded all events.');
                 }
@@ -30,8 +32,10 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
                     eventFile.run(client, ...event);
                 };
 
+                client.logger.warn(`${module} event taken offline.`);
                 client.removeAllListeners(module);
                 client.on(module, callback);
+                client.logger.log(`${module} event back online.`);
 
                 interaction.editReply(`Reloaded the \`${module}\` event.`);
                 break;
