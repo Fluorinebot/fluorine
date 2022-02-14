@@ -5,6 +5,7 @@ import { CommandInteraction } from 'discord.js';
 import { execSync } from 'child_process';
 import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
 import ComponentHandler from '@handlers/ComponentHandler';
+import EventHandler from '@handlers/EventHandler';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     await interaction.deferReply({ ephemeral: true });
@@ -17,12 +18,19 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
         switch (type) {
             case 'events': {
+                if (module === 'all') {
+                    client.removeAllListeners();
+                    new EventHandler(client);
+
+                    return interaction.editReply('Reloaded all events.');
+                }
+
                 const eventFile: any = await import(`./../../events/${module}`);
                 const callback = (...event) => {
                     eventFile.run(client, ...event);
                 };
 
-                client.off(module, callback);
+                client.removeAllListeners(module);
                 client.on(module, callback);
 
                 interaction.editReply(`Reloaded the \`${module}\` event.`);
