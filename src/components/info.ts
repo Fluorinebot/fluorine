@@ -3,7 +3,7 @@ import Embed from '@classes/Embed';
 import { ButtonInteraction, MessageActionRow, MessageButton } from 'discord.js';
 export const authorOnly = true;
 export async function run(client: FluorineClient, interaction: ButtonInteraction, value: string) {
-    let embed: Embed;
+    const embed: = new Embed(client, interaction.locale);
     const row = new MessageActionRow().addComponents([
         new MessageButton()
             .setLabel(client.i18n.t('INFO', { lng: interaction.locale }))
@@ -17,7 +17,7 @@ export async function run(client: FluorineClient, interaction: ButtonInteraction
             .setStyle('PRIMARY')
     ]);
     if (value === 'info') {
-        embed = new Embed(client, interaction.locale)
+        embed
             .setLocaleTitle('INFO_TITLE')
             .setLocaleDescription('INFO_DESCRIPTION')
             .addLocaleField({
@@ -42,7 +42,7 @@ export async function run(client: FluorineClient, interaction: ButtonInteraction
                 inline: true
             });
     } else {
-        embed = new Embed(client, interaction.locale)
+        embed
             .setLocaleTitle('INFO_STATS_TITLE')
             .addLocaleField({
                 name: 'INFO_STATS_RAM',
