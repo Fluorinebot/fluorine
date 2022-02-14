@@ -75,5 +75,5 @@ export async function run(client: FluorineClient, interaction: ButtonInteraction
                 inline: true
             });
     }
-    interaction.reply({ embeds: [embed], components: [row] });
+    interaction.update({ embeds: [embed], components: [row] });
 }
