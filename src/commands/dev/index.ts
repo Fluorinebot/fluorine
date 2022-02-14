@@ -29,7 +29,8 @@ export const data = new SlashCommandBuilder()
             .setName('shell')
             .setDescription('Execute a shell script')
             .addStringOption(option => option.setName('script').setDescription('The shell script.').setRequired(true))
-    );
+    )
+    .addSubcommand(subcommand => subcommand.setName('update').setDescription('Update the bot.'));
 
 if (process.env.NODE_ENV === 'development') {
     data.addSubcommand(subcommand =>
@@ -38,8 +39,6 @@ if (process.env.NODE_ENV === 'development') {
             .setDescription('Evaluates a given exprssion.')
             .addStringOption(option => option.setName('code').setDescription('The code to evaluate.').setRequired(true))
     );
-} else {
-    data.addSubcommand(subcommand => subcommand.setName('update').setDescription('Update the bot.'));
 }
 
 export const category: Category = 'tools';
