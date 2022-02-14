@@ -4,7 +4,8 @@ import { CommandInteraction } from 'discord.js';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const name = interaction.options.getString('command');
-    const guildId = interaction.options.getString('guild');
+    let guildId = interaction.options.getString('guild');
+    if (guildId === 'this') guildId = interaction.guild.id;
 
     try {
         const { commands } = client.guilds.cache.get(guildId) ?? client.application;
