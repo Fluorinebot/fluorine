@@ -29,13 +29,8 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             }
 
             case 'commands': {
-                if (module.includes('index')) {
-                    await import(`./../../commands/${module}`);
-                    delete require.cache[require.resolve(`./../../${type}/${module}.js`)];
-
-                    return interaction.editReply(
-                        'The reload was successful, however no re-require operations occured.'
-                    );
+                if (module.includes('\\index')) {
+                    return interaction.editReply(`Did you mean \`${module.split('/')[0]}\`?`);
                 }
 
                 if (module === 'all') {
