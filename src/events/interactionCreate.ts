@@ -8,7 +8,6 @@ export async function run(client: FluorineClient, interaction: Interaction) {
     if (interaction.isMessageComponent()) {
         const [name, user, value] = interaction.customId.split(':');
         const component = client.components.get(name);
-
         if (component.authorOnly && interaction.user.id !== user) {
             return interaction.reply({
                 content: client.i18n.t('COMPONENT_PRIVATE', {
