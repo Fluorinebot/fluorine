@@ -18,11 +18,12 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         switch (type) {
             case 'events': {
                 const eventFile: any = await import(`./../../events/${module}`);
-
-                client.removeListener(module, eventFile.run);
-                client.on(module, (...event) => {
+                const callback = (...event) => {
                     eventFile.run(client, ...event);
-                });
+                };
+
+                client.off(module, callback);
+                client.on(module, callback);
 
                 interaction.editReply(`Reloaded the \`${module}\` event.`);
                 break;
