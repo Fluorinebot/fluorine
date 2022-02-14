@@ -260,5 +260,20 @@
     "TAGS_LIST_SPECIFIC_DATE": "Stworzono",
     "TAGS_LIST_SPECIFIC_USES": "Użycia",
     "TAGS_LIST_NO_TAGS": "{{- server }} nie ma żadnych tagów!",
-    "TAGS_LIST_TITLE": "Tagi {{- server }}"
+    "TAGS_LIST_TITLE": "Tagi {{- server }}",
+    "INFO_TITLE": "Informacje o bocie",
+    "INFO_STATS_TITLE": "Statystyki bota",
+    "INFO_DESCRIPTION": "Fantastyczny bot na discorda, idealny na twój serwer!",
+    "INFO_THANKS": "Specjalne podziękowania",
+    "INFO_DEVELOPERS": "Developerzy",
+    "INFO_LANGUAGES": "Języki",
+    "INFO_VERSION": "Wersja",
+    "INFO_STATS_RAM": "Użycie pamięci",
+    "INFO_STATS_SERVERS": "Serwery",
+    "INFO_STATS_USERS": "Użytkownicy",
+    "INFO_STATS_CHANNELS": "Kanały",
+    "INFO_STATS_COMMANDS": "Komendy",
+    "INFO_STATS_PING": "Ping",
+    "INFO_STATS": "Statystyki",
+    "INFO": "Informacje"
 }
