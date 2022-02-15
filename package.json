@@ -9,7 +9,7 @@
         "lint": "eslint .",
         "lint:fix": "eslint --fix .",
         "dev": "npm run build && npm start",
-        "build": "tsc && resolve-tspaths",
+        "build": "rm -rf ./dist/ && tsc && resolve-tspaths",
         "start": "node ."
     },
     "repository": {
@@ -17,9 +17,9 @@
         "url": "git+https://github.com/Fluorinebot/fluorine.git"
     },
     "contributors": [
-        "Xiboon <xiboon@fluorine.me (https://xiboon.me)>",
+        "Xiboon <xiboon@fluorine.me> (https://xiboon.me)",
         "Superchupu <53496941+SuperchupuDev@users.noreply.github.com>",
-        "night-lake <senkodev@gmail.com> (https://sadie.is-a.dev)"
+        "night-lake <sadiebk@fluorine.me> (https://sadie.is-a.dev)"
     ],
     "license": "GPL-3.0-or-later",
     "bugs": {
@@ -39,14 +39,14 @@
         "murmurhash-v3": "^1.0.2",
         "picocolors": "^1.0.0",
         "rethinkdb": "^2.4.2",
-        "undici": "^4.13.0"
+        "undici": "^4.14.1"
     },
     "devDependencies": {
         "@types/i18next-fs-backend": "^1.1.2",
         "@types/rethinkdb": "^2.3.17",
         "@typescript-eslint/eslint-plugin": "^5.11.0",
         "@typescript-eslint/parser": "^5.11.0",
-        "eslint": "^8.8.0",
+        "eslint": "^8.9.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-prettier": "^4.0.0",
         "typescript": "^4.5.5"
