@@ -148,13 +148,5 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
                 .setLocaleDescription('PROFILE_SET_BIRTHDAY', { birthday });
             interaction.reply({ embeds: [embed], ephemeral: true });
             break;
-        default:
-            interaction.reply({
-                content: client.i18n.t('PROFILE_INVALID_OPTION', {
-                    lng: interaction.locale
-                }),
-                ephemeral: true
-            });
-            break;
     }
 }
