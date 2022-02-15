@@ -73,21 +73,7 @@ export default class FluorineClient extends Client {
             backend: { loadPath: join(__dirname, '/../../i18n/{{lng}}.json') }
         });
 
-        await this.login();
-
-        this.guilds.cache.forEach(async g => {
-            const guild = await r.table('config').get(g.id).run(this.conn);
-            if (!guild) {
-                r.table('config')
-                    .insert({
-                        id: g.id,
-                        prefix: process.env.DISCORD_PREFIX
-                    })
-                    .run(this.conn);
-            }
-        });
-
-        this.logger.log(`Checked ${this.guilds.cache.size} guilds.`);
+        this.login();
 
         process.on('unhandledRejection', (error: Error) => {
             this.logger.error(error.stack);
