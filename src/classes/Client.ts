@@ -50,6 +50,7 @@ export default class FluorineClient extends Client {
             partials: ['MESSAGE'],
             allowedMentions: { repliedUser: false }
         });
+        new EventHandler(this);
         r.connect({
             host: process.env.RETHINK_HOSTNAME,
             password: process.env.RETHINK_PASSWORD,
@@ -59,7 +60,6 @@ export default class FluorineClient extends Client {
         });
     }
     async init() {
-        new EventHandler(this);
         const { loadChatInput, loadContextMenu } = new ApplicationCommandHandler(this);
 
         this.applicationCommands = {

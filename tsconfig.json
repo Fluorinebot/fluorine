@@ -5,7 +5,6 @@
         "allowJs": true,
         "outDir": "dist",
         "moduleResolution": "node",
-        "resolveJsonModule": true,
         "baseUrl": "src",
         "paths": {
             "@classes/*": ["classes/*"],
