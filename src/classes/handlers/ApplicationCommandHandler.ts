@@ -2,12 +2,13 @@ import { readdirSync } from 'fs';
 import { ChatInputCommand, ContextMenuCommand } from 'types/applicationCommand';
 import { Collection } from 'discord.js';
 import FluorineClient from '@classes/Client';
+import { loadDirectory } from '@util/files';
 
 export default class ApplicationCommandHandler {
     chatInput: Collection<string, ChatInputCommand>;
     contextMenu: Collection<string, ContextMenuCommand>;
     client: FluorineClient;
-    constructor(client) {
+    constructor(client: FluorineClient) {
         // import commands
         this.client = client;
         this.chatInput = new Collection();
@@ -35,14 +36,13 @@ export default class ApplicationCommandHandler {
         return this.chatInput;
     };
 
-    loadContextMenu = (): Collection<string, ContextMenuCommand> => {
-        const dir = readdirSync(`${__dirname}/../../context`);
-        dir.forEach(async file => {
-            const [name] = file.split('.');
-            this.contextMenu.set(name, await import(`${__dirname}/../../context/${file}`));
-        });
+    loadContextMenu = async (): Promise<Collection<string, ContextMenuCommand>> => {
+        const files = await loadDirectory<ContextMenuCommand>('../context');
+        for (const file of files) {
+            this.contextMenu.set(file.data.name, file);
+        }
 
-        this.client.logger.log(`Loaded ${dir.length} context menu commands.`);
+        this.client.logger.log(`Loaded ${files.length} context menu commands.`);
         return this.contextMenu;
     };
 }

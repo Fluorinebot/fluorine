@@ -58,7 +58,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             case 'context': {
                 if (module === 'all') {
                     const { loadContextMenu } = new ApplicationCommandHandler(client);
-                    client.applicationCommands.contextMenu = loadContextMenu();
+                    loadContextMenu().then(c => (client.applicationCommands.contextMenu = c));
                     return interaction.editReply('Reloaded `all` context menu commands.');
                 }
 
