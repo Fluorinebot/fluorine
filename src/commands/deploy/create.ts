@@ -9,9 +9,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
     const name = interaction.options.getString('command');
     let guildId = interaction.options.getString('guild');
-    const command = name.endsWith('.con')
-        ? client.applicationCommands.contextMenu.get(name.replace('.con', ''))
-        : client.applicationCommands.chatInput.get(name);
+    const command = client.applicationCommands.chatInput.get(name) ?? client.applicationCommands.contextMenu.get(name);
 
     if (!command && name !== 'all')
         return interaction.reply({
