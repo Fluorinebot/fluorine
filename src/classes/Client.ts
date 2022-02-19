@@ -63,7 +63,7 @@ export default class FluorineClient extends Client {
         const { loadChatInput, loadContextMenu } = new ApplicationCommandHandler(this);
 
         this.applicationCommands = {
-            chatInput: loadChatInput(),
+            chatInput: await loadChatInput(),
             contextMenu: await loadContextMenu()
         };
 

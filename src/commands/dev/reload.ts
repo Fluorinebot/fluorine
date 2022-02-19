@@ -44,7 +44,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             case 'commands': {
                 if (module === 'all') {
                     const { loadChatInput } = new ApplicationCommandHandler(client);
-                    client.applicationCommands.chatInput = loadChatInput();
+                    loadChatInput().then(c => (client.applicationCommands.chatInput = c));
                     return interaction.editReply('Reloaded `all` chat input commands.');
                 }
 

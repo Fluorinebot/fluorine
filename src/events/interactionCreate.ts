@@ -2,6 +2,7 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { Interaction } from 'discord.js';
 import r from 'rethinkdb';
+import { ChatInputCommand } from 'types/applicationCommand';
 import { Tag } from 'types/tag';
 
 export async function run(client: FluorineClient, interaction: Interaction) {
@@ -63,7 +64,7 @@ export async function run(client: FluorineClient, interaction: Interaction) {
         return interaction.reply(await client.tags.getParsedReplyOptions(tag, interaction));
     }
 
-    const { dev } = client.applicationCommands.chatInput.get(interaction.commandName);
+    const { dev } = client.applicationCommands.chatInput.get(interaction.commandName) as ChatInputCommand;
     if (dev && !client.devs.includes(interaction.user.id))
         return interaction.reply({
             content: 'You need to be a developer to do that!',

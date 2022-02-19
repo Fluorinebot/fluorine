@@ -3,6 +3,7 @@ import Embed from '@classes/Embed';
 import { CommandInteraction } from 'discord.js';
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
+import { ChatInputCommand } from 'types/applicationCommand';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const rest = new REST({ version: '9' }).setToken(client.token);
@@ -27,7 +28,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
             await Promise.all(
                 client.applicationCommands.chatInput
-                    .filter(c => c.data && !c.dev)
+                    .filter((c: ChatInputCommand) => c.data && !c.dev)
                     .map(command =>
                         rest.post(route, {
                             body: command.data.toJSON()
