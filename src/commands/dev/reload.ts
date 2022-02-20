@@ -71,7 +71,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
             case 'components': {
                 if (module === 'all') {
-                    client.components = new ComponentHandler(client).loadComponents();
+                    new ComponentHandler(client).loadComponents().then(c => (client.components = c));
                     return interaction.editReply('Reloaded `all` components.');
                 }
 

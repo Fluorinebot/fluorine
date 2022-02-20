@@ -40,7 +40,8 @@ export async function loadFile<T>(directory: string, file: string) {
     if (!file.endsWith('.js')) {
         return;
     }
+    const [name] = file.split('.');
     const data: T = await import(join(directory, file));
 
-    return { name: file, data };
+    return { name, data };
 }

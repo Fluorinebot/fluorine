@@ -1,21 +1,20 @@
-import { readdirSync } from 'fs';
 import { Component } from 'types/component';
 import { Collection } from 'discord.js';
 import FluorineClient from '@classes/Client';
+import { loadDirectory } from '@util/files';
 export default class ComponentHandler {
     client: FluorineClient;
-    map: Collection<string, Component>;
+    components = new Collection<string, Component>();
     constructor(client) {
         this.client = client;
-        this.map = new Collection();
     }
-    loadComponents() {
-        const dir = readdirSync(`${__dirname}/../../components`);
-        dir.forEach(async file => {
-            const [name] = file.split('.');
-            this.map.set(name, await import(`${__dirname}/../../components/${file}`));
-        });
-        this.client.logger.log(`Loaded ${dir.length} components.`);
-        return this.map;
+    async loadComponents() {
+        const files = await loadDirectory<Component>('../components');
+        for (const file of files) {
+            this.components.set(file.name, file.data);
+        }
+
+        this.client.logger.log(`Loaded ${files.length} components.`);
+        return this.components;
     }
 }

@@ -31,9 +31,7 @@ export default class ApplicationCommandHandler {
         }
 
         for (const subcommand of subcommands) {
-            const [name] = subcommand.name.split('.');
-            const [key] = name.endsWith('index') ? name.split('/') : [name];
-
+            const [key] = subcommand.name.endsWith('index') ? subcommand.name.split('/') : subcommand.name;
             this.chatInput.set(key, subcommand.data);
         }
 
@@ -45,7 +43,7 @@ export default class ApplicationCommandHandler {
     loadContextMenu = async () => {
         const files = await loadDirectory<ContextMenuCommand>('../context');
         for (const file of files) {
-            this.contextMenu.set(file.name, file.data);
+            this.contextMenu.set(file.data.data.name, file.data);
         }
 
         this.client.logger.log(`Loaded ${files.length} context menu commands.`);
