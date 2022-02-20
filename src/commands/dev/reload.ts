@@ -3,6 +3,8 @@ import Embed from '@classes/Embed';
 import { codeBlock } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
 import { execSync } from 'child_process';
+import { readdir } from 'fs/promises';
+import { join } from 'path';
 import EventHandler from '@handlers/EventHandler';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
@@ -13,27 +15,36 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
     try {
         if (process.env.NODE_ENV === 'development') execSync('npm run build');
-        delete require.cache[require.resolve(`./../../${type}/${module}.js`)];
+
+        if (module === 'all') {
+            const files = await readdir(join(__dirname, `../../${type}`));
+            for (const file of files) {
+                const path = join(__dirname, `../../${type}`, file);
+                delete require.cache[require.resolve(path)];
+            }
+        } else {
+            delete require.cache[require.resolve(`./../../${type}/${module}`)];
+        }
 
         switch (type) {
             case 'events': {
                 if (module === 'all') {
                     client.logger.warn(`All events taken offline.`);
                     client.removeAllListeners();
-                    new EventHandler(client);
+                    await new EventHandler(client).loadEvents();
                     client.logger.log(`All events back online.`);
 
                     return interaction.editReply('Reloaded all events.');
                 }
 
                 const eventFile = await import(`./../../events/${module}`);
-                const callback = (...event) => {
-                    eventFile.run(client, ...event);
-                };
 
                 client.logger.warn(`${module} event taken offline.`);
                 client.removeAllListeners(module);
-                client.on(module, callback);
+
+                client.on(module, (...event) => {
+                    eventFile.run(client, ...event);
+                });
                 client.logger.log(`${module} event back online.`);
 
                 interaction.editReply(`Reloaded the \`${module}\` event.`);
@@ -47,7 +58,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
                 }
 
                 const commandFile = await import(`./../../commands/${module}`);
-                client.applicationCommands.chatInput.set(module.split('/')[0], commandFile);
+                client.applicationCommands.chatInput.set(module, commandFile);
 
                 interaction.editReply(`Reloaded the \`${module}\` chat input command.`);
                 break;

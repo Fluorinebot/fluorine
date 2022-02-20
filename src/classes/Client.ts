@@ -48,7 +48,6 @@ export default class FluorineClient extends Client {
             partials: ['MESSAGE'],
             allowedMentions: { repliedUser: false }
         });
-        new EventHandler(this);
         r.connect({
             host: process.env.RETHINK_HOSTNAME,
             password: process.env.RETHINK_PASSWORD,
@@ -61,6 +60,8 @@ export default class FluorineClient extends Client {
         this.applicationCommands.loadChatInput();
         this.applicationCommands.loadContextMenu();
         this.components.loadComponents();
+
+        new EventHandler(this).loadEvents();
 
         await this.i18n.use(Backend).init({
             fallbackLng: 'en-US',
