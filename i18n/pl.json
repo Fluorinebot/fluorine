@@ -122,7 +122,7 @@
     "MESSAGE_CREATE_COOLDOWN_TITLE": "Zwolnij!",
     "MESSAGE_CREATE_COOLDOWN_DESCRIPTION": "Odczekaj 2 sekundy przed wykonaniem kolejnej komendy!",
     "MESSAGE_CREATE_DESCRIPTION": "Cześć! Jestem Fluorine.\nMój prefix na tym serwerze to {{- prefix}}",
-    "MESSAGE_CREATE_DM": "Cześć! Komendy nie działają w prywatnych wiadomościach, spróbuj napisać f!help na serwerze, na którym jestem",
+    "MESSAGE_CREATE_DM": "Cześć! Komendy nie działają w prywatnych wiadomościach, spróbuj napisać /help na serwerze, na którym jestem",
     "COMPONENT_PRIVATE": "Nie możesz nacisnąć przycisku pod komendą, której nie wykonałeś!",
     "HOWGAY": "🏳️‍🌈 {{- thing}} jest gejem na {{- percent}}%",
     "HOWGAY_ARGS": "Nie podałeś rzeczy do sprawdzenia!",

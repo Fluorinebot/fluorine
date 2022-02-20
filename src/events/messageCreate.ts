@@ -9,14 +9,6 @@ import { messageBot } from '@util/messageBot';
 export async function run(client: FluorineClient, message: Message) {
     if (message.author.bot) return;
 
-    if (message.channel.type === 'DM') {
-        return message.reply(
-            client.i18n.t('MESSAGE_CREATE_DM', {
-                lng: message.guild.preferredLocale
-            })
-        );
-    }
-
     // @ts-ignore
     const settings: SettingsType = await r.table('config').get(message.guild?.id).run(client.conn);
     if (settings.antibot) {

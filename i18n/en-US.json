@@ -123,7 +123,7 @@
     "MESSAGE_CREATE_COOLDOWN_TITLE": "Slow down!",
     "MESSAGE_CREATE_COOLDOWN_DESCRIPTION": "Wait 2 seconds before running another command!",
     "MESSAGE_CREATE_DESCRIPTION": "Hi! I'm Fluorine.\nMy prefix in this guild is {{- prefix}}",
-    "MESSAGE_CREATE_DM": "Hi! Commands don't work in DMs! Try typing f!help in the server where I am!",
+    "MESSAGE_CREATE_DM": "Hi! Commands don't work in DMs! Try typing /help in the server where I am!",
     "COMPONENT_PRIVATE": "You can't press components on a command which you didn't execute!",
     "HOWGAY": "🏳️‍🌈 {{- thing}} is {{- percent}}% gay",
     "HOWGAY_ARGS": "You haven't provided a thing to check!",
