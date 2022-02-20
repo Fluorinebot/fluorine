@@ -37,8 +37,8 @@ export default class ApplicationCommandHandler {
             this.chatInput.set(key, subcommand.data);
         }
 
-        // TODO: count base subcommands too
-        this.client.logger.log(`Loaded ${commands.length} chat input commands.`);
+        const commandsLoaded = [...this.chatInput.keys()].filter(key => !key.includes('/'));
+        this.client.logger.log(`Loaded ${commandsLoaded.length} chat input commands.`);
         return this.chatInput;
     };
 
