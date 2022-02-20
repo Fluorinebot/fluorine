@@ -3,13 +3,13 @@ import Embed from '@classes/Embed';
 import { codeBlock } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
 import { execSync } from 'child_process';
-import ComponentHandler from '@handlers/ComponentHandler';
 import EventHandler from '@handlers/EventHandler';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
-    await interaction.deferReply({ ephemeral: true });
     const type = interaction.options.getString('type');
     const module = interaction.options.getString('module');
+
+    await interaction.deferReply({ ephemeral: true });
 
     try {
         if (process.env.NODE_ENV === 'development') execSync('npm run build');
@@ -68,7 +68,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
             case 'components': {
                 if (module === 'all') {
-                    new ComponentHandler(client).loadComponents().then(c => (client.components = c));
+                    await client.components.loadComponents();
                     return interaction.editReply('Reloaded `all` components.');
                 }
 

@@ -1,10 +1,8 @@
-import { Client, Collection, Intents } from 'discord.js';
+import { Client, Intents } from 'discord.js';
 import r from 'rethinkdb';
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
 import { join } from 'path';
-
-import { Component } from 'types/component';
 
 import { Logger } from './Logger';
 import AI from './AI';
@@ -23,7 +21,7 @@ export default class FluorineClient extends Client {
     applicationCommands = new ApplicationCommandHandler(this);
     conn: r.Connection;
     cmds = new CommandHandler(this).loadCommands();
-    components: Collection<string, Component>;
+    components = new ComponentHandler(this);
     economy = new EconomyHandler(this);
     phishing = new PhishingHandler(this);
     shop = new ShopHandler(this);
@@ -62,8 +60,7 @@ export default class FluorineClient extends Client {
     async init() {
         this.applicationCommands.loadChatInput();
         this.applicationCommands.loadContextMenu();
-
-        this.components = await new ComponentHandler(this).loadComponents();
+        this.components.loadComponents();
 
         await this.i18n.use(Backend).init({
             fallbackLng: 'en-US',
