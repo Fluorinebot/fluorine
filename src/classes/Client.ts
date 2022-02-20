@@ -4,7 +4,6 @@ import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
 import { join } from 'path';
 
-import { ApplicationCommands } from 'types/applicationCommand';
 import { Component } from 'types/component';
 
 import { Logger } from './Logger';
@@ -21,7 +20,7 @@ import PhishingHandler from '@handlers/PhishingHandler';
 export default class FluorineClient extends Client {
     logger = Logger;
 
-    applicationCommands: ApplicationCommands;
+    applicationCommands = new ApplicationCommandHandler(this);
     conn: r.Connection;
     cmds = new CommandHandler(this).loadCommands();
     components: Collection<string, Component>;
@@ -61,12 +60,8 @@ export default class FluorineClient extends Client {
         });
     }
     async init() {
-        const { loadChatInput, loadContextMenu } = new ApplicationCommandHandler(this);
-
-        this.applicationCommands = {
-            chatInput: await loadChatInput(),
-            contextMenu: await loadContextMenu()
-        };
+        this.applicationCommands.loadChatInput();
+        this.applicationCommands.loadContextMenu();
 
         this.components = await new ComponentHandler(this).loadComponents();
 

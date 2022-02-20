@@ -1,9 +1,10 @@
 import { join } from 'path';
 import { lstat, readdir } from 'fs/promises';
 
+type Child<T> = { name: string; data: T };
+
 export async function loadParentDirectory<ParentT, ChildT>(relativePath: string) {
-    type Child = { name: string; data: ChildT };
-    const result: [ParentT[], Child[]] = [[], []];
+    const result: [ParentT[], Child<ChildT>[]] = [[], []];
 
     const parentDirectory = join(__dirname, relativePath);
     const parentFiles = await readdir(parentDirectory);

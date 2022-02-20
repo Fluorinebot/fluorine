@@ -23,7 +23,7 @@ export default class ApplicationCommandHandler {
         return base;
     }
 
-    loadChatInput = async () => {
+    async loadChatInput() {
         const [commands, subcommands] = await loadParentDirectory<ChatInputCommand, ChatInputSubcommand>('../commands');
 
         for (const command of commands) {
@@ -31,16 +31,16 @@ export default class ApplicationCommandHandler {
         }
 
         for (const subcommand of subcommands) {
-            const [key] = subcommand.name.endsWith('index') ? subcommand.name.split('/') : subcommand.name;
+            const [key] = subcommand.name.endsWith('index') ? subcommand.name.split('/') : [subcommand.name];
             this.chatInput.set(key, subcommand.data);
         }
 
         const commandsLoaded = [...this.chatInput.keys()].filter(key => !key.includes('/'));
         this.client.logger.log(`Loaded ${commandsLoaded.length} chat input commands.`);
         return this.chatInput;
-    };
+    }
 
-    loadContextMenu = async () => {
+    async loadContextMenu() {
         const files = await loadDirectory<ContextMenuCommand>('../context');
         for (const file of files) {
             this.contextMenu.set(file.data.data.name, file.data);
@@ -48,5 +48,5 @@ export default class ApplicationCommandHandler {
 
         this.client.logger.log(`Loaded ${files.length} context menu commands.`);
         return this.contextMenu;
-    };
+    }
 }

@@ -3,7 +3,6 @@ import Embed from '@classes/Embed';
 import { codeBlock } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
 import { execSync } from 'child_process';
-import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
 import ComponentHandler from '@handlers/ComponentHandler';
 import EventHandler from '@handlers/EventHandler';
 
@@ -27,7 +26,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
                     return interaction.editReply('Reloaded all events.');
                 }
 
-                const eventFile: any = await import(`./../../events/${module}`);
+                const eventFile = await import(`./../../events/${module}`);
                 const callback = (...event) => {
                     eventFile.run(client, ...event);
                 };
@@ -43,8 +42,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
             case 'commands': {
                 if (module === 'all') {
-                    const { loadChatInput } = new ApplicationCommandHandler(client);
-                    loadChatInput().then(c => (client.applicationCommands.chatInput = c));
+                    await client.applicationCommands.loadChatInput();
                     return interaction.editReply('Reloaded `all` chat input commands.');
                 }
 
@@ -57,8 +55,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
             case 'context': {
                 if (module === 'all') {
-                    const { loadContextMenu } = new ApplicationCommandHandler(client);
-                    loadContextMenu().then(c => (client.applicationCommands.contextMenu = c));
+                    await client.applicationCommands.loadContextMenu();
                     return interaction.editReply('Reloaded `all` context menu commands.');
                 }
 
