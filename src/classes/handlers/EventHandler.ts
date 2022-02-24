@@ -7,9 +7,7 @@ export default class EventHandler {
         const dir = readdirSync(`${__dirname}/../../events`);
         dir.forEach(async event => {
             const [name] = event.split('.');
-            const code: any = await import(
-                `${__dirname}/../../events/${event}`
-            );
+            const code: any = await import(`${__dirname}/../../events/${event}`);
             client.on(name, (...event) => {
                 code.run(client, ...event);
             });

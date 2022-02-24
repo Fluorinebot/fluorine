@@ -4,16 +4,9 @@ import { Message, MessageAttachment } from 'discord.js';
 import r from 'rethinkdb';
 import fragmentText from '@util/fragmentText';
 import Embed from '@classes/Embed';
-export async function run(
-    client: FluorineClient,
-    message: Message,
-    args: string[]
-) {
+export async function run(client: FluorineClient, message: Message, args: string[]) {
     if (args[0] === 'set') {
-        const profile = await r
-            .table('profile')
-            .get(message.author.id)
-            .run(client.conn);
+        const profile = await r.table('profile').get(message.author.id).run(client.conn);
         switch (args[1]) {
             case 'description':
                 if (!args[2]) {
@@ -29,11 +22,7 @@ export async function run(
                 }
 
                 if (profile) {
-                    await r
-                        .table('profile')
-                        .get(message.author.id)
-                        .update({ description })
-                        .run(client.conn);
+                    await r.table('profile').get(message.author.id).update({ description }).run(client.conn);
                 } else {
                     await r
                         .table('profile')
@@ -43,10 +32,7 @@ export async function run(
                         })
                         .run(client.conn);
                 }
-                const descEmbed = new Embed(
-                    client,
-                    message.guild.preferredLocale
-                )
+                const descEmbed = new Embed(client, message.guild.preferredLocale)
                     .setLocaleTitle('PROFILE_SUCCESS')
                     .setLocaleDescription('PROFILE_SET_DESCRIPTION', {
                         description
@@ -69,11 +55,7 @@ export async function run(
                     );
                 }
                 if (profile) {
-                    await r
-                        .table('profile')
-                        .get(message.author.id)
-                        .update({ website })
-                        .run(client.conn);
+                    await r.table('profile').get(message.author.id).update({ website }).run(client.conn);
                 } else {
                     await r
                         .table('profile')
@@ -83,10 +65,7 @@ export async function run(
                         })
                         .run(client.conn);
                 }
-                const webEmbed = new Embed(
-                    client,
-                    message.guild.preferredLocale
-                )
+                const webEmbed = new Embed(client, message.guild.preferredLocale)
                     .setLocaleTitle('PROFILE_SUCCESS')
                     .setLocaleDescription('PROFILE_SET_WEBSITE', { website });
                 message.reply({ embeds: [webEmbed] });
@@ -110,11 +89,7 @@ export async function run(
                     break;
                 }
                 if (profile) {
-                    await r
-                        .table('profile')
-                        .get(message.author.id)
-                        .update({ birthday })
-                        .run(client.conn);
+                    await r.table('profile').get(message.author.id).update({ birthday }).run(client.conn);
                 } else {
                     await r
                         .table('profile')
@@ -139,11 +114,7 @@ export async function run(
                     );
                 }
                 if (profile) {
-                    await r
-                        .table('profile')
-                        .get(message.author.id)
-                        .update({ location })
-                        .run(client.conn);
+                    await r.table('profile').get(message.author.id).update({ location }).run(client.conn);
                 } else {
                     await r
                         .table('profile')
@@ -153,10 +124,7 @@ export async function run(
                         })
                         .run(client.conn);
                 }
-                const locEmbed = new Embed(
-                    client,
-                    message.guild.preferredLocale
-                )
+                const locEmbed = new Embed(client, message.guild.preferredLocale)
                     .setLocaleTitle('PROFILE_SUCCESS')
                     .setLocaleDescription('PROFILE_SET_LOCATION', {
                         location
@@ -166,10 +134,7 @@ export async function run(
             case 'pronouns':
                 // eslint-disable-next-line prefer-destructuring
                 const pronouns = args[2];
-                if (
-                    !pronouns ||
-                    !['she/her', 'he/him', 'they/them'].includes(pronouns)
-                ) {
+                if (!pronouns || !['she/her', 'he/him', 'they/them'].includes(pronouns)) {
                     return message.reply(
                         client.i18n.t('PROFILE_INVALID_PRONOUNS', {
                             lng: message.guild.preferredLocale
@@ -177,11 +142,7 @@ export async function run(
                     );
                 }
                 if (profile) {
-                    await r
-                        .table('profile')
-                        .get(message.author.id)
-                        .update({ pronouns })
-                        .run(client.conn);
+                    await r.table('profile').get(message.author.id).update({ pronouns }).run(client.conn);
                 } else {
                     await r
                         .table('profile')
@@ -191,10 +152,7 @@ export async function run(
                         })
                         .run(client.conn);
                 }
-                const pronounEmbed = new Embed(
-                    client,
-                    message.guild.preferredLocale
-                )
+                const pronounEmbed = new Embed(client, message.guild.preferredLocale)
                     .setLocaleTitle('PROFILE_SUCCESS')
                     .setLocaleDescription('PROFILE_SET_PRONOUNS', {
                         pronouns
@@ -210,25 +168,16 @@ export async function run(
                 break;
         }
     } else {
-        const user =
-            client.users.cache.get(args[0]) ||
-            message.mentions.members.first()?.user ||
-            message.author;
+        const user = client.users.cache.get(args[0]) || message.mentions.members.first()?.user || message.author;
         const notSet = client.i18n.t('PROFILE_NOT_SET', {
             lang: message.guild.preferredLocale
         });
-        const profile: any = await r
-            .table('profile')
-            .get(user.id)
-            .run(client.conn);
+        const profile: any = await r.table('profile').get(user.id).run(client.conn);
         if (profile?.birthday) {
             const birthday = profile.birthday.split('/');
-            profile.birthday = `${client.i18n.t(
-                `MONTHS.${parseInt(birthday[1]) - 1}`,
-                {
-                    lng: message.guild.preferredLocale
-                }
-            )} ${birthday[0]}`;
+            profile.birthday = `${client.i18n.t(`MONTHS.${parseInt(birthday[1]) - 1}`, {
+                lng: message.guild.preferredLocale
+            })} ${birthday[0]}`;
         } else {
             profile.birthday = notSet;
         }
@@ -244,12 +193,8 @@ export async function run(
             family: 'Poppins',
             weight: 'bold'
         });
-        const image = await canvas.loadImage(
-            `${__dirname}/../../assets/template.png`
-        );
-        const avatar = await canvas.loadImage(
-            user.displayAvatarURL({ format: 'png' })
-        );
+        const image = await canvas.loadImage(`${__dirname}/../../assets/template.png`);
+        const avatar = await canvas.loadImage(user.displayAvatarURL({ format: 'png' }));
         const canva = canvas.createCanvas(image.width, image.height);
         const ctx = canva.getContext('2d');
         ctx.drawImage(image, 0, 0);
@@ -310,16 +255,7 @@ export async function run(
         ctx.arc(85, 62, 55, 0, Math.PI * 2, true);
         ctx.clip();
         ctx.drawImage(avatar, 30, 7, 110, 110);
-        const attachment = new MessageAttachment(
-            canva.toBuffer(),
-            'profile.png'
-        );
+        const attachment = new MessageAttachment(canva.toBuffer(), 'profile.png');
         message.reply({ files: [attachment] });
     }
 }
-export const help = {
-    name: 'profile',
-    description: 'Profil użytkownika',
-    aliases: [],
-    category: 'fun'
-};

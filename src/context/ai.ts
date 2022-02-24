@@ -1,11 +1,8 @@
 import FluorineClient from '@classes/Client';
 import { ContextMenuCommandBuilder } from '@discordjs/builders';
-import { ApplicationCommandType } from 'discord-api-types';
+import { ApplicationCommandType } from 'discord-api-types/v9';
 import { MessageContextMenuInteraction } from 'discord.js';
-export async function run(
-    client: FluorineClient,
-    interaction: MessageContextMenuInteraction
-) {
+export async function run(client: FluorineClient, interaction: MessageContextMenuInteraction) {
     const { content } = interaction.targetMessage;
     if (content.length > 65) {
         interaction.reply({
@@ -27,6 +24,4 @@ export async function run(
     client.ai.getAI(interaction, value);
 }
 
-export const data = new ContextMenuCommandBuilder()
-    .setName('AI')
-    .setType(ApplicationCommandType.Message);
+export const data = new ContextMenuCommandBuilder().setName('AI').setType(ApplicationCommandType.Message);

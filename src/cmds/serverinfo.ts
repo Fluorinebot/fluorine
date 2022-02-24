@@ -27,9 +27,3 @@ export async function run(client: FluorineClient, message: Message) {
         });
     message.reply({ embeds: [embed] });
 }
-export const help = {
-    name: 'serverinfo',
-    description: 'Informacje o serwerze',
-    aliases: ['server', 'si'],
-    category: 'tools'
-};

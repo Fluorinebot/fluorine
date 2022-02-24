@@ -3,14 +3,8 @@ import Embed from '@classes/Embed';
 import { CommandInteraction } from 'discord.js';
 import r from 'rethinkdb';
 
-export async function run(
-    client: FluorineClient,
-    interaction: CommandInteraction
-) {
-    const profile = await r
-        .table('profile')
-        .get(interaction.user.id)
-        .run(client.conn);
+export async function run(client: FluorineClient, interaction: CommandInteraction) {
+    const profile = await r.table('profile').get(interaction.user.id).run(client.conn);
     const field = interaction.options.getString('field');
     const value = interaction.options.getString('value');
     switch (field) {
@@ -24,11 +18,7 @@ export async function run(
                 });
             }
             if (profile) {
-                await r
-                    .table('profile')
-                    .get(interaction.user.id)
-                    .update({ location: value })
-                    .run(client.conn);
+                await r.table('profile').get(interaction.user.id).update({ location: value }).run(client.conn);
             } else {
                 await r
                     .table('profile')
@@ -57,11 +47,7 @@ export async function run(
                 );
             }
             if (profile) {
-                await r
-                    .table('profile')
-                    .get(interaction.user.id)
-                    .update({ website })
-                    .run(client.conn);
+                await r.table('profile').get(interaction.user.id).update({ website }).run(client.conn);
             } else {
                 await r
                     .table('profile')
@@ -87,11 +73,7 @@ export async function run(
                 });
             }
             if (profile) {
-                await r
-                    .table('profile')
-                    .get(interaction.user.id)
-                    .update({ pronouns })
-                    .run(client.conn);
+                await r.table('profile').get(interaction.user.id).update({ pronouns }).run(client.conn);
             } else {
                 await r
                     .table('profile')
@@ -119,11 +101,7 @@ export async function run(
                 });
             }
             if (profile) {
-                await r
-                    .table('profile')
-                    .get(interaction.user.id)
-                    .update({ description })
-                    .run(client.conn);
+                await r.table('profile').get(interaction.user.id).update({ description }).run(client.conn);
             } else {
                 await r
                     .table('profile')
@@ -155,11 +133,7 @@ export async function run(
                 break;
             }
             if (profile) {
-                await r
-                    .table('profile')
-                    .get(interaction.user.id)
-                    .update({ birthday })
-                    .run(client.conn);
+                await r.table('profile').get(interaction.user.id).update({ birthday }).run(client.conn);
             } else {
                 await r
                     .table('profile')
@@ -173,14 +147,6 @@ export async function run(
                 .setLocaleTitle('PROFILE_SUCCESS')
                 .setLocaleDescription('PROFILE_SET_BIRTHDAY', { birthday });
             interaction.reply({ embeds: [embed], ephemeral: true });
-            break;
-        default:
-            interaction.reply({
-                content: client.i18n.t('PROFILE_INVALID_OPTION', {
-                    lng: interaction.locale
-                }),
-                ephemeral: true
-            });
             break;
     }
 }

@@ -2,10 +2,7 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { CommandInteraction } from 'discord.js';
 import { ShopItem } from 'types/shop';
-export async function run(
-    client: FluorineClient,
-    interaction: CommandInteraction
-) {
+export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const name = interaction.options.getString('name');
     const description = interaction.options.getString('description');
     const price = interaction.options.getInteger('price');
@@ -41,9 +38,7 @@ export async function run(
         .addLocaleField({ name: 'SHOP_CREATE_DESCRIPTION', value: description })
         .addLocaleField({
             name: 'SHOP_CREATE_PRICE',
-            value: `${price} ${await client.economy.getCurrency(
-                interaction.guildId
-            )}`
+            value: `${price} ${await client.economy.getCurrency(interaction.guildId)}`
         });
     interaction.reply({ embeds: [embed] });
     client.shop.add(obj);

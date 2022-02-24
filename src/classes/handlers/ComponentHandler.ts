@@ -13,10 +13,7 @@ export default class ComponentHandler {
         const dir = readdirSync(`${__dirname}/../../components`);
         dir.forEach(async file => {
             const [name] = file.split('.');
-            this.map.set(
-                name,
-                await import(`${__dirname}/../../components/${file}`)
-            );
+            this.map.set(name, await import(`${__dirname}/../../components/${file}`));
         });
         this.client.logger.log(`Loaded ${dir.length} components.`);
         return this.map;

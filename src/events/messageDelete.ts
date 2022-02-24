@@ -6,10 +6,7 @@ import { SettingsType } from 'types/settings';
 export async function run(client: FluorineClient, message: Message) {
     if (!message.content) return;
     // @ts-ignore
-    const settings: SettingsType = await r
-        .table('config')
-        .get(message.guild?.id)
-        .run(client.conn);
+    const settings: SettingsType = await r.table('config').get(message.guild?.id).run(client.conn);
     if (!settings.logs || !settings.logsChannel) return;
     const channel = client.channels.cache.get(settings.logsChannel);
     if (!channel.isText()) return;

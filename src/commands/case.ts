@@ -5,10 +5,7 @@ import { SlashCommandBuilder } from '@discordjs/builders';
 import getCase from '@util/getCase';
 import { Category } from 'types/applicationCommand';
 
-export async function run(
-    client: FluorineClient,
-    interaction: CommandInteraction
-) {
+export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const id = interaction.options.getInteger('id');
     const [userCase] = await getCase(client, interaction.guild, id);
 
@@ -39,11 +36,7 @@ export const data = new SlashCommandBuilder()
     .setName('case')
     .setDescription('Check a moderation case')
     .addIntegerOption(option =>
-        option
-            .setName('id')
-            .setDescription('The case ID to search')
-            .setMinValue(1)
-            .setRequired(true)
+        option.setName('id').setDescription('The case ID to search').setMinValue(1).setRequired(true)
     );
 
 export const category: Category = 'moderation';

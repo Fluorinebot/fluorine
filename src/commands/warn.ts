@@ -6,10 +6,7 @@ import r from 'rethinkdb';
 import modLog from '@util/modLog';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { Category } from 'types/applicationCommand';
-export async function run(
-    client: FluorineClient,
-    interaction: CommandInteraction<'cached'>
-) {
+export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
     if (!interaction.member?.permissions.has('MODERATE_MEMBERS')) {
         return interaction.reply({
             content: client.i18n.t('WARN_PERMISSIONS_MISSING', {
@@ -20,9 +17,7 @@ export async function run(
     }
 
     const member = interaction.options.getMember('user');
-    const reason =
-        interaction.options.getString('reason') ??
-        client.i18n.t('NONE', { lng: interaction.locale });
+    const reason = interaction.options.getString('reason') ?? client.i18n.t('NONE', { lng: interaction.locale });
 
     if (!member)
         return interaction.reply({
@@ -49,14 +44,7 @@ export async function run(
         });
     }
 
-    const create = await createCase(
-        client,
-        interaction?.guild,
-        member.user,
-        interaction.user,
-        'warn',
-        reason
-    );
+    const create = await createCase(client, interaction?.guild, member.user, interaction.user, 'warn', reason);
 
     modLog(client, create, interaction.guild);
     const embed = new Embed(client, interaction.locale)
@@ -75,17 +63,9 @@ export async function run(
 export const data = new SlashCommandBuilder()
     .setName('warn')
     .setDescription('Warn an user from the server')
-    .addUserOption(option =>
-        option
-            .setName('user')
-            .setDescription('Provide an user to warn')
-            .setRequired(true)
-    )
+    .addUserOption(option => option.setName('user').setDescription('Provide an user to warn').setRequired(true))
     .addStringOption(option =>
-        option
-            .setName('reason')
-            .setDescription('Provide a reason for warning this user')
-            .setRequired(false)
+        option.setName('reason').setDescription('Provide a reason for warning this user').setRequired(false)
     );
 
 export const category: Category = 'moderation';

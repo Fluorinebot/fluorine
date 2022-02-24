@@ -12,30 +12,20 @@ export const data = new SlashCommandBuilder()
                     .setName('field')
                     .setDescription('Field to set')
                     .setRequired(true)
-            )
-            .addStringOption(option =>
-                option
-                    .setName('value')
-                    .setDescription('Value to set')
-                    .setRequired(true)
                     .setChoices([
-                        ['Description', 'description'],
-                        ['Website', 'website'],
                         ['Birthday', 'birthday'],
+                        ['Description', 'description'],
                         ['Location', 'location'],
-                        ['Pronouns', 'pronouns']
+                        ['Pronouns', 'pronouns'],
+                        ['Website', 'website']
                     ])
             )
+            .addStringOption(option => option.setName('value').setDescription('Value to set').setRequired(true))
     )
     .addSubcommand(command =>
         command
             .setName('get')
             .setDescription('View a profile')
-            .addUserOption(option =>
-                option
-                    .setName('user')
-                    .setDescription('User to view')
-                    .setRequired(false)
-            )
+            .addUserOption(option => option.setName('user').setDescription('User to view').setRequired(false))
     );
 export const category: Category = 'tools';

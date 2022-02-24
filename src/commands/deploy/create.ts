@@ -4,10 +4,7 @@ import { CommandInteraction } from 'discord.js';
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
 
-export async function run(
-    client: FluorineClient,
-    interaction: CommandInteraction
-) {
+export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const rest = new REST({ version: '9' }).setToken(client.token);
 
     const name = interaction.options.getString('command');
@@ -29,6 +26,7 @@ export async function run(
     try {
         if (name === 'all') {
             await interaction.deferReply();
+
             await Promise.all(
                 client.applicationCommands.chatInput
                     .filter(c => c.data && !c.dev)
@@ -47,19 +45,20 @@ export async function run(
                         })
                     )
             );
-            await interaction.editReply('done');
+
+            await interaction.editReply('Added all commands.');
         } else {
             await rest.post(route, {
                 body: command.data.toJSON()
             });
-            interaction.reply('done');
+
+            interaction.reply(`Added \`${command.data.name}\``);
         }
     } catch (error) {
         const embed = new Embed(client, interaction.locale)
-            .setTitle('fail')
+            .setTitle('Failed')
             .setDescription(`\`\`\`js\n${error}\`\`\``);
-        interaction.deferred
-            ? interaction.editReply({ embeds: [embed] })
-            : interaction.reply({ embeds: [embed] });
+
+        interaction.deferred ? interaction.editReply({ embeds: [embed] }) : interaction.reply({ embeds: [embed] });
     }
 }

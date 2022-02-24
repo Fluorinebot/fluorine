@@ -2,11 +2,7 @@ import FluorineClient from '../classes/Client';
 import Embed from '../classes/Embed';
 import { Message } from 'discord.js';
 import getCase from '@util/getCase';
-export async function run(
-    client: FluorineClient,
-    message: Message,
-    args: Array<string>
-) {
+export async function run(client: FluorineClient, message: Message, args: Array<string>) {
     if (!args[0])
         return message.reply(
             client.i18n.t('CASE_INVALID_CASE_ID', {
@@ -35,9 +31,3 @@ export async function run(
         .addLocaleField({ name: 'CASE_REASON', value: Case.dscp });
     message.reply({ embeds: [embed] });
 }
-export const help = {
-    name: 'case',
-    description: 'Sprawdź informacje o karze.',
-    aliases: ['kara'],
-    category: 'mod'
-};
