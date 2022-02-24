@@ -9,8 +9,7 @@ import { messageBot } from '@util/messageBot';
 export async function run(client: FluorineClient, message: Message) {
     if (message.author.bot) return;
 
-    // @ts-ignore
-    const settings: SettingsType = await r.table('config').get(message.guild?.id).run(client.conn);
+    const settings = (await r.table('config').get(message.guild?.id).run(client.conn)) as SettingsType;
     if (settings.antibot) {
         const factor = await messageBot(client, message);
         if (factor >= settings.antibot) {

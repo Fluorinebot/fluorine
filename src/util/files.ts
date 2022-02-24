@@ -33,7 +33,7 @@ export async function loadParentDirectory<ParentT, ChildT>(relativePath: string)
 export async function loadDirectory<T>(relativePath: string) {
     const directory = join(__dirname, relativePath);
 
-    const files = await readdir(directory);
+    const files = (await readdir(directory)).filter(f => f.endsWith('.js'));
     return Promise.all(files.map(async file => loadFile<T>(directory, file)));
 }
 

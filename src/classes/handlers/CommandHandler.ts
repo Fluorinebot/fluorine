@@ -13,6 +13,7 @@ export default class CommandHandler {
     loadCommands() {
         const dir = readdirSync(`${__dirname}/../../cmds`);
         dir.forEach(async file => {
+            if (!file.endsWith('.js')) return;
             const [name] = file.split('.');
             this.map.set(name, await import(`${__dirname}/../../cmds/${file}`));
         });
