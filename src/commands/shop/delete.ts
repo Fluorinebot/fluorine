@@ -1,5 +1,6 @@
 import { CommandInteraction } from 'discord.js';
 import FluorineClient from '@classes/Client';
+import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const name = interaction.options.getString('name');
     const itemObj = await client.shop.get(name, interaction.guildId);
@@ -21,3 +22,8 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     interaction.reply(client.i18n.t('SHOP_DELETE_SUCCESS', { lng: interaction.locale }));
     client.shop.delete(name, interaction.guildId);
 }
+
+export const data = new SlashCommandSubcommandBuilder()
+    .setName('delete')
+    .setDescription('Delete a item from the shop')
+    .addStringOption(option => option.setName('name').setDescription('Name of the item').setRequired(true));

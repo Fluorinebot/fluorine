@@ -1,6 +1,7 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { CommandInteraction } from 'discord.js';
+import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
+import { ApplicationCommandDataResolvable, CommandInteraction } from 'discord.js';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const name = interaction.options.getString('command');
@@ -14,7 +15,11 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         await commands.fetch();
 
         if (name === 'all') {
-            await commands.set(guildId ? [(await import('../../commands/deploy/index')).data.toJSON()] : []);
+            await commands.set(
+                guildId
+                    ? [client.applicationCommands.chatInput.get('deploy').data as ApplicationCommandDataResolvable]
+                    : []
+            );
         } else {
             const command = commands.cache.find(c => c.name === name);
 
@@ -36,3 +41,11 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         interaction.reply({ embeds: [embed] });
     }
 }
+
+export const data = new SlashCommandSubcommandBuilder()
+    .setName('delete')
+    .setDescription('Delete application commands')
+    .addStringOption(option =>
+        option.setName('command').setDescription('Provide a command to delete').setRequired(true)
+    )
+    .addStringOption(option => option.setName('guild').setDescription('Provide a guild to deploy').setRequired(false));

@@ -3,6 +3,8 @@ import { CommandInteraction, MessageAttachment } from 'discord.js';
 import r from 'rethinkdb';
 import canvas from 'canvas';
 import fragmentText from '@util/fragmentText';
+import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
+
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const user = interaction.options.getUser('user') ?? interaction.user;
     const notSet = client.i18n.t('PROFILE_NOT_SET', {
@@ -70,3 +72,8 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const attachment = new MessageAttachment(canva.toBuffer(), 'profile.png');
     interaction.reply({ files: [attachment] });
 }
+
+export const data = new SlashCommandSubcommandBuilder()
+    .setName('get')
+    .setDescription('View a profile')
+    .addUserOption(option => option.setName('user').setDescription('User to view').setRequired(false));

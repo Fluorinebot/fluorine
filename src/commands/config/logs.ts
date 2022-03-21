@@ -2,6 +2,7 @@ import { CommandInteraction } from 'discord.js';
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import r from 'rethinkdb';
+import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     if (!interaction.memberPermissions.has('MANAGE_GUILD')) {
         return interaction.reply({
@@ -19,3 +20,10 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     interaction.reply({ embeds: [embed] });
     r.table('config').get(interaction.guildId).update({ logs: value }).run(client.conn);
 }
+
+export const data = new SlashCommandSubcommandBuilder()
+    .setName('logs')
+    .setDescription('Set if you want to log messages')
+    .addBooleanOption(option =>
+        option.setName('logs').setDescription('Set whether you want to log messages').setRequired(true)
+    );

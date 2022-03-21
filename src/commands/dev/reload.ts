@@ -1,6 +1,6 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { codeBlock } from '@discordjs/builders';
+import { codeBlock, SlashCommandSubcommandBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
 import { execSync } from 'child_process';
 import { readdir } from 'fs/promises';
@@ -98,3 +98,22 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         interaction.editReply({ embeds: [embed] });
     }
 }
+
+export const data = new SlashCommandSubcommandBuilder()
+    .setName('reload')
+    .setDescription('Reloads a module.')
+    .addStringOption(option =>
+        option
+            .setName('type')
+            .setDescription('The type of the module.')
+            .setRequired(true)
+            .setChoices([
+                ['Event', 'events'],
+                ['Chat Input Command', 'commands'],
+                ['Context Menu Command', 'context'],
+                ['Component', 'components']
+            ])
+    )
+    .addStringOption(option =>
+        option.setName('module').setDescription("The module that you're reloading.").setRequired(true)
+    );

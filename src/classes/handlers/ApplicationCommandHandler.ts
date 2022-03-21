@@ -13,9 +13,24 @@ export default class ApplicationCommandHandler {
         this.client = client;
     }
 
-    getMergedCommandData(base: SlashCommandBuilder, data: SlashCommandSubcommandBuilder[]) {
+    private addFullBuilder(command: ChatInputCommand | ChatInputSubcommand) {
+        if ('category' in command) {
+            const subcommandNames = [...this.chatInput.keys()].filter(c => c.startsWith(`${command.data.name}/`));
+
+            const subcommands = subcommandNames.map(subcommandName => {
+                const subcommand = this.chatInput.get(subcommandName);
+                if (!('category' in subcommand)) {
+                    return subcommand.data;
+                }
+            });
+
+            this.getMergedCommandData(command.data, subcommands);
+        }
+    }
+
+    private getMergedCommandData(base: SlashCommandBuilder, data: SlashCommandSubcommandBuilder[] = []) {
         for (const subcommand of data) {
-            if (subcommand) {
+            if (subcommand && (process.env.NODE_ENV === 'development' || subcommand.name !== 'eval')) {
                 base.addSubcommand(subcommand);
             }
         }
@@ -34,6 +49,8 @@ export default class ApplicationCommandHandler {
             const [key] = subcommand.name.endsWith('index') ? subcommand.name.split('/') : [subcommand.name];
             this.chatInput.set(key, subcommand.data);
         }
+
+        this.chatInput.forEach(c => this.addFullBuilder(c));
 
         const commandsLoaded = [...this.chatInput.keys()].filter(key => !key.includes('/'));
         this.client.logger.log(`Loaded ${commandsLoaded.length} chat input commands.`);
