@@ -3,6 +3,7 @@ import r from 'rethinkdb';
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
 import { join } from 'path';
+import { bold, red } from 'picocolors';
 
 import { Logger } from './Logger';
 import AI from './AI';
@@ -20,7 +21,7 @@ export default class FluorineClient extends Client {
 
     applicationCommands = new ApplicationCommandHandler(this);
     conn: r.Connection;
-    cmds = new CommandHandler(this).loadCommands();
+    cmds = new CommandHandler(this);
     components = new ComponentHandler(this);
     economy = new EconomyHandler(this);
     phishing = new PhishingHandler(this);
@@ -47,18 +48,16 @@ export default class FluorineClient extends Client {
             partials: ['MESSAGE'],
             allowedMentions: { repliedUser: false }
         });
-        r.connect({
-            host: process.env.RETHINK_HOSTNAME,
-            password: process.env.RETHINK_PASSWORD,
-            db: process.env.RETHINK_DATABASE
-        }).then(conn => {
-            this.conn = conn;
-        });
     }
     async init() {
+        this.logger.log(`Starting ${bold(red(process.env.NODE_ENV))} build...`);
+
         this.applicationCommands.loadChatInput();
         this.applicationCommands.loadContextMenu();
         this.components.loadComponents();
+
+        // TODO: remove prefix commands a month after 2.0
+        this.cmds.loadCommands();
 
         new EventHandler(this).loadEvents();
 
@@ -66,6 +65,12 @@ export default class FluorineClient extends Client {
             fallbackLng: 'en-US',
             preload: ['en-US', 'pl'],
             backend: { loadPath: join(__dirname, '/../../i18n/{{lng}}.json') }
+        });
+
+        this.conn = await r.connect({
+            host: process.env.RETHINK_HOSTNAME,
+            password: process.env.RETHINK_PASSWORD,
+            db: process.env.RETHINK_DATABASE
         });
 
         this.login();
