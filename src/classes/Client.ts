@@ -56,14 +56,6 @@ export default class FluorineClient extends Client {
         });
 
         this.createdAt = performance.now();
-
-        r.connect({
-            host: process.env.RETHINK_HOSTNAME,
-            password: process.env.RETHINK_PASSWORD,
-            db: process.env.RETHINK_DATABASE
-        }).then(conn => {
-            this.conn = conn;
-        });
     }
 
     async init() {
