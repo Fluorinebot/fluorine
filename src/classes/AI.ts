@@ -24,13 +24,13 @@ export default class AI {
         const ai = await fetch(`${process.env.AI_URL}/${text}?token=${process.env.AI_TOKEN}`)
             .catch(err => {
                 this.isGenerating = false;
-                return err;
+                throw err;
             })
-            .then(res => res.json());
+            .then(res => res.json() as Record<string, any>);
         if (!ai.result) {
             return object.reply(
                 this.client.i18n.t('AI_ERROR', {
-                    lng: object.guild.preferredLocale
+                    lng: object.locale ?? object.guild.preferredLocale
                 })
             );
         }

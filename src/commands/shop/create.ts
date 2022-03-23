@@ -1,7 +1,9 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
+import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
 import { ShopItem } from 'types/shop';
+
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const name = interaction.options.getString('name');
     const description = interaction.options.getString('description');
@@ -43,3 +45,15 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     interaction.reply({ embeds: [embed] });
     client.shop.add(obj);
 }
+
+export const data = new SlashCommandSubcommandBuilder()
+    .setName('create')
+    .setDescription('Create a item!')
+    .addStringOption(option => option.setName('name').setDescription('Name of the item').setRequired(true))
+    .addStringOption(option =>
+        option.setName('description').setDescription('Description of the item').setRequired(true)
+    )
+    .addIntegerOption(option =>
+        option.setName('price').setDescription('Price of the item').setMinValue(1).setRequired(true)
+    )
+    .addRoleOption(option => option.setName('role').setDescription('The role you want to give').setRequired(false));

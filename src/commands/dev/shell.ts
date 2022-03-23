@@ -1,6 +1,6 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { codeBlock } from '@discordjs/builders';
+import { codeBlock, SlashCommandSubcommandBuilder } from '@discordjs/builders';
 import { execSync } from 'child_process';
 import { CommandInteraction } from 'discord.js';
 
@@ -23,3 +23,8 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
     interaction.editReply({ embeds: [embed] });
 }
+
+export const data = new SlashCommandSubcommandBuilder()
+    .setName('shell')
+    .setDescription('Execute a shell script')
+    .addStringOption(option => option.setName('script').setDescription('The shell script.').setRequired(true));

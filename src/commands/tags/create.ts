@@ -1,5 +1,5 @@
 import FluorineClient from '@classes/Client';
-import { SlashCommandBuilder } from '@discordjs/builders';
+import { SlashCommandBuilder, SlashCommandSubcommandBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
 import r from 'rethinkdb';
 
@@ -57,3 +57,25 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         })
     );
 }
+
+export const data = new SlashCommandSubcommandBuilder()
+    .setName('create')
+    .setDescription('Create a tag')
+    .addStringOption(option =>
+        option.setName('name').setDescription('Name of the tag. 32 characters max.').setRequired(true)
+    )
+    .addStringOption(option =>
+        option.setName('description').setDescription('Content of the tag. 100 characters max.').setRequired(true)
+    )
+    .addStringOption(option =>
+        option
+            .setName('content')
+            .setDescription('Content of the tag. See docs.fluorine.me/tags#syntax for syntax.')
+            .setRequired(true)
+    )
+    .addBooleanOption(option =>
+        option
+            .setName('ephemeral')
+            .setDescription('Whether this tag should be displayed to everyone or just the person viewing it.')
+            .setRequired(false)
+    );

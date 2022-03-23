@@ -1,5 +1,5 @@
 import FluorineClient from '@classes/Client';
-import { codeBlock } from '@discordjs/builders';
+import { codeBlock, SlashCommandSubcommandBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
 import r from 'rethinkdb';
 import { Tag } from 'types/tag';
@@ -31,3 +31,8 @@ ephemeral: ${tag.ephemeral}
 
     interaction.reply(codeBlock('yaml', exportData));
 }
+
+export const data = new SlashCommandSubcommandBuilder()
+    .setName('raw')
+    .setDescription('Export the raw content data of a tag')
+    .addStringOption(option => option.setName('tag').setDescription('The tag to export').setRequired(true));

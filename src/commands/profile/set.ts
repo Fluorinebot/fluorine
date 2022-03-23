@@ -1,5 +1,6 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
+import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
 import r from 'rethinkdb';
 
@@ -150,3 +151,21 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             break;
     }
 }
+
+export const data = new SlashCommandSubcommandBuilder()
+    .setName('set')
+    .setDescription('Set a profile')
+    .addStringOption(option =>
+        option
+            .setName('field')
+            .setDescription('Field to set')
+            .setRequired(true)
+            .setChoices([
+                ['Birthday', 'birthday'],
+                ['Description', 'description'],
+                ['Location', 'location'],
+                ['Pronouns', 'pronouns'],
+                ['Website', 'website']
+            ])
+    )
+    .addStringOption(option => option.setName('value').setDescription('Value to set').setRequired(true));

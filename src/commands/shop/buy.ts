@@ -1,4 +1,5 @@
 import FluorineClient from '@classes/Client';
+import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
 export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
     const item = interaction.options.getString('item');
@@ -25,3 +26,8 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     }
     client.economy.subtract(interaction.user.id, interaction.guild.id, user.wallet - itemObj.price);
 }
+
+export const data = new SlashCommandSubcommandBuilder()
+    .setName('buy')
+    .setDescription('Buy an item from the shop')
+    .addStringOption(option => option.setName('item').setDescription('The item you want to buy').setRequired(true));

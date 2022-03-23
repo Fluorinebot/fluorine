@@ -10,7 +10,7 @@
         "lint:fix": "eslint --fix .",
         "dev": "npm run build && npm start",
         "build": "rm -rf ./dist/ && tsc && resolve-tspaths",
-        "start": "node ."
+        "start": "node --enable-source-maps ."
     },
     "repository": {
         "type": "git",

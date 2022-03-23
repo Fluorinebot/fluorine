@@ -1,6 +1,6 @@
 import FluorineClient from '@classes/Client';
 import { CommandInteraction, ContextMenuInteraction, Collection } from 'discord.js';
-import { ContextMenuCommandBuilder, SlashCommandBuilder } from '@discordjs/builders';
+import { ContextMenuCommandBuilder, SlashCommandBuilder, SlashCommandSubcommandBuilder } from '@discordjs/builders';
 
 export type Category = 'fun' | 'tools' | 'moderation' | 'economy';
 
@@ -11,6 +11,11 @@ export interface ChatInputCommand {
     dev?: boolean;
 }
 
+export interface ChatInputSubcommand {
+    run: (client: FluorineClient, interaction: CommandInteraction) => void;
+    data: SlashCommandSubcommandBuilder;
+}
+
 export interface ContextMenuCommand {
     run: (client: FluorineClient, interaction: ContextMenuInteraction) => void;
     data: ContextMenuCommandBuilder;
@@ -18,6 +23,6 @@ export interface ContextMenuCommand {
 }
 
 export interface ApplicationCommands {
-    chatInput: Collection<string, ChatInputCommand>;
+    chatInput: Collection<string, ChatInputCommand | ChatInputSubcommand>;
     contextMenu: Collection<string, ContextMenuCommand>;
 }

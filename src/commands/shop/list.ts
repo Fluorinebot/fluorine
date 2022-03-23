@@ -1,6 +1,8 @@
 import { CommandInteraction } from 'discord.js';
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
+import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
+
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const list = await client.shop.list(interaction.guildId);
     const embed = new Embed(client, interaction.locale).setLocaleTitle('SHOP_LIST_TITLE');
@@ -14,3 +16,5 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     }
     interaction.reply({ embeds: [embed] });
 }
+
+export const data = new SlashCommandSubcommandBuilder().setName('list').setDescription('List all items in the shop');
