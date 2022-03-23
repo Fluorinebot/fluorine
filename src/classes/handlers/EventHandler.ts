@@ -1,17 +1,21 @@
 import FluorineClient from '@classes/Client';
-import { readdirSync } from 'fs';
+import { loadDirectory } from '@util/files';
+import { Event } from 'types/event';
 
 export default class EventHandler {
+    client: FluorineClient;
     constructor(client: FluorineClient) {
-        // import events
-        const dir = readdirSync(`${__dirname}/../../events`);
-        dir.forEach(async event => {
-            const [name] = event.split('.');
-            const code: any = await import(`${__dirname}/../../events/${event}`);
-            client.on(name, (...event) => {
-                code.run(client, ...event);
+        this.client = client;
+    }
+
+    async loadEvents() {
+        const files = await loadDirectory<Event>('../events');
+        for (const file of files) {
+            this.client.on(file.name, (...event) => {
+                file.data.run(this.client, ...event);
             });
-        });
-        client.logger.log(`Loaded ${dir.length} events.`);
+        }
+
+        this.client.logger.log(`Loaded ${files.length} events.`);
     }
 }

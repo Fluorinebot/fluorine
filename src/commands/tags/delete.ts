@@ -1,4 +1,5 @@
 import FluorineClient from '@classes/Client';
+import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 import { CommandInteraction, MessageActionRow, MessageButton } from 'discord.js';
 import { MessageButtonStyles } from 'discord.js/typings/enums';
 import r from 'rethinkdb';
@@ -55,3 +56,8 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         components: [row]
     });
 }
+
+export const data = new SlashCommandSubcommandBuilder()
+    .setName('delete')
+    .setDescription('Delete a tag')
+    .addStringOption(option => option.setName('tag').setDescription('The tag to delete').setRequired(true));

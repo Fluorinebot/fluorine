@@ -1,48 +1,69 @@
-import { readdirSync } from 'fs';
-import { ChatInputCommand, ContextMenuCommand } from 'types/applicationCommand';
+import { ChatInputCommand, ChatInputSubcommand, ContextMenuCommand } from 'types/applicationCommand';
 import { Collection } from 'discord.js';
 import FluorineClient from '@classes/Client';
+import { loadDirectory, loadParentDirectory } from '@util/files';
+import { SlashCommandBuilder, SlashCommandSubcommandBuilder } from '@discordjs/builders';
 
 export default class ApplicationCommandHandler {
-    chatInput: Collection<string, ChatInputCommand>;
-    contextMenu: Collection<string, ContextMenuCommand>;
     client: FluorineClient;
-    constructor(client) {
-        // import commands
+    chatInput = new Collection<string, ChatInputCommand | ChatInputSubcommand>();
+    contextMenu = new Collection<string, ContextMenuCommand>();
+
+    constructor(client: FluorineClient) {
         this.client = client;
-        this.chatInput = new Collection();
-        this.contextMenu = new Collection();
     }
 
-    loadChatInput = (): Collection<string, ChatInputCommand> => {
-        const dir = readdirSync(`${__dirname}/../../commands`);
-        dir.forEach(async file => {
-            if (!file.endsWith('.js')) {
-                const subcommands = readdirSync(`${__dirname}/../../commands/${file}`);
-                subcommands.forEach(async subfile => {
-                    const [subname] = subfile.split('.');
-                    if (subname === 'index') return;
-                    this.chatInput.set(
-                        `${file}/${subname}`,
-                        await import(`${__dirname}/../../commands/${file}/${subname}`)
-                    );
-                });
+    private addFullBuilder(command: ChatInputCommand | ChatInputSubcommand) {
+        if ('category' in command) {
+            const subcommandNames = [...this.chatInput.keys()].filter(c => c.startsWith(`${command.data.name}/`));
+
+            const subcommands = subcommandNames.map(subcommandName => {
+                const subcommand = this.chatInput.get(subcommandName);
+                if (!('category' in subcommand)) {
+                    return subcommand.data;
+                }
+            });
+
+            this.getMergedCommandData(command.data, subcommands);
+        }
+    }
+
+    private getMergedCommandData(base: SlashCommandBuilder, data: SlashCommandSubcommandBuilder[] = []) {
+        for (const subcommand of data) {
+            if (subcommand && (process.env.NODE_ENV === 'development' || subcommand.name !== 'eval')) {
+                base.addSubcommand(subcommand);
             }
-            const [name] = file.split('.');
-            this.chatInput.set(name, await import(`${__dirname}/../../commands/${file}`));
-        });
-        this.client.logger.log(`Loaded ${dir.length} chat input commands.`);
+        }
+
+        return base;
+    }
+
+    async loadChatInput() {
+        const [commands, subcommands] = await loadParentDirectory<ChatInputCommand, ChatInputSubcommand>('../commands');
+
+        for (const command of commands) {
+            this.chatInput.set(command.data.name, command);
+        }
+
+        for (const subcommand of subcommands) {
+            const [key] = subcommand.name.endsWith('index') ? subcommand.name.split('/') : [subcommand.name];
+            this.chatInput.set(key, subcommand.data);
+        }
+
+        this.chatInput.forEach(c => this.addFullBuilder(c));
+
+        const commandsLoaded = [...this.chatInput.keys()].filter(key => !key.includes('/'));
+        this.client.logger.log(`Loaded ${commandsLoaded.length} chat input commands.`);
         return this.chatInput;
-    };
+    }
 
-    loadContextMenu = (): Collection<string, ContextMenuCommand> => {
-        const dir = readdirSync(`${__dirname}/../../context`);
-        dir.forEach(async file => {
-            const [name] = file.split('.');
-            this.contextMenu.set(name, await import(`${__dirname}/../../context/${file}`));
-        });
+    async loadContextMenu() {
+        const files = await loadDirectory<ContextMenuCommand>('../context');
+        for (const file of files) {
+            this.contextMenu.set(file.data.data.name, file.data);
+        }
 
-        this.client.logger.log(`Loaded ${dir.length} context menu commands.`);
+        this.client.logger.log(`Loaded ${files.length} context menu commands.`);
         return this.contextMenu;
-    };
+    }
 }

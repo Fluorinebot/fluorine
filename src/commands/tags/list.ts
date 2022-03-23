@@ -1,6 +1,6 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { codeBlock, time } from '@discordjs/builders';
+import { codeBlock, SlashCommandSubcommandBuilder, time } from '@discordjs/builders';
 import { CommandInteraction, InteractionReplyOptions, MessageActionRow, MessageButton } from 'discord.js';
 import r from 'rethinkdb';
 import { Tag } from 'types/tag';
@@ -90,3 +90,8 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
     interaction.reply(replyOptions);
 }
+
+export const data = new SlashCommandSubcommandBuilder()
+    .setName('list')
+    .setDescription('List all tags, or info on a tag')
+    .addStringOption(option => option.setName('tag').setDescription('The tag to list info on').setRequired(false));

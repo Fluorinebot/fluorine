@@ -11,12 +11,12 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         });
     }
     if (client.ai.queue.some(q => q.object.user.id === interaction.user.id)) {
-        interaction.reply({
+        return interaction.reply({
             content: client.i18n.t('AI_LIMIT', { lng: interaction.locale }),
             ephemeral: true
         });
     }
-    interaction.deferReply();
+    await interaction.deferReply();
     const argsbase = Buffer.from(args, 'utf8').toString('base64').replaceAll('/', '_').replaceAll('+', '-');
     client.ai.getAI(interaction, argsbase);
 }

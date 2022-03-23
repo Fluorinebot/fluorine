@@ -1,4 +1,4 @@
-import { MessageEmbed } from 'discord.js';
+import { ColorResolvable, MessageEmbed } from 'discord.js';
 import Client from '@classes/Client';
 import i18next from 'i18next';
 
@@ -12,11 +12,12 @@ export interface LocaleFieldOptions {
 }
 
 export default class Embed extends MessageEmbed {
+    clientColor: ColorResolvable = 0x3872f2;
     i18n: typeof i18next;
     locale: string;
     constructor(client: Client, locale: string) {
         super({});
-        this.setColor('#3872f2');
+        this.setColor(this.clientColor);
         this.setFooter({
             text: `Fluorine ${client.version}`,
             iconURL: client.user.avatarURL()

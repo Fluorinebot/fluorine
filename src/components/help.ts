@@ -1,12 +1,15 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { SelectMenuInteraction, EmbedFieldData, MessageActionRow, MessageSelectMenu } from 'discord.js';
+import { ChatInputCommand } from 'types/applicationCommand';
 
 export const authorOnly = true;
 
 export async function run(client: FluorineClient, interaction: SelectMenuInteraction) {
     const [category] = interaction.values;
-    const commands = client.applicationCommands.chatInput.filter(c => c.category === category && !c.dev);
+    const commands = client.applicationCommands.chatInput.filter(
+        (c: ChatInputCommand) => c.category === category && !c.dev
+    );
 
     const fields: EmbedFieldData[] = commands.map(c => ({
         name: `/${c.data.name}`,
