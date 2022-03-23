@@ -24,29 +24,32 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             lng: interaction.locale
         });
 
-    if (!member)
+    if (!member) {
         return interaction.reply({
             content: client.i18n.t('KICK_MEMBER_MISSING', {
                 lng: interaction.locale
             }),
             ephemeral: true
         });
+    }
 
-    if (member.user.id === interaction.user.id)
+    if (member.user.id === interaction.user.id) {
         return interaction.reply({
             content: client.i18n.t('KICK_ERROR_YOURSELF', {
                 lng: interaction.locale
             }),
             ephemeral: true
         });
+    }
 
-    if (!member.kickable)
+    if (!member.kickable) {
         return interaction.reply({
             content: client.i18n.t('KICK_BOT_PERMISSIONS_MISSING', {
                 lng: interaction.locale
             }),
             ephemeral: true
         });
+    }
 
     if (reason.length > 1024) {
         return interaction.reply({

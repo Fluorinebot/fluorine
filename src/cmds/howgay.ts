@@ -3,12 +3,13 @@ import { Message } from 'discord.js';
 import hash from 'murmurhash-v3';
 
 export async function run(client: FluorineClient, message: Message, args: string[]) {
-    if (!args[0])
+    if (!args[0]) {
         return message.reply(
             client.i18n.t('HOWGAY_ARGS', {
                 lng: message.guild.preferredLocale
             })
         );
+    }
 
     const thing = message.mentions.users.first() ?? args.join(' ');
 

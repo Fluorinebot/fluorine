@@ -13,12 +13,13 @@ export async function run(client: FluorineClient, message: Message, args: string
         );
     }
 
-    if (!args[0])
+    if (!args[0]) {
         return message.reply(
             client.i18n.t('BAN_ARGUMENTS_MISSING', {
                 lng: message.guild.preferredLocale
             })
         );
+    }
 
     const member = message.mentions.members?.first() ?? (await message.guild?.members.fetch(args[0]).catch(() => null));
     const reason =
@@ -27,19 +28,21 @@ export async function run(client: FluorineClient, message: Message, args: string
             lng: message.guild.preferredLocale
         });
 
-    if (!member)
+    if (!member) {
         return message.reply(
             client.i18n.t('BAN_MEMBER_MISSING', {
                 lng: message.guild.preferredLocale
             })
         );
+    }
 
-    if (!member?.bannable)
+    if (!member?.bannable) {
         return message.reply(
             client.i18n.t('BAN_BOT_PERMISSIONS_MISSING', {
                 lng: message.guild.preferredLocale
             })
         );
+    }
 
     if (reason.length > 1024) {
         message.reply(

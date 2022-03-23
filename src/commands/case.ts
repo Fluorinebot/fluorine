@@ -9,13 +9,14 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const id = interaction.options.getInteger('id');
     const [userCase] = await getCase(client, interaction.guild, id);
 
-    if (!userCase)
+    if (!userCase) {
         return interaction.reply({
             content: client.i18n.t('CASE_NOT_FOUND', {
                 lng: interaction.locale
             }),
             ephemeral: true
         });
+    }
 
     const user = await client.users.fetch(userCase.user);
     const creator = await client.users.fetch(userCase.creator);

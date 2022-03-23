@@ -24,7 +24,9 @@ export default async function modLog(client: FluorineClient, Case: Case, guild: 
             .addField('ID', `#${Case.id}`);
 
         const channel = guild.channels.cache.get(settings.logsChannel);
-        if (!channel.isText()) return;
+        if (!channel.isText()) {
+            return;
+        }
         channel.send({ embeds: [embed] });
     }
 }

@@ -19,21 +19,23 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const member = interaction.options.getMember('user');
     const reason = interaction.options.getString('reason') ?? client.i18n.t('NONE', { lng: interaction.locale });
 
-    if (!member)
+    if (!member) {
         return interaction.reply({
             content: client.i18n.t('WARN_MEMBER_MISSING', {
                 lng: interaction.locale
             }),
             ephemeral: true
         });
+    }
 
-    if (member.user.id === interaction.user.id)
+    if (member.user.id === interaction.user.id) {
         return interaction.reply({
             content: client.i18n.t('WARN_ERROR_YOURSELF', {
                 lng: interaction.locale
             }),
             ephemeral: true
         });
+    }
 
     if (reason.length > 1024) {
         return interaction.reply({

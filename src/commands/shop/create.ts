@@ -11,7 +11,9 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const role = interaction.options.getRole('role');
     const guild = interaction.guildId;
     const obj: ShopItem = { name, description, price, guild };
-    if (role) obj.role = role.id;
+    if (role) {
+        obj.role = role.id;
+    }
     if (!interaction.memberPermissions.has('MANAGE_GUILD')) {
         return interaction.reply({
             content: client.i18n.t('SHOP_CREATE_PERMISSIONS', {

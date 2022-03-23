@@ -113,6 +113,7 @@
         "switch-colon-spacing": "error",
         "template-curly-spacing": ["error", "never"],
         "unicode-bom": ["error", "never"],
-        "yoda": "error"
+        "yoda": "error",
+        "curly": ["error", "all"]
     }
 }
