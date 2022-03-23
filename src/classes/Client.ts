@@ -18,6 +18,7 @@ import TagHandler from '@handlers/TagHandler';
 import PhishingHandler from '@handlers/PhishingHandler';
 
 export default class FluorineClient extends Client {
+    createdAt = performance.now();
     logger = Logger;
     i18n = i18next;
 
@@ -38,7 +39,6 @@ export default class FluorineClient extends Client {
     devs = ['707675871355600967', '478823932913516544', '348591272476540928'];
 
     conn: r.Connection;
-    createdAt: number;
 
     constructor() {
         super({
@@ -54,8 +54,6 @@ export default class FluorineClient extends Client {
             partials: ['MESSAGE'],
             allowedMentions: { repliedUser: false }
         });
-
-        this.createdAt = performance.now();
     }
 
     async init() {
