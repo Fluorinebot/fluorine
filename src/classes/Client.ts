@@ -76,7 +76,7 @@ export default class FluorineClient extends Client {
             backend: { loadPath: join(__dirname, '/../../i18n/{{lng}}.json') }
         });
 
-        this.db.connect();
+        await this.db.connect();
 
         this.conn = await r.connect({
             host: process.env.RETHINK_HOSTNAME,
@@ -90,8 +90,8 @@ export default class FluorineClient extends Client {
             this.logger.error(error.stack);
         });
 
-        process.on('exit', () => {
-            this.db.end();
+        process.on('exit', async() => {
+            await this.db.end();
         });
     }
 }
