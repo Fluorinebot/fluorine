@@ -11,7 +11,9 @@ export async function run(client: FluorineClient, message: Message, args: string
             })
         );
     }
-    if (args.includes('client.token')) return message.reply('you wish');
+    if (args.includes('client.token')) {
+        return message.reply('you wish');
+    }
     let codex: any = args.join(' ').replaceAll('```js', '').replaceAll('```ts', '');
     if (codex.includes('```sh')) {
         codex = codex.replaceAll('```sh', '').replaceAll('```', '');

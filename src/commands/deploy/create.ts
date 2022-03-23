@@ -12,12 +12,15 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     let guildId = interaction.options.getString('guild');
     const command = client.applicationCommands.chatInput.get(name) ?? client.applicationCommands.contextMenu.get(name);
 
-    if (!command && name !== 'all')
+    if (!command && name !== 'all') {
         return interaction.reply({
             content: 'Command not found',
             ephemeral: true
         });
-    if (guildId === 'this') ({ guildId } = interaction);
+    }
+    if (guildId === 'this') {
+        ({ guildId } = interaction);
+    }
     const route = guildId
         ? Routes.applicationGuildCommands(client.user.id, guildId)
         : Routes.applicationCommands(client.user.id);

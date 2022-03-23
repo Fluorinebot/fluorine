@@ -9,13 +9,14 @@ export async function run(client: FluorineClient, interaction: UserContextMenuIn
     const row = new MessageActionRow();
     const member = interaction.targetMember;
 
-    if (!member)
+    if (!member) {
         return interaction.reply({
             content: client.i18n.t('LISTCASE_MEMBER_MISSING', {
                 lng: interaction.locale
             }),
             ephemeral: true
         });
+    }
 
     const cases = await getCases(client, interaction.guild?.id, member.user.id);
 
@@ -23,7 +24,7 @@ export async function run(client: FluorineClient, interaction: UserContextMenuIn
         .setLocaleTitle('LISTCASE_TITLE', { user: member.user.tag })
         .setThumbnail(member.user.displayAvatarURL({ dynamic: true }));
 
-    if (!cases.length)
+    if (!cases.length) {
         return interaction.reply({
             content: client.i18n.t('LISTCASE_NO_CASES', {
                 lng: interaction.locale,
@@ -31,11 +32,14 @@ export async function run(client: FluorineClient, interaction: UserContextMenuIn
             }),
             ephemeral: true
         });
+    }
 
     const chunk = cases.reduce((resultArray, item, index) => {
         const chunkIndex = Math.floor(index / 9);
 
-        if (!resultArray[chunkIndex]) resultArray[chunkIndex] = [];
+        if (!resultArray[chunkIndex]) {
+            resultArray[chunkIndex] = [];
+        }
         resultArray[chunkIndex].push(item);
 
         return resultArray;

@@ -11,13 +11,14 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     if (name) {
         const guildCommands = (await interaction.guild.commands.fetch()).map(c => c.name);
 
-        if (!guildCommands.includes(name))
+        if (!guildCommands.includes(name)) {
             return interaction.reply({
                 content: client.i18n.t('TAG_DOESNT_EXIST', {
                     lng: interaction.locale
                 }),
                 ephemeral: true
             });
+        }
 
         const tag = (await r.table('tags').get(`${interaction.guild.id}-${name}`).run(client.conn)) as Tag;
 
@@ -42,7 +43,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const guild = interaction.guildId;
     const tags = await r.table('tags').getAll(guild, { index: 'guild' }).coerceTo('array').run(client.conn);
 
-    if (!tags.length)
+    if (!tags.length) {
         return interaction.reply({
             content: client.i18n.t('TAGS_LIST_NO_TAGS', {
                 server: interaction.guild.id,
@@ -50,6 +51,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             }),
             ephemeral: true
         });
+    }
 
     const chunk = tags.reduce((resultArray, item, index) => {
         const chunkIndex = Math.floor(index / 4);

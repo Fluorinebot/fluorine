@@ -4,12 +4,18 @@ import { Message } from 'discord.js';
 import r from 'rethinkdb';
 import { SettingsType } from 'types/settings';
 export async function run(client: FluorineClient, message: Message) {
-    if (!message.content) return;
+    if (!message.content) {
+        return;
+    }
     // @ts-ignore
     const settings: SettingsType = await r.table('config').get(message.guild?.id).run(client.conn);
-    if (!settings.logs || !settings.logsChannel) return;
+    if (!settings.logs || !settings.logsChannel) {
+        return;
+    }
     const channel = client.channels.cache.get(settings.logsChannel);
-    if (!channel.isText()) return;
+    if (!channel.isText()) {
+        return;
+    }
     const embed = new Embed(client, message.guild.preferredLocale)
         .setLocaleTitle('MESSAGE_DELETE_TITLE')
         .setThumbnail(message.member.displayAvatarURL({ dynamic: true }))

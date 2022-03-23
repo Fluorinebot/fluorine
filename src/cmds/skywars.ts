@@ -4,21 +4,23 @@ import { HypixelType } from 'types/hypixel';
 import { Message } from 'discord.js';
 import { fetch } from 'undici';
 export async function run(client: FluorineClient, message: Message, args: string[]) {
-    if (!args[0])
+    if (!args[0]) {
         return message.reply(
             client.i18n.t('HYPIXEL_NO_ARGS', {
                 lng: message.guild.preferredLocale,
                 command: 'bedwars'
             })
         );
+    }
     const uuid: any = await fetch(`https://api.mojang.com/users/profiles/minecraft/${args[0]}`).then(res => res.json());
 
-    if (!uuid.data.id)
+    if (!uuid.data.id) {
         return message.reply(
             client.i18n.t('HYPIXEL_INVALID_PLAYER', {
                 lng: message.guild.preferredLocale
             })
         );
+    }
     const data = (await fetch(
         `https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${process.env.HYPIXEL_TOKEN}`
     ).then(res => res.json())) as HypixelType;

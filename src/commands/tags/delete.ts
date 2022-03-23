@@ -13,21 +13,23 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         .coerceTo('array')
         .run(client.conn)) as Tag[];
 
-    if (!tag)
+    if (!tag) {
         return interaction.reply({
             content: client.i18n.t('TAG_DOESNT_EXIST', {
                 lng: interaction.locale
             }),
             ephemeral: true
         });
+    }
 
-    if (!interaction.memberPermissions.has('MANAGE_GUILD'))
+    if (!interaction.memberPermissions.has('MANAGE_GUILD')) {
         return interaction.reply({
             content: client.i18n.t('TAGS_DELETE_NOT_TAG_OWNER', {
                 lng: interaction.locale
             }),
             ephemeral: true
         });
+    }
 
     const row = new MessageActionRow().addComponents([
         new MessageButton()

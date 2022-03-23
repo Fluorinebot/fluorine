@@ -3,20 +3,22 @@ import Embed from '../classes/Embed';
 import { Message } from 'discord.js';
 import getCase from '@util/getCase';
 export async function run(client: FluorineClient, message: Message, args: Array<string>) {
-    if (!args[0])
+    if (!args[0]) {
         return message.reply(
             client.i18n.t('CASE_INVALID_CASE_ID', {
                 lng: message.guild.preferredLocale
             })
         );
+    }
 
     const [Case] = await getCase(client, message.guild, parseInt(args[0]));
-    if (!Case)
+    if (!Case) {
         return message.reply(
             client.i18n.t('CASE_NOT_FOUND', {
                 lng: message.guild.preferredLocale
             })
         );
+    }
     const user = await client.users.fetch(Case.user);
     const creator = await client.users.fetch(Case.creator);
     const embed = new Embed(client, message.guild.preferredLocale)

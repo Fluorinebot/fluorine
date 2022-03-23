@@ -14,7 +14,9 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     await interaction.deferReply({ ephemeral: true });
 
     try {
-        if (process.env.NODE_ENV === 'development') execSync('npm run build');
+        if (process.env.NODE_ENV === 'development') {
+            execSync('npm run build');
+        }
 
         if (module === 'all') {
             const files = await readdir(join(__dirname, `../../${type}`));

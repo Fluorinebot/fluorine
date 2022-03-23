@@ -6,12 +6,13 @@ import { Message } from 'discord.js';
 import modLog from '@util/modLog';
 
 export async function run(client: FluorineClient, message: Message, args: string[]) {
-    if (!args[0])
+    if (!args[0]) {
         return message.reply(
             client.i18n.t('KICK_ARGUMENTS_MISSING', {
                 lng: message.guild.preferredLocale
             })
         );
+    }
     if (!message.member?.permissions.has('KICK_MEMBERS')) {
         return message.reply(
             client.i18n.t('KICK_PERMISSIONS_MISSING', {
@@ -22,18 +23,20 @@ export async function run(client: FluorineClient, message: Message, args: string
     const member = message.mentions.members?.first() ?? (await message.guild?.members.fetch(args[0]).catch(() => null));
     const reason = args.slice(1).join(' ') || client.i18n.t('NONE', { lng: message.guild.preferredLocale });
 
-    if (!member)
+    if (!member) {
         return message.reply(
             client.i18n.t('KICK_MEMBER_MISSING', {
                 lng: message.guild.preferredLocale
             })
         );
-    if (!member?.kickable)
+    }
+    if (!member?.kickable) {
         return message.reply(
             client.i18n.t('KICK_BOT_PERMISSIONS_MISSING', {
                 lng: message.guild.preferredLocale
             })
         );
+    }
 
     if (reason.length > 1024) {
         message.reply(
