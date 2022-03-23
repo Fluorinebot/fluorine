@@ -25,7 +25,7 @@ export default class FluorineClient extends Client {
     applicationCommands = new ApplicationCommandHandler(this);
     components = new ComponentHandler(this);
     cooldown = new Set<string>();
-    cmds = new CommandHandler(this).loadCommands();
+    cmds = new CommandHandler(this);
 
     economy = new EconomyHandler(this);
     phishing = new PhishingHandler(this);
