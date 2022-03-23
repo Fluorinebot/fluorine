@@ -90,7 +90,7 @@ export default class FluorineClient extends Client {
             this.logger.error(error.stack);
         });
 
-        process.on('exit', async() => {
+        process.on('exit', async () => {
             await this.db.end();
         });
     }
