@@ -1,5 +1,6 @@
 import { Client, Intents } from 'discord.js';
 import r from 'rethinkdb';
+import { Client as DbClient } from 'pg';
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
 import { join } from 'path';
@@ -38,6 +39,7 @@ export default class FluorineClient extends Client {
     version = process.env.npm_package_version;
     devs = ['707675871355600967', '478823932913516544', '348591272476540928'];
 
+    db = new DbClient();
     conn: r.Connection;
 
     constructor() {
@@ -74,6 +76,8 @@ export default class FluorineClient extends Client {
             backend: { loadPath: join(__dirname, '/../../i18n/{{lng}}.json') }
         });
 
+        this.db.connect();
+
         this.conn = await r.connect({
             host: process.env.RETHINK_HOSTNAME,
             password: process.env.RETHINK_PASSWORD,
@@ -84,6 +88,10 @@ export default class FluorineClient extends Client {
 
         process.on('unhandledRejection', (error: Error) => {
             this.logger.error(error.stack);
+        });
+
+        process.on('exit', () => {
+            this.db.end();
         });
     }
 }
