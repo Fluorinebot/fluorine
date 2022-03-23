@@ -4,36 +4,42 @@ import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
 import { join } from 'path';
 import { bold, red } from 'picocolors';
+import { performance } from 'perf_hooks';
 
-import { Logger } from './Logger';
-import AI from './AI';
+import { Logger } from '@classes/Logger';
+import AI from '@classes/AI';
 import EventHandler from '@handlers/EventHandler';
 import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
 import CommandHandler from '@handlers/CommandHandler';
 import ComponentHandler from '@handlers/ComponentHandler';
 import EconomyHandler from '@handlers/EconomyHandler';
 import ShopHandler from '@handlers/ShopHandler';
-import TagHandler from './handlers/TagHandler';
+import TagHandler from '@handlers/TagHandler';
 import PhishingHandler from '@handlers/PhishingHandler';
 
 export default class FluorineClient extends Client {
     logger = Logger;
+    i18n = i18next;
 
     applicationCommands = new ApplicationCommandHandler(this);
-    conn: r.Connection;
-    cmds = new CommandHandler(this);
     components = new ComponentHandler(this);
+    cooldown = new Set<string>();
+    cmds = new CommandHandler(this).loadCommands();
+
     economy = new EconomyHandler(this);
     phishing = new PhishingHandler(this);
     shop = new ShopHandler(this);
     tags = new TagHandler(this);
-    cooldown = new Set<string>();
     ai = new AI(this);
+
     invite =
         'https://discord.com/api/oauth2/authorize?client_id=831932409943425064&scope=bot+applications.commands&permissions=474527689975';
     version = process.env.npm_package_version;
     devs = ['707675871355600967', '478823932913516544', '348591272476540928'];
-    i18n = i18next;
+
+    conn: r.Connection;
+    createdAt: number;
+
     constructor() {
         super({
             intents: [
@@ -48,7 +54,18 @@ export default class FluorineClient extends Client {
             partials: ['MESSAGE'],
             allowedMentions: { repliedUser: false }
         });
+
+        this.createdAt = performance.now();
+
+        r.connect({
+            host: process.env.RETHINK_HOSTNAME,
+            password: process.env.RETHINK_PASSWORD,
+            db: process.env.RETHINK_DATABASE
+        }).then(conn => {
+            this.conn = conn;
+        });
     }
+
     async init() {
         this.logger.log(`Starting ${bold(red(process.env.NODE_ENV))} build...`);
 
