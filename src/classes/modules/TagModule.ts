@@ -5,7 +5,7 @@ import { Tag } from 'types/tag';
 // This is still a dev build of the parser. Don't try to mess with it.
 // Just wait for slate V2.
 
-export default class TagHandler {
+export default class TagModule {
     client: FluorineClient;
     constructor(client) {
         this.client = client;

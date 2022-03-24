@@ -1,9 +1,9 @@
-import FluorineClient from './Client';
+import FluorineClient from '@classes/Client';
 import { fetch } from 'undici';
 import { Interaction, Message } from 'discord.js';
-import Embed from './Embed';
+import Embed from '@classes/Embed';
 
-export default class AI {
+export default class AiModule {
     client: FluorineClient;
     queue: any[];
     isGenerating: boolean;

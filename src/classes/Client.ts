@@ -8,15 +8,15 @@ import { bold, red } from 'picocolors';
 import { performance } from 'perf_hooks';
 
 import { Logger } from '@classes/Logger';
-import AI from '@classes/AI';
 import EventHandler from '@handlers/EventHandler';
 import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
 import CommandHandler from '@handlers/CommandHandler';
 import ComponentHandler from '@handlers/ComponentHandler';
-import EconomyHandler from '@handlers/EconomyHandler';
-import ShopHandler from '@handlers/ShopHandler';
-import TagHandler from '@handlers/TagHandler';
-import PhishingHandler from '@handlers/PhishingHandler';
+import AiModule from '@modules/AiModule';
+import EconomyModule from '@modules/EconomyModule';
+import ShopModule from '@modules/ShopModule';
+import TagModule from '@modules/TagModule';
+import PhishingModule from '@modules/PhishingModule';
 
 export default class FluorineClient extends Client {
     createdAt = performance.now();
@@ -28,11 +28,11 @@ export default class FluorineClient extends Client {
     cooldown = new Set<string>();
     cmds = new CommandHandler(this);
 
-    economy = new EconomyHandler(this);
-    phishing = new PhishingHandler(this);
-    shop = new ShopHandler(this);
-    tags = new TagHandler(this);
-    ai = new AI(this);
+    economy = new EconomyModule(this);
+    phishing = new PhishingModule(this);
+    shop = new ShopModule(this);
+    tags = new TagModule(this);
+    ai = new AiModule(this);
 
     invite =
         'https://discord.com/api/oauth2/authorize?client_id=831932409943425064&scope=bot+applications.commands&permissions=474527689975';

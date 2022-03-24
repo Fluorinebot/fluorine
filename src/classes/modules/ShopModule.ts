@@ -2,7 +2,7 @@ import FluorineClient from '@classes/Client';
 import r from 'rethinkdb';
 import { ShopItem } from 'types/shop';
 
-export default class ShopHandler {
+export default class ShopModule {
     client: FluorineClient;
     constructor(client: FluorineClient) {
         this.client = client;

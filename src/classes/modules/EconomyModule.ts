@@ -2,7 +2,8 @@ import FluorineClient from '@classes/Client';
 import r from 'rethinkdb';
 import { EconomyUser } from 'types/economyUser';
 import { SettingsType } from 'types/settings';
-export default class EconomyHandler {
+
+export default class EconomyModule {
     client: FluorineClient;
     constructor(client: FluorineClient) {
         this.client = client;
