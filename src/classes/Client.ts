@@ -1,6 +1,6 @@
 import { Client, Intents } from 'discord.js';
 import r from 'rethinkdb';
-import { Client as DbClient } from 'pg';
+import { Client as Database } from 'pg';
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
 import { join } from 'path';
@@ -39,7 +39,7 @@ export default class FluorineClient extends Client {
     version = process.env.npm_package_version;
     devs = ['707675871355600967', '478823932913516544', '348591272476540928'];
 
-    db = new DbClient();
+    db = new Database();
     conn: r.Connection;
 
     constructor() {
