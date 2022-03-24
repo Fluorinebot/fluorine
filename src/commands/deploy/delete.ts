@@ -6,7 +6,9 @@ import { ApplicationCommandDataResolvable, CommandInteraction } from 'discord.js
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const name = interaction.options.getString('command');
     let guildId = interaction.options.getString('guild');
-    if (guildId === 'this') guildId = interaction.guild.id;
+    if (guildId === 'this') {
+        guildId = interaction.guild.id;
+    }
 
     try {
         const { commands } = client.guilds.cache.get(guildId) ?? client.application;
@@ -23,11 +25,12 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         } else {
             const command = commands.cache.find(c => c.name === name);
 
-            if (!command)
+            if (!command) {
                 return interaction.reply({
                     content: 'Command not found',
                     ephemeral: true
                 });
+            }
 
             await command.delete();
             return interaction.reply(`Deleted \`${name}\`.`);

@@ -9,13 +9,14 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
     const guildCommands = (await interaction.guild.commands.fetch()).map(c => c.name);
 
-    if (!guildCommands.includes(name))
+    if (!guildCommands.includes(name)) {
         return interaction.reply({
             content: client.i18n.t('TAG_DOESNT_EXIST', {
                 lng: interaction.locale
             }),
             ephemeral: true
         });
+    }
 
     const [tag] = (await r
         .table('tags')

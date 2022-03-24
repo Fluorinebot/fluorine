@@ -12,13 +12,14 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const fluorineCommands = [...client.applicationCommands.chatInput.keys()];
     const guildCommands = await interaction.guild.commands.fetch();
 
-    if (fluorineCommands.includes(name))
+    if (fluorineCommands.includes(name)) {
         return interaction.reply({
             content: client.i18n.t('TAGS_CREATE_FLUORINE_OVERRIDE', {
                 lng: interaction.locale
             }),
             ephemeral: true
         });
+    }
 
     if (guildCommands.size >= 100) {
         return interaction.reply({
@@ -29,13 +30,14 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         });
     }
 
-    if (guildCommands.has(name))
+    if (guildCommands.has(name)) {
         return interaction.reply({
             content: client.i18n.t('TAGS_CREATE_EXISTING', {
                 lng: interaction.locale
             }),
             ephemeral: true
         });
+    }
 
     interaction.guild.commands.create(new SlashCommandBuilder().setName(name).setDescription(description).toJSON());
 

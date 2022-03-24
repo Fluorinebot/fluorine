@@ -22,14 +22,17 @@ export async function run(client: FluorineClient, interaction: Interaction) {
     } else if (interaction.isContextMenu()) {
         const contextCommand = client.applicationCommands.contextMenu.get(interaction.commandName);
 
-        if (contextCommand.dev && !client.devs.includes(interaction.user.id))
+        if (contextCommand.dev && !client.devs.includes(interaction.user.id)) {
             return interaction.reply({
                 content: 'You need to be a developer to do that!',
                 ephemeral: true
             });
+        }
         contextCommand.run(client, interaction);
     }
-    if (!interaction.isCommand()) return;
+    if (!interaction.isCommand()) {
+        return;
+    }
 
     if (client.cooldown.has(interaction.user.id)) {
         const coolEmbed = new Embed(client, interaction.locale)
@@ -57,7 +60,9 @@ export async function run(client: FluorineClient, interaction: Interaction) {
             .coerceTo('array')
             .run(client.conn)) as Tag[];
 
-        if (!tag) return;
+        if (!tag) {
+            return;
+        }
         tag.uses++;
 
         await r.table('tags').get(tag.name).update(tag).run(client.conn);
@@ -65,11 +70,12 @@ export async function run(client: FluorineClient, interaction: Interaction) {
     }
 
     const { dev } = client.applicationCommands.chatInput.get(interaction.commandName) as ChatInputCommand;
-    if (dev && !client.devs.includes(interaction.user.id))
+    if (dev && !client.devs.includes(interaction.user.id)) {
         return interaction.reply({
             content: 'You need to be a developer to do that!',
             ephemeral: true
         });
+    }
 
     command.run(client, interaction);
 }

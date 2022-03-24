@@ -7,7 +7,9 @@ import caseCreate from '@util/createCase';
 import modLog from '@util/modLog';
 import { messageBot } from '@util/messageBot';
 export async function run(client: FluorineClient, message: Message) {
-    if (message.author.bot) return;
+    if (message.author.bot) {
+        return;
+    }
 
     const settings = (await r.table('config').get(message.guild?.id).run(client.conn)) as SettingsType;
     if (settings.antibot) {
@@ -50,10 +52,11 @@ export async function run(client: FluorineClient, message: Message) {
     const command = args.shift();
     if (message.content.startsWith(settings.prefix)) {
         const random = Math.floor(Math.random() * 15) + 1;
-        if (random === 15)
+        if (random === 15) {
             message.channel.send(
                 '<:SlashCommands:934768130474004500> Use Slash Commands!\nPrefix commands are not supported and will be deleted in March!'
             );
+        }
         if (client.cooldown.has(message.author.id)) {
             const coolEmbed = new Embed(client, message.guild.preferredLocale)
                 .setLocaleTitle('MESSAGE_CREATE_COOLDOWN_TITLE')

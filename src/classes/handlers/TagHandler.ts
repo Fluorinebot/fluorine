@@ -89,7 +89,9 @@ export default class TagHandler {
         const tagString = tag.content;
         const [tagContent] = tagString.split('@embed');
 
-        if (tagContent) replyOptions.content = await this.getParsedTagContent(tagContent, interaction);
+        if (tagContent) {
+            replyOptions.content = await this.getParsedTagContent(tagContent, interaction);
+        }
 
         replyOptions.ephemeral = tag.ephemeral;
         return replyOptions;

@@ -14,7 +14,9 @@ export async function run(client: FluorineClient, interaction: ButtonInteraction
     const chunk = cases.reduce((resultArray, item, index) => {
         const chunkIndex = Math.floor(index / 9);
 
-        if (!resultArray[chunkIndex]) resultArray[chunkIndex] = [];
+        if (!resultArray[chunkIndex]) {
+            resultArray[chunkIndex] = [];
+        }
         resultArray[chunkIndex].push(item);
 
         return resultArray;
