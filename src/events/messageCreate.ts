@@ -1,7 +1,6 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
-import { messageBot } from '@util/messageBot';
 import { Config } from 'types/databaseTables';
 
 export async function run(client: FluorineClient, message: Message) {
@@ -16,7 +15,7 @@ export async function run(client: FluorineClient, message: Message) {
     ).rows;
 
     if (settings.antibot_factor) {
-        const factor = await messageBot(client, message);
+        const factor = await client.phishing.messageAuthorIsBot(client, message);
 
         if (factor >= settings.antibot_factor) {
             message.delete();
