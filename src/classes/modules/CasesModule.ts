@@ -16,10 +16,19 @@ export default class CasesModule {
         type: 'ban' | 'kick' | 'timeout' | 'warn',
         reason: string
     ): Promise<Case> {
+        const [fetchedId] = (
+            await this.client.db.query<Case>(
+                'SELECT case_id FROM cases WHERE guild_id = $1 ORDER BY case_id DESC LIMIT 1',
+                [BigInt(guild.id)]
+            )
+        ).rows;
+
+        const previousId = fetchedId?.case_id ?? 0;
+
         const [query] = (
             await this.client.db.query<Case>(
-                'INSERT INTO cases(guild_id, case_creator, moderated_user, type, reason) VALUES ($1, $2, $3, $4, $5) RETURNING *;',
-                [BigInt(guild.id), BigInt(creator.id), BigInt(user.id), type, reason]
+                'INSERT INTO cases(case_id, guild_id, case_creator, moderated_user, type, reason) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;',
+                [previousId + 1, BigInt(guild.id), BigInt(creator.id), BigInt(user.id), type, reason]
             )
         ).rows;
 
