@@ -17,6 +17,7 @@ import EconomyModule from '@modules/EconomyModule';
 import ShopModule from '@modules/ShopModule';
 import TagModule from '@modules/TagModule';
 import PhishingModule from '@modules/PhishingModule';
+import CasesModule from './modules/CasesModule';
 
 export default class FluorineClient extends Client {
     createdAt = performance.now();
@@ -33,6 +34,7 @@ export default class FluorineClient extends Client {
     shop = new ShopModule(this);
     tags = new TagModule(this);
     ai = new AiModule(this);
+    cases = new CasesModule(this);
 
     invite =
         'https://discord.com/api/oauth2/authorize?client_id=831932409943425064&scope=bot+applications.commands&permissions=474527689975';
