@@ -1,9 +1,7 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { Interaction } from 'discord.js';
-import r from 'rethinkdb';
 import { ChatInputCommand } from 'types/applicationCommand';
-import { Tag } from 'types/tag';
 
 export async function run(client: FluorineClient, interaction: Interaction) {
     if (interaction.isMessageComponent()) {
