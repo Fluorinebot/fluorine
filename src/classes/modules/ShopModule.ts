@@ -7,9 +7,11 @@ export default class ShopModule {
     constructor(client: FluorineClient) {
         this.client = client;
     }
+
     async list(guild: string): Promise<ShopItem[]> {
         return r.table('shop').getAll(guild, { index: 'guild' }).coerceTo('array').run(this.client.conn);
     }
+
     async get(name: string, guild: string): Promise<ShopItem> {
         const all = await r
             .table('shop')
@@ -18,9 +20,11 @@ export default class ShopModule {
             .run(this.client.conn);
         return all[0];
     }
+
     async add(obj: ShopItem) {
         return r.table('shop').insert(obj).run(this.client.conn);
     }
+
     async delete(name: string, guild: string) {
         const [{ id }] = await r
             .table('shop')

@@ -20,6 +20,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
     const user = await client.users.fetch(userCase.user);
     const creator = await client.users.fetch(userCase.creator);
+
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('CASE_TITLE', { id })
         .setThumbnail(user.displayAvatarURL({ dynamic: true }))
@@ -30,6 +31,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             localeValue: userCase.type.toUpperCase()
         })
         .addLocaleField({ name: 'CASE_REASON', value: userCase.dscp });
+
     interaction.reply({ embeds: [embed] });
 }
 

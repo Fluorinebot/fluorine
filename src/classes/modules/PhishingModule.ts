@@ -40,12 +40,15 @@ export default class PhishingModule {
         );
         return request.json();
     }
+
     getWords() {
         return this.word.split('\n');
     }
+
     getUsers() {
         return this.users.split('\n');
     }
+
     getURLs() {
         return this.url.split('\n');
     }

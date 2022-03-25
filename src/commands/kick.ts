@@ -69,7 +69,9 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             reason
         })
     );
+
     modLog(client, create, interaction.guild);
+
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('KICK_SUCCESS_TITLE')
         .setLocaleDescription('KICK_SUCCESS_DESCRIPTION')
@@ -78,8 +80,8 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         .addLocaleField({ name: 'KICK_USER', value: member.user.tag })
         .addLocaleField({ name: 'REASON', value: reason })
         .addLocaleField({ name: 'PUNISHMENT_ID', value: create.id.toString() });
-    interaction.reply({ embeds: [embed] });
 
+    interaction.reply({ embeds: [embed] });
     r.table('case').insert(create).run(client.conn);
 }
 

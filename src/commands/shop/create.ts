@@ -9,11 +9,14 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const description = interaction.options.getString('description');
     const price = interaction.options.getInteger('price');
     const role = interaction.options.getRole('role');
+
     const guild = interaction.guildId;
     const obj: ShopItem = { name, description, price, guild };
+
     if (role) {
         obj.role = role.id;
     }
+
     if (!interaction.memberPermissions.has('MANAGE_GUILD')) {
         return interaction.reply({
             content: client.i18n.t('SHOP_CREATE_PERMISSIONS', {
@@ -22,6 +25,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             ephemeral: true
         });
     }
+
     if (name.length > 19) {
         return interaction.reply(
             client.i18n.t('SHOP_CREATE_NAME_INVALID', {
@@ -29,6 +33,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             })
         );
     }
+
     if (description.length > 49) {
         return interaction.reply(
             client.i18n.t('SHOP_CREATE_DESCRIPTION_INVALID', {
@@ -36,6 +41,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             })
         );
     }
+
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('SHOP_CREATE_SUCCESS')
         .addLocaleField({ name: 'SHOP_CREATE_NAME', value: name })
@@ -44,6 +50,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             name: 'SHOP_CREATE_PRICE',
             value: `${price} ${await client.economy.getCurrency(interaction.guildId)}`
         });
+
     interaction.reply({ embeds: [embed] });
     client.shop.add(obj);
 }

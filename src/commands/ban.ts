@@ -69,7 +69,9 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             reason
         })
     });
+
     modLog(client, create, interaction.guild);
+
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('BAN_SUCCESS_TITLE')
         .setLocaleDescription('BAN_SUCCESS_DESCRIPTION')

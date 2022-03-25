@@ -30,6 +30,7 @@ export async function run(client: FluorineClient, interaction: Interaction) {
         }
         contextCommand.run(client, interaction);
     }
+
     if (!interaction.isCommand()) {
         return;
     }

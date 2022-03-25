@@ -11,6 +11,7 @@ export default async function modLog(client: FluorineClient, Case: Case, guild: 
     if (settings.modLogs && settings.logsChannel) {
         const creator = await client.users.fetch(Case.creator);
         const member = await guild.members.fetch(Case.user);
+
         const embed = new Embed(client, guild.preferredLocale)
             .setLocaleTitle('CASE_NEW')
             .setThumbnail(member.displayAvatarURL())
@@ -24,9 +25,11 @@ export default async function modLog(client: FluorineClient, Case: Case, guild: 
             .addField('ID', `#${Case.id}`);
 
         const channel = guild.channels.cache.get(settings.logsChannel);
+
         if (!channel.isText()) {
             return;
         }
+
         channel.send({ embeds: [embed] });
     }
 }
