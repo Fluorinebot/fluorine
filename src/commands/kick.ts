@@ -2,9 +2,6 @@ import FluorineClient from '../classes/Client';
 import Embed from '../classes/Embed';
 import { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
-import createCase from '../util/createCase';
-import r from 'rethinkdb';
-import modLog from '@util/modLog';
 import { Category } from 'types/applicationCommand';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
@@ -60,7 +57,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         });
     }
 
-    const create = await createCase(client, interaction?.guild, member.user, interaction.user, 'kick', reason);
+    const caseObj = await client.cases.create(interaction.guild, member.user, interaction.user, 'kick', reason);
 
     await member.kick(
         client.i18n.t('KICK_REASON', {
@@ -70,8 +67,6 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         })
     );
 
-    modLog(client, create, interaction.guild);
-
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('KICK_SUCCESS_TITLE')
         .setLocaleDescription('KICK_SUCCESS_DESCRIPTION')
@@ -79,10 +74,10 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         .addLocaleField({ name: 'KICK_MODERATOR', value: interaction.user.tag })
         .addLocaleField({ name: 'KICK_USER', value: member.user.tag })
         .addLocaleField({ name: 'REASON', value: reason })
-        .addLocaleField({ name: 'PUNISHMENT_ID', value: create.id.toString() });
+        .addLocaleField({ name: 'PUNISHMENT_ID', value: caseObj.case_id.toString() });
 
     interaction.reply({ embeds: [embed] });
-    r.table('case').insert(create).run(client.conn);
+    client.cases.logToModerationChannel(interaction.guild, caseObj);
 }
 
 export const data = new SlashCommandBuilder()

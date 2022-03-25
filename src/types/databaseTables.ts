@@ -1,19 +1,21 @@
+export type caseAction = 'ban' | 'kick' | 'timeout' | 'warn';
+
 export interface Config {
     guildId: bigint;
     prefix: string;
-    logsEnabled: boolean;
-    logsChannel?: bigint;
-    logModerationActions?: boolean;
-    antibotEnabled: boolean;
-    antibotAction?: 'ban' | 'kick' | 'timeout' | 'warn';
+    logs_enabled: boolean;
+    logs_channel?: bigint;
+    log_moderation_actions?: boolean;
+    antibot_enabled: boolean;
+    antibot_action?: caseAction;
 }
 
 export interface Case {
-    guildId: bigint;
-    caseId: number;
-    caseCreator: bigint;
-    moderatedUser: bigint;
-    type: 'ban' | 'kick' | 'timeout' | 'warn';
+    guild_id: bigint;
+    case_id: number;
+    case_creator: bigint;
+    moderated_user: bigint;
+    type: caseAction;
     reason: string;
 }
 
@@ -23,7 +25,7 @@ export interface Cooldown {
     lastUsedAt: Date;
 }
 
-export interface BankAccount {
+export interface Economy {
     guildId: bigint;
     userId: bigint;
     walletBal: number;

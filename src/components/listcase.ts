@@ -1,7 +1,6 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { MessageActionRow, MessageButton, ButtonInteraction } from 'discord.js';
-import getCases from '@util/getCases';
 
 export const authorOnly = true;
 
@@ -9,7 +8,7 @@ export async function run(client: FluorineClient, interaction: ButtonInteraction
     const [user, _page] = value.split('.');
     const page = Number(_page);
     const member = client.users.cache.get(user);
-    const cases = await getCases(client, interaction.guild?.id, member.id);
+    const cases = await client.cases.getMany(interaction.guild, member);
 
     const chunk = cases.reduce((resultArray, item, index) => {
         const chunkIndex = Math.floor(index / 9);

@@ -3,38 +3,44 @@ import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
 import r from 'rethinkdb';
 import { SettingsType } from 'types/settings';
-import caseCreate from '@util/createCase';
-import modLog from '@util/modLog';
 import { messageBot } from '@util/messageBot';
+import { caseAction } from 'types/databaseTables';
 export async function run(client: FluorineClient, message: Message) {
     if (message.author.bot) {
         return;
     }
 
     const settings = (await r.table('config').get(message.guild?.id).run(client.conn)) as SettingsType;
+
     if (settings.antibot) {
         const factor = await messageBot(client, message);
+
         if (factor >= settings.antibot) {
             message.delete();
-            const Case = await caseCreate(
-                client,
+
+            const caseObj = await client.cases.create(
                 message.guild,
                 message.author,
                 client.user,
-                settings.antibotAction,
+                settings.antibotAction as caseAction,
                 client.i18n.t('ANTIBOT_REASON', {
                     lng: message.guild.preferredLocale,
                     factor
                 })
             );
+
             switch (settings.antibotAction) {
-                case 'kick':
+                case 'kick': {
                     message.member.kick();
                     break;
-                case 'ban':
+                }
+
+                case 'ban': {
                     message.member.ban();
                     break;
-                case 'timeout':
+                }
+
+                case 'timeout': {
                     message.member.timeout(
                         3600 * 24,
                         client.i18n.t('ANTIBOT_REASON', {
@@ -43,29 +49,37 @@ export async function run(client: FluorineClient, message: Message) {
                         })
                     );
                     break;
+                }
             }
-            modLog(client, Case, message.guild);
+
+            client.cases.logToModerationChannel(message.guild, caseObj);
         }
     }
 
     const args = message.content.slice(settings.prefix.length).split(' ');
     const command = args.shift();
+
     if (message.content.startsWith(settings.prefix)) {
         const random = Math.floor(Math.random() * 15) + 1;
+
         if (random === 15) {
             message.channel.send(
                 '<:SlashCommands:934768130474004500> Use Slash Commands!\nPrefix commands are not supported and will be deleted in March!'
             );
         }
+
         if (client.cooldown.has(message.author.id)) {
             const coolEmbed = new Embed(client, message.guild.preferredLocale)
                 .setLocaleTitle('MESSAGE_CREATE_COOLDOWN_TITLE')
                 .setLocaleDescription('MESSAGE_CREATE_COOLDOWN_DESCRIPTION');
             return message.reply({ embeds: [coolEmbed] });
         }
+
         const code = client.cmds.get(command);
+
         if (code) {
             code.run(client, message, args);
+
             client.cooldown.add(message.author.id);
             setTimeout(() => {
                 client.cooldown.delete(message.author.id);
