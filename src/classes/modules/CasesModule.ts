@@ -10,10 +10,10 @@ export default class CasesModule {
 
     create(guild: Guild, user: User, creator: User, type: 'ban' | 'kick' | 'timeout' | 'warn', reason: string): Case {
         return {
-            id: null,
-            guild: guild.id,
-            user: user.id,
-            creator: creator.id,
+            caseId: 1,
+            guildId: BigInt(guild.id),
+            caseCreator: BigInt(creator.id),
+            moderatedUser: BigInt(user.id),
             type,
             reason
         };
