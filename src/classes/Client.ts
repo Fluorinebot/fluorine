@@ -15,7 +15,6 @@ import ComponentHandler from '@handlers/ComponentHandler';
 import AiModule from '@modules/AiModule';
 import EconomyModule from '@modules/EconomyModule';
 import ShopModule from '@modules/ShopModule';
-import TagModule from '@modules/TagModule';
 import PhishingModule from '@modules/PhishingModule';
 import CasesModule from './modules/CasesModule';
 
@@ -32,7 +31,6 @@ export default class FluorineClient extends Client {
     economy = new EconomyModule(this);
     phishing = new PhishingModule(this);
     shop = new ShopModule(this);
-    tags = new TagModule(this);
     ai = new AiModule(this);
     cases = new CasesModule(this);
 
