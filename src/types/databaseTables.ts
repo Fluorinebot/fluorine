@@ -6,8 +6,9 @@ export interface Config {
     logs_enabled: boolean;
     logs_channel?: bigint;
     log_moderation_actions?: boolean;
-    antibot_enabled: boolean;
+    antibot_factor: number;
     antibot_action?: caseAction;
+    currency: string;
 }
 
 export interface Case {

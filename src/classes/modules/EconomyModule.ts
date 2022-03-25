@@ -1,7 +1,8 @@
 import FluorineClient from '@classes/Client';
+
 import r from 'rethinkdb';
+import { Config } from 'types/databaseTables';
 import { EconomyUser } from 'types/economyUser';
-import { SettingsType } from 'types/settings';
 
 export default class EconomyModule {
     client: FluorineClient;
@@ -117,8 +118,11 @@ export default class EconomyModule {
     }
 
     async getCurrency(guild: string) {
-        const guildObj = (await r.table('config').get(guild).run(this.client.conn)) as SettingsType;
-        return guildObj?.currency || '🪙';
+        const [settings] = (
+            await this.client.db.query<Config>('SELECT currency FROM config WHERE guild_id = $1', [BigInt(guild)])
+        ).rows;
+
+        return settings.currency;
     }
 
     async setCooldown(user: string, guild: string, cooldown: EconomyUser['cooldown']) {
