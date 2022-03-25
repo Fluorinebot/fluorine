@@ -110,9 +110,15 @@ export default class EconomyModule {
             .run(this.client.conn);
     }
 
+    // TODO: Use a global cooldown system
     async getCooldown(user: string, guild: string) {
         const userObj = (await r.table('economy').get(`${user}-${guild}`).run(this.client.conn)) as EconomyUser;
         return userObj?.cooldown || { work: 0 };
+    }
+
+    async getCurrency(guild: string) {
+        const guildObj = (await r.table('config').get(guild).run(this.client.conn)) as SettingsType;
+        return guildObj?.currency || '🪙';
     }
 
     async setCooldown(user: string, guild: string, cooldown: EconomyUser['cooldown']) {
@@ -135,10 +141,5 @@ export default class EconomyModule {
                 cooldown
             })
             .run(this.client.conn);
-    }
-
-    async getCurrency(guild: string) {
-        const guildObj = (await r.table('config').get(guild).run(this.client.conn)) as SettingsType;
-        return guildObj?.currency || '🪙';
     }
 }
