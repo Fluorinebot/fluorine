@@ -15,9 +15,9 @@ export default class PhishingModule {
 
     constructor(client: FluorineClient) {
         this.client = client;
-        private this._words = readFileSync(`${__dirname}/../../../assets/words.txt`).toString();
-        private this._users = readFileSync(`${__dirname}/../../../assets/users.txt`).toString();
-        private this._urls = readFileSync(`${__dirname}/../../../assets/url.txt`).toString();
+        this._words = readFileSync(`${__dirname}/../../../assets/words.txt`).toString();
+        this._users = readFileSync(`${__dirname}/../../../assets/users.txt`).toString();
+        this._urls = readFileSync(`${__dirname}/../../../assets/url.txt`).toString();
     }
 
     async getLink(links: PhishingLink[]) {
