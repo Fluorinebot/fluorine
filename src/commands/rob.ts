@@ -17,16 +17,10 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const userBalance = await client.economy.get(interaction.guild, user);
     const robberBalance = await client.economy.get(interaction.guild, interaction.user);
 
-    const cooldown = await client.economy.getCooldown(user.id, interaction.guildId);
-
     const earnedPercent = Math.round(Math.random() * 20) + 20;
     const earned = Math.round(userBalance.wallet_bal * (earnedPercent / 100));
     const chance = Math.random() * 100;
     const currency = await client.economy.getCurrency(interaction.guild);
-
-    client.economy.setCooldown(interaction.user.id, interaction.guildId, {
-        rob: Date.now() / 1000 + 3600 * 12
-    });
 
     if (userBalance.wallet_bal < 0) {
         return interaction.reply(client.i18n.t('ROB_FAIL_NO_MONEY', { lng: interaction.locale }));
@@ -40,15 +34,6 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             client.i18n.t('ROB_FAIL_CAUGHT', {
                 lng: interaction.locale,
                 amount: `${lost} ${currency}`
-            })
-        );
-    }
-
-    if (cooldown.rob > Date.now() / 1000) {
-        return interaction.reply(
-            client.i18n.t('ROB_COOLDOWN', {
-                lng: interaction.locale,
-                time: `<t:${cooldown.rob}:R>`
             })
         );
     }
