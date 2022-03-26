@@ -16,7 +16,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
     await client.db.query<Config>('UPDATE config SET log_moderation_actions = $1 WHERE guild_id = $2', [
         value,
-        BigInt(interaction.guild.id)
+        BigInt(interaction.guildId)
     ]);
 
     const embed = new Embed(client, interaction.locale)

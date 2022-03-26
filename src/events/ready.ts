@@ -8,7 +8,7 @@ export async function run(client: FluorineClient) {
             await client.db.query<Config>('SELECT logs_enabled FROM config WHERE guild_id = $1', [BigInt(g.id)])
         ).rows;
 
-        if (guild.length === 0) {
+        if (!guild.length) {
             await client.db.query<Config>(
                 'INSERT INTO config(guild_id, prefix, logs_enabled, logs_channel, log_moderation_actions, antibot_factor, antibot_action, currency) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
                 [BigInt(g.id), process.env.DISCORD_PREFIX, true, null, false, 0, 'timeout', '🪙']

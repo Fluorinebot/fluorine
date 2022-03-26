@@ -18,10 +18,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     switch (field) {
         case 'birthday': {
             const birthday = value;
-            let [day, month]: any = birthday.split('/');
-
-            day = parseInt(day) || 0;
-            month = parseInt(month) || 0;
+            const [day, month] = birthday.split('/').map(str => parseInt(str) || 0);
 
             if (day > 31 || day < 1 || month > 12 || month < 1) {
                 interaction.reply({

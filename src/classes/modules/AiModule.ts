@@ -3,7 +3,7 @@ import { fetch } from 'undici';
 import { Interaction, Message } from 'discord.js';
 import Embed from '@classes/Embed';
 
-export default class AiModule {
+export default class AIModule {
     client: FluorineClient;
     queue: any[];
     isGenerating: boolean;

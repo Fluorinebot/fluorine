@@ -19,7 +19,7 @@ export async function run(client: FluorineClient, oldMessage: Message, newMessag
     }
 
     const channel = client.channels.cache.get(settings.logs_channel.toString());
-    if (!channel.isText()) {
+    if (!channel?.isText()) {
         return;
     }
 
