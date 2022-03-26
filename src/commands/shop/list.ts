@@ -7,7 +7,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const list = await client.shop.list(interaction.guild);
     const embed = new Embed(client, interaction.locale).setLocaleTitle('SHOP_LIST_TITLE');
 
-    const currency = await client.economy.getCurrency(interaction.guildId);
+    const currency = await client.economy.getCurrency(interaction.guild);
 
     if (list.length) {
         list.forEach(item => {

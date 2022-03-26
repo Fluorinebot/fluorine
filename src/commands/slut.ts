@@ -20,10 +20,10 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('SLUT_SUCCESS')
         .setLocaleDescription('SLUT_SUCCESS_DESCRIPTION', {
-            amount: `${money} ${client.economy.getCurrency(interaction.guildId)}`
+            amount: `${money} ${client.economy.getCurrency(interaction.guild)}`
         });
 
-    client.economy.add(interaction.user.id, interaction.guildId, money);
+    client.economy.add(interaction.guild, interaction.user, money);
     client.economy.setCooldown(interaction.user.id, interaction.guildId, {
         slut: Math.round(Date.now() / 1000 + 3600)
     });

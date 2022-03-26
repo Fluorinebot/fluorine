@@ -27,10 +27,10 @@ export interface Cooldown {
 }
 
 export interface Economy {
-    guildId: bigint;
-    userId: bigint;
-    walletBal: number;
-    bankBal: number;
+    guild_id: bigint;
+    user_id: bigint;
+    wallet_bal: number;
+    bank_bal: number;
 }
 
 export interface ShopItem {

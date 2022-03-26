@@ -20,12 +20,12 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const money = Math.floor(Math.random() * 150 + 50);
     const description = client.i18n.t(`WORK_SUCCESS_DESCRIPTION.${random}`, {
         lng: interaction.locale,
-        amount: `${money} ${await client.economy.getCurrency(interaction.guildId)}`
+        amount: `${money} ${await client.economy.getCurrency(interaction.guild)}`
     });
 
     const embed = new Embed(client, interaction.locale).setLocaleTitle('WORK_SUCCESS').setDescription(description);
 
-    client.economy.add(interaction.user.id, interaction.guild.id, money);
+    client.economy.add(interaction.guild, interaction.user, money);
     client.economy.setCooldown(interaction.user.id, interaction.guild.id, {
         work: Math.round(Date.now() / 1000 + 1800)
     });

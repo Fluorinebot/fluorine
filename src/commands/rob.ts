@@ -14,27 +14,28 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         return interaction.reply(client.i18n.t('ROB_INVALID_USER', { lng: interaction.locale }));
     }
 
-    const userBalance = await client.economy.get(user.id, interaction.guildId);
-    const robberBalance = await client.economy.get(interaction.user.id, interaction.guildId);
+    const userBalance = await client.economy.get(interaction.guild, user);
+    const robberBalance = await client.economy.get(interaction.guild, interaction.user);
 
     const cooldown = await client.economy.getCooldown(user.id, interaction.guildId);
 
     const earnedPercent = Math.round(Math.random() * 20) + 20;
-    const earned = Math.round(userBalance.wallet * (earnedPercent / 100));
+    const earned = Math.round(userBalance.wallet_bal * (earnedPercent / 100));
     const chance = Math.random() * 100;
-    const currency = await client.economy.getCurrency(interaction.guildId);
+    const currency = await client.economy.getCurrency(interaction.guild);
 
     client.economy.setCooldown(interaction.user.id, interaction.guildId, {
         rob: Date.now() / 1000 + 3600 * 12
     });
 
-    if (userBalance.wallet < 0) {
+    if (userBalance.wallet_bal < 0) {
         return interaction.reply(client.i18n.t('ROB_FAIL_NO_MONEY', { lng: interaction.locale }));
     }
 
     if (chance > 40) {
-        const lost = Math.round((robberBalance.bank + robberBalance.wallet) * (earned / 100));
-        client.economy.subtract(interaction.user.id, interaction.guildId, lost);
+        const lost = Math.round((robberBalance.bank_bal + robberBalance.wallet_bal) * (earned / 100));
+        client.economy.subtract(interaction.guild, interaction.user, lost);
+
         return interaction.reply(
             client.i18n.t('ROB_FAIL_CAUGHT', {
                 lng: interaction.locale,
@@ -58,8 +59,8 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             amount: `${earned} ${currency}`
         });
 
-    client.economy.add(interaction.user.id, interaction.guildId, earned);
-    client.economy.subtract(user.id, interaction.guildId, earned);
+    client.economy.add(interaction.guild, interaction.user, earned);
+    client.economy.subtract(interaction.guild, interaction.user, earned);
 
     return interaction.reply({ embeds: [embed] });
 }

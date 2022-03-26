@@ -21,7 +21,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         crime: Math.round(Date.now() / 1000) + 60 * 60
     });
 
-    const currency = await client.economy.getCurrency(interaction.guildId);
+    const currency = await client.economy.getCurrency(interaction.guild);
     const random = Math.floor(Math.random() * 10);
 
     if (random > 7) {
@@ -35,7 +35,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             ephemeral: true
         });
 
-        return client.economy.subtract(interaction.user.id, interaction.guildId, money);
+        return client.economy.subtract(interaction.guild, interaction.user, money);
     }
 
     const money = Math.floor(Math.random() * 200) + 100;
@@ -48,8 +48,8 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const embed = new Embed(client, interaction.locale).setLocaleTitle('CRIME_SUCCESS').setDescription(description);
 
     interaction.reply({ embeds: [embed] });
-    client.economy.add(interaction.user.id, interaction.guildId, money);
+    client.economy.add(interaction.guild, interaction.user, money);
 }
 
 export const data = new SlashCommandBuilder().setName('crime').setDescription('Commit a crime');
-export const category: Category = 'fun';
+export const category: Category = 'economy';
