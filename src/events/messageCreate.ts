@@ -21,7 +21,7 @@ export async function run(client: FluorineClient, message: Message) {
             message.delete();
 
             const caseObj = await client.cases.create(
-                message.guild,
+                message.guildId,
                 message.author,
                 client.user,
                 settings.antibot_action,
@@ -54,7 +54,7 @@ export async function run(client: FluorineClient, message: Message) {
                 }
             }
 
-            client.cases.logToModerationChannel(message.guild, caseObj);
+            client.cases.logToModerationChannel(message.guildId, caseObj);
         }
     }
 

@@ -57,7 +57,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         });
     }
 
-    const caseObj = await client.cases.create(interaction.guild, member.user, interaction.user, 'ban', reason);
+    const caseObj = await client.cases.create(interaction.guildId, member.user, interaction.user, 'ban', reason);
 
     await member.ban({
         reason: client.i18n.t('BAN_REASON', {
@@ -77,7 +77,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         .addLocaleField({ name: 'PUNISHMENT_ID', value: caseObj.case_id.toString() });
 
     interaction.reply({ embeds: [embed] });
-    client.cases.logToModerationChannel(interaction.guild, caseObj);
+    client.cases.logToModerationChannel(interaction.guildId, caseObj);
 }
 
 export const data = new SlashCommandBuilder()

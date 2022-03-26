@@ -17,7 +17,7 @@ export async function run(client: FluorineClient, interaction: UserContextMenuIn
         });
     }
 
-    const cases = await client.cases.getMany(interaction.guild, member.user);
+    const cases = await client.cases.getMany(interaction.guildId, member.user);
 
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('LISTCASE_TITLE', { user: member.user.tag })

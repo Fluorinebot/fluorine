@@ -5,7 +5,7 @@ import { CommandInteraction } from 'discord.js';
 import Embed from '@classes/Embed';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
-    const currency = await client.economy.getCurrency(interaction.guild);
+    const currency = await client.economy.getCurrency(interaction.guildId);
     const random = Math.floor(Math.random() * 10);
 
     if (random > 7) {
@@ -19,7 +19,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             ephemeral: true
         });
 
-        return client.economy.subtract(interaction.guild, interaction.user, money);
+        return client.economy.subtract(interaction.guildId, interaction.user, money);
     }
 
     const money = Math.floor(Math.random() * 200) + 100;
@@ -32,7 +32,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const embed = new Embed(client, interaction.locale).setLocaleTitle('CRIME_SUCCESS').setDescription(description);
 
     interaction.reply({ embeds: [embed] });
-    client.economy.add(interaction.guild, interaction.user, money);
+    client.economy.add(interaction.guildId, interaction.user, money);
 }
 
 export const data = new SlashCommandBuilder().setName('crime').setDescription('Commit a crime');

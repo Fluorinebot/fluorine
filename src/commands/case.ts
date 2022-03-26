@@ -6,7 +6,7 @@ import { Category } from 'types/applicationCommand';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const id = interaction.options.getInteger('id');
-    const caseObj = await client.cases.getOne(interaction.guild, id);
+    const caseObj = await client.cases.getOne(interaction.guildId, id);
 
     if (!caseObj) {
         return interaction.reply({

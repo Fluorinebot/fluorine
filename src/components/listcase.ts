@@ -8,7 +8,7 @@ export async function run(client: FluorineClient, interaction: ButtonInteraction
     const [user, _page] = value.split('.');
     const page = Number(_page);
     const member = client.users.cache.get(user);
-    const cases = await client.cases.getMany(interaction.guild, member);
+    const cases = await client.cases.getMany(interaction.guildId, member);
 
     const chunk = cases.reduce((resultArray, item, index) => {
         const chunkIndex = Math.floor(index / 9);

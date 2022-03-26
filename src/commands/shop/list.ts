@@ -4,10 +4,10 @@ import Embed from '@classes/Embed';
 import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
-    const list = await client.shop.list(interaction.guild);
+    const list = await client.shop.list(interaction.guildId);
     const embed = new Embed(client, interaction.locale).setLocaleTitle('SHOP_LIST_TITLE');
 
-    const currency = await client.economy.getCurrency(interaction.guild);
+    const currency = await client.economy.getCurrency(interaction.guildId);
 
     if (list.length) {
         list.forEach(item => {

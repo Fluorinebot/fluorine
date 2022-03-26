@@ -9,10 +9,10 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('SLUT_SUCCESS')
         .setLocaleDescription('SLUT_SUCCESS_DESCRIPTION', {
-            amount: `${money} ${client.economy.getCurrency(interaction.guild)}`
+            amount: `${money} ${client.economy.getCurrency(interaction.guildId)}`
         });
 
-    client.economy.add(interaction.guild, interaction.user, money);
+    client.economy.add(interaction.guildId, interaction.user, money);
     interaction.reply({ embeds: [embed] });
 }
 

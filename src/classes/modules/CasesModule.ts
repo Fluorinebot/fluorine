@@ -1,6 +1,6 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { Guild, User } from 'discord.js';
+import { User } from 'discord.js';
 import { Case, Config } from 'types/databaseTables';
 
 export default class CasesModule {
@@ -10,7 +10,7 @@ export default class CasesModule {
     }
 
     async create(
-        guild: Guild,
+        guild: string,
         user: User,
         creator: User,
         type: 'ban' | 'kick' | 'timeout' | 'warn',
@@ -19,7 +19,7 @@ export default class CasesModule {
         const [fetchedId] = (
             await this.client.db.query<Case>(
                 'SELECT case_id FROM cases WHERE guild_id = $1 ORDER BY case_id DESC LIMIT 1',
-                [BigInt(guild.id)]
+                [BigInt(guild)]
             )
         ).rows;
 
@@ -28,7 +28,7 @@ export default class CasesModule {
         const [query] = (
             await this.client.db.query<Case>(
                 'INSERT INTO cases(case_id, guild_id, case_creator, moderated_user, type, reason) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;',
-                [previousId + 1, BigInt(guild.id), BigInt(creator.id), BigInt(user.id), type, reason]
+                [previousId + 1, BigInt(guild), BigInt(creator.id), BigInt(user.id), type, reason]
             )
         ).rows;
 
@@ -39,10 +39,10 @@ export default class CasesModule {
         return query;
     }
 
-    async getOne(guild: Guild, caseId: number) {
+    async getOne(guild: string, caseId: number) {
         const [ret] = (
             await this.client.db.query<Case>('SELECT * FROM public.cases WHERE guild_id = $1 AND case_id = $2;', [
-                BigInt(guild.id),
+                BigInt(guild),
                 caseId
             ])
         ).rows;
@@ -54,35 +54,36 @@ export default class CasesModule {
         return ret;
     }
 
-    async getMany(guild: Guild, user?: User) {
+    async getMany(guild: string, user?: User) {
         let query;
         let params;
 
         if (user) {
             query = 'SELECT * FROM public.cases WHERE guild_id = $1 AND moderated_user = $2 ORDER BY case_id ASC;';
-            params = [BigInt(guild.id), BigInt(user.id)];
+            params = [BigInt(guild), BigInt(user.id)];
         } else {
             query = 'SELECT * FROM public.cases WHERE guild_id = $1 ORDER BY case_id ASC;';
-            params = [BigInt(guild.id)];
+            params = [BigInt(guild)];
         }
 
         const ret = await this.client.db.query<Case>(query, params);
         return ret.rows;
     }
 
-    async logToModerationChannel(guild: Guild, caseObj: Case) {
+    async logToModerationChannel(guild: string, caseObj: Case) {
         const [settings] = (
             await this.client.db.query<Config>(
                 'SELECT log_moderation_actions, logs_channel FROM public.config WHERE guild_id = $1;',
-                [BigInt(guild.id)]
+                [BigInt(guild)]
             )
         ).rows;
 
         if (settings.log_moderation_actions && settings.logs_channel) {
             const creator = await this.client.users.fetch(caseObj.case_creator.toString());
-            const member = await guild.members.fetch(caseObj.moderated_user.toString());
+            const guildObj = this.client.guilds.cache.get(guild);
+            const member = await guildObj.members.fetch(caseObj.moderated_user.toString());
 
-            const embed = new Embed(this.client, guild.preferredLocale)
+            const embed = new Embed(this.client, guildObj.preferredLocale)
                 .setLocaleTitle('CASE_NEW')
                 .setThumbnail(member.displayAvatarURL())
                 .addLocaleField({
@@ -94,7 +95,7 @@ export default class CasesModule {
                 .addLocaleField({ name: 'REASON', value: caseObj.reason })
                 .addField('ID', `#${caseObj.case_id}`);
 
-            const channel = guild.channels.cache.get(settings.logs_channel.toString());
+            const channel = guildObj.channels.cache.get(settings.logs_channel.toString());
 
             if (!channel.isText()) {
                 return;

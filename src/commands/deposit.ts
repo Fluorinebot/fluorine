@@ -5,7 +5,7 @@ import { Category } from 'types/applicationCommand';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const toDeposit = interaction.options.getInteger('amount');
-    const balance = await client.economy.get(interaction.guild, interaction.user);
+    const balance = await client.economy.get(interaction.guildId, interaction.user);
 
     if (balance.wallet_bal < toDeposit) {
         return interaction.reply({
@@ -19,11 +19,11 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     interaction.reply(
         client.i18n.t('DEPOSIT_SUCCESS', {
             lng: interaction.locale,
-            amount: `${toDeposit} ${await client.economy.getCurrency(interaction.guild)}`
+            amount: `${toDeposit} ${await client.economy.getCurrency(interaction.guildId)}`
         })
     );
 
-    await client.economy.deposit(interaction.guild, interaction.user, toDeposit);
+    await client.economy.deposit(interaction.guildId, interaction.user, toDeposit);
 }
 
 export const data = new SlashCommandBuilder()

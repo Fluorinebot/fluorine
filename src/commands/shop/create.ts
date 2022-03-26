@@ -47,7 +47,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         .addLocaleField({ name: 'SHOP_CREATE_DESCRIPTION', value: description })
         .addLocaleField({
             name: 'SHOP_CREATE_PRICE',
-            value: `${price} ${await client.economy.getCurrency(interaction.guild)}`
+            value: `${price} ${await client.economy.getCurrency(interaction.guildId)}`
         });
 
     interaction.reply({ embeds: [embed] });

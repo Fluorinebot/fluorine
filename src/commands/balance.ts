@@ -5,8 +5,8 @@ import { SlashCommandBuilder } from '@discordjs/builders';
 import { Category } from 'types/applicationCommand';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
-    const balance = await client.economy.get(interaction.guild, interaction.user);
-    const currency = await client.economy.getCurrency(interaction.guild);
+    const balance = await client.economy.get(interaction.guildId, interaction.user);
+    const currency = await client.economy.getCurrency(interaction.guildId);
 
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('BALANCE')

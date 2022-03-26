@@ -14,13 +14,13 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         return interaction.reply(client.i18n.t('ROB_INVALID_USER', { lng: interaction.locale }));
     }
 
-    const userBalance = await client.economy.get(interaction.guild, user);
-    const robberBalance = await client.economy.get(interaction.guild, interaction.user);
+    const userBalance = await client.economy.get(interaction.guildId, user);
+    const robberBalance = await client.economy.get(interaction.guildId, interaction.user);
 
     const earnedPercent = Math.round(Math.random() * 20) + 20;
     const earned = Math.round(userBalance.wallet_bal * (earnedPercent / 100));
     const chance = Math.random() * 100;
-    const currency = await client.economy.getCurrency(interaction.guild);
+    const currency = await client.economy.getCurrency(interaction.guildId);
 
     if (userBalance.wallet_bal < 0) {
         return interaction.reply(client.i18n.t('ROB_FAIL_NO_MONEY', { lng: interaction.locale }));
@@ -28,7 +28,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
     if (chance > 40) {
         const lost = Math.round((robberBalance.bank_bal + robberBalance.wallet_bal) * (earned / 100));
-        client.economy.subtract(interaction.guild, interaction.user, lost);
+        client.economy.subtract(interaction.guildId, interaction.user, lost);
 
         return interaction.reply(
             client.i18n.t('ROB_FAIL_CAUGHT', {
@@ -44,8 +44,8 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             amount: `${earned} ${currency}`
         });
 
-    client.economy.add(interaction.guild, interaction.user, earned);
-    client.economy.subtract(interaction.guild, interaction.user, earned);
+    client.economy.add(interaction.guildId, interaction.user, earned);
+    client.economy.subtract(interaction.guildId, interaction.user, earned);
 
     return interaction.reply({ embeds: [embed] });
 }

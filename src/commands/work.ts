@@ -10,12 +10,12 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
     const description = client.i18n.t(`WORK_SUCCESS_DESCRIPTION.${random}`, {
         lng: interaction.locale,
-        amount: `${money} ${await client.economy.getCurrency(interaction.guild)}`
+        amount: `${money} ${await client.economy.getCurrency(interaction.guildId)}`
     });
 
     const embed = new Embed(client, interaction.locale).setLocaleTitle('WORK_SUCCESS').setDescription(description);
 
-    client.economy.add(interaction.guild, interaction.user, money);
+    client.economy.add(interaction.guildId, interaction.user, money);
 
     interaction.reply({ embeds: [embed] });
 }
