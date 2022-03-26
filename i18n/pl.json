@@ -188,7 +188,6 @@
     "TIMEOUT_USER": "Wyciszono",
     "TIMEOUT_REASON": "Wyciszono przez {{- user}} za {{- reason}}",
     "WORK_COOLDOWN": "Nie możesz pracować!",
-    "WORK_COOLDOWN_DESCRIPTION": "Następny raz możesz pracować [time]",
     "WORK_SUCCESS": "Pracowałeś!",
     "WORK_SUCCESS_DESCRIPTION": [
         "Stworzyłeś bota na discorda! Zarobiłeś {{- amount }}",
@@ -218,7 +217,6 @@
     "CRIME_FAIL": "Nie udało ci się!",
     "CRIME_FAIL_DESCRIPTION": "Policja cię złapała! Dostałeś mandat {{- amount }}",
     "AI_TOO_LONG": "Za długa wiadomość! Maksymalna długość to 65 znaki.",
-    "CRIME_COOLDOWN_DESCRIPTION": "Następny raz możesz popełnić przestępstwo {{- time}}",
     "SHOP_CREATE_SUCCESS": "Stworzono przedmiot!",
     "SHOP_CREATE_PERMISSIONS": "Nie masz wystarczających permisji aby stworzyć przedmiot! Potrzebne permisje: Zarządzanie serwerem",
     "SHOP_CREATE_NAME_INVALID": "Nazwa przedmiotu jest nieprawidłowa! Nazwa może miec maksymalnie 20 znaków",
@@ -237,7 +235,6 @@
     "ROB_SUCCESS_DESCRIPTION": "Ukradłeś portfel! Zarobiłeś {{- amount}}",
     "ROB_FAIL_NO_MONEY": "Probowałeś go/ją okraść, ale nie miał* w portfelu żadnych pieniędzy!",
     "ROB_FAIL_CAUGHT": "Probówałeś go/ją okraść, ale cię przyłapał*! Straciłeś {{- amount}}",
-    "ROB_COOLDOWN_DESCRIPTION": "Będziesz mógł kogoś okraść {{- time}}",
     "ROB_INVALID_USER": "Nie znaleziono użytkownika!",
     "ROB_SELF": "Nie możesz okraść siebie!",
     "SLUT_SUCCESS": "Pracowałeś jako prostytutka!",

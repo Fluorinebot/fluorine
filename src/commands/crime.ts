@@ -5,22 +5,6 @@ import { CommandInteraction } from 'discord.js';
 import Embed from '@classes/Embed';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
-    const cooldown = await client.economy.getCooldown(interaction.user.id, interaction.guildId);
-
-    if (cooldown.crime > Date.now() / 1000) {
-        return interaction.reply({
-            content: client.i18n.t('CRIME_COOLDOWN_DESCRIPTION', {
-                lng: interaction.locale,
-                time: `<t:${cooldown.crime}:R>`
-            }),
-            ephemeral: true
-        });
-    }
-
-    client.economy.setCooldown(interaction.user.id, interaction.guildId, {
-        crime: Math.round(Date.now() / 1000) + 60 * 60
-    });
-
     const currency = await client.economy.getCurrency(interaction.guild);
     const random = Math.floor(Math.random() * 10);
 
