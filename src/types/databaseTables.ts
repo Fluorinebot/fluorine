@@ -34,8 +34,8 @@ export interface Economy {
 }
 
 export interface ShopItem {
-    guildId: bigint;
-    itemId: number;
+    guild_id: bigint;
+    item_id: number;
     name: string;
     description: string;
     price: number;

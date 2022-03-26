@@ -4,7 +4,7 @@ import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const name = interaction.options.getString('name');
-    const itemObj = await client.shop.get(name, interaction.guildId);
+    const itemObj = await client.shop.get(interaction.guild, name);
 
     if (!itemObj) {
         return interaction.reply({
@@ -23,8 +23,8 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         });
     }
 
-    interaction.reply(client.i18n.t('SHOP_DELETE_SUCCESS', { lng: interaction.locale }));
-    client.shop.delete(name, interaction.guildId);
+    interaction.reply(client.i18n.t('SHOP_DELETE_SUCCESS', { lng: interaction.locale, item: name }));
+    client.shop.delete(interaction.guild, name);
 }
 
 export const data = new SlashCommandSubcommandBuilder()

@@ -1,9 +1,10 @@
 import FluorineClient from '@classes/Client';
 import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
+
 export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
     const item = interaction.options.getString('item');
-    const itemObj = await client.shop.get(item, interaction.guildId);
+    const itemObj = await client.shop.get(interaction.guild, item);
     const user = await client.economy.get(interaction.user.id, interaction.guildId);
 
     if (!itemObj) {
@@ -23,7 +24,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     );
 
     if (itemObj.role) {
-        const role = interaction.guild.roles.cache.get(itemObj.role);
+        const role = interaction.guild.roles.cache.get(itemObj.role.toString());
 
         if (role) {
             await interaction.member.roles?.add(role);

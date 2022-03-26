@@ -2,7 +2,7 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
-import { ShopItem } from 'types/shop';
+import { ShopItem } from 'types/databaseTables';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const name = interaction.options.getString('name');
@@ -10,11 +10,10 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const price = interaction.options.getInteger('price');
     const role = interaction.options.getRole('role');
 
-    const guild = interaction.guildId;
-    const obj: ShopItem = { name, description, price, guild };
+    const obj: Omit<ShopItem, 'item_id'> = { name, description, price, guild_id: BigInt(interaction.guildId) };
 
     if (role) {
-        obj.role = role.id;
+        obj.role = BigInt(role.id);
     }
 
     if (!interaction.memberPermissions.has('MANAGE_GUILD')) {
