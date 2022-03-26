@@ -16,7 +16,7 @@ import AiModule from '@modules/AiModule';
 import EconomyModule from '@modules/EconomyModule';
 import ShopModule from '@modules/ShopModule';
 import PhishingModule from '@modules/PhishingModule';
-import CasesModule from './modules/CasesModule';
+import CasesModule from '@modules/CasesModule';
 
 export default class FluorineClient extends Client {
     createdAt = performance.now();
