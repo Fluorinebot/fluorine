@@ -1,17 +1,18 @@
 import { Client, Intents } from 'discord.js';
 import { Client as Database } from 'pg';
-import r from 'rethinkdb';
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
+
+import { Logger } from '@classes/Logger';
 import { join } from 'path';
 import { bold, red } from 'picocolors';
 import { performance } from 'perf_hooks';
 
-import { Logger } from '@classes/Logger';
 import EventHandler from '@handlers/EventHandler';
 import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
 import CommandHandler from '@handlers/CommandHandler';
 import ComponentHandler from '@handlers/ComponentHandler';
+
 import AiModule from '@modules/AiModule';
 import EconomyModule from '@modules/EconomyModule';
 import ShopModule from '@modules/ShopModule';
@@ -40,7 +41,6 @@ export default class FluorineClient extends Client {
     devs = ['707675871355600967', '478823932913516544', '348591272476540928'];
 
     db = new Database();
-    conn: r.Connection;
 
     constructor() {
         super({
@@ -74,13 +74,6 @@ export default class FluorineClient extends Client {
             fallbackLng: 'en-US',
             preload: ['en-US', 'pl'],
             backend: { loadPath: join(__dirname, '/../../i18n/{{lng}}.json') }
-        });
-
-        // TODO: Remove this asshole (Migrate data)
-        this.conn = await r.connect({
-            host: process.env.RETHINK_HOSTNAME,
-            password: process.env.RETHINK_PASSWORD,
-            db: process.env.RETHINK_DATABASE
         });
 
         await this.db.connect();
