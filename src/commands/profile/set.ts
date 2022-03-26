@@ -10,7 +10,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             await client.db.query<Profile>('SELECT user_id FROM profiles WHERE user_id = $1;', [
                 BigInt(interaction.user.id)
             ])
-        ).rows.length === 0;
+        ).rows.length === 1;
 
     const field = interaction.options.getString('field');
     const value = interaction.options.getString('value');
