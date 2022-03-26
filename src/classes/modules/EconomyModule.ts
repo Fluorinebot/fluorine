@@ -1,9 +1,6 @@
 import FluorineClient from '@classes/Client';
 import { Guild, User } from 'discord.js';
-
-import r from 'rethinkdb';
 import { Config, Economy } from 'types/databaseTables';
-import { EconomyUser } from 'types/economyUser';
 
 export default class EconomyModule {
     client: FluorineClient;

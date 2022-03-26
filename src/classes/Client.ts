@@ -1,5 +1,4 @@
 import { Client, Intents } from 'discord.js';
-import r from 'rethinkdb';
 import { Client as Database } from 'pg';
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
@@ -40,7 +39,6 @@ export default class FluorineClient extends Client {
     devs = ['707675871355600967', '478823932913516544', '348591272476540928'];
 
     db = new Database();
-    conn: r.Connection;
 
     constructor() {
         super({
@@ -63,12 +61,12 @@ export default class FluorineClient extends Client {
 
         this.applicationCommands.loadChatInput();
         this.applicationCommands.loadContextMenu();
+
         this.components.loadComponents();
+        new EventHandler(this).loadEvents();
 
         // TODO: remove prefix commands a month after 2.0
         this.cmds.loadCommands();
-
-        new EventHandler(this).loadEvents();
 
         await this.i18n.use(Backend).init({
             fallbackLng: 'en-US',
@@ -77,13 +75,6 @@ export default class FluorineClient extends Client {
         });
 
         await this.db.connect();
-
-        this.conn = await r.connect({
-            host: process.env.RETHINK_HOSTNAME,
-            password: process.env.RETHINK_PASSWORD,
-            db: process.env.RETHINK_DATABASE
-        });
-
         this.login();
 
         process.on('unhandledRejection', (error: Error) => {
