@@ -70,23 +70,8 @@ export async function run(client: FluorineClient, message: Message) {
             );
         }
 
-        if (client.cooldown.has(message.author.id)) {
-            const coolEmbed = new Embed(client, message.guild.preferredLocale)
-                .setLocaleTitle('MESSAGE_CREATE_COOLDOWN_TITLE')
-                .setLocaleDescription('MESSAGE_CREATE_COOLDOWN_DESCRIPTION');
-            return message.reply({ embeds: [coolEmbed] });
-        }
-
         const code = client.cmds.get(command);
-
-        if (code) {
-            code.run(client, message, args);
-
-            client.cooldown.add(message.author.id);
-            setTimeout(() => {
-                client.cooldown.delete(message.author.id);
-            }, 1000);
-        }
+        code?.run(client, message, args);
     } else if (message.content === `<@!${client.user.id}>` || message.content === `<@${client.user.id}>`) {
         const embed = new Embed(client, message.guild.preferredLocale)
             .setTitle('Fluorine')

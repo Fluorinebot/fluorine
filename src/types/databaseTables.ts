@@ -21,9 +21,9 @@ export interface Case {
 }
 
 export interface Cooldown {
-    userId: bigint;
+    user_id: bigint;
     name: string;
-    lastUsedAt: Date;
+    timestamp: bigint;
 }
 
 export interface Economy {

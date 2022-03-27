@@ -30,24 +30,30 @@ export async function run(client: FluorineClient, interaction: Interaction) {
 
         contextCommand.run(client, interaction);
     } else if (interaction.isCommand()) {
-        if (client.cooldown.has(interaction.user.id)) {
-            const coolEmbed = new Embed(client, interaction.locale)
-                .setLocaleTitle('MESSAGE_CREATE_COOLDOWN_TITLE')
-                .setLocaleDescription('MESSAGE_CREATE_COOLDOWN_DESCRIPTION');
-            return interaction.reply({ embeds: [coolEmbed], ephemeral: true });
-        }
-
-        client.cooldown.add(interaction.user.id);
-        if (interaction.user.id !== '817883855310684180') {
-            setTimeout(() => client.cooldown.delete(interaction.user.id), 2000);
-        }
-
         const subcommand = interaction.options.getSubcommand(false);
-        const command = subcommand
-            ? client.applicationCommands.chatInput.get(`${interaction.commandName}/${subcommand}`)
-            : client.applicationCommands.chatInput.get(interaction.commandName);
+        const key = subcommand ? `${interaction.commandName}/${subcommand}` : interaction.commandName;
 
+        const command = client.applicationCommands.chatInput.get(key);
         const { dev } = client.applicationCommands.chatInput.get(interaction.commandName) as ChatInputCommand;
+
+        if (await client.cooldowns.has(interaction.user, key)) {
+            const cooldown = await client.cooldowns.get(interaction.user, key);
+
+            if (cooldown.timestamp > Date.now()) {
+                return interaction.reply({
+                    content: client.i18n.t('INTERACTION_CREATE_COOLDOWN', {
+                        lng: interaction.locale,
+                        time: Math.floor(Number((await client.cooldowns.get(interaction.user, key)).timestamp) / 1000)
+                    }),
+                    ephemeral: true
+                });
+            }
+
+            if (cooldown.timestamp <= Date.now()) {
+                await client.cooldowns.delete(interaction.user, key);
+            }
+        }
+
         if (dev && !client.devs.includes(interaction.user.id)) {
             return interaction.reply({
                 content: 'You need to be a developer to do that!',
@@ -56,5 +62,6 @@ export async function run(client: FluorineClient, interaction: Interaction) {
         }
 
         command.run(client, interaction);
+        client.cooldowns.set(interaction.user, key, command.cooldown);
     }
 }

@@ -12,6 +12,7 @@ import EventHandler from '@handlers/EventHandler';
 import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
 import CommandHandler from '@handlers/CommandHandler';
 import ComponentHandler from '@handlers/ComponentHandler';
+import CooldownHandler from '@handlers/CooldownHandler';
 
 import AIModule from '@modules/AIModule';
 import EconomyModule from '@modules/EconomyModule';
@@ -26,7 +27,7 @@ export default class FluorineClient extends Client {
 
     applicationCommands = new ApplicationCommandHandler(this);
     components = new ComponentHandler(this);
-    cooldown = new Set<string>();
+    cooldowns = new CooldownHandler(this);
     cmds = new CommandHandler(this);
 
     economy = new EconomyModule(this);
