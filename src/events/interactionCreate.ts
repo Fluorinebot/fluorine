@@ -1,5 +1,4 @@
 import FluorineClient from '@classes/Client';
-import Embed from '@classes/Embed';
 import { Interaction } from 'discord.js';
 import { ChatInputCommand } from 'types/applicationCommand';
 
