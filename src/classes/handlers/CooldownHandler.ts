@@ -38,7 +38,7 @@ export default class CooldownHandler {
         const [query] = (
             await this.client.db.query<Cooldown>(
                 'INSERT INTO cooldowns(user_id, name, timestamp) VALUES ($1, $2, $3) RETURNING *;',
-                [BigInt(user.id), command, BigInt(Date.now() + (cooldown ?? 5000))]
+                [BigInt(user.id), command, BigInt(Date.now() + (cooldown ?? 2000))]
             )
         ).rows;
 
