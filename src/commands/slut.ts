@@ -18,3 +18,4 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder().setName('slut').setDescription('Get money by being a slut!');
 export const category: Category = 'economy';
+export const cooldown = 216000000;

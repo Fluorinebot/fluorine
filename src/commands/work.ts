@@ -22,3 +22,4 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder().setName('work').setDescription('Get money from working!');
 export const category: Category = 'economy';
+export const cooldown = 108000000;
