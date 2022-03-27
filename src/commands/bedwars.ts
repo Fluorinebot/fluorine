@@ -10,13 +10,14 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const player = interaction.options.getString('player');
     const uuid: any = await fetch(`https://api.mojang.com/users/profiles/minecraft/${player}`).then(res => res.json());
 
-    if (!uuid)
+    if (!uuid) {
         return interaction.reply({
             content: client.i18n.t('HYPIXEL_INVALID_PLAYER', {
                 lng: interaction.locale
             }),
             ephemeral: true
         });
+    }
 
     const data = (await fetch(
         `https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${process.env.HYPIXEL_TOKEN}`

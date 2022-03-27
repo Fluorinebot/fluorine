@@ -12,13 +12,14 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         .then(res => res.json())
         .catch(() => null);
 
-    if (!uuid)
+    if (!uuid) {
         return interaction.reply({
             content: client.i18n.t('HYPIXEL_INVALID_PLAYER', {
                 lng: interaction.locale
             }),
             ephemeral: true
         });
+    }
     const data = (await fetch(`https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${process.env.HYPIXEL_TOKEN}`)
         .then(res => res.json())
         .catch(() => ({ data: null }))) as HypixelType;

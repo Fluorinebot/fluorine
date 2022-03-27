@@ -1,40 +1,52 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { codeBlock } from '@discordjs/builders';
+import { codeBlock, SlashCommandSubcommandBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
 import { execSync } from 'child_process';
-import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
-import ComponentHandler from '@handlers/ComponentHandler';
+import { readdir } from 'fs/promises';
+import { join } from 'path';
 import EventHandler from '@handlers/EventHandler';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
-    await interaction.deferReply({ ephemeral: true });
     const type = interaction.options.getString('type');
     const module = interaction.options.getString('module');
 
+    await interaction.deferReply({ ephemeral: true });
+
     try {
-        if (process.env.NODE_ENV === 'development') execSync('npm run build');
-        delete require.cache[require.resolve(`./../../${type}/${module}.js`)];
+        if (process.env.NODE_ENV === 'development') {
+            execSync('npm run build');
+        }
+
+        if (module === 'all') {
+            const files = await readdir(join(__dirname, `../../${type}`));
+            for (const file of files) {
+                const path = join(__dirname, `../../${type}`, file);
+                delete require.cache[require.resolve(path)];
+            }
+        } else {
+            delete require.cache[require.resolve(`./../../${type}/${module}`)];
+        }
 
         switch (type) {
             case 'events': {
                 if (module === 'all') {
                     client.logger.warn(`All events taken offline.`);
                     client.removeAllListeners();
-                    new EventHandler(client);
+                    await new EventHandler(client).loadEvents();
                     client.logger.log(`All events back online.`);
 
                     return interaction.editReply('Reloaded all events.');
                 }
 
-                const eventFile: any = await import(`./../../events/${module}`);
-                const callback = (...event) => {
-                    eventFile.run(client, ...event);
-                };
+                const eventFile = await import(`./../../events/${module}`);
 
                 client.logger.warn(`${module} event taken offline.`);
                 client.removeAllListeners(module);
-                client.on(module, callback);
+
+                client.on(module, (...event) => {
+                    eventFile.run(client, ...event);
+                });
                 client.logger.log(`${module} event back online.`);
 
                 interaction.editReply(`Reloaded the \`${module}\` event.`);
@@ -43,13 +55,12 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
             case 'commands': {
                 if (module === 'all') {
-                    const { loadChatInput } = new ApplicationCommandHandler(client);
-                    client.applicationCommands.chatInput = loadChatInput();
+                    await client.applicationCommands.loadChatInput();
                     return interaction.editReply('Reloaded `all` chat input commands.');
                 }
 
                 const commandFile = await import(`./../../commands/${module}`);
-                client.applicationCommands.chatInput.set(module.split('/')[0], commandFile);
+                client.applicationCommands.chatInput.set(module, commandFile);
 
                 interaction.editReply(`Reloaded the \`${module}\` chat input command.`);
                 break;
@@ -57,8 +68,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
             case 'context': {
                 if (module === 'all') {
-                    const { loadContextMenu } = new ApplicationCommandHandler(client);
-                    client.applicationCommands.contextMenu = loadContextMenu();
+                    await client.applicationCommands.loadContextMenu();
                     return interaction.editReply('Reloaded `all` context menu commands.');
                 }
 
@@ -71,7 +81,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
             case 'components': {
                 if (module === 'all') {
-                    client.components = new ComponentHandler(client).loadComponents();
+                    await client.components.loadComponents();
                     return interaction.editReply('Reloaded `all` components.');
                 }
 
@@ -90,3 +100,22 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         interaction.editReply({ embeds: [embed] });
     }
 }
+
+export const data = new SlashCommandSubcommandBuilder()
+    .setName('reload')
+    .setDescription('Reloads a module.')
+    .addStringOption(option =>
+        option
+            .setName('type')
+            .setDescription('The type of the module.')
+            .setRequired(true)
+            .setChoices([
+                ['Event', 'events'],
+                ['Chat Input Command', 'commands'],
+                ['Context Menu Command', 'context'],
+                ['Component', 'components']
+            ])
+    )
+    .addStringOption(option =>
+        option.setName('module').setDescription("The module that you're reloading.").setRequired(true)
+    );

@@ -3,9 +3,6 @@ import Embed from '../classes/Embed';
 import { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import ms, { StringValue } from 'ms';
-import createCase from '../util/createCase';
-import r from 'rethinkdb';
-import modLog from '@util/modLog';
 import { Category } from 'types/applicationCommand';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
@@ -22,47 +19,52 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const duration = ms(interaction.options.getString('duration') as StringValue);
     const reason = interaction.options.getString('reason') ?? client.i18n.t('NONE', { lng: interaction.locale });
 
-    if (!member)
+    if (!member) {
         return interaction.reply({
             content: client.i18n.t('TIMEOUT_MEMBER_MISSING', {
                 lng: interaction.locale
             }),
             ephemeral: true
         });
+    }
 
-    if (member.user.id === interaction.user.id)
+    if (member.user.id === interaction.user.id) {
         return interaction.reply({
             content: client.i18n.t('TIMEOUT_ERROR_YOURSELF', {
                 lng: interaction.locale
             }),
             ephemeral: true
         });
+    }
 
-    if (!member.moderatable)
+    if (!member.moderatable) {
         return interaction.reply({
             content: client.i18n.t('TIMEOUT_BOT_PERMISSIONS_MISSING', {
                 lng: interaction.locale
             }),
             ephemeral: true
         });
+    }
 
-    if (Number.isNaN(duration) || duration > 2419200000)
+    if (Number.isNaN(duration) || duration > 2419200000) {
         return interaction.reply({
             content: client.i18n.t('TIMEOUT_DURATION_INVALID', {
                 lng: interaction.locale
             }),
             ephemeral: true
         });
+    }
 
-    if (reason.length > 1024)
+    if (reason.length > 1024) {
         return interaction.reply({
             content: client.i18n.t('REASON_LONGER_THAN_1024', {
                 lng: interaction.locale
             }),
             ephemeral: true
         });
+    }
 
-    const create = await createCase(client, interaction?.guild, member.user, interaction.user, 'timeout', reason);
+    const caseObj = await client.cases.create(interaction.guildId, member.user, interaction.user, 'timeout', reason);
 
     await member.timeout(
         duration,
@@ -72,7 +74,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             reason
         })
     );
-    modLog(client, create, interaction.guild);
+
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('TIMEOUT_SUCCESS_TITLE')
         .setLocaleDescription('TIMEOUT_SUCCESS_DESCRIPTION')
@@ -84,10 +86,10 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         .addLocaleField({ name: 'TIMEOUT_USER', value: member.user.tag })
         .addLocaleField({ name: 'DURATION', value: ms(duration) })
         .addLocaleField({ name: 'REASON', value: reason })
-        .addLocaleField({ name: 'PUNISHMENT_ID', value: create.id.toString() });
-    interaction.reply({ embeds: [embed] });
+        .addLocaleField({ name: 'PUNISHMENT_ID', value: caseObj.case_id.toString() });
 
-    r.table('case').insert(create).run(client.conn);
+    interaction.reply({ embeds: [embed] });
+    client.cases.logToModerationChannel(interaction.guildId, caseObj);
 }
 
 export const data = new SlashCommandBuilder()

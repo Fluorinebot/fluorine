@@ -1,7 +1,10 @@
 import { CommandInteraction } from 'discord.js';
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import r from 'rethinkdb';
+import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
+import { ChannelType } from 'discord-api-types/v9';
+import { Config } from 'types/databaseTables';
+
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     if (!interaction.memberPermissions.has('MANAGE_GUILD')) {
         return interaction.reply({
@@ -9,8 +12,14 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             ephemeral: true
         });
     }
+
     const value = interaction.options.getChannel('channel').id;
-    const guildId = interaction.guild.id;
+
+    await client.db.query<Config>('UPDATE config SET logs_channel = $1 WHERE guild_id = $2', [
+        BigInt(value),
+        BigInt(interaction.guildId)
+    ]);
+
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('CONFIG_SET_SUCCESS_TITLE')
         .setLocaleDescription('CONFIG_SET_SUCCESS_DESCRIPTION', {
@@ -20,5 +29,15 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             value
         });
     interaction.reply({ embeds: [embed] });
-    r.table('config').get(guildId).update({ antibot: value }).run(client.conn);
 }
+
+export const data = new SlashCommandSubcommandBuilder()
+    .setName('logs-channel')
+    .setDescription('Set the channel for logs')
+    .addChannelOption(option =>
+        option
+            .setName('channel')
+            .setDescription('Channel for logs')
+            .addChannelType(ChannelType.GuildText)
+            .setRequired(true)
+    );

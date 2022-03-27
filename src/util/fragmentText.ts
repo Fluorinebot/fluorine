@@ -2,11 +2,13 @@ import { CanvasRenderingContext2D } from 'canvas';
 
 export default function fragmentText(ctx: CanvasRenderingContext2D, text: string, maxWidth: number) {
     const words = text.split(' ');
-    const lines = [];
+    const lines: string[] = [];
     let line = '';
+
     if (ctx.measureText(text).width < maxWidth) {
         return [text];
     }
+
     while (words.length > 0) {
         while (ctx.measureText(words[0]).width >= maxWidth) {
             const [tmp] = words;
@@ -17,15 +19,18 @@ export default function fragmentText(ctx: CanvasRenderingContext2D, text: string
                 words.push(tmp.slice(-1));
             }
         }
+
         if (ctx.measureText(line + words[0]).width < maxWidth) {
             line += `${words.shift()} `;
         } else {
             lines.push(line);
             line = '';
         }
+
         if (words.length === 0) {
             lines.push(line);
         }
     }
+
     return lines;
 }

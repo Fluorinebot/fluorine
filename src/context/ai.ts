@@ -4,6 +4,7 @@ import { ApplicationCommandType } from 'discord-api-types/v9';
 import { MessageContextMenuInteraction } from 'discord.js';
 export async function run(client: FluorineClient, interaction: MessageContextMenuInteraction) {
     const { content } = interaction.targetMessage;
+
     if (content.length > 65) {
         interaction.reply({
             content: client.i18n.t('AI_TOO_LONG', { lng: interaction.locale }),
@@ -16,11 +17,13 @@ export async function run(client: FluorineClient, interaction: MessageContextMen
             ephemeral: true
         });
     }
+
     interaction.deferReply();
     const value = Buffer.from(content || 'h', 'utf8')
         .toString('base64')
         .replaceAll('/', '_')
         .replaceAll('+', '-');
+
     client.ai.getAI(interaction, value);
 }
 

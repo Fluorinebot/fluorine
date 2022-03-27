@@ -2,11 +2,13 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { CommandInteraction, EmbedFieldData, MessageActionRow, MessageSelectMenu } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { Category } from 'types/applicationCommand';
+import { Category, ChatInputCommand } from 'types/applicationCommand';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const category = interaction.options.getString('category');
-    const commands = client.applicationCommands.chatInput.filter(c => c.category === category && !c.dev);
+    const commands = client.applicationCommands.chatInput.filter(
+        (c: ChatInputCommand) => c.category === category && !c.dev
+    );
 
     const fields: EmbedFieldData[] = commands.map(c => ({
         name: `/${c.data.name}`,

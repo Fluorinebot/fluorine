@@ -12,11 +12,12 @@
             "@util/*": ["util/*"],
             "types/*": ["types/*"],
             "@i18n/*": ["i18n/*"],
-            "@context/*": ["context/*"]
+            "@modules/*": ["classes/modules/*"]
         },
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
         "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "sourceMap": true
     }
 }

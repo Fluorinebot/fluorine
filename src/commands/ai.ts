@@ -4,19 +4,22 @@ import { SlashCommandBuilder } from '@discordjs/builders';
 import { Category } from 'types/applicationCommand';
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const args = interaction.options.getString('start');
+
     if (args.length > 65) {
         return interaction.reply({
             content: client.i18n.t('AI_TOO_LONG', { lng: interaction.locale }),
             ephemeral: true
         });
     }
+
     if (client.ai.queue.some(q => q.object.user.id === interaction.user.id)) {
-        interaction.reply({
+        return interaction.reply({
             content: client.i18n.t('AI_LIMIT', { lng: interaction.locale }),
             ephemeral: true
         });
     }
-    interaction.deferReply();
+
+    await interaction.deferReply();
     const argsbase = Buffer.from(args, 'utf8').toString('base64').replaceAll('/', '_').replaceAll('+', '-');
     client.ai.getAI(interaction, argsbase);
 }

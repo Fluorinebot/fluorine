@@ -1,9 +1,9 @@
-import FluorineClient from './Client';
+import FluorineClient from '@classes/Client';
 import { fetch } from 'undici';
 import { Interaction, Message } from 'discord.js';
-import Embed from './Embed';
+import Embed from '@classes/Embed';
 
-export default class AI {
+export default class AIModule {
     client: FluorineClient;
     queue: any[];
     isGenerating: boolean;
@@ -24,13 +24,13 @@ export default class AI {
         const ai = await fetch(`${process.env.AI_URL}/${text}?token=${process.env.AI_TOKEN}`)
             .catch(err => {
                 this.isGenerating = false;
-                return err;
+                throw err;
             })
-            .then(res => res.json());
+            .then(res => res.json() as Record<string, any>);
         if (!ai.result) {
             return object.reply(
                 this.client.i18n.t('AI_ERROR', {
-                    lng: object.guild.preferredLocale
+                    lng: object.locale ?? object.guild.preferredLocale
                 })
             );
         }

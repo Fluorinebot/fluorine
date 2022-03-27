@@ -3,27 +3,27 @@ import Embed from '@classes/Embed';
 import { CommandInteraction, InteractionReplyOptions, MessageActionRow, MessageButton } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { Category } from 'types/applicationCommand';
-import getCases from '@util/getCases';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
     const row = new MessageActionRow();
     const member = interaction.options.getMember('user');
 
-    if (!member)
+    if (!member) {
         return interaction.reply({
             content: client.i18n.t('LISTCASE_MEMBER_MISSING', {
                 lng: interaction.locale
             }),
             ephemeral: true
         });
+    }
 
-    const cases = await getCases(client, interaction.guild?.id, member.user.id);
+    const cases = await client.cases.getMany(interaction.guildId, member.user);
 
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('LISTCASE_TITLE', { user: member.user.tag })
         .setThumbnail(member.user.displayAvatarURL({ dynamic: true }));
 
-    if (!cases.length)
+    if (!cases.length) {
         return interaction.reply({
             content: client.i18n.t('LISTCASE_NO_CASES', {
                 lng: interaction.locale,
@@ -31,11 +31,14 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             }),
             ephemeral: true
         });
+    }
 
     const chunk = cases.reduce((resultArray, item, index) => {
         const chunkIndex = Math.floor(index / 9);
 
-        if (!resultArray[chunkIndex]) resultArray[chunkIndex] = [];
+        if (!resultArray[chunkIndex]) {
+            resultArray[chunkIndex] = [];
+        }
         resultArray[chunkIndex].push(item);
 
         return resultArray;

@@ -1,11 +1,9 @@
 import FluorineClient from '../classes/Client';
 import Embed from '../classes/Embed';
 import { CommandInteraction } from 'discord.js';
-import createCase from '../util/createCase';
-import r from 'rethinkdb';
-import modLog from '@util/modLog';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { Category } from 'types/applicationCommand';
+
 export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
     if (!interaction.member?.permissions.has('MODERATE_MEMBERS')) {
         return interaction.reply({
@@ -19,21 +17,23 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const member = interaction.options.getMember('user');
     const reason = interaction.options.getString('reason') ?? client.i18n.t('NONE', { lng: interaction.locale });
 
-    if (!member)
+    if (!member) {
         return interaction.reply({
             content: client.i18n.t('WARN_MEMBER_MISSING', {
                 lng: interaction.locale
             }),
             ephemeral: true
         });
+    }
 
-    if (member.user.id === interaction.user.id)
+    if (member.user.id === interaction.user.id) {
         return interaction.reply({
             content: client.i18n.t('WARN_ERROR_YOURSELF', {
                 lng: interaction.locale
             }),
             ephemeral: true
         });
+    }
 
     if (reason.length > 1024) {
         return interaction.reply({
@@ -44,9 +44,8 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         });
     }
 
-    const create = await createCase(client, interaction?.guild, member.user, interaction.user, 'warn', reason);
+    const caseObj = await client.cases.create(interaction.guildId, member.user, interaction.user, 'warn', reason);
 
-    modLog(client, create, interaction.guild);
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('WARN_SUCCESS_TITLE')
         .setLocaleDescription('WARN_SUCCESS_DESCRIPTION')
@@ -54,10 +53,10 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         .addLocaleField({ name: 'WARN_MODERATOR', value: interaction.user.tag })
         .addLocaleField({ name: 'WARN_USER', value: member.user.tag })
         .addLocaleField({ name: 'REASON', value: reason })
-        .addLocaleField({ name: 'PUNISHMENT_ID', value: create.id.toString() });
-    interaction.reply({ embeds: [embed] });
+        .addLocaleField({ name: 'PUNISHMENT_ID', value: caseObj.case_id.toString() });
 
-    r.table('case').insert(create).run(client.conn);
+    interaction.reply({ embeds: [embed] });
+    client.cases.logToModerationChannel(interaction.guildId, caseObj);
 }
 
 export const data = new SlashCommandBuilder()

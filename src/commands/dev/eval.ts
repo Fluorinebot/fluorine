@@ -1,6 +1,6 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { codeBlock } from '@discordjs/builders';
+import { codeBlock, SlashCommandSubcommandBuilder } from '@discordjs/builders';
 import clean from '@util/clean';
 import { CommandInteraction } from 'discord.js';
 
@@ -23,3 +23,8 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
     interaction.editReply({ embeds: [embed] });
 }
+
+export const data = new SlashCommandSubcommandBuilder()
+    .setName('eval')
+    .setDescription('Evaluates a given exprssion.')
+    .addStringOption(option => option.setName('code').setDescription('The code to evaluate.').setRequired(true));
