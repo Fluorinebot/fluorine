@@ -10,7 +10,7 @@ export async function run(client: FluorineClient, oldMessage: Message, newMessag
 
     const [settings] = (
         await client.db.query<Config>('SELECT logs_enabled, logs_channel FROM config WHERE guild_id = $1', [
-            BigInt(oldMessage.guild.id)
+            BigInt(oldMessage.guildId)
         ])
     ).rows;
 

@@ -55,8 +55,8 @@ export default class CasesModule {
     }
 
     async getMany(guild: string, user?: User) {
-        let query;
-        let params;
+        let query: string;
+        let params: bigint[];
 
         if (user) {
             query = 'SELECT * FROM public.cases WHERE guild_id = $1 AND moderated_user = $2 ORDER BY case_id ASC;';
@@ -97,7 +97,7 @@ export default class CasesModule {
 
             const channel = guildObj.channels.cache.get(settings.logs_channel.toString());
 
-            if (!channel.isText()) {
+            if (!channel?.isText()) {
                 return;
             }
 
