@@ -13,7 +13,7 @@ import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
 import CommandHandler from '@handlers/CommandHandler';
 import ComponentHandler from '@handlers/ComponentHandler';
 
-import AiModule from '@modules/AiModule';
+import AIModule from '@modules/AIModule';
 import EconomyModule from '@modules/EconomyModule';
 import ShopModule from '@modules/ShopModule';
 import PhishingModule from '@modules/PhishingModule';
@@ -32,7 +32,7 @@ export default class FluorineClient extends Client {
     economy = new EconomyModule(this);
     phishing = new PhishingModule(this);
     shop = new ShopModule(this);
-    ai = new AiModule(this);
+    ai = new AIModule(this);
     cases = new CasesModule(this);
 
     invite =
