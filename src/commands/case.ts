@@ -2,14 +2,13 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
-import getCase from '@util/getCase';
 import { Category } from 'types/applicationCommand';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const id = interaction.options.getInteger('id');
-    const [userCase] = await getCase(client, interaction.guild, id);
+    const caseObj = await client.cases.getOne(interaction.guildId, id);
 
-    if (!userCase) {
+    if (!caseObj) {
         return interaction.reply({
             content: client.i18n.t('CASE_NOT_FOUND', {
                 lng: interaction.locale
@@ -18,8 +17,9 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         });
     }
 
-    const user = await client.users.fetch(userCase.user);
-    const creator = await client.users.fetch(userCase.creator);
+    const user = await client.users.fetch(caseObj.moderated_user.toString());
+    const creator = await client.users.fetch(caseObj.case_creator.toString());
+
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('CASE_TITLE', { id })
         .setThumbnail(user.displayAvatarURL({ dynamic: true }))
@@ -27,9 +27,10 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         .addLocaleField({ name: 'CASE_MODERATOR', value: creator.tag })
         .addLocaleField({
             name: 'CASE_TYPE',
-            localeValue: userCase.type.toUpperCase()
+            localeValue: caseObj.type.toUpperCase()
         })
-        .addLocaleField({ name: 'CASE_REASON', value: userCase.dscp });
+        .addLocaleField({ name: 'CASE_REASON', value: caseObj.reason });
+
     interaction.reply({ embeds: [embed] });
 }
 

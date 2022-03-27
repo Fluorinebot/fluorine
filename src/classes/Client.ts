@@ -1,21 +1,24 @@
 import { Client, Intents } from 'discord.js';
-import r from 'rethinkdb';
+import { Client as Database } from 'pg';
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
+
+import { Logger } from '@classes/Logger';
 import { join } from 'path';
 import { bold, red } from 'picocolors';
 import { performance } from 'perf_hooks';
 
-import { Logger } from '@classes/Logger';
-import AI from '@classes/AI';
 import EventHandler from '@handlers/EventHandler';
 import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
 import CommandHandler from '@handlers/CommandHandler';
 import ComponentHandler from '@handlers/ComponentHandler';
-import EconomyHandler from '@handlers/EconomyHandler';
-import ShopHandler from '@handlers/ShopHandler';
-import TagHandler from '@handlers/TagHandler';
-import PhishingHandler from '@handlers/PhishingHandler';
+import CooldownHandler from '@handlers/CooldownHandler';
+
+import AIModule from '@modules/AIModule';
+import EconomyModule from '@modules/EconomyModule';
+import ShopModule from '@modules/ShopModule';
+import PhishingModule from '@modules/PhishingModule';
+import CasesModule from '@modules/CasesModule';
 
 export default class FluorineClient extends Client {
     createdAt = performance.now();
@@ -24,21 +27,21 @@ export default class FluorineClient extends Client {
 
     applicationCommands = new ApplicationCommandHandler(this);
     components = new ComponentHandler(this);
-    cooldown = new Set<string>();
+    cooldowns = new CooldownHandler(this);
     cmds = new CommandHandler(this);
 
-    economy = new EconomyHandler(this);
-    phishing = new PhishingHandler(this);
-    shop = new ShopHandler(this);
-    tags = new TagHandler(this);
-    ai = new AI(this);
+    economy = new EconomyModule(this);
+    phishing = new PhishingModule(this);
+    shop = new ShopModule(this);
+    ai = new AIModule(this);
+    cases = new CasesModule(this);
 
     invite =
         'https://discord.com/api/oauth2/authorize?client_id=831932409943425064&scope=bot+applications.commands&permissions=474527689975';
     version = process.env.npm_package_version;
     devs = ['707675871355600967', '478823932913516544', '348591272476540928'];
 
-    conn: r.Connection;
+    db = new Database();
 
     constructor() {
         super({
@@ -61,12 +64,12 @@ export default class FluorineClient extends Client {
 
         this.applicationCommands.loadChatInput();
         this.applicationCommands.loadContextMenu();
+
         this.components.loadComponents();
+        new EventHandler(this).loadEvents();
 
         // TODO: remove prefix commands a month after 2.0
         this.cmds.loadCommands();
-
-        new EventHandler(this).loadEvents();
 
         await this.i18n.use(Backend).init({
             fallbackLng: 'en-US',
@@ -74,16 +77,15 @@ export default class FluorineClient extends Client {
             backend: { loadPath: join(__dirname, '/../../i18n/{{lng}}.json') }
         });
 
-        this.conn = await r.connect({
-            host: process.env.RETHINK_HOSTNAME,
-            password: process.env.RETHINK_PASSWORD,
-            db: process.env.RETHINK_DATABASE
-        });
-
+        await this.db.connect();
         this.login();
 
         process.on('unhandledRejection', (error: Error) => {
             this.logger.error(error.stack);
+        });
+
+        process.on('exit', async () => {
+            await this.db.end();
         });
     }
 }

@@ -1,8 +1,9 @@
 import { CommandInteraction } from 'discord.js';
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import r from 'rethinkdb';
 import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
+import { Config } from 'types/databaseTables';
+
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     if (!interaction.memberPermissions.has('MANAGE_GUILD')) {
         return interaction.reply({
@@ -12,14 +13,20 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     }
 
     const prefix = interaction.options.getString('prefix');
+
+    await client.db.query<Config>('UPDATE config SET prefix = $1 WHERE guild_id = $2', [
+        prefix,
+        BigInt(interaction.guildId)
+    ]);
+
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('CONFIG_SET_SUCCESS_TITLE')
         .setLocaleDescription('CONFIG_SET_SUCCESS_DESCRIPTION', {
             key: client.i18n.t('CONFIG_PREFIX', { lng: interaction.locale }),
             value: prefix
         });
+
     interaction.reply({ embeds: [embed] });
-    r.table('config').get(interaction.guildId).update({ prefix }).run(client.conn);
 }
 
 export const data = new SlashCommandSubcommandBuilder()

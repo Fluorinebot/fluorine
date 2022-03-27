@@ -1,14 +1,12 @@
 import FluorineClient from '@classes/Client';
-import Embed from '@classes/Embed';
 import { Interaction } from 'discord.js';
-import r from 'rethinkdb';
 import { ChatInputCommand } from 'types/applicationCommand';
-import { Tag } from 'types/tag';
 
 export async function run(client: FluorineClient, interaction: Interaction) {
     if (interaction.isMessageComponent()) {
         const [name, user, value] = interaction.customId.split(':');
         const component = client.components.get(name);
+
         if (component.authorOnly && interaction.user.id !== user) {
             return interaction.reply({
                 content: client.i18n.t('COMPONENT_PRIVATE', {
@@ -28,54 +26,41 @@ export async function run(client: FluorineClient, interaction: Interaction) {
                 ephemeral: true
             });
         }
+
         contextCommand.run(client, interaction);
-    }
-    if (!interaction.isCommand()) {
-        return;
-    }
+    } else if (interaction.isCommand()) {
+        const subcommand = interaction.options.getSubcommand(false);
+        const key = subcommand ? `${interaction.commandName}/${subcommand}` : interaction.commandName;
 
-    if (client.cooldown.has(interaction.user.id)) {
-        const coolEmbed = new Embed(client, interaction.locale)
-            .setLocaleTitle('MESSAGE_CREATE_COOLDOWN_TITLE')
-            .setLocaleDescription('MESSAGE_CREATE_COOLDOWN_DESCRIPTION');
-        return interaction.reply({ embeds: [coolEmbed], ephemeral: true });
-    }
+        const command = client.applicationCommands.chatInput.get(key);
+        const { dev } = client.applicationCommands.chatInput.get(interaction.commandName) as ChatInputCommand;
 
-    client.cooldown.add(interaction.user.id);
-    if (interaction.user.id !== '817883855310684180') {
-        setTimeout(() => client.cooldown.delete(interaction.user.id), 2000);
-    }
+        if (await client.cooldowns.has(interaction.user, key)) {
+            const cooldown = await client.cooldowns.get(interaction.user, key);
 
-    const subcommand = interaction.options.getSubcommand(false);
-    const command = subcommand
-        ? client.applicationCommands.chatInput.get(`${interaction.commandName}/${subcommand}`)
-        : client.applicationCommands.chatInput.get(interaction.commandName);
+            if (cooldown.timestamp > Date.now()) {
+                return interaction.reply({
+                    content: client.i18n.t('INTERACTION_CREATE_COOLDOWN', {
+                        lng: interaction.locale,
+                        time: Math.floor(Number((await client.cooldowns.get(interaction.user, key)).timestamp) / 1000)
+                    }),
+                    ephemeral: true
+                });
+            }
 
-    if (!command) {
-        const [tag] = (await r
-            .table('tags')
-            .getAll([interaction.guild.id, interaction.commandName], {
-                index: 'tag'
-            })
-            .coerceTo('array')
-            .run(client.conn)) as Tag[];
-
-        if (!tag) {
-            return;
+            if (cooldown.timestamp <= Date.now()) {
+                await client.cooldowns.delete(interaction.user, key);
+            }
         }
-        tag.uses++;
 
-        await r.table('tags').get(tag.name).update(tag).run(client.conn);
-        return interaction.reply(await client.tags.getParsedReplyOptions(tag, interaction));
+        if (dev && !client.devs.includes(interaction.user.id)) {
+            return interaction.reply({
+                content: 'You need to be a developer to do that!',
+                ephemeral: true
+            });
+        }
+
+        command.run(client, interaction);
+        client.cooldowns.set(interaction.user, key, command.cooldown);
     }
-
-    const { dev } = client.applicationCommands.chatInput.get(interaction.commandName) as ChatInputCommand;
-    if (dev && !client.devs.includes(interaction.user.id)) {
-        return interaction.reply({
-            content: 'You need to be a developer to do that!',
-            ephemeral: true
-        });
-    }
-
-    command.run(client, interaction);
 }

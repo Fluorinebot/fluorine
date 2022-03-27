@@ -1,17 +1,18 @@
 import FluorineClient from '@classes/Client';
-import r from 'rethinkdb';
 import { performance } from 'perf_hooks';
+import { Config } from 'types/databaseTables';
 
 export async function run(client: FluorineClient) {
     client.guilds.cache.forEach(async g => {
-        const guild = await r.table('config').get(g.id).run(client.conn);
-        if (!guild) {
-            r.table('config')
-                .insert({
-                    id: g.id,
-                    prefix: process.env.DISCORD_PREFIX
-                })
-                .run(this.conn);
+        const guild = (
+            await client.db.query<Config>('SELECT logs_enabled FROM config WHERE guild_id = $1', [BigInt(g.id)])
+        ).rows;
+
+        if (!guild.length) {
+            await client.db.query<Config>(
+                'INSERT INTO config(guild_id, prefix, logs_enabled, logs_channel, log_moderation_actions, antibot_factor, antibot_action, currency) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
+                [BigInt(g.id), process.env.DISCORD_PREFIX, true, null, false, 0, 'timeout', '🪙']
+            );
         }
     });
 

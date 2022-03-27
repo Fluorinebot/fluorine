@@ -3,7 +3,6 @@ import Embed from '@classes/Embed';
 import { CommandInteraction, InteractionReplyOptions, MessageActionRow, MessageButton } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { Category } from 'types/applicationCommand';
-import getCases from '@util/getCases';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
     const row = new MessageActionRow();
@@ -18,7 +17,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         });
     }
 
-    const cases = await getCases(client, interaction.guild?.id, member.user.id);
+    const cases = await client.cases.getMany(interaction.guildId, member.user);
 
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('LISTCASE_TITLE', { user: member.user.tag })

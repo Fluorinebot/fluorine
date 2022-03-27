@@ -37,13 +37,13 @@
         "i18next-fs-backend": "^1.1.4",
         "ms": "^3.0.0-canary.1",
         "murmurhash-v3": "^1.0.2",
+        "pg": "^8.7.3",
         "picocolors": "^1.0.0",
-        "rethinkdb": "^2.4.2",
         "undici": "^4.16.0"
     },
     "devDependencies": {
         "@types/i18next-fs-backend": "^1.1.2",
-        "@types/rethinkdb": "^2.3.17",
+        "@types/pg": "^8.6.5",
         "@typescript-eslint/eslint-plugin": "^5.16.0",
         "@typescript-eslint/parser": "^5.16.0",
         "eslint": "^8.11.0",

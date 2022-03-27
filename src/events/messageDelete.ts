@@ -1,21 +1,28 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
-import r from 'rethinkdb';
-import { SettingsType } from 'types/settings';
+import { Config } from 'types/databaseTables';
+
 export async function run(client: FluorineClient, message: Message) {
     if (!message.content) {
         return;
     }
-    // @ts-ignore
-    const settings: SettingsType = await r.table('config').get(message.guild?.id).run(client.conn);
-    if (!settings.logs || !settings.logsChannel) {
+
+    const [settings] = (
+        await client.db.query<Config>('SELECT logs_enabled, logs_channel FROM config WHERE guild_id = $1', [
+            BigInt(message.guildId)
+        ])
+    ).rows;
+
+    if (!settings.logs_enabled || !settings.logs_channel) {
         return;
     }
-    const channel = client.channels.cache.get(settings.logsChannel);
+
+    const channel = client.channels.cache.get(settings.logs_channel.toString());
     if (!channel.isText()) {
         return;
     }
+
     const embed = new Embed(client, message.guild.preferredLocale)
         .setLocaleTitle('MESSAGE_DELETE_TITLE')
         .setThumbnail(message.member.displayAvatarURL({ dynamic: true }))
@@ -27,5 +34,6 @@ export async function run(client: FluorineClient, message: Message) {
             name: 'MESSAGE_DELETE_CONTENT',
             value: message.content
         });
-    channel?.send({ embeds: [embed] });
+
+    channel.send({ embeds: [embed] });
 }

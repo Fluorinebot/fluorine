@@ -3,9 +3,6 @@ import Embed from '../classes/Embed';
 import { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import ms, { StringValue } from 'ms';
-import createCase from '../util/createCase';
-import r from 'rethinkdb';
-import modLog from '@util/modLog';
 import { Category } from 'types/applicationCommand';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
@@ -67,7 +64,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         });
     }
 
-    const create = await createCase(client, interaction?.guild, member.user, interaction.user, 'timeout', reason);
+    const caseObj = await client.cases.create(interaction.guildId, member.user, interaction.user, 'timeout', reason);
 
     await member.timeout(
         duration,
@@ -77,7 +74,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             reason
         })
     );
-    modLog(client, create, interaction.guild);
+
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('TIMEOUT_SUCCESS_TITLE')
         .setLocaleDescription('TIMEOUT_SUCCESS_DESCRIPTION')
@@ -89,10 +86,10 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         .addLocaleField({ name: 'TIMEOUT_USER', value: member.user.tag })
         .addLocaleField({ name: 'DURATION', value: ms(duration) })
         .addLocaleField({ name: 'REASON', value: reason })
-        .addLocaleField({ name: 'PUNISHMENT_ID', value: create.id.toString() });
-    interaction.reply({ embeds: [embed] });
+        .addLocaleField({ name: 'PUNISHMENT_ID', value: caseObj.case_id.toString() });
 
-    r.table('case').insert(create).run(client.conn);
+    interaction.reply({ embeds: [embed] });
+    client.cases.logToModerationChannel(interaction.guildId, caseObj);
 }
 
 export const data = new SlashCommandBuilder()
