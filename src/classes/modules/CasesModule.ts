@@ -9,13 +9,7 @@ export default class CasesModule {
         this.client = client;
     }
 
-    async create(
-        guild: string,
-        user: User,
-        creator: User,
-        type: 'ban' | 'kick' | 'timeout' | 'warn',
-        reason: string
-    ): Promise<Case> {
+    async create(guild: string, user: User, creator: User, type: 'ban' | 'kick' | 'timeout' | 'warn', reason: string) {
         const [fetchedId] = (
             await this.client.db.query<Case>(
                 'SELECT case_id FROM cases WHERE guild_id = $1 ORDER BY case_id DESC LIMIT 1',
