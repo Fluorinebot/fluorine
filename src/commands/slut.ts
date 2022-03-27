@@ -9,7 +9,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('SLUT_SUCCESS')
         .setLocaleDescription('SLUT_SUCCESS_DESCRIPTION', {
-            amount: `${money} ${client.economy.getCurrency(interaction.guildId)}`
+            amount: `${money} ${await client.economy.getCurrency(interaction.guildId)}`
         });
 
     client.economy.add(interaction.guildId, interaction.user, money);
@@ -18,4 +18,4 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder().setName('slut').setDescription('Get money by being a slut!');
 export const category: Category = 'economy';
-export const cooldown = 216000000;
+export const cooldown = 1 * 60 * 60 * 1000;

@@ -55,4 +55,4 @@ export const data = new SlashCommandBuilder()
     .addUserOption(option => option.setName('user').setDescription('User you want to rob').setRequired(true));
 
 export const category: Category = 'economy';
-export const cooldown = 1296000000;
+export const cooldown = 12 * 60 * 60 * 1000;
