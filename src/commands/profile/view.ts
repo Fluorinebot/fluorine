@@ -1,7 +1,7 @@
 import FluorineClient from '@classes/Client';
 import { CommandInteraction, MessageAttachment } from 'discord.js';
 import canvas from 'canvas';
-import fragmentText from '@util/fragmentText';
+import { fragmentText } from '@util/fragmentText';
 import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 import { Profile } from 'types/databaseTables';
 

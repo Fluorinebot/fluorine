@@ -1,7 +1,7 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
-import clean from '@util/clean';
+import { clean } from '@util/clean';
 import { execSync } from 'child_process';
 export async function run(client: FluorineClient, message: Message, args: string[]) {
     if (!client.devs.includes(message.author.id)) {

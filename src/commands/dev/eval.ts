@@ -1,7 +1,7 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { codeBlock, SlashCommandSubcommandBuilder } from '@discordjs/builders';
-import clean from '@util/clean';
+import { clean } from '@util/clean';
 import { CommandInteraction } from 'discord.js';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
