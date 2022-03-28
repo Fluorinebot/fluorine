@@ -3,6 +3,8 @@ import Embed from '@classes/Embed';
 import { InteractionReplyOptions, MessageActionRow, MessageButton, UserContextMenuInteraction } from 'discord.js';
 import { ContextMenuCommandBuilder } from '@discordjs/builders';
 import { ApplicationCommandType } from 'discord-api-types/v9';
+import { splitArray } from '@util/splitArr';
+import { Case } from 'types/databaseTables';
 
 export async function run(client: FluorineClient, interaction: UserContextMenuInteraction<'cached'>) {
     const row = new MessageActionRow();
@@ -33,19 +35,10 @@ export async function run(client: FluorineClient, interaction: UserContextMenuIn
         });
     }
 
-    const chunk = cases.reduce((resultArray, item, index) => {
-        const chunkIndex = Math.floor(index / 9);
-
-        if (!resultArray[chunkIndex]) {
-            resultArray[chunkIndex] = [];
-        }
-        resultArray[chunkIndex].push(item);
-
-        return resultArray;
-    }, []);
+    const chunk = splitArray<Case>(cases, 10);
 
     chunk[0].forEach(caseData => {
-        embed.addField(`#${caseData.id} ${caseData.type}`, caseData.dscp);
+        embed.addField(`#${caseData.case_id} ${caseData.type}`, caseData.reason);
     });
 
     const replyOptions: InteractionReplyOptions = { embeds: [embed] };
