@@ -53,10 +53,7 @@ export async function run(client: FluorineClient, interaction: UserContextMenuIn
                     })
                 )
                 .setStyle('PRIMARY')
-                .setDisabled(true)
-        );
-
-        row.addComponents(
+                .setDisabled(true),
             new MessageButton()
                 .setCustomId(`listcase:${interaction.user.id}:${member.user.id}.1`)
                 .setLabel(client.i18n.t('LISTCASE_NEXT', { lng: interaction.locale }))

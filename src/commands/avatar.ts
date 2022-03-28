@@ -1,32 +1,18 @@
 import FluorineClient from '@classes/Client';
-import Embed from '@classes/Embed';
-import { CommandInteraction, GuildMember, InteractionReplyOptions, MessageActionRow, MessageButton } from 'discord.js';
+import { CommandInteraction, GuildMember, InteractionReplyOptions } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { Category } from 'types/applicationCommand';
+import { getComponents, getEmbed } from '@util/avatar';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
     const user = interaction.options.getMember('user') ?? interaction.options.getUser('user') ?? interaction.member;
 
-    const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle('AVATAR')
-        .setImage(user.displayAvatarURL({ dynamic: true, size: 512 }));
-
-    const replyOptions: InteractionReplyOptions = { embeds: [embed] };
+    const replyOptions: InteractionReplyOptions = {
+        embeds: [getEmbed(client, interaction, user as unknown as GuildMember, 'guild')]
+    };
 
     if (user instanceof GuildMember && user.avatar) {
-        const row = new MessageActionRow().addComponents(
-            new MessageButton()
-                .setCustomId(`avatar:${interaction.user.id}:${user.id}.guild`)
-                .setLabel(client.i18n.t('AVATAR_GUILD', { lng: interaction.locale }))
-                .setDisabled(true)
-                .setStyle('PRIMARY'),
-            new MessageButton()
-                .setCustomId(`avatar:${interaction.user.id}:${user.id}.user`)
-                .setLabel(client.i18n.t('AVATAR_USER', { lng: interaction.locale }))
-                .setStyle('PRIMARY')
-        );
-
-        replyOptions.components = [row];
+        replyOptions.components = [getComponents(client, interaction, user, 'guild')];
     }
 
     interaction.reply(replyOptions);
