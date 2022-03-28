@@ -1,7 +1,7 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { SelectMenuInteraction, EmbedFieldData, MessageActionRow, MessageSelectMenu } from 'discord.js';
-import { ChatInputCommand } from 'types/applicationCommand';
+import { ChatInputCommand } from 'types/structures';
 
 export const authorOnly = true;
 

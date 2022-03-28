@@ -1,4 +1,4 @@
-import { Component } from 'types/component';
+import { Component } from 'types/structures';
 import { Collection } from 'discord.js';
 import FluorineClient from '@classes/Client';
 import { loadDirectory } from '@util/files';

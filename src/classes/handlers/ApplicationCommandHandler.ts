@@ -1,4 +1,4 @@
-import { ChatInputCommand, ChatInputSubcommand, ContextMenuCommand } from 'types/applicationCommand';
+import { ChatInputCommand, ChatInputSubcommand, ContextMenuCommand } from 'types/structures';
 import { Collection } from 'discord.js';
 import FluorineClient from '@classes/Client';
 import { loadDirectory, loadParentDirectory } from '@util/files';

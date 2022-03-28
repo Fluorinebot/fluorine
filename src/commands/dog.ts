@@ -3,7 +3,7 @@ import Embed from '@classes/Embed';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
 import { fetch } from 'undici';
-import { Category } from 'types/applicationCommand';
+import { Category } from 'types/structures';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const { file } = (await fetch('https://api.alexflipnote.dev/dogs').then(response => response.json())) as {

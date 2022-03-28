@@ -2,7 +2,7 @@ import { CommandInteraction } from 'discord.js';
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { Category } from 'types/applicationCommand';
+import { Category } from 'types/structures';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const random = Math.floor(Math.random() * 3);

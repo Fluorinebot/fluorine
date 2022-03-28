@@ -1,7 +1,7 @@
 import FluorineClient from '@classes/Client';
 import { CommandInteraction, GuildMember, InteractionReplyOptions } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { Category } from 'types/applicationCommand';
+import { Category } from 'types/structures';
 import { getComponents, getEmbed } from '@util/avatar';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {

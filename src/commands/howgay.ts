@@ -1,7 +1,7 @@
 import FluorineClient from '@classes/Client';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
-import { Category } from 'types/applicationCommand';
+import { Category } from 'types/structures';
 import hash from 'murmurhash-v3';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {

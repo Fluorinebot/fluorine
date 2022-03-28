@@ -4,7 +4,7 @@ import { CommandInteraction } from 'discord.js';
 import { HypixelType } from 'types/hypixel';
 import { fetch } from 'undici';
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { Category } from 'types/applicationCommand';
+import { Category } from 'types/structures';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const player = interaction.options.getString('player');

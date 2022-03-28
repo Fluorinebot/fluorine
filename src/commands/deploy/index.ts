@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { Category } from 'types/applicationCommand';
+import { Category } from 'types/structures';
 
 export const data = new SlashCommandBuilder().setName('deploy').setDescription('Deploy application commands');
 
