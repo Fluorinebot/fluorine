@@ -8,13 +8,13 @@ export interface PhishingLink {
 }
 
 export default class PhishingModule {
-    client: FluorineClient;
     private _words: string;
     private _users: string;
     private _urls: string;
 
-    constructor(client: FluorineClient) {
+    constructor(private client: FluorineClient) {
         this.client = client;
+
         this._words = readFileSync(`${__dirname}/../../../assets/words.txt`).toString();
         this._users = readFileSync(`${__dirname}/../../../assets/users.txt`).toString();
         this._urls = readFileSync(`${__dirname}/../../../assets/url.txt`).toString();

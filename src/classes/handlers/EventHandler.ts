@@ -3,8 +3,7 @@ import { loadDirectory } from '@util/files';
 import { Event } from 'types/event';
 
 export default class EventHandler {
-    client: FluorineClient;
-    constructor(client: FluorineClient) {
+    constructor(private client: FluorineClient) {
         this.client = client;
     }
 

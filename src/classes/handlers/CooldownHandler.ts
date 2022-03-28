@@ -3,9 +3,7 @@ import { User } from 'discord.js';
 import { Cooldown } from 'types/databaseTables';
 
 export default class CooldownHandler {
-    client: FluorineClient;
-
-    constructor(client) {
+    constructor(private client: FluorineClient) {
         this.client = client;
     }
 
