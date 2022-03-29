@@ -13,15 +13,16 @@ export default class AIModule {
         this.isGenerating = false;
     }
 
-    async getAI(message: Message | Interaction, text: string): Promise<any> {
+    async getAI(message: Message | Interaction, text: string): Promise<void> {
         this.queue.push({ object: message, text });
+
         if (!this.isGenerating) {
             this.isGenerating = true;
             this.generate();
         }
     }
 
-    async generate(): Promise<any> {
+    async generate(): Promise<void> {
         const [{ object, text }] = this.queue;
         const ai = await fetch(`${process.env.AI_URL}/${text}?token=${process.env.AI_TOKEN}`)
             .catch(err => {
