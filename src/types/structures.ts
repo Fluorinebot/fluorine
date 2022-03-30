@@ -37,3 +37,8 @@ export interface Event {
 export interface PhishingLink {
     url: string;
 }
+
+export interface AIQueue {
+    interaction: CommandInteraction | ContextMenuInteraction;
+    text: string;
+}

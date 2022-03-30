@@ -12,7 +12,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         });
     }
 
-    if (client.ai.queue.some(q => q.object.user.id === interaction.user.id)) {
+    if (client.ai.queue.some(q => q.interaction.user.id === interaction.user.id)) {
         return interaction.reply({
             content: client.i18n.t('AI_LIMIT', { lng: interaction.locale }),
             ephemeral: true
@@ -20,11 +20,12 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     }
 
     await interaction.deferReply();
-    const argsbase = Buffer.from(args, 'utf8').toString('base64').replaceAll('/', '_').replaceAll('+', '-');
-    client.ai.getAI(interaction, argsbase);
+    client.ai.getAI(interaction, args);
 }
+
 export const data = new SlashCommandBuilder()
     .setName('ai')
     .setDescription('Make AI complete your sentence')
     .addStringOption(option => option.setName('start').setDescription('Start of the sentence').setRequired(true));
+
 export const category: Category = 'fun';
