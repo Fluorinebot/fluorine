@@ -39,7 +39,7 @@
         "murmurhash-v3": "^1.0.2",
         "pg": "^8.7.3",
         "picocolors": "^1.0.0",
-        "undici": "^4.16.0"
+        "undici": "^5.0.0"
     },
     "devDependencies": {
         "@types/i18next-fs-backend": "^1.1.2",
