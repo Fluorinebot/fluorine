@@ -15,7 +15,7 @@ export default class Embed extends MessageEmbed {
     clientColor: ColorResolvable = 0x3872f2;
     private i18n: typeof i18next;
 
-    constructor(private client: FluorineClient, private locale: string) {
+    constructor(client: FluorineClient, private locale: string) {
         super({});
 
         this.setColor(this.clientColor);
