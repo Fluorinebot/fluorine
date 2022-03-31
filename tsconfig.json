@@ -9,10 +9,9 @@
         "paths": {
             "@classes/*": ["classes/*"],
             "@handlers/*": ["classes/handlers/*"],
+            "@modules/*": ["classes/modules/*"],
             "@util/*": ["util/*"],
-            "types/*": ["types/*"],
-            "@i18n/*": ["i18n/*"],
-            "@modules/*": ["classes/modules/*"]
+            "types/*": ["types/*"]
         },
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
