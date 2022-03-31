@@ -8,7 +8,7 @@ export async function run(client: FluorineClient, interaction: UserContextMenuIn
     const user = interaction.targetMember ?? interaction.targetUser;
 
     const replyOptions: InteractionReplyOptions = {
-        embeds: [getEmbed(client, interaction, user as unknown as GuildMember, 'guild')]
+        embeds: [getEmbed(client, interaction, user, 'guild')]
     };
 
     if (user instanceof GuildMember && user.avatar) {

@@ -1,6 +1,6 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { GuildMember, Interaction, MessageActionRow, MessageButton } from 'discord.js';
+import { GuildMember, Interaction, MessageActionRow, MessageButton, User } from 'discord.js';
 
 export function getComponents(
     client: FluorineClient,
@@ -25,21 +25,25 @@ export function getComponents(
 export function getEmbed(
     client: FluorineClient,
     interaction: Interaction,
-    member: GuildMember,
+    member: GuildMember | User,
     action: 'guild' | 'user'
 ) {
     const embed = new Embed(client, interaction.locale).setLocaleTitle('AVATAR');
 
-    switch (action) {
-        case 'guild': {
-            embed.setImage(member.displayAvatarURL({ dynamic: true, size: 512 }));
-            break;
-        }
+    if (member instanceof GuildMember) {
+        switch (action) {
+            case 'guild': {
+                embed.setImage(member.displayAvatarURL({ dynamic: true, size: 512 }));
+                break;
+            }
 
-        case 'user': {
-            embed.setImage(member.user.displayAvatarURL({ dynamic: true, size: 512 }));
-            break;
+            case 'user': {
+                embed.setImage(member.user.displayAvatarURL({ dynamic: true, size: 512 }));
+                break;
+            }
         }
+    } else {
+        embed.setImage(member.displayAvatarURL({ dynamic: true, size: 512 }));
     }
 
     return embed;
