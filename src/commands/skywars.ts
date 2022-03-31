@@ -36,7 +36,6 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     }
 
     const kd = Number((skyStats.kills / skyStats.deaths).toFixed(2));
-
     const winratio = Number((skyStats.wins / skyStats.deaths).toFixed(2));
 
     const embed = new Embed(client, interaction.locale)
@@ -70,6 +69,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             inline: true
         })
         .setThumbnail(`https://crafatar.com/avatars/${uuid.id}?default=MHF_Steve&overlay`);
+
     interaction.reply({ embeds: [embed] });
 }
 
