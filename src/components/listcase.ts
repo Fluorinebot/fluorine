@@ -12,7 +12,7 @@ export async function run(client: FluorineClient, interaction: ButtonInteraction
     const member = client.users.cache.get(user);
     const cases = await client.cases.getMany(interaction.guildId, member);
 
-    const chunk = splitArray<Case>(cases, 10);
+    const chunk = splitArray(cases, 10);
 
     const row = new MessageActionRow();
     row.addComponents(
