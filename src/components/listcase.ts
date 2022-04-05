@@ -2,7 +2,6 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { splitArray } from '@util/splitArr';
 import { MessageActionRow, MessageButton, ButtonInteraction } from 'discord.js';
-import { Case } from 'types/databaseTables';
 
 export const authorOnly = true;
 

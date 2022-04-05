@@ -4,7 +4,6 @@ import { InteractionReplyOptions, MessageActionRow, MessageButton, UserContextMe
 import { ContextMenuCommandBuilder } from '@discordjs/builders';
 import { ApplicationCommandType } from 'discord-api-types/v9';
 import { splitArray } from '@util/splitArr';
-import { Case } from 'types/databaseTables';
 
 export async function run(client: FluorineClient, interaction: UserContextMenuInteraction<'cached'>) {
     const row = new MessageActionRow();

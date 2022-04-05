@@ -4,7 +4,6 @@ import { CommandInteraction, InteractionReplyOptions, MessageActionRow, MessageB
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { Category } from 'types/structures';
 import { splitArray } from '@util/splitArr';
-import { Case } from 'types/databaseTables';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
     const row = new MessageActionRow();
