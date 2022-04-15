@@ -75,7 +75,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             const embed = new Embed(client, interaction.locale)
                 .setLocaleTitle('PROFILE_SUCCESS')
                 .setLocaleDescription('PROFILE_SET_LOCATION', {
-                    value
+                    location: value
                 });
 
             interaction.reply({ embeds: [embed], ephemeral: true });
