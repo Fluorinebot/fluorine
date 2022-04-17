@@ -89,7 +89,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     ctx.clip();
     ctx.drawImage(avatar, 30, 7, 110, 110);
 
-    const attachment = new MessageAttachment(canva.toBuffer(), 'profile?.png');
+    const attachment = new MessageAttachment(canva.toBuffer(), 'profile.png');
     interaction.reply({ files: [attachment] });
 }
 
