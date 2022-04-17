@@ -26,14 +26,5 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandSubcommandBuilder()
     .setName('shell')
-    .setNameLocalizations({ pl: 'replace_me' })
     .setDescription('Execute a shell script')
-    .setDescriptionLocalizations({ pl: 'replace_me' })
-    .addStringOption(option =>
-        option
-            .setName('script')
-            .setNameLocalizations({ pl: 'replace_me' })
-            .setDescription('The shell script.')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
-            .setRequired(true)
-    );
+    .addStringOption(option => option.setName('script').setDescription('The shell script.').setRequired(true));

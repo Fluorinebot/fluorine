@@ -60,22 +60,8 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandSubcommandBuilder()
     .setName('create')
-    .setNameLocalizations({ pl: 'replace_me' })
     .setDescription('Create application commands')
-    .setDescriptionLocalizations({ pl: 'replace_me' })
     .addStringOption(option =>
-        option
-            .setName('command')
-            .setNameLocalizations({ pl: 'replace_me' })
-            .setDescription('Provide a command to create')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
-            .setRequired(true)
+        option.setName('command').setDescription('Provide a command to create').setRequired(true)
     )
-    .addStringOption(option =>
-        option
-            .setName('guild')
-            .setNameLocalizations({ pl: 'replace_me' })
-            .setDescription('Provide a guild to deploy')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
-            .setRequired(false)
-    );
+    .addStringOption(option => option.setName('guild').setDescription('Provide a guild to deploy').setRequired(false));
