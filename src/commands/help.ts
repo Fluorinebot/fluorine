@@ -65,12 +65,24 @@ export const data = new SlashCommandBuilder()
         option
             .setName('category')
             .setDescription('The category to display')
-            .addChoices([
-                ['Fun', 'fun'],
-                ['Tools', 'tools'],
-                ['Moderation', 'moderation'],
-                ['Economy', 'economy']
-            ])
+            .addChoices(
+                {
+                    name: 'Fun',
+                    value: 'fun'
+                },
+                {
+                    name: 'Tools',
+                    value: 'tools'
+                },
+                {
+                    name: 'Moderation',
+                    value: 'moderation'
+                },
+                {
+                    name: 'Economy',
+                    value: 'economy'
+                }
+            )
             .setRequired(true)
     );
 

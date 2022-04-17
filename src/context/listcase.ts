@@ -2,7 +2,7 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { InteractionReplyOptions, MessageActionRow, MessageButton, UserContextMenuInteraction } from 'discord.js';
 import { ContextMenuCommandBuilder } from '@discordjs/builders';
-import { ApplicationCommandType } from 'discord-api-types/v9';
+import { ApplicationCommandType } from 'discord-api-types/v10';
 import { splitArray } from '@util/splitArr';
 
 export async function run(client: FluorineClient, interaction: UserContextMenuInteraction<'cached'>) {
