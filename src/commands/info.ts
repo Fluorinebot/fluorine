@@ -2,6 +2,7 @@ import FluorineClient from '@classes/Client';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { getComponents, getEmbed } from '@util/info';
 import { CommandInteraction } from 'discord.js';
+import { Category } from 'types/structures';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     interaction.reply({
@@ -11,3 +12,5 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 }
 
 export const data = new SlashCommandBuilder().setName('info').setDescription('Information about Fluorine');
+
+export const category: Category = 'tools';

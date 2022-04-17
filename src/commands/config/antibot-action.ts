@@ -38,10 +38,19 @@ export const data = new SlashCommandSubcommandBuilder()
         option
             .setName('action')
             .setDescription('Action to do when antibot is triggered')
-            .addChoices([
-                ['Ban', 'ban'],
-                ['Kick', 'kick'],
-                ['Timeout', 'timeout']
-            ])
+            .addChoices(
+                {
+                    name: 'Ban',
+                    value: 'ban'
+                },
+                {
+                    name: 'Kick',
+                    value: 'kick'
+                },
+                {
+                    name: 'Timeout',
+                    value: 'timeout'
+                }
+            )
             .setRequired(true)
     );

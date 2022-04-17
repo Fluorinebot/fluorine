@@ -105,16 +105,24 @@ export const data = new SlashCommandSubcommandBuilder()
     .setName('reload')
     .setDescription('Reloads a module.')
     .addStringOption(option =>
-        option
-            .setName('type')
-            .setDescription('The type of the module.')
-            .setRequired(true)
-            .setChoices([
-                ['Event', 'events'],
-                ['Chat Input Command', 'commands'],
-                ['Context Menu Command', 'context'],
-                ['Component', 'components']
-            ])
+        option.setName('type').setDescription('The type of the module.').setRequired(true).setChoices(
+            {
+                name: 'Event',
+                value: 'events'
+            },
+            {
+                name: 'Chat Input Command',
+                value: 'commands'
+            },
+            {
+                name: 'Context Menu Command',
+                value: 'context'
+            },
+            {
+                name: 'Component',
+                value: 'components'
+            }
+        )
     )
     .addStringOption(option =>
         option.setName('module').setDescription("The module that you're reloading.").setRequired(true)
