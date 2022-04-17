@@ -61,10 +61,24 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder()
     .setName('warn')
-    .setDescription('Warn an user from the server')
-    .addUserOption(option => option.setName('user').setDescription('Provide an user to warn').setRequired(true))
+    .setNameLocalizations({ pl: 'replace_me' })
+    .setDescription('Warn a user from the server')
+    .setDescriptionLocalizations({ pl: 'replace_me' })
+    .addUserOption(option =>
+        option
+            .setName('user')
+            .setNameLocalizations({ pl: 'replace_me' })
+            .setDescription('Provide a user to warn')
+            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setRequired(true)
+    )
     .addStringOption(option =>
-        option.setName('reason').setDescription('Provide a reason for warning this user').setRequired(false)
+        option
+            .setName('reason')
+            .setNameLocalizations({ pl: 'replace_me' })
+            .setDescription('Provide a reason for warning this user')
+            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setRequired(false)
     );
 
 export const category: Category = 'moderation';

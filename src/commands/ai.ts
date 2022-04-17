@@ -25,7 +25,16 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder()
     .setName('ai')
+    .setNameLocalizations({ pl: 'replace_me' })
     .setDescription('Make AI complete your sentence')
-    .addStringOption(option => option.setName('start').setDescription('Start of the sentence').setRequired(true));
+    .setDescriptionLocalizations({ pl: 'replace_me' })
+    .addStringOption(option =>
+        option
+            .setName('start')
+            .setNameLocalizations({ pl: 'replace_me' })
+            .setDescription('Start of the sentence')
+            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setRequired(true)
+    );
 
 export const category: Category = 'fun';

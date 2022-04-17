@@ -185,29 +185,59 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandSubcommandBuilder()
     .setName('set')
+    .setNameLocalizations({ pl: 'replace_me' })
     .setDescription('Set a profile')
+    .setDescriptionLocalizations({ pl: 'replace_me' })
     .addStringOption(option =>
-        option.setName('field').setDescription('Field to set').setRequired(true).setChoices(
-            {
-                name: 'Birthday',
-                value: 'birthday'
-            },
-            {
-                name: 'Description',
-                value: 'description'
-            },
-            {
-                name: 'Location',
-                value: 'location'
-            },
-            {
-                name: 'Pronouns',
-                value: 'pronouns'
-            },
-            {
-                name: 'Website',
-                value: 'website'
-            }
-        )
+        option
+            .setName('field')
+            .setNameLocalizations({ pl: 'replace_me' })
+            .setDescription('Field to set')
+            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setRequired(true)
+            .setChoices(
+                {
+                    name: 'Birthday',
+                    name_localizations: {
+                        pl: 'replace_me'
+                    },
+                    value: 'birthday'
+                },
+                {
+                    name: 'Description',
+                    name_localizations: {
+                        pl: 'replace_me'
+                    },
+                    value: 'description'
+                },
+                {
+                    name: 'Location',
+                    name_localizations: {
+                        pl: 'replace_me'
+                    },
+                    value: 'location'
+                },
+                {
+                    name: 'Pronouns',
+                    name_localizations: {
+                        pl: 'replace_me'
+                    },
+                    value: 'pronouns'
+                },
+                {
+                    name: 'Website',
+                    name_localizations: {
+                        pl: 'replace_me'
+                    },
+                    value: 'website'
+                }
+            )
     )
-    .addStringOption(option => option.setName('value').setDescription('Value to set').setRequired(true));
+    .addStringOption(option =>
+        option
+            .setName('value')
+            .setNameLocalizations({ pl: 'replace_me' })
+            .setDescription('Value to set')
+            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setRequired(true)
+    );

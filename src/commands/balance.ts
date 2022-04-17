@@ -22,5 +22,10 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     interaction.reply({ embeds: [embed], ephemeral: true });
 }
 
-export const data = new SlashCommandBuilder().setName('balance').setDescription('Check your balance');
+export const data = new SlashCommandBuilder()
+    .setName('balance')
+    .setNameLocalizations({ pl: 'replace_me' })
+    .setDescription('Check your balance')
+    .setDescriptionLocalizations({ pl: 'replace_me' });
+
 export const category: Category = 'economy';

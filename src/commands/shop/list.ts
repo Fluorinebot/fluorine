@@ -20,4 +20,8 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     interaction.reply({ embeds: [embed] });
 }
 
-export const data = new SlashCommandSubcommandBuilder().setName('list').setDescription('List all items in the shop');
+export const data = new SlashCommandSubcommandBuilder()
+    .setName('list')
+    .setNameLocalizations({ pl: 'replace_me' })
+    .setDescription('List all items in the shop')
+    .setDescriptionLocalizations({ pl: 'replace_me' });

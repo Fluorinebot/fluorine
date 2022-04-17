@@ -39,7 +39,16 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder()
     .setName('inpost')
+    .setNameLocalizations({ pl: 'replace_me' })
     .setDescription('Track an InPost package')
-    .addStringOption(option => option.setName('id').setDescription('ID of the package').setRequired(true));
+    .setDescriptionLocalizations({ pl: 'replace_me' })
+    .addStringOption(option =>
+        option
+            .setName('id')
+            .setNameLocalizations({ pl: 'replace_me' })
+            .setDescription('ID of the package')
+            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setRequired(true)
+    );
 
 export const category = 'tools';

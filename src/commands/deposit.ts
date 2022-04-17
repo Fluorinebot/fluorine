@@ -30,7 +30,13 @@ export const data = new SlashCommandBuilder()
     .setName('deposit')
     .setDescription('Deposit your money')
     .addIntegerOption(option =>
-        option.setName('amount').setDescription('Amount of money to deposit').setMinValue(1).setRequired(true)
+        option
+            .setName('amount')
+            .setNameLocalizations({ pl: 'replace_me' })
+            .setDescription('Amount of money to deposit')
+            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setMinValue(1)
+            .setRequired(true)
     );
 
 export const category: Category = 'economy';

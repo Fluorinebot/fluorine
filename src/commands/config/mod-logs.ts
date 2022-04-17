@@ -31,7 +31,14 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandSubcommandBuilder()
     .setName('mod-logs')
+    .setNameLocalizations({ pl: 'replace_me' })
     .setDescription('Set if you want to log moderation actions')
+    .setDescriptionLocalizations({ pl: 'replace_me' })
     .addBooleanOption(option =>
-        option.setName('mod-logs').setDescription('Set whether you want to log moderation actions').setRequired(true)
+        option
+            .setName('mod-logs')
+            .setNameLocalizations({ pl: 'replace_me' })
+            .setDescription('Set whether you want to log moderation actions')
+            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setRequired(true)
     );
