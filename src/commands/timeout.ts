@@ -94,13 +94,32 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder()
     .setName('timeout')
-    .setDescription('Timeout an user from the server')
-    .addUserOption(option => option.setName('user').setDescription('Provide an user to timeout').setRequired(true))
-    .addStringOption(option =>
-        option.setName('duration').setDescription('Provide how long the timeout will last').setRequired(true)
+    .setNameLocalizations({ pl: 'replace_me' })
+    .setDescription('Timeout a user from the server')
+    .setDescriptionLocalizations({ pl: 'replace_me' })
+    .addUserOption(option =>
+        option
+            .setName('user')
+            .setNameLocalizations({ pl: 'replace_me' })
+            .setDescription('Provide a user to timeout')
+            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setRequired(true)
     )
     .addStringOption(option =>
-        option.setName('reason').setDescription('Provide a reason for timing out this user').setRequired(false)
+        option
+            .setName('duration')
+            .setNameLocalizations({ pl: 'replace_me' })
+            .setDescription('Provide how long the timeout will last')
+            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setRequired(true)
+    )
+    .addStringOption(option =>
+        option
+            .setName('reason')
+            .setNameLocalizations({ pl: 'replace_me' })
+            .setDescription('Provide a reason for timing out this user')
+            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setRequired(false)
     );
 
 export const category: Category = 'moderation';

@@ -31,5 +31,14 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandSubcommandBuilder()
     .setName('prefix')
+    .setNameLocalizations({ pl: 'replace_me' })
     .setDescription('Set the prefix for your guild')
-    .addStringOption(option => option.setName('prefix').setDescription('The prefix you want to set').setRequired(true));
+    .setDescriptionLocalizations({ pl: 'replace_me' })
+    .addStringOption(option =>
+        option
+            .setName('prefix')
+            .setNameLocalizations({ pl: 'replace_me' })
+            .setDescription('The prefix you want to set')
+            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setRequired(true)
+    );

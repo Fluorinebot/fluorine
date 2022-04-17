@@ -64,22 +64,36 @@ export const data = new SlashCommandBuilder()
     .addStringOption(option =>
         option
             .setName('category')
+            .setNameLocalizations({ pl: 'replace_me' })
             .setDescription('The category to display')
+            .setDescriptionLocalizations({ pl: 'replace_me' })
             .addChoices(
                 {
                     name: 'Fun',
+                    name_localizations: {
+                        pl: 'replace_me'
+                    },
                     value: 'fun'
                 },
                 {
                     name: 'Tools',
+                    name_localizations: {
+                        pl: 'replace_me'
+                    },
                     value: 'tools'
                 },
                 {
                     name: 'Moderation',
+                    name_localizations: {
+                        pl: 'replace_me'
+                    },
                     value: 'moderation'
                 },
                 {
                     name: 'Economy',
+                    name_localizations: {
+                        pl: 'replace_me'
+                    },
                     value: 'economy'
                 }
             )

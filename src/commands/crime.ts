@@ -35,6 +35,11 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     client.economy.add(interaction.guildId, interaction.user, money);
 }
 
-export const data = new SlashCommandBuilder().setName('crime').setDescription('Commit a crime');
+export const data = new SlashCommandBuilder()
+    .setName('crime')
+    .setNameLocalizations({ pl: 'replace_me' })
+    .setDescription('Commit a crime')
+    .setDescriptionLocalizations({ pl: 'replace_me' });
+
 export const category: Category = 'economy';
 export const cooldown = 1 * 60 * 60 * 1000;

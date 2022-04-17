@@ -53,8 +53,22 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandSubcommandBuilder()
     .setName('delete')
+    .setNameLocalizations({ pl: 'replace_me' })
     .setDescription('Delete application commands')
+    .setDescriptionLocalizations({ pl: 'replace_me' })
     .addStringOption(option =>
-        option.setName('command').setDescription('Provide a command to delete').setRequired(true)
+        option
+            .setName('command')
+            .setNameLocalizations({ pl: 'replace_me' })
+            .setDescription('Provide a command to delete')
+            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setRequired(true)
     )
-    .addStringOption(option => option.setName('guild').setDescription('Provide a guild to deploy').setRequired(false));
+    .addStringOption(option =>
+        option
+            .setName('guild')
+            .setNameLocalizations({ pl: 'replace_me' })
+            .setDescription('Provide a guild to deploy')
+            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setRequired(false)
+    );

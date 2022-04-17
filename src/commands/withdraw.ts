@@ -28,9 +28,17 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder()
     .setName('withdraw')
+    .setNameLocalizations({ pl: 'replace_me' })
     .setDescription('Withdraw your money')
+    .setDescriptionLocalizations({ pl: 'replace_me' })
     .addIntegerOption(option =>
-        option.setName('amount').setDescription('Amount of money to withdraw').setMinValue(1).setRequired(true)
+        option
+            .setName('amount')
+            .setNameLocalizations({ pl: 'replace_me' })
+            .setDescription('Amount of money to withdraw')
+            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setMinValue(1)
+            .setRequired(true)
     );
 
 export const category: Category = 'economy';

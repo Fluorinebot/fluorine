@@ -56,12 +56,39 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandSubcommandBuilder()
     .setName('create')
+    .setNameLocalizations({ pl: 'replace_me' })
     .setDescription('Create a item!')
-    .addStringOption(option => option.setName('name').setDescription('Name of the item').setRequired(true))
+    .setDescriptionLocalizations({ pl: 'replace_me' })
     .addStringOption(option =>
-        option.setName('description').setDescription('Description of the item').setRequired(true)
+        option
+            .setName('name')
+            .setNameLocalizations({ pl: 'replace_me' })
+            .setDescription('Name of the item')
+            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setRequired(true)
+    )
+    .addStringOption(option =>
+        option
+            .setName('description')
+            .setNameLocalizations({ pl: 'replace_me' })
+            .setDescription('Description of the item')
+            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setRequired(true)
     )
     .addIntegerOption(option =>
-        option.setName('price').setDescription('Price of the item').setMinValue(1).setRequired(true)
+        option
+            .setName('price')
+            .setNameLocalizations({ pl: 'replace_me' })
+            .setDescription('Price of the item')
+            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setMinValue(1)
+            .setRequired(true)
     )
-    .addRoleOption(option => option.setName('role').setDescription('The role you want to give').setRequired(false));
+    .addRoleOption(option =>
+        option
+            .setName('role')
+            .setNameLocalizations({ pl: 'replace_me' })
+            .setDescription('The role you want to give')
+            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setRequired(false)
+    );

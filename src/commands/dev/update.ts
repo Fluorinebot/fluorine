@@ -11,4 +11,8 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     interaction.editReply('Successfully updated');
 }
 
-export const data = new SlashCommandSubcommandBuilder().setName('update').setDescription('Update the bot.');
+export const data = new SlashCommandSubcommandBuilder()
+    .setName('update')
+    .setNameLocalizations({ pl: 'replace_me' })
+    .setDescription('Update the bot.')
+    .setDescriptionLocalizations({ pl: 'replace_me' });

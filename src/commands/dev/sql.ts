@@ -30,5 +30,14 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandSubcommandBuilder()
     .setName('sql')
+    .setNameLocalizations({ pl: 'replace_me' })
     .setDescription('Runs a given SQL read/mutation statement.')
-    .addStringOption(option => option.setName('code').setDescription('The code to evaluate.').setRequired(true));
+    .setDescriptionLocalizations({ pl: 'replace_me' })
+    .addStringOption(option =>
+        option
+            .setName('code')
+            .setNameLocalizations({ pl: 'replace_me' })
+            .setDescription('The code to evaluate.')
+            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setRequired(true)
+    );

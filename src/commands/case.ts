@@ -36,9 +36,17 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder()
     .setName('case')
+    .setNameLocalizations({ pl: 'replace_me' })
     .setDescription('Check a moderation case')
+    .setDescriptionLocalizations({ pl: 'replace_me' })
     .addIntegerOption(option =>
-        option.setName('id').setDescription('The case ID to search').setMinValue(1).setRequired(true)
+        option
+            .setName('id')
+            .setNameLocalizations({ pl: 'replace_me' })
+            .setDescription('The case ID to search')
+            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setMinValue(1)
+            .setRequired(true)
     );
 
 export const category: Category = 'moderation';
