@@ -2,6 +2,7 @@ import { Client, Intents } from 'discord.js';
 import { Client as Database } from 'pg';
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
+import { REST } from '@discordjs/rest';
 
 import { Logger } from '@classes/Logger';
 import { join } from 'path';
@@ -41,6 +42,7 @@ export default class FluorineClient extends Client {
     version = process.env.npm_package_version;
     devs = ['707675871355600967', '478823932913516544', '348591272476540928'];
 
+    restModule = new REST({ version: '10' });
     db = new Database();
 
     constructor() {
@@ -78,6 +80,7 @@ export default class FluorineClient extends Client {
         });
 
         await this.db.connect();
+        this.restModule.setToken(process.env.DISCORD_TOKEN);
         this.login();
 
         process.on('unhandledRejection', (error: Error) => {
