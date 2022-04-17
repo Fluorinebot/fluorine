@@ -103,52 +103,27 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandSubcommandBuilder()
     .setName('reload')
-    .setNameLocalizations({ pl: 'replace_me' })
     .setDescription('Reloads a module.')
-    .setDescriptionLocalizations({ pl: 'replace_me' })
     .addStringOption(option =>
-        option
-            .setName('type')
-            .setNameLocalizations({ pl: 'replace_me' })
-            .setDescription('The type of the module.')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
-            .setRequired(true)
-            .setChoices(
-                {
-                    name: 'Event',
-                    name_localizations: {
-                        pl: 'replace_me'
-                    },
-                    value: 'events'
-                },
-                {
-                    name: 'Chat Input Command',
-                    name_localizations: {
-                        pl: 'replace_me'
-                    },
-                    value: 'commands'
-                },
-                {
-                    name: 'Context Menu Command',
-                    name_localizations: {
-                        pl: 'replace_me'
-                    },
-                    value: 'context'
-                },
-                {
-                    name: 'Component',
-                    name_localizations: {
-                        pl: 'replace_me'
-                    },
-                    value: 'components'
-                }
-            )
+        option.setName('type').setDescription('The type of the module.').setRequired(true).setChoices(
+            {
+                name: 'Event',
+                value: 'events'
+            },
+            {
+                name: 'Chat Input Command',
+                value: 'commands'
+            },
+            {
+                name: 'Context Menu Command',
+                value: 'context'
+            },
+            {
+                name: 'Component',
+                value: 'components'
+            }
+        )
     )
     .addStringOption(option =>
-        option
-            .setName('module')
-            .setNameLocalizations({ pl: 'replace_me' })
-            .setDescription("The module that you're reloading.")
-            .setDescriptionLocalizations({ pl: 'replace_me' })
-            .setRequired(true)
+        option.setName('module').setDescription("The module that you're reloading.").setRequired(true)
     );
