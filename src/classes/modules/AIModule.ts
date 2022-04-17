@@ -15,12 +15,9 @@ export default class AIModule {
     }
 
     async getAI(interaction: CommandInteraction | ContextMenuInteraction, text: string): Promise<void> {
-        text = Buffer.from(text || 'h', 'utf8')
-            .toString('base64')
-            .replaceAll('/', '_')
-            .replaceAll('+', '-');
+        const base64String = Buffer.from(text || 'h').toString('base64');
 
-        this.queue.push({ interaction, text });
+        this.queue.push({ interaction, text: base64String });
 
         if (!this.isGenerating) {
             this.isGenerating = true;
