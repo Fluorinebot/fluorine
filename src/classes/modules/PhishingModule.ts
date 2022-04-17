@@ -1,20 +1,15 @@
 import FluorineClient from '@classes/Client';
 import { Message } from 'discord.js';
 import { readFileSync } from 'fs';
+import { PhishingLink } from 'types/structures';
 import { fetch } from 'undici';
 
-export interface PhishingLink {
-    url: string;
-}
-
 export default class PhishingModule {
-    client: FluorineClient;
     private _words: string;
     private _users: string;
     private _urls: string;
 
-    constructor(client: FluorineClient) {
-        this.client = client;
+    constructor(private client: FluorineClient) {
         this._words = readFileSync(`${__dirname}/../../../assets/words.txt`).toString();
         this._users = readFileSync(`${__dirname}/../../../assets/users.txt`).toString();
         this._urls = readFileSync(`${__dirname}/../../../assets/url.txt`).toString();

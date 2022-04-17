@@ -1,44 +1,55 @@
 import FluorineClient from '@classes/Client';
 import { fetch } from 'undici';
-import { Interaction, Message } from 'discord.js';
+import { CommandInteraction, ContextMenuInteraction } from 'discord.js';
 import Embed from '@classes/Embed';
+import { AIQueue } from 'types/structures';
 
 export default class AIModule {
-    client: FluorineClient;
-    queue: any[];
+    queue: AIQueue[];
     isGenerating: boolean;
-    constructor(client: FluorineClient) {
+
+    constructor(private client: FluorineClient) {
         this.client = client;
         this.queue = [];
         this.isGenerating = false;
     }
-    async getAI(message: Message | Interaction, text: string): Promise<any> {
-        this.queue.push({ object: message, text });
+
+    async getAI(interaction: CommandInteraction | ContextMenuInteraction, text: string): Promise<void> {
+        const base64String = Buffer.from(text || 'h').toString('base64');
+
+        this.queue.push({ interaction, text: base64String });
+
         if (!this.isGenerating) {
             this.isGenerating = true;
             this.generate();
         }
     }
-    async generate(): Promise<any> {
-        const [{ object, text }] = this.queue;
+
+    async generate(): Promise<void> {
+        const [{ interaction, text }] = this.queue;
         const ai = await fetch(`${process.env.AI_URL}/${text}?token=${process.env.AI_TOKEN}`)
             .catch(err => {
                 this.isGenerating = false;
                 throw err;
             })
             .then(res => res.json() as Record<string, any>);
+
         if (!ai.result) {
-            return object.reply(
+            interaction.reply(
                 this.client.i18n.t('AI_ERROR', {
-                    lng: object.locale ?? object.guild.preferredLocale
+                    lng: interaction.locale
                 })
             );
+
+            return;
         }
-        const embed = new Embed(this.client, object.locale ?? object.guild.preferredLocale)
-            .setLocaleTitle('AI_TITLE')
-            .setDescription(ai.result);
-        object instanceof Message ? object.reply({ embeds: [embed] }) : object.followUp({ embeds: [embed] });
+
+        const embed = new Embed(this.client, interaction.locale).setLocaleTitle('AI_TITLE').setDescription(ai.result);
+
+        interaction.followUp({ embeds: [embed] });
+
         this.queue.shift();
+
         if (this.queue.length === 0) {
             this.isGenerating = false;
         } else {

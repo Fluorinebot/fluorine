@@ -1,5 +1,6 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
+import { splitArray } from '@util/splitArr';
 import { MessageActionRow, MessageButton, ButtonInteraction } from 'discord.js';
 
 export const authorOnly = true;
@@ -10,16 +11,7 @@ export async function run(client: FluorineClient, interaction: ButtonInteraction
     const member = client.users.cache.get(user);
     const cases = await client.cases.getMany(interaction.guildId, member);
 
-    const chunk = cases.reduce((resultArray, item, index) => {
-        const chunkIndex = Math.floor(index / 9);
-
-        if (!resultArray[chunkIndex]) {
-            resultArray[chunkIndex] = [];
-        }
-        resultArray[chunkIndex].push(item);
-
-        return resultArray;
-    }, []);
+    const chunk = splitArray(cases, 10);
 
     const row = new MessageActionRow();
     row.addComponents(
@@ -43,7 +35,7 @@ export async function run(client: FluorineClient, interaction: ButtonInteraction
         .setThumbnail(member.displayAvatarURL({ dynamic: true }));
 
     chunk[page > chunk.length ? page - 1 : page].forEach(caseData => {
-        embed.addField(`#${caseData.id} ${caseData.type}`, caseData.dscp);
+        embed.addField(`#${caseData.case_id} ${caseData.type}`, caseData.reason);
     });
 
     interaction.update({ embeds: [embed], components: [row] });

@@ -1,5 +1,5 @@
 import FluorineClient from '@classes/Client';
-import { CommandInteraction, ContextMenuInteraction } from 'discord.js';
+import { CommandInteraction, ContextMenuInteraction, MessageComponentInteraction } from 'discord.js';
 import { ContextMenuCommandBuilder, SlashCommandBuilder, SlashCommandSubcommandBuilder } from '@discordjs/builders';
 
 export type Category = 'fun' | 'tools' | 'moderation' | 'economy';
@@ -23,4 +23,22 @@ export interface ContextMenuCommand {
     data: ContextMenuCommandBuilder;
     dev?: boolean;
     cooldown?: number;
+}
+
+export interface Component {
+    authorOnly: boolean;
+    run: (client: FluorineClient, interaction: MessageComponentInteraction, value: string) => void;
+}
+
+export interface Event {
+    run: (client: FluorineClient, ...args: any) => void;
+}
+
+export interface PhishingLink {
+    url: string;
+}
+
+export interface AIQueue {
+    interaction: CommandInteraction | ContextMenuInteraction;
+    text: string;
 }

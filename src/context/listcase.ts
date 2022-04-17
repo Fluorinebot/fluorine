@@ -3,6 +3,7 @@ import Embed from '@classes/Embed';
 import { InteractionReplyOptions, MessageActionRow, MessageButton, UserContextMenuInteraction } from 'discord.js';
 import { ContextMenuCommandBuilder } from '@discordjs/builders';
 import { ApplicationCommandType } from 'discord-api-types/v9';
+import { splitArray } from '@util/splitArr';
 
 export async function run(client: FluorineClient, interaction: UserContextMenuInteraction<'cached'>) {
     const row = new MessageActionRow();
@@ -33,19 +34,10 @@ export async function run(client: FluorineClient, interaction: UserContextMenuIn
         });
     }
 
-    const chunk = cases.reduce((resultArray, item, index) => {
-        const chunkIndex = Math.floor(index / 9);
-
-        if (!resultArray[chunkIndex]) {
-            resultArray[chunkIndex] = [];
-        }
-        resultArray[chunkIndex].push(item);
-
-        return resultArray;
-    }, []);
+    const chunk = splitArray(cases, 10);
 
     chunk[0].forEach(caseData => {
-        embed.addField(`#${caseData.id} ${caseData.type}`, caseData.dscp);
+        embed.addField(`#${caseData.case_id} ${caseData.type}`, caseData.reason);
     });
 
     const replyOptions: InteractionReplyOptions = { embeds: [embed] };
@@ -60,10 +52,7 @@ export async function run(client: FluorineClient, interaction: UserContextMenuIn
                     })
                 )
                 .setStyle('PRIMARY')
-                .setDisabled(true)
-        );
-
-        row.addComponents(
+                .setDisabled(true),
             new MessageButton()
                 .setCustomId(`listcase:${interaction.user.id}:${member.user.id}.1`)
                 .setLabel(client.i18n.t('LISTCASE_NEXT', { lng: interaction.locale }))

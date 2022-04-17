@@ -1,7 +1,7 @@
 import FluorineClient from '@classes/Client';
 import { CommandInteraction, MessageAttachment } from 'discord.js';
 import canvas from 'canvas';
-import fragmentText from '@util/fragmentText';
+import { fragmentText } from '@util/fragmentText';
 import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 import { Profile } from 'types/databaseTables';
 
@@ -16,11 +16,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const [profile] = (await client.db.query<Profile>('SELECT * FROM profiles WHERE user_id = $1', [BigInt(user.id)]))
         .rows;
 
-    if (!profile) {
-        return interaction.reply({ content: client.i18n.t('PROFILE_INVALID_USER', localeOptions), ephemeral: true });
-    }
-
-    if (profile.birthday) {
+    if (profile?.birthday) {
         const [month, day] = profile.birthday.split('/');
         profile.birthday = `${client.i18n.t(`MONTHS.${parseInt(month) - 1}`, localeOptions)} ${day}`;
     } else {
@@ -67,9 +63,9 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
     // Info values
     ctx.font = 'light 40px "Inter"';
-    ctx.fillText(profile.website ?? notSet, 986, 265);
-    ctx.fillText(profile.birthday ?? notSet, 986, 490);
-    ctx.fillText(profile.location ?? notSet, 986, 710);
+    ctx.fillText(profile?.website ?? notSet, 986, 265);
+    ctx.fillText(profile?.birthday ?? notSet, 986, 490);
+    ctx.fillText(profile?.location ?? notSet, 986, 710);
 
     ctx.fillText(
         fragmentText(

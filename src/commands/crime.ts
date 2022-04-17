@@ -1,6 +1,6 @@
 import FluorineClient from '@classes/Client';
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { Category } from 'types/applicationCommand';
+import { Category } from 'types/structures';
 import { CommandInteraction } from 'discord.js';
 import Embed from '@classes/Embed';
 

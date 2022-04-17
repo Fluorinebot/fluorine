@@ -11,7 +11,7 @@ export async function run(client: FluorineClient, interaction: MessageContextMen
             ephemeral: true
         });
     }
-    if (client.ai.queue.some(q => q.object.user.id === interaction.user.id)) {
+    if (client.ai.queue.some(q => q.interaction.user.id === interaction.user.id)) {
         interaction.reply({
             content: client.i18n.t('AI_LIMIT', { lng: interaction.locale }),
             ephemeral: true
@@ -19,12 +19,7 @@ export async function run(client: FluorineClient, interaction: MessageContextMen
     }
 
     interaction.deferReply();
-    const value = Buffer.from(content || 'h', 'utf8')
-        .toString('base64')
-        .replaceAll('/', '_')
-        .replaceAll('+', '-');
-
-    client.ai.getAI(interaction, value);
+    client.ai.getAI(interaction, content);
 }
 
 export const data = new ContextMenuCommandBuilder().setName('AI').setType(ApplicationCommandType.Message);

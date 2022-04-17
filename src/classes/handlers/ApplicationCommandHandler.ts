@@ -1,15 +1,14 @@
-import { ChatInputCommand, ChatInputSubcommand, ContextMenuCommand } from 'types/applicationCommand';
+import { ChatInputCommand, ChatInputSubcommand, ContextMenuCommand } from 'types/structures';
 import { Collection } from 'discord.js';
 import FluorineClient from '@classes/Client';
 import { loadDirectory, loadParentDirectory } from '@util/files';
 import { SlashCommandBuilder, SlashCommandSubcommandBuilder } from '@discordjs/builders';
 
 export default class ApplicationCommandHandler {
-    client: FluorineClient;
     chatInput = new Collection<string, ChatInputCommand | ChatInputSubcommand>();
     contextMenu = new Collection<string, ContextMenuCommand>();
 
-    constructor(client: FluorineClient) {
+    constructor(private client: FluorineClient) {
         this.client = client;
     }
 

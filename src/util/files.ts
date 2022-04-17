@@ -8,6 +8,7 @@ export async function loadParentDirectory<ParentT, ChildT>(relativePath: string)
 
     const parentDirectory = join(__dirname, relativePath);
     const parentFiles = await readdir(parentDirectory);
+
     for (const parentFile of parentFiles) {
         if (parentFile.endsWith('.js')) {
             result[0].push((await loadFile<ParentT>(relativePath, parentFile)).data);
@@ -17,6 +18,7 @@ export async function loadParentDirectory<ParentT, ChildT>(relativePath: string)
 
             if (file.isDirectory()) {
                 const relativeDirectory = join(relativePath, parentFile);
+
                 result[1].push(
                     ...(await loadDirectory<ChildT>(relativeDirectory)).map(data => ({
                         name: `${parentFile}/${data.name}`,
@@ -41,6 +43,7 @@ export async function loadFile<T>(directory: string, file: string) {
     if (!file.endsWith('.js')) {
         return;
     }
+
     const [name] = file.split('.');
     const data: T = await import(join(directory, file));
 

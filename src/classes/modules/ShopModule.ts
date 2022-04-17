@@ -2,8 +2,7 @@ import FluorineClient from '@classes/Client';
 import { ShopItem } from 'types/databaseTables';
 
 export default class ShopModule {
-    client: FluorineClient;
-    constructor(client: FluorineClient) {
+    constructor(private client: FluorineClient) {
         this.client = client;
     }
 

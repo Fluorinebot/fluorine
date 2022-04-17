@@ -4,11 +4,14 @@ import { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { HypixelType } from 'types/hypixel';
 import { fetch } from 'undici';
-import { Category } from 'types/applicationCommand';
+import { Category } from 'types/structures';
+import { UUIDResponse } from 'types/webRequests';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const player = interaction.options.getString('player');
-    const uuid: any = await fetch(`https://api.mojang.com/users/profiles/minecraft/${player}`).then(res => res.json());
+    const uuid = (await fetch(`https://api.mojang.com/users/profiles/minecraft/${player}`).then(res =>
+        res.json()
+    )) as UUIDResponse;
 
     if (!uuid) {
         return interaction.reply({
@@ -19,10 +22,11 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         });
     }
 
-    const data = (await fetch(
-        `https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${process.env.HYPIXEL_TOKEN}`
-    ).then(res => res.json())) as HypixelType;
+    const data = (await fetch(`https://api.hypixel.net/player?uuid=${uuid.id}&key=${process.env.HYPIXEL_TOKEN}`).then(
+        res => res.json()
+    )) as HypixelType;
     const bedStats = data?.player?.stats?.Bedwars;
+
     if (!bedStats) {
         return interaction.reply({
             content: client.i18n.t('HYPIXEL_PLAYER_NOT_FOUND', {
@@ -71,7 +75,8 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             value: `${bedStats.beds_lost_bedwars || 0}`,
             inline: true
         })
-        .setThumbnail(`https://crafatar.com/avatars/${uuid.data.id}?default=MHF_Steve&overlay`);
+        .setThumbnail(`https://crafatar.com/avatars/${uuid.id}?default=MHF_Steve&overlay`);
+
     interaction.reply({ embeds: [bedEmbed] });
 }
 

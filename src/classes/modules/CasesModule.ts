@@ -4,8 +4,7 @@ import { User } from 'discord.js';
 import { Case, Config } from 'types/databaseTables';
 
 export default class CasesModule {
-    client: FluorineClient;
-    constructor(client: FluorineClient) {
+    constructor(private client: FluorineClient) {
         this.client = client;
     }
 

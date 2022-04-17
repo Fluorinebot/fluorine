@@ -3,8 +3,7 @@ import { User } from 'discord.js';
 import { Config, Economy } from 'types/databaseTables';
 
 export default class EconomyModule {
-    client: FluorineClient;
-    constructor(client: FluorineClient) {
+    constructor(private client: FluorineClient) {
         this.client = client;
     }
 

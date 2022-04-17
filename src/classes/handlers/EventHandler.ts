@@ -1,10 +1,9 @@
 import FluorineClient from '@classes/Client';
 import { loadDirectory } from '@util/files';
-import { Event } from 'types/event';
+import { Event } from 'types/structures';
 
 export default class EventHandler {
-    client: FluorineClient;
-    constructor(client: FluorineClient) {
+    constructor(private client: FluorineClient) {
         this.client = client;
     }
 

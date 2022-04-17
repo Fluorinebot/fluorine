@@ -1,6 +1,6 @@
 import { CanvasRenderingContext2D } from 'canvas';
 
-export default function fragmentText(ctx: CanvasRenderingContext2D, text: string, maxWidth: number) {
+export function fragmentText(ctx: CanvasRenderingContext2D, text: string, maxWidth: number) {
     const words = text.split(' ');
     const lines: string[] = [];
     let line = '';
