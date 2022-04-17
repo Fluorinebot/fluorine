@@ -33,22 +33,35 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandSubcommandBuilder()
     .setName('antibot-action')
+    .setNameLocalizations({ pl: 'replace_me' })
     .setDescription('Set antibot action')
+    .setDescriptionLocalizations({ pl: 'replace_me' })
     .addStringOption(option =>
         option
             .setName('action')
+            .setNameLocalizations({ pl: 'replace_me' })
             .setDescription('Action to do when antibot is triggered')
+            .setDescriptionLocalizations({ pl: 'replace_me' })
             .addChoices(
                 {
                     name: 'Ban',
+                    name_localizations: {
+                        pl: 'replace_me'
+                    },
                     value: 'ban'
                 },
                 {
                     name: 'Kick',
+                    name_localizations: {
+                        pl: 'replace_me'
+                    },
                     value: 'kick'
                 },
                 {
                     name: 'Timeout',
+                    name_localizations: {
+                        pl: 'replace_me'
+                    },
                     value: 'timeout'
                 }
             )

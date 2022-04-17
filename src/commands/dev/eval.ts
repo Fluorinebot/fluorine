@@ -26,5 +26,14 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandSubcommandBuilder()
     .setName('eval')
+    .setNameLocalizations({ pl: 'replace_me' })
     .setDescription('Evaluates a given exprssion.')
-    .addStringOption(option => option.setName('code').setDescription('The code to evaluate.').setRequired(true));
+    .setDescriptionLocalizations({ pl: 'replace_me' })
+    .addStringOption(option =>
+        option
+            .setName('code')
+            .setNameLocalizations({ pl: 'replace_me' })
+            .setDescription('The code to evaluate.')
+            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setRequired(true)
+    );

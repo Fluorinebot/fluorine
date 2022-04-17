@@ -51,8 +51,17 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 }
 export const data = new SlashCommandBuilder()
     .setName('rob')
+    .setNameLocalizations({ pl: 'replace_me' })
     .setDescription('Rob a user')
-    .addUserOption(option => option.setName('user').setDescription('User you want to rob').setRequired(true));
+    .setDescriptionLocalizations({ pl: 'replace_me' })
+    .addUserOption(option =>
+        option
+            .setName('user')
+            .setNameLocalizations({ pl: 'replace_me' })
+            .setDescription('User you want to rob')
+            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setRequired(true)
+    );
 
 export const category: Category = 'economy';
 export const cooldown = 12 * 60 * 60 * 1000;

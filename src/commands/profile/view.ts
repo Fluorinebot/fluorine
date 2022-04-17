@@ -95,5 +95,14 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandSubcommandBuilder()
     .setName('view')
+    .setNameLocalizations({ pl: 'replace_me' })
     .setDescription('View a profile')
-    .addUserOption(option => option.setName('user').setDescription('User to view').setRequired(false));
+    .setDescriptionLocalizations({ pl: 'replace_me' })
+    .addUserOption(option =>
+        option
+            .setName('user')
+            .setNameLocalizations({ pl: 'replace_me' })
+            .setDescription('User to view')
+            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setRequired(false)
+    );

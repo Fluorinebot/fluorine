@@ -11,6 +11,10 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     });
 }
 
-export const data = new SlashCommandBuilder().setName('info').setDescription('Information about Fluorine');
+export const data = new SlashCommandBuilder()
+    .setName('info')
+    .setNameLocalizations({ pl: 'replace_me' })
+    .setDescription('Information about Fluorine')
+    .setDescriptionLocalizations({ pl: 'replace_me' });
 
 export const category: Category = 'tools';
