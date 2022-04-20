@@ -16,7 +16,7 @@ export default class Embed extends MessageEmbed {
     private i18n: typeof i18next;
 
     constructor(client: FluorineClient, private locale: string) {
-        super({});
+        super();
 
         this.setColor(this.clientColor);
         this.setFooter({

@@ -2,7 +2,6 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { CommandInteraction } from 'discord.js';
 import { HypixelType } from 'types/hypixel';
-import { fetch } from 'undici';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { Category } from 'types/structures';
 import { UUIDResponse } from 'types/webRequests';
