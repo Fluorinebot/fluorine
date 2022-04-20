@@ -20,7 +20,7 @@
     "contributors": [
         "Xiboon <xiboon@fluorine.me> (https://xiboon.me)",
         "Superchupu <53496941+SuperchupuDev@users.noreply.github.com>",
-        "night-lake <sadiebk@fluorine.me> (https://sadie.is-a.dev)"
+        "night-lake <32780515+night-lake@users.noreply.github.com> (https://sadie.is-a.dev)"
     ],
     "license": "GPL-3.0-or-later",
     "bugs": {
@@ -29,9 +29,9 @@
     "homepage": "https://github.com/Fluorinebot/fluorine/#readme",
     "dependencies": {
         "@discordjs/builders": "^0.13.0",
-        "@discordjs/rest": "^0.3.0",
+        "@discordjs/rest": "^0.4.1",
         "canvas": "^2.9.1",
-        "discord-api-types": "^0.31.1",
+        "discord-api-types": "^0.31.2",
         "discord.js": "^13.6.0",
         "dotenv": "^16.0.0",
         "i18next": "^21.6.16",
