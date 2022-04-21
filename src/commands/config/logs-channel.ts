@@ -2,7 +2,7 @@ import { CommandInteraction } from 'discord.js';
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
-import { ChannelType } from 'discord-api-types/v9';
+import { ChannelType } from 'discord-api-types/v10';
 import { Config } from 'types/databaseTables';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
@@ -38,6 +38,6 @@ export const data = new SlashCommandSubcommandBuilder()
         option
             .setName('channel')
             .setDescription('Channel for logs')
-            .addChannelType(ChannelType.GuildText)
+            .addChannelTypes(ChannelType.GuildText)
             .setRequired(true)
     );

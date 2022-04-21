@@ -2,6 +2,7 @@
     "name": "fluorine",
     "version": "2.0.0",
     "description": "A discord bot",
+    "private": true,
     "main": "dist",
     "scripts": {
         "test": "npm run lint && npm run test:typescript",
@@ -19,7 +20,7 @@
     "contributors": [
         "Xiboon <xiboon@fluorine.me> (https://xiboon.me)",
         "Superchupu <53496941+SuperchupuDev@users.noreply.github.com>",
-        "night-lake <sadiebk@fluorine.me> (https://sadie.is-a.dev)"
+        "night-lake <32780515+night-lake@users.noreply.github.com> (https://sadie.is-a.dev)"
     ],
     "license": "GPL-3.0-or-later",
     "bugs": {
@@ -27,11 +28,11 @@
     },
     "homepage": "https://github.com/Fluorinebot/fluorine/#readme",
     "dependencies": {
-        "@discordjs/builders": "^0.12.0",
-        "@discordjs/rest": "^0.3.0",
+        "@discordjs/builders": "^0.13.0",
+        "@discordjs/rest": "^0.4.1",
         "bufferutil": "^4.0.6",
         "canvas": "^2.9.1",
-        "discord-api-types": "^0.26.0",
+        "discord-api-types": "^0.31.2",
         "discord.js": "^13.6.0",
         "dotenv": "^16.0.0",
         "erlpack": "github:discord/erlpack",
