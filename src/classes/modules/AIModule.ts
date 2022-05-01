@@ -1,5 +1,4 @@
 import FluorineClient from '@classes/Client';
-import { fetch } from 'undici';
 import { CommandInteraction, ContextMenuInteraction } from 'discord.js';
 import Embed from '@classes/Embed';
 import { AIQueue } from 'types/structures';

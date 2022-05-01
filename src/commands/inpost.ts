@@ -3,7 +3,6 @@ import Embed from '@classes/Embed';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
 import { InpostStatuses, InpostTrackObj } from 'types/webRequests';
-import { fetch } from 'undici';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const id = interaction.options.getString('id');
