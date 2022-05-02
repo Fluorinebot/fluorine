@@ -7,4 +7,4 @@ i hear people all the time saying kurwa when they go on ku **bus** and i become 
 
 
 At least im good as a juice : pensive:
-Polish people are idiots Lol
+Polish monkeys (Nfts) are idiots Lol
