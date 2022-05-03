@@ -86,7 +86,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         .addLocaleField({ name: 'TIMEOUT_USER', value: member.user.tag })
         .addLocaleField({ name: 'DURATION', value: ms(duration) })
         .addLocaleField({ name: 'REASON', value: reason })
-        .addLocaleField({ name: 'PUNISHMENT_ID', value: caseObj.case_id.toString() });
+        .addLocaleField({ name: 'CASE_ID', value: caseObj.case_id.toString() });
 
     interaction.reply({ embeds: [embed] });
     client.cases.logToModerationChannel(interaction.guildId, caseObj);
