@@ -28,7 +28,9 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder()
     .setName('deposit')
+    .setNameLocalizations({ pl: 'replace_me' })
     .setDescription('Deposit your money')
+    .setDescriptionLocalizations({ pl: 'replace_me' })
     .addIntegerOption(option =>
         option
             .setName('amount')
