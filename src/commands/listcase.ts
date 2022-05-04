@@ -74,15 +74,15 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder()
     .setName('listcase')
-    .setNameLocalizations({ pl: 'replace_me' })
+    .setNameLocalizations({ pl: 'listcase' })
     .setDescription('Check punishments of a user')
-    .setDescriptionLocalizations({ pl: 'replace_me' })
+    .setDescriptionLocalizations({ pl: 'Sprawdź kary użytkownika' })
     .addUserOption(option =>
         option
             .setName('user')
-            .setNameLocalizations({ pl: 'replace_me' })
+            .setNameLocalizations({ pl: 'użytkownik' })
             .setDescription('The user to check')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setDescriptionLocalizations({ pl: 'Użytkownik, którego chcesz sprawdzić' })
             .setRequired(true)
     );
 

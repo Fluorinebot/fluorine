@@ -31,15 +31,15 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandSubcommandBuilder()
     .setName('antibot')
-    .setNameLocalizations({ pl: 'replace_me' })
+    .setNameLocalizations({ pl: 'antybot' })
     .setDescription('Set antibot factor! (Use 0 for disabled)')
-    .setDescriptionLocalizations({ pl: 'replace_me' })
+    .setDescriptionLocalizations({ pl: 'Ustaw współczynnik antybota (użyj 0, by wyłączyć))' })
     .addIntegerOption(option =>
         option
             .setName('factor')
-            .setNameLocalizations({ pl: 'replace_me' })
+            .setNameLocalizations({ pl: 'współczynnik' })
             .setDescription('Antibot factor')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setDescriptionLocalizations({ pl: 'Współczynnik antybota' })
             .setMinValue(0)
             .setMaxValue(100)
             .setRequired(true)

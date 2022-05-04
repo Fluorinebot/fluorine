@@ -33,15 +33,15 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandSubcommandBuilder()
     .setName('logs-channel')
-    .setNameLocalizations({ pl: 'replace_me' })
+    .setNameLocalizations({ pl: 'kanał-logów' })
     .setDescription('Set the channel for logs')
-    .setDescriptionLocalizations({ pl: 'replace_me' })
+    .setDescriptionLocalizations({ pl: 'Ustaw kanał, na którym pojawiają się logi' })
     .addChannelOption(option =>
         option
             .setName('channel')
-            .setNameLocalizations({ pl: 'replace_me' })
+            .setNameLocalizations({ pl: 'kanał' })
             .setDescription('Channel for logs')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setDescriptionLocalizations({ pl: 'Kanał z logami' })
             .addChannelTypes(ChannelType.GuildText)
             .setRequired(true)
     );

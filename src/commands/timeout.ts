@@ -94,31 +94,31 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder()
     .setName('timeout')
-    .setNameLocalizations({ pl: 'replace_me' })
+    .setNameLocalizations({ pl: 'timeout' })
     .setDescription('Timeout a user from the server')
-    .setDescriptionLocalizations({ pl: 'replace_me' })
+    .setDescriptionLocalizations({ pl: 'Wyślij użytkownika na przerwę (podobne do mute)' })
     .addUserOption(option =>
         option
             .setName('user')
-            .setNameLocalizations({ pl: 'replace_me' })
+            .setNameLocalizations({ pl: 'użytkownik' })
             .setDescription('Provide a user to timeout')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setDescriptionLocalizations({ pl: 'Podaj użytkownika, którego chcesz wysłać na przerwę' })
             .setRequired(true)
     )
     .addStringOption(option =>
         option
             .setName('duration')
-            .setNameLocalizations({ pl: 'replace_me' })
+            .setNameLocalizations({ pl: 'długość' })
             .setDescription('Provide how long the timeout will last')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setDescriptionLocalizations({ pl: 'Podaj, jak długo ma trwać przerwa' })
             .setRequired(true)
     )
     .addStringOption(option =>
         option
             .setName('reason')
-            .setNameLocalizations({ pl: 'replace_me' })
+            .setNameLocalizations({ pl: 'powód' })
             .setDescription('Provide a reason for timing out this user')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setDescriptionLocalizations({ pl: 'Podaj powód przerwy' })
             .setRequired(false)
     );
 

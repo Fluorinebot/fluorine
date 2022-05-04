@@ -82,23 +82,23 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder()
     .setName('kick')
-    .setNameLocalizations({ pl: 'replace_me' })
+    .setNameLocalizations({ pl: 'kick' })
     .setDescription('Kick a user from the server')
-    .setDescriptionLocalizations({ pl: 'replace_me' })
+    .setDescriptionLocalizations({ pl: 'Wyrzuca użytkownika z serwera' })
     .addUserOption(option =>
         option
             .setName('user')
-            .setNameLocalizations({ pl: 'replace_me' })
+            .setNameLocalizations({ pl: 'użytkownik' })
             .setDescription('Provide a user to kick')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setDescriptionLocalizations({ pl: 'Podaj użytkownika, którego chcesz wyrzucić' })
             .setRequired(true)
     )
     .addStringOption(option =>
         option
             .setName('reason')
-            .setNameLocalizations({ pl: 'replace_me' })
+            .setNameLocalizations({ pl: 'powód' })
             .setDescription('Provide a reason for kicking this user')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setDescriptionLocalizations({ pl: 'Podaj powód wyrzucenia użytkownika z serwera' })
             .setRequired(false)
     );
 

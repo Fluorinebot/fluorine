@@ -32,9 +32,9 @@ export const data = new SlashCommandBuilder()
     .addIntegerOption(option =>
         option
             .setName('amount')
-            .setNameLocalizations({ pl: 'replace_me' })
+            .setNameLocalizations({ pl: 'ilość' })
             .setDescription('Amount of money to deposit')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setDescriptionLocalizations({ pl: 'Ilość pieniędzy, które chcesz wpłacić' })
             .setMinValue(1)
             .setRequired(true)
     );
