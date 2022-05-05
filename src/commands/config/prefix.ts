@@ -31,14 +31,14 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandSubcommandBuilder()
     .setName('prefix')
-    .setNameLocalizations({ pl: 'replace_me' })
+    .setNameLocalizations({ pl: 'prefix' })
     .setDescription('Set the prefix for your guild')
-    .setDescriptionLocalizations({ pl: 'replace_me' })
+    .setDescriptionLocalizations({ pl: 'Ustaw prefix bota na twoim serwerze' })
     .addStringOption(option =>
         option
             .setName('prefix')
-            .setNameLocalizations({ pl: 'replace_me' })
+            .setNameLocalizations({ pl: 'prefix' })
             .setDescription('The prefix you want to set')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setDescriptionLocalizations({ pl: 'Prefix, który chcesz ustawić' })
             .setRequired(true)
     );

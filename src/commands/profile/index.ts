@@ -3,8 +3,8 @@ import { Category } from 'types/structures';
 
 export const data = new SlashCommandBuilder()
     .setName('profile')
-    .setNameLocalizations({ pl: 'replace_me' })
+    .setNameLocalizations({ pl: 'profil' })
     .setDescription('View/set a profile')
-    .setDescriptionLocalizations({ pl: 'replace_me' });
+    .setDescriptionLocalizations({ pl: 'Obejrzyj/ustaw profil' });
 
 export const category: Category = 'tools';
