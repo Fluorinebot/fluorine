@@ -74,15 +74,15 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder()
     .setName('skywars')
-    .setNameLocalizations({ pl: 'replace_me' })
+    .setNameLocalizations({ pl: 'skywars' })
     .setDescription("Check a player's skywars stats from Hypixel")
-    .setDescriptionLocalizations({ pl: 'replace_me' })
+    .setDescriptionLocalizations({ pl: 'Sprawdź statystyki skywars gracza Hypixela' })
     .addStringOption(option =>
         option
             .setName('player')
-            .setNameLocalizations({ pl: 'replace_me' })
+            .setNameLocalizations({ pl: 'gracz' })
             .setDescription('The player to search')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setDescriptionLocalizations({ pl: 'Gracz, którego statystyki chcesz sprawdzić' })
             .setRequired(true)
     );
 

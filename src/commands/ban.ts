@@ -82,23 +82,23 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder()
     .setName('ban')
-    .setNameLocalizations({ pl: 'replace_me' })
+    .setNameLocalizations({ pl: 'ban' })
     .setDescription('Ban a user from the server')
-    .setDescriptionLocalizations({ pl: 'replace_me' })
+    .setDescriptionLocalizations({ pl: 'Zbanuj użytkownika' })
     .addUserOption(option =>
         option
             .setName('user')
-            .setNameLocalizations({ pl: 'replace_me' })
+            .setNameLocalizations({ pl: 'użytkownik' })
             .setDescription('Provide a user to ban')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setDescriptionLocalizations({ pl: 'Podaj użytkownika, którego chcesz zbanować' })
             .setRequired(true)
     )
     .addStringOption(option =>
         option
             .setName('reason')
-            .setNameLocalizations({ pl: 'replace_me' })
+            .setNameLocalizations({ pl: 'powód' })
             .setDescription('Provide a reason for banning this user')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setDescriptionLocalizations({ pl: 'Podaj powód bana' })
             .setRequired(false)
     );
 

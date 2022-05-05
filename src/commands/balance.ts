@@ -24,8 +24,8 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder()
     .setName('balance')
-    .setNameLocalizations({ pl: 'replace_me' })
+    .setNameLocalizations({ pl: 'saldo' })
     .setDescription('Check your balance')
-    .setDescriptionLocalizations({ pl: 'replace_me' });
+    .setDescriptionLocalizations({ pl: 'Sprawdź swoje saldo' });
 
 export const category: Category = 'economy';

@@ -34,8 +34,8 @@ export const data = new SlashCommandSubcommandBuilder()
     .addStringOption(option =>
         option
             .setName('currency')
-            .setNameLocalizations({ pl: 'replace_me' })
+            .setNameLocalizations({ pl: 'waluta' })
             .setDescription('The currency you want to set')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setDescriptionLocalizations({ pl: 'Waluta, którą chcesz ustawić' })
             .setRequired(true)
     );

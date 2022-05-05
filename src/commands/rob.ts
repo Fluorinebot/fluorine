@@ -51,15 +51,15 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 }
 export const data = new SlashCommandBuilder()
     .setName('rob')
-    .setNameLocalizations({ pl: 'replace_me' })
+    .setNameLocalizations({ pl: 'rob' })
     .setDescription('Rob a user')
-    .setDescriptionLocalizations({ pl: 'replace_me' })
+    .setDescriptionLocalizations({ pl: 'Okradź użytkownika' })
     .addUserOption(option =>
         option
             .setName('user')
-            .setNameLocalizations({ pl: 'replace_me' })
+            .setNameLocalizations({ pl: 'użytkownik' })
             .setDescription('User you want to rob')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setDescriptionLocalizations({ pl: 'Użytkownik, którego chcesz okraść' })
             .setRequired(true)
     );
 

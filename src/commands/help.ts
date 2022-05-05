@@ -64,35 +64,35 @@ export const data = new SlashCommandBuilder()
     .addStringOption(option =>
         option
             .setName('category')
-            .setNameLocalizations({ pl: 'replace_me' })
+            .setNameLocalizations({ pl: 'kategoria' })
             .setDescription('The category to display')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setDescriptionLocalizations({ pl: 'Kategoria, którą chcesz wyświetlić' })
             .addChoices(
                 {
                     name: 'Fun',
                     name_localizations: {
-                        pl: 'replace_me'
+                        pl: 'Fun'
                     },
                     value: 'fun'
                 },
                 {
                     name: 'Tools',
                     name_localizations: {
-                        pl: 'replace_me'
+                        pl: 'Narzędzia'
                     },
                     value: 'tools'
                 },
                 {
                     name: 'Moderation',
                     name_localizations: {
-                        pl: 'replace_me'
+                        pl: 'Moderacja'
                     },
                     value: 'moderation'
                 },
                 {
                     name: 'Economy',
                     name_localizations: {
-                        pl: 'replace_me'
+                        pl: 'Ekonomia'
                     },
                     value: 'economy'
                 }

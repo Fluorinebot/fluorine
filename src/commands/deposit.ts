@@ -28,15 +28,15 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder()
     .setName('deposit')
-    .setNameLocalizations({ pl: 'replace_me' })
+    .setNameLocalizations({ pl: 'wpłać' })
     .setDescription('Deposit your money')
-    .setDescriptionLocalizations({ pl: 'replace_me' })
+    .setDescriptionLocalizations({ pl: 'Wpłać swoje pieniądze' })
     .addIntegerOption(option =>
         option
             .setName('amount')
-            .setNameLocalizations({ pl: 'replace_me' })
+            .setNameLocalizations({ pl: 'ilość' })
             .setDescription('Amount of money to deposit')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setDescriptionLocalizations({ pl: 'Ilość pieniędzy, które chcesz wpłacić' })
             .setMinValue(1)
             .setRequired(true)
     );

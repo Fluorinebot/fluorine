@@ -3,8 +3,8 @@ import { Category } from 'types/structures';
 
 export const data = new SlashCommandBuilder()
     .setName('config')
-    .setNameLocalizations({ pl: 'replace_me' })
+    .setNameLocalizations({ pl: 'konfiguracja' })
     .setDescription("Set your guild's config")
-    .setDescriptionLocalizations({ pl: 'replace_me' });
+    .setDescriptionLocalizations({ pl: 'Zobacz konfigurację twojego serwera' });
 
 export const category: Category = 'tools';

@@ -36,15 +36,15 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder()
     .setName('case')
-    .setNameLocalizations({ pl: 'replace_me' })
+    .setNameLocalizations({ pl: 'replace_me-kurwo' })
     .setDescription('Check a moderation case')
-    .setDescriptionLocalizations({ pl: 'replace_me' })
+    .setDescriptionLocalizations({ pl: 'replace_me-jebana' })
     .addIntegerOption(option =>
         option
             .setName('id')
-            .setNameLocalizations({ pl: 'replace_me' })
+            .setNameLocalizations({ pl: 'replace_me-inaczej' })
             .setDescription('The case ID to search')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setDescriptionLocalizations({ pl: 'replace_me-ciezabije' })
             .setMinValue(1)
             .setRequired(true)
     );

@@ -22,9 +22,9 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder()
     .setName('work')
-    .setNameLocalizations({ pl: 'replace_me' })
+    .setNameLocalizations({ pl: 'pracuj' })
     .setDescription('Get money from working!')
-    .setDescriptionLocalizations({ pl: 'replace_me' });
+    .setDescriptionLocalizations({ pl: 'Zdobądź pieniądze za pracę!' });
 
 export const category: Category = 'economy';
 export const cooldown = 30 * 60 * 1000;

@@ -56,39 +56,39 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandSubcommandBuilder()
     .setName('create')
-    .setNameLocalizations({ pl: 'replace_me' })
+    .setNameLocalizations({ pl: 'utwórz' })
     .setDescription('Create a item!')
-    .setDescriptionLocalizations({ pl: 'replace_me' })
+    .setDescriptionLocalizations({ pl: 'Utwórz przedmiot!' })
     .addStringOption(option =>
         option
             .setName('name')
-            .setNameLocalizations({ pl: 'replace_me' })
+            .setNameLocalizations({ pl: 'nazwa' })
             .setDescription('Name of the item')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setDescriptionLocalizations({ pl: 'Nazwa przedmiotu' })
             .setRequired(true)
     )
     .addStringOption(option =>
         option
             .setName('description')
-            .setNameLocalizations({ pl: 'replace_me' })
+            .setNameLocalizations({ pl: 'opis' })
             .setDescription('Description of the item')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setDescriptionLocalizations({ pl: 'Opis przedmiotu' })
             .setRequired(true)
     )
     .addIntegerOption(option =>
         option
             .setName('price')
-            .setNameLocalizations({ pl: 'replace_me' })
+            .setNameLocalizations({ pl: 'cena' })
             .setDescription('Price of the item')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setDescriptionLocalizations({ pl: 'Cena przedmiotu' })
             .setMinValue(1)
             .setRequired(true)
     )
     .addRoleOption(option =>
         option
             .setName('role')
-            .setNameLocalizations({ pl: 'replace_me' })
+            .setNameLocalizations({ pl: 'rola' })
             .setDescription('The role you want to give')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setDescriptionLocalizations({ pl: 'Rola, którą chcesz nadać' })
             .setRequired(false)
     );

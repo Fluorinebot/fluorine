@@ -15,8 +15,8 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder()
     .setName('cat')
-    .setNameLocalizations({ pl: 'replace_me' })
+    .setNameLocalizations({ pl: 'kot' })
     .setDescription('Random cat picture')
-    .setDescriptionLocalizations({ pl: 'replace_me' });
+    .setDescriptionLocalizations({ pl: 'Losowe zdjęcie kota' });
 
 export const category: Category = 'fun';

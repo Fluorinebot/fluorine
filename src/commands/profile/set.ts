@@ -185,49 +185,49 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandSubcommandBuilder()
     .setName('set')
-    .setNameLocalizations({ pl: 'replace_me' })
+    .setNameLocalizations({ pl: 'ustaw' })
     .setDescription('Set a profile')
-    .setDescriptionLocalizations({ pl: 'replace_me' })
+    .setDescriptionLocalizations({ pl: 'Ustaw profil' })
     .addStringOption(option =>
         option
             .setName('field')
-            .setNameLocalizations({ pl: 'replace_me' })
+            .setNameLocalizations({ pl: 'rubryka' })
             .setDescription('Field to set')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setDescriptionLocalizations({ pl: 'Rubryka, którą chcesz zmienić' })
             .setRequired(true)
             .setChoices(
                 {
                     name: 'Birthday',
                     name_localizations: {
-                        pl: 'replace_me'
+                        pl: 'Urodziny'
                     },
                     value: 'birthday'
                 },
                 {
                     name: 'Description',
                     name_localizations: {
-                        pl: 'replace_me'
+                        pl: 'Opis'
                     },
                     value: 'description'
                 },
                 {
                     name: 'Location',
                     name_localizations: {
-                        pl: 'replace_me'
+                        pl: 'Lokalizacja'
                     },
                     value: 'location'
                 },
                 {
                     name: 'Pronouns',
                     name_localizations: {
-                        pl: 'replace_me'
+                        pl: 'Zaimki'
                     },
                     value: 'pronouns'
                 },
                 {
                     name: 'Website',
                     name_localizations: {
-                        pl: 'replace_me'
+                        pl: 'Strona internetowa'
                     },
                     value: 'website'
                 }
@@ -236,8 +236,8 @@ export const data = new SlashCommandSubcommandBuilder()
     .addStringOption(option =>
         option
             .setName('value')
-            .setNameLocalizations({ pl: 'replace_me' })
+            .setNameLocalizations({ pl: 'wartość' })
             .setDescription('Value to set')
-            .setDescriptionLocalizations({ pl: 'replace_me' })
+            .setDescriptionLocalizations({ pl: 'Wartość, którą ustawić' })
             .setRequired(true)
     );
