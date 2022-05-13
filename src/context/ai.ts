@@ -22,4 +22,7 @@ export async function run(client: FluorineClient, interaction: MessageContextMen
     client.ai.getAI(interaction, content);
 }
 
-export const data = new ContextMenuCommandBuilder().setName('AI').setType(ApplicationCommandType.Message);
+export const data = new ContextMenuCommandBuilder()
+    .setName('AI')
+    .setNameLocalizations({ pl: 'AI' })
+    .setType(ApplicationCommandType.Message);

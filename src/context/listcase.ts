@@ -65,4 +65,7 @@ export async function run(client: FluorineClient, interaction: UserContextMenuIn
     interaction.reply(replyOptions);
 }
 
-export const data = new ContextMenuCommandBuilder().setName('List Cases').setType(ApplicationCommandType.User);
+export const data = new ContextMenuCommandBuilder()
+    .setName('List Cases')
+    .setNameLocalizations({ pl: 'List Cases' })
+    .setType(ApplicationCommandType.User);

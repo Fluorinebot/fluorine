@@ -18,4 +18,7 @@ export async function run(client: FluorineClient, interaction: UserContextMenuIn
     interaction.reply(replyOptions);
 }
 
-export const data = new ContextMenuCommandBuilder().setName('Avatar').setType(ApplicationCommandType.User);
+export const data = new ContextMenuCommandBuilder()
+    .setName('Avatar')
+    .setNameLocalizations({ pl: 'Avatar' })
+    .setType(ApplicationCommandType.User);

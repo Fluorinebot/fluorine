@@ -17,4 +17,7 @@ export async function run(client: FluorineClient, interaction: UserContextMenuIn
     );
 }
 
-export const data = new ContextMenuCommandBuilder().setName('How Gay').setType(ApplicationCommandType.User);
+export const data = new ContextMenuCommandBuilder()
+    .setName('How Gay')
+    .setNameLocalizations({ pl: 'How Gay' })
+    .setType(ApplicationCommandType.User);
