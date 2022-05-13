@@ -11,8 +11,8 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     );
 
     const fields: EmbedFieldData[] = commands.map(c => ({
-        name: `/${c.data.name}`,
-        value: c.data.description
+        name: `/${c.data.name_localizations[interaction.locale] ?? c.data.name}`,
+        value: c.data.description_localizations[interaction.locale] ?? c.data.description
     }));
 
     const embed = new Embed(client, interaction.locale)
@@ -60,7 +60,9 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder()
     .setName('help')
+    .setNameLocalizations({ pl: 'pomoc' })
     .setDescription('Display the list of commands')
+    .setDescriptionLocalizations({ pl: 'Wyświetl listę komend' })
     .addStringOption(option =>
         option
             .setName('category')
