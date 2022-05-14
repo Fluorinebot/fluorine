@@ -30,6 +30,10 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     interaction.reply({ embeds: [embed] });
 }
 
-export const data = new SlashCommandBuilder().setName('serverinfo').setDescription('Information about this server');
+export const data = new SlashCommandBuilder()
+    .setName('serverinfo')
+    .setNameLocalizations({ pl: 'serverinfo' })
+    .setDescription('Information about this server')
+    .setDescriptionLocalizations({ pl: 'Informacje o tym serwerze' });
 
 export const category: Category = 'tools';

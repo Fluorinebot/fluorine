@@ -53,7 +53,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         .addLocaleField({ name: 'WARN_MODERATOR', value: interaction.user.tag })
         .addLocaleField({ name: 'WARN_USER', value: member.user.tag })
         .addLocaleField({ name: 'REASON', value: reason })
-        .addLocaleField({ name: 'PUNISHMENT_ID', value: caseObj.case_id.toString() });
+        .addLocaleField({ name: 'CASE_ID', value: caseObj.case_id.toString() });
 
     interaction.reply({ embeds: [embed] });
     client.cases.logToModerationChannel(interaction.guildId, caseObj);
@@ -61,10 +61,24 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder()
     .setName('warn')
-    .setDescription('Warn an user from the server')
-    .addUserOption(option => option.setName('user').setDescription('Provide an user to warn').setRequired(true))
+    .setNameLocalizations({ pl: 'ostrzeżenie' })
+    .setDescription('Warn a user from the server')
+    .setDescriptionLocalizations({ pl: 'Daj użytkownikowi ostrzeżenie' })
+    .addUserOption(option =>
+        option
+            .setName('user')
+            .setNameLocalizations({ pl: 'użytkownik' })
+            .setDescription('Provide a user to warn')
+            .setDescriptionLocalizations({ pl: 'Podaj użytkownika, któremu chcesz wstawić ostrzeżenie' })
+            .setRequired(true)
+    )
     .addStringOption(option =>
-        option.setName('reason').setDescription('Provide a reason for warning this user').setRequired(false)
+        option
+            .setName('reason')
+            .setNameLocalizations({ pl: 'powód' })
+            .setDescription('Provide a reason for warning this user')
+            .setDescriptionLocalizations({ pl: 'Podaj powód ostrzeżenia' })
+            .setRequired(false)
     );
 
 export const category: Category = 'moderation';

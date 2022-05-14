@@ -74,7 +74,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         .addLocaleField({ name: 'BAN_MODERATOR', value: interaction.user.tag })
         .addLocaleField({ name: 'BAN_USER', value: member.user.tag })
         .addLocaleField({ name: 'REASON', value: reason })
-        .addLocaleField({ name: 'PUNISHMENT_ID', value: caseObj.case_id.toString() });
+        .addLocaleField({ name: 'CASE_ID', value: caseObj.case_id.toString() });
 
     interaction.reply({ embeds: [embed] });
     client.cases.logToModerationChannel(interaction.guildId, caseObj);
@@ -82,10 +82,24 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder()
     .setName('ban')
-    .setDescription('Ban an user from the server')
-    .addUserOption(option => option.setName('user').setDescription('Provide an user to ban').setRequired(true))
+    .setNameLocalizations({ pl: 'ban' })
+    .setDescription('Ban a user from the server')
+    .setDescriptionLocalizations({ pl: 'Zbanuj użytkownika' })
+    .addUserOption(option =>
+        option
+            .setName('user')
+            .setNameLocalizations({ pl: 'użytkownik' })
+            .setDescription('Provide a user to ban')
+            .setDescriptionLocalizations({ pl: 'Podaj użytkownika, którego chcesz zbanować' })
+            .setRequired(true)
+    )
     .addStringOption(option =>
-        option.setName('reason').setDescription('Provide a reason for banning this user').setRequired(false)
+        option
+            .setName('reason')
+            .setNameLocalizations({ pl: 'powód' })
+            .setDescription('Provide a reason for banning this user')
+            .setDescriptionLocalizations({ pl: 'Podaj powód bana' })
+            .setRequired(false)
     );
 
 export const category: Category = 'moderation';

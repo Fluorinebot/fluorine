@@ -23,7 +23,16 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder()
     .setName('howgay')
+    .setNameLocalizations({ pl: 'howgay' })
     .setDescription('Check how gay something is')
-    .addStringOption(option => option.setName('thing').setDescription('Provide a thing to check').setRequired(false));
+    .setDescriptionLocalizations({ pl: 'Sprawdź, jak gejowa jest jakaś rzecz' })
+    .addStringOption(option =>
+        option
+            .setName('thing')
+            .setNameLocalizations({ pl: 'rzecz' })
+            .setDescription('Provide a thing to check')
+            .setDescriptionLocalizations({ pl: 'Podaj rzecz, którą chcesz sprawdzić' })
+            .setRequired(false)
+    );
 
 export const category: Category = 'fun';

@@ -95,5 +95,14 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandSubcommandBuilder()
     .setName('view')
+    .setNameLocalizations({ pl: 'obejrz' })
     .setDescription('View a profile')
-    .addUserOption(option => option.setName('user').setDescription('User to view').setRequired(false));
+    .setDescriptionLocalizations({ pl: 'Obejrz profil' })
+    .addUserOption(option =>
+        option
+            .setName('user')
+            .setNameLocalizations({ pl: 'użytkownik' })
+            .setDescription('User to view')
+            .setDescriptionLocalizations({ pl: 'Użytkownik, którego chcesz zobaczyć' })
+            .setRequired(false)
+    );

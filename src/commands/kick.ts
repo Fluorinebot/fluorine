@@ -74,7 +74,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         .addLocaleField({ name: 'KICK_MODERATOR', value: interaction.user.tag })
         .addLocaleField({ name: 'KICK_USER', value: member.user.tag })
         .addLocaleField({ name: 'REASON', value: reason })
-        .addLocaleField({ name: 'PUNISHMENT_ID', value: caseObj.case_id.toString() });
+        .addLocaleField({ name: 'CASE_ID', value: caseObj.case_id.toString() });
 
     interaction.reply({ embeds: [embed] });
     client.cases.logToModerationChannel(interaction.guildId, caseObj);
@@ -82,10 +82,24 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder()
     .setName('kick')
-    .setDescription('Kick an user from the server')
-    .addUserOption(option => option.setName('user').setDescription('Provide an user to kick').setRequired(true))
+    .setNameLocalizations({ pl: 'kick' })
+    .setDescription('Kick a user from the server')
+    .setDescriptionLocalizations({ pl: 'Wyrzuca użytkownika z serwera' })
+    .addUserOption(option =>
+        option
+            .setName('user')
+            .setNameLocalizations({ pl: 'użytkownik' })
+            .setDescription('Provide a user to kick')
+            .setDescriptionLocalizations({ pl: 'Podaj użytkownika, którego chcesz wyrzucić' })
+            .setRequired(true)
+    )
     .addStringOption(option =>
-        option.setName('reason').setDescription('Provide a reason for kicking this user').setRequired(false)
+        option
+            .setName('reason')
+            .setNameLocalizations({ pl: 'powód' })
+            .setDescription('Provide a reason for kicking this user')
+            .setDescriptionLocalizations({ pl: 'Podaj powód wyrzucenia użytkownika z serwera' })
+            .setRequired(false)
     );
 
 export const category: Category = 'moderation';

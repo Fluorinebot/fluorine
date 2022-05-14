@@ -20,7 +20,16 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder()
     .setName('avatar')
-    .setDescription('Show avatar of an user')
-    .addUserOption(option => option.setName('user').setDescription('Select an user').setRequired(false));
+    .setNameLocalizations({ pl: 'avatar' })
+    .setDescription('Show avatar of a user')
+    .setDescriptionLocalizations({ pl: 'Wyświetla avatar użytkownika' })
+    .addUserOption(option =>
+        option
+            .setName('user')
+            .setNameLocalizations({ pl: 'użytkownik' })
+            .setDescription('Select a user')
+            .setDescriptionLocalizations({ pl: 'Wybierz użytkownika' })
+            .setRequired(false)
+    );
 
 export const category: Category = 'tools';

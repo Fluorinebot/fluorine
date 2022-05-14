@@ -36,5 +36,14 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandSubcommandBuilder()
     .setName('buy')
+    .setNameLocalizations({ pl: 'kup' })
     .setDescription('Buy an item from the shop')
-    .addStringOption(option => option.setName('item').setDescription('The item you want to buy').setRequired(true));
+    .setDescriptionLocalizations({ pl: 'Zakup przedmiotu ze sklepu' })
+    .addStringOption(option =>
+        option
+            .setName('item')
+            .setNameLocalizations({ pl: 'przedmiot' })
+            .setDescription('The item you want to buy')
+            .setDescriptionLocalizations({ pl: 'Przedmiot, który chcesz kupić' })
+            .setRequired(true)
+    );

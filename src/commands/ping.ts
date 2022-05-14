@@ -11,6 +11,10 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     interaction.reply({ embeds: [embed] });
 }
 
-export const data = new SlashCommandBuilder().setName('ping').setDescription("Check the bot's ping");
+export const data = new SlashCommandBuilder()
+    .setName('ping')
+    .setNameLocalizations({ pl: 'ping' })
+    .setDescription("Check the bot's ping")
+    .setDescriptionLocalizations({ pl: 'Sprawdź ping bota' });
 
 export const category: Category = 'tools';

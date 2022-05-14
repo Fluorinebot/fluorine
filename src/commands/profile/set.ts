@@ -185,29 +185,59 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandSubcommandBuilder()
     .setName('set')
+    .setNameLocalizations({ pl: 'ustaw' })
     .setDescription('Set a profile')
+    .setDescriptionLocalizations({ pl: 'Ustaw profil' })
     .addStringOption(option =>
-        option.setName('field').setDescription('Field to set').setRequired(true).setChoices(
-            {
-                name: 'Birthday',
-                value: 'birthday'
-            },
-            {
-                name: 'Description',
-                value: 'description'
-            },
-            {
-                name: 'Location',
-                value: 'location'
-            },
-            {
-                name: 'Pronouns',
-                value: 'pronouns'
-            },
-            {
-                name: 'Website',
-                value: 'website'
-            }
-        )
+        option
+            .setName('field')
+            .setNameLocalizations({ pl: 'rubryka' })
+            .setDescription('Field to set')
+            .setDescriptionLocalizations({ pl: 'Rubryka, którą chcesz zmienić' })
+            .setRequired(true)
+            .setChoices(
+                {
+                    name: 'Birthday',
+                    name_localizations: {
+                        pl: 'Urodziny'
+                    },
+                    value: 'birthday'
+                },
+                {
+                    name: 'Description',
+                    name_localizations: {
+                        pl: 'Opis'
+                    },
+                    value: 'description'
+                },
+                {
+                    name: 'Location',
+                    name_localizations: {
+                        pl: 'Lokalizacja'
+                    },
+                    value: 'location'
+                },
+                {
+                    name: 'Pronouns',
+                    name_localizations: {
+                        pl: 'Zaimki'
+                    },
+                    value: 'pronouns'
+                },
+                {
+                    name: 'Website',
+                    name_localizations: {
+                        pl: 'Strona internetowa'
+                    },
+                    value: 'website'
+                }
+            )
     )
-    .addStringOption(option => option.setName('value').setDescription('Value to set').setRequired(true));
+    .addStringOption(option =>
+        option
+            .setName('value')
+            .setNameLocalizations({ pl: 'wartość' })
+            .setDescription('Value to set')
+            .setDescriptionLocalizations({ pl: 'Wartość, którą ustawić' })
+            .setRequired(true)
+    );

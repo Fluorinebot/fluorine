@@ -86,7 +86,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         .addLocaleField({ name: 'TIMEOUT_USER', value: member.user.tag })
         .addLocaleField({ name: 'DURATION', value: ms(duration) })
         .addLocaleField({ name: 'REASON', value: reason })
-        .addLocaleField({ name: 'PUNISHMENT_ID', value: caseObj.case_id.toString() });
+        .addLocaleField({ name: 'CASE_ID', value: caseObj.case_id.toString() });
 
     interaction.reply({ embeds: [embed] });
     client.cases.logToModerationChannel(interaction.guildId, caseObj);
@@ -94,13 +94,32 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder()
     .setName('timeout')
-    .setDescription('Timeout an user from the server')
-    .addUserOption(option => option.setName('user').setDescription('Provide an user to timeout').setRequired(true))
-    .addStringOption(option =>
-        option.setName('duration').setDescription('Provide how long the timeout will last').setRequired(true)
+    .setNameLocalizations({ pl: 'timeout' })
+    .setDescription('Timeout a user from the server')
+    .setDescriptionLocalizations({ pl: 'Wyślij użytkownika na przerwę (podobne do mute)' })
+    .addUserOption(option =>
+        option
+            .setName('user')
+            .setNameLocalizations({ pl: 'użytkownik' })
+            .setDescription('Provide a user to timeout')
+            .setDescriptionLocalizations({ pl: 'Podaj użytkownika, którego chcesz wysłać na przerwę' })
+            .setRequired(true)
     )
     .addStringOption(option =>
-        option.setName('reason').setDescription('Provide a reason for timing out this user').setRequired(false)
+        option
+            .setName('duration')
+            .setNameLocalizations({ pl: 'długość' })
+            .setDescription('Provide how long the timeout will last')
+            .setDescriptionLocalizations({ pl: 'Podaj, jak długo ma trwać przerwa' })
+            .setRequired(true)
+    )
+    .addStringOption(option =>
+        option
+            .setName('reason')
+            .setNameLocalizations({ pl: 'powód' })
+            .setDescription('Provide a reason for timing out this user')
+            .setDescriptionLocalizations({ pl: 'Podaj powód przerwy' })
+            .setRequired(false)
     );
 
 export const category: Category = 'moderation';

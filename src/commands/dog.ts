@@ -13,6 +13,10 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     interaction.reply({ embeds: [embed] });
 }
 
-export const data = new SlashCommandBuilder().setName('dog').setDescription('Random dog picture');
+export const data = new SlashCommandBuilder()
+    .setName('dog')
+    .setNameLocalizations({ pl: 'pies' })
+    .setDescription('Random dog picture')
+    .setDescriptionLocalizations({ pl: 'Losowe zdjęcie psa' });
 
 export const category: Category = 'fun';

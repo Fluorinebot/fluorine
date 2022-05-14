@@ -29,5 +29,14 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandSubcommandBuilder()
     .setName('delete')
+    .setNameLocalizations({ pl: 'usuń' })
     .setDescription('Delete a item from the shop')
-    .addStringOption(option => option.setName('name').setDescription('Name of the item').setRequired(true));
+    .setDescriptionLocalizations({ pl: 'Usuń przedmiot ze sklepu' })
+    .addStringOption(option =>
+        option
+            .setName('name')
+            .setNameLocalizations({ pl: 'nazwa' })
+            .setDescription('Name of the item')
+            .setDescriptionLocalizations({ pl: 'Nazwa przedmiotu' })
+            .setRequired(true)
+    );

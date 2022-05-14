@@ -56,12 +56,39 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandSubcommandBuilder()
     .setName('create')
+    .setNameLocalizations({ pl: 'utwórz' })
     .setDescription('Create a item!')
-    .addStringOption(option => option.setName('name').setDescription('Name of the item').setRequired(true))
+    .setDescriptionLocalizations({ pl: 'Utwórz przedmiot!' })
     .addStringOption(option =>
-        option.setName('description').setDescription('Description of the item').setRequired(true)
+        option
+            .setName('name')
+            .setNameLocalizations({ pl: 'nazwa' })
+            .setDescription('Name of the item')
+            .setDescriptionLocalizations({ pl: 'Nazwa przedmiotu' })
+            .setRequired(true)
+    )
+    .addStringOption(option =>
+        option
+            .setName('description')
+            .setNameLocalizations({ pl: 'opis' })
+            .setDescription('Description of the item')
+            .setDescriptionLocalizations({ pl: 'Opis przedmiotu' })
+            .setRequired(true)
     )
     .addIntegerOption(option =>
-        option.setName('price').setDescription('Price of the item').setMinValue(1).setRequired(true)
+        option
+            .setName('price')
+            .setNameLocalizations({ pl: 'cena' })
+            .setDescription('Price of the item')
+            .setDescriptionLocalizations({ pl: 'Cena przedmiotu' })
+            .setMinValue(1)
+            .setRequired(true)
     )
-    .addRoleOption(option => option.setName('role').setDescription('The role you want to give').setRequired(false));
+    .addRoleOption(option =>
+        option
+            .setName('role')
+            .setNameLocalizations({ pl: 'rola' })
+            .setDescription('The role you want to give')
+            .setDescriptionLocalizations({ pl: 'Rola, którą chcesz nadać' })
+            .setRequired(false)
+    );

@@ -9,7 +9,7 @@ export async function run(client: FluorineClient, interaction: Interaction) {
 
         if (component.authorOnly && interaction.user.id !== user) {
             return interaction.reply({
-                content: client.i18n.t('COMPONENT_PRIVATE', {
+                content: client.i18n.t('PRIVATE_COMPONENT', {
                     lng: interaction.locale
                 }),
                 ephemeral: true

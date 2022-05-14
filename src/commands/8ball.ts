@@ -18,7 +18,16 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandBuilder()
     .setName('8ball')
+    .setNameLocalizations({ pl: 'magiczna-kula' })
     .setDescription('Ask the magic ball a question')
-    .addStringOption(option => option.setName('question').setDescription('Ask a question').setRequired(true));
+    .setDescriptionLocalizations({ pl: 'Zapytaj o coś magiczną kulę' })
+    .addStringOption(option =>
+        option
+            .setName('question')
+            .setNameLocalizations({ pl: 'pytanie' })
+            .setDescription('Ask a question')
+            .setDescriptionLocalizations({ pl: 'Zadaj pytanie' })
+            .setRequired(true)
+    );
 
 export const category: Category = 'fun';
