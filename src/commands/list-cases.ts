@@ -73,10 +73,11 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 }
 
 export const data = new SlashCommandBuilder()
-    .setName('listcase')
-    .setNameLocalizations({ pl: 'listcase' })
+    .setName('list-cases')
+    .setNameLocalizations({ pl: 'lista-kar' })
     .setDescription('Check punishments of a user')
     .setDescriptionLocalizations({ pl: 'Sprawdź kary użytkownika' })
+    .setDMPermission(false)
     .addUserOption(option =>
         option
             .setName('user')

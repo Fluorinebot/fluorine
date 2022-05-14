@@ -39,7 +39,8 @@ export const data = new SlashCommandBuilder()
     .setName('crime')
     .setNameLocalizations({ pl: 'przestępstwo' })
     .setDescription('Commit a crime')
-    .setDescriptionLocalizations({ pl: 'Popełnij przestępstwo w ekonomii' });
+    .setDescriptionLocalizations({ pl: 'Popełnij przestępstwo w ekonomii' })
+    .setDMPermission(false);
 
 export const category: Category = 'economy';
 export const cooldown = 1 * 60 * 60 * 1000;

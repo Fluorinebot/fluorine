@@ -39,6 +39,7 @@ export const data = new SlashCommandBuilder()
     .setNameLocalizations({ pl: 'kara' })
     .setDescription('Check a moderation case')
     .setDescriptionLocalizations({ pl: 'Sprawdz informacje o karze' })
+    .setDMPermission(false)
     .addIntegerOption(option =>
         option
             .setName('id')

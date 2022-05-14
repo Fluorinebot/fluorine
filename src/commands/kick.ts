@@ -2,18 +2,10 @@ import FluorineClient from '../classes/Client';
 import Embed from '../classes/Embed';
 import { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { Category } from 'types/structures';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
-    if (!interaction.member?.permissions.has('KICK_MEMBERS')) {
-        return interaction.reply({
-            content: client.i18n.t('KICK_PERMISSIONS_MISSING', {
-                lng: interaction.locale
-            }),
-            ephemeral: true
-        });
-    }
-
     const member = interaction.options.getMember('user');
     const reason =
         interaction.options.getString('reason') ??
@@ -85,6 +77,8 @@ export const data = new SlashCommandBuilder()
     .setNameLocalizations({ pl: 'kick' })
     .setDescription('Kick a user from the server')
     .setDescriptionLocalizations({ pl: 'Wyrzuca użytkownika z serwera' })
+    .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers as any)
+    .setDMPermission(false)
     .addUserOption(option =>
         option
             .setName('user')

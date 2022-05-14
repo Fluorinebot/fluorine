@@ -2,6 +2,7 @@ import FluorineClient from '../classes/Client';
 import Embed from '../classes/Embed';
 import { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { Category } from 'types/structures';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
@@ -64,6 +65,8 @@ export const data = new SlashCommandBuilder()
     .setNameLocalizations({ pl: 'ostrzeżenie' })
     .setDescription('Warn a user from the server')
     .setDescriptionLocalizations({ pl: 'Daj użytkownikowi ostrzeżenie' })
+    .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers as any)
+    .setDMPermission(false)
     .addUserOption(option =>
         option
             .setName('user')

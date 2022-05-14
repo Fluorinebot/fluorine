@@ -6,13 +6,6 @@ import { ChannelType } from 'discord-api-types/v10';
 import { Config } from 'types/databaseTables';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
-    if (!interaction.memberPermissions.has('MANAGE_GUILD')) {
-        return interaction.reply({
-            content: client.i18n.t('CONFIG_FAIL', { lng: interaction.locale }),
-            ephemeral: true
-        });
-    }
-
     const value = interaction.options.getChannel('channel').id;
 
     await client.db.query<Config>('UPDATE config SET logs_channel = $1 WHERE guild_id = $2', [

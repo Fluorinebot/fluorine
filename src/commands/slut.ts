@@ -20,7 +20,8 @@ export const data = new SlashCommandBuilder()
     .setName('slut')
     .setNameLocalizations({ pl: 'slut' })
     .setDescription('Get money by being a slut!')
-    .setDescriptionLocalizations({ pl: 'Zdobądź pieniądze będąc prostytutką!' });
+    .setDescriptionLocalizations({ pl: 'Zdobądź pieniądze będąc prostytutką!' })
+    .setDMPermission(false);
 
 export const category: Category = 'economy';
 export const cooldown = 1 * 60 * 60 * 1000;

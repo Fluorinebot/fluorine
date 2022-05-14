@@ -67,5 +67,6 @@ export async function run(client: FluorineClient, interaction: UserContextMenuIn
 
 export const data = new ContextMenuCommandBuilder()
     .setName('List Cases')
-    .setNameLocalizations({ pl: 'List Cases' })
+    .setNameLocalizations({ pl: 'Lista Kar' })
+    .setDMPermission(false)
     .setType(ApplicationCommandType.User);
