@@ -37,8 +37,6 @@ export default class FluorineClient extends Client {
     ai = new AIModule(this);
     cases = new CasesModule(this);
 
-    invite =
-        'https://discord.com/api/oauth2/authorize?client_id=831932409943425064&scope=bot+applications.commands&permissions=474527689975';
     version = process.env.npm_package_version;
     devs = ['707675871355600967', '478823932913516544', '348591272476540928'];
 
