@@ -26,7 +26,9 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         if (name === 'all') {
             await interaction.deferReply();
 
-            const { commands } = client.guilds.cache.get(guildId);
+            const { commands } = guildId ? client.guilds.cache.get(guildId) : client.application;
+
+            // @ts-expect-error
             await commands?.fetch();
 
             const chatInputCommands = client.applicationCommands.chatInput

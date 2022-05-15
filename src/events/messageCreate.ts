@@ -62,11 +62,13 @@ export async function run(client: FluorineClient, message: Message) {
     const command = args.shift();
 
     if (message.content.startsWith(settings.prefix)) {
-        const random = Math.floor(Math.random() * 15) + 1;
+        const chance = 5;
+        const random = Math.floor(Math.random() * chance) + 1;
 
-        if (random === 15) {
+        if (random === 1) {
+            const removalTimestamp = 1656676800;
             message.channel.send(
-                '<:SlashCommands:934768130474004500> Use Slash Commands!\nPrefix commands are not supported and will be deleted in March!'
+                `<:SlashCommands:934768130474004500> Use Slash Commands!\nPrefix commands are not supported and will be removed <t:${removalTimestamp}:R>! (<t:${removalTimestamp}:D>)`
             );
         }
 

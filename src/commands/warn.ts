@@ -2,18 +2,10 @@ import FluorineClient from '../classes/Client';
 import Embed from '../classes/Embed';
 import { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { Category } from 'types/structures';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
-    if (!interaction.member?.permissions.has('MODERATE_MEMBERS')) {
-        return interaction.reply({
-            content: client.i18n.t('WARN_PERMISSIONS_MISSING', {
-                lng: interaction.locale
-            }),
-            ephemeral: true
-        });
-    }
-
     const member = interaction.options.getMember('user');
     const reason = interaction.options.getString('reason') ?? client.i18n.t('NONE', { lng: interaction.locale });
 
@@ -64,6 +56,8 @@ export const data = new SlashCommandBuilder()
     .setNameLocalizations({ pl: 'ostrzeżenie' })
     .setDescription('Warn a user from the server')
     .setDescriptionLocalizations({ pl: 'Daj użytkownikowi ostrzeżenie' })
+    .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers)
+    .setDMPermission(false)
     .addUserOption(option =>
         option
             .setName('user')

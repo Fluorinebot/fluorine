@@ -2,6 +2,7 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { Category } from 'types/structures';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
@@ -39,6 +40,8 @@ export const data = new SlashCommandBuilder()
     .setNameLocalizations({ pl: 'kara' })
     .setDescription('Check a moderation case')
     .setDescriptionLocalizations({ pl: 'Sprawdz informacje o karze' })
+    .setDefaultMemberPermissions(PermissionFlagsBits.ViewAuditLog)
+    .setDMPermission(false)
     .addIntegerOption(option =>
         option
             .setName('id')

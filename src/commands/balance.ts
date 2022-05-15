@@ -26,6 +26,7 @@ export const data = new SlashCommandBuilder()
     .setName('balance')
     .setNameLocalizations({ pl: 'saldo' })
     .setDescription('Check your balance')
-    .setDescriptionLocalizations({ pl: 'Sprawdź swoje saldo' });
+    .setDescriptionLocalizations({ pl: 'Sprawdź swoje saldo' })
+    .setDMPermission(false);
 
 export const category: Category = 'economy';

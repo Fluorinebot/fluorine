@@ -2,19 +2,11 @@ import FluorineClient from '../classes/Client';
 import Embed from '../classes/Embed';
 import { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { PermissionFlagsBits } from 'discord-api-types/v10';
 import ms, { StringValue } from 'ms';
 import { Category } from 'types/structures';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
-    if (!interaction.member?.permissions.has('MODERATE_MEMBERS')) {
-        return interaction.reply({
-            content: client.i18n.t('TIMEOUT_PERMISSIONS_MISSING', {
-                lng: interaction.locale
-            }),
-            ephemeral: true
-        });
-    }
-
     const member = interaction.options.getMember('user');
     const duration = ms(interaction.options.getString('duration') as StringValue);
     const reason = interaction.options.getString('reason') ?? client.i18n.t('NONE', { lng: interaction.locale });
@@ -97,6 +89,8 @@ export const data = new SlashCommandBuilder()
     .setNameLocalizations({ pl: 'timeout' })
     .setDescription('Timeout a user from the server')
     .setDescriptionLocalizations({ pl: 'Wyślij użytkownika na przerwę (podobne do mute)' })
+    .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers)
+    .setDMPermission(false)
     .addUserOption(option =>
         option
             .setName('user')

@@ -17,15 +17,15 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         })
         .addLocaleField({
             name: 'SERVER_INFO_MEMBERS',
-            value: `${interaction.guild?.memberCount}`
+            value: `${interaction.guild.memberCount}`
         })
         .addLocaleField({
             name: 'SERVER_INFO_CHANNELS',
-            value: `${interaction.guild?.channels.cache.size}`
+            value: `${interaction.guild.channels.cache.size}`
         })
         .addLocaleField({
             name: 'SERVER_INFO_ROLES',
-            value: `${interaction.guild?.roles.cache.size}`
+            value: `${interaction.guild.roles.cache.size}`
         });
     interaction.reply({ embeds: [embed] });
 }
@@ -34,6 +34,7 @@ export const data = new SlashCommandBuilder()
     .setName('serverinfo')
     .setNameLocalizations({ pl: 'serverinfo' })
     .setDescription('Information about this server')
-    .setDescriptionLocalizations({ pl: 'Informacje o tym serwerze' });
+    .setDescriptionLocalizations({ pl: 'Informacje o tym serwerze' })
+    .setDMPermission(false);
 
 export const category: Category = 'tools';

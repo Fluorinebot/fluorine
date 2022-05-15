@@ -5,13 +5,6 @@ import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 import { Config } from 'types/databaseTables';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
-    if (!interaction.memberPermissions.has('MANAGE_GUILD')) {
-        return interaction.reply({
-            content: client.i18n.t('CONFIG_FAIL', { lng: interaction.locale }),
-            ephemeral: true
-        });
-    }
-
     const value = interaction.options.getBoolean('mod-logs');
 
     await client.db.query<Config>('UPDATE config SET log_moderation_actions = $1 WHERE guild_id = $2', [

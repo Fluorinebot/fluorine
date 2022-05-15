@@ -2,18 +2,10 @@ import FluorineClient from '../classes/Client';
 import Embed from '../classes/Embed';
 import { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { Category } from 'types/structures';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
-    if (!interaction.member?.permissions.has('BAN_MEMBERS')) {
-        return interaction.reply({
-            content: client.i18n.t('BAN_PERMISSIONS_MISSING', {
-                lng: interaction.locale
-            }),
-            ephemeral: true
-        });
-    }
-
     const member = interaction.options.getMember('user');
     const reason =
         interaction.options.getString('reason') ??
@@ -85,6 +77,8 @@ export const data = new SlashCommandBuilder()
     .setNameLocalizations({ pl: 'ban' })
     .setDescription('Ban a user from the server')
     .setDescriptionLocalizations({ pl: 'Zbanuj użytkownika' })
+    .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
+    .setDMPermission(false)
     .addUserOption(option =>
         option
             .setName('user')

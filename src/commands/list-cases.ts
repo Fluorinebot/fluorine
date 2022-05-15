@@ -2,6 +2,7 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { CommandInteraction, InteractionReplyOptions, MessageActionRow, MessageButton } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { Category } from 'types/structures';
 import { splitArray } from '@util/splitArr';
 
@@ -73,10 +74,12 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 }
 
 export const data = new SlashCommandBuilder()
-    .setName('listcase')
-    .setNameLocalizations({ pl: 'listcase' })
+    .setName('list-cases')
+    .setNameLocalizations({ pl: 'lista-kar' })
     .setDescription('Check punishments of a user')
     .setDescriptionLocalizations({ pl: 'Sprawdź kary użytkownika' })
+    .setDefaultMemberPermissions(PermissionFlagsBits.ViewAuditLog)
+    .setDMPermission(false)
     .addUserOption(option =>
         option
             .setName('user')
