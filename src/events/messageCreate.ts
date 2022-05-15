@@ -69,7 +69,7 @@ export async function run(client: FluorineClient, message: Message) {
             const removalTimestamp = 1656676800;
             await client.application.fetch();
             message.channel.send({
-                content: `<:SlashCommands:934768130474004500> Use Slash Commands!\nPrefix commands are not supported and will be removed <t:${removalTimestamp}:R>! (<t:${removalTimestamp}:D>)\nIf you can't see Slash Commands, make sure to reinvite the bot`,
+                content: `<:SlashCommands:934768130474004500> **Use Slash Commands!**\nPrefix (message) commands are not supported and will be removed <t:${removalTimestamp}:R>! (<t:${removalTimestamp}:D>)\nIf you can't see Slash Commands, make sure to reinvite the bot`,
                 components: [
                     new MessageActionRow().addComponents([
                         new MessageButton()
