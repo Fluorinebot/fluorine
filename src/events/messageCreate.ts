@@ -1,6 +1,6 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { Message } from 'discord.js';
+import { Message, MessageActionRow, MessageButton } from 'discord.js';
 import { Config } from 'types/databaseTables';
 
 export async function run(client: FluorineClient, message: Message) {
@@ -67,9 +67,19 @@ export async function run(client: FluorineClient, message: Message) {
 
         if (random === 1) {
             const removalTimestamp = 1656676800;
-            message.channel.send(
-                `<:SlashCommands:934768130474004500> Use Slash Commands!\nPrefix commands are not supported and will be removed <t:${removalTimestamp}:R>! (<t:${removalTimestamp}:D>)`
-            );
+            await client.application.fetch();
+            message.channel.send({
+                content: `<:SlashCommands:934768130474004500> **Use Slash Commands!**\nPrefix (message) commands are not supported and will be removed <t:${removalTimestamp}:R>! (<t:${removalTimestamp}:D>)\nIf you can't see Slash Commands, make sure to reinvite the bot`,
+                components: [
+                    new MessageActionRow().addComponents([
+                        new MessageButton()
+                            .setLabel('Bot Invite')
+                            .setStyle('LINK')
+                            .setURL(client.generateInvite(client.application.installParams)),
+                        new MessageButton().setLabel('Support Server').setStyle('LINK').setURL(client.support)
+                    ])
+                ]
+            });
         }
 
         const code = client.cmds.get(command);

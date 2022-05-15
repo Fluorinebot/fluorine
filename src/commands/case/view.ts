@@ -1,9 +1,7 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { CommandInteraction } from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
-import { PermissionFlagsBits } from 'discord-api-types/v10';
-import { Category } from 'types/structures';
+import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const id = interaction.options.getInteger('id');
@@ -35,13 +33,11 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     interaction.reply({ embeds: [embed] });
 }
 
-export const data = new SlashCommandBuilder()
-    .setName('case')
-    .setNameLocalizations({ pl: 'kara' })
+export const data = new SlashCommandSubcommandBuilder()
+    .setName('view')
+    .setNameLocalizations({ pl: 'zobacz' })
     .setDescription('Check a moderation case')
     .setDescriptionLocalizations({ pl: 'Sprawdz informacje o karze' })
-    .setDefaultMemberPermissions(PermissionFlagsBits.ViewAuditLog)
-    .setDMPermission(false)
     .addIntegerOption(option =>
         option
             .setName('id')
@@ -51,5 +47,3 @@ export const data = new SlashCommandBuilder()
             .setMinValue(1)
             .setRequired(true)
     );
-
-export const category: Category = 'moderation';
