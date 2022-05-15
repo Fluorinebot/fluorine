@@ -77,7 +77,7 @@ export const data = new SlashCommandBuilder()
     .setNameLocalizations({ pl: 'kick' })
     .setDescription('Kick a user from the server')
     .setDescriptionLocalizations({ pl: 'Wyrzuca użytkownika z serwera' })
-    .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers as any)
+    .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
     .setDMPermission(false)
     .addUserOption(option =>
         option

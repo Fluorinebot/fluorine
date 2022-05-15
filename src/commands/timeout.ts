@@ -89,7 +89,7 @@ export const data = new SlashCommandBuilder()
     .setNameLocalizations({ pl: 'timeout' })
     .setDescription('Timeout a user from the server')
     .setDescriptionLocalizations({ pl: 'Wyślij użytkownika na przerwę (podobne do mute)' })
-    .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers as any)
+    .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers)
     .setDMPermission(false)
     .addUserOption(option =>
         option

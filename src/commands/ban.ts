@@ -77,7 +77,7 @@ export const data = new SlashCommandBuilder()
     .setNameLocalizations({ pl: 'ban' })
     .setDescription('Ban a user from the server')
     .setDescriptionLocalizations({ pl: 'Zbanuj użytkownika' })
-    .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers as any)
+    .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
     .setDMPermission(false)
     .addUserOption(option =>
         option

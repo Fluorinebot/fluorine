@@ -56,7 +56,7 @@ export const data = new SlashCommandBuilder()
     .setNameLocalizations({ pl: 'ostrzeżenie' })
     .setDescription('Warn a user from the server')
     .setDescriptionLocalizations({ pl: 'Daj użytkownikowi ostrzeżenie' })
-    .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers as any)
+    .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers)
     .setDMPermission(false)
     .addUserOption(option =>
         option
