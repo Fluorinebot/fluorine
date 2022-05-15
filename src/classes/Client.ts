@@ -39,6 +39,7 @@ export default class FluorineClient extends Client {
 
     version = process.env.npm_package_version;
     devs = ['707675871355600967', '478823932913516544', '348591272476540928'];
+    support = process.env.DISCORD_SUPPORT_INVITE;
 
     restModule = new REST({ version: '10' });
     db = new Database();
@@ -55,7 +56,10 @@ export default class FluorineClient extends Client {
                 Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS
             ],
             partials: ['MESSAGE'],
-            allowedMentions: { repliedUser: false }
+            allowedMentions: { repliedUser: false },
+            presence: {
+                activities: [{ name: 'with dangerous chemicals | /help', type: 'PLAYING' }]
+            }
         });
     }
 

@@ -1,9 +1,7 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { CommandInteraction, InteractionReplyOptions, MessageActionRow, MessageButton } from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
-import { PermissionFlagsBits } from 'discord-api-types/v10';
-import { Category } from 'types/structures';
+import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 import { splitArray } from '@util/splitArr';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
@@ -73,13 +71,11 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     interaction.reply(replyOptions);
 }
 
-export const data = new SlashCommandBuilder()
-    .setName('list-cases')
-    .setNameLocalizations({ pl: 'lista-kar' })
+export const data = new SlashCommandSubcommandBuilder()
+    .setName('list')
+    .setNameLocalizations({ pl: 'lista' })
     .setDescription('Check punishments of a user')
     .setDescriptionLocalizations({ pl: 'Sprawdź kary użytkownika' })
-    .setDefaultMemberPermissions(PermissionFlagsBits.ViewAuditLog)
-    .setDMPermission(false)
     .addUserOption(option =>
         option
             .setName('user')
@@ -88,5 +84,3 @@ export const data = new SlashCommandBuilder()
             .setDescriptionLocalizations({ pl: 'Użytkownik, którego chcesz sprawdzić' })
             .setRequired(true)
     );
-
-export const category: Category = 'tools';

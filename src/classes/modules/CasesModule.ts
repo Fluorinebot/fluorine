@@ -40,6 +40,10 @@ export default class CasesModule {
             ])
         ).rows;
 
+        if (!ret) {
+            return null;
+        }
+
         ret.guild_id = BigInt(ret.guild_id);
         ret.case_creator = BigInt(ret.case_creator);
         ret.moderated_user = BigInt(ret.moderated_user);

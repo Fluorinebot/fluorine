@@ -188,6 +188,8 @@
     "STATS_COMMAND_COUNT": "Ilość komend",
     "STATS_SERVER_COUNT": "Ilość serwerów",
     "STATS_USER_COUNT": "Ilość użytkowników",
+    "SUPPORT_TITLE": "Potrzebujesz pomocy?",
+    "SUPPORT_DESCRIPTION": "Dołącz na serwer support [tutaj]({{- link}})",
     "TIMEOUT": "Przerwa",
     "TIMEOUT_BOT_PERMISSIONS_MISSING": "Nie mogę wyciszyć tego członka, nie posiadam potrzebnych permisji!",
     "TIMEOUT_DURATION_INVALID": "Podałeś nieprawidłową długość wyciszenia!",

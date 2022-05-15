@@ -195,6 +195,8 @@
     "STATS_COMMAND_COUNT": "Command count",
     "STATS_SERVER_COUNT": "Server count",
     "STATS_USER_COUNT": "User count",
+    "SUPPORT_TITLE": "Need some help?",
+    "SUPPORT_DESCRIPTION": "Join the support server [here]({{- link}})",
     "TIMEOUT": "Timeout",
     "TIMEOUT_BOT_PERMISSIONS_MISSING": "I can't timeout this member, I don't have permissions needed to timeout!",
     "TIMEOUT_DURATION_INVALID": "The duration you provided is invalid!",

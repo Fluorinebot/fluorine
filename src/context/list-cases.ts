@@ -2,7 +2,7 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { InteractionReplyOptions, MessageActionRow, MessageButton, UserContextMenuInteraction } from 'discord.js';
 import { ContextMenuCommandBuilder } from '@discordjs/builders';
-import { ApplicationCommandType } from 'discord-api-types/v10';
+import { ApplicationCommandType, PermissionFlagsBits } from 'discord-api-types/v10';
 import { splitArray } from '@util/splitArr';
 
 export async function run(client: FluorineClient, interaction: UserContextMenuInteraction<'cached'>) {
@@ -68,5 +68,6 @@ export async function run(client: FluorineClient, interaction: UserContextMenuIn
 export const data = new ContextMenuCommandBuilder()
     .setName('List Cases')
     .setNameLocalizations({ pl: 'Lista Kar' })
+    .setDefaultMemberPermissions(PermissionFlagsBits.ViewAuditLog)
     .setDMPermission(false)
     .setType(ApplicationCommandType.User);
