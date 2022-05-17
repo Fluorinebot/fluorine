@@ -28,7 +28,7 @@
     },
     "homepage": "https://github.com/Fluorinebot/fluorine/#readme",
     "dependencies": {
-        "@discordjs/builders": "^0.14.0-dev.1652573539-7ce641d",
+        "@discordjs/builders": "^0.14.0-dev.1652702621-5e9b757",
         "@discordjs/rest": "^0.4.1",
         "bufferutil": "^4.0.6",
         "canvas": "^2.9.1",
