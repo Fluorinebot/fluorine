@@ -36,7 +36,7 @@
         "discord.js": "^13.7.0",
         "dotenv": "^16.0.1",
         "erlpack": "github:discord/erlpack",
-        "i18next": "^21.8.2",
+        "i18next": "^21.8.5",
         "i18next-fs-backend": "^1.1.4",
         "ms": "^3.0.0-canary.1",
         "murmurhash-v3": "^1.0.2",
