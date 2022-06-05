@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model cases {
+  case_id        Int
+  guild_id       BigInt
+  case_creator   BigInt
+  moderated_user BigInt
+  type           String
+  reason         String
+
+  @@id([case_id, guild_id])
+}
+
+model config {
+  guild_id               BigInt   @id
+  prefix                 String
+  logs_enabled           Boolean
+  logs_channel           BigInt?
+  log_moderation_actions Boolean?
+  antibot_factor         Int
+  antibot_action         String?
+  currency               String?
+}
+
+model cooldowns {
+  user_id   BigInt
+  name      String
+  timestamp BigInt
+
+  @@id([user_id, name])
+}
+
+model economy {
+  guild_id   BigInt
+  user_id    BigInt
+  wallet_bal Int
+  bank_bal   Int
+
+  @@id([guild_id, user_id])
+}
+
+model profiles {
+  user_id     BigInt  @id
+  description String?
+  pronouns    String?
+  website     String?
+  location    String?
+  birthday    String?
+}
+
+model shop_items {
+  item_id     Int
+  guild_id    BigInt
+  name        String
+  description String
+  role        BigInt?
+  price       Float
+
+  @@id([item_id, guild_id])
+}

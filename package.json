@@ -4,6 +4,7 @@
     "description": "A discord bot",
     "private": true,
     "main": "dist",
+    "private": "true",
     "scripts": {
         "test": "npm run lint && npm run test:typescript",
         "test:typescript": "tsc",
@@ -30,6 +31,7 @@
     "dependencies": {
         "@discordjs/builders": "^0.14.0",
         "@discordjs/rest": "^0.5.0",
+        "@prisma/client": "^3.11.1",
         "bufferutil": "^4.0.6",
         "canvas": "^2.9.1",
         "discord-api-types": "^0.33.3",
@@ -53,6 +55,7 @@
         "eslint": "^8.17.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-prettier": "^4.0.0",
+        "prisma": "^3.11.1",
         "resolve-tspaths": "^0.6.0",
         "typescript": "^4.6.4"
     },

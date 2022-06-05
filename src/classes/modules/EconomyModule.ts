@@ -104,10 +104,20 @@ export default class EconomyModule {
     }
 
     async getCurrency(guild: string) {
-        const [settings] = (
-            await this.client.db.query<Config>('SELECT currency FROM config WHERE guild_id = $1', [BigInt(guild)])
-        ).rows;
+        const lol = performance.now();
 
-        return settings.currency;
+        this.client.db
+            .query<Config>('SELECT currency FROM config WHERE guild_id = $1', [BigInt(guild)])
+            .then(() => console.log('pg', performance.now() - lol));
+
+        const xd = performance.now();
+
+        this.client.prisma.config
+            .findUnique({ where: { guild_id: BigInt(guild) } })
+            .then(() => console.log('prisma', performance.now() - xd));
+
+        const { currency } = await this.client.prisma.config.findUnique({ where: { guild_id: BigInt(guild) } });
+
+        return currency;
     }
 }

@@ -9,6 +9,8 @@ import { join } from 'path';
 import { bold, red } from 'picocolors';
 import { performance } from 'perf_hooks';
 
+import { PrismaClient } from '@prisma/client';
+
 import EventHandler from '@handlers/EventHandler';
 import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
 import CommandHandler from '@handlers/CommandHandler';
@@ -36,6 +38,8 @@ export default class FluorineClient extends Client {
     shop = new ShopModule(this);
     ai = new AIModule(this);
     cases = new CasesModule(this);
+
+    prisma = new PrismaClient();
 
     version = process.env.npm_package_version;
     devs = ['707675871355600967', '478823932913516544', '348591272476540928'];
