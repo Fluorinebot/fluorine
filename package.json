@@ -28,7 +28,7 @@
     },
     "homepage": "https://github.com/Fluorinebot/fluorine/#readme",
     "dependencies": {
-        "@discordjs/builders": "^0.14.0-dev.1652573539-7ce641d",
+        "@discordjs/builders": "^0.14.0",
         "@discordjs/rest": "^0.4.1",
         "bufferutil": "^4.0.6",
         "canvas": "^2.9.1",
@@ -36,7 +36,7 @@
         "discord.js": "^13.7.0",
         "dotenv": "^16.0.1",
         "erlpack": "github:discord/erlpack",
-        "i18next": "^21.8.2",
+        "i18next": "^21.8.8",
         "i18next-fs-backend": "^1.1.4",
         "ms": "^3.0.0-canary.1",
         "murmurhash-v3": "^1.0.2",
@@ -53,6 +53,7 @@
         "eslint": "^8.15.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-prettier": "^4.0.0",
+        "resolve-tspaths": "^0.6.0",
         "typescript": "^4.6.4"
     },
     "engines": {
