@@ -4,7 +4,6 @@
     "description": "A discord bot",
     "private": true,
     "main": "dist",
-    "private": "true",
     "scripts": {
         "test": "npm run lint && npm run test:typescript",
         "test:typescript": "tsc",
