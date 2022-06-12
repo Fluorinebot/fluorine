@@ -7,61 +7,70 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model cases {
-  case_id        Int
-  guild_id       BigInt
-  case_creator   BigInt
-  moderated_user BigInt
-  type           String
-  reason         String
+model Case {
+  caseId        Int    @map("case_id")
+  guildId       BigInt @map("guild_id")
+  caseCreator   BigInt @map("case_creator")
+  moderatedUser BigInt @map("moderated_user")
+  type          String
+  reason        String
 
-  @@id([case_id, guild_id])
+  @@id([caseId, guildId])
+  @@index([moderatedUser])
+  @@map("cases")
 }
 
-model config {
-  guild_id               BigInt   @id
-  prefix                 String
-  logs_enabled           Boolean
-  logs_channel           BigInt?
-  log_moderation_actions Boolean?
-  antibot_factor         Int
-  antibot_action         String?
-  currency               String?
+model Config {
+  guildId              BigInt   @id @map("guild_id")
+  prefix               String
+  logsEnabled          Boolean  @map("logs_enabled")
+  logsChannel          BigInt?  @map("logs_channel")
+  logModerationActions Boolean? @map("log_moderation_actions")
+  antibotFactor        Int      @map("antibot_factor")
+  antibotAction        String?  @map("antibot_action")
+  currency             String?
+
+  @@map("config")
 }
 
-model cooldowns {
-  user_id   BigInt
+model Cooldown {
+  userId    BigInt @map("user_id")
   name      String
   timestamp BigInt
 
-  @@id([user_id, name])
+  @@id([userId, name])
+  @@map("cooldowns")
 }
 
-model economy {
-  guild_id   BigInt
-  user_id    BigInt
-  wallet_bal Int
-  bank_bal   Int
+model EconomyProfile {
+  guildId   BigInt @map("guild_id")
+  userId    BigInt @map("user_id")
+  walletBal Int    @map("wallet_bal")
+  bankBal   Int    @map("bankBal")
 
-  @@id([guild_id, user_id])
+  @@id([guildId, userId])
+  @@map("economy")
 }
 
-model profiles {
-  user_id     BigInt  @id
+model Profile {
+  userId      BigInt  @id @map("user_id")
   description String?
   pronouns    String?
   website     String?
   location    String?
   birthday    String?
+
+  @@map("profiles")
 }
 
-model shop_items {
-  item_id     Int
-  guild_id    BigInt
+model ShopItem {
+  itemId      Int     @map("item_id")
+  guildId     BigInt  @map("guild_id")
   name        String
   description String
   role        BigInt?
   price       Float
 
-  @@id([item_id, guild_id])
+  @@id([itemId, guildId])
+  @@map("shop_items")
 }
