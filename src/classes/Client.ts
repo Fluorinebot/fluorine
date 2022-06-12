@@ -85,6 +85,7 @@ export default class FluorineClient extends Client {
             backend: { loadPath: join(__dirname, '/../../i18n/{{lng}}.json') }
         });
 
+        await this.prisma.$connect();
         await this.db.connect();
         this.restModule.setToken(process.env.DISCORD_TOKEN);
         this.login();
@@ -95,6 +96,7 @@ export default class FluorineClient extends Client {
 
         process.on('exit', async () => {
             await this.db.end();
+            await this.prisma.$disconnect();
         });
     }
 }
