@@ -46,7 +46,7 @@ model EconomyProfile {
   guildId   BigInt @map("guild_id")
   userId    BigInt @map("user_id")
   walletBal Int    @map("wallet_bal")
-  bankBal   Int    @map("bankBal")
+  bankBal   Int    @map("bank_bal")
 
   @@id([guildId, userId])
   @@map("economy")
