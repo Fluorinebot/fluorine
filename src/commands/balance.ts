@@ -12,11 +12,11 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         .setLocaleTitle('BALANCE')
         .addLocaleField({
             name: 'BALANCE_WALLET',
-            value: `${balance.wallet_bal} ${currency}`
+            value: `${balance.walletBal} ${currency}`
         })
         .addLocaleField({
             name: 'BALANCE_BANK',
-            value: `${balance.bank_bal} ${currency}`
+            value: `${balance.bankBal} ${currency}`
         });
 
     interaction.reply({ embeds: [embed], ephemeral: true });

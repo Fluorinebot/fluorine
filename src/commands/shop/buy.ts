@@ -11,7 +11,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         return interaction.reply(client.i18n.t('SHOP_BUY_NOT_FOUND', { lng: interaction.locale }));
     }
 
-    if (itemObj.price > user.wallet_bal) {
+    if (itemObj.price > user.walletBal) {
         return interaction.reply(client.i18n.t('SHOP_BUY_NOT_ENOUGH', { lng: interaction.locale }));
     }
 
