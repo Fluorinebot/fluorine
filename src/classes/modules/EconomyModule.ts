@@ -49,9 +49,7 @@ export default class EconomyModule {
                     userId: BigInt(user.id)
                 }
             },
-            data: {
-                walletBal: userObj.walletBal + amount
-            }
+            data: { walletBal: userObj.walletBal + amount }
         });
 
         return query;
@@ -70,9 +68,7 @@ export default class EconomyModule {
                     userId: BigInt(user.id)
                 }
             },
-            data: {
-                walletBal: userObj.walletBal - amount
-            }
+            data: { walletBal: userObj.walletBal - amount }
         });
 
         return query;
