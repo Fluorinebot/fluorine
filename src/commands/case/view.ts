@@ -16,8 +16,8 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         });
     }
 
-    const user = await client.users.fetch(caseObj.moderated_user.toString());
-    const creator = await client.users.fetch(caseObj.case_creator.toString());
+    const user = await client.users.fetch(caseObj.moderatedUser.toString());
+    const creator = await client.users.fetch(caseObj.caseCreator.toString());
 
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('CASE_TITLE', { id })

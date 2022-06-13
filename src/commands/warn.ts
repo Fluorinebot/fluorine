@@ -45,7 +45,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         .addLocaleField({ name: 'WARN_MODERATOR', value: interaction.user.tag })
         .addLocaleField({ name: 'WARN_USER', value: member.user.tag })
         .addLocaleField({ name: 'REASON', value: reason })
-        .addLocaleField({ name: 'CASE_ID', value: caseObj.case_id.toString() });
+        .addLocaleField({ name: 'CASE_ID', value: caseObj.caseId.toString() });
 
     interaction.reply({ embeds: [embed] });
     client.cases.logToModerationChannel(interaction.guildId, caseObj);

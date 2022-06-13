@@ -47,6 +47,11 @@ export default class ShopModule {
     }
 
     async delete(guild: string, name: string) {
-        await this.client.db.query('DELETE FROM shop_items WHERE guild_id = $1 AND name = $2', [BigInt(guild), name]);
+        await this.table.deleteMany({
+            where: {
+                guildId: BigInt(guild),
+                name
+            }
+        });
     }
 }

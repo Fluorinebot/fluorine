@@ -33,13 +33,13 @@ export default class FluorineClient extends Client {
     cooldowns = new CooldownHandler(this);
     cmds = new CommandHandler(this);
 
+    prisma = new PrismaClient();
+
     economy = new EconomyModule(this);
     phishing = new PhishingModule(this);
     shop = new ShopModule(this);
     ai = new AIModule(this);
     cases = new CasesModule(this);
-
-    prisma = new PrismaClient();
 
     version = process.env.npm_package_version;
     devs = ['707675871355600967', '478823932913516544', '348591272476540928'];
