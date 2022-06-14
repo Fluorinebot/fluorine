@@ -11,13 +11,7 @@ export default class CasesModule {
         this.table = this.client.prisma.case;
     }
 
-    async create(
-        guildId: string,
-        moderatedUser: User,
-        caseCreator: User,
-        type: 'ban' | 'kick' | 'timeout' | 'warn',
-        reason: string
-    ) {
+    async create(guildId: string, moderatedUser: User, caseCreator: User, type: string, reason: string) {
         const [fetchedId] = await this.table.findMany({
             where: { guildId: BigInt(guildId) },
             orderBy: { caseId: 'desc' },
