@@ -25,7 +25,7 @@ export async function run(client: FluorineClient) {
         });
 
         if (!config.length) {
-            client.prisma.config.create({
+            await client.prisma.config.create({
                 data: {
                     guildId: BigInt(guild.id),
                     prefix: process.env.DISCORD_PREFIX,
