@@ -19,6 +19,7 @@
         "arrow-spacing": "error",
         "block-spacing": "error",
         "brace-style": "error",
+        "camelcase": "error",
         "comma-dangle": "error",
         "comma-spacing": "error",
         "comma-style": ["error", "last"],

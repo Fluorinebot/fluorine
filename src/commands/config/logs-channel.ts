@@ -3,15 +3,18 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 import { ChannelType } from 'discord-api-types/v10';
-import { Config } from 'types/databaseTables';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const value = interaction.options.getChannel('channel').id;
 
-    await client.db.query<Config>('UPDATE config SET logs_channel = $1 WHERE guild_id = $2', [
-        BigInt(value),
-        BigInt(interaction.guildId)
-    ]);
+    await client.prisma.config.update({
+        where: {
+            guildId: BigInt(interaction.guildId)
+        },
+        data: {
+            logsChannel: BigInt(value)
+        }
+    });
 
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('CONFIG_SET_SUCCESS_TITLE')
@@ -21,6 +24,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             }),
             value
         });
+
     interaction.reply({ embeds: [embed] });
 }
 
