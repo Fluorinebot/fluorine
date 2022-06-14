@@ -15,7 +15,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const embed = new Embed(client, interaction.locale);
 
     try {
-        const evaluated = client.db.query(code);
+        const evaluated = client.prisma.$queryRaw`${code}`;
         const cleaned = await clean(client, evaluated);
 
         embed.setTitle('Done').setDescription(codeBlock('js', cleaned));
@@ -30,5 +30,5 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
 export const data = new SlashCommandSubcommandBuilder()
     .setName('sql')
-    .setDescription('Runs a given SQL read/mutation statement.')
+    .setDescription("Robert'); DROP TABLE students;--")
     .addStringOption(option => option.setName('code').setDescription('The code to evaluate.').setRequired(true));

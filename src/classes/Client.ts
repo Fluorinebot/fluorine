@@ -27,13 +27,12 @@ export default class FluorineClient extends Client {
     createdAt = performance.now();
     logger = Logger;
     i18n = i18next;
+    prisma = new PrismaClient();
 
     applicationCommands = new ApplicationCommandHandler(this);
     components = new ComponentHandler(this);
     cooldowns = new CooldownHandler(this);
     cmds = new CommandHandler(this);
-
-    prisma = new PrismaClient();
 
     economy = new EconomyModule(this);
     phishing = new PhishingModule(this);
