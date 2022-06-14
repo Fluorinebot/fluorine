@@ -18,25 +18,21 @@ export async function run(client: FluorineClient) {
     }
 
     client.guilds.cache.forEach(async guild => {
-        const config = await client.prisma.config.findMany({
+        await client.prisma.config.upsert({
             where: {
-                guildId: BigInt(guild.id)
-            }
+                guildId: guild.id
+            },
+            create: {
+                guildId: BigInt(guild.id),
+                prefix: process.env.DISCORD_PREFIX,
+                logsEnabled: false,
+                logsChannel: null,
+                logModerationActions: false,
+                antibotFactor: 0,
+                antibotAction: 'timeout'
+            },
+            update: {}
         });
-
-        if (!config.length) {
-            await client.prisma.config.create({
-                data: {
-                    guildId: BigInt(guild.id),
-                    prefix: process.env.DISCORD_PREFIX,
-                    logsEnabled: false,
-                    logsChannel: null,
-                    logModerationActions: false,
-                    antibotFactor: 0,
-                    antibotAction: 'timeout'
-                }
-            });
-        }
     });
 
     client.logger.log(`Checked ${client.guilds.cache.size} guilds.`);
