@@ -20,7 +20,7 @@ export async function run(client: FluorineClient) {
     client.guilds.cache.forEach(async guild => {
         await client.prisma.config.upsert({
             where: {
-                guildId: guild.id
+                guildId: BigInt(guild.id)
             },
             create: {
                 guildId: BigInt(guild.id),
