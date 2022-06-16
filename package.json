@@ -41,14 +41,12 @@
         "i18next-fs-backend": "^1.1.4",
         "ms": "^3.0.0-canary.1",
         "murmurhash-v3": "^1.0.2",
-        "pg": "^8.7.3",
         "picocolors": "^1.0.0",
         "utf-8-validate": "^5.0.9",
         "zlib-sync": "^0.1.7"
     },
     "devDependencies": {
         "@types/i18next-fs-backend": "^1.1.2",
-        "@types/pg": "^8.6.5",
         "@typescript-eslint/eslint-plugin": "^5.27.0",
         "@typescript-eslint/parser": "^5.27.0",
         "eslint": "^8.17.0",

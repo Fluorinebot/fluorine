@@ -1,5 +1,4 @@
 import { Client, Intents } from 'discord.js';
-import { Client as Database } from 'pg';
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
 import { REST } from '@discordjs/rest';
@@ -45,7 +44,6 @@ export default class FluorineClient extends Client {
     support = process.env.DISCORD_SUPPORT_INVITE;
 
     restModule = new REST({ version: '10' });
-    db = new Database();
 
     constructor() {
         super({
@@ -85,7 +83,6 @@ export default class FluorineClient extends Client {
         });
 
         await this.prisma.$connect();
-        await this.db.connect();
         this.restModule.setToken(process.env.DISCORD_TOKEN);
         this.login();
 
@@ -94,7 +91,6 @@ export default class FluorineClient extends Client {
         });
 
         process.on('exit', async () => {
-            await this.db.end();
             await this.prisma.$disconnect();
         });
     }
