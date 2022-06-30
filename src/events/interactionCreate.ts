@@ -35,10 +35,10 @@ export async function run(client: FluorineClient, interaction: Interaction) {
         const command = client.applicationCommands.chatInput.get(key);
         const { dev } = client.applicationCommands.chatInput.get(interaction.commandName) as ChatInputCommand;
 
-        if (await client.cooldowns.has(interaction.user, key)) {
+        if (command.cooldown) {
             const cooldown = await client.cooldowns.get(interaction.user, key);
 
-            if (cooldown.timestamp > Date.now()) {
+            if (cooldown?.timestamp > Date.now()) {
                 return interaction.reply({
                     content: client.i18n.t('INTERACTION_CREATE_COOLDOWN', {
                         lng: interaction.locale,
@@ -48,7 +48,7 @@ export async function run(client: FluorineClient, interaction: Interaction) {
                 });
             }
 
-            if (cooldown.timestamp <= Date.now()) {
+            if (cooldown?.timestamp <= Date.now()) {
                 await client.cooldowns.delete(interaction.user, key);
             }
         }
@@ -61,6 +61,9 @@ export async function run(client: FluorineClient, interaction: Interaction) {
         }
 
         command.run(client, interaction);
-        client.cooldowns.set(interaction.user, key, command.cooldown);
+
+        if (command.cooldown) {
+            client.cooldowns.set(interaction.user, key, command.cooldown);
+        }
     }
 }
