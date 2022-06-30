@@ -39,7 +39,7 @@ export default class EconomyModule {
     async add(guild: string, user: User, amount: number) {
         const userObj = await this.get(guild, user);
         if (!userObj) {
-            return this.createProfile(guild, user, { walletBal: amount, bankBal: 0 });
+            return this.createProfile(guild, user, { walletBal: amount });
         }
 
         const query = await this.table.update({
@@ -58,7 +58,7 @@ export default class EconomyModule {
     async subtract(guild: string, user: User, amount: number) {
         const userObj = await this.get(guild, user);
         if (!userObj) {
-            return this.createProfile(guild, user, { walletBal: 0 - amount, bankBal: 0 });
+            return this.createProfile(guild, user, { walletBal: 0 - amount });
         }
 
         const query = await this.table.update({
