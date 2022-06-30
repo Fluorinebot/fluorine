@@ -19,12 +19,12 @@ export default class ShopModule {
         return query;
     }
 
-    async get(guild: string, item: string) {
-        const query = await this.table.findFirst({
-            where: { guildId: BigInt(guild), name: item }
+    async get(guild: string, name: string) {
+        const item = await this.table.findFirst({
+            where: { guildId: BigInt(guild), name }
         });
 
-        return query;
+        return item;
     }
 
     async add(obj: ShopItemConstructor) {

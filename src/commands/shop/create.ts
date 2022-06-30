@@ -25,6 +25,12 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         });
     }
 
+    const existingItem = await client.shop.get(interaction.guildId, name);
+
+    if (existingItem) {
+        return interaction.reply({ content: client.i18n.t('SHOP_CREATE_EXISTS') });
+    }
+
     if (name.length > 19) {
         return interaction.reply(
             client.i18n.t('SHOP_CREATE_NAME_INVALID', {
