@@ -10,19 +10,6 @@ export default class EconomyModule {
         this.table = this.client.prisma.economyProfile;
     }
 
-    private async createProfile(guild: string, user: User, objectOverrides?: { walletBal?: number; bankBal?: number }) {
-        const query = this.table.create({
-            data: {
-                guildId: BigInt(guild),
-                userId: BigInt(user.id),
-                walletBal: objectOverrides?.walletBal ?? 0,
-                bankBal: objectOverrides?.bankBal ?? 0
-            }
-        });
-
-        return query;
-    }
-
     async get(guild: string, user: User): Promise<EconomyProfile | undefined> {
         const query = this.table.findUnique({
             where: {
@@ -37,59 +24,66 @@ export default class EconomyModule {
     }
 
     async add(guild: string, user: User, amount: number) {
-        const userObj = await this.get(guild, user);
-        if (!userObj) {
-            return this.createProfile(guild, user, { walletBal: amount });
-        }
-
-        const query = await this.table.update({
+        const query = await this.table.upsert({
             where: {
                 guildId_userId: {
                     guildId: BigInt(guild),
                     userId: BigInt(user.id)
                 }
             },
-            data: { walletBal: userObj.walletBal + amount }
+            update: {
+                walletBal: { increment: amount }
+            },
+            create: {
+                guildId: BigInt(guild),
+                userId: BigInt(user.id),
+                walletBal: amount,
+                bankBal: 0
+            }
         });
 
         return query;
     }
 
     async subtract(guild: string, user: User, amount: number) {
-        const userObj = await this.get(guild, user);
-        if (!userObj) {
-            return this.createProfile(guild, user, { walletBal: 0 - amount });
-        }
-
-        const query = await this.table.update({
+        const query = await this.table.upsert({
             where: {
                 guildId_userId: {
                     guildId: BigInt(guild),
                     userId: BigInt(user.id)
                 }
             },
-            data: { walletBal: userObj.walletBal - amount }
+            update: {
+                walletBal: { decrement: amount }
+            },
+            create: {
+                guildId: BigInt(guild),
+                userId: BigInt(user.id),
+                walletBal: 0 - amount,
+                bankBal: 0
+            }
         });
 
         return query;
     }
 
     async deposit(guild: string, user: User, amount: number) {
-        const userObj = await this.get(guild, user);
-        if (!userObj) {
-            return this.createProfile(guild, user, { walletBal: 0 - amount, bankBal: 0 + amount });
-        }
-
-        const query = await this.table.update({
+        const query = await this.table.upsert({
             where: {
                 guildId_userId: {
                     guildId: BigInt(guild),
                     userId: BigInt(user.id)
                 }
             },
-            data: {
-                walletBal: userObj.walletBal - amount,
-                bankBal: userObj.bankBal + amount
+            update: {
+                walletBal: { decrement: amount },
+                bankBal: { increment: amount }
+            },
+            create: {
+                guildId: BigInt(guild),
+                userId: BigInt(user.id),
+                walletBal: 0 - amount,
+                bankBal: 0 + amount
             }
         });
 
@@ -97,21 +91,22 @@ export default class EconomyModule {
     }
 
     async withdraw(guild: string, user: User, amount: number) {
-        const userObj = await this.get(guild, user);
-        if (!userObj) {
-            return this.createProfile(guild, user, { walletBal: 0 + amount, bankBal: 0 - amount });
-        }
-
-        const query = await this.table.update({
+        const query = await this.table.upsert({
             where: {
                 guildId_userId: {
                     guildId: BigInt(guild),
                     userId: BigInt(user.id)
                 }
             },
-            data: {
-                walletBal: userObj.walletBal + amount,
-                bankBal: userObj.bankBal - amount
+            update: {
+                walletBal: { increment: amount },
+                bankBal: { decrement: amount }
+            },
+            create: {
+                guildId: BigInt(guild),
+                userId: BigInt(user.id),
+                walletBal: 0 + amount,
+                bankBal: 0 - amount
             }
         });
 
