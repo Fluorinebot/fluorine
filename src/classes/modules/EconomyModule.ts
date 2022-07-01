@@ -11,12 +11,19 @@ export default class EconomyModule {
     }
 
     async get(guild: string, user: User): Promise<EconomyProfile | undefined> {
-        const query = this.table.findUnique({
+        const query = this.table.upsert({
             where: {
                 guildId_userId: {
                     guildId: BigInt(guild),
                     userId: BigInt(user.id)
                 }
+            },
+            update: {},
+            create: {
+                guildId: BigInt(guild),
+                userId: BigInt(user.id),
+                walletBal: 0,
+                bankBal: 0
             }
         });
 
