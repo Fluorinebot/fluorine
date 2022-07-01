@@ -71,7 +71,7 @@ export async function getEmbed(client: FluorineClient, interaction: Interaction,
             })
             .addLocaleField({
                 name: 'INFO_STATS_COMMANDS',
-                value: client.applicationCommands.chatInput.size.toString(),
+                value: client.commands.chatInput.size.toString(),
                 inline: true
             })
             .addLocaleField({

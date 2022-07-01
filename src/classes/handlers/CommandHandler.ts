@@ -1,23 +1,68 @@
-import { readdirSync } from 'fs';
-import { Command } from 'types/command';
+import { ChatInputCommand, ChatInputSubcommand, ContextMenuCommand } from 'types/structures';
 import { Collection } from 'discord.js';
 import FluorineClient from '@classes/Client';
-export default class CommandHandler extends Collection<string, Command> {
-    client: FluorineClient;
-    constructor(client) {
-        super();
+import { loadDirectory, loadParentDirectory } from '@util/files';
+import { SlashCommandBuilder, SlashCommandSubcommandBuilder } from '@discordjs/builders';
+
+export default class CommandHandler {
+    chatInput = new Collection<string, ChatInputCommand | ChatInputSubcommand>();
+    contextMenu = new Collection<string, ContextMenuCommand>();
+
+    constructor(private client: FluorineClient) {
         this.client = client;
     }
-    loadCommands() {
-        const dir = readdirSync(`${__dirname}/../../cmds`);
-        dir.forEach(async file => {
-            if (!file.endsWith('.js')) {
-                return;
+
+    private addFullBuilder(command: ChatInputCommand | ChatInputSubcommand) {
+        if ('category' in command) {
+            const subcommandNames = [...this.chatInput.keys()].filter(c => c.startsWith(`${command.data.name}/`));
+
+            const subcommands = subcommandNames.map(subcommandName => {
+                const subcommand = this.chatInput.get(subcommandName);
+                if (!('category' in subcommand)) {
+                    return subcommand.data;
+                }
+            });
+
+            this.getMergedCommandData(command.data, subcommands);
+        }
+    }
+
+    private getMergedCommandData(base: SlashCommandBuilder, data: SlashCommandSubcommandBuilder[] = []) {
+        for (const subcommand of data) {
+            if (subcommand && (process.env.NODE_ENV === 'development' || subcommand.name !== 'eval')) {
+                base.addSubcommand(subcommand);
             }
-            const [name] = file.split('.');
-            this.set(name, await import(`${__dirname}/../../cmds/${file}`));
-        });
-        this.client.logger.log(`Loaded ${dir.length} text commands`);
-        return this;
+        }
+
+        return base;
+    }
+
+    async loadChatInput() {
+        const [commands, subcommands] = await loadParentDirectory<ChatInputCommand, ChatInputSubcommand>('../commands');
+
+        for (const command of commands) {
+            this.chatInput.set(command.data.name, command);
+        }
+
+        for (const subcommand of subcommands) {
+            const [key] = subcommand.name.endsWith('index') ? subcommand.name.split('/') : [subcommand.name];
+            this.chatInput.set(key, subcommand.data);
+        }
+
+        this.chatInput.forEach(c => this.addFullBuilder(c));
+
+        const commandsLoaded = [...this.chatInput.keys()].filter(key => !key.includes('/'));
+        this.client.logger.log(`Loaded ${commandsLoaded.length} chat input commands.`);
+        return this.chatInput;
+    }
+
+    async loadContextMenu() {
+        const files = await loadDirectory<ContextMenuCommand>('../context');
+        for (const file of files) {
+            this.contextMenu.set(file.data.data.name, file.data);
+        }
+
+        this.client.logger.log(`Loaded ${files.length} context menu commands.`);
+        return this.contextMenu;
     }
 }

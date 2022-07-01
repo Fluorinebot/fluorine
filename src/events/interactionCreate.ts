@@ -18,7 +18,7 @@ export async function run(client: FluorineClient, interaction: Interaction) {
 
         component?.run(client, interaction, value);
     } else if (interaction.isContextMenu()) {
-        const contextCommand = client.applicationCommands.contextMenu.get(interaction.commandName);
+        const contextCommand = client.commands.contextMenu.get(interaction.commandName);
 
         if (contextCommand.dev && !client.devs.includes(interaction.user.id)) {
             return interaction.reply({
@@ -32,8 +32,8 @@ export async function run(client: FluorineClient, interaction: Interaction) {
         const subcommand = interaction.options.getSubcommand(false);
         const key = subcommand ? `${interaction.commandName}/${subcommand}` : interaction.commandName;
 
-        const command = client.applicationCommands.chatInput.get(key);
-        const { dev } = client.applicationCommands.chatInput.get(interaction.commandName) as ChatInputCommand;
+        const command = client.commands.chatInput.get(key);
+        const { dev } = client.commands.chatInput.get(interaction.commandName) as ChatInputCommand;
 
         if (command.cooldown) {
             const cooldown = await client.cooldowns.get(interaction.user, key);

@@ -85,9 +85,6 @@ export async function run(client: FluorineClient, message: Message) {
                 ]
             });
         }
-
-        const code = client.cmds.get(command);
-        code?.run(client, message, args);
     } else if (message.content === `<@!${client.user.id}>` || message.content === `<@${client.user.id}>`) {
         const embed = new Embed(client, message.guild.preferredLocale).setDescription(
             "<:SlashCommands:934768130474004500> Fluorine now uses slash commands. Use `/help` to view my commands. If you can't see slash commands, re-invite the bot."

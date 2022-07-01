@@ -11,8 +11,7 @@ import { performance } from 'perf_hooks';
 import { PrismaClient } from '@prisma/client';
 
 import EventHandler from '@handlers/EventHandler';
-import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
-import CommandHandler from '@handlers/CommandHandler';
+import CommandHandler from '@classes/handlers/CommandHandler';
 import ComponentHandler from '@handlers/ComponentHandler';
 import CooldownHandler from '@handlers/CooldownHandler';
 
@@ -28,10 +27,9 @@ export default class FluorineClient extends Client {
     i18n = i18next;
     prisma = new PrismaClient();
 
-    applicationCommands = new ApplicationCommandHandler(this);
+    commands = new CommandHandler(this);
     components = new ComponentHandler(this);
     cooldowns = new CooldownHandler(this);
-    cmds = new CommandHandler(this);
 
     economy = new EconomyModule(this);
     phishing = new PhishingModule(this);
@@ -67,14 +65,11 @@ export default class FluorineClient extends Client {
     async init() {
         this.logger.log(`Starting ${bold(red(process.env.NODE_ENV))} build...`);
 
-        this.applicationCommands.loadChatInput();
-        this.applicationCommands.loadContextMenu();
+        this.commands.loadChatInput();
+        this.commands.loadContextMenu();
 
         this.components.loadComponents();
         new EventHandler(this).loadEvents();
-
-        // TODO: remove prefix commands a month after 2.0
-        this.cmds.loadCommands();
 
         await this.i18n.use(Backend).init({
             fallbackLng: 'en-US',
