@@ -6,7 +6,6 @@ import { loadDirectory } from '@util/files';
 export default class ComponentHandler extends Collection<string, Component> {
     constructor(private client: FluorineClient) {
         super();
-        this.client = client;
     }
 
     async loadComponents() {

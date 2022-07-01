@@ -19,7 +19,8 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         return interaction.reply({
             content: client.i18n.t('SHOP_DELETE_PERMISSIONS', {
                 lng: interaction.locale
-            })
+            }),
+            ephemeral: true
         });
     }
 

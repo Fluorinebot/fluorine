@@ -5,6 +5,8 @@ import { Routes } from 'discord-api-types/v10';
 import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
+    await interaction.deferReply();
+
     const name = interaction.options.getString('command');
     let guildId = interaction.options.getString('guild');
     const command = client.applicationCommands.chatInput.get(name) ?? client.applicationCommands.contextMenu.get(name);
@@ -24,8 +26,6 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
     try {
         if (name === 'all') {
-            await interaction.deferReply();
-
             const { commands } = guildId ? client.guilds.cache.get(guildId) : client.application;
 
             // @ts-expect-error
@@ -49,14 +49,14 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
                 body: command.data.toJSON()
             });
 
-            interaction.reply(`Added \`${command.data.name}\``);
+            interaction.editReply(`Added \`${command.data.name}\``);
         }
     } catch (error) {
         const embed = new Embed(client, interaction.locale)
             .setTitle('Failed')
             .setDescription(`\`\`\`js\n${error}\`\`\``);
 
-        interaction.deferred ? interaction.editReply({ embeds: [embed] }) : interaction.reply({ embeds: [embed] });
+        interaction.editReply({ embeds: [embed] });
     }
 }
 

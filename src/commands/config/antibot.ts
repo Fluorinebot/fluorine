@@ -2,15 +2,18 @@ import { CommandInteraction } from 'discord.js';
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
-import { Config } from 'types/databaseTables';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const value = interaction.options.getInteger('factor');
 
-    await client.db.query<Config>('UPDATE config SET antibot_factor = $1 WHERE guild_id = $2', [
-        value,
-        BigInt(interaction.guild.id)
-    ]);
+    await client.prisma.config.update({
+        where: {
+            guildId: BigInt(interaction.guildId)
+        },
+        data: {
+            antibotFactor: value
+        }
+    });
 
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('CONFIG_SET_SUCCESS_TITLE')

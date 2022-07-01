@@ -2,15 +2,9 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
-import { Profile } from 'types/databaseTables';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
-    const profile =
-        (
-            await client.db.query<Profile>('SELECT user_id FROM profiles WHERE user_id = $1;', [
-                BigInt(interaction.user.id)
-            ])
-        ).rows.length === 1;
+    const table = client.prisma.profile;
 
     const field = interaction.options.getString('field');
     const value = interaction.options.getString('value');
@@ -30,17 +24,14 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
                 break;
             }
 
-            if (profile) {
-                await client.db.query('UPDATE profiles SET birthday = $1 WHERE user_id = $2', [
-                    value,
-                    BigInt(interaction.user.id)
-                ]);
-            } else {
-                await client.db.query(
-                    'INSERT INTO profiles(user_id, description, pronouns, website, location, birthday) VALUES($1, null, null, null, null, $2)',
-                    [BigInt(interaction.user.id), value]
-                );
-            }
+            await table.upsert({
+                where: { userId: BigInt(interaction.user.id) },
+                update: { birthday },
+                create: {
+                    userId: BigInt(interaction.user.id),
+                    birthday
+                }
+            });
 
             const embed = new Embed(client, interaction.locale)
                 .setLocaleTitle('PROFILE_SUCCESS')
@@ -60,17 +51,14 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
                 });
             }
 
-            if (profile) {
-                await client.db.query('UPDATE profiles SET location = $1 WHERE user_id = $2', [
-                    value,
-                    BigInt(interaction.user.id)
-                ]);
-            } else {
-                await client.db.query(
-                    'INSERT INTO profiles(user_id, description, pronouns, website, location, birthday) VALUES($1, null, null, null, $2, null)',
-                    [BigInt(interaction.user.id), value]
-                );
-            }
+            await table.upsert({
+                where: { userId: BigInt(interaction.user.id) },
+                update: { location: value },
+                create: {
+                    userId: BigInt(interaction.user.id),
+                    location: value
+                }
+            });
 
             const embed = new Embed(client, interaction.locale)
                 .setLocaleTitle('PROFILE_SUCCESS')
@@ -95,17 +83,14 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
                 );
             }
 
-            if (profile) {
-                await client.db.query('UPDATE profiles SET website = $1 WHERE user_id = $2', [
-                    value,
-                    BigInt(interaction.user.id)
-                ]);
-            } else {
-                await client.db.query(
-                    'INSERT INTO profiles(user_id, description, pronouns, website, location, birthday) VALUES($1, null, null, $2, null, null)',
-                    [BigInt(interaction.user.id), value]
-                );
-            }
+            await table.upsert({
+                where: { userId: BigInt(interaction.user.id) },
+                update: { website },
+                create: {
+                    userId: BigInt(interaction.user.id),
+                    website
+                }
+            });
 
             const embed = new Embed(client, interaction.locale)
                 .setLocaleTitle('PROFILE_SUCCESS')
@@ -126,17 +111,14 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
                 });
             }
 
-            if (profile) {
-                await client.db.query('UPDATE profiles SET pronouns = $1 WHERE user_id = $2', [
-                    value,
-                    BigInt(interaction.user.id)
-                ]);
-            } else {
-                await client.db.query(
-                    'INSERT INTO profiles(user_id, description, pronouns, website, location, birthday) VALUES($1, null, $2, null, null, null)',
-                    [BigInt(interaction.user.id), value]
-                );
-            }
+            await table.upsert({
+                where: { userId: BigInt(interaction.user.id) },
+                update: { pronouns },
+                create: {
+                    userId: BigInt(interaction.user.id),
+                    pronouns
+                }
+            });
 
             const embed = new Embed(client, interaction.locale)
                 .setLocaleTitle('PROFILE_SUCCESS')
@@ -159,17 +141,14 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
                 });
             }
 
-            if (profile) {
-                await client.db.query('UPDATE profiles SET description = $1 WHERE user_id = $2', [
-                    value,
-                    BigInt(interaction.user.id)
-                ]);
-            } else {
-                await client.db.query(
-                    'INSERT INTO profiles(user_id, description, pronouns, website, location, birthday) VALUES($1, $2, null, null, null, null)',
-                    [BigInt(interaction.user.id), value]
-                );
-            }
+            await table.upsert({
+                where: { userId: BigInt(interaction.user.id) },
+                update: { description },
+                create: {
+                    userId: BigInt(interaction.user.id),
+                    description
+                }
+            });
 
             const embed = new Embed(client, interaction.locale)
                 .setLocaleTitle('PROFILE_SUCCESS')

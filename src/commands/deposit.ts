@@ -7,7 +7,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const toDeposit = interaction.options.getInteger('amount');
     const balance = await client.economy.get(interaction.guildId, interaction.user);
 
-    if (balance.wallet_bal < toDeposit) {
+    if (balance.walletBal < toDeposit) {
         return interaction.reply({
             content: client.i18n.t('DEPOSIT_NOT_ENOUGH', {
                 lng: interaction.locale

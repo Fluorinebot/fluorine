@@ -3,7 +3,6 @@ import { CommandInteraction, MessageAttachment } from 'discord.js';
 import canvas from 'canvas';
 import { fragmentText } from '@util/fragmentText';
 import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
-import { Profile } from 'types/databaseTables';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const user = interaction.options.getUser('user') ?? interaction.user;
@@ -12,15 +11,11 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     };
 
     const notSet = client.i18n.t('PROFILE_NOT_SET', localeOptions);
-
-    const [profile] = (await client.db.query<Profile>('SELECT * FROM profiles WHERE user_id = $1', [BigInt(user.id)]))
-        .rows;
+    const profile = await client.prisma.profile.findUnique({ where: { userId: BigInt(user.id) } });
 
     if (profile?.birthday) {
-        const [month, day] = profile.birthday.split('/');
+        const [day, month] = profile.birthday.split('/');
         profile.birthday = `${client.i18n.t(`MONTHS.${parseInt(month) - 1}`, localeOptions)} ${day}`;
-    } else {
-        profile.birthday = notSet;
     }
 
     canvas.registerFont(`${__dirname}/../../../assets/Inter-Light.ttf`, {
@@ -82,7 +77,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
     // Pronouns
     ctx.font = 'bold 50px "Poppins"';
-    ctx.fillText(profile?.pronouns || notSet, 1150, 83);
+    ctx.fillText(profile?.pronouns ?? '', 1150, 83);
 
     // User avatar
     ctx.arc(85, 62, 55, 0, Math.PI * 2, true);

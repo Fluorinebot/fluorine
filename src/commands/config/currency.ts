@@ -2,14 +2,18 @@ import { CommandInteraction } from 'discord.js';
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
-import { Config } from 'types/databaseTables';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const value = interaction.options.getString('currency');
-    await client.db.query<Config>('UPDATE config SET currency = $1 WHERE guild_id = $2', [
-        value,
-        BigInt(interaction.guildId)
-    ]);
+
+    await client.prisma.config.update({
+        where: {
+            guildId: BigInt(interaction.guildId)
+        },
+        data: {
+            currency: value
+        }
+    });
 
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('CONFIG_SET_SUCCESS_TITLE')
