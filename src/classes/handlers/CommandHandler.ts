@@ -29,7 +29,7 @@ export default class CommandHandler {
 
     private getMergedCommandData(base: SlashCommandBuilder, data: SlashCommandSubcommandBuilder[] = []) {
         for (const subcommand of data) {
-            if (subcommand && (process.env.NODE_ENV === 'development' || subcommand.name !== 'eval')) {
+            if (subcommand) {
                 base.addSubcommand(subcommand);
             }
         }
