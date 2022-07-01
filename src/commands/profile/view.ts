@@ -77,7 +77,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
     // Pronouns
     ctx.font = 'bold 50px "Poppins"';
-    ctx.fillText(profile?.pronouns || '', 1150, 83);
+    ctx.fillText(profile?.pronouns ?? '', 1150, 83);
 
     // User avatar
     ctx.arc(85, 62, 55, 0, Math.PI * 2, true);
