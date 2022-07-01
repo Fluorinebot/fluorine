@@ -42,3 +42,11 @@ export interface AIQueue {
     interaction: CommandInteraction | ContextMenuInteraction;
     text: string;
 }
+
+export interface ShopItemConstructor {
+    guildId: bigint;
+    name: string;
+    description: string;
+    price: number;
+    role?: bigint;
+}

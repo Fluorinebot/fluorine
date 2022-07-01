@@ -2,21 +2,24 @@ import { CommandInteraction } from 'discord.js';
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
-import { Config } from 'types/databaseTables';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
-    const prefix = interaction.options.getString('prefix');
+    const value = interaction.options.getString('prefix');
 
-    await client.db.query<Config>('UPDATE config SET prefix = $1 WHERE guild_id = $2', [
-        prefix,
-        BigInt(interaction.guildId)
-    ]);
+    await client.prisma.config.update({
+        where: {
+            guildId: BigInt(interaction.guildId)
+        },
+        data: {
+            prefix: value
+        }
+    });
 
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('CONFIG_SET_SUCCESS_TITLE')
         .setLocaleDescription('CONFIG_SET_SUCCESS_DESCRIPTION', {
             key: client.i18n.t('CONFIG_PREFIX', { lng: interaction.locale }),
-            value: prefix
+            value
         });
 
     interaction.reply({ embeds: [embed] });

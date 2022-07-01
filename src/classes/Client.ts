@@ -1,5 +1,4 @@
 import { Client, Intents } from 'discord.js';
-import { Client as Database } from 'pg';
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
 import { REST } from '@discordjs/rest';
@@ -8,6 +7,8 @@ import { Logger } from '@classes/Logger';
 import { join } from 'path';
 import { bold, red } from 'picocolors';
 import { performance } from 'perf_hooks';
+
+import { PrismaClient } from '@prisma/client';
 
 import EventHandler from '@handlers/EventHandler';
 import ApplicationCommandHandler from '@handlers/ApplicationCommandHandler';
@@ -25,6 +26,7 @@ export default class FluorineClient extends Client {
     createdAt = performance.now();
     logger = Logger;
     i18n = i18next;
+    prisma = new PrismaClient();
 
     applicationCommands = new ApplicationCommandHandler(this);
     components = new ComponentHandler(this);
@@ -42,7 +44,6 @@ export default class FluorineClient extends Client {
     support = process.env.DISCORD_SUPPORT_INVITE;
 
     restModule = new REST({ version: '10' });
-    db = new Database();
 
     constructor() {
         super({
@@ -81,7 +82,7 @@ export default class FluorineClient extends Client {
             backend: { loadPath: join(__dirname, '/../../i18n/{{lng}}.json') }
         });
 
-        await this.db.connect();
+        await this.prisma.$connect();
         this.restModule.setToken(process.env.DISCORD_TOKEN);
         this.login();
 
@@ -90,7 +91,7 @@ export default class FluorineClient extends Client {
         });
 
         process.on('exit', async () => {
-            await this.db.end();
+            await this.prisma.$disconnect();
         });
     }
 }

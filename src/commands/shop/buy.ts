@@ -8,11 +8,17 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const user = await client.economy.get(interaction.guildId, interaction.user);
 
     if (!itemObj) {
-        return interaction.reply(client.i18n.t('SHOP_BUY_NOT_FOUND', { lng: interaction.locale }));
+        return interaction.reply({
+            content: client.i18n.t('SHOP_BUY_NOT_FOUND', { lng: interaction.locale }),
+            ephemeral: true
+        });
     }
 
-    if (itemObj.price > user.wallet_bal) {
-        return interaction.reply(client.i18n.t('SHOP_BUY_NOT_ENOUGH', { lng: interaction.locale }));
+    if (itemObj.price > user.walletBal) {
+        return interaction.reply({
+            content: client.i18n.t('SHOP_BUY_NOT_ENOUGH', { lng: interaction.locale }),
+            ephemeral: true
+        });
     }
 
     interaction.reply(

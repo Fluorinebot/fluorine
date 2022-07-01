@@ -1,84 +1,70 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
+import { Prisma } from '@prisma/client';
 import { User } from 'discord.js';
-import { Case, Config } from 'types/databaseTables';
 
 export default class CasesModule {
+    table: Prisma.CaseDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;
+
     constructor(private client: FluorineClient) {
         this.client = client;
+        this.table = this.client.prisma.case;
     }
 
-    async create(guild: string, user: User, creator: User, type: 'ban' | 'kick' | 'timeout' | 'warn', reason: string) {
-        const [fetchedId] = (
-            await this.client.db.query<Case>(
-                'SELECT case_id FROM cases WHERE guild_id = $1 ORDER BY case_id DESC LIMIT 1',
-                [BigInt(guild)]
-            )
-        ).rows;
+    async create(guildId: string, moderatedUser: User, caseCreator: User, type: string, reason: string) {
+        const [fetchedId] = await this.table.findMany({
+            where: { guildId: BigInt(guildId) },
+            orderBy: { caseId: 'desc' },
+            take: 1
+        });
 
-        const previousId = fetchedId?.case_id ?? 0;
+        const caseId = fetchedId?.caseId ?? 0;
 
-        const [query] = (
-            await this.client.db.query<Case>(
-                'INSERT INTO cases(case_id, guild_id, case_creator, moderated_user, type, reason) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;',
-                [previousId + 1, BigInt(guild), BigInt(creator.id), BigInt(user.id), type, reason]
-            )
-        ).rows;
-
-        query.guild_id = BigInt(query.guild_id);
-        query.case_creator = BigInt(query.case_creator);
-        query.moderated_user = BigInt(query.moderated_user);
+        const query = await this.table.create({
+            data: {
+                caseId,
+                guildId: BigInt(guildId),
+                caseCreator: BigInt(caseCreator.id),
+                moderatedUser: BigInt(moderatedUser.id),
+                type,
+                reason
+            }
+        });
 
         return query;
     }
 
     async getOne(guild: string, caseId: number) {
-        const [ret] = (
-            await this.client.db.query<Case>('SELECT * FROM public.cases WHERE guild_id = $1 AND case_id = $2;', [
-                BigInt(guild),
-                caseId
-            ])
-        ).rows;
-
-        if (!ret) {
-            return null;
-        }
-
-        ret.guild_id = BigInt(ret.guild_id);
-        ret.case_creator = BigInt(ret.case_creator);
-        ret.moderated_user = BigInt(ret.moderated_user);
-
-        return ret;
+        return this.table.findUnique({
+            where: {
+                caseId_guildId: {
+                    caseId,
+                    guildId: BigInt(guild)
+                }
+            }
+        });
     }
 
-    async getMany(guild: string, user?: User) {
-        let query: string;
-        let params: bigint[];
-
-        if (user) {
-            query = 'SELECT * FROM public.cases WHERE guild_id = $1 AND moderated_user = $2 ORDER BY case_id ASC;';
-            params = [BigInt(guild), BigInt(user.id)];
-        } else {
-            query = 'SELECT * FROM public.cases WHERE guild_id = $1 ORDER BY case_id ASC;';
-            params = [BigInt(guild)];
-        }
-
-        const ret = await this.client.db.query<Case>(query, params);
-        return ret.rows;
+    async getMany(guild: string, user: User) {
+        return this.table.findMany({
+            where: {
+                guildId: BigInt(guild),
+                moderatedUser: BigInt(user.id)
+            }
+        });
     }
 
-    async logToModerationChannel(guild: string, caseObj: Case) {
-        const [settings] = (
-            await this.client.db.query<Config>(
-                'SELECT log_moderation_actions, logs_channel FROM public.config WHERE guild_id = $1;',
-                [BigInt(guild)]
-            )
-        ).rows;
+    async logToModerationChannel(guild: string, caseObj: Prisma.CaseCreateInput) {
+        const { logModerationActions, logsChannel } = await this.client.prisma.config.findUnique({
+            where: {
+                guildId: BigInt(guild)
+            }
+        });
 
-        if (settings.log_moderation_actions && settings.logs_channel) {
-            const creator = await this.client.users.fetch(caseObj.case_creator.toString());
+        if (logModerationActions && logsChannel) {
+            const creator = await this.client.users.fetch(caseObj.caseCreator.toString());
             const guildObj = this.client.guilds.cache.get(guild);
-            const member = await guildObj.members.fetch(caseObj.moderated_user.toString());
+            const member = await guildObj.members.fetch(caseObj.moderatedUser.toString());
 
             const embed = new Embed(this.client, guildObj.preferredLocale)
                 .setLocaleTitle('CASE_NEW')
@@ -90,9 +76,9 @@ export default class CasesModule {
                 .addLocaleField({ name: 'CASE_MODERATOR', value: creator.tag })
                 .addLocaleField({ name: 'CASE_USER', value: member.user.tag })
                 .addLocaleField({ name: 'REASON', value: caseObj.reason })
-                .addField('ID', `#${caseObj.case_id}`);
+                .addField('ID', `#${caseObj.caseId}`);
 
-            const channel = guildObj.channels.cache.get(settings.logs_channel.toString());
+            const channel = guildObj.channels.cache.get(logsChannel.toString());
 
             if (!channel?.isText()) {
                 return;

@@ -1,47 +1,57 @@
 import FluorineClient from '@classes/Client';
-import { ShopItem } from 'types/databaseTables';
+import { Prisma } from '@prisma/client';
+import { ShopItemConstructor } from 'types/structures';
 
 export default class ShopModule {
+    table: Prisma.ShopItemDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;
+
     constructor(private client: FluorineClient) {
         this.client = client;
+        this.table = this.client.prisma.shopItem;
     }
 
-    async list(guild: string): Promise<ShopItem[]> {
-        const query = await this.client.db.query<ShopItem>(
-            'SELECT * FROM shop_items WHERE guild_id = $1 ORDER BY item_id',
-            [BigInt(guild)]
-        );
+    async list(guild: string) {
+        const query = this.table.findMany({
+            where: { guildId: BigInt(guild) },
+            orderBy: { itemId: 'asc' }
+        });
 
-        return query.rows;
+        return query;
     }
 
-    async get(guild: string, item: string): Promise<ShopItem> {
-        const all = await this.client.db.query<ShopItem>('SELECT * FROM shop_items WHERE guild_id = $1 AND name = $2', [
-            BigInt(guild),
-            item
-        ]);
+    async get(guild: string, name: string) {
+        const item = await this.table.findFirst({
+            where: { guildId: BigInt(guild), name }
+        });
 
-        return all.rows[0];
+        return item;
     }
 
-    async add(obj: Omit<ShopItem, 'item_id'>) {
-        const [fetchedId] = (
-            await this.client.db.query<ShopItem>(
-                'SELECT case_id FROM cases WHERE guild_id = $1 ORDER BY case_id DESC LIMIT 1',
-                [BigInt(obj.guild_id)]
-            )
-        ).rows;
+    async add(obj: ShopItemConstructor) {
+        const [fetchedId] = await this.table.findMany({
+            where: { guildId: BigInt(obj.guildId) },
+            orderBy: { itemId: 'desc' },
+            take: 1
+        });
 
-        const previousId = fetchedId?.item_id ?? 0;
-        const query = await this.client.db.query<ShopItem>(
-            'INSERT INTO shop_items(item_id, guild_id, name, description, price, role) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;',
-            [previousId + 1, BigInt(obj.guild_id), obj.name, obj.description, obj.price, obj.role]
-        );
+        const previousId = fetchedId?.itemId ?? 0;
 
-        return query.rows[0];
+        const query = await this.table.create({
+            data: {
+                ...obj,
+                itemId: previousId + 1
+            }
+        });
+
+        return query;
     }
 
     async delete(guild: string, name: string) {
-        await this.client.db.query('DELETE FROM shop_items WHERE guild_id = $1 AND name = $2', [BigInt(guild), name]);
+        await this.table.deleteMany({
+            where: {
+                guildId: BigInt(guild),
+                name
+            }
+        });
     }
 }

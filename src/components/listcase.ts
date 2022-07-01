@@ -35,7 +35,7 @@ export async function run(client: FluorineClient, interaction: ButtonInteraction
         .setThumbnail(member.displayAvatarURL({ dynamic: true }));
 
     chunk[page > chunk.length ? page - 1 : page].forEach(caseData => {
-        embed.addField(`#${caseData.case_id} ${caseData.type}`, caseData.reason);
+        embed.addField(`#${caseData.caseId} ${caseData.type}`, caseData.reason);
     });
 
     interaction.update({ embeds: [embed], components: [row] });

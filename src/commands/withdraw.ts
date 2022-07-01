@@ -7,7 +7,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const toWithdraw = interaction.options.getInteger('amount');
     const balance = await client.economy.get(interaction.guildId, interaction.user);
 
-    if (balance.bank_bal < toWithdraw) {
+    if (balance.bankBal < toWithdraw) {
         return interaction.reply({
             content: client.i18n.t('WITHDRAW_NOT_ENOUGH', {
                 lng: interaction.locale

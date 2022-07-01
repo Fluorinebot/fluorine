@@ -5,6 +5,7 @@ import { CommandInteraction } from 'discord.js';
 import { Routes } from 'discord-api-types/v10';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
+    await interaction.deferReply();
     const name = interaction.options.getString('command');
     let guildId = interaction.options.getString('guild');
     if (guildId === 'this') {
@@ -39,15 +40,15 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             }
 
             await command.delete();
-            return interaction.reply(`Deleted \`${name}\`.`);
+            return interaction.editReply(`Deleted \`${name}\`.`);
         }
 
-        interaction.reply('Deleted all commands.');
+        interaction.editReply('Deleted all commands.');
     } catch (error) {
         const embed = new Embed(client, interaction.locale)
             .setTitle('Failed')
             .setDescription(`\`\`\`js\n${error}\n${error.stack}\`\`\``);
-        interaction.reply({ embeds: [embed] });
+        interaction.editReply({ embeds: [embed] });
     }
 }
 

@@ -173,6 +173,7 @@
     "SHOP_BUY_SUCCESS": "Kupiłeś przedmiot {{- item}} za {{- price}}!",
     "SHOP_CREATE_DESCRIPTION": "Opis",
     "SHOP_CREATE_DESCRIPTION_INVALID": "Opis przedmiotu jest nieprawidłowy! Opis może mieć maksymalnie 50 znaków",
+    "SHOP_CREATE_EXISTS": "Ten przedmiot już istnieje.",
     "SHOP_CREATE_NAME": "Nazwa",
     "SHOP_CREATE_NAME_INVALID": "Nazwa przedmiotu jest nieprawidłowa! Nazwa może miec maksymalnie 20 znaków",
     "SHOP_CREATE_PERMISSIONS": "Nie masz wystarczających permisji, aby stworzyć przedmiot! Potrzebne permisje: Zarządzanie serwerem",

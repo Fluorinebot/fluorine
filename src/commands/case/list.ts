@@ -36,7 +36,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const chunk = splitArray(cases, 10);
 
     chunk[0].forEach(caseData => {
-        embed.addField(`#${caseData.case_id} ${caseData.type}`, caseData.reason);
+        embed.addField(`#${caseData.caseId} ${caseData.type}`, caseData.reason);
     });
 
     const replyOptions: InteractionReplyOptions = { embeds: [embed] };
