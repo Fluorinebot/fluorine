@@ -89,27 +89,23 @@ export async function run(client: FluorineClient, message: Message) {
         const code = client.cmds.get(command);
         code?.run(client, message, args);
     } else if (message.content === `<@!${client.user.id}>` || message.content === `<@${client.user.id}>`) {
-        const embed = new Embed(client, message.guild.preferredLocale)
-            .setTitle('Fluorine')
-            .setLocaleDescription('MESSAGE_CREATE_DESCRIPTION', {
-                prefix
-            })
-            .addLocaleField({
-                name: 'STATS_SERVER_COUNT',
-                value: client.guilds.cache.size.toString()
-            })
-            .addLocaleField({
-                name: 'STATS_USER_COUNT',
-                value: client.users.cache.size.toString()
-            })
-            .addLocaleField({
-                name: 'STATS_COMMAND_COUNT',
-                value: client.cmds.size.toString()
-            })
-            .addLocaleField({
-                name: 'STATS_CHANNELS_COUNT',
-                value: client.channels.cache.size.toString()
-            });
-        message.channel.send({ embeds: [embed] });
+        const embed = new Embed(client, message.guild.preferredLocale).setDescription(
+            "<:SlashCommands:934768130474004500> Fluorine now uses slash commands. Use `/help` to view my commands. If you can't see slash commands, re-invite the bot."
+        );
+
+        await client.application.fetch();
+
+        message.channel.send({
+            embeds: [embed],
+            components: [
+                new MessageActionRow().addComponents([
+                    new MessageButton()
+                        .setLabel('Bot Invite')
+                        .setStyle('LINK')
+                        .setURL(client.generateInvite(client.application.installParams)),
+                    new MessageButton().setLabel('Support Server').setStyle('LINK').setURL(client.support)
+                ])
+            ]
+        });
     }
 }
