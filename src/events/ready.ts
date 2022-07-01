@@ -1,7 +1,6 @@
 import FluorineClient from '@classes/Client';
 import { Routes } from 'discord-api-types/v10';
 import { performance } from 'perf_hooks';
-import { Config } from 'types/databaseTables';
 
 export async function run(client: FluorineClient) {
     const devGuild = client.guilds.cache.get(process.env.DISCORD_DEV_GUILD);
@@ -18,17 +17,22 @@ export async function run(client: FluorineClient) {
         client.logger.log(`Enabled deploy commands for guild ID ${process.env.DISCORD_DEV_GUILD}.`);
     }
 
-    client.guilds.cache.forEach(async g => {
-        const guild = (
-            await client.db.query<Config>('SELECT logs_enabled FROM config WHERE guild_id = $1', [BigInt(g.id)])
-        ).rows;
-
-        if (!guild.length) {
-            await client.db.query<Config>(
-                'INSERT INTO config(guild_id, prefix, logs_enabled, logs_channel, log_moderation_actions, antibot_factor, antibot_action, currency) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
-                [BigInt(g.id), process.env.DISCORD_PREFIX, true, null, false, 0, 'timeout', '🪙']
-            );
-        }
+    client.guilds.cache.forEach(async guild => {
+        await client.prisma.config.upsert({
+            where: {
+                guildId: BigInt(guild.id)
+            },
+            create: {
+                guildId: BigInt(guild.id),
+                prefix: process.env.DISCORD_PREFIX,
+                logsEnabled: false,
+                logsChannel: null,
+                logModerationActions: false,
+                antibotFactor: 0,
+                antibotAction: 'timeout'
+            },
+            update: {}
+        });
     });
 
     client.logger.log(`Checked ${client.guilds.cache.size} guilds.`);

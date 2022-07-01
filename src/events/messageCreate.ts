@@ -1,37 +1,41 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { Message, MessageActionRow, MessageButton } from 'discord.js';
-import { Config } from 'types/databaseTables';
 
 export async function run(client: FluorineClient, message: Message) {
     if (message.author.bot) {
         return;
     }
 
-    const [settings] = (
-        await client.db.query<Config>('SELECT antibot_factor, antibot_action, prefix FROM config WHERE guild_id = $1', [
-            BigInt(message.guildId)
-        ])
-    ).rows;
+    const { prefix, antibotAction, antibotFactor } = await client.prisma.config.findUnique({
+        where: {
+            guildId: BigInt(message.guild.id)
+        },
+        select: {
+            antibotFactor: true,
+            antibotAction: true,
+            prefix: true
+        }
+    });
 
-    if (settings.antibot_factor) {
+    if (antibotFactor) {
         const factor = await client.phishing.messageAuthorIsBot(client, message);
 
-        if (factor >= settings.antibot_factor) {
+        if (factor >= antibotFactor) {
             message.delete();
 
             const caseObj = await client.cases.create(
                 message.guildId,
                 message.author,
                 client.user,
-                settings.antibot_action,
+                antibotAction,
                 client.i18n.t('ANTIBOT_REASON', {
                     lng: message.guild.preferredLocale,
                     factor
                 })
             );
 
-            switch (settings.antibot_action) {
+            switch (antibotAction) {
                 case 'kick': {
                     message.member.kick();
                     break;
@@ -58,10 +62,10 @@ export async function run(client: FluorineClient, message: Message) {
         }
     }
 
-    const args = message.content.slice(settings.prefix.length).split(' ');
+    const args = message.content.slice(prefix.length).split(' ');
     const command = args.shift();
 
-    if (message.content.startsWith(settings.prefix)) {
+    if (message.content.startsWith(prefix)) {
         const chance = 5;
         const random = Math.floor(Math.random() * chance) + 1;
 
@@ -88,7 +92,7 @@ export async function run(client: FluorineClient, message: Message) {
         const embed = new Embed(client, message.guild.preferredLocale)
             .setTitle('Fluorine')
             .setLocaleDescription('MESSAGE_CREATE_DESCRIPTION', {
-                prefix: settings.prefix
+                prefix
             })
             .addLocaleField({
                 name: 'STATS_SERVER_COUNT',

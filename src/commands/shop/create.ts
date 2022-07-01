@@ -2,7 +2,7 @@ import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
-import { ShopItem } from 'types/databaseTables';
+import { ShopItemConstructor } from 'types/structures';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const name = interaction.options.getString('name');
@@ -10,7 +10,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const price = interaction.options.getInteger('price');
     const role = interaction.options.getRole('role');
 
-    const obj: Omit<ShopItem, 'item_id'> = { name, description, price, guild_id: BigInt(interaction.guildId) };
+    const obj: ShopItemConstructor = { name, description, price, guildId: BigInt(interaction.guildId) };
 
     if (role) {
         obj.role = BigInt(role.id);
@@ -23,6 +23,12 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             }),
             ephemeral: true
         });
+    }
+
+    const existingItem = await client.shop.get(interaction.guildId, name);
+
+    if (existingItem) {
+        return interaction.reply({ content: client.i18n.t('SHOP_CREATE_EXISTS') });
     }
 
     if (name.length > 19) {

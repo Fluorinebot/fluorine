@@ -18,16 +18,16 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const robberBalance = await client.economy.get(interaction.guildId, interaction.user);
 
     const earnedPercent = Math.round(Math.random() * 20) + 20;
-    const earned = Math.round(userBalance.wallet_bal * (earnedPercent / 100));
+    const earned = Math.round(userBalance.walletBal * (earnedPercent / 100));
     const chance = Math.random() * 100;
     const currency = await client.economy.getCurrency(interaction.guildId);
 
-    if (userBalance.wallet_bal < 0) {
+    if (userBalance.walletBal < 0) {
         return interaction.reply(client.i18n.t('ROB_FAIL_NO_MONEY', { lng: interaction.locale }));
     }
 
     if (chance > 40) {
-        const lost = Math.round((robberBalance.bank_bal + robberBalance.wallet_bal) * (earned / 100));
+        const lost = Math.round((robberBalance.bankBal + robberBalance.walletBal) * (earned / 100));
         client.economy.subtract(interaction.guildId, interaction.user, lost);
 
         return interaction.reply(

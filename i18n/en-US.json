@@ -180,6 +180,7 @@
     "SHOP_BUY_SUCCESS": "Successfully bought {{- item }} for {{- price }}",
     "SHOP_CREATE_DESCRIPTION": "Description",
     "SHOP_CREATE_DESCRIPTION_INVALID": "The description you provided is invalid!\nThe description must have max 50 characters.",
+    "SHOP_CREATE_EXISTS": "That item already exists.",
     "SHOP_CREATE_NAME": "Name",
     "SHOP_CREATE_NAME_INVALID": "The name you provided is invalid!\nThe name must have max 20 characters.",
     "SHOP_CREATE_PERMISSIONS": "You don't have the permissions needed to create a item! Needed permissions: Manage guild",

@@ -1,24 +1,27 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { Message } from 'discord.js';
-import { Config } from 'types/databaseTables';
 
 export async function run(client: FluorineClient, message: Message) {
     if (!message.content) {
         return;
     }
 
-    const [settings] = (
-        await client.db.query<Config>('SELECT logs_enabled, logs_channel FROM config WHERE guild_id = $1', [
-            BigInt(message.guildId)
-        ])
-    ).rows;
+    const { logsEnabled, logsChannel } = await client.prisma.config.findUnique({
+        where: {
+            guildId: BigInt(message.guild.id)
+        },
+        select: {
+            logsEnabled: true,
+            logsChannel: true
+        }
+    });
 
-    if (!settings.logs_enabled || !settings.logs_channel) {
+    if (!logsEnabled || !logsChannel) {
         return;
     }
 
-    const channel = client.channels.cache.get(settings.logs_channel.toString());
+    const channel = client.channels.cache.get(logsChannel.toString());
     if (!channel.isText()) {
         return;
     }
