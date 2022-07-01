@@ -15,7 +15,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const embed = new Embed(client, interaction.locale);
 
     try {
-        const evaluated = client.prisma.$queryRaw`${code}`;
+        const evaluated = client.prisma.$queryRawUnsafe(code);
         const cleaned = await clean(client, evaluated);
 
         embed.setTitle('Done').setDescription(codeBlock('js', cleaned));
