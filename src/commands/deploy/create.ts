@@ -9,7 +9,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
     const name = interaction.options.getString('command');
     let guildId = interaction.options.getString('guild');
-    const command = client.applicationCommands.chatInput.get(name) ?? client.applicationCommands.contextMenu.get(name);
+    const command = client.commands.chatInput.get(name) ?? client.commands.contextMenu.get(name);
 
     if (!command && name !== 'all') {
         return interaction.reply({
@@ -31,11 +31,11 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             // @ts-expect-error
             await commands?.fetch();
 
-            const chatInputCommands = client.applicationCommands.chatInput
+            const chatInputCommands = client.commands.chatInput
                 .filter(c => 'category' in c && (commands.cache.some(cmd => cmd.name === 'deploy') || !c.dev))
                 .map(command => command.data.toJSON());
 
-            const contextMenuCommands = client.applicationCommands.contextMenu
+            const contextMenuCommands = client.commands.contextMenu
                 .filter(c => commands.cache.some(cmd => cmd.name === 'deploy') || !c.dev)
                 .map(command => command.data.toJSON());
 

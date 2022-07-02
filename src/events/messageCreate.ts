@@ -1,5 +1,4 @@
 import FluorineClient from '@classes/Client';
-import Embed from '@classes/Embed';
 import { Message, MessageActionRow, MessageButton } from 'discord.js';
 
 export async function run(client: FluorineClient, message: Message) {
@@ -62,54 +61,31 @@ export async function run(client: FluorineClient, message: Message) {
         }
     }
 
-    const args = message.content.slice(prefix.length).split(' ');
-    const command = args.shift();
-
-    if (message.content.startsWith(prefix)) {
-        const chance = 5;
-        const random = Math.floor(Math.random() * chance) + 1;
-
-        if (random === 1) {
-            const removalTimestamp = 1656676800;
-            await client.application.fetch();
-            message.channel.send({
-                content: `<:SlashCommands:934768130474004500> **Use Slash Commands!**\nPrefix (message) commands are not supported and will be removed <t:${removalTimestamp}:R>! (<t:${removalTimestamp}:D>)\nIf you can't see Slash Commands, make sure to reinvite the bot`,
-                components: [
-                    new MessageActionRow().addComponents([
-                        new MessageButton()
-                            .setLabel('Bot Invite')
-                            .setStyle('LINK')
-                            .setURL(client.generateInvite(client.application.installParams)),
-                        new MessageButton().setLabel('Support Server').setStyle('LINK').setURL(client.support)
-                    ])
-                ]
-            });
-        }
-
-        const code = client.cmds.get(command);
-        code?.run(client, message, args);
-    } else if (message.content === `<@!${client.user.id}>` || message.content === `<@${client.user.id}>`) {
-        const embed = new Embed(client, message.guild.preferredLocale)
-            .setTitle('Fluorine')
-            .setLocaleDescription('MESSAGE_CREATE_DESCRIPTION', {
-                prefix
-            })
-            .addLocaleField({
-                name: 'STATS_SERVER_COUNT',
-                value: client.guilds.cache.size.toString()
-            })
-            .addLocaleField({
-                name: 'STATS_USER_COUNT',
-                value: client.users.cache.size.toString()
-            })
-            .addLocaleField({
-                name: 'STATS_COMMAND_COUNT',
-                value: client.cmds.size.toString()
-            })
-            .addLocaleField({
-                name: 'STATS_CHANNELS_COUNT',
-                value: client.channels.cache.size.toString()
-            });
-        message.channel.send({ embeds: [embed] });
+    if (message.content === `<@${client.user.id}>`) {
+        return message.channel.send(client.i18n.t('MESSAGE_MENTION', { lng: message.guild.preferredLocale }));
     }
+
+    const command = message.content.slice(prefix.length).split(' ').shift();
+
+    if (!message.content.startsWith(prefix) || !client.commands.chatInput.has(command)) {
+        return;
+    }
+
+    await client.application.fetch();
+    message.channel.send({
+        content: `<:SlashCommands:934768130474004500> **Use Slash Commands!**\nThis command can only be used via the Slash Command \`/${command}\`.\nIf you can't see Slash Commands, make sure to re-invite the bot`,
+        components: [
+            new MessageActionRow().addComponents([
+                new MessageButton()
+                    .setLabel('Bot Invite')
+                    .setStyle('LINK')
+                    .setURL(
+                        client.generateInvite(
+                            client.application.installParams ?? { scopes: ['bot', 'applications.commands'] }
+                        )
+                    ),
+                new MessageButton().setLabel('Support Server').setStyle('LINK').setURL(client.support)
+            ])
+        ]
+    });
 }

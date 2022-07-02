@@ -116,7 +116,7 @@
     "LISTCASE_NEXT": "Next",
     "LISTCASE_NO_CASES": "{{- user}} doesn't have any cases!",
     "LISTCASE_TITLE": "Case history for {{- user}}",
-    "MESSAGE_CREATE_DESCRIPTION": "Hi! I'm Fluorine.\nMy prefix in this guild is {{- prefix}}",
+    "MESSAGE_MENTION": "Hi! Type `/` to see my commands",
     "MESSAGE_DELETE_AUTHOR": "Author",
     "MESSAGE_DELETE_CONTENT": "Content",
     "MESSAGE_DELETE_TITLE": "Message deleted",
