@@ -38,7 +38,7 @@ export default class FluorineClient extends Client {
     cases = new CasesModule(this);
 
     version = process.env.npm_package_version;
-    devs = ['707675871355600967', '478823932913516544', '348591272476540928'];
+    devs = ['478823932913516544', '348591272476540928'];
     support = process.env.DISCORD_SUPPORT_INVITE;
 
     restModule = new REST({ version: '10' });
