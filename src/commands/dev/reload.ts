@@ -55,12 +55,12 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
             case 'commands': {
                 if (module === 'all') {
-                    await client.applicationCommands.loadChatInput();
+                    await client.commands.loadChatInput();
                     return interaction.editReply('Reloaded `all` chat input commands.');
                 }
 
                 const commandFile = await import(`./../../commands/${module}`);
-                client.applicationCommands.chatInput.set(module, commandFile);
+                client.commands.chatInput.set(module, commandFile);
 
                 interaction.editReply(`Reloaded the \`${module}\` chat input command.`);
                 break;
@@ -68,12 +68,12 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
             case 'context': {
                 if (module === 'all') {
-                    await client.applicationCommands.loadContextMenu();
+                    await client.commands.loadContextMenu();
                     return interaction.editReply('Reloaded `all` context menu commands.');
                 }
 
                 const commandFile = await import(`./../../context/${module}`);
-                client.applicationCommands.contextMenu.set(module, commandFile);
+                client.commands.contextMenu.set(module, commandFile);
 
                 interaction.editReply(`Reloaded the \`${module}\` context menu command.`);
                 break;

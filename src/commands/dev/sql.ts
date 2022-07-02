@@ -5,10 +5,6 @@ import { clean } from '@util/clean';
 import { CommandInteraction } from 'discord.js';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
-    if (process.env.NODE_ENV === 'production' && interaction.user.id !== '707675871355600967') {
-        interaction.reply({ content: "You aren't Kubus!", ephemeral: true });
-    }
-
     await interaction.deferReply();
     const code = interaction.options.getString('code');
     code.replace('```\nsql', '').replace('\n```', '');

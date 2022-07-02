@@ -6,9 +6,7 @@ import { Category, ChatInputCommand } from 'types/structures';
 
 export async function run(client: FluorineClient, interaction: CommandInteraction) {
     const category = interaction.options.getString('category');
-    const commands = client.applicationCommands.chatInput.filter(
-        (c: ChatInputCommand) => c.category === category && !c.dev
-    );
+    const commands = client.commands.chatInput.filter((c: ChatInputCommand) => c.category === category && !c.dev);
 
     const fields: EmbedFieldData[] = commands.map(c => ({
         name: `/${c.data.name_localizations[interaction.locale] ?? c.data.name}`,

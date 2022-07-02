@@ -26,7 +26,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
             await client.restModule.put(route, {
                 body:
                     guildId && commands.cache.some(c => c.name === 'deploy')
-                        ? [client.applicationCommands.chatInput.get('deploy').data.toJSON()]
+                        ? [client.commands.chatInput.get('deploy').data.toJSON()]
                         : []
             });
         } else {

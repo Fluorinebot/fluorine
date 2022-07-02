@@ -109,7 +109,7 @@
     "LISTCASE_NEXT": "Następna strona",
     "LISTCASE_NO_CASES": "{{- user}} nie ma żadnych kar!",
     "LISTCASE_TITLE": "Historia kar dla {{- user}}",
-    "MESSAGE_CREATE_DESCRIPTION": "Cześć! Jestem Fluorine.\nMój prefix na tym serwerze to {{- prefix}}",
+    "MESSAGE_MENTION": "Cześć! Wpisz `/` aby zobaczyć moje komendy",
     "MESSAGE_DELETE_AUTHOR": "Autor",
     "MESSAGE_DELETE_CONTENT": "Treść",
     "MESSAGE_DELETE_TITLE": "Usunięto wiadomość",
