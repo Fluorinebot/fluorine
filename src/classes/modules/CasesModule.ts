@@ -22,7 +22,7 @@ export default class CasesModule {
 
         const query = await this.table.create({
             data: {
-                caseId,
+                caseId: caseId + 1,
                 guildId: BigInt(guildId),
                 caseCreator: BigInt(caseCreator.id),
                 moderatedUser: BigInt(moderatedUser.id),
