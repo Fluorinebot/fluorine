@@ -33,7 +33,7 @@
         "@prisma/client": "^4.0.0",
         "bufferutil": "^4.0.6",
         "canvas": "^2.9.3",
-        "discord-api-types": "^0.36.0",
+        "discord-api-types": "^0.36.2",
         "discord.js": "^13.8.1",
         "dotenv": "^16.0.1",
         "erlpack": "github:discord/erlpack",
@@ -53,7 +53,7 @@
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-prettier": "^4.0.0",
         "prisma": "^4.0.0",
-        "resolve-tspaths": "^0.6.0",
+        "resolve-tspaths": "^0.7.1",
         "typescript": "^4.7.4"
     },
     "engines": {
