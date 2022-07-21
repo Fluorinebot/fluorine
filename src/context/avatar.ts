@@ -1,10 +1,17 @@
 import FluorineClient from '@classes/Client';
-import { UserContextMenuInteraction, InteractionReplyOptions, GuildMember } from 'discord.js';
-import { ContextMenuCommandBuilder } from '@discordjs/builders';
-import { ApplicationCommandType } from 'discord-api-types/v10';
 import { getComponents, getEmbed } from '@util/avatar';
+import {
+    ApplicationCommandType,
+    ContextMenuCommandBuilder,
+    UserContextMenuCommandInteraction,
+    InteractionReplyOptions,
+    GuildMember
+} from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: UserContextMenuInteraction<'cached'>): Promise<void> {
+export async function run(
+    client: FluorineClient,
+    interaction: UserContextMenuCommandInteraction<'cached'>
+): Promise<void> {
     const user = interaction.targetMember ?? interaction.targetUser;
 
     const replyOptions: InteractionReplyOptions = {

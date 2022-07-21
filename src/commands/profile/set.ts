@@ -1,9 +1,8 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
-import { CommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: CommandInteraction) {
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const table = client.prisma.profile;
 
     const field = interaction.options.getString('field');

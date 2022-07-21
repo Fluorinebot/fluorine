@@ -1,11 +1,17 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { CommandInteraction, InteractionReplyOptions, MessageActionRow, MessageButton } from 'discord.js';
-import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 import { splitArray } from '@util/splitArr';
+import {
+    ActionRowBuilder,
+    ButtonBuilder,
+    ButtonStyle,
+    ChatInputCommandInteraction,
+    InteractionReplyOptions,
+    SlashCommandSubcommandBuilder
+} from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
-    const row = new MessageActionRow();
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
+    const row = new ActionRowBuilder<ButtonBuilder>();
     const member = interaction.options.getMember('user');
 
     if (!member) {
@@ -21,7 +27,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('LISTCASE_TITLE', { user: member.user.tag })
-        .setThumbnail(member.user.displayAvatarURL({ dynamic: true }));
+        .setThumbnail(member.user.displayAvatarURL());
 
     if (!cases.length) {
         return interaction.reply({
@@ -36,34 +42,31 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const chunk = splitArray(cases, 10);
 
     chunk[0].forEach(caseData => {
-        embed.addField(`#${caseData.caseId} ${caseData.type}`, caseData.reason);
+        embed.addFields({ name: `#${caseData.caseId} ${caseData.type}`, value: caseData.reason });
     });
 
     const replyOptions: InteractionReplyOptions = { embeds: [embed] };
 
     if (chunk.length > 1) {
-        row.addComponents(
-            new MessageButton()
+        row.addComponents([
+            new ButtonBuilder()
                 .setCustomId(`listcase:${interaction.user.id}:${member.user.id}.0`)
                 .setLabel(
                     client.i18n.t('LISTCASE_BACK', {
                         lng: interaction.locale
                     })
                 )
-                .setStyle('PRIMARY')
-                .setDisabled(true)
-        );
-
-        row.addComponents(
-            new MessageButton()
+                .setStyle(ButtonStyle.Primary)
+                .setDisabled(true),
+            new ButtonBuilder()
                 .setCustomId(`listcase:${interaction.user.id}:${member.user.id}.1`)
                 .setLabel(
                     client.i18n.t('LISTCASE_NEXT', {
                         lng: interaction.locale
                     })
                 )
-                .setStyle('PRIMARY')
-        );
+                .setStyle(ButtonStyle.Primary)
+        ]);
 
         replyOptions.components = [row];
     }

@@ -1,5 +1,5 @@
 import FluorineClient from '@classes/Client';
-import { Message, MessageActionRow, MessageButton } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Message, OAuth2Scopes } from 'discord.js';
 
 export async function run(client: FluorineClient, message: Message) {
     if (message.author.bot) {
@@ -75,16 +75,12 @@ export async function run(client: FluorineClient, message: Message) {
     message.channel.send({
         content: `<:SlashCommands:934768130474004500> **Use Slash Commands!**\nThis command can only be used via the Slash Command \`/${command}\`.\nIf you can't see Slash Commands, make sure to re-invite the bot`,
         components: [
-            new MessageActionRow().addComponents([
-                new MessageButton()
+            new ActionRowBuilder<ButtonBuilder>().addComponents([
+                new ButtonBuilder()
                     .setLabel('Bot Invite')
-                    .setStyle('LINK')
-                    .setURL(
-                        client.generateInvite(
-                            client.application.installParams ?? { scopes: ['bot', 'applications.commands'] }
-                        )
-                    ),
-                new MessageButton().setLabel('Support Server').setStyle('LINK').setURL(client.support)
+                    .setStyle(ButtonStyle.Link)
+                    .setURL(client.generateInvite(client.application.installParams ?? { scopes: [OAuth2Scopes.Bot] })),
+                new ButtonBuilder().setLabel('Support Server').setStyle(ButtonStyle.Link).setURL(client.support)
             ])
         ]
     });

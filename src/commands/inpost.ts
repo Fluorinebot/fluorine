@@ -1,17 +1,16 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { SlashCommandBuilder } from '@discordjs/builders';
-import { CommandInteraction } from 'discord.js';
 import { InpostStatuses, InpostTrackObj } from 'types/webRequests';
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: CommandInteraction) {
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const id = interaction.options.getString('id');
 
     const statusURL = client.i18n.t('INPOST_URL', { lng: interaction.locale });
     const statuses = (await fetch(statusURL).then(res => res.json())) as InpostStatuses;
 
     const req = await fetch(`https://api-shipx-pl.easypack24.net/v1/tracking/${id}`);
-    const response = (await req.json()) as InpostTrackObj;
+    const response: InpostTrackObj = await req.json();
 
     if (req.status !== 200) {
         return interaction.reply({
@@ -31,7 +30,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
     response.tracking_details.reverse().forEach(data => {
         const status = statuses.items.find(element => element.name === data.status);
-        embed.addField(status.title, status.description);
+        embed.addFields({ name: status.title, value: status.description });
     });
 
     interaction.reply({ embeds: [embed] });

@@ -1,9 +1,9 @@
 import FluorineClient from '@classes/Client';
-import { Interaction } from 'discord.js';
+import { Interaction, InteractionType } from 'discord.js';
 import { ChatInputCommand } from 'types/structures';
 
 export async function run(client: FluorineClient, interaction: Interaction) {
-    if (interaction.isMessageComponent()) {
+    if (interaction.type === InteractionType.MessageComponent) {
         const [name, user, value] = interaction.customId.split(':');
         const component = client.components.get(name);
 
@@ -16,8 +16,9 @@ export async function run(client: FluorineClient, interaction: Interaction) {
             });
         }
 
-        component?.run(client, interaction, value);
-    } else if (interaction.isContextMenu()) {
+        return component?.run(client, interaction, value);
+    }
+    if (interaction.isContextMenuCommand()) {
         const contextCommand = client.commands.contextMenu.get(interaction.commandName);
 
         if (contextCommand.dev && !client.devs.includes(interaction.user.id)) {
@@ -27,8 +28,9 @@ export async function run(client: FluorineClient, interaction: Interaction) {
             });
         }
 
-        contextCommand.run(client, interaction);
-    } else if (interaction.isCommand()) {
+        return contextCommand.run(client, interaction);
+    }
+    if (interaction.isChatInputCommand()) {
         const subcommand = interaction.options.getSubcommand(false);
         const key = subcommand ? `${interaction.commandName}/${subcommand}` : interaction.commandName;
 

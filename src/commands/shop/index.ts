@@ -1,5 +1,5 @@
-import { SlashCommandBuilder } from '@discordjs/builders';
 import { Category } from 'types/structures';
+import { SlashCommandBuilder } from 'discord.js';
 
 export const data = new SlashCommandBuilder()
     .setName('shop')

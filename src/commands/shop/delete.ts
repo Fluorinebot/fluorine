@@ -1,8 +1,7 @@
-import { CommandInteraction } from 'discord.js';
 import FluorineClient from '@classes/Client';
-import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
+import { ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandSubcommandBuilder } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: CommandInteraction) {
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const name = interaction.options.getString('name');
     const itemObj = await client.shop.get(interaction.guildId, name);
 
@@ -15,7 +14,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         });
     }
 
-    if (!interaction.memberPermissions.has('MANAGE_GUILD')) {
+    if (!interaction.memberPermissions.has(PermissionFlagsBits.ManageGuild)) {
         return interaction.reply({
             content: client.i18n.t('SHOP_DELETE_PERMISSIONS', {
                 lng: interaction.locale

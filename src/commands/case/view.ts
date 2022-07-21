@@ -1,9 +1,8 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { CommandInteraction } from 'discord.js';
-import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
+import { ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: CommandInteraction) {
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const id = interaction.options.getInteger('id');
     const caseObj = await client.cases.getOne(interaction.guildId, id);
 
@@ -21,14 +20,16 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('CASE_TITLE', { id })
-        .setThumbnail(user.displayAvatarURL({ dynamic: true }))
-        .addLocaleField({ name: 'CASE_USER', value: user.tag })
-        .addLocaleField({ name: 'CASE_MODERATOR', value: creator.tag })
-        .addLocaleField({
-            name: 'CASE_TYPE',
-            localeValue: caseObj.type.toUpperCase()
-        })
-        .addLocaleField({ name: 'CASE_REASON', value: caseObj.reason });
+        .setThumbnail(user.displayAvatarURL())
+        .addLocaleFields([
+            { name: 'CASE_USER', value: user.tag },
+            { name: 'CASE_MODERATOR', value: creator.tag },
+            {
+                name: 'CASE_TYPE',
+                localeValue: caseObj.type.toUpperCase()
+            },
+            { name: 'CASE_REASON', value: caseObj.reason }
+        ]);
 
     interaction.reply({ embeds: [embed] });
 }

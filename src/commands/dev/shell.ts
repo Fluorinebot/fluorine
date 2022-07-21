@@ -1,10 +1,9 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { codeBlock, SlashCommandSubcommandBuilder } from '@discordjs/builders';
 import { execSync } from 'child_process';
-import { CommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction, codeBlock, SlashCommandSubcommandBuilder } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: CommandInteraction) {
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     await interaction.deferReply();
     const script = interaction.options.getString('script');
     script.replace('```\nsh', '').replace('\n```', '');

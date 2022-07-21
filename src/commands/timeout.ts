@@ -1,12 +1,10 @@
 import FluorineClient from '../classes/Client';
 import Embed from '../classes/Embed';
-import { CommandInteraction } from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
-import { PermissionFlagsBits } from 'discord-api-types/v10';
+import { ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
 import ms, { StringValue } from 'ms';
 import { Category } from 'types/structures';
 
-export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
     const member = interaction.options.getMember('user');
     const duration = ms(interaction.options.getString('duration') as StringValue);
     const reason = interaction.options.getString('reason') ?? client.i18n.t('NONE', { lng: interaction.locale });
@@ -70,15 +68,17 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('TIMEOUT_SUCCESS_TITLE')
         .setLocaleDescription('TIMEOUT_SUCCESS_DESCRIPTION')
-        .setThumbnail(member.displayAvatarURL({ dynamic: true }))
-        .addLocaleField({
-            name: 'TIMEOUT_MODERATOR',
-            value: interaction.user.tag
-        })
-        .addLocaleField({ name: 'TIMEOUT_USER', value: member.user.tag })
-        .addLocaleField({ name: 'DURATION', value: ms(duration) })
-        .addLocaleField({ name: 'REASON', value: reason })
-        .addLocaleField({ name: 'CASE_ID', value: caseObj.caseId.toString() });
+        .setThumbnail(member.displayAvatarURL())
+        .addLocaleFields([
+            {
+                name: 'TIMEOUT_MODERATOR',
+                value: interaction.user.tag
+            },
+            { name: 'TIMEOUT_USER', value: member.user.tag },
+            { name: 'DURATION', value: ms(duration) },
+            { name: 'REASON', value: reason },
+            { name: 'CASE_ID', value: caseObj.caseId.toString() }
+        ]);
 
     interaction.reply({ embeds: [embed] });
     client.cases.logToModerationChannel(interaction.guildId, caseObj);

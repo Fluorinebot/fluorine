@@ -1,6 +1,6 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { GuildMember, Interaction, MessageActionRow, MessageButton, User } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, GuildMember, Interaction, User } from 'discord.js';
 
 export function getComponents(
     client: FluorineClient,
@@ -8,16 +8,16 @@ export function getComponents(
     member: GuildMember,
     action: 'guild' | 'user'
 ) {
-    return new MessageActionRow().addComponents(
-        new MessageButton()
+    return new ActionRowBuilder<ButtonBuilder>().addComponents(
+        new ButtonBuilder()
             .setCustomId(`avatar:${interaction.user.id}:${member.id}.guild`)
             .setLabel(client.i18n.t('AVATAR_GUILD', { lng: interaction.locale }))
-            .setStyle('PRIMARY')
+            .setStyle(ButtonStyle.Primary)
             .setDisabled(action === 'guild'),
-        new MessageButton()
+        new ButtonBuilder()
             .setCustomId(`avatar:${interaction.user.id}:${member.id}.user`)
             .setLabel(client.i18n.t('AVATAR_USER', { lng: interaction.locale }))
-            .setStyle('PRIMARY')
+            .setStyle(ButtonStyle.Primary)
             .setDisabled(action === 'user')
     );
 }
@@ -33,17 +33,17 @@ export function getEmbed(
     if (member instanceof GuildMember) {
         switch (action) {
             case 'guild': {
-                embed.setImage(member.displayAvatarURL({ dynamic: true, size: 512 }));
+                embed.setImage(member.displayAvatarURL({ size: 512 }));
                 break;
             }
 
             case 'user': {
-                embed.setImage(member.user.displayAvatarURL({ dynamic: true, size: 512 }));
+                embed.setImage(member.user.displayAvatarURL({ size: 512 }));
                 break;
             }
         }
     } else {
-        embed.setImage(member.displayAvatarURL({ dynamic: true, size: 512 }));
+        embed.setImage(member.displayAvatarURL({ size: 512 }));
     }
 
     return embed;

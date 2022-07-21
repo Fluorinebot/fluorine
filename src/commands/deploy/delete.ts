@@ -1,10 +1,8 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
-import { CommandInteraction } from 'discord.js';
-import { Routes } from 'discord-api-types/v10';
+import { ChatInputCommandInteraction, Routes, SlashCommandSubcommandBuilder } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: CommandInteraction) {
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     await interaction.deferReply();
     const name = interaction.options.getString('command');
     let guildId = interaction.options.getString('guild');

@@ -1,10 +1,9 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { SlashCommandBuilder } from '@discordjs/builders';
-import { CommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import { Category } from 'types/structures';
 
-export async function run(client: FluorineClient, interaction: CommandInteraction) {
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const { file } = (await fetch('https://api.alexflipnote.dev/dogs').then(response => response.json())) as {
         file: string;
     };

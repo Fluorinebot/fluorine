@@ -22,7 +22,7 @@ export async function run(client: FluorineClient, oldMessage: Message, newMessag
     }
 
     const channel = client.channels.cache.get(logsChannel.toString());
-    if (!channel?.isText()) {
+    if (!channel?.isTextBased()) {
         return;
     }
 
@@ -30,21 +30,23 @@ export async function run(client: FluorineClient, oldMessage: Message, newMessag
 
     const embed = new Embed(client, newMessage.guild.preferredLocale)
         .setLocaleTitle('MESSAGE_UPDATE_TITLE')
-        .setThumbnail(member.displayAvatarURL({ dynamic: true }))
-        .addLocaleField({
-            name: 'MESSAGE_UPDATE_AUTHOR',
-            value: member.user.tag
-        })
-        .addLocaleField({
-            name: 'MESSAGE_UPDATE_OLD_CONTENT',
-            localeValue: 'NONE',
-            value: oldMessage.content
-        })
-        .addLocaleField({
-            name: 'MESSAGE_UPDATE_NEW_CONTENT',
-            localeValue: 'NONE',
-            value: newMessage.content
-        });
+        .setThumbnail(member.displayAvatarURL())
+        .addLocaleFields([
+            {
+                name: 'MESSAGE_UPDATE_AUTHOR',
+                value: member.user.tag
+            },
+            {
+                name: 'MESSAGE_UPDATE_OLD_CONTENT',
+                localeValue: 'NONE',
+                value: oldMessage.content
+            },
+            {
+                name: 'MESSAGE_UPDATE_NEW_CONTENT',
+                localeValue: 'NONE',
+                value: newMessage.content
+            }
+        ]);
 
     channel.send({ embeds: [embed] });
 }

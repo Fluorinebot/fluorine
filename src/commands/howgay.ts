@@ -1,10 +1,9 @@
 import FluorineClient from '@classes/Client';
-import { SlashCommandBuilder } from '@discordjs/builders';
-import { CommandInteraction } from 'discord.js';
 import { Category } from 'types/structures';
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import hash from 'murmurhash-v3';
 
-export async function run(client: FluorineClient, interaction: CommandInteraction) {
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const thing =
         interaction.options.resolved.users?.first() ?? interaction.options.getString('thing') ?? interaction.user;
 
