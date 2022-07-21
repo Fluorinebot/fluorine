@@ -1,13 +1,12 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { codeBlock, SlashCommandSubcommandBuilder } from '@discordjs/builders';
-import { CommandInteraction } from 'discord.js';
+import EventHandler from '@handlers/EventHandler';
 import { execSync } from 'child_process';
+import { ChatInputCommandInteraction, codeBlock, SlashCommandSubcommandBuilder } from 'discord.js';
 import { readdir } from 'fs/promises';
 import { join } from 'path';
-import EventHandler from '@handlers/EventHandler';
 
-export async function run(client: FluorineClient, interaction: CommandInteraction) {
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const type = interaction.options.getString('type');
     const module = interaction.options.getString('module');
 

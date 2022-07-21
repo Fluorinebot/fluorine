@@ -1,9 +1,8 @@
-import { CommandInteraction } from 'discord.js';
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
+import { ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: CommandInteraction) {
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const value = interaction.options.getString('currency');
 
     await client.prisma.config.update({

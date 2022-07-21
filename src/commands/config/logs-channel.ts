@@ -1,10 +1,8 @@
-import { CommandInteraction } from 'discord.js';
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
-import { ChannelType } from 'discord-api-types/v10';
+import { ChannelType, ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: CommandInteraction) {
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const value = interaction.options.getChannel('channel').id;
 
     await client.prisma.config.update({

@@ -1,4 +1,4 @@
-import { Client, Intents } from 'discord.js';
+import { ActivityType, Client, GatewayIntentBits, Partials } from 'discord.js';
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
 import { REST } from '@discordjs/rest';
@@ -46,18 +46,19 @@ export default class FluorineClient extends Client {
     constructor() {
         super({
             intents: [
-                Intents.FLAGS.GUILDS,
-                Intents.FLAGS.GUILD_MESSAGES,
-                Intents.FLAGS.GUILD_BANS,
-                Intents.FLAGS.GUILD_MEMBERS,
-                Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
-                Intents.FLAGS.GUILD_PRESENCES,
-                Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS
+                GatewayIntentBits.Guilds,
+                GatewayIntentBits.GuildMessages,
+                GatewayIntentBits.GuildBans,
+                GatewayIntentBits.GuildMembers,
+                GatewayIntentBits.GuildMessageReactions,
+                GatewayIntentBits.GuildPresences,
+                GatewayIntentBits.GuildEmojisAndStickers,
+                GatewayIntentBits.MessageContent
             ],
-            partials: ['MESSAGE'],
+            partials: [Partials.Message],
             allowedMentions: { repliedUser: false },
             presence: {
-                activities: [{ name: 'with dangerous chemicals | /help', type: 'PLAYING' }]
+                activities: [{ name: 'with dangerous chemicals | /help', type: ActivityType.Playing }]
             }
         });
     }

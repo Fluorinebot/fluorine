@@ -1,6 +1,5 @@
-import { SlashCommandBuilder } from '@discordjs/builders';
-import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { Category } from 'types/structures';
+import { PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
 
 export const data = new SlashCommandBuilder()
     .setName('config')

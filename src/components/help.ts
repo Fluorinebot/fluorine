@@ -1,6 +1,6 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { SelectMenuInteraction, EmbedFieldData, MessageActionRow, MessageSelectMenu } from 'discord.js';
+import { ActionRowBuilder, APIEmbedField, SelectMenuBuilder, SelectMenuInteraction } from 'discord.js';
 import { ChatInputCommand } from 'types/structures';
 
 export const authorOnly = true;
@@ -9,7 +9,7 @@ export async function run(client: FluorineClient, interaction: SelectMenuInterac
     const [category] = interaction.values;
     const commands = client.commands.chatInput.filter((c: ChatInputCommand) => c.category === category && !c.dev);
 
-    const fields: EmbedFieldData[] = commands.map(c => ({
+    const fields: APIEmbedField[] = commands.map(c => ({
         name: `/${c.data.name_localizations[interaction.locale] ?? c.data.name}`,
         value: c.data.description_localizations[interaction.locale] ?? c.data.description
     }));
@@ -18,8 +18,8 @@ export async function run(client: FluorineClient, interaction: SelectMenuInterac
         .setLocaleTitle(`HELP_TITLE_${category.toUpperCase()}`)
         .setFields(fields);
 
-    const row = new MessageActionRow().addComponents([
-        new MessageSelectMenu().setCustomId(`help:${interaction.user.id}`).setOptions([
+    const row = new ActionRowBuilder<SelectMenuBuilder>().addComponents([
+        new SelectMenuBuilder().setCustomId(`help:${interaction.user.id}`).setOptions([
             {
                 label: client.i18n.t('FUN', { lng: interaction.locale }),
                 value: 'fun',

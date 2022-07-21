@@ -22,21 +22,23 @@ export async function run(client: FluorineClient, message: Message) {
     }
 
     const channel = client.channels.cache.get(logsChannel.toString());
-    if (!channel.isText()) {
+    if (!channel.isTextBased()) {
         return;
     }
 
     const embed = new Embed(client, message.guild.preferredLocale)
         .setLocaleTitle('MESSAGE_DELETE_TITLE')
-        .setThumbnail(message.member.displayAvatarURL({ dynamic: true }))
-        .addLocaleField({
-            name: 'MESSAGE_DELETE_AUTHOR',
-            value: message.author.tag
-        })
-        .addLocaleField({
-            name: 'MESSAGE_DELETE_CONTENT',
-            value: message.content
-        });
+        .setThumbnail(message.member.displayAvatarURL())
+        .addLocaleFields([
+            {
+                name: 'MESSAGE_DELETE_AUTHOR',
+                value: message.author.tag
+            },
+            {
+                name: 'MESSAGE_DELETE_CONTENT',
+                value: message.content
+            }
+        ]);
 
     channel.send({ embeds: [embed] });
 }

@@ -1,9 +1,8 @@
 import FluorineClient from '@classes/Client';
-import { SlashCommandBuilder } from '@discordjs/builders';
-import { CommandInteraction } from 'discord.js';
 import { Category } from 'types/structures';
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: CommandInteraction) {
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const toDeposit = interaction.options.getInteger('amount');
     const balance = await client.economy.get(interaction.guildId, interaction.user);
 

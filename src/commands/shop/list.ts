@@ -1,9 +1,8 @@
-import { CommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 
-export async function run(client: FluorineClient, interaction: CommandInteraction) {
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const list = await client.shop.list(interaction.guildId);
     const embed = new Embed(client, interaction.locale).setLocaleTitle('SHOP_LIST_TITLE');
 
@@ -11,7 +10,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
 
     if (list.length) {
         list.forEach(item => {
-            embed.addField(`${item.name} - ${item.price} ${currency}`, item.description);
+            embed.addFields({ name: `${item.name} - ${item.price} ${currency}`, value: item.description });
         });
     } else {
         embed.setLocaleDescription('NONE');

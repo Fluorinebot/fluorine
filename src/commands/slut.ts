@@ -1,10 +1,9 @@
-import { CommandInteraction } from 'discord.js';
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { SlashCommandBuilder } from '@discordjs/builders';
 import { Category } from 'types/structures';
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: CommandInteraction) {
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const money = Math.floor(Math.random() * 200 + 50);
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('SLUT_SUCCESS')

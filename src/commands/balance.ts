@@ -1,23 +1,18 @@
-import { CommandInteraction } from 'discord.js';
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { SlashCommandBuilder } from '@discordjs/builders';
 import { Category } from 'types/structures';
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: CommandInteraction) {
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const balance = await client.economy.get(interaction.guildId, interaction.user);
     const currency = await client.economy.getCurrency(interaction.guildId);
 
-    const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle('BALANCE')
-        .addLocaleField({
+    const embed = new Embed(client, interaction.locale).setLocaleTitle('BALANCE').addLocaleFields([
+        {
             name: 'BALANCE_WALLET',
             value: `${balance.walletBal} ${currency}`
-        })
-        .addLocaleField({
-            name: 'BALANCE_BANK',
-            value: `${balance.bankBal} ${currency}`
-        });
+        }
+    ]);
 
     interaction.reply({ embeds: [embed], ephemeral: true });
 }

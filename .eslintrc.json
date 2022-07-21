@@ -67,6 +67,16 @@
         "no-nested-ternary": "error",
         "no-new-wrappers": "error",
         "no-octal-escape": "error",
+        "no-restricted-imports": ["error", {
+            "name": "@discordjs/builders",
+            "message": "Import from `discord.js` instead."
+        }, {
+            "name": "discord-api-types",
+            "message": "Import from `discord.js` instead."
+        }, {
+            "name": "discord-api-types/v10",
+            "message": "Import from `discord.js` instead."
+        }],
         "no-return-await": "error",
         "no-sequences": [
             "error",

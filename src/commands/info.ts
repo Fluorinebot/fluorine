@@ -1,13 +1,12 @@
 import FluorineClient from '@classes/Client';
-import { SlashCommandBuilder } from '@discordjs/builders';
 import { getComponents, getEmbed } from '@util/info';
-import { CommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import { Category } from 'types/structures';
 
-export async function run(client: FluorineClient, interaction: CommandInteraction) {
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     interaction.reply({
         embeds: [await getEmbed(client, interaction, 'info')],
-        components: [await getComponents(client, interaction, 'info')]
+        components: [getComponents(client, interaction, 'info')]
     });
 }
 

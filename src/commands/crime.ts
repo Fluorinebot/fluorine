@@ -1,10 +1,9 @@
 import FluorineClient from '@classes/Client';
-import { SlashCommandBuilder } from '@discordjs/builders';
 import { Category } from 'types/structures';
-import { CommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import Embed from '@classes/Embed';
 
-export async function run(client: FluorineClient, interaction: CommandInteraction) {
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const currency = await client.economy.getCurrency(interaction.guildId);
     const random = Math.floor(Math.random() * 10);
 

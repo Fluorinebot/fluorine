@@ -1,10 +1,9 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
-import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
-import { CommandInteraction } from 'discord.js';
 import { ShopItemConstructor } from 'types/structures';
+import { ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandSubcommandBuilder } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: CommandInteraction) {
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const name = interaction.options.getString('name');
     const description = interaction.options.getString('description');
     const price = interaction.options.getInteger('price');
@@ -16,7 +15,7 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         obj.role = BigInt(role.id);
     }
 
-    if (!interaction.memberPermissions.has('MANAGE_GUILD')) {
+    if (!interaction.memberPermissions.has(PermissionFlagsBits.ManageGuild)) {
         return interaction.reply({
             content: client.i18n.t('SHOP_CREATE_PERMISSIONS', {
                 lng: interaction.locale
@@ -47,14 +46,14 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
         );
     }
 
-    const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle('SHOP_CREATE_SUCCESS')
-        .addLocaleField({ name: 'SHOP_CREATE_NAME', value: name })
-        .addLocaleField({ name: 'SHOP_CREATE_DESCRIPTION', value: description })
-        .addLocaleField({
+    const embed = new Embed(client, interaction.locale).setLocaleTitle('SHOP_CREATE_SUCCESS').addLocaleFields([
+        { name: 'SHOP_CREATE_NAME', value: name },
+        { name: 'SHOP_CREATE_DESCRIPTION', value: description },
+        {
             name: 'SHOP_CREATE_PRICE',
             value: `${price} ${await client.economy.getCurrency(interaction.guildId)}`
-        });
+        }
+    ]);
 
     interaction.reply({ embeds: [embed] });
     client.shop.add(obj);

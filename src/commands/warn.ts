@@ -1,11 +1,9 @@
 import FluorineClient from '../classes/Client';
 import Embed from '../classes/Embed';
-import { CommandInteraction } from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
-import { PermissionFlagsBits } from 'discord-api-types/v10';
+import { ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
 import { Category } from 'types/structures';
 
-export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
     const member = interaction.options.getMember('user');
     const reason = interaction.options.getString('reason') ?? client.i18n.t('NONE', { lng: interaction.locale });
 
@@ -41,11 +39,13 @@ export async function run(client: FluorineClient, interaction: CommandInteractio
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('WARN_SUCCESS_TITLE')
         .setLocaleDescription('WARN_SUCCESS_DESCRIPTION')
-        .setThumbnail(member.displayAvatarURL({ dynamic: true }))
-        .addLocaleField({ name: 'WARN_MODERATOR', value: interaction.user.tag })
-        .addLocaleField({ name: 'WARN_USER', value: member.user.tag })
-        .addLocaleField({ name: 'REASON', value: reason })
-        .addLocaleField({ name: 'CASE_ID', value: caseObj.caseId.toString() });
+        .setThumbnail(member.displayAvatarURL())
+        .addLocaleFields([
+            { name: 'WARN_MODERATOR', value: interaction.user.tag },
+            { name: 'WARN_USER', value: member.user.tag },
+            { name: 'REASON', value: reason },
+            { name: 'CASE_ID', value: caseObj.caseId.toString() }
+        ]);
 
     interaction.reply({ embeds: [embed] });
     client.cases.logToModerationChannel(interaction.guildId, caseObj);

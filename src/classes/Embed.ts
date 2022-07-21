@@ -1,4 +1,4 @@
-import { ColorResolvable, MessageEmbed } from 'discord.js';
+import { ColorResolvable, EmbedBuilder } from 'discord.js';
 import FluorineClient from '@classes/Client';
 import i18next from 'i18next';
 
@@ -11,7 +11,7 @@ export interface LocaleFieldOptions {
     valueArgs?: Record<string, unknown>;
 }
 
-export default class Embed extends MessageEmbed {
+export default class Embed extends EmbedBuilder {
     clientColor: ColorResolvable = 0x3872f2;
     private i18n: typeof i18next;
 
@@ -37,15 +37,18 @@ export default class Embed extends MessageEmbed {
         return super.setDescription(this.i18n.t(description, { lng: this.locale, ...args }));
     }
 
-    public addLocaleField(field: LocaleFieldOptions): this {
-        return super.addField(
-            this.i18n.t(field.name, { lng: this.locale, ...field.args }),
-            field.value ||
-                this.i18n.t(field.localeValue, {
-                    lng: this.locale,
-                    ...field.valueArgs
-                }),
-            field.inline
+    public addLocaleFields(fields: LocaleFieldOptions[]): this {
+        return super.addFields(
+            fields.map(field => ({
+                name: this.i18n.t(field.name, { lng: this.locale, ...field.args }),
+                value:
+                    field.value ||
+                    this.i18n.t(field.localeValue, {
+                        lng: this.locale,
+                        ...field.valueArgs
+                    }),
+                inline: field.inline
+            }))
         );
     }
 }

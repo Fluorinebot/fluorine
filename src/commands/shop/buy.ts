@@ -1,8 +1,7 @@
 import FluorineClient from '@classes/Client';
-import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
-import { CommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: CommandInteraction<'cached'>) {
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
     const item = interaction.options.getString('item');
     const itemObj = await client.shop.get(interaction.guildId, item);
     const user = await client.economy.get(interaction.guildId, interaction.user);

@@ -1,5 +1,5 @@
 import FluorineClient from '@classes/Client';
-import { Routes } from 'discord-api-types/v10';
+import { Routes } from 'discord.js';
 import { performance } from 'perf_hooks';
 
 export async function run(client: FluorineClient) {

@@ -1,7 +1,7 @@
 import FluorineClient from '@classes/Client';
 import Embed from '@classes/Embed';
 import { splitArray } from '@util/splitArr';
-import { MessageActionRow, MessageButton, ButtonInteraction } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle } from 'discord.js';
 
 export const authorOnly = true;
 
@@ -13,29 +13,26 @@ export async function run(client: FluorineClient, interaction: ButtonInteraction
 
     const chunk = splitArray(cases, 10);
 
-    const row = new MessageActionRow();
-    row.addComponents(
-        new MessageButton()
+    const row = new ActionRowBuilder<ButtonBuilder>();
+    row.addComponents([
+        new ButtonBuilder()
             .setCustomId(`listcase:${interaction.user.id}:${member.id}.${page - 1}`)
             .setLabel(client.i18n.t('LISTCASE_BACK', { lng: interaction.locale }))
-            .setStyle('PRIMARY')
-            .setDisabled(page === 0)
-    );
-
-    row.addComponents(
-        new MessageButton()
+            .setStyle(ButtonStyle.Primary)
+            .setDisabled(page === 0),
+        new ButtonBuilder()
             .setCustomId(`listcase:${interaction.user.id}:${member.id}.${page + 1}`)
             .setLabel(client.i18n.t('LISTCASE_NEXT', { lng: interaction.locale }))
-            .setStyle('PRIMARY')
+            .setStyle(ButtonStyle.Primary)
             .setDisabled(page + 1 === chunk.length)
-    );
+    ]);
 
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('LISTCASE_TITLE', { user: member.tag })
-        .setThumbnail(member.displayAvatarURL({ dynamic: true }));
+        .setThumbnail(member.displayAvatarURL());
 
     chunk[page > chunk.length ? page - 1 : page].forEach(caseData => {
-        embed.addField(`#${caseData.caseId} ${caseData.type}`, caseData.reason);
+        embed.addFields({ name: `#${caseData.caseId} ${caseData.type}`, value: caseData.reason });
     });
 
     interaction.update({ embeds: [embed], components: [row] });

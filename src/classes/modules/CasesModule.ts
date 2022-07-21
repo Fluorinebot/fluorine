@@ -69,18 +69,20 @@ export default class CasesModule {
             const embed = new Embed(this.client, guildObj.preferredLocale)
                 .setLocaleTitle('CASE_NEW')
                 .setThumbnail(member.displayAvatarURL())
-                .addLocaleField({
-                    name: 'CASE_TYPE',
-                    localeValue: caseObj.type.toUpperCase() as 'BAN' | 'KICK' | 'WARN' | 'MUTE' | 'TIMEOUT'
-                })
-                .addLocaleField({ name: 'CASE_MODERATOR', value: creator.tag })
-                .addLocaleField({ name: 'CASE_USER', value: member.user.tag })
-                .addLocaleField({ name: 'REASON', value: caseObj.reason })
-                .addField('ID', `#${caseObj.caseId}`);
+                .addLocaleFields([
+                    {
+                        name: 'CASE_TYPE',
+                        localeValue: caseObj.type.toUpperCase() as 'BAN' | 'KICK' | 'WARN' | 'MUTE' | 'TIMEOUT'
+                    },
+                    { name: 'CASE_MODERATOR', value: creator.tag },
+                    { name: 'CASE_USER', value: member.user.tag },
+                    { name: 'REASON', value: caseObj.reason },
+                    { name: 'ID', value: `#${caseObj.caseId}` }
+                ]);
 
             const channel = guildObj.channels.cache.get(logsChannel.toString());
 
-            if (!channel?.isText()) {
+            if (!channel?.isTextBased()) {
                 return;
             }
 
