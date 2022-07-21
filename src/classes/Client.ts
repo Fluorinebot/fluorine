@@ -48,11 +48,6 @@ export default class FluorineClient extends Client {
             intents: [
                 GatewayIntentBits.Guilds,
                 GatewayIntentBits.GuildMessages,
-                GatewayIntentBits.GuildBans,
-                GatewayIntentBits.GuildMembers,
-                GatewayIntentBits.GuildMessageReactions,
-                GatewayIntentBits.GuildPresences,
-                GatewayIntentBits.GuildEmojisAndStickers,
                 GatewayIntentBits.MessageContent
             ],
             partials: [Partials.Message],
