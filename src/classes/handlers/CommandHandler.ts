@@ -1,6 +1,6 @@
-import FluorineClient from '@classes/Client';
-import { ChatInputCommand, ChatInputSubcommand, ContextMenuCommand } from 'types/structures';
-import { loadDirectory, loadParentDirectory } from '@util/files';
+import FluorineClient from '#classes/Client';
+import { ChatInputCommand, ChatInputSubcommand, ContextMenuCommand } from '#types/structures';
+import { loadDirectory, loadParentDirectory } from '#util/files';
 import { Collection, SlashCommandBuilder, SlashCommandSubcommandBuilder } from 'discord.js';
 
 export default class CommandHandler {

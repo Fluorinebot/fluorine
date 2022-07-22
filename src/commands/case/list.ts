@@ -1,6 +1,6 @@
-import FluorineClient from '@classes/Client';
-import Embed from '@classes/Embed';
-import { splitArray } from '@util/splitArr';
+import FluorineClient from '#classes/Client';
+import Embed from '#classes/Embed';
+import { splitArray } from '#util/splitArr';
 import {
     ActionRowBuilder,
     ButtonBuilder,

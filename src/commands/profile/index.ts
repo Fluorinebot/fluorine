@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from 'discord.js';
-import { Category } from 'types/structures';
+import { Category } from '#types/structures';
 
 export const data = new SlashCommandBuilder()
     .setName('profile')

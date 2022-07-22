@@ -1,5 +1,5 @@
-import FluorineClient from '@classes/Client';
-import { fragmentText } from '@util/fragmentText';
+import FluorineClient from '#classes/Client';
+import { fragmentText } from '#util/fragmentText';
 import canvas from 'canvas';
 import { AttachmentBuilder, CommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
 

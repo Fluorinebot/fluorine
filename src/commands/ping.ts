@@ -1,7 +1,7 @@
-import FluorineClient from '@classes/Client';
-import Embed from '@classes/Embed';
+import FluorineClient from '#classes/Client';
+import Embed from '#classes/Embed';
 import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
-import { Category } from 'types/structures';
+import { Category } from '#types/structures';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const embed = new Embed(client, interaction.locale)

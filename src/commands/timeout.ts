@@ -2,7 +2,7 @@ import FluorineClient from '../classes/Client';
 import Embed from '../classes/Embed';
 import { ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
 import ms, { StringValue } from 'ms';
-import { Category } from 'types/structures';
+import { Category } from '#types/structures';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
     const member = interaction.options.getMember('user');

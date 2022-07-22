@@ -1,5 +1,5 @@
-import FluorineClient from '@classes/Client';
-import Embed from '@classes/Embed';
+import FluorineClient from '#classes/Client';
+import Embed from '#classes/Embed';
 import {
     ActionRowBuilder,
     ApplicationCommandType,
@@ -10,7 +10,7 @@ import {
     PermissionFlagsBits,
     UserContextMenuCommandInteraction
 } from 'discord.js';
-import { splitArray } from '@util/splitArr';
+import { splitArray } from '#util/splitArr';
 
 export async function run(client: FluorineClient, interaction: UserContextMenuCommandInteraction<'cached'>) {
     const row = new ActionRowBuilder<ButtonBuilder>();

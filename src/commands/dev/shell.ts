@@ -1,5 +1,5 @@
-import FluorineClient from '@classes/Client';
-import Embed from '@classes/Embed';
+import FluorineClient from '#classes/Client';
+import Embed from '#classes/Embed';
 import { execSync } from 'child_process';
 import { ChatInputCommandInteraction, codeBlock, SlashCommandSubcommandBuilder } from 'discord.js';
 

@@ -1,6 +1,6 @@
-import FluorineClient from '@classes/Client';
+import FluorineClient from '#classes/Client';
 import { Prisma } from '@prisma/client';
-import { ShopItemConstructor } from 'types/structures';
+import { ShopItemConstructor } from '#types/structures';
 
 export default class ShopModule {
     table: Prisma.ShopItemDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;

@@ -1,4 +1,4 @@
-import FluorineClient from '@classes/Client';
+import FluorineClient from '#classes/Client';
 import { Guild } from 'discord.js';
 
 export async function run(client: FluorineClient, guild: Guild) {

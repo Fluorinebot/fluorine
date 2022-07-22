@@ -1,4 +1,4 @@
-import FluorineClient from '@classes/Client';
+import FluorineClient from '#classes/Client';
 import { ApplicationCommandType, ContextMenuCommandBuilder, MessageContextMenuCommandInteraction } from 'discord.js';
 export async function run(client: FluorineClient, interaction: MessageContextMenuCommandInteraction) {
     const { content } = interaction.targetMessage;

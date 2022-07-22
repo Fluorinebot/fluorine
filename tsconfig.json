@@ -7,11 +7,11 @@
         "moduleResolution": "node",
         "baseUrl": "src",
         "paths": {
-            "@classes/*": ["classes/*"],
-            "@handlers/*": ["classes/handlers/*"],
-            "@modules/*": ["classes/modules/*"],
-            "@util/*": ["util/*"],
-            "types/*": ["types/*"]
+            "#classes/*": ["classes/*"],
+            "#handlers/*": ["classes/handlers/*"],
+            "#modules/*": ["classes/modules/*"],
+            "#util/*": ["util/*"],
+            "#types/*": ["types/*"]
         },
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,

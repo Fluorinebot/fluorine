@@ -1,5 +1,5 @@
-import FluorineClient from '@classes/Client';
-import Embed from '@classes/Embed';
+import FluorineClient from '#classes/Client';
+import Embed from '#classes/Embed';
 import { Prisma } from '@prisma/client';
 import { User } from 'discord.js';
 

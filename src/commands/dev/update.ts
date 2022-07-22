@@ -1,4 +1,4 @@
-import FluorineClient from '@classes/Client';
+import FluorineClient from '#classes/Client';
 import { execSync } from 'child_process';
 import { ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
 

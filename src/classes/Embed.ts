@@ -1,5 +1,5 @@
 import { ColorResolvable, EmbedBuilder } from 'discord.js';
-import FluorineClient from '@classes/Client';
+import FluorineClient from '#classes/Client';
 import i18next from 'i18next';
 
 export interface LocaleFieldOptions {

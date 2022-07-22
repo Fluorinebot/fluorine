@@ -1,6 +1,6 @@
 import FluorineClient from '../classes/Client';
 import Embed from '../classes/Embed';
-import { Category } from 'types/structures';
+import { Category } from '#types/structures';
 import { ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
