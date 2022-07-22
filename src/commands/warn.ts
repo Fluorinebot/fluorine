@@ -25,15 +25,6 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         });
     }
 
-    if (reason.length > 1024) {
-        return interaction.reply({
-            content: client.i18n.t('REASON_LONGER_THAN_1024', {
-                lng: interaction.locale
-            }),
-            ephemeral: true
-        });
-    }
-
     const caseObj = await client.cases.create(interaction.guildId, member.user, interaction.user, 'warn', reason);
 
     const embed = new Embed(client, interaction.locale)
@@ -72,6 +63,7 @@ export const data = new SlashCommandBuilder()
             .setNameLocalizations({ pl: 'powód' })
             .setDescription('Provide a reason for warning this user')
             .setDescriptionLocalizations({ pl: 'Podaj powód ostrzeżenia' })
+            .setMaxLength(1024)
             .setRequired(false)
     );
 
