@@ -1,4 +1,4 @@
 import 'dotenv/config';
-import FluorineClient from '@classes/Client';
+import FluorineClient from '#classes/Client';
 
 new FluorineClient().init();

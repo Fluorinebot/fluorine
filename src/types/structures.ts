@@ -1,4 +1,4 @@
-import FluorineClient from '@classes/Client';
+import FluorineClient from '#classes/Client';
 import {
     CommandInteraction,
     ContextMenuCommandBuilder,

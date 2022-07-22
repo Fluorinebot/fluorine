@@ -1,7 +1,7 @@
-import FluorineClient from '@classes/Client';
+import FluorineClient from '#classes/Client';
 import { Message } from 'discord.js';
 import { readFileSync } from 'fs';
-import { PhishingLink } from 'types/structures';
+import { PhishingLink } from '#types/structures';
 
 export default class PhishingModule {
     private _words: string;

@@ -1,5 +1,5 @@
-import FluorineClient from '@classes/Client';
-import { Category } from 'types/structures';
+import FluorineClient from '#classes/Client';
+import { Category } from '#types/structures';
 import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {

@@ -1,7 +1,7 @@
-import FluorineClient from '@classes/Client';
-import { Category } from 'types/structures';
+import FluorineClient from '#classes/Client';
+import { Category } from '#types/structures';
 import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
-import Embed from '@classes/Embed';
+import Embed from '#classes/Embed';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const currency = await client.economy.getCurrency(interaction.guildId);

@@ -3,23 +3,23 @@ import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
 import { REST } from '@discordjs/rest';
 
-import { Logger } from '@classes/Logger';
+import { Logger } from '#classes/Logger';
 import { join } from 'path';
 import { bold, red } from 'picocolors';
 import { performance } from 'perf_hooks';
 
 import { PrismaClient } from '@prisma/client';
 
-import EventHandler from '@handlers/EventHandler';
-import CommandHandler from '@classes/handlers/CommandHandler';
-import ComponentHandler from '@handlers/ComponentHandler';
-import CooldownHandler from '@handlers/CooldownHandler';
+import EventHandler from '#handlers/EventHandler';
+import CommandHandler from '#classes/handlers/CommandHandler';
+import ComponentHandler from '#handlers/ComponentHandler';
+import CooldownHandler from '#handlers/CooldownHandler';
 
-import AIModule from '@modules/AIModule';
-import EconomyModule from '@modules/EconomyModule';
-import ShopModule from '@modules/ShopModule';
-import PhishingModule from '@modules/PhishingModule';
-import CasesModule from '@modules/CasesModule';
+import AIModule from '#modules/AIModule';
+import EconomyModule from '#modules/EconomyModule';
+import ShopModule from '#modules/ShopModule';
+import PhishingModule from '#modules/PhishingModule';
+import CasesModule from '#modules/CasesModule';
 
 export default class FluorineClient extends Client {
     createdAt = performance.now();

@@ -1,4 +1,4 @@
-import FluorineClient from '@classes/Client';
+import FluorineClient from '#classes/Client';
 import { Prisma } from '@prisma/client';
 import { User } from 'discord.js';
 

@@ -1,5 +1,5 @@
-import FluorineClient from '@classes/Client';
-import { getEmbed, getComponents } from '@util/info';
+import FluorineClient from '#classes/Client';
+import { getEmbed, getComponents } from '#util/info';
 import { ButtonInteraction } from 'discord.js';
 
 export const authorOnly = true;

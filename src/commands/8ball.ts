@@ -1,6 +1,6 @@
-import FluorineClient from '@classes/Client';
-import Embed from '@classes/Embed';
-import { Category } from 'types/structures';
+import FluorineClient from '#classes/Client';
+import Embed from '#classes/Embed';
+import { Category } from '#types/structures';
 import hash from 'murmurhash-v3';
 import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 

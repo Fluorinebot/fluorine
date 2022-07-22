@@ -1,6 +1,6 @@
-import FluorineClient from '@classes/Client';
-import Embed from '@classes/Embed';
-import EventHandler from '@handlers/EventHandler';
+import FluorineClient from '#classes/Client';
+import Embed from '#classes/Embed';
+import EventHandler from '#handlers/EventHandler';
 import { execSync } from 'child_process';
 import { ChatInputCommandInteraction, codeBlock, SlashCommandSubcommandBuilder } from 'discord.js';
 import { readdir } from 'fs/promises';

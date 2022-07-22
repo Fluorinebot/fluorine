@@ -1,5 +1,5 @@
-import FluorineClient from '@classes/Client';
-import Embed from '@classes/Embed';
+import FluorineClient from '#classes/Client';
+import Embed from '#classes/Embed';
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Interaction } from 'discord.js';
 import { join } from 'path';
 import { readdir } from 'fs/promises';
