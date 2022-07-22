@@ -1,4 +1,4 @@
-import { ActivityType, Client, GatewayIntentBits, Partials } from 'discord.js';
+import { ActivityType, Client, disableValidators, GatewayIntentBits, Partials } from 'discord.js';
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
 import { REST } from '@discordjs/rest';
@@ -56,6 +56,10 @@ export default class FluorineClient extends Client {
 
     async init() {
         this.logger.log(`Starting ${bold(red(process.env.NODE_ENV))} build...`);
+
+        if (process.env.NODE_ENV === 'production') {
+            disableValidators();
+        }
 
         this.commands.loadChatInput();
         this.commands.loadContextMenu();

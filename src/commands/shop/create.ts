@@ -29,23 +29,6 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     if (existingItem) {
         return interaction.reply({ content: client.i18n.t('SHOP_CREATE_EXISTS') });
     }
-
-    if (name.length > 19) {
-        return interaction.reply(
-            client.i18n.t('SHOP_CREATE_NAME_INVALID', {
-                lng: interaction.locale
-            })
-        );
-    }
-
-    if (description.length > 49) {
-        return interaction.reply(
-            client.i18n.t('SHOP_CREATE_DESCRIPTION_INVALID', {
-                lng: interaction.locale
-            })
-        );
-    }
-
     const embed = new Embed(client, interaction.locale).setLocaleTitle('SHOP_CREATE_SUCCESS').addLocaleFields([
         { name: 'SHOP_CREATE_NAME', value: name },
         { name: 'SHOP_CREATE_DESCRIPTION', value: description },
@@ -70,6 +53,7 @@ export const data = new SlashCommandSubcommandBuilder()
             .setNameLocalizations({ pl: 'nazwa' })
             .setDescription('Name of the item')
             .setDescriptionLocalizations({ pl: 'Nazwa przedmiotu' })
+            .setMaxLength(20)
             .setRequired(true)
     )
     .addStringOption(option =>
@@ -78,6 +62,7 @@ export const data = new SlashCommandSubcommandBuilder()
             .setNameLocalizations({ pl: 'opis' })
             .setDescription('Description of the item')
             .setDescriptionLocalizations({ pl: 'Opis przedmiotu' })
+            .setMaxLength(50)
             .setRequired(true)
     )
     .addIntegerOption(option =>

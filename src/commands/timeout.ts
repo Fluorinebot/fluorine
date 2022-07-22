@@ -45,15 +45,6 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         });
     }
 
-    if (reason.length > 1024) {
-        return interaction.reply({
-            content: client.i18n.t('REASON_LONGER_THAN_1024', {
-                lng: interaction.locale
-            }),
-            ephemeral: true
-        });
-    }
-
     const caseObj = await client.cases.create(interaction.guildId, member.user, interaction.user, 'timeout', reason);
 
     await member.timeout(
@@ -113,6 +104,7 @@ export const data = new SlashCommandBuilder()
             .setNameLocalizations({ pl: 'powód' })
             .setDescription('Provide a reason for timing out this user')
             .setDescriptionLocalizations({ pl: 'Podaj powód przerwy' })
+            .setMaxLength(1024)
             .setRequired(false)
     );
 
