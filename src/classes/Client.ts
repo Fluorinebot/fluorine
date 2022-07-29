@@ -1,7 +1,6 @@
-import { ActivityType, Client, disableValidators, GatewayIntentBits, Partials } from 'discord.js';
+import { ActivityType, Client, disableValidators, GatewayIntentBits, Partials, REST } from 'discord.js';
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
-import { REST } from '@discordjs/rest';
 
 import { Logger } from '#classes/Logger';
 import { join } from 'path';
