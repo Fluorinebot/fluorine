@@ -1,5 +1,5 @@
-import FluorineClient from '#classes/Client';
-import { ApplicationCommandType, ContextMenuCommandBuilder, UserContextMenuCommandInteraction } from 'discord.js';
+import type FluorineClient from '#classes/Client';
+import { ApplicationCommandType, ContextMenuCommandBuilder, type UserContextMenuCommandInteraction } from 'discord.js';
 import hash from 'murmurhash-v3';
 
 export async function run(

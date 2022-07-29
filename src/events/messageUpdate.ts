@@ -1,6 +1,6 @@
-import FluorineClient from '#classes/Client';
+import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
-import { Message } from 'discord.js';
+import type { Message } from 'discord.js';
 
 export async function run(client: FluorineClient, oldMessage: Message, newMessage: Message) {
     if (!newMessage || newMessage.content === oldMessage.content) {

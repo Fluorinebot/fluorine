@@ -1,6 +1,6 @@
-import FluorineClient from '#classes/Client';
+import type FluorineClient from '#classes/Client';
 import { execSync } from 'child_process';
-import { ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     await interaction.deferReply();

@@ -1,4 +1,4 @@
-import FluorineClient from '#classes/Client';
+import type FluorineClient from '#classes/Client';
 import { Routes } from 'discord.js';
 import { performance } from 'perf_hooks';
 

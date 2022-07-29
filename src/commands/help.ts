@@ -1,13 +1,13 @@
-import FluorineClient from '#classes/Client';
+import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
+import type { Category, ChatInputCommand } from '#types/structures';
 import {
     ActionRowBuilder,
-    APIEmbedField,
-    ChatInputCommandInteraction,
+    type APIEmbedField,
+    type ChatInputCommandInteraction,
     SelectMenuBuilder,
     SlashCommandBuilder
 } from 'discord.js';
-import { Category, ChatInputCommand } from '#types/structures';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const category = interaction.options.getString('category');

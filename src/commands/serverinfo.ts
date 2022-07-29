@@ -1,7 +1,7 @@
-import FluorineClient from '#classes/Client';
+import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
-import { Category } from '#types/structures';
-import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import type { Category } from '#types/structures';
+import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const embed = new Embed(client, interaction.locale).setLocaleTitle('SERVER_INFO').addLocaleFields([

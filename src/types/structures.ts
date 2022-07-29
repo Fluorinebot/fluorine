@@ -1,5 +1,5 @@
-import FluorineClient from '#classes/Client';
-import {
+import type FluorineClient from '#classes/Client';
+import type {
     CommandInteraction,
     ContextMenuCommandBuilder,
     ContextMenuCommandInteraction,

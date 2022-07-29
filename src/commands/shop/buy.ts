@@ -1,5 +1,5 @@
-import FluorineClient from '#classes/Client';
-import { ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
+import type FluorineClient from '#classes/Client';
+import { type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
     const item = interaction.options.getString('item');

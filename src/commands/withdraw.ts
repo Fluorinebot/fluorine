@@ -1,6 +1,6 @@
-import FluorineClient from '#classes/Client';
-import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
-import { Category } from '#types/structures';
+import type FluorineClient from '#classes/Client';
+import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import type { Category } from '#types/structures';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const toWithdraw = interaction.options.getInteger('amount');

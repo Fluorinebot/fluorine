@@ -1,16 +1,16 @@
-import FluorineClient from '#classes/Client';
+import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
+import { splitArray } from '#util/splitArr';
 import {
     ActionRowBuilder,
     ApplicationCommandType,
     ButtonBuilder,
     ButtonStyle,
     ContextMenuCommandBuilder,
-    InteractionReplyOptions,
+    type InteractionReplyOptions,
     PermissionFlagsBits,
-    UserContextMenuCommandInteraction
+    type UserContextMenuCommandInteraction
 } from 'discord.js';
-import { splitArray } from '#util/splitArr';
 
 export async function run(client: FluorineClient, interaction: UserContextMenuCommandInteraction<'cached'>) {
     const row = new ActionRowBuilder<ButtonBuilder>();

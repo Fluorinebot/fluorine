@@ -1,7 +1,12 @@
-import FluorineClient from '#classes/Client';
-import { ChatInputCommandInteraction, GuildMember, InteractionReplyOptions, SlashCommandBuilder } from 'discord.js';
-import { Category } from '#types/structures';
+import type FluorineClient from '#classes/Client';
+import type { Category } from '#types/structures';
 import { getComponents, getEmbed } from '#util/avatar';
+import {
+    type ChatInputCommandInteraction,
+    GuildMember,
+    type InteractionReplyOptions,
+    SlashCommandBuilder
+} from 'discord.js';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
     const user = interaction.options.getMember('user') ?? interaction.options.getUser('user') ?? interaction.member;

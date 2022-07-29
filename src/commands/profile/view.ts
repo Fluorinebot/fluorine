@@ -1,9 +1,9 @@
-import FluorineClient from '#classes/Client';
+import type FluorineClient from '#classes/Client';
 import { fragmentText } from '#util/fragmentText';
 import canvas from 'canvas';
-import { AttachmentBuilder, CommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
+import { AttachmentBuilder, type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: CommandInteraction) {
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const user = interaction.options.getUser('user') ?? interaction.user;
     const localeOptions = {
         lng: interaction.locale

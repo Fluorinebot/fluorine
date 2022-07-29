@@ -1,6 +1,6 @@
-import FluorineClient from '#classes/Client';
+import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, GuildMember, Interaction, User } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, GuildMember, type Interaction, type User } from 'discord.js';
 
 export function getComponents(
     client: FluorineClient,
