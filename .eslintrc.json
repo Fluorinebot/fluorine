@@ -71,6 +71,9 @@
             "name": "@discordjs/builders",
             "message": "Import from `discord.js` instead."
         }, {
+            "name": "@discordjs/rest",
+            "message": "Import from `discord.js` instead."
+        }, {
             "name": "discord-api-types",
             "message": "Import from `discord.js` instead."
         }, {
