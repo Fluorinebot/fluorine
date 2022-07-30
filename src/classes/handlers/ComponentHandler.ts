@@ -1,6 +1,6 @@
-import { Component } from '#types/structures';
+import type { Component } from '#types/structures';
 import { Collection } from 'discord.js';
-import FluorineClient from '#classes/Client';
+import type FluorineClient from '#classes/Client';
 import { loadDirectory } from '#util/files';
 
 export default class ComponentHandler extends Collection<string, Component> {

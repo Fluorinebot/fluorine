@@ -1,6 +1,6 @@
-import FluorineClient from '#classes/Client';
-import { Prisma } from '@prisma/client';
-import { User } from 'discord.js';
+import type FluorineClient from '#classes/Client';
+import type { Prisma } from '@prisma/client';
+import type { User } from 'discord.js';
 
 export default class CooldownHandler {
     table: Prisma.CooldownDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;

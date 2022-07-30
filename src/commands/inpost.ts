@@ -1,7 +1,7 @@
-import FluorineClient from '#classes/Client';
+import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
-import { InpostStatuses, InpostTrackObj } from '#types/webRequests';
-import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import type { InpostStatuses, InpostTrackObj } from '#types/webRequests';
+import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const id = interaction.options.getString('id');

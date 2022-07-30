@@ -1,12 +1,12 @@
-import FluorineClient from '#classes/Client';
+import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
 import { splitArray } from '#util/splitArr';
 import {
     ActionRowBuilder,
     ButtonBuilder,
     ButtonStyle,
-    ChatInputCommandInteraction,
-    InteractionReplyOptions,
+    type ChatInputCommandInteraction,
+    type InteractionReplyOptions,
     SlashCommandSubcommandBuilder
 } from 'discord.js';
 

@@ -1,11 +1,11 @@
-import FluorineClient from '#classes/Client';
+import type FluorineClient from '#classes/Client';
 import { getComponents, getEmbed } from '#util/avatar';
 import {
     ApplicationCommandType,
     ContextMenuCommandBuilder,
-    UserContextMenuCommandInteraction,
-    InteractionReplyOptions,
-    GuildMember
+    GuildMember,
+    type InteractionReplyOptions,
+    type UserContextMenuCommandInteraction
 } from 'discord.js';
 
 export async function run(

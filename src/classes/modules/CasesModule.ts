@@ -1,7 +1,7 @@
-import FluorineClient from '#classes/Client';
+import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
-import { Prisma } from '@prisma/client';
-import { User } from 'discord.js';
+import type { Prisma } from '@prisma/client';
+import type { User } from 'discord.js';
 
 export default class CasesModule {
     table: Prisma.CaseDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;

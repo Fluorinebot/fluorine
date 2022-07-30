@@ -1,5 +1,5 @@
-import FluorineClient from '#classes/Client';
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Message, OAuth2Scopes } from 'discord.js';
+import type FluorineClient from '#classes/Client';
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, type Message, OAuth2Scopes } from 'discord.js';
 
 export async function run(client: FluorineClient, message: Message) {
     if (message.author.bot) {

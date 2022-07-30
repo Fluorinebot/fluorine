@@ -1,8 +1,8 @@
-import FluorineClient from '#classes/Client';
+import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
-import { Category } from '#types/structures';
+import type { Category } from '#types/structures';
 import hash from 'murmurhash-v3';
-import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const question = interaction.options.getString('question');

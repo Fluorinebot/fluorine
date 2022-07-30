@@ -1,8 +1,8 @@
-import FluorineClient from '#classes/Client';
+import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Interaction } from 'discord.js';
-import { join } from 'path';
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, type Interaction } from 'discord.js';
 import { readdir } from 'fs/promises';
+import { join } from 'path';
 
 export async function getEmbed(client: FluorineClient, interaction: Interaction, page: 'info' | 'stats') {
     const embed = new Embed(client, interaction.locale);

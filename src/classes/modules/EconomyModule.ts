@@ -1,6 +1,6 @@
-import FluorineClient from '#classes/Client';
-import { EconomyProfile, Prisma } from '@prisma/client';
-import { User } from 'discord.js';
+import type FluorineClient from '#classes/Client';
+import type { EconomyProfile, Prisma } from '@prisma/client';
+import type { User } from 'discord.js';
 
 export default class EconomyModule {
     table: Prisma.EconomyProfileDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;

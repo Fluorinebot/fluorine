@@ -1,4 +1,4 @@
-import { Category } from '#types/structures';
+import type { Category } from '#types/structures';
 import { PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
 
 export const data = new SlashCommandBuilder()

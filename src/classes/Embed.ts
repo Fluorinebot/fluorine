@@ -1,6 +1,6 @@
-import { ColorResolvable, EmbedBuilder } from 'discord.js';
-import FluorineClient from '#classes/Client';
-import i18next from 'i18next';
+import type FluorineClient from '#classes/Client';
+import { type ColorResolvable, EmbedBuilder } from 'discord.js';
+import type i18next from 'i18next';
 
 export interface LocaleFieldOptions {
     name: string;

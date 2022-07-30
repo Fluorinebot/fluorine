@@ -1,7 +1,7 @@
-import FluorineClient from '#classes/Client';
-import { CommandInteraction, ContextMenuCommandInteraction } from 'discord.js';
+import type FluorineClient from '#classes/Client';
+import type { CommandInteraction, ContextMenuCommandInteraction } from 'discord.js';
 import Embed from '#classes/Embed';
-import { AIQueue } from '#types/structures';
+import type { AIQueue } from '#types/structures';
 
 export default class AIModule {
     queue: AIQueue[];
