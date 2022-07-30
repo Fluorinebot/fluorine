@@ -10,10 +10,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     const command = client.commands.chatInput.get(name) ?? client.commands.contextMenu.get(name);
 
     if (!command && name !== 'all') {
-        return interaction.reply({
-            content: 'Command not found',
-            ephemeral: true
-        });
+        return interaction.editReply(`Command \`${name}\` not found.`);
     }
     if (guildId === 'this') {
         ({ guildId } = interaction);
@@ -37,17 +34,17 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
                 .filter(c => commands.cache.some(cmd => cmd.name === 'deploy') || !c.dev)
                 .map(command => command.data.toJSON());
 
-            await client.restModule.put(route, {
+            await client.rest.put(route, {
                 body: [...chatInputCommands, ...contextMenuCommands]
             });
 
             await interaction.editReply('Added all commands.');
         } else {
-            await client.restModule.post(route, {
+            await client.rest.post(route, {
                 body: command.data.toJSON()
             });
 
-            interaction.editReply(`Added \`${command.data.name}\``);
+            interaction.editReply(`Added \`${command.data.name}\`.`);
         }
     } catch (error) {
         const embed = new Embed(client, interaction.locale)

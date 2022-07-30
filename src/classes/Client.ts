@@ -1,4 +1,4 @@
-import { ActivityType, Client, disableValidators, GatewayIntentBits, Partials, REST } from 'discord.js';
+import { ActivityType, Client, disableValidators, GatewayIntentBits, Partials } from 'discord.js';
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
 
@@ -40,8 +40,6 @@ export default class FluorineClient extends Client {
     devs = ['707675871355600967', '478823932913516544', '348591272476540928'];
     support = process.env.DISCORD_SUPPORT_INVITE;
 
-    restModule = new REST({ version: '10' });
-
     constructor() {
         super({
             intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
@@ -73,7 +71,6 @@ export default class FluorineClient extends Client {
         });
 
         await this.prisma.$connect();
-        this.restModule.setToken(process.env.DISCORD_TOKEN);
         this.login();
 
         process.on('unhandledRejection', (error: Error) => {

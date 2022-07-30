@@ -21,7 +21,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         await commands.fetch();
 
         if (name === 'all') {
-            await client.restModule.put(route, {
+            await client.rest.put(route, {
                 body:
                     guildId && commands.cache.some(c => c.name === 'deploy')
                         ? [client.commands.chatInput.get('deploy').data.toJSON()]
@@ -31,10 +31,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
             const command = commands.cache.find(c => c.name === name);
 
             if (!command) {
-                return interaction.reply({
-                    content: 'Command not found',
-                    ephemeral: true
-                });
+                return interaction.editReply(`Command \`${name}\` not found. Are you sure it was deployed?`);
             }
 
             await command.delete();
