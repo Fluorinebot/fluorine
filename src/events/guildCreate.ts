@@ -1,5 +1,5 @@
 import type FluorineClient from '#classes/Client';
-import type { Guild } from 'discord.js';
+import type { Guild } from 'tiscord';
 
 export async function run(client: FluorineClient, guild: Guild) {
     await client.prisma.config.create({

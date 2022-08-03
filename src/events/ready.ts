@@ -1,23 +1,18 @@
 import type FluorineClient from '#classes/Client';
-import { Routes } from 'discord.js';
+import { Routes } from 'discord-api-types/v10';
 import { performance } from 'perf_hooks';
 
 export async function run(client: FluorineClient) {
-    const devGuild = client.guilds.cache.get(process.env.DISCORD_DEV_GUILD);
-    const commands = await devGuild.commands.fetch();
+    const route = Routes.applicationGuildCommands(client.user.id, process.env.DISCORD_DEV_GUILD);
+    const command = client.commands.chatInput.get('deploy');
 
-    if (!commands.some(c => c.name === 'deploy')) {
-        const route = Routes.applicationGuildCommands(client.user.id, process.env.DISCORD_DEV_GUILD);
-        const command = client.commands.chatInput.get('deploy');
+    await client.rest.post(route, {
+        body: command.data.toJSON()
+    });
 
-        await client.rest.post(route, {
-            body: command.data.toJSON()
-        });
+    client.logger.log(`Enabled deploy commands for guild ID ${process.env.DISCORD_DEV_GUILD}.`);
 
-        client.logger.log(`Enabled deploy commands for guild ID ${process.env.DISCORD_DEV_GUILD}.`);
-    }
-
-    client.guilds.cache.forEach(async guild => {
+    client.cache.guilds.forEach(async guild => {
         await client.prisma.config.upsert({
             where: {
                 guildId: BigInt(guild.id)
@@ -35,6 +30,6 @@ export async function run(client: FluorineClient) {
         });
     });
 
-    client.logger.log(`Checked ${client.guilds.cache.size} guilds.`);
+    client.logger.log(`Checked ${client.cache.guilds.size} guilds.`);
     client.logger.log(`Ready in ${((performance.now() - client.createdAt) / 1000).toFixed(2)}s`);
 }

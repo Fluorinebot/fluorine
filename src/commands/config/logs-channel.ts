@@ -1,7 +1,8 @@
 import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
-import { type ChatInputCommandInteraction, ChannelType, SlashCommandSubcommandBuilder } from 'discord.js';
-
+import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
+import { type ChatInputCommandInteraction } from 'tiscord';
+import { ChannelType } from 'discord-api-types/v10';
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const value = interaction.options.getChannel('channel').id;
 
@@ -23,7 +24,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
             value
         });
 
-    interaction.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed.toJSON()] });
 }
 
 export const data = new SlashCommandSubcommandBuilder()

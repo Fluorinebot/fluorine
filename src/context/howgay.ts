@@ -1,12 +1,11 @@
 import type FluorineClient from '#classes/Client';
-import { ApplicationCommandType, ContextMenuCommandBuilder, type UserContextMenuCommandInteraction } from 'discord.js';
+import { type UserContextMenuInteraction } from 'tiscord';
 import hash from 'murmurhash-v3';
+import { ContextMenuCommandBuilder } from '@discordjs/builders';
+import { ApplicationCommandType } from 'discord-api-types/v10';
 
-export async function run(
-    client: FluorineClient,
-    interaction: UserContextMenuCommandInteraction<'cached'>
-): Promise<void> {
-    const user = interaction.targetUser;
+export async function run(client: FluorineClient, interaction: UserContextMenuInteraction): Promise<void> {
+    const user = interaction.target;
     const percent = ['478823932913516544', '348591272476540928'].includes(user.id) ? 100 : hash(user.toString()) % 101;
 
     interaction.reply(

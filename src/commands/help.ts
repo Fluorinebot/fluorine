@@ -1,17 +1,15 @@
 import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
 import type { Category, ChatInputCommand } from '#types/structures';
-import {
-    ActionRowBuilder,
-    type APIEmbedField,
-    type ChatInputCommandInteraction,
-    SelectMenuBuilder,
-    SlashCommandBuilder
-} from 'discord.js';
+import { ActionRowBuilder, SelectMenuBuilder, SlashCommandBuilder } from '@discordjs/builders';
+import type { APIEmbedField } from 'discord-api-types/v10';
+import { type ChatInputCommandInteraction } from 'tiscord';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const category = interaction.options.getString('category');
-    const commands = client.commands.chatInput.filter((c: ChatInputCommand) => c.category === category && !c.dev);
+    const commands = [...client.commands.chatInput.values()].filter(
+        (c: ChatInputCommand) => c.category === category && !c.dev
+    );
 
     const fields: APIEmbedField[] = commands.map(c => ({
         name: `/${c.data.name_localizations[interaction.locale] ?? c.data.name}`,
@@ -23,6 +21,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         .setFields(fields);
 
     const row = new ActionRowBuilder<SelectMenuBuilder>().addComponents([
+        // @ts-expect-error
         new SelectMenuBuilder().setCustomId(`help:${interaction.user.id}`).setOptions([
             {
                 label: client.i18n.t('FUN', { lng: interaction.locale }),
@@ -56,7 +55,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     ]);
 
     interaction.reply({
-        embeds: [embed],
+        embeds: [embed.toJSON()],
         components: [row]
     });
 }

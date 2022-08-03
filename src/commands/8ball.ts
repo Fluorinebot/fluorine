@@ -2,7 +2,8 @@ import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
 import type { Category } from '#types/structures';
 import hash from 'murmurhash-v3';
-import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { type ChatInputCommandInteraction } from 'tiscord';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const question = interaction.options.getString('question');
@@ -15,7 +16,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         }
     ]);
 
-    interaction.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed.toJSON()] });
 }
 
 export const data = new SlashCommandBuilder()

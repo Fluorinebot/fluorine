@@ -1,6 +1,7 @@
-import { type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction } from 'tiscord';
 import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
+import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const list = await client.shop.list(interaction.guildId);
@@ -16,7 +17,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         embed.setLocaleDescription('NONE');
     }
 
-    interaction.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed.toJSON()] });
 }
 
 export const data = new SlashCommandSubcommandBuilder()

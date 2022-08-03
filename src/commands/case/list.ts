@@ -1,16 +1,11 @@
 import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
 import { splitArray } from '#util/splitArr';
-import {
-    ActionRowBuilder,
-    ButtonBuilder,
-    ButtonStyle,
-    type ChatInputCommandInteraction,
-    type InteractionReplyOptions,
-    SlashCommandSubcommandBuilder
-} from 'discord.js';
+import { type ChatInputCommandInteraction, type RawMessageOptions } from 'tiscord';
+import { ButtonStyle } from 'discord-api-types/v10';
+import { ActionRowBuilder, ButtonBuilder, SlashCommandSubcommandBuilder } from '@discordjs/builders';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const row = new ActionRowBuilder<ButtonBuilder>();
     const member = interaction.options.getMember('user');
 
@@ -27,7 +22,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
 
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('LISTCASE_TITLE', { user: member.user.tag })
-        .setThumbnail(member.user.displayAvatarURL());
+        .setThumbnail(`https://cdn.discordapp.com/avatars/${member.user.id}/${member.user.avatar}.png`);
 
     if (!cases.length) {
         return interaction.reply({
@@ -45,7 +40,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         embed.addFields({ name: `#${caseData.caseId} ${caseData.type}`, value: caseData.reason });
     });
 
-    const replyOptions: InteractionReplyOptions = { embeds: [embed] };
+    const replyOptions: RawMessageOptions = { embeds: [embed.toJSON()] };
 
     if (chunk.length > 1) {
         row.addComponents([

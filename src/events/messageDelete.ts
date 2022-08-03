@@ -1,6 +1,7 @@
 import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
-import type { Message } from 'discord.js';
+import { ChannelType } from 'discord-api-types/v10';
+import type { Message } from 'tiscord';
 
 export async function run(client: FluorineClient, message: Message) {
     if (!message.content) {
@@ -21,14 +22,14 @@ export async function run(client: FluorineClient, message: Message) {
         return;
     }
 
-    const channel = client.channels.cache.get(logsChannel.toString());
-    if (!channel.isTextBased()) {
+    const channel = await client.channels.get(logsChannel.toString());
+    if (channel.type !== ChannelType.GuildText) {
         return;
     }
 
-    const embed = new Embed(client, message.guild.preferredLocale)
+    const embed = new Embed(client, message.guild.locale)
         .setLocaleTitle('MESSAGE_DELETE_TITLE')
-        .setThumbnail(message.member.displayAvatarURL())
+        .setThumbnail(`https://cdn.discordapp.com/avatars/${message.author.id}/${message.author.avatar}.png`)
         .addLocaleFields([
             {
                 name: 'MESSAGE_DELETE_AUTHOR',
@@ -40,5 +41,5 @@ export async function run(client: FluorineClient, message: Message) {
             }
         ]);
 
-    channel.send({ embeds: [embed] });
+    channel.send({ embeds: [embed.toJSON()] });
 }

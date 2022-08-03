@@ -1,14 +1,16 @@
 import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
 import { splitArray } from '#util/splitArr';
-import { ActionRowBuilder, ButtonBuilder, type ButtonInteraction, ButtonStyle } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder } from '@discordjs/builders';
+import { ButtonStyle } from 'discord-api-types/v10';
+import { type ButtonInteraction } from 'tiscord';
 
 export const authorOnly = true;
 
 export async function run(client: FluorineClient, interaction: ButtonInteraction, value: string) {
     const [user, _page] = value.split('.');
     const page = Number(_page);
-    const member = client.users.cache.get(user);
+    const member = await client.users.get(user);
     const cases = await client.cases.getMany(interaction.guildId, member);
 
     const chunk = splitArray(cases, 10);
@@ -29,11 +31,11 @@ export async function run(client: FluorineClient, interaction: ButtonInteraction
 
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('LISTCASE_TITLE', { user: member.tag })
-        .setThumbnail(member.displayAvatarURL());
+        .setThumbnail(`https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}.png`);
 
     chunk[page > chunk.length ? page - 1 : page].forEach(caseData => {
         embed.addFields({ name: `#${caseData.caseId} ${caseData.type}`, value: caseData.reason });
     });
 
-    interaction.update({ embeds: [embed], components: [row] });
+    interaction.editOriginalMessage({ embeds: [embed.toJSON()], components: [row] });
 }

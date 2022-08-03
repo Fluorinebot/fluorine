@@ -3,33 +3,67 @@
         "es6": true,
         "node": true
     },
-    "extends": ["eslint:recommended", "prettier/prettier", "plugin:@typescript-eslint/recommended"],
+    "extends": [
+        "eslint:recommended",
+        "prettier/prettier",
+        "plugin:@typescript-eslint/recommended"
+    ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": 2021,
         "sourceType": "module"
     },
-    "plugins": ["@typescript-eslint", "prettier"],
+    "plugins": [
+        "@typescript-eslint",
+        "prettier"
+    ],
     "rules": {
         "@typescript-eslint/ban-ts-comment": "off",
         "@typescript-eslint/consistent-type-imports": "error",
         "@typescript-eslint/no-explicit-any": "off",
-        "array-bracket-newline": ["error", "consistent"],
-        "arrow-body-style": ["error", "as-needed"],
-        "arrow-parens": ["error", "as-needed"],
+        "array-bracket-newline": [
+            "error",
+            "consistent"
+        ],
+        "arrow-body-style": [
+            "error",
+            "as-needed"
+        ],
+        "arrow-parens": [
+            "error",
+            "as-needed"
+        ],
         "arrow-spacing": "error",
         "block-spacing": "error",
         "brace-style": "error",
         "comma-dangle": "error",
         "comma-spacing": "error",
-        "comma-style": ["error", "last"],
-        "curly": ["error", "all"],
+        "comma-style": [
+            "error",
+            "last"
+        ],
+        "curly": [
+            "error",
+            "all"
+        ],
         "default-case-last": "error",
-        "dot-location": ["error", "property"],
+        "dot-location": [
+            "error",
+            "property"
+        ],
         "dot-notation": "error",
-        "eol-last": ["error", "always"],
-        "eqeqeq": ["error", "always"],
-        "func-call-spacing": ["error", "never"],
+        "eol-last": [
+            "error",
+            "always"
+        ],
+        "eqeqeq": [
+            "error",
+            "always"
+        ],
+        "func-call-spacing": [
+            "error",
+            "never"
+        ],
         "keyword-spacing": "error",
         "line-comment-position": [
             "error",
@@ -68,19 +102,6 @@
         "no-nested-ternary": "error",
         "no-new-wrappers": "error",
         "no-octal-escape": "error",
-        "no-restricted-imports": ["error", {
-            "name": "@discordjs/builders",
-            "message": "Import from `discord.js` instead."
-        }, {
-            "name": "@discordjs/rest",
-            "message": "Import from `discord.js` instead."
-        }, {
-            "name": "discord-api-types",
-            "message": "Import from `discord.js` instead."
-        }, {
-            "name": "discord-api-types/v10",
-            "message": "Import from `discord.js` instead."
-        }],
         "no-return-await": "error",
         "no-sequences": [
             "error",
@@ -88,7 +109,9 @@
                 "allowInParentheses": false
             }
         ],
-        "no-shadow": ["off"],
+        "no-shadow": [
+            "off"
+        ],
         "no-template-curly-in-string": "error",
         "no-trailing-spaces": "error",
         "no-undef-init": "error",
@@ -114,9 +137,18 @@
             }
         ],
         "object-shorthand": "error",
-        "one-var": ["error", "never"],
-        "operator-assignment": ["error", "always"],
-        "padded-blocks": ["error", "never"],
+        "one-var": [
+            "error",
+            "never"
+        ],
+        "operator-assignment": [
+            "error",
+            "always"
+        ],
+        "padded-blocks": [
+            "error",
+            "never"
+        ],
         "prefer-arrow-callback": [
             "error",
             {
@@ -140,10 +172,16 @@
         ],
         "require-atomic-updates": "error",
         "require-unicode-regexp": "error",
-        "rest-spread-spacing": ["error", "never"],
+        "rest-spread-spacing": [
+            "error",
+            "never"
+        ],
         "semi": "error",
         "semi-spacing": "error",
-        "semi-style": ["error", "last"],
+        "semi-style": [
+            "error",
+            "last"
+        ],
         "space-before-function-paren": [
             "error",
             {
@@ -152,7 +190,10 @@
                 "named": "never"
             }
         ],
-        "space-in-parens": ["error", "never"],
+        "space-in-parens": [
+            "error",
+            "never"
+        ],
         "space-infix-ops": "error",
         "space-unary-ops": [
             "error",
@@ -163,8 +204,14 @@
         ],
         "spaced-comment": "error",
         "switch-colon-spacing": "error",
-        "template-curly-spacing": ["error", "never"],
-        "unicode-bom": ["error", "never"],
+        "template-curly-spacing": [
+            "error",
+            "never"
+        ],
+        "unicode-bom": [
+            "error",
+            "never"
+        ],
         "yoda": "error"
     }
 }

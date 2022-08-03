@@ -1,20 +1,22 @@
 import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, type Interaction } from 'discord.js';
+import { type Interaction } from 'tiscord';
 import { readdir } from 'fs/promises';
 import { join } from 'path';
+import { ActionRowBuilder, ButtonBuilder } from '@discordjs/builders';
+import { ButtonStyle } from 'discord-api-types/v10';
 
 export async function getEmbed(client: FluorineClient, interaction: Interaction, page: 'info' | 'stats') {
     const embed = new Embed(client, interaction.locale);
 
     if (page === 'info') {
-        const developers = (await Promise.all(client.devs.map(async id => (await client.users.fetch(id)).tag))).join(
+        const developers = (await Promise.all(client.devs.map(async id => (await client.users.get(id)).tag))).join(
             '\n'
         );
 
         const thanks = (
             await Promise.all(
-                ['709446362252443760', '603635602809946113'].map(async id => (await client.users.fetch(id)).tag)
+                ['709446362252443760', '603635602809946113'].map(async id => (await client.users.get(id)).tag)
             )
         ).join('\n');
 
@@ -57,27 +59,22 @@ export async function getEmbed(client: FluorineClient, interaction: Interaction,
             },
             {
                 name: 'INFO_STATS_SERVERS',
-                value: client.guilds.cache.size.toString(),
+                value: client.cache.guilds.size.toString(),
                 inline: true
             },
             {
                 name: 'INFO_STATS_USERS',
-                value: client.users.cache.size.toString(),
+                value: client.cache.users.size.toString(),
                 inline: true
             },
             {
                 name: 'INFO_STATS_CHANNELS',
-                value: client.channels.cache.size.toString(),
+                value: client.cache.channels.size.toString(),
                 inline: true
             },
             {
                 name: 'INFO_STATS_COMMANDS',
                 value: client.commands.chatInput.size.toString(),
-                inline: true
-            },
-            {
-                name: 'INFO_STATS_PING',
-                value: `${client.ws.ping}ms`,
                 inline: true
             }
         ]);

@@ -1,10 +1,12 @@
 import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
+import { codeBlock, SlashCommandSubcommandBuilder } from '@discordjs/builders';
 import { execSync } from 'child_process';
-import { type ChatInputCommandInteraction, codeBlock, SlashCommandSubcommandBuilder } from 'discord.js';
+
+import { type ChatInputCommandInteraction } from 'tiscord';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
-    await interaction.deferReply();
+    await interaction.defer();
     const script = interaction.options.getString('script');
     script.replace('```\nsh', '').replace('\n```', '');
     const embed = new Embed(client, interaction.locale);
@@ -16,7 +18,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         embed.setTitle('Failed').setDescription(codeBlock('sh', error));
     }
 
-    interaction.editReply({ embeds: [embed] });
+    interaction.editReply({ embeds: [embed.toJSON()] });
 }
 
 export const data = new SlashCommandSubcommandBuilder()

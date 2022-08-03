@@ -1,6 +1,7 @@
 import type FluorineClient from '#classes/Client';
 import type { Category } from '#types/structures';
-import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { type ChatInputCommandInteraction } from 'tiscord';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const args = interaction.options.getString('start');
@@ -12,7 +13,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         });
     }
 
-    await interaction.deferReply();
+    await interaction.defer();
     client.ai.getAI(interaction, args);
 }
 

@@ -1,7 +1,8 @@
 import type FluorineClient from '#classes/Client';
 import type { Category } from '#types/structures';
 import Embed from '#classes/Embed';
-import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction } from 'tiscord';
+import { SlashCommandBuilder } from '@discordjs/builders';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const user = interaction.options.getUser('user');
@@ -10,7 +11,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         return interaction.reply(client.i18n.t('ROB_SELF', { lng: interaction.locale }));
     }
 
-    if (!interaction.guild.members.cache.get(user.id)) {
+    if (!interaction.guild.members.get(user.id)) {
         return interaction.reply(client.i18n.t('ROB_INVALID_USER', { lng: interaction.locale }));
     }
 
@@ -47,7 +48,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     client.economy.add(interaction.guildId, interaction.user, earned);
     client.economy.subtract(interaction.guildId, interaction.user, earned);
 
-    return interaction.reply({ embeds: [embed] });
+    return interaction.reply({ embeds: [embed.toJSON()] });
 }
 export const data = new SlashCommandBuilder()
     .setName('rob')

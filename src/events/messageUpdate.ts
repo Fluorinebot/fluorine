@@ -1,6 +1,7 @@
 import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
-import type { Message } from 'discord.js';
+import { ChannelType } from 'discord-api-types/v10';
+import type { Message } from 'tiscord';
 
 export async function run(client: FluorineClient, oldMessage: Message, newMessage: Message) {
     if (!newMessage || newMessage.content === oldMessage.content) {
@@ -21,16 +22,16 @@ export async function run(client: FluorineClient, oldMessage: Message, newMessag
         return;
     }
 
-    const channel = client.channels.cache.get(logsChannel.toString());
-    if (!channel?.isTextBased()) {
+    const channel = await client.channels.get(logsChannel.toString());
+    if (channel?.type === ChannelType.GuildText) {
         return;
     }
 
     const { member } = newMessage;
 
-    const embed = new Embed(client, newMessage.guild.preferredLocale)
+    const embed = new Embed(client, newMessage.guild.locale)
         .setLocaleTitle('MESSAGE_UPDATE_TITLE')
-        .setThumbnail(member.displayAvatarURL())
+        .setThumbnail(`https://cdn.discordapp.com/avatars/${member.user.id}/${member.user.avatar}.png`)
         .addLocaleFields([
             {
                 name: 'MESSAGE_UPDATE_AUTHOR',
@@ -48,5 +49,5 @@ export async function run(client: FluorineClient, oldMessage: Message, newMessag
             }
         ]);
 
-    channel.send({ embeds: [embed] });
+    channel.send({ embeds: [embed.toJSON()] });
 }

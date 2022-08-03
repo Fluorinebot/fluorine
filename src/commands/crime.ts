@@ -1,6 +1,7 @@
 import type FluorineClient from '#classes/Client';
 import type { Category } from '#types/structures';
-import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { type ChatInputCommandInteraction } from 'tiscord';
 import Embed from '#classes/Embed';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
@@ -30,7 +31,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
 
     const embed = new Embed(client, interaction.locale).setLocaleTitle('CRIME_SUCCESS').setDescription(description);
 
-    interaction.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed.toJSON()] });
     client.economy.add(interaction.guildId, interaction.user, money);
 }
 

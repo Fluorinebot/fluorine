@@ -1,7 +1,8 @@
 import type FluorineClient from '#classes/Client';
 import type { Category } from '#types/structures';
-import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction } from 'tiscord';
 import hash from 'murmurhash-v3';
+import { SlashCommandBuilder } from '@discordjs/builders';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const thing =

@@ -1,21 +1,14 @@
 import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
 import { splitArray } from '#util/splitArr';
-import {
-    ActionRowBuilder,
-    ApplicationCommandType,
-    ButtonBuilder,
-    ButtonStyle,
-    ContextMenuCommandBuilder,
-    type InteractionReplyOptions,
-    PermissionFlagsBits,
-    type UserContextMenuCommandInteraction
-} from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder, ContextMenuCommandBuilder } from '@discordjs/builders';
+import { ButtonStyle, PermissionFlagsBits, ApplicationCommandType } from 'discord-api-types/v10';
+import { type RawMessageOptions, type UserContextMenuInteraction } from 'tiscord';
 
-export async function run(client: FluorineClient, interaction: UserContextMenuCommandInteraction<'cached'>) {
+export async function run(client: FluorineClient, interaction: UserContextMenuInteraction) {
     const row = new ActionRowBuilder<ButtonBuilder>();
-    const member = interaction.targetMember;
-
+    const user = interaction.target;
+    const member = await interaction.guild.members.get(user.id);
     if (!member) {
         return interaction.reply({
             content: client.i18n.t('LISTCASE_MEMBER_MISSING', {
@@ -29,7 +22,7 @@ export async function run(client: FluorineClient, interaction: UserContextMenuCo
 
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('LISTCASE_TITLE', { user: member.user.tag })
-        .setThumbnail(member.user.displayAvatarURL());
+        .setThumbnail(`https://cdn.discordapp.com/avatars/${member.user.id}/${member.user.avatar}.png`);
 
     if (!cases.length) {
         return interaction.reply({
@@ -47,7 +40,7 @@ export async function run(client: FluorineClient, interaction: UserContextMenuCo
         embed.addFields({ name: `#${caseData.caseId} ${caseData.type}`, value: caseData.reason });
     });
 
-    const replyOptions: InteractionReplyOptions = { embeds: [embed] };
+    const replyOptions: RawMessageOptions = { embeds: [embed.toJSON()] };
 
     if (chunk.length > 1) {
         row.addComponents(

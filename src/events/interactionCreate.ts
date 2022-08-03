@@ -1,5 +1,5 @@
 import type FluorineClient from '#classes/Client';
-import type { Interaction } from 'discord.js';
+import type { Interaction } from 'tiscord';
 import type { ChatInputCommand } from '#types/structures';
 
 export async function run(client: FluorineClient, interaction: Interaction) {
@@ -19,7 +19,7 @@ export async function run(client: FluorineClient, interaction: Interaction) {
         return component?.run(client, interaction, value);
     }
     if (interaction.isContextMenuCommand()) {
-        const contextCommand = client.commands.contextMenu.get(interaction.commandName);
+        const contextCommand = client.commands.contextMenu.get(interaction.name);
 
         if (contextCommand.dev && !client.devs.includes(interaction.user.id)) {
             return interaction.reply({
@@ -31,11 +31,11 @@ export async function run(client: FluorineClient, interaction: Interaction) {
         return contextCommand.run(client, interaction);
     }
     if (interaction.isChatInputCommand()) {
-        const subcommand = interaction.options.getSubcommand(false);
-        const key = subcommand ? `${interaction.commandName}/${subcommand}` : interaction.commandName;
+        const subcommand = interaction.options.getSubcommand();
+        const key = subcommand ? `${interaction.name}/${subcommand}` : interaction.name;
 
         const command = client.commands.chatInput.get(key);
-        const { dev } = client.commands.chatInput.get(interaction.commandName) as ChatInputCommand;
+        const { dev } = client.commands.chatInput.get(interaction.name) as ChatInputCommand;
 
         if (command.cooldown) {
             const cooldown = await client.cooldowns.get(interaction.user, key);

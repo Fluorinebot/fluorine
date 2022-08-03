@@ -1,9 +1,10 @@
 import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
-import { type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
+import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
+import { type ChatInputCommandInteraction } from 'tiscord';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
-    const id = interaction.options.getInteger('id');
+    const id = interaction.options.getNumber('id');
     const caseObj = await client.cases.getOne(interaction.guildId, id);
 
     if (!caseObj) {
@@ -15,12 +16,12 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         });
     }
 
-    const user = await client.users.fetch(caseObj.moderatedUser.toString());
-    const creator = await client.users.fetch(caseObj.caseCreator.toString());
+    const user = await client.users.get(caseObj.moderatedUser.toString());
+    const creator = await client.users.get(caseObj.caseCreator.toString());
 
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('CASE_TITLE', { id })
-        .setThumbnail(user.displayAvatarURL())
+        .setThumbnail(`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`)
         .addLocaleFields([
             { name: 'CASE_USER', value: user.tag },
             { name: 'CASE_MODERATOR', value: creator.tag },
@@ -31,7 +32,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
             { name: 'CASE_REASON', value: caseObj.reason }
         ]);
 
-    interaction.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed.toJSON()] });
 }
 
 export const data = new SlashCommandSubcommandBuilder()

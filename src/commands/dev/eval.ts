@@ -1,10 +1,11 @@
 import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
 import { clean } from '#util/clean';
-import { type ChatInputCommandInteraction, codeBlock, SlashCommandSubcommandBuilder } from 'discord.js';
+import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
+import { type ChatInputCommandInteraction } from 'tiscord';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
-    await interaction.deferReply();
+    await interaction.defer();
     const code = interaction.options.getString('code');
     code.replace('```\njs', '').replace('\n```', '');
     const embed = new Embed(client, interaction.locale);
@@ -13,14 +14,14 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         const evaluated = eval(code);
         const cleaned = await clean(client, evaluated);
 
-        embed.setTitle('Done').setDescription(codeBlock('js', cleaned));
+        embed.setTitle('Done').setDescription(`\`\`\`js\n${cleaned}\n\`\`\``);
     } catch (error) {
         const cleaned = await clean(client, error);
 
-        embed.setTitle('Failed').setDescription(codeBlock('js', cleaned));
+        embed.setTitle('Failed').setDescription(`\`\`\`js\n${cleaned}\n\`\`\``);
     }
 
-    interaction.editReply({ embeds: [embed] });
+    interaction.editReply({ embeds: [embed.toJSON()] });
 }
 
 export const data = new SlashCommandSubcommandBuilder()

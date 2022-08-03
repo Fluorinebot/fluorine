@@ -1,5 +1,5 @@
 import type FluorineClient from '#classes/Client';
-import { type ColorResolvable, EmbedBuilder } from 'discord.js';
+import { EmbedBuilder } from '@discordjs/builders';
 import type i18next from 'i18next';
 
 export interface LocaleFieldOptions {
@@ -12,7 +12,7 @@ export interface LocaleFieldOptions {
 }
 
 export default class Embed extends EmbedBuilder {
-    clientColor: ColorResolvable = 0x3872f2;
+    clientColor = 0x3872f2;
     private i18n: typeof i18next;
 
     constructor(client: FluorineClient, private locale: string) {
@@ -21,7 +21,7 @@ export default class Embed extends EmbedBuilder {
         this.setColor(this.clientColor);
         this.setFooter({
             text: `Fluorine ${client.version}`,
-            iconURL: client.user.avatarURL()
+            iconURL: `https://cdn.discordapp.com/avatars/${client.user.id}/${client.user.avatar}.png`
         });
         this.setTimestamp();
 

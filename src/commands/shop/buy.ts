@@ -1,7 +1,8 @@
 import type FluorineClient from '#classes/Client';
-import { type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
+import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
+import { type ChatInputCommandInteraction } from 'tiscord';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const item = interaction.options.getString('item');
     const itemObj = await client.shop.get(interaction.guildId, item);
     const user = await client.economy.get(interaction.guildId, interaction.user);
@@ -29,10 +30,10 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     );
 
     if (itemObj.role) {
-        const role = interaction.guild.roles.cache.get(itemObj.role.toString());
+        const role = await interaction.guild.roles.get(itemObj.role.toString());
 
         if (role) {
-            await interaction.member.roles?.add(role);
+            await interaction.member.addRole(role.id);
         }
     }
 

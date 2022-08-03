@@ -1,9 +1,10 @@
 import type FluorineClient from '#classes/Client';
-import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction } from 'tiscord';
 import type { Category } from '#types/structures';
+import { SlashCommandBuilder } from '@discordjs/builders';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
-    const toWithdraw = interaction.options.getInteger('amount');
+    const toWithdraw = interaction.options.getNumber('amount');
     const balance = await client.economy.get(interaction.guildId, interaction.user);
 
     if (balance.bankBal < toWithdraw) {

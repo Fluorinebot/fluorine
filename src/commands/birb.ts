@@ -1,7 +1,8 @@
 import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
 import type { Category } from '#types/structures';
-import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { type ChatInputCommandInteraction } from 'tiscord';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const { file } = (await fetch('https://api.alexflipnote.dev/birb').then(response => response.json())) as {
@@ -9,7 +10,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     };
 
     const embed = new Embed(client, interaction.locale).setLocaleTitle('BIRB').setImage(file);
-    interaction.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed.toJSON()] });
 }
 
 export const data = new SlashCommandBuilder()

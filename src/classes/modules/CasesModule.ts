@@ -1,7 +1,8 @@
 import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
 import type { Prisma } from '@prisma/client';
-import type { User } from 'discord.js';
+import { ChannelType } from 'discord-api-types/v10';
+import type { Channel, TextChannel, User } from 'tiscord';
 
 export default class CasesModule {
     table: Prisma.CaseDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;
@@ -62,13 +63,13 @@ export default class CasesModule {
         });
 
         if (logModerationActions && logsChannel) {
-            const creator = await this.client.users.fetch(caseObj.caseCreator.toString());
-            const guildObj = this.client.guilds.cache.get(guild);
-            const member = await guildObj.members.fetch(caseObj.moderatedUser.toString());
+            const creator = await this.client.users.get(caseObj.caseCreator.toString());
+            const guildObj = await this.client.guilds.get(guild);
+            const member = await guildObj.members.get(caseObj.moderatedUser.toString());
 
-            const embed = new Embed(this.client, guildObj.preferredLocale)
+            const embed = new Embed(this.client, guildObj.locale)
                 .setLocaleTitle('CASE_NEW')
-                .setThumbnail(member.displayAvatarURL())
+                .setThumbnail(`https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}.png`)
                 .addLocaleFields([
                     {
                         name: 'CASE_TYPE',
@@ -80,13 +81,13 @@ export default class CasesModule {
                     { name: 'ID', value: `#${caseObj.caseId}` }
                 ]);
 
-            const channel = guildObj.channels.cache.get(logsChannel.toString());
+            const channel = (await guildObj.channels.get(logsChannel.toString())) as Channel;
 
-            if (!channel?.isTextBased()) {
+            if (channel?.type !== ChannelType.GuildText) {
                 return;
             }
 
-            channel.send({ embeds: [embed] });
+            (channel as TextChannel).send({ embeds: [embed.toJSON()] });
         }
     }
 }

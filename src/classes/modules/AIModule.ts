@@ -1,5 +1,5 @@
 import type FluorineClient from '#classes/Client';
-import type { CommandInteraction, ContextMenuCommandInteraction } from 'discord.js';
+import type { CommandInteraction, MessageContextMenuInteraction } from 'tiscord';
 import Embed from '#classes/Embed';
 import type { AIQueue } from '#types/structures';
 
@@ -13,7 +13,7 @@ export default class AIModule {
         this.isGenerating = false;
     }
 
-    async getAI(interaction: CommandInteraction | ContextMenuCommandInteraction, text: string): Promise<void> {
+    async getAI(interaction: CommandInteraction | MessageContextMenuInteraction, text: string): Promise<void> {
         const base64String = Buffer.from(text || 'h').toString('base64');
 
         this.queue.push({ interaction, text: base64String });
@@ -45,7 +45,7 @@ export default class AIModule {
 
         const embed = new Embed(this.client, interaction.locale).setLocaleTitle('AI_TITLE').setDescription(ai.result);
 
-        interaction.followUp({ embeds: [embed] });
+        interaction.followUp({ embeds: [embed.toJSON()] });
 
         this.queue.shift();
 

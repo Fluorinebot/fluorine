@@ -1,12 +1,13 @@
 import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
 import type { ShopItemConstructor } from '#types/structures';
-import { type ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandSubcommandBuilder } from 'discord.js';
+import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
+import { type ChatInputCommandInteraction } from 'tiscord';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const name = interaction.options.getString('name');
     const description = interaction.options.getString('description');
-    const price = interaction.options.getInteger('price');
+    const price = interaction.options.getNumber('price');
     const role = interaction.options.getRole('role');
 
     const obj: ShopItemConstructor = { name, description, price, guildId: BigInt(interaction.guildId) };
@@ -15,7 +16,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         obj.role = BigInt(role.id);
     }
 
-    if (!interaction.memberPermissions.has(PermissionFlagsBits.ManageGuild)) {
+    if (!interaction.member.permissions.has('MANAGE_GUILD')) {
         return interaction.reply({
             content: client.i18n.t('SHOP_CREATE_PERMISSIONS', {
                 lng: interaction.locale
@@ -38,7 +39,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         }
     ]);
 
-    interaction.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed.toJSON()] });
     client.shop.add(obj);
 }
 

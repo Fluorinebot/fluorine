@@ -1,7 +1,8 @@
 import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
 import type { InpostStatuses, InpostTrackObj } from '#types/webRequests';
-import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { type ChatInputCommandInteraction } from 'tiscord';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const id = interaction.options.getString('id');
@@ -22,7 +23,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         });
     }
 
-    const embed = new Embed(client, interaction.locale).setLocaleTitle('INPOST_TITLE', { id }).setColor('#ffcb39');
+    const embed = new Embed(client, interaction.locale).setLocaleTitle('INPOST_TITLE', { id }).setColor(0xffcb39);
 
     if (response.custom_attributes.target_machine_detail.name) {
         embed.setLocaleDescription('INPOST_DESCRIPTION', response.custom_attributes.target_machine_detail);
@@ -33,7 +34,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         embed.addFields({ name: status.title, value: status.description });
     });
 
-    interaction.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed.toJSON()] });
 }
 
 export const data = new SlashCommandBuilder()

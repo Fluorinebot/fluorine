@@ -1,9 +1,11 @@
 import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
 import type { Category } from '#types/structures';
-import { type ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { PermissionFlagsBits } from 'discord-api-types/v10';
+import { type ChatInputCommandInteraction } from 'tiscord';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const member = interaction.options.getMember('user');
     const reason = interaction.options.getString('reason') ?? client.i18n.t('NONE', { lng: interaction.locale });
 
@@ -30,7 +32,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('WARN_SUCCESS_TITLE')
         .setLocaleDescription('WARN_SUCCESS_DESCRIPTION')
-        .setThumbnail(member.displayAvatarURL())
+        .setThumbnail(`https://cdn.discordapp.com/avatars/${member.user.id}/${member.user.avatar}.png`)
         .addLocaleFields([
             { name: 'WARN_MODERATOR', value: interaction.user.tag },
             { name: 'WARN_USER', value: member.user.tag },
@@ -38,7 +40,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
             { name: 'CASE_ID', value: caseObj.caseId.toString() }
         ]);
 
-    interaction.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed.toJSON()] });
     client.cases.logToModerationChannel(interaction.guildId, caseObj);
 }
 

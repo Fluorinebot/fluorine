@@ -1,7 +1,8 @@
 import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
 import type { Category } from '#types/structures';
-import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { type ChatInputCommandInteraction } from 'tiscord';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const balance = await client.economy.get(interaction.guildId, interaction.user);
@@ -14,7 +15,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         }
     ]);
 
-    interaction.reply({ embeds: [embed], ephemeral: true });
+    interaction.reply({ embeds: [embed.toJSON()], ephemeral: true });
 }
 
 export const data = new SlashCommandBuilder()

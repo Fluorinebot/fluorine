@@ -1,7 +1,8 @@
 import type FluorineClient from '#classes/Client';
 import { fragmentText } from '#util/fragmentText';
+import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 import canvas from 'canvas';
-import { AttachmentBuilder, type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
+import { MessageAttachment, type ChatInputCommandInteraction } from 'tiscord';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const user = interaction.options.getUser('user') ?? interaction.user;
@@ -31,7 +32,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     });
 
     const image = await canvas.loadImage(`${__dirname}/../../../assets/template.png`);
-    const avatar = await canvas.loadImage(user.displayAvatarURL({ extension: 'png', forceStatic: true }));
+    const avatar = await canvas.loadImage(`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`);
 
     const canva = canvas.createCanvas(image.width, image.height);
     const ctx = canva.getContext('2d');
@@ -83,7 +84,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     ctx.clip();
     ctx.drawImage(avatar, 30, 7, 110, 110);
 
-    const attachment = new AttachmentBuilder(canva.toBuffer(), { name: 'profile.png' });
+    const attachment = new MessageAttachment(canva.toBuffer(), 'profile.png');
     interaction.reply({ files: [attachment] });
 }
 

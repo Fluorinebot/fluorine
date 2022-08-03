@@ -1,11 +1,13 @@
 import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, GuildMember, type Interaction, type User } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder } from '@discordjs/builders';
+import { ButtonStyle } from 'discord-api-types/v10';
+import { type User, type Interaction, Member } from 'tiscord';
 
 export function getComponents(
     client: FluorineClient,
     interaction: Interaction,
-    member: GuildMember,
+    member: Member,
     action: 'guild' | 'user'
 ) {
     return new ActionRowBuilder<ButtonBuilder>().addComponents(
@@ -25,25 +27,25 @@ export function getComponents(
 export function getEmbed(
     client: FluorineClient,
     interaction: Interaction,
-    member: GuildMember | User,
+    member: Member | User,
     action: 'guild' | 'user'
 ) {
     const embed = new Embed(client, interaction.locale).setLocaleTitle('AVATAR');
 
-    if (member instanceof GuildMember) {
+    if (member instanceof Member) {
         switch (action) {
             case 'guild': {
-                embed.setImage(member.displayAvatarURL({ size: 512 }));
+                embed.setImage(`https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}.png`);
                 break;
             }
 
             case 'user': {
-                embed.setImage(member.user.displayAvatarURL({ size: 512 }));
+                embed.setImage(`https://cdn.discordapp.com/avatars/${member.id}/${member.user.avatar}.png`);
                 break;
             }
         }
     } else {
-        embed.setImage(member.displayAvatarURL({ size: 512 }));
+        embed.setImage(`https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}.png`);
     }
 
     return embed;

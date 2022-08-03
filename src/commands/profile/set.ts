@@ -1,6 +1,7 @@
 import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
-import { type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
+import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
+import { type ChatInputCommandInteraction } from 'tiscord';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const table = client.prisma.profile;
@@ -36,7 +37,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
                 .setLocaleTitle('PROFILE_SUCCESS')
                 .setLocaleDescription('PROFILE_SET_BIRTHDAY', { birthday });
 
-            interaction.reply({ embeds: [embed], ephemeral: true });
+            interaction.reply({ embeds: [embed.toJSON()], ephemeral: true });
             break;
         }
 
@@ -65,7 +66,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
                     location: value
                 });
 
-            interaction.reply({ embeds: [embed], ephemeral: true });
+            interaction.reply({ embeds: [embed.toJSON()], ephemeral: true });
             break;
         }
 
@@ -95,7 +96,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
                 .setLocaleTitle('PROFILE_SUCCESS')
                 .setLocaleDescription('PROFILE_SET_WEBSITE', { website });
 
-            interaction.reply({ embeds: [embed], ephemeral: true });
+            interaction.reply({ embeds: [embed.toJSON()], ephemeral: true });
             break;
         }
 
@@ -125,7 +126,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
                     pronouns
                 });
 
-            interaction.reply({ embeds: [embed], ephemeral: true });
+            interaction.reply({ embeds: [embed.toJSON()], ephemeral: true });
             break;
         }
 
@@ -155,7 +156,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
                     description
                 });
 
-            interaction.reply({ embeds: [embed], ephemeral: true });
+            interaction.reply({ embeds: [embed.toJSON()], ephemeral: true });
             break;
         }
     }

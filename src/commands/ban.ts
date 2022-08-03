@@ -1,9 +1,11 @@
 import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
-import { type ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { type ChatInputCommandInteraction } from 'tiscord';
+import { PermissionFlagsBits } from 'discord-api-types/v10';
 import type { Category } from '#types/structures';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const member = interaction.options.getMember('user');
     const reason =
         interaction.options.getString('reason') ??
@@ -29,7 +31,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         });
     }
 
-    if (!member.bannable) {
+    if (!member.permissions.has('ADMINISTRATOR')) {
         return interaction.reply({
             content: client.i18n.t('BAN_BOT_PERMISSIONS_MISSING', {
                 lng: interaction.locale
@@ -40,18 +42,27 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
 
     const caseObj = await client.cases.create(interaction.guildId, member.user, interaction.user, 'ban', reason);
 
-    await member.ban({
-        reason: client.i18n.t('BAN_REASON', {
-            lng: interaction.locale,
-            user: interaction.user.tag,
-            reason
-        })
-    });
+    member
+        .ban(
+            client.i18n.t('BAN_REASON', {
+                lng: interaction.locale,
+                user: interaction.user.tag,
+                reason
+            })
+        )
+        .catch(() =>
+            interaction.reply({
+                content: client.i18n.t('BAN_BOT_PERMISSIONS_MISSING', {
+                    lng: interaction.locale
+                }),
+                ephemeral: true
+            })
+        );
 
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('BAN_SUCCESS_TITLE')
         .setLocaleDescription('BAN_SUCCESS_DESCRIPTION')
-        .setThumbnail(member.displayAvatarURL())
+        .setThumbnail(`https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}.png`)
         .addLocaleFields([
             { name: 'BAN_MODERATOR', value: interaction.user.tag },
             { name: 'BAN_USER', value: member.user.tag },
@@ -59,7 +70,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
             { name: 'CASE_ID', value: caseObj.caseId.toString() }
         ]);
 
-    interaction.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed.toJSON()] });
     client.cases.logToModerationChannel(interaction.guildId, caseObj);
 }
 

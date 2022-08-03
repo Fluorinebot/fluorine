@@ -10,6 +10,7 @@ export default class EventHandler {
     async loadEvents() {
         const files = await loadDirectory<Event>('../events');
         for (const file of files) {
+            // @ts-expect-error
             this.client.on(file.name, (...event) => {
                 file.data.run(this.client, ...event);
             });

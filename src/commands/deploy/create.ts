@@ -1,16 +1,19 @@
 import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
-import { type ChatInputCommandInteraction, Routes, SlashCommandSubcommandBuilder } from 'discord.js';
+import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
+import { Routes } from 'discord-api-types/v10';
+import { type ChatInputCommandInteraction } from 'tiscord';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
-    await interaction.deferReply();
+    await interaction.defer();
 
     const name = interaction.options.getString('command');
     let guildId = interaction.options.getString('guild');
     const command = client.commands.chatInput.get(name) ?? client.commands.contextMenu.get(name);
 
     if (!command && name !== 'all') {
-        return interaction.editReply(`Command \`${name}\` not found.`);
+        console.log('Deez');
+        return interaction.editReply({ content: `Command \`${name}\` not found.` });
     }
     if (guildId === 'this') {
         ({ guildId } = interaction);
@@ -21,37 +24,39 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
 
     try {
         if (name === 'all') {
-            const { commands } = guildId ? client.guilds.cache.get(guildId) : client.application;
-
-            // @ts-expect-error
-            await commands?.fetch();
-
-            const chatInputCommands = client.commands.chatInput
-                .filter(c => 'category' in c && (commands.cache.some(cmd => cmd.name === 'deploy') || !c.dev))
+            console.log('lol');
+            const chatInputCommands = [...client.commands.chatInput.values()]
+                .filter(
+                    c =>
+                        // @ts-expect-error
+                        c.data.toJSON().type !== 1 && !c.dev
+                )
                 .map(command => command.data.toJSON());
 
-            const contextMenuCommands = client.commands.contextMenu
-                .filter(c => commands.cache.some(cmd => cmd.name === 'deploy') || !c.dev)
+            const contextMenuCommands = [...client.commands.contextMenu.values()]
+                .filter(c => !c.dev)
                 .map(command => command.data.toJSON());
-
+            console.log(contextMenuCommands);
+            console.log('Hi ?');
             await client.rest.put(route, {
                 body: [...chatInputCommands, ...contextMenuCommands]
             });
-
-            await interaction.editReply('Added all commands.');
+            console.log('broooo');
+            await interaction.editReply({ content: 'Added all commands.' });
         } else {
             await client.rest.post(route, {
                 body: command.data.toJSON()
             });
 
-            interaction.editReply(`Added \`${command.data.name}\`.`);
+            interaction.editReply({ content: `Added \`${command.data.name}\`.` });
         }
     } catch (error) {
+        console.log(error);
         const embed = new Embed(client, interaction.locale)
             .setTitle('Failed')
             .setDescription(`\`\`\`js\n${error}\`\`\``);
 
-        interaction.editReply({ embeds: [embed] });
+        // interaction.editReply({ /** embeds: [embed.toJSON()] */ content: 'Deez' });
     }
 }
 

@@ -1,12 +1,16 @@
 import type FluorineClient from '#classes/Client';
 import type {
-    CommandInteraction,
-    ContextMenuCommandBuilder,
-    ContextMenuCommandInteraction,
-    MessageComponentInteraction,
     SlashCommandBuilder,
-    SlashCommandSubcommandBuilder
-} from 'discord.js';
+    SlashCommandSubcommandBuilder,
+    ContextMenuCommandBuilder
+} from '@discordjs/builders';
+import type {
+    ButtonInteraction,
+    CommandInteraction,
+    MessageContextMenuInteraction,
+    SelectMenuInteraction,
+    UserContextMenuInteraction
+} from 'tiscord';
 
 export type Category = 'fun' | 'tools' | 'moderation' | 'economy';
 
@@ -25,7 +29,7 @@ export interface ChatInputSubcommand {
 }
 
 export interface ContextMenuCommand {
-    run: (client: FluorineClient, interaction: ContextMenuCommandInteraction) => void;
+    run: (client: FluorineClient, interaction: MessageContextMenuInteraction | UserContextMenuInteraction) => void;
     data: ContextMenuCommandBuilder;
     dev?: boolean;
     cooldown?: number;
@@ -33,7 +37,7 @@ export interface ContextMenuCommand {
 
 export interface Component {
     authorOnly: boolean;
-    run: (client: FluorineClient, interaction: MessageComponentInteraction, value: string) => void;
+    run: (client: FluorineClient, interaction: ButtonInteraction | SelectMenuInteraction, value: string) => void;
 }
 
 export interface Event {
@@ -45,7 +49,7 @@ export interface PhishingLink {
 }
 
 export interface AIQueue {
-    interaction: CommandInteraction | ContextMenuCommandInteraction;
+    interaction: CommandInteraction | MessageContextMenuInteraction | UserContextMenuInteraction;
     text: string;
 }
 

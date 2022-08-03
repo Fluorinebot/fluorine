@@ -1,7 +1,8 @@
 import type FluorineClient from '#classes/Client';
 import Embed from '#classes/Embed';
 import type { Category } from '#types/structures';
-import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
+import type { GuildChannel, Cache, Role, ChatInputCommandInteraction } from 'tiscord';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const embed = new Embed(client, interaction.locale).setLocaleTitle('SERVER_INFO').addLocaleFields([
@@ -10,23 +11,22 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
             value: interaction.guild.name
         },
         {
-            name: 'SERVER_INFO_CREATED',
-            value: `<t:${Math.round(interaction.guild.createdTimestamp / 1000)}>`
-        },
-        {
             name: 'SERVER_INFO_MEMBERS',
             value: `${interaction.guild.memberCount}`
         },
         {
             name: 'SERVER_INFO_CHANNELS',
-            value: `${interaction.guild.channels.cache.size}`
+            value: `${
+                [...client.cache.channels.values()].filter((c: GuildChannel) => c.guildId === interaction.guild.id)
+                    .length
+            }`
         },
         {
             name: 'SERVER_INFO_ROLES',
-            value: `${interaction.guild.roles.cache.size}`
+            value: `${(client.cache.roles as Cache<Role>).caches.get(interaction.guild.id)?.size ?? 0}`
         }
     ]);
-    interaction.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed.toJSON()] });
 }
 
 export const data = new SlashCommandBuilder()

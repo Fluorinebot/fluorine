@@ -1,7 +1,7 @@
-import { ActivityType, Client, disableValidators, GatewayIntentBits, Partials } from 'discord.js';
+import { Client } from 'tiscord';
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
-
+import { ActivityType, PresenceUpdateStatus } from 'discord-api-types/v10';
 import { Logger } from '#classes/Logger';
 import { join } from 'path';
 import { bold, red } from 'picocolors';
@@ -17,7 +17,6 @@ import CooldownHandler from '#handlers/CooldownHandler';
 import AIModule from '#modules/AIModule';
 import EconomyModule from '#modules/EconomyModule';
 import ShopModule from '#modules/ShopModule';
-import PhishingModule from '#modules/PhishingModule';
 import CasesModule from '#modules/CasesModule';
 
 export default class FluorineClient extends Client {
@@ -31,7 +30,6 @@ export default class FluorineClient extends Client {
     cooldowns = new CooldownHandler(this);
 
     economy = new EconomyModule(this);
-    phishing = new PhishingModule(this);
     shop = new ShopModule(this);
     ai = new AIModule(this);
     cases = new CasesModule(this);
@@ -42,21 +40,20 @@ export default class FluorineClient extends Client {
 
     constructor() {
         super({
-            intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
-            partials: [Partials.Message],
-            allowedMentions: { repliedUser: false },
+            intents: ['Guilds', 'GuildMessages', 'MessageContent'],
+            allowedMentions: { replied_user: false },
             presence: {
+                afk: false,
+                since: null,
+                status: PresenceUpdateStatus.Online,
                 activities: [{ name: 'with dangerous chemicals | /help', type: ActivityType.Playing }]
-            }
+            },
+            token: process.env.DISCORD_TOKEN
         });
     }
 
     async init() {
         this.logger.log(`Starting ${bold(red(process.env.NODE_ENV))} build...`);
-
-        if (process.env.NODE_ENV === 'production') {
-            disableValidators();
-        }
 
         this.commands.loadChatInput();
         this.commands.loadContextMenu();
