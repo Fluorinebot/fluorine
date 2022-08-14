@@ -35,7 +35,7 @@
     },
     "homepage": "https://github.com/Fluorinebot/fluorine/#readme",
     "dependencies": {
-        "@napi-rs/canvas": "^0.1.26",
+        "@napi-rs/canvas": "^0.1.27",
         "@prisma/client": "^4.1.0",
         "bufferutil": "^4.0.6",
         "discord.js": "^14.1.1",
