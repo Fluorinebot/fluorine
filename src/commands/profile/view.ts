@@ -1,6 +1,6 @@
 import type FluorineClient from '#classes/Client';
 import { fragmentText } from '#util/fragmentText';
-import canvas from 'canvas';
+import { createCanvas, loadImage, GlobalFonts } from '@napi-rs/canvas';
 import { AttachmentBuilder, type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
@@ -17,24 +17,15 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         profile.birthday = `${client.i18n.t(`MONTHS.${parseInt(month) - 1}`, localeOptions)} ${day}`;
     }
 
-    canvas.registerFont(`${__dirname}/../../../assets/Inter-Light.ttf`, {
-        family: 'Inter',
-        weight: 'light'
-    });
-    canvas.registerFont(`${__dirname}/../../../assets/Poppins-Regular.ttf`, {
-        family: 'Poppins',
-        weight: 'normal'
-    });
-    canvas.registerFont(`${__dirname}/../../../assets/Poppins-Medium.ttf`, {
-        family: 'Poppins',
-        weight: 'bold'
-    });
+    GlobalFonts.registerFromPath(`${__dirname}/../../../assets/Inter-Light.ttf`);
+    GlobalFonts.registerFromPath(`${__dirname}/../../../assets/Poppins-Regular.ttf`);
+    GlobalFonts.registerFromPath(`${__dirname}/../../../assets/Poppins-Medium.ttf`);
 
-    const image = await canvas.loadImage(`${__dirname}/../../../assets/template.png`);
-    const avatar = await canvas.loadImage(user.displayAvatarURL({ extension: 'png', forceStatic: true }));
+    const image = await loadImage(`${__dirname}/../../../assets/template.png`);
+    const avatar = await loadImage(user.displayAvatarURL({ extension: 'png', forceStatic: true }));
 
-    const canva = canvas.createCanvas(image.width, image.height);
-    const ctx = canva.getContext('2d');
+    const canvas = createCanvas(image.width, image.height);
+    const ctx = canvas.getContext('2d');
 
     ctx.drawImage(image, 0, 0);
 
@@ -83,7 +74,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     ctx.clip();
     ctx.drawImage(avatar, 30, 7, 110, 110);
 
-    const attachment = new AttachmentBuilder(canva.toBuffer(), { name: 'profile.png' });
+    const attachment = new AttachmentBuilder(canvas.toBuffer('image/png'), { name: 'profile.png' });
     interaction.reply({ files: [attachment] });
 }
 
