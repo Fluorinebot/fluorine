@@ -1,6 +1,6 @@
-import type { CanvasRenderingContext2D } from 'canvas';
+import type { SKRSContext2D } from '@napi-rs/canvas';
 
-export function fragmentText(ctx: CanvasRenderingContext2D, text: string, maxWidth: number) {
+export function fragmentText(ctx: SKRSContext2D, text: string, maxWidth: number) {
     const words = text.split(' ');
     const lines: string[] = [];
     let line = '';

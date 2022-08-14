@@ -1,6 +1,6 @@
 import type FluorineClient from '#classes/Client';
 import { fragmentText } from '#util/fragmentText';
-import canvas from 'canvas';
+import canvas, { GlobalFonts } from '@napi-rs/canvas';
 import { AttachmentBuilder, type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
@@ -17,18 +17,9 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         profile.birthday = `${client.i18n.t(`MONTHS.${parseInt(month) - 1}`, localeOptions)} ${day}`;
     }
 
-    canvas.registerFont(`${__dirname}/../../../assets/Inter-Light.ttf`, {
-        family: 'Inter',
-        weight: 'light'
-    });
-    canvas.registerFont(`${__dirname}/../../../assets/Poppins-Regular.ttf`, {
-        family: 'Poppins',
-        weight: 'normal'
-    });
-    canvas.registerFont(`${__dirname}/../../../assets/Poppins-Medium.ttf`, {
-        family: 'Poppins',
-        weight: 'bold'
-    });
+    GlobalFonts.registerFromPath(`${__dirname}/../../../assets/Inter-Light.ttf`);
+    GlobalFonts.registerFromPath(`${__dirname}/../../../assets/Poppins-Regular.ttf`);
+    GlobalFonts.registerFromPath(`${__dirname}/../../../assets/Poppins-Medium.ttf`);
 
     const image = await canvas.loadImage(`${__dirname}/../../../assets/template.png`);
     const avatar = await canvas.loadImage(user.displayAvatarURL({ extension: 'png', forceStatic: true }));
@@ -76,14 +67,15 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
 
     // Pronouns
     ctx.font = 'bold 50px "Poppins"';
-    ctx.fillText(profile?.pronouns ?? '', 1150, 83);
+    // @napi-rs/canvas crashes if the string is empty for some reason
+    ctx.fillText(profile?.pronouns ?? ' ', 1150, 83);
 
     // User avatar
     ctx.arc(85, 62, 55, 0, Math.PI * 2, true);
     ctx.clip();
     ctx.drawImage(avatar, 30, 7, 110, 110);
 
-    const attachment = new AttachmentBuilder(canva.toBuffer(), { name: 'profile.png' });
+    const attachment = new AttachmentBuilder(canva.toBuffer('image/png'), { name: 'profile.png' });
     interaction.reply({ files: [attachment] });
 }
 
