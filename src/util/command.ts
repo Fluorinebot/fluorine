@@ -1,5 +1,5 @@
 import type FluorineClient from '#classes/Client';
-import { type Snowflake } from 'discord.js';
+import type { Snowflake } from 'discord.js';
 
 export type CommandMention = `</${string}:${Snowflake}>` | `/${string}`;
 
