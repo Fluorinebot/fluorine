@@ -1,6 +1,4 @@
-import { execSync } from 'node:child_process';
 import { readdir } from 'node:fs/promises';
-import process from 'node:process';
 import { EventHandler } from '#handlers';
 import { join } from 'node:path';
 import { Embed, type FluorineClient } from '#classes';
@@ -14,10 +12,6 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     await interaction.deferReply({ ephemeral: true });
 
     try {
-        if (process.env.NODE_ENV === 'development') {
-            execSync('npm run build');
-        }
-
         if (module === 'all') {
             const files = await readdir(join(getDirname(import.meta.url), `../../${type}`));
             for (const file of files) {
