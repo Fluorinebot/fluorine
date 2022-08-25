@@ -1,4 +1,5 @@
 import type FluorineClient from '#classes/Client';
+import { getCommandMention } from '#util/command';
 import { type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
@@ -7,8 +8,12 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     const user = await client.economy.get(interaction.guildId, interaction.user);
 
     if (!itemObj) {
+        await client.application.commands.fetch();
         return interaction.reply({
-            content: client.i18n.t('SHOP_BUY_NOT_FOUND', { lng: interaction.locale }),
+            content: client.i18n.t('SHOP_BUY_NOT_FOUND', {
+                shopList: await getCommandMention(client, 'shop list'),
+                lng: interaction.locale
+            }),
             ephemeral: true
         });
     }
