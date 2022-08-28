@@ -58,7 +58,7 @@ jobs:
           node-version: 18
           cache: npm
       - name: Install dependencies
-        run: apt install apt-transport-https ca-certificates curl software-properties-common
+        run: sudo apt install apt-transport-https ca-certificates curl software-properties-common
       - name: Add docker GPG key
         run: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
       - name: Add docker repository
