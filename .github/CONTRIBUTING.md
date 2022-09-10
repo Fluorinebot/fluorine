@@ -13,5 +13,5 @@ To get ready to work on the codebase, please do the following:
 1. Fork & clone the repository, and make sure you're on the **main** branch
 2. Run `npm ci`
 3. Code!
-4. Run `npm run test` to run ESLint and the TypeScript compiler
+4. Run `npm test` to run ESLint and the TypeScript compiler
 5. [Submit a pull request](https://github.com/Fluorinebot/fluorine/compare)
