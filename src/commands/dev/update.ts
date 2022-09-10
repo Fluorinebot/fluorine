@@ -1,5 +1,5 @@
-import type FluorineClient from '#classes/Client';
-import { execSync } from 'child_process';
+import { execSync } from 'node:child_process';
+import type { FluorineClient } from '#classes';
 import { type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {

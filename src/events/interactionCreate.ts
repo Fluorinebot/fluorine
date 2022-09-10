@@ -1,6 +1,6 @@
-import type FluorineClient from '#classes/Client';
+import type { FluorineClient } from '#classes';
+import type { ChatInputCommand } from '#types';
 import type { Interaction } from 'discord.js';
-import type { ChatInputCommand } from '#types/structures';
 
 export async function run(client: FluorineClient, interaction: Interaction) {
     if (interaction.isMessageComponent()) {

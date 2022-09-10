@@ -1,10 +1,11 @@
-import type FluorineClient from '#classes/Client';
-import Embed from '#classes/Embed';
-import EventHandler from '#handlers/EventHandler';
-import { execSync } from 'child_process';
+import { execSync } from 'node:child_process';
+import { readdir } from 'node:fs/promises';
+import process from 'node:process';
+import { EventHandler } from '#handlers';
+import { join } from 'node:path';
+import { Embed, type FluorineClient } from '#classes';
+import { getDirname } from '#util';
 import { type ChatInputCommandInteraction, codeBlock, SlashCommandSubcommandBuilder } from 'discord.js';
-import { readdir } from 'fs/promises';
-import { join } from 'path';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const type = interaction.options.getString('type');
@@ -18,9 +19,9 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         }
 
         if (module === 'all') {
-            const files = await readdir(join(__dirname, `../../${type}`));
+            const files = await readdir(join(getDirname(import.meta.url), `../../${type}`));
             for (const file of files) {
-                const path = join(__dirname, `../../${type}`, file);
+                const path = join(getDirname(import.meta.url), `../../${type}`, file);
                 delete require.cache[require.resolve(path)];
             }
         } else {

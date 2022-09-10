@@ -1,4 +1,4 @@
-import type FluorineClient from '#classes/Client';
+import type { FluorineClient } from '#classes';
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, type Message, OAuth2Scopes } from 'discord.js';
 
 export async function run(client: FluorineClient, message: Message) {

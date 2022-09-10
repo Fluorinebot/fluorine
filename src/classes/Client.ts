@@ -1,26 +1,19 @@
+import { join } from 'node:path';
+import process from 'node:process';
+
+import { Logger } from '#classes';
+import { CommandHandler, ComponentHandler, CooldownHandler, EventHandler } from '#handlers';
+import { AIModule, CasesModule, EconomyModule, PhishingModule, ShopModule } from '#modules';
+import { getDirname } from '#util';
+
+import { PrismaClient } from '@prisma/client';
 import { ActivityType, Client, disableValidators, GatewayIntentBits, Partials } from 'discord.js';
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
-
-import { Logger } from '#classes/Logger';
-import { join } from 'path';
-import { bold, red } from 'picocolors';
 import { performance } from 'perf_hooks';
+import { bold, red } from 'yoctocolors';
 
-import { PrismaClient } from '@prisma/client';
-
-import EventHandler from '#handlers/EventHandler';
-import CommandHandler from '#classes/handlers/CommandHandler';
-import ComponentHandler from '#handlers/ComponentHandler';
-import CooldownHandler from '#handlers/CooldownHandler';
-
-import AIModule from '#modules/AIModule';
-import EconomyModule from '#modules/EconomyModule';
-import ShopModule from '#modules/ShopModule';
-import PhishingModule from '#modules/PhishingModule';
-import CasesModule from '#modules/CasesModule';
-
-export default class FluorineClient extends Client {
+export class FluorineClient extends Client {
     createdAt = performance.now();
     logger = Logger;
     i18n = i18next;
@@ -67,7 +60,7 @@ export default class FluorineClient extends Client {
         await this.i18n.use(Backend).init({
             fallbackLng: 'en-US',
             preload: ['en-US', 'pl'],
-            backend: { loadPath: join(__dirname, '/../../i18n/{{lng}}.json') }
+            backend: { loadPath: join(getDirname(import.meta.url), '/../../i18n/{{lng}}.json') }
         });
 
         await this.prisma.$connect();

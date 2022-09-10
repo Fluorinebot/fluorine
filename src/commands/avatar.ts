@@ -1,6 +1,6 @@
-import type FluorineClient from '#classes/Client';
-import type { Category } from '#types/structures';
-import { getComponents, getEmbed } from '#util/avatar';
+import type { FluorineClient } from '#classes';
+import type { Category } from '#types';
+import { getAvatarComponents, getAvatarEmbed } from '#util';
 import {
     type ChatInputCommandInteraction,
     GuildMember,
@@ -12,11 +12,11 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     const user = interaction.options.getMember('user') ?? interaction.options.getUser('user') ?? interaction.member;
 
     const replyOptions: InteractionReplyOptions = {
-        embeds: [getEmbed(client, interaction, user, 'guild')]
+        embeds: [getAvatarEmbed(client, interaction, user, 'guild')]
     };
 
     if (user instanceof GuildMember && user.avatar) {
-        replyOptions.components = [getComponents(client, interaction, user, 'guild')];
+        replyOptions.components = [getAvatarComponents(client, interaction, user, 'guild')];
     }
 
     interaction.reply(replyOptions);

@@ -1,9 +1,7 @@
-import type FluorineClient from '#classes/Client';
-import Embed from '#classes/Embed';
+import process from 'node:process';
+import { Embed, type FluorineClient } from '#classes';
+import type { Category, HypixelType, UUIDResponse } from '#types';
 import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
-import type { HypixelType } from '#types/hypixel';
-import type { Category } from '#types/structures';
-import type { UUIDResponse } from '#types/webRequests';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const player = interaction.options.getString('player');

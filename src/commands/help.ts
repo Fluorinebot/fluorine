@@ -1,6 +1,5 @@
-import type FluorineClient from '#classes/Client';
-import Embed from '#classes/Embed';
-import type { Category, ChatInputCommand } from '#types/structures';
+import { Embed, type FluorineClient } from '#classes';
+import type { Category, ChatInputCommand } from '#types';
 import {
     ActionRowBuilder,
     type APIEmbedField,
