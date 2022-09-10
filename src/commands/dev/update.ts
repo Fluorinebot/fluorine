@@ -5,8 +5,8 @@ import { type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     await interaction.deferReply();
     execSync('git pull');
-    execSync('npm run build');
     execSync('npm i');
+    execSync('npm run build');
     interaction.editReply('Successfully updated');
 }
 
