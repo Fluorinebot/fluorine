@@ -1,5 +1,5 @@
-import type FluorineClient from '#classes/Client';
-import { getComponents, getEmbed } from '#util/avatar';
+import type { FluorineClient } from '#classes';
+import { getAvatarComponents, getAvatarEmbed } from '#util';
 import type { ButtonInteraction } from 'discord.js';
 
 export const authorOnly = true;
@@ -9,7 +9,7 @@ export async function run(client: FluorineClient, interaction: ButtonInteraction
     const member = await interaction.guild.members.fetch(memberId);
 
     interaction.update({
-        components: [getComponents(client, interaction, member, action as 'guild' | 'user')],
-        embeds: [getEmbed(client, interaction, member, action as 'guild' | 'user')]
+        components: [getAvatarComponents(client, interaction, member, action as 'guild' | 'user')],
+        embeds: [getAvatarEmbed(client, interaction, member, action as 'guild' | 'user')]
     });
 }

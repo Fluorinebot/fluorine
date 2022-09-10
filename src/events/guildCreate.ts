@@ -1,4 +1,5 @@
-import type FluorineClient from '#classes/Client';
+import process from 'node:process';
+import type { FluorineClient } from '#classes';
 import type { Guild } from 'discord.js';
 
 export async function run(client: FluorineClient, guild: Guild) {

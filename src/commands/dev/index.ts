@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from 'discord.js';
-import type { Category } from '#types/structures';
+import type { Category } from '#types';
 
 export const data = new SlashCommandBuilder()
     .setName('dev')

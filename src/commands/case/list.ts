@@ -1,6 +1,5 @@
-import type FluorineClient from '#classes/Client';
-import Embed from '#classes/Embed';
-import { splitArray } from '#util/splitArr';
+import { Embed, type FluorineClient } from '#classes';
+import { splitArray } from '#util';
 import {
     ActionRowBuilder,
     ButtonBuilder,

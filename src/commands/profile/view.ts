@@ -1,5 +1,5 @@
-import type FluorineClient from '#classes/Client';
-import { fragmentText } from '#util/fragmentText';
+import type { FluorineClient } from '#classes';
+import { fragmentText, getDirname } from '#util';
 import { createCanvas, loadImage, GlobalFonts } from '@napi-rs/canvas';
 import { AttachmentBuilder, type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
 
@@ -17,11 +17,11 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         profile.birthday = `${client.i18n.t(`MONTHS.${parseInt(month) - 1}`, localeOptions)} ${day}`;
     }
 
-    GlobalFonts.registerFromPath(`${__dirname}/../../../assets/Inter-Light.ttf`);
-    GlobalFonts.registerFromPath(`${__dirname}/../../../assets/Poppins-Regular.ttf`);
-    GlobalFonts.registerFromPath(`${__dirname}/../../../assets/Poppins-Medium.ttf`);
+    GlobalFonts.registerFromPath(`${getDirname(import.meta.url)}/../../../assets/Inter-Light.ttf`);
+    GlobalFonts.registerFromPath(`${getDirname(import.meta.url)}/../../../assets/Poppins-Regular.ttf`);
+    GlobalFonts.registerFromPath(`${getDirname(import.meta.url)}/../../../assets/Poppins-Medium.ttf`);
 
-    const image = await loadImage(`${__dirname}/../../../assets/template.png`);
+    const image = await loadImage(`${getDirname(import.meta.url)}/../../../assets/template.png`);
     const avatar = await loadImage(user.displayAvatarURL({ extension: 'png', forceStatic: true }));
 
     const canvas = createCanvas(image.width, image.height);

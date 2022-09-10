@@ -1,4 +1,4 @@
-import type { Category } from '#types/structures';
+import type { Category } from '#types';
 import { SlashCommandBuilder } from 'discord.js';
 
 export const data = new SlashCommandBuilder()

@@ -1,9 +1,9 @@
-import type FluorineClient from '#classes/Client';
-import type { ChatInputCommand, ChatInputSubcommand, ContextMenuCommand } from '#types/structures';
-import { loadDirectory, loadParentDirectory } from '#util/files';
+import type { FluorineClient } from '#classes';
+import type { ChatInputCommand, ChatInputSubcommand, ContextMenuCommand } from '#types';
+import { loadDirectory, loadParentDirectory } from '#util';
 import { Collection, type SlashCommandBuilder, type SlashCommandSubcommandBuilder } from 'discord.js';
 
-export default class CommandHandler {
+export class CommandHandler {
     chatInput = new Collection<string, ChatInputCommand | ChatInputSubcommand>();
     contextMenu = new Collection<string, ContextMenuCommand>();
 
