@@ -8,8 +8,6 @@ RUN apk add python3 make gcc g++
 
 RUN npm install
 COPY . .
-# build and generate prisma client
-RUN npx prisma generate 
 RUN npx tsc
 
 CMD [ "npm", "start" ]
