@@ -36,11 +36,11 @@
     },
     "homepage": "https://github.com/Fluorinebot/fluorine/#readme",
     "dependencies": {
-        "@napi-rs/canvas": "^0.1.27",
+        "@napi-rs/canvas": "^0.1.29",
         "@prisma/client": "^4.3.1",
         "bufferutil": "^4.0.6",
-        "discord.js": "^14.2.0",
         "dotenv": "^16.0.2",
+        "discord.js": "^14.3.0",
         "erlpack": "github:discord/erlpack",
         "i18next": "^21.9.1",
         "i18next-fs-backend": "^1.1.5",
@@ -57,7 +57,7 @@
         "eslint": "^8.20.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-prettier": "^4.2.1",
-        "prisma": "^4.1.0",
+        "prisma": "^4.3.1",
         "typescript": "^4.8.3"
     },
     "engines": {
