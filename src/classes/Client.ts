@@ -43,7 +43,7 @@ export class FluorineClient extends Client {
     }
 
     async init() {
-        this.logger.log(`Starting ${bold(red(process.env.NODE_ENV))} build...`);
+        this.logger.log(`Starting ${bold(red(process.env.NODE_ENV ?? 'development'))} build...`);
 
         if (process.env.NODE_ENV === 'production') {
             disableValidators();
