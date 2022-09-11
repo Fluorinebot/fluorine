@@ -1,5 +1,5 @@
-import type FluorineClient from '#classes/Client';
-import { getComponents, getEmbed } from '#util/avatar';
+import type { FluorineClient } from '#classes';
+import { getAvatarComponents, getAvatarEmbed } from '#util';
 import {
     ApplicationCommandType,
     ContextMenuCommandBuilder,
@@ -15,11 +15,11 @@ export async function run(
     const user = interaction.targetMember ?? interaction.targetUser;
 
     const replyOptions: InteractionReplyOptions = {
-        embeds: [getEmbed(client, interaction, user, 'guild')]
+        embeds: [getAvatarEmbed(client, interaction, user, 'guild')]
     };
 
     if (user instanceof GuildMember && user.avatar) {
-        replyOptions.components = [getComponents(client, interaction, user, 'guild')];
+        replyOptions.components = [getAvatarComponents(client, interaction, user, 'guild')];
     }
 
     interaction.reply(replyOptions);

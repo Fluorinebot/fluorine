@@ -1,9 +1,10 @@
-import type FluorineClient from '#classes/Client';
+import { Buffer } from 'node:buffer';
+import process from 'node:process';
+import { Embed, type FluorineClient } from '#classes';
+import type { AIQueue } from '#types';
 import type { CommandInteraction, ContextMenuCommandInteraction } from 'discord.js';
-import Embed from '#classes/Embed';
-import type { AIQueue } from '#types/structures';
 
-export default class AIModule {
+export class AIModule {
     queue: AIQueue[];
     isGenerating: boolean;
 

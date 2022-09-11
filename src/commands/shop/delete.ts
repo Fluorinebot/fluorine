@@ -1,4 +1,5 @@
-import type FluorineClient from '#classes/Client';
+import type { FluorineClient } from '#classes';
+import { getCommandMention } from '#util';
 import { type ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandSubcommandBuilder } from 'discord.js';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
@@ -6,8 +7,10 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     const itemObj = await client.shop.get(interaction.guildId, name);
 
     if (!itemObj) {
+        await client.application.commands.fetch();
         return interaction.reply({
             content: client.i18n.t('SHOP_DELETE_NOT_FOUND', {
+                shopList: await getCommandMention(client, 'shop list'),
                 lng: interaction.locale
             }),
             ephemeral: true

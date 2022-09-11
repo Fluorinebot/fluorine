@@ -1,4 +1,4 @@
-import type FluorineClient from '#classes/Client';
+import type { FluorineClient } from '#classes';
 import { inspect } from 'util';
 
 export async function clean(client: FluorineClient, text: unknown): Promise<string> {

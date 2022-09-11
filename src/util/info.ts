@@ -1,10 +1,11 @@
-import type FluorineClient from '#classes/Client';
-import Embed from '#classes/Embed';
+import { readdir } from 'node:fs/promises';
+import { join } from 'node:path';
+import process from 'node:process';
+import { Embed, type FluorineClient } from '#classes';
+import { getDirname } from '#util';
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, type Interaction } from 'discord.js';
-import { readdir } from 'fs/promises';
-import { join } from 'path';
 
-export async function getEmbed(client: FluorineClient, interaction: Interaction, page: 'info' | 'stats') {
+export async function getInfoEmbed(client: FluorineClient, interaction: Interaction, page: 'info' | 'stats') {
     const embed = new Embed(client, interaction.locale);
 
     if (page === 'info') {
@@ -18,7 +19,7 @@ export async function getEmbed(client: FluorineClient, interaction: Interaction,
             )
         ).join('\n');
 
-        const langs = (await readdir(join(__dirname, '../../i18n'))).map(file => file.split('.')[0]);
+        const langs = (await readdir(join(getDirname(import.meta.url), '../../i18n'))).map(file => file.split('.')[0]);
 
         embed
             .setLocaleTitle('INFO_TITLE')
@@ -86,7 +87,7 @@ export async function getEmbed(client: FluorineClient, interaction: Interaction,
     return embed;
 }
 
-export function getComponents(client: FluorineClient, interaction: Interaction, page: 'info' | 'stats') {
+export function getInfoComponents(client: FluorineClient, interaction: Interaction, page: 'info' | 'stats') {
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
         new ButtonBuilder()
             .setLabel(client.i18n.t('INFO', { lng: interaction.locale }))

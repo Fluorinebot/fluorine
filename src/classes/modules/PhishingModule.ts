@@ -1,17 +1,19 @@
-import type FluorineClient from '#classes/Client';
+import { readFileSync } from 'node:fs';
+import process from 'node:process';
+import type { FluorineClient } from '#classes';
+import type { PhishingLink } from '#types';
+import { getDirname } from '#util';
 import type { Message } from 'discord.js';
-import { readFileSync } from 'fs';
-import type { PhishingLink } from '#types/structures';
 
-export default class PhishingModule {
+export class PhishingModule {
     private _words: string;
     private _users: string;
     private _urls: string;
 
     constructor(private client: FluorineClient) {
-        this._words = readFileSync(`${__dirname}/../../../assets/words.txt`).toString();
-        this._users = readFileSync(`${__dirname}/../../../assets/users.txt`).toString();
-        this._urls = readFileSync(`${__dirname}/../../../assets/url.txt`).toString();
+        this._words = readFileSync(`${getDirname(import.meta.url)}/../../../assets/words.txt`).toString();
+        this._users = readFileSync(`${getDirname(import.meta.url)}/../../../assets/users.txt`).toString();
+        this._urls = readFileSync(`${getDirname(import.meta.url)}/../../../assets/url.txt`).toString();
     }
 
     async getLink(links: PhishingLink[]) {

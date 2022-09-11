@@ -1,6 +1,5 @@
+import { Embed, type FluorineClient } from '#classes';
 import { type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
-import type FluorineClient from '#classes/Client';
-import Embed from '#classes/Embed';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const list = await client.shop.list(interaction.guildId);

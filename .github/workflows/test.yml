@@ -45,3 +45,25 @@ jobs:
 
       - name: Run TypeScript compiler
         run: npm run test:typescript
+  docker:
+    name: Docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Node v18
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+          cache: npm
+      - name: Install dependencies
+        run: sudo apt install apt-transport-https ca-certificates curl software-properties-common
+      - name: Add docker GPG key
+        run: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+      - name: Add docker repository
+        run: sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+      - name: Install docker
+        run: sudo apt install docker-ce
+      - name: Build image
+        run: sudo docker build .

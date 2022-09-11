@@ -68,6 +68,25 @@
         "no-nested-ternary": "error",
         "no-new-wrappers": "error",
         "no-octal-escape": "error",
+        "no-restricted-globals": [
+            "error",
+            {
+              "name": "Buffer",
+              "message": "Import Buffer from `node:buffer` instead"
+            },
+            {
+              "name": "process",
+              "message": "Import process from `node:process` instead"
+            },
+            {
+              "name": "__dirname",
+              "message": "Import getDirname from `util/index.js` instead"
+            },
+            {
+              "name": "__filename",
+              "message": "Import getFilename from `util/index.js` instead"
+            }
+        ],
         "no-restricted-imports": ["error", {
             "name": "@discordjs/builders",
             "message": "Import from `discord.js` instead."

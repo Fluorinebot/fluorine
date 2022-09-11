@@ -1,8 +1,7 @@
-import type FluorineClient from '#classes/Client';
-import Embed from '#classes/Embed';
+import { Embed, type FluorineClient } from '#classes';
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, GuildMember, type Interaction, type User } from 'discord.js';
 
-export function getComponents(
+export function getAvatarComponents(
     client: FluorineClient,
     interaction: Interaction,
     member: GuildMember,
@@ -22,7 +21,7 @@ export function getComponents(
     );
 }
 
-export function getEmbed(
+export function getAvatarEmbed(
     client: FluorineClient,
     interaction: Interaction,
     member: GuildMember | User,

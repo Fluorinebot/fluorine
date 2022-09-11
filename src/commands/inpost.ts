@@ -1,6 +1,5 @@
-import type FluorineClient from '#classes/Client';
-import Embed from '#classes/Embed';
-import type { InpostStatuses, InpostTrackObj } from '#types/webRequests';
+import { Embed, type FluorineClient } from '#classes';
+import type { InpostStatuses, InpostTrackObj } from '#types';
 import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {

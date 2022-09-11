@@ -1,8 +1,8 @@
-import type FluorineClient from '#classes/Client';
+import type { FluorineClient } from '#classes';
+import type { ShopItemConstructor } from '#types';
 import type { Prisma } from '@prisma/client';
-import type { ShopItemConstructor } from '#types/structures';
 
-export default class ShopModule {
+export class ShopModule {
     table: Prisma.ShopItemDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;
 
     constructor(private client: FluorineClient) {

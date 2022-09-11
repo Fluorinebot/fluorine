@@ -1,17 +1,32 @@
-import { join } from 'path';
-import { lstat, readdir } from 'fs/promises';
+import { lstat, readdir } from 'node:fs/promises';
+import { dirname, join } from 'node:path';
+import { fileURLToPath, type URL } from 'node:url';
 
 type Child<T> = { name: string; data: T };
+
+/**
+ * Call with `import.meta.url` to get the `__dirname` equivalent
+ */
+export function getDirname(url: URL | string) {
+    return dirname(getFilename(url));
+}
+
+/**
+ * Call with `import.meta.url` to get the `__filename` equivalent
+ */
+export function getFilename(url: URL | string) {
+    return fileURLToPath(url);
+}
 
 export async function loadParentDirectory<ParentT, ChildT>(relativePath: string) {
     const result: [ParentT[], Child<ChildT>[]] = [[], []];
 
-    const parentDirectory = join(__dirname, relativePath);
+    const parentDirectory = join(getDirname(import.meta.url), relativePath);
     const parentFiles = await readdir(parentDirectory);
 
     for (const parentFile of parentFiles) {
         if (parentFile.endsWith('.js')) {
-            result[0].push((await loadFile<ParentT>(relativePath, parentFile)).data);
+            result[0].push((await loadFile<ParentT>(parentDirectory, parentFile)).data);
         } else {
             const directory = join(parentDirectory, parentFile);
             const file = await lstat(directory);
@@ -33,7 +48,7 @@ export async function loadParentDirectory<ParentT, ChildT>(relativePath: string)
 }
 
 export async function loadDirectory<T>(relativePath: string) {
-    const directory = join(__dirname, relativePath);
+    const directory = join(getDirname(import.meta.url), relativePath);
 
     const files = (await readdir(directory)).filter(f => f.endsWith('.js'));
     return Promise.all(files.map(async file => loadFile<T>(directory, file)));
@@ -45,7 +60,7 @@ export async function loadFile<T>(directory: string, file: string) {
     }
 
     const [name] = file.split('.');
-    const data: T = await import(join(directory, file));
+    const data: T = await import(`file:${join(directory, file)}`);
 
     return { name, data };
 }
