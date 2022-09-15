@@ -10,7 +10,7 @@ export async function run(
         embeds: [
             new Embed(client, interaction.locale)
                 .setTitle(fields.get('ticketTitle').value)
-                .setDescription(fields.get('ticketDesc')?.value ?? 'none')
+                .setDescription(fields.get('ticketContent')?.value ?? 'none')
         ]
     });
 }
