@@ -18,6 +18,14 @@ export async function run(client: FluorineClient, interaction: Interaction) {
 
         return component?.run(client, interaction, value);
     }
+
+    if (interaction.isModalSubmit()) {
+        const [, name] = interaction.customId.split(':');
+        const modal = client.modals.get(name);
+
+        return modal?.run(client, interaction, interaction.fields.fields);
+    }
+
     if (interaction.isContextMenuCommand()) {
         const contextCommand = client.commands.contextMenu.get(interaction.commandName);
 
@@ -30,6 +38,7 @@ export async function run(client: FluorineClient, interaction: Interaction) {
 
         return contextCommand.run(client, interaction);
     }
+
     if (interaction.isChatInputCommand()) {
         const subcommand = interaction.options.getSubcommand(false);
         const key = subcommand ? `${interaction.commandName}/${subcommand}` : interaction.commandName;

@@ -1,11 +1,14 @@
 import type { FluorineClient } from '#classes';
 import type {
+    Collection,
     CommandInteraction,
     ContextMenuCommandBuilder,
     ContextMenuCommandInteraction,
     MessageComponentInteraction,
+    ModalSubmitInteraction,
     SlashCommandBuilder,
-    SlashCommandSubcommandBuilder
+    SlashCommandSubcommandBuilder,
+    TextInputComponent
 } from 'discord.js';
 
 export type Category = 'fun' | 'tools' | 'moderation' | 'economy';
@@ -36,6 +39,13 @@ export interface Component {
     run: (client: FluorineClient, interaction: MessageComponentInteraction, value: string) => void;
 }
 
+export interface Modal {
+    run: (
+        client: FluorineClient,
+        interaction: ModalSubmitInteraction,
+        fields: Collection<string, TextInputComponent>
+    ) => void;
+}
 export interface Event {
     run: (client: FluorineClient, ...args: any) => void;
 }

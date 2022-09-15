@@ -2,7 +2,7 @@ import { join } from 'node:path';
 import process from 'node:process';
 
 import { Logger } from '#classes';
-import { CommandHandler, ComponentHandler, CooldownHandler, EventHandler } from '#handlers';
+import { CommandHandler, ComponentHandler, CooldownHandler, EventHandler, ModalHandler } from '#handlers';
 import { AIModule, CasesModule, EconomyModule, PhishingModule, ShopModule } from '#modules';
 import { getDirname } from '#util';
 
@@ -21,6 +21,7 @@ export class FluorineClient extends Client {
 
     commands = new CommandHandler(this);
     components = new ComponentHandler(this);
+    modals = new ModalHandler(this);
     cooldowns = new CooldownHandler(this);
 
     economy = new EconomyModule(this);
@@ -51,11 +52,12 @@ export class FluorineClient extends Client {
             disableValidators();
         }
 
+        new EventHandler(this).loadEvents();
+
         this.commands.loadChatInput();
         this.commands.loadContextMenu();
-
+        this.modals.loadModals();
         this.components.loadComponents();
-        new EventHandler(this).loadEvents();
 
         await this.i18n.use(Backend).init({
             fallbackLng: 'en-US',
