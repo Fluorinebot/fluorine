@@ -4,13 +4,23 @@ import type { Collection, ModalSubmitInteraction, TextInputComponent } from 'dis
 export async function run(
     client: FluorineClient,
     interaction: ModalSubmitInteraction,
-    fields: Collection<string, TextInputComponent>
+    fields: Collection<string, TextInputComponent>,
+    value: string
 ) {
-    return interaction.reply({
+    interaction.deferReply({ ephemeral: true });
+    const channel = interaction.guild.channels.cache.get(value);
+
+    if (!channel?.isTextBased()) {
+        return;
+    }
+
+    channel.send({
         embeds: [
             new Embed(client, interaction.locale)
                 .setTitle(fields.get('ticketTitle').value)
                 .setDescription(fields.get('ticketContent')?.value ?? 'none')
         ]
     });
+
+    interaction.editReply({ content: 'hi' });
 }

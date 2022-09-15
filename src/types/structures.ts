@@ -43,7 +43,8 @@ export interface Modal {
     run: (
         client: FluorineClient,
         interaction: ModalSubmitInteraction,
-        fields: Collection<string, TextInputComponent>
+        fields: Collection<string, TextInputComponent>,
+        value: string
     ) => void;
 }
 export interface Event {

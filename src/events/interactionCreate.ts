@@ -20,10 +20,10 @@ export async function run(client: FluorineClient, interaction: Interaction) {
     }
 
     if (interaction.isModalSubmit()) {
-        const [, name] = interaction.customId.split(':');
+        const [name, value] = interaction.customId.split(':');
         const modal = client.modals.get(name);
 
-        return modal?.run(client, interaction, interaction.fields.fields);
+        return modal?.run(client, interaction, interaction.fields.fields, value);
     }
 
     if (interaction.isContextMenuCommand()) {
