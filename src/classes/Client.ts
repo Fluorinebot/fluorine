@@ -1,6 +1,7 @@
 import { join } from 'node:path';
 import process from 'node:process';
 
+import { startServer } from '#api';
 import { Logger } from '#classes';
 import { CommandHandler, ComponentHandler, CooldownHandler, EventHandler } from '#handlers';
 import { AIModule, CasesModule, EconomyModule, PhishingModule, ShopModule } from '#modules';
@@ -65,6 +66,8 @@ export class FluorineClient extends Client {
 
         await this.prisma.$connect();
         this.login();
+
+        await startServer(this);
 
         process.on('unhandledRejection', (error: Error) => {
             this.logger.error(error.stack);
