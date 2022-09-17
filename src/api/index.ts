@@ -1,4 +1,3 @@
-import { readFile } from 'node:fs/promises';
 import process from 'node:process';
 import type { FluorineClient } from '#classes';
 
@@ -8,17 +7,8 @@ import { blue, bold, green, magenta } from 'yoctocolors';
 import { handleGuild } from './guilds/[id]';
 import { handleGuilds } from './guilds';
 
-const certPath = '/etc/letsencrypt/live/website-domain-name';
-const isProduction = process.env.NODE_ENV === 'production' && process.platform === 'linux';
-
 const server = fastify({
-    ignoreTrailingSlash: true,
-    https: isProduction
-        ? {
-              key: await readFile(`${certPath}/privkey.pem`),
-              cert: await readFile(`${certPath}/fullchain.pem`)
-          }
-        : null
+    ignoreTrailingSlash: true
 });
 
 export async function startServer(client: FluorineClient) {
@@ -34,7 +24,7 @@ export async function startServer(client: FluorineClient) {
     });
 
     server.addHook('onRequest', async (req, reply) => {
-        if (!['GET', 'OPTIONS'].includes(req.method)) {
+        if (!['DELETE', 'GET', 'PATCH'].includes(req.method)) {
             reply.callNotFound();
         }
     });
