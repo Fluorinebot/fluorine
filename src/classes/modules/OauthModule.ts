@@ -1,10 +1,17 @@
-import type { FluorineClient } from '#classes';
 import process from 'node:process';
-export class OauthModule {
+import type { FluorineClient } from '#classes';
+import type { APIGuild, APIUser, RESTPostOAuth2ClientCredentialsResult } from 'discord.js';
+import { createSigner, createVerifier } from 'fast-jwt';
+
+export class OAuthModule {
     client: FluorineClient;
+    sign = createSigner({ key: process.env.JWT_SECRET });
+    verify = createVerifier({ key: process.env.JWT_SECRET });
+
     constructor(client: FluorineClient) {
         this.client = client;
     }
+
     getToken(code: string) {
         return this.client.rest.post(`/oauth2/token`, {
             headers: {
@@ -20,22 +27,24 @@ export class OauthModule {
             }).toString(),
             auth: false,
             passThroughBody: true
-        });
+        }) as Promise<RESTPostOAuth2ClientCredentialsResult>;
     }
+
     getGuilds(token: string) {
         return this.client.rest.get('/users/@me/guilds', {
             headers: {
                 Authorization: `Bearer ${token}`
             },
             auth: false
-        });
+        }) as Promise<APIGuild[]>;
     }
+
     getUser(token: string) {
         return this.client.rest.get('/users/@me', {
             headers: {
                 Authorization: `Bearer ${token}`
             },
             auth: false
-        });
+        }) as Promise<APIUser>;
     }
 }
