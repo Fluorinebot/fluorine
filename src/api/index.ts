@@ -2,10 +2,12 @@ import process from 'node:process';
 import type { FluorineClient } from '#classes';
 
 import cors from '@fastify/cors';
+import cookies from '@fastify/cookie';
 import { fastify } from 'fastify';
 import { blue, bold, green, magenta } from 'yoctocolors';
 import { handleGuild } from './guilds/[id]';
 import { handleGuilds } from './guilds';
+import { handleAuth } from './auth';
 
 const server = fastify({
     ignoreTrailingSlash: true
@@ -16,13 +18,16 @@ export async function startServer(client: FluorineClient) {
         origin: process.env.NODE_ENV === 'production' ? ['https://fluorine.me', 'http://localhost:3000'] : '*',
         methods: ['GET']
     });
+    await server.register(cookies);
 
     server.get('/guilds/:id(^\\d{17,19})', (req, reply) => handleGuild(client, req, reply));
 
     server.get('/guilds', {
         handler: (req, reply) => handleGuilds(client, req, reply)
     });
-
+    server.get('/auth', {
+        handler: (req, reply) => handleAuth(client, req, reply)
+    });
     server.addHook('onRequest', async (req, reply) => {
         if (!['DELETE', 'GET', 'PATCH'].includes(req.method)) {
             reply.callNotFound();
