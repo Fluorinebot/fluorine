@@ -52,7 +52,7 @@
     },
     "devDependencies": {
         "@types/i18next-fs-backend": "^1.1.2",
-        "@typescript-eslint/eslint-plugin": "^5.36.2",
+        "@typescript-eslint/eslint-plugin": "^5.38.0",
         "@typescript-eslint/parser": "^5.36.2",
         "cross-env": "^7.0.3",
         "eslint": "^8.23.0",
