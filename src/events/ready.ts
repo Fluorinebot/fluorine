@@ -25,12 +25,9 @@ export async function run(client: FluorineClient) {
             },
             create: {
                 guildId: BigInt(guild.id),
-                prefix: process.env.DISCORD_PREFIX,
                 logsEnabled: false,
                 logsChannel: null,
-                logModerationActions: false,
-                antibotFactor: 0,
-                antibotAction: 'timeout'
+                logModerationActions: false
             },
             update: {}
         });
