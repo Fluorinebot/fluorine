@@ -4,7 +4,7 @@ import process from 'node:process';
 import { startServer } from '#api';
 import { Logger } from '#classes';
 import { CommandHandler, ComponentHandler, CooldownHandler, EventHandler } from '#handlers';
-import { AIModule, CasesModule, EconomyModule, OAuthModule, PhishingModule, ShopModule } from '#modules';
+import { CasesModule, EconomyModule, OAuthModule, ShopModule } from '#modules';
 import { getDirname } from '#util';
 
 import { PrismaClient } from '@prisma/client';
@@ -25,9 +25,7 @@ export class FluorineClient extends Client {
     cooldowns = new CooldownHandler(this);
 
     economy = new EconomyModule(this);
-    phishing = new PhishingModule(this);
     shop = new ShopModule(this);
-    ai = new AIModule(this);
     cases = new CasesModule(this);
     oauth = new OAuthModule(this);
 
