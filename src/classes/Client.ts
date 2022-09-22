@@ -33,7 +33,7 @@ export class FluorineClient extends Client {
 
     constructor() {
         super({
-            intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
+            intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages],
             partials: [Partials.Message],
             allowedMentions: { repliedUser: false },
             presence: {
