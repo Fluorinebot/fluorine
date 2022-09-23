@@ -36,7 +36,7 @@ export class OAuthModule {
                 Authorization: `Bearer ${token}`
             },
             auth: false
-        }) as Promise<APIGuild[]>;
+        }) as Promise<(APIGuild & { fluorine?: boolean })[]>;
     }
 
     getUser(token: string) {
