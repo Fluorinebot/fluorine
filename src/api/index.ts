@@ -8,7 +8,7 @@ import { blue, bold, green, magenta } from 'yoctocolors';
 import { handleGuild } from './guilds/[id]';
 import { handleGuilds } from './guilds';
 import { handleAuth } from './auth';
-
+import { tokenCheck } from './tokenCheck';
 const server = fastify({
     ignoreTrailingSlash: true
 });
@@ -23,7 +23,8 @@ export async function startServer(client: FluorineClient) {
     server.get('/guilds/:id(^\\d{17,19})', (req, reply) => handleGuild(client, req, reply));
 
     server.get('/guilds', {
-        handler: (req, reply) => handleGuilds(client, req, reply)
+        handler: req => handleGuilds(client, req),
+        preHandler: (req, reply) => tokenCheck(client, req, reply)
     });
     server.get('/auth', {
         handler: (req, reply) => handleAuth(client, req, reply)
