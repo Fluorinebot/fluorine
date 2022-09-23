@@ -2,6 +2,9 @@ import { Embed, type FluorineClient } from '#classes';
 import type { Category } from '#types';
 import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 
+import type { fetch as _fetch } from 'undici';
+declare const fetch: typeof _fetch;
+
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const { file } = (await fetch('https://api.alexflipnote.dev/dogs').then(response => response.json())) as {
         file: string;
