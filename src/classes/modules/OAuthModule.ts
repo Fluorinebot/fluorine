@@ -11,7 +11,23 @@ export class OAuthModule {
     constructor(client: FluorineClient) {
         this.client = client;
     }
-
+    refreshToken(token: string) {
+        return this.client.rest.post(`/oauth2/token`, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams({
+                client_id: process.env.DISCORD_CLIENT_ID,
+                client_secret: process.env.DISCORD_SECRET,
+                grant_type: 'refresh_token',
+                refresh_token: token,
+                scope: 'identify guilds',
+                redirect_uri: process.env.DISCORD_REDIRECT
+            }).toString(),
+            auth: false,
+            passThroughBody: true
+        }) as Promise<RESTPostOAuth2ClientCredentialsResult>;
+    }
     getToken(code: string) {
         return this.client.rest.post(`/oauth2/token`, {
             headers: {

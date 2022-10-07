@@ -18,7 +18,7 @@ export class FluorineClient extends Client {
     createdAt = performance.now();
     logger = Logger;
     i18n = i18next;
-    prisma = new PrismaClient();
+    prisma = new PrismaClient({});
 
     commands = new CommandHandler(this);
     components = new ComponentHandler(this);

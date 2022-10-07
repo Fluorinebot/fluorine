@@ -7,7 +7,8 @@ export async function run(client: FluorineClient, guild: Guild) {
             guildId: BigInt(guild.id),
             logsEnabled: false,
             logsChannel: null,
-            logModerationActions: false
+            logModerationActions: false,
+            currency: '🪙'
         }
     });
 }

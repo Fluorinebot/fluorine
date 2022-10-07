@@ -2,7 +2,7 @@ import type { FluorineClient } from '#classes';
 import { PermissionsBitField } from 'discord.js';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 
-export async function handleGuild(client: FluorineClient, req: FastifyRequest, reply: FastifyReply) {
+export async function getGuild(client: FluorineClient, req: FastifyRequest, reply: FastifyReply) {
     const { id: guildId } = req.params as { id: string };
     const { authorization } = req.headers;
 
@@ -12,14 +12,64 @@ export async function handleGuild(client: FluorineClient, req: FastifyRequest, r
         return reply.status(404).send({ error: 'Guild not found' });
     }
 
-    const member = await guild.members.fetch({ user: await client.users.fetch(userId) });
+    const member = await guild.members.fetch(userId);
     if (!member.permissions.has(PermissionsBitField.Flags.ManageGuild)) {
         return reply.status(403).send({ error: 'Missing permissions' });
     }
-    const { currency, logModerationActions, logsChannel, logsEnabled } = await client.prisma.config.findUnique({
-        where: { guildId: BigInt(guildId) }
+    const { logModerationActions, logsChannel, logsEnabled } = await client.prisma.config.findUnique({
+        where: { guildId: BigInt(guildId) },
+        select: { logModerationActions: true, logsChannel: true, logsEnabled: true }
     });
     // get only the important data
-    const { id, name, icon } = guild;
-    return { id, name, icon, currency, logModerationActions, logsChannel, logsEnabled };
+    const { name, icon } = guild;
+    reply.header('Content-Type', 'application/json');
+    reply.send(
+        JSON.stringify({ name, icon, logModerationActions, logsChannel, logsEnabled }, (k, v) =>
+            // eslint-disable-next-line prettier/prettier
+            (typeof v === 'bigint' ? v.toString() : v)
+        )
+    );
+}
+
+export async function patchGuild(client: FluorineClient, req: FastifyRequest, reply: FastifyReply) {
+    const { id: guildId } = req.params as { id: string };
+    const { authorization } = req.headers;
+
+    const { id: userId } = client.oauth.verify(authorization);
+    const guild = client.guilds.cache.get(guildId);
+    if (!guild) {
+        return reply.status(404).send({ error: 'Guild not found' });
+    }
+
+    const member = await guild.members.fetch(userId);
+    if (!member.permissions.has(PermissionsBitField.Flags.ManageGuild)) {
+        return reply.status(403).send({ error: 'Missing permissions' });
+    }
+    const { logModerationActions, logsChannel, logsEnabled } = req.body as {
+        logModerationActions?: boolean;
+        logsChannel?: string;
+        logsEnabled?: boolean;
+    };
+    if (
+        (logModerationActions !== undefined && typeof logModerationActions !== 'boolean') ||
+        (logsEnabled !== undefined && typeof logsEnabled !== 'boolean') ||
+        (logsChannel && typeof logsChannel !== 'string')
+    ) {
+        return reply.status(400).send({ error: 'Invalid body' });
+    }
+    const data: Record<string, any> = {};
+    if (logModerationActions !== undefined) {
+        data.logModerationActions = logModerationActions;
+    }
+    if (logsChannel) {
+        data.logsChannel = BigInt(logsChannel);
+    }
+    if (logsEnabled !== undefined) {
+        data.logsEnabled = logsEnabled;
+    }
+    await client.prisma.config.update({
+        where: { guildId: BigInt(guildId) },
+        data
+    });
+    reply.status(204).send();
 }
