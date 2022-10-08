@@ -1,6 +1,6 @@
 import type { FluorineClient } from '#classes';
 import type { FastifyReply, FastifyRequest } from 'fastify';
-
+import process from 'node:process';
 export async function getAuth(client: FluorineClient, req: FastifyRequest, reply: FastifyReply) {
     const { code } = req.query as { code: string };
     if (!code) {
@@ -11,6 +11,12 @@ export async function getAuth(client: FluorineClient, req: FastifyRequest, reply
     const user = await client.oauth.getUser(token.access_token);
     const jwt = client.oauth.sign({ token, id: user.id });
 
-    reply.setCookie('authorization', jwt);
+    reply.setCookie('authorization', jwt, {
+        sameSite: 'none',
+        secure: true,
+        httpOnly: true,
+        domain: process.env.NODE_ENV === 'production' ? 'fluorine.me' : 'localhost',
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30)
+    });
     reply.status(200).send();
 }

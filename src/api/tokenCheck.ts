@@ -3,6 +3,7 @@ import type { FluorineClient } from '#classes';
 
 export async function tokenCheck(client: FluorineClient, req: FastifyRequest, reply: FastifyReply) {
     const { authorization } = req.cookies;
+    console.log(req.cookies);
     if (req.routerPath === '/auth') {
         return;
     }
