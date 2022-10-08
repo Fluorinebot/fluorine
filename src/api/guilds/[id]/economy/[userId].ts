@@ -5,7 +5,7 @@ import type { Prisma } from '@prisma/client';
 
 export async function patchEconomy(client: FluorineClient, req: FastifyRequest, reply: FastifyReply) {
     const { id: guildId } = req.params as { id: string };
-    const { authorization } = req.headers;
+    const { authorization } = req.cookies;
     const { userId } = req.params as { userId: string };
     const { wallet, bank } = req.body as { wallet: number; bank: number };
 

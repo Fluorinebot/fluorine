@@ -4,7 +4,7 @@ import type { FastifyReply, FastifyRequest } from 'fastify';
 
 export async function patchCase(client: FluorineClient, req: FastifyRequest, res: FastifyReply) {
     const { id: guildId, case: caseId } = req.params as { id: string; case: string };
-    const { id: userId } = await client.oauth.verify(req.headers.authorization);
+    const { id: userId } = await client.oauth.verify(req.cookies.authorization);
     const member = await client.guilds.cache.get(guildId)?.members.fetch(userId);
     if (!member) {
         return res.status(404).send({ error: 'Guild not found' });
@@ -25,7 +25,7 @@ export async function patchCase(client: FluorineClient, req: FastifyRequest, res
 }
 export async function getCase(client: FluorineClient, req: FastifyRequest, res: FastifyReply) {
     const { id: guildId, case: caseId } = req.params as { id: string; case: string };
-    const { id: userId } = await client.oauth.verify(req.headers.authorization);
+    const { id: userId } = await client.oauth.verify(req.cookies.authorization);
     const member = await client.guilds.cache.get(guildId)?.members.fetch(userId);
     if (!member) {
         return res.status(404).send({ error: 'Guild not found' });
@@ -42,7 +42,7 @@ export async function getCase(client: FluorineClient, req: FastifyRequest, res: 
 }
 export async function deleteCase(client: FluorineClient, req: FastifyRequest, res: FastifyReply) {
     const { id: guildId, case: caseId } = req.params as { id: string; case: string };
-    const { id: userId } = await client.oauth.verify(req.headers.authorization);
+    const { id: userId } = await client.oauth.verify(req.cookies.authorization);
     const member = await client.guilds.cache.get(guildId)?.members.fetch(userId);
     if (!member) {
         return res.status(404).send({ error: 'Guild not found' });

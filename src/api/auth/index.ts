@@ -11,6 +11,6 @@ export async function getAuth(client: FluorineClient, req: FastifyRequest, reply
     const user = await client.oauth.getUser(token.access_token);
     const jwt = client.oauth.sign({ token, id: user.id });
 
-    reply.setCookie('token', jwt);
+    reply.setCookie('authorization', jwt);
     reply.status(200).send();
 }

@@ -4,7 +4,7 @@ import type { FastifyReply, FastifyRequest } from 'fastify';
 
 export async function getGuild(client: FluorineClient, req: FastifyRequest, reply: FastifyReply) {
     const { id: guildId } = req.params as { id: string };
-    const { authorization } = req.headers;
+    const { authorization } = req.cookies;
 
     const { id: userId } = client.oauth.verify(authorization);
     const guild = client.guilds.cache.get(guildId);
@@ -33,7 +33,7 @@ export async function getGuild(client: FluorineClient, req: FastifyRequest, repl
 
 export async function patchGuild(client: FluorineClient, req: FastifyRequest, reply: FastifyReply) {
     const { id: guildId } = req.params as { id: string };
-    const { authorization } = req.headers;
+    const { authorization } = req.cookies;
 
     const { id: userId } = client.oauth.verify(authorization);
     const guild = client.guilds.cache.get(guildId);

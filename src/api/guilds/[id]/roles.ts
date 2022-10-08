@@ -4,7 +4,7 @@ import type { FluorineClient } from '#classes';
 
 export async function getRoles(client: FluorineClient, req: FastifyRequest, reply: FastifyReply) {
     const { id: guildId } = req.params as { id: string };
-    const { authorization } = req.headers;
+    const { authorization } = req.cookies;
 
     const { id: userId } = client.oauth.verify(authorization);
     const guild = client.guilds.cache.get(guildId);
