@@ -42,7 +42,7 @@
         "discord.js": "^14.4.0",
         "dotenv": "^16.0.2",
         "erlpack": "github:discord/erlpack",
-        "i18next": "^21.9.1",
+        "i18next": "^22.0.2",
         "i18next-fs-backend": "^1.1.5",
         "ms": "^3.0.0-canary.1",
         "murmurhash-v3": "^1.0.2",
