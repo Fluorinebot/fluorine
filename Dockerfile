@@ -11,5 +11,5 @@ COPY . .
 # build and generate prisma client
 RUN npx prisma generate 
 RUN npx tsc
-
+EXPOSE 8080/tcp
 CMD [ "npm", "start" ]
