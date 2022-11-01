@@ -1,6 +1,6 @@
+import type { FluorineClient } from '#classes';
 import { PermissionsBitField } from 'discord.js';
 import type { FastifyRequest, FastifyReply } from 'fastify';
-import type { FluorineClient } from '#classes';
 import type { Prisma } from '@prisma/client';
 
 export async function patchEconomy(client: FluorineClient, req: FastifyRequest, reply: FastifyReply) {

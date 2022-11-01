@@ -1,5 +1,5 @@
-import type { FastifyRequest, FastifyReply } from 'fastify';
 import type { FluorineClient } from '#classes';
+import type { FastifyRequest, FastifyReply } from 'fastify';
 
 export async function tokenCheck(client: FluorineClient, req: FastifyRequest, reply: FastifyReply) {
     const { authorization } = req.cookies;

@@ -1,6 +1,6 @@
+import type { FluorineClient } from '#classes';
 import { PermissionsBitField } from 'discord.js';
 import type { FastifyRequest, FastifyReply } from 'fastify';
-import type { FluorineClient } from '#classes';
 
 export async function getChannels(client: FluorineClient, req: FastifyRequest, reply: FastifyReply) {
     const { id: guildId } = req.params as { id: string };

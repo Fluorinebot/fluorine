@@ -1,5 +1,5 @@
-import process from 'node:process';
 import type { FluorineClient } from '#classes';
+import process from 'node:process';
 
 import cors from '@fastify/cors';
 import cookies from '@fastify/cookie';
