@@ -10,7 +10,8 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         {
             name: 'BALANCE_WALLET',
             value: `${balance.walletBal} ${currency}`
-        }
+        },
+        { name: 'BALANCE_BANK', value: `${balance.bankBal} ${currency}` }
     ]);
 
     interaction.reply({ embeds: [embed], ephemeral: true });

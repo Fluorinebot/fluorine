@@ -2,6 +2,9 @@ import { Embed, type FluorineClient } from '#classes';
 import type { InpostStatuses, InpostTrackObj } from '#types';
 import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 
+import type { fetch as _fetch } from 'undici';
+declare const fetch: typeof _fetch;
+
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const id = interaction.options.getString('id');
 
@@ -9,7 +12,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     const statuses = (await fetch(statusURL).then(res => res.json())) as InpostStatuses;
 
     const req = await fetch(`https://api-shipx-pl.easypack24.net/v1/tracking/${id}`);
-    const response: InpostTrackObj = await req.json();
+    const response = (await req.json()) as InpostTrackObj;
 
     if (req.status !== 200) {
         return interaction.reply({

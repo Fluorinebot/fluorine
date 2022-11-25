@@ -22,12 +22,9 @@ model Case {
 
 model Config {
   guildId              BigInt   @id @map("guild_id")
-  prefix               String
   logsEnabled          Boolean  @map("logs_enabled")
   logsChannel          BigInt?  @map("logs_channel")
   logModerationActions Boolean? @map("log_moderation_actions")
-  antibotFactor        Int      @map("antibot_factor")
-  antibotAction        String?  @map("antibot_action")
   currency             String?
   ticketCategory       BigInt?  @map("ticket_category")
 

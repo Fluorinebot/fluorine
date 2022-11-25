@@ -126,6 +126,11 @@ export class EconomyModule {
             select: { currency: true }
         });
 
-        return currency;
+        return currency || '🪙';
+    }
+    async getAll(guild: string) {
+        return this.table.findMany({
+            where: { guildId: BigInt(guild) }
+        });
     }
 }

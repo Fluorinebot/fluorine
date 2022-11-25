@@ -1,6 +1,7 @@
 import { join } from 'node:path';
 import process from 'node:process';
 
+import { startServer } from '#api';
 import { Logger } from '#classes';
 import { CommandHandler, ComponentHandler, CooldownHandler, EventHandler, ModalHandler } from '#handlers';
 import { AIModule, CasesModule, EconomyModule, PhishingModule, ShopModule } from '#modules';
@@ -17,7 +18,7 @@ export class FluorineClient extends Client {
     createdAt = performance.now();
     logger = Logger;
     i18n = i18next;
-    prisma = new PrismaClient();
+    prisma = new PrismaClient({});
 
     commands = new CommandHandler(this);
     components = new ComponentHandler(this);
@@ -25,10 +26,9 @@ export class FluorineClient extends Client {
     cooldowns = new CooldownHandler(this);
 
     economy = new EconomyModule(this);
-    phishing = new PhishingModule(this);
     shop = new ShopModule(this);
-    ai = new AIModule(this);
     cases = new CasesModule(this);
+    oauth = new OAuthModule(this);
 
     version = process.env.npm_package_version;
     devs = ['707675871355600967', '478823932913516544', '348591272476540928'];
@@ -67,6 +67,8 @@ export class FluorineClient extends Client {
 
         await this.prisma.$connect();
         this.login();
+
+        await startServer(this);
 
         process.on('unhandledRejection', (error: Error) => {
             this.logger.error(error.stack);

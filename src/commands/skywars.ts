@@ -3,6 +3,9 @@ import { Embed, type FluorineClient } from '#classes';
 import type { Category, HypixelType, UUIDResponse } from '#types';
 import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 
+import type { fetch as _fetch } from 'undici';
+declare const fetch: typeof _fetch;
+
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const player = interaction.options.getString('player');
     const uuid = (await fetch(`https://api.mojang.com/users/profiles/minecraft/${player}`).then(res =>
