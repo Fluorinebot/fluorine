@@ -1,28 +1,32 @@
-import { Embed, type FluorineClient } from '#classes';
-import { clean } from '#util';
-import { type ChatInputCommandInteraction, codeBlock, SlashCommandSubcommandBuilder } from 'discord.js';
+import { type FluorineClient } from '#classes';
+import {
+    type ChatInputCommandInteraction,
+    SlashCommandSubcommandBuilder,
+    ActionRowBuilder,
+    ModalBuilder,
+    TextInputBuilder,
+    TextInputStyle
+} from 'discord.js';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
-    await interaction.deferReply();
-    const code = interaction.options.getString('code');
-    code.replace('```\nsql', '').replace('\n```', '');
-    const embed = new Embed(client, interaction.locale);
+    const modal = new ModalBuilder()
+        .setTitle('Evaluate')
+        .setCustomId(`sql:${interaction.user.id}`)
+        .addComponents(
+            new ActionRowBuilder<TextInputBuilder>().addComponents(
+                new TextInputBuilder()
+                    .setCustomId(`code`)
+                    .setLabel('Statement')
+                    .setPlaceholder('DROP DATABASE;')
+                    .setStyle(TextInputStyle.Paragraph)
+                    .setMaxLength(4000)
+                    .setRequired(true)
+            )
+        );
 
-    try {
-        const evaluated = client.prisma.$queryRawUnsafe(code);
-        const cleaned = await clean(client, evaluated);
-
-        embed.setTitle('Done').setDescription(codeBlock('js', cleaned));
-    } catch (error) {
-        const cleaned = await clean(client, error);
-
-        embed.setTitle('Failed').setDescription(codeBlock('js', cleaned));
-    }
-
-    interaction.editReply({ embeds: [embed] });
+    interaction.showModal(modal);
 }
 
 export const data = new SlashCommandSubcommandBuilder()
     .setName('sql')
-    .setDescription("Robert'); DROP TABLE students;--")
-    .addStringOption(option => option.setName('code').setDescription('The code to evaluate.').setRequired(true));
+    .setDescription("Robert'); DROP TABLE students;--");
