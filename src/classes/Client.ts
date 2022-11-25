@@ -4,7 +4,7 @@ import process from 'node:process';
 import { startServer } from '#api';
 import { Logger } from '#classes';
 import { CommandHandler, ComponentHandler, CooldownHandler, EventHandler, ModalHandler } from '#handlers';
-import { AIModule, CasesModule, EconomyModule, PhishingModule, ShopModule } from '#modules';
+import { CasesModule, EconomyModule, ShopModule, OAuthModule } from '#modules';
 import { getDirname } from '#util';
 
 import { PrismaClient } from '@prisma/client';
