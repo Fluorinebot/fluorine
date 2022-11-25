@@ -4,9 +4,10 @@
         "lib": ["es2022"],
         "module": "esnext",
         "outDir": "dist",
-        "moduleResolution": "node",
+        "moduleResolution": "Node",
         "baseUrl": "src",
         "paths": {
+            "#api": ["api/index.ts"],
             "#classes": ["classes/index.ts"],
             "#handlers": ["classes/handlers/index.ts"],
             "#modules": ["classes/modules/index.ts"],
