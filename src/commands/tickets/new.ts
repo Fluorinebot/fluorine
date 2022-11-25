@@ -16,7 +16,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         .addComponents(
             new ActionRowBuilder<TextInputBuilder>().addComponents(
                 new TextInputBuilder()
-                    .setCustomId(`ticketTitle`)
+                    .setCustomId(`creationPointTitle`)
                     .setLabel('Creation Point Title')
                     .setPlaceholder('A short title that describes the purpose of the creation point.')
                     .setStyle(TextInputStyle.Short)
@@ -25,9 +25,9 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
             ),
             new ActionRowBuilder<TextInputBuilder>().addComponents(
                 new TextInputBuilder()
-                    .setCustomId(`ticketContent`)
+                    .setCustomId(`creationPointContent`)
                     .setLabel('Ticket Description')
-                    .setPlaceholder('A more indepth description of the ticket.')
+                    .setPlaceholder('A more indepth description of the ticket creation point.')
                     .setStyle(TextInputStyle.Paragraph)
                     .setMaxLength(4000)
                     .setRequired(true)
@@ -40,7 +40,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
 export const data = new SlashCommandSubcommandBuilder()
     .setName('new')
     .setNameLocalizations({ pl: 'new_pl' })
-    .setDescription('Make a new ticket creation point to allow users to create tickets')
+    .setDescription('Make a new ticket creation point to allow users to create tickets.')
     .setDescriptionLocalizations({ pl: 'new_desc_pl' })
     .addChannelOption(option =>
         option

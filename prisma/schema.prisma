@@ -29,6 +29,7 @@ model Config {
   antibotFactor        Int      @map("antibot_factor")
   antibotAction        String?  @map("antibot_action")
   currency             String?
+  ticketStaff          BigInt?  @map("ticket_staff")
   ticketCategory       BigInt?  @map("ticket_category")
 
   @@map("config")

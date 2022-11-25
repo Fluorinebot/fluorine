@@ -1,5 +1,13 @@
 import { type FluorineClient, Embed } from '#classes';
-import type { Collection, ModalSubmitInteraction, TextInputComponent } from 'discord.js';
+import {
+    ActionRowBuilder,
+    ButtonBuilder,
+    type MessageActionRowComponentBuilder,
+    type Collection,
+    type ModalSubmitInteraction,
+    type TextInputComponent,
+    ButtonStyle
+} from 'discord.js';
 
 export async function run(
     client: FluorineClient,
@@ -17,10 +25,18 @@ export async function run(
     channel.send({
         embeds: [
             new Embed(client, interaction.locale)
-                .setTitle(fields.get('ticketTitle').value)
-                .setDescription(fields.get('ticketContent')?.value ?? 'none')
+                .setTitle(fields.get('creationPointTitle').value)
+                .setDescription(fields.get('creationPointContent')?.value ?? 'none')
+        ],
+        components: [
+            new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
+                new ButtonBuilder()
+                    .setStyle(ButtonStyle.Primary)
+                    .setCustomId(`ticketPoint:${interaction.user.id}`)
+                    .setLabel('Create Ticket')
+            )
         ]
     });
 
-    interaction.editReply({ content: 'hi' });
+    interaction.reply({ content: 'That is copied, mantain flight level MOM.' });
 }
