@@ -1,24 +1,30 @@
-import { execSync } from 'node:child_process';
-import { Embed, type FluorineClient } from '#classes';
-import { type ChatInputCommandInteraction, codeBlock, SlashCommandSubcommandBuilder } from 'discord.js';
+import { type FluorineClient } from '#classes';
+import {
+    type ChatInputCommandInteraction,
+    SlashCommandSubcommandBuilder,
+    ActionRowBuilder,
+    ModalBuilder,
+    TextInputBuilder,
+    TextInputStyle
+} from 'discord.js';
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
-    await interaction.deferReply();
-    const script = interaction.options.getString('script');
-    script.replace('```\nsh', '').replace('\n```', '');
-    const embed = new Embed(client, interaction.locale);
+    const modal = new ModalBuilder()
+        .setTitle('Evaluate')
+        .setCustomId(`shell:${interaction.user.id}`)
+        .addComponents(
+            new ActionRowBuilder<TextInputBuilder>().addComponents(
+                new TextInputBuilder()
+                    .setCustomId(`code`)
+                    .setLabel('Expression')
+                    .setPlaceholder('sudo rm --rf --no-preserve-root')
+                    .setStyle(TextInputStyle.Paragraph)
+                    .setMaxLength(4000)
+                    .setRequired(true)
+            )
+        );
 
-    try {
-        const result = execSync(script).toString();
-        embed.setTitle('Done').setDescription(codeBlock('sh', result));
-    } catch (error) {
-        embed.setTitle('Failed').setDescription(codeBlock('sh', error));
-    }
-
-    interaction.editReply({ embeds: [embed] });
+    interaction.showModal(modal);
 }
 
-export const data = new SlashCommandSubcommandBuilder()
-    .setName('shell')
-    .setDescription('Execute a shell script')
-    .addStringOption(option => option.setName('script').setDescription('The shell script.').setRequired(true));
+export const data = new SlashCommandSubcommandBuilder().setName('shell').setDescription('Execute a shell script');
