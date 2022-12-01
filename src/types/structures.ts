@@ -20,6 +20,12 @@ export interface NonCommandInteractionData {
     name: string;
 }
 
+export type ComponentData = {
+    exists: boolean;
+    name: string;
+    authorOnly: boolean;
+};
+
 export interface SlashCommandProps {
     category: Category;
     cooldown?: number;
@@ -46,9 +52,7 @@ export interface Interaction {
     contextMenuCommandData: ContextMenuCommandBuilder;
 
     slashCommandProps: SlashCommandProps;
-    componentData: NonCommandInteractionData & {
-        authorOnly: boolean;
-    };
+    componentData: ComponentData;
     modalData: NonCommandInteractionData;
 }
 

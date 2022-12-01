@@ -13,6 +13,7 @@ import {
 } from 'discord.js';
 import { clean } from '#util';
 import { execSync } from 'child_process';
+import type { NonCommandInteractionData } from '#types';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const modal = new ModalBuilder()
@@ -56,8 +57,10 @@ export async function onModal(
     interaction.reply({ embeds: [embed] });
 }
 
-export const name = 'nshell';
-export const hasModal = true;
+export const modalData: NonCommandInteractionData = {
+    exists: true,
+    name: 'nshell'
+};
 
 export const slashCommandData = new SlashCommandSubcommandBuilder()
     .setName('shell')

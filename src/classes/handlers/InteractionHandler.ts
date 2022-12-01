@@ -59,13 +59,6 @@ export class InteractionHandler {
                 this.client.chatInput.set(interaction.slashCommandData.name, interaction);
             }
 
-            if (this.isChatInputSubcommand(interaction)) {
-                const [key] = interaction.slashCommandData.name.endsWith('index')
-                    ? interaction.slashCommandData.name.split('/')
-                    : [interaction.slashCommandData.name];
-                this.client.chatInput.set(key, interaction);
-            }
-
             if (this.isContextMenuCommand(interaction)) {
                 this.client.contextMenu.set(interaction.contextMenuCommandData.name, interaction);
             }
@@ -79,16 +72,27 @@ export class InteractionHandler {
             }
         }
 
+        for (const subInteraction of subInteractions) {
+            if (this.isChatInputSubcommand(subInteraction.data)) {
+                const [key] = subInteraction.name.endsWith('index')
+                    ? subInteraction.name.split('/')
+                    : [subInteraction.name];
+                this.client.chatInput.set(key, subInteraction.data);
+            }
+        }
+
         this.client.chatInput.forEach(c => this.addFullBuilder(c));
         this.client.logger.log(`Loaded ${parentInteractions.length} interactions.`);
     }
 
     isChatInputCommand(interaction: InteractionPartial): interaction is ChatInputCommand {
-        return 'slashCommandData' in interaction && 'category' in interaction;
+        // eslint-disable-next-line dot-notation
+        return 'slashCommandData' in interaction && 'slashCommandProps'['category'] in interaction;
     }
 
     isChatInputSubcommand(interaction: InteractionPartial): interaction is ChatInputSubcommand {
-        return 'slashCommandData' in interaction && !('category' in interaction);
+        // eslint-disable-next-line dot-notation
+        return 'slashCommandData' in interaction && !('slashCommandProps'['category'] in interaction);
     }
 
     isContextMenuCommand(interaction: InteractionPartial): interaction is ContextMenuCommand {
@@ -96,10 +100,10 @@ export class InteractionHandler {
     }
 
     isComponent(interaction: InteractionPartial): interaction is Component {
-        return 'hasComponent' in interaction;
+        return 'componentData' in interaction;
     }
 
     isModal(interaction: InteractionPartial): interaction is Modal {
-        return 'hasModal' in interaction;
+        return 'modalData' in interaction;
     }
 }

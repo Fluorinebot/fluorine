@@ -10,7 +10,7 @@ export async function run(client: FluorineClient, interaction: EventInteraction)
         const command = client.chatInput.get(key);
         const { dev } = client.chatInput.get(interaction.commandName) as ChatInputCommand;
 
-        if (command.slashCommandProps.cooldown) {
+        if (command?.slashCommandProps?.cooldown) {
             const cooldown = await client.cooldowns.get(interaction.user, key);
 
             if (cooldown?.timestamp > Date.now()) {
@@ -35,10 +35,10 @@ export async function run(client: FluorineClient, interaction: EventInteraction)
             });
         }
 
-        const run = command.onSlashCommand ?? command.onCommand ?? command.onInteraction;
+        const run = command?.onSlashCommand ?? command?.onCommand ?? command?.onInteraction;
         run?.(client, interaction);
 
-        if (command.slashCommandProps.cooldown) {
+        if (command?.slashCommandProps?.cooldown) {
             client.cooldowns.set(interaction.user, key, command.slashCommandProps.cooldown);
         }
 
@@ -77,8 +77,11 @@ export async function run(client: FluorineClient, interaction: EventInteraction)
     }
 
     if (interaction.isModalSubmit()) {
-        const [name] = interaction.customId.split(':');
+        const [name, id, value] = interaction.customId.split(':');
         const modal = client.modals.get(name);
+
+        console.log(name, modal);
+        console.log(client.modals);
 
         if (modal?.onModal) {
             modal?.onModal(client, interaction, interaction.fields.fields);

@@ -12,6 +12,7 @@ import {
     codeBlock
 } from 'discord.js';
 import { clean } from '#util';
+import type { NonCommandInteractionData } from '#types';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const modal = new ModalBuilder()
@@ -55,8 +56,10 @@ export async function onModal(
     interaction.reply({ embeds: [embed] });
 }
 
-export const hasModal = true;
-export const name = 'nsql';
+export const modalData: NonCommandInteractionData = {
+    exists: true,
+    name: 'nsql'
+};
 
 export const slashCommandData = new SlashCommandSubcommandBuilder()
     .setName('sql')

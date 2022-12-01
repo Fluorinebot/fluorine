@@ -1,4 +1,5 @@
 import { type FluorineClient, Embed } from '#classes';
+import type { NonCommandInteractionData } from '#types';
 import { clean } from '#util';
 import {
     type Collection,
@@ -55,8 +56,10 @@ export async function onModal(
     interaction.reply({ embeds: [embed] });
 }
 
-export const hasModal = true;
-export const name = 'neval';
+export const modalData: NonCommandInteractionData = {
+    exists: true,
+    name: 'neval'
+};
 
 export const slashCommandData = new SlashCommandSubcommandBuilder()
     .setName('eval')

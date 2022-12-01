@@ -1,5 +1,5 @@
 import { type FluorineClient, Embed } from '#classes';
-import type { Category } from '#types';
+import type { Category, ComponentData } from '#types';
 import {
     type ChatInputCommandInteraction,
     GuildMember,
@@ -79,9 +79,9 @@ export async function onCommand(
     interaction.reply(replyOptions);
 }
 
-export const authorOnly = true;
-export const hasComponent = true;
-export const name = 'navatar';
+// export const authorOnly = true;
+// export const hasComponent = true;
+// export const name = 'navatar';
 
 export async function onComponent(client: FluorineClient, interaction: ButtonInteraction, value: string) {
     const [memberId, action] = value.split('.');
@@ -110,5 +110,11 @@ export const slashCommandData = new SlashCommandBuilder()
 export const contextMenuCommandData = new ContextMenuCommandBuilder()
     .setName('Avatar')
     .setType(ApplicationCommandType.User);
+
+export const componentData: ComponentData = {
+    authorOnly: false,
+    exists: true,
+    name: 'navatar'
+};
 
 export const category: Category = 'tools';
