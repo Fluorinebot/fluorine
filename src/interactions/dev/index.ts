@@ -1,9 +1,12 @@
 import { SlashCommandBuilder } from 'discord.js';
-import type { Category } from '#types';
+import type { SlashCommandProps } from '#types';
 
 export const slashCommandData = new SlashCommandBuilder()
     .setName('dev')
     .setDescription("Commands intended to ease in Fluorine's development.");
 
-export const category: Category = 'tools';
+export const slashCommandProps: SlashCommandProps = {
+    category: 'tools'
+};
+
 export const dev = true;

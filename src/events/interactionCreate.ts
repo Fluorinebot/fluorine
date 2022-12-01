@@ -77,11 +77,8 @@ export async function run(client: FluorineClient, interaction: EventInteraction)
     }
 
     if (interaction.isModalSubmit()) {
-        const [name, id, value] = interaction.customId.split(':');
+        const [name] = interaction.customId.split(':');
         const modal = client.modals.get(name);
-
-        console.log(name, modal);
-        console.log(client.modals);
 
         if (modal?.onModal) {
             modal?.onModal(client, interaction, interaction.fields.fields);

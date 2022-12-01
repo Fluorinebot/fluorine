@@ -43,6 +43,8 @@ export class InteractionHandler {
             }
         }
 
+        this.client.logger.log('h', base);
+
         return base;
     }
 
@@ -55,10 +57,6 @@ export class InteractionHandler {
         subInteractions.map(subInteraction => interactions.push(subInteraction.data));
 
         for (const interaction of interactions) {
-            if (this.isChatInputCommand(interaction)) {
-                this.client.chatInput.set(interaction.slashCommandData.name, interaction);
-            }
-
             if (this.isContextMenuCommand(interaction)) {
                 this.client.contextMenu.set(interaction.contextMenuCommandData.name, interaction);
             }
@@ -72,11 +70,18 @@ export class InteractionHandler {
             }
         }
 
+        for (const parentInteraction of parentInteractions) {
+            if (this.isChatInputCommand(parentInteraction)) {
+                this.client.chatInput.set(parentInteraction.slashCommandData.name, parentInteraction);
+            }
+        }
+
         for (const subInteraction of subInteractions) {
             if (this.isChatInputSubcommand(subInteraction.data)) {
                 const [key] = subInteraction.name.endsWith('index')
                     ? subInteraction.name.split('/')
                     : [subInteraction.name];
+
                 this.client.chatInput.set(key, subInteraction.data);
             }
         }

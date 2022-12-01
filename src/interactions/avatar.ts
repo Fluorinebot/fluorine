@@ -1,5 +1,5 @@
 import { type FluorineClient, Embed } from '#classes';
-import type { Category, ComponentData } from '#types';
+import type { ComponentData, SlashCommandProps } from '#types';
 import {
     type ChatInputCommandInteraction,
     GuildMember,
@@ -117,4 +117,6 @@ export const componentData: ComponentData = {
     name: 'navatar'
 };
 
-export const category: Category = 'tools';
+export const slashCommandProps: SlashCommandProps = {
+    category: 'tools'
+};
