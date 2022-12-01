@@ -28,11 +28,11 @@ export class InteractionHandler {
                 const subcommand = this.chatInput.get(subcommandName);
 
                 if (this.isChatInputSubcommand(subcommand)) {
-                    return subcommand.slashCommandData;
+                    return subcommand.slashCommandData as SlashCommandSubcommandBuilder;
                 }
             });
 
-            this.getMergedCommandData(command.slashCommandData, subcommands);
+            this.getMergedCommandData(command.slashCommandData as unknown as SlashCommandBuilder, subcommands);
         }
     }
 
@@ -51,25 +51,13 @@ export class InteractionHandler {
             '../interactions'
         );
 
-        for (const interaction of parentInteractions) {
+        const interactions = [...parentInteractions, ...subInteractions];
+
+        for (const interaction of interactions) {
             if (this.isChatInputCommand(interaction)) {
                 this.client.chatInput.set(interaction.slashCommandData.name, interaction);
             }
 
-            if (this.isContextMenuCommand(interaction)) {
-                this.client.contextMenu.set(interaction.contextMenuCommandData.name, interaction);
-            }
-
-            if (this.isComponent(interaction)) {
-                this.client.components.set(interaction.name, interaction);
-            }
-
-            if (this.isModal(interaction)) {
-                this.client.modals.set(interaction.name, interaction);
-            }
-        }
-
-        for (const interaction of subInteractions) {
             if (this.isChatInputSubcommand(interaction)) {
                 const [key] = interaction.name.endsWith('index') ? interaction.name.split('/') : [interaction.name];
                 this.client.chatInput.set(key, interaction);
@@ -89,8 +77,7 @@ export class InteractionHandler {
         }
 
         this.client.chatInput.forEach(c => this.addFullBuilder(c));
-
-        this.client.logger.log('Loaded commands');
+        this.client.logger.log(`Loaded ${parentInteractions.length} interactions.`);
     }
 
     isChatInputCommand(interaction: InteractionPartial): interaction is ChatInputCommand {
