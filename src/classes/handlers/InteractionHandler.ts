@@ -51,7 +51,8 @@ export class InteractionHandler {
             '../interactions'
         );
 
-        const interactions = [...parentInteractions, ...subInteractions];
+        const interactions = [...parentInteractions];
+        subInteractions.map(subInteraction => interactions.push(subInteraction.data));
 
         for (const interaction of interactions) {
             if (this.isChatInputCommand(interaction)) {
@@ -59,7 +60,9 @@ export class InteractionHandler {
             }
 
             if (this.isChatInputSubcommand(interaction)) {
-                const [key] = interaction.name.endsWith('index') ? interaction.name.split('/') : [interaction.name];
+                const [key] = interaction.slashCommandData.name.endsWith('index')
+                    ? interaction.slashCommandData.name.split('/')
+                    : [interaction.slashCommandData.name];
                 this.client.chatInput.set(key, interaction);
             }
 
@@ -68,11 +71,11 @@ export class InteractionHandler {
             }
 
             if (this.isComponent(interaction)) {
-                this.client.components.set(interaction.name, interaction);
+                this.client.components.set(interaction.componentData.name, interaction);
             }
 
             if (this.isModal(interaction)) {
-                this.client.modals.set(interaction.name, interaction);
+                this.client.modals.set(interaction.modalData.name, interaction);
             }
         }
 

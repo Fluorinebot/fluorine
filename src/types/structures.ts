@@ -15,6 +15,16 @@ import type {
 
 export type Category = 'fun' | 'tools' | 'moderation' | 'economy';
 
+export interface NonCommandInteractionData {
+    exists: boolean;
+    name: string;
+}
+
+export interface SlashCommandProps {
+    category: Category;
+    cooldown?: number;
+}
+
 /**
  * * This interaction type overtakes the main discord.js interaction type so the discord.js `Interaction` class is to be imported using `Interaction as EventInteraction`
  */
@@ -29,25 +39,28 @@ export interface Interaction {
         interaction: ModalSubmitInteraction,
         fields: Collection<string, TextInputComponent>
     ) => Promise<void>;
+
+    dev?: boolean;
+
     slashCommandData: SlashCommandBuilder | SlashCommandSubcommandBuilder;
     contextMenuCommandData: ContextMenuCommandBuilder;
-    category: Category;
-    cooldown?: number;
-    dev?: boolean;
-    hasComponent: boolean;
-    hasModal: boolean;
-    name: string;
+
+    slashCommandProps: SlashCommandProps;
+    componentData: NonCommandInteractionData & {
+        authorOnly: boolean;
+    };
+    modalData: NonCommandInteractionData;
 }
 
 export type InteractionPartial = Partial<Interaction>;
-export type ChatInputCommand = Pick<Interaction, 'slashCommandData' | 'category' | 'cooldown'> & InteractionPartial;
+export type ChatInputCommand = Pick<Interaction, 'slashCommandData' | 'slashCommandProps'> & InteractionPartial;
 
-export type ChatInputSubcommand = Pick<Interaction, 'slashCommandData' | 'category' | 'cooldown'> &
-    Omit<InteractionPartial, 'dev' | 'category'>;
+export type ChatInputSubcommand = Pick<Interaction, 'slashCommandData' | 'slashCommandProps'> &
+    Omit<InteractionPartial, 'dev' | SlashCommandProps['category']>;
 
 export type ContextMenuCommand = Pick<Interaction, 'contextMenuCommandData'> & InteractionPartial;
-export type Component = Pick<Interaction, 'hasComponent' | 'name'> & InteractionPartial;
-export type Modal = Pick<Interaction, 'hasModal' | 'name'> & InteractionPartial;
+export type Component = Pick<Interaction, 'componentData'> & InteractionPartial;
+export type Modal = Pick<Interaction, 'modalData'> & InteractionPartial;
 
 // export interface ChatInputCommand {
 //     run: (client: FluorineClient, interaction: CommandInteraction) => void;
