@@ -35,13 +35,19 @@ export interface Interaction {
     cooldown?: number;
     dev?: boolean;
     hasComponent: boolean;
+    hasModal: boolean;
+    name: string;
 }
 
 export type InteractionPartial = Partial<Interaction>;
 export type ChatInputCommand = Pick<Interaction, 'slashCommandData' | 'category' | 'cooldown'> & InteractionPartial;
-export type ContextMenuCommand = Pick<Interaction, 'contextMenuCommandData'> & InteractionPartial;
 
-export type Component = Pick<Interaction, 'hasComponent'> & InteractionPartial;
+export type ChatInputSubcommand = Pick<Interaction, 'slashCommandData' | 'category' | 'cooldown'> &
+    Omit<InteractionPartial, 'dev' | 'category'>;
+
+export type ContextMenuCommand = Pick<Interaction, 'contextMenuCommandData'> & InteractionPartial;
+export type Component = Pick<Interaction, 'hasComponent' | 'name'> & InteractionPartial;
+export type Modal = Pick<Interaction, 'hasModal' | 'name'> & InteractionPartial;
 
 // export interface ChatInputCommand {
 //     run: (client: FluorineClient, interaction: CommandInteraction) => void;

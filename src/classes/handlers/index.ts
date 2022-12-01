@@ -3,3 +3,4 @@ export * from './ComponentHandler.js';
 export * from './CooldownHandler.js';
 export * from './EventHandler.js';
 export * from './ModalHandler.js';
+export * from './InteractionHandler.js';
