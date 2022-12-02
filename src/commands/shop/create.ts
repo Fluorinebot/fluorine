@@ -2,7 +2,7 @@ import { Embed, type FluorineClient } from '#classes';
 import type { ShopItemConstructor } from '#types';
 import { type ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandSubcommandBuilder } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const name = interaction.options.getString('name');
     const description = interaction.options.getString('description');
     const price = interaction.options.getInteger('price');
@@ -41,7 +41,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     client.shop.add(obj);
 }
 
-export const data = new SlashCommandSubcommandBuilder()
+export const slashCommandData = new SlashCommandSubcommandBuilder()
     .setName('create')
     .setNameLocalizations({ pl: 'utwórz' })
     .setDescription('Create a item!')

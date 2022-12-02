@@ -2,7 +2,7 @@ import type { FluorineClient } from '#classes';
 import { getCommandMention } from '#util';
 import { type ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandSubcommandBuilder } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const name = interaction.options.getString('name');
     const itemObj = await client.shop.get(interaction.guildId, name);
 
@@ -30,7 +30,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     client.shop.delete(interaction.guildId, name);
 }
 
-export const data = new SlashCommandSubcommandBuilder()
+export const slashCommandData = new SlashCommandSubcommandBuilder()
     .setName('delete')
     .setNameLocalizations({ pl: 'usuń' })
     .setDescription('Delete a item from the shop')

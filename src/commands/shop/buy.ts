@@ -2,7 +2,7 @@ import type { FluorineClient } from '#classes';
 import { getCommandMention } from '#util';
 import { type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
     const item = interaction.options.getString('item');
     const itemObj = await client.shop.get(interaction.guildId, item);
     const user = await client.economy.get(interaction.guildId, interaction.user);
@@ -44,7 +44,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     client.economy.subtract(interaction.guildId, interaction.user, itemObj.price);
 }
 
-export const data = new SlashCommandSubcommandBuilder()
+export const slashCommandData = new SlashCommandSubcommandBuilder()
     .setName('buy')
     .setNameLocalizations({ pl: 'kup' })
     .setDescription('Buy an item from the shop')
