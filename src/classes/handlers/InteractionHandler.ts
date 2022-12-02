@@ -38,7 +38,7 @@ export class InteractionHandler {
 
         return base;
     }
-    //
+    // !SECTION
 
     // SECTION - Load commands
     async loadCommands() {
