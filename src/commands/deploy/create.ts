@@ -11,9 +11,11 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     if (!command && name !== 'all') {
         return interaction.editReply(`Command \`${name}\` not found.`);
     }
+
     if (guildId === 'this') {
         ({ guildId } = interaction);
     }
+
     const route = guildId
         ? Routes.applicationGuildCommands(client.user.id, guildId)
         : Routes.applicationCommands(client.user.id);
@@ -44,7 +46,9 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
             await interaction.editReply('Added all commands.');
         } else {
             await client.rest.post(route, {
-                body: command.slashCommandData?.toJSON() ?? command.contextMenuCommandData?.toJSON()
+                body: client.chatInput.get(name)
+                    ? command.slashCommandData?.toJSON()
+                    : command.contextMenuCommandData?.toJSON()
             });
 
             interaction.editReply(

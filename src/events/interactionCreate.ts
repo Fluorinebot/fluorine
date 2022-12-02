@@ -56,7 +56,7 @@ export async function run(client: FluorineClient, interaction: Interaction) {
         }
 
         const run = command.onContextMenuCommand ?? command.onCommand ?? command.onInteraction;
-        run?.(client, interaction);
+        return run?.(client, interaction);
     }
 
     if (interaction.isMessageComponent()) {
@@ -80,10 +80,7 @@ export async function run(client: FluorineClient, interaction: Interaction) {
         const [name] = interaction.customId.split(':');
         const modal = client.modals.get(name);
 
-        if (modal?.onModal) {
-            modal?.onModal(client, interaction, interaction.fields.fields);
-        } else {
-            modal?.onInteraction(client, interaction);
-        }
+        const run = modal.onModal ?? modal.onInteraction;
+        return run?.(client, interaction, interaction.fields.fields);
     }
 }

@@ -17,7 +17,7 @@ import {
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const modal = new ModalBuilder()
         .setTitle('Evaluate')
-        .setCustomId(`neval:${interaction.user.id}`)
+        .setCustomId(`eval:${interaction.user.id}`)
         .addComponents(
             new ActionRowBuilder<TextInputBuilder>().addComponents(
                 new TextInputBuilder()
@@ -58,7 +58,7 @@ export async function onModal(
 
 export const modalData: NonCommandInteractionData = {
     exists: true,
-    name: 'neval'
+    name: 'eval'
 };
 
 export const slashCommandData = new SlashCommandSubcommandBuilder()

@@ -15,7 +15,7 @@ import {
     ApplicationCommandType
 } from 'discord.js';
 
-export function getAvatarComponents(
+function createComponents(
     client: FluorineClient,
     interaction: ChatInputCommandInteraction | ButtonInteraction | ContextMenuCommandInteraction,
     member: GuildMember,
@@ -35,7 +35,7 @@ export function getAvatarComponents(
     );
 }
 
-export function getAvatarEmbed(
+function createEmbed(
     client: FluorineClient,
     interaction: ChatInputCommandInteraction | ButtonInteraction | ContextMenuCommandInteraction,
     member: GuildMember | User,
@@ -69,11 +69,11 @@ export async function onCommand(
     const user = interaction.options.getMember('user') ?? interaction.options.getUser('user') ?? interaction.member;
 
     const replyOptions: InteractionReplyOptions = {
-        embeds: [getAvatarEmbed(client, interaction, user, 'guild')]
+        embeds: [createEmbed(client, interaction, user, 'guild')]
     };
 
     if (user instanceof GuildMember && user.avatar) {
-        replyOptions.components = [getAvatarComponents(client, interaction, user, 'guild')];
+        replyOptions.components = [createComponents(client, interaction, user, 'guild')];
     }
 
     interaction.reply(replyOptions);
@@ -84,8 +84,8 @@ export async function onComponent(client: FluorineClient, interaction: ButtonInt
     const member = await interaction.guild.members.fetch(memberId);
 
     interaction.update({
-        components: [getAvatarComponents(client, interaction, member, action as 'guild' | 'user')],
-        embeds: [getAvatarEmbed(client, interaction, member, action as 'guild' | 'user')]
+        components: [createComponents(client, interaction, member, action as 'guild' | 'user')],
+        embeds: [createEmbed(client, interaction, member, action as 'guild' | 'user')]
     });
 }
 

@@ -27,7 +27,11 @@ export type ComponentData = {
 };
 
 export interface BaseCommand {
-    onInteraction(client: FluorineClient, interaction: Interaction, value?: string): Promise<void>;
+    onInteraction(
+        client: FluorineClient,
+        interaction: Interaction,
+        value?: Collection<string, TextInputComponent> | string
+    ): Promise<void>;
     onCommand(client: FluorineClient, interaction: CommandInteraction): Promise<void>;
     onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction): Promise<void>;
     onContextMenuCommand(client: FluorineClient, interaction: ContextMenuCommandInteraction): Promise<void>;

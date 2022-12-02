@@ -1,7 +1,7 @@
 import type { Category } from '#types';
 import { PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
 
-export const data = new SlashCommandBuilder()
+export const slashCommandData = new SlashCommandBuilder()
     .setName('case')
     .setNameLocalizations({ pl: 'kara' })
     .setDescription('Check moderation cases')

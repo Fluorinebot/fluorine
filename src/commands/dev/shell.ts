@@ -18,7 +18,7 @@ import type { NonCommandInteractionData } from '#types';
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const modal = new ModalBuilder()
         .setTitle('Evaluate')
-        .setCustomId(`nshell:${interaction.user.id}`)
+        .setCustomId(`shell:${interaction.user.id}`)
         .addComponents(
             new ActionRowBuilder<TextInputBuilder>().addComponents(
                 new TextInputBuilder()
@@ -59,7 +59,7 @@ export async function onModal(
 
 export const modalData: NonCommandInteractionData = {
     exists: true,
-    name: 'nshell'
+    name: 'shell'
 };
 
 export const slashCommandData = new SlashCommandSubcommandBuilder()
