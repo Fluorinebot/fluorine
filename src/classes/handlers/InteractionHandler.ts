@@ -10,24 +10,23 @@ export class InteractionHandler {
 
     // SECTION - Merge builders of subcommands with parent commands
     private addFullBuilder(command: ChatInputCommand | ChatInputSubcommand) {
-        if (this.isChatInputCommand(command)) {
-            const subcommandNames = [...this.client.chatInput.keys()].filter(c =>
-                c.startsWith(`${command.slashCommandData.name}/`)
-            );
-
-            const subcommands = subcommandNames.map(subcommandName => {
-                const subcommand = this.client.chatInput.get(subcommandName);
-
-                if (this.isChatInputSubcommand(subcommand)) {
-                    return subcommand.slashCommandData;
-                }
-            });
-
-            this.getMergedCommandData(
-                command.slashCommandData as SlashCommandBuilder,
-                subcommands as SlashCommandSubcommandBuilder[]
-            );
+        if (!this.isChatInputCommand(command)) {
+            return;
         }
+
+        const subcommandNames = [...this.client.chatInput.keys()].filter(c =>
+            c.startsWith(`${command.slashCommandData.name}/`)
+        );
+
+        const subcommands = subcommandNames.map(subcommandName => {
+            const subcommand = this.client.chatInput.get(subcommandName);
+
+            if (this.isChatInputSubcommand(subcommand)) {
+                return subcommand.slashCommandData;
+            }
+        });
+
+        this.getMergedCommandData(command.slashCommandData, subcommands);
     }
 
     private getMergedCommandData(base: SlashCommandBuilder, data: SlashCommandSubcommandBuilder[] = []) {
@@ -39,7 +38,7 @@ export class InteractionHandler {
 
         return base;
     }
-    // !SECTION
+    //
 
     // SECTION - Load commands
     async loadCommands() {
