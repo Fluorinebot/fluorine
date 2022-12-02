@@ -8,6 +8,7 @@ export class InteractionHandler {
         this.client = client;
     }
 
+    // SECTION - Merge builders of subcommands with parent commands
     private addFullBuilder(command: ChatInputCommand | ChatInputSubcommand) {
         if (this.isChatInputCommand(command)) {
             const subcommandNames = [...this.client.chatInput.keys()].filter(c =>
@@ -38,13 +39,16 @@ export class InteractionHandler {
 
         return base;
     }
+    // !SECTION
 
+    // SECTION - Load commands
     async loadCommands() {
         const [parentCommands, subCommands] = await loadParentDirectory<Command, Command>('../commands');
 
         const commands = [...parentCommands];
         subCommands.map(subInteraction => commands.push(subInteraction.data));
 
+        // * loads command types that do not have difference when nested.
         for (const command of commands) {
             if (this.isContextMenuCommand(command)) {
                 this.client.contextMenu.set(command.contextMenuCommandData.name, command);
@@ -59,6 +63,7 @@ export class InteractionHandler {
             }
         }
 
+        // * loads command types that have difference in nesting
         for (const parentCommand of parentCommands) {
             if (this.isChatInputCommand(parentCommand)) {
                 this.client.chatInput.set(parentCommand.slashCommandData.name, parentCommand);
@@ -80,14 +85,14 @@ export class InteractionHandler {
         this.client.chatInput.forEach(c => this.addFullBuilder(c));
         this.client.logger.log(`Loaded ${parentCommands.length} interactions.`);
     }
+    // !SECTION
 
+    // SECTION - Type checking functions
     isChatInputCommand(command: Command): command is ChatInputCommand {
-        // eslint-disable-next-line dot-notation
         return 'slashCommandData' in command && 'category' in command;
     }
 
     isChatInputSubcommand(command: Command): command is ChatInputSubcommand {
-        // eslint-disable-next-line dot-notation
         return 'slashCommandData' in command && !('category' in command);
     }
 
@@ -102,4 +107,5 @@ export class InteractionHandler {
     isModal(command: Command): command is Modal {
         return 'modalData' in command;
     }
+    // !SECTION
 }
