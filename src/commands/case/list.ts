@@ -26,7 +26,7 @@ export async function onInteraction(
     value: string
 ) {
     const [_user, _page] = value?.split('.') ?? [];
-    const _member = interaction.isCommand() ? interaction.options.getMember('user') : client.users.cache.get(_user);
+    const _member = interaction.isCommand() ? interaction.options.getMember('user') : await client.users.fetch(_user);
     const member = _member instanceof GuildMember ? _member.user : _member;
     const page = Number(_page ?? '0');
 
@@ -49,13 +49,13 @@ export async function onInteraction(
     const replyOptions: InteractionReplyOptions = { embeds: [embed] };
 
     if (!cases.length) {
-        embed.setLocaleDescription('LISTCASE_NO_CASES', {
-            user: member.tag
+        return interaction.reply({
+            content: client.i18n.t('LISTCASE_NO_CASES', {
+                lng: interaction.locale,
+                user: member.tag
+            }),
+            ephemeral: true
         });
-
-        interaction.isCommand()
-            ? interaction.reply(replyOptions)
-            : interaction.update(replyOptions as InteractionUpdateOptions);
     }
 
     const componentPage = page > chunk.length ? page - 1 : page;

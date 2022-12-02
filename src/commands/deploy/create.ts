@@ -52,7 +52,9 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
             });
 
             interaction.editReply(
-                `Added \`${command.slashCommandData?.name ?? command.contextMenuCommandData?.name}\`.`
+                `Added \`${
+                    client.chatInput.get(name) ? command.slashCommandData?.name : command.contextMenuCommandData?.name
+                }\`.`
             );
         }
     } catch (error) {

@@ -1,15 +1,22 @@
 import { Embed, type FluorineClient } from '#classes';
-import type { Category, ChatInputCommand } from '#types';
+import type { Category, ChatInputCommand, ComponentData } from '#types';
 import {
     ActionRowBuilder,
     type APIEmbedField,
     type ChatInputCommandInteraction,
     SelectMenuBuilder,
-    SlashCommandBuilder
+    SlashCommandBuilder,
+    type SelectMenuInteraction
 } from 'discord.js';
 
-export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
-    const category = interaction.options.getString('category');
+export async function onInteraction(
+    client: FluorineClient,
+    interaction: ChatInputCommandInteraction | SelectMenuInteraction
+) {
+    const [category] = interaction.isChatInputCommand()
+        ? [interaction.options.getString('category')]
+        : interaction.values;
+
     const commands = client.chatInput.filter((c: ChatInputCommand) => c.category === category && !c.dev);
 
     const fields: APIEmbedField[] = commands.map(c => ({
@@ -54,10 +61,12 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         ])
     ]);
 
-    interaction.reply({
+    const options = {
         embeds: [embed],
         components: [row]
-    });
+    };
+
+    interaction.isChatInputCommand() ? interaction.reply(options) : interaction.update(options);
 }
 
 export const slashCommandData = new SlashCommandBuilder()
@@ -103,5 +112,11 @@ export const slashCommandData = new SlashCommandBuilder()
             )
             .setRequired(true)
     );
+
+export const componentData: ComponentData = {
+    exists: true,
+    name: 'help',
+    authorOnly: true
+};
 
 export const category: Category = 'tools';
