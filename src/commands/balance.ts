@@ -1,0 +1,27 @@
+import { Embed, type FluorineClient } from '#classes';
+import type { Category } from '#types';
+import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+    const balance = await client.economy.get(interaction.guildId, interaction.user);
+    const currency = await client.economy.getCurrency(interaction.guildId);
+
+    const embed = new Embed(client, interaction.locale).setLocaleTitle('BALANCE').addLocaleFields([
+        {
+            name: 'BALANCE_WALLET',
+            value: `${balance.walletBal} ${currency}`
+        },
+        { name: 'BALANCE_BANK', value: `${balance.bankBal} ${currency}` }
+    ]);
+
+    interaction.reply({ embeds: [embed], ephemeral: true });
+}
+
+export const slashCommandData = new SlashCommandBuilder()
+    .setName('balance')
+    .setNameLocalizations({ pl: 'saldo' })
+    .setDescription('Check your balance')
+    .setDescriptionLocalizations({ pl: 'Sprawdź swoje saldo' })
+    .setDMPermission(false);
+
+export const category: Category = 'economy';

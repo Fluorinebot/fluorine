@@ -79,10 +79,6 @@ export async function onCommand(
     interaction.reply(replyOptions);
 }
 
-// export const authorOnly = true;
-// export const hasComponent = true;
-// export const name = 'navatar';
-
 export async function onComponent(client: FluorineClient, interaction: ButtonInteraction, value: string) {
     const [memberId, action] = value.split('.');
     const member = await interaction.guild.members.fetch(memberId);
