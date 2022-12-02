@@ -1,12 +1,12 @@
 import { Embed, type FluorineClient } from '#classes';
 import { type ChatInputCommandInteraction, Routes, SlashCommandSubcommandBuilder } from 'discord.js';
 
-export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     await interaction.deferReply();
 
     const name = interaction.options.getString('command');
     let guildId = interaction.options.getString('guild');
-    const command = client.chatInput.get(name) ?? client.contextMenu.get(name);
+    const command = client.commands.chatInput.get(name) ?? client.commands.contextMenu.get(name);
 
     if (!command && name !== 'all') {
         return interaction.editReply(`Command \`${name}\` not found.`);
@@ -25,17 +25,13 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
             // @ts-expect-error
             await commands?.fetch();
 
-            const chatInputCommands = client.chatInput
-                .filter(
-                    c =>
-                        client.interactions.isChatInputCommand(c) &&
-                        (commands.cache.some(cmd => cmd.name === 'deploy') || !c.dev)
-                )
-                .map(command => command.slashCommandData.toJSON());
+            const chatInputCommands = client.commands.chatInput
+                .filter(c => 'category' in c && (commands.cache.some(cmd => cmd.name === 'deploy') || !c.dev))
+                .map(command => command.data.toJSON());
 
-            const contextMenuCommands = client.contextMenu
+            const contextMenuCommands = client.commands.contextMenu
                 .filter(c => commands.cache.some(cmd => cmd.name === 'deploy') || !c.dev)
-                .map(command => command.contextMenuCommandData.toJSON());
+                .map(command => command.data.toJSON());
 
             await client.rest.put(route, {
                 body: [...chatInputCommands, ...contextMenuCommands]
@@ -44,12 +40,10 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
             await interaction.editReply('Added all commands.');
         } else {
             await client.rest.post(route, {
-                body: command.slashCommandData?.toJSON() ?? command.contextMenuCommandData?.toJSON()
+                body: command.data.toJSON()
             });
 
-            interaction.editReply(
-                `Added \`${command.slashCommandData?.name ?? command.contextMenuCommandData?.name}\`.`
-            );
+            interaction.editReply(`Added \`${command.data.name}\`.`);
         }
     } catch (error) {
         const embed = new Embed(client, interaction.locale)
@@ -60,7 +54,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     }
 }
 
-export const slashCommandData = new SlashCommandSubcommandBuilder()
+export const data = new SlashCommandSubcommandBuilder()
     .setName('create')
     .setDescription('Create application commands')
     .addStringOption(option =>

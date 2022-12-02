@@ -1,8 +1,8 @@
 import type { FluorineClient } from '#classes';
 import type { ChatInputCommand } from '#types';
-import type { Interaction as EventInteraction } from 'discord.js';
+import type { Interaction } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: EventInteraction) {
+export async function run(client: FluorineClient, interaction: Interaction) {
     if (interaction.isChatInputCommand()) {
         const subcommand = interaction.options.getSubcommand(false);
         const key = subcommand ? `${interaction.commandName}/${subcommand}` : interaction.commandName;
@@ -10,7 +10,7 @@ export async function run(client: FluorineClient, interaction: EventInteraction)
         const command = client.chatInput.get(key);
         const { dev } = client.chatInput.get(interaction.commandName) as ChatInputCommand;
 
-        if (command?.slashCommandProps?.cooldown) {
+        if (command?.cooldown) {
             const cooldown = await client.cooldowns.get(interaction.user, key);
 
             if (cooldown?.timestamp > Date.now()) {
@@ -38,8 +38,8 @@ export async function run(client: FluorineClient, interaction: EventInteraction)
         const run = command?.onSlashCommand ?? command?.onCommand ?? command?.onInteraction;
         run?.(client, interaction);
 
-        if (command?.slashCommandProps?.cooldown) {
-            client.cooldowns.set(interaction.user, key, command.slashCommandProps.cooldown);
+        if (command?.cooldown) {
+            client.cooldowns.set(interaction.user, key, command.cooldown);
         }
 
         return;

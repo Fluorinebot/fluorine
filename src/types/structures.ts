@@ -10,7 +10,7 @@ import type {
     SlashCommandBuilder,
     SlashCommandSubcommandBuilder,
     TextInputComponent,
-    Interaction as EventInteraction
+    Interaction
 } from 'discord.js';
 
 export type Category = 'fun' | 'tools' | 'moderation' | 'economy';
@@ -26,16 +26,8 @@ export type ComponentData = {
     authorOnly: boolean;
 };
 
-export interface SlashCommandProps {
-    category: Category;
-    cooldown?: number;
-}
-
-/**
- * * This interaction type overtakes the main discord.js interaction type so the discord.js `Interaction` class is to be imported using `Interaction as EventInteraction`
- */
-export interface Interaction {
-    onInteraction(client: FluorineClient, interaction: EventInteraction, value?: string): Promise<void>;
+export interface BaseCommand {
+    onInteraction(client: FluorineClient, interaction: Interaction, value?: string): Promise<void>;
     onCommand(client: FluorineClient, interaction: CommandInteraction): Promise<void>;
     onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction): Promise<void>;
     onContextMenuCommand(client: FluorineClient, interaction: ContextMenuCommandInteraction): Promise<void>;
@@ -51,20 +43,19 @@ export interface Interaction {
     slashCommandData: SlashCommandBuilder | SlashCommandSubcommandBuilder;
     contextMenuCommandData: ContextMenuCommandBuilder;
 
-    slashCommandProps: SlashCommandProps;
+    category: Category;
+    cooldown?: number;
+
     componentData: ComponentData;
     modalData: NonCommandInteractionData;
 }
 
-export type InteractionPartial = Partial<Interaction>;
-export type ChatInputCommand = Pick<Interaction, 'slashCommandData' | 'slashCommandProps'> & InteractionPartial;
-
-export type ChatInputSubcommand = Pick<Interaction, 'slashCommandData' | 'slashCommandProps'> &
-    Omit<InteractionPartial, 'dev' | SlashCommandProps['category']>;
-
-export type ContextMenuCommand = Pick<Interaction, 'contextMenuCommandData'> & InteractionPartial;
-export type Component = Pick<Interaction, 'componentData'> & InteractionPartial;
-export type Modal = Pick<Interaction, 'modalData'> & InteractionPartial;
+export type Command = Partial<BaseCommand>;
+export type ChatInputCommand = Pick<BaseCommand, 'slashCommandData' | 'category'> & Command;
+export type ChatInputSubcommand = Pick<BaseCommand, 'slashCommandData'> & Omit<Command, 'dev' | 'category'>;
+export type ContextMenuCommand = Pick<BaseCommand, 'contextMenuCommandData'> & Command;
+export type Component = Pick<BaseCommand, 'componentData'> & Command;
+export type Modal = Pick<BaseCommand, 'modalData'> & Command;
 
 // export interface ChatInputCommand {
 //     run: (client: FluorineClient, interaction: CommandInteraction) => void;
@@ -107,11 +98,6 @@ export interface Event {
 
 export interface PhishingLink {
     url: string;
-}
-
-export interface AIQueue {
-    interaction: CommandInteraction | ContextMenuCommandInteraction;
-    text: string;
 }
 
 export interface ShopItemConstructor {

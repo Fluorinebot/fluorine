@@ -23,7 +23,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
             await client.rest.put(route, {
                 body:
                     guildId && commands.cache.some(c => c.name === 'deploy')
-                        ? [client.chatInput.get('deploy').slashCommandData.toJSON()]
+                        ? [client.commands.chatInput.get('deploy').data.toJSON()]
                         : []
             });
         } else {
@@ -46,7 +46,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     }
 }
 
-export const slashCommandData = new SlashCommandSubcommandBuilder()
+export const data = new SlashCommandSubcommandBuilder()
     .setName('delete')
     .setDescription('Delete application commands')
     .addStringOption(option =>

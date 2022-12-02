@@ -1,10 +1,12 @@
 import { Embed, type FluorineClient } from '#classes';
 import { type ChatInputCommandInteraction, Routes, SlashCommandSubcommandBuilder } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     await interaction.deferReply();
+
     const name = interaction.options.getString('command');
     let guildId = interaction.options.getString('guild');
+
     if (guildId === 'this') {
         guildId = interaction.guild.id;
     }
@@ -23,7 +25,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
             await client.rest.put(route, {
                 body:
                     guildId && commands.cache.some(c => c.name === 'deploy')
-                        ? [client.commands.chatInput.get('deploy').data.toJSON()]
+                        ? [client.chatInput.get('deploy').slashCommandData.toJSON()]
                         : []
             });
         } else {
@@ -46,7 +48,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     }
 }
 
-export const data = new SlashCommandSubcommandBuilder()
+export const slashCommandData = new SlashCommandSubcommandBuilder()
     .setName('delete')
     .setDescription('Delete application commands')
     .addStringOption(option =>
