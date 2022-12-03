@@ -36,7 +36,7 @@ export async function run(client: FluorineClient, interaction: Interaction) {
         }
 
         const run = command?.onSlashCommand ?? command?.onCommand ?? command?.onInteraction;
-        run?.(client, interaction);
+        await run?.(client, interaction);
 
         if (command?.cooldown) {
             client.cooldowns.set(interaction.user, key, command.cooldown);
