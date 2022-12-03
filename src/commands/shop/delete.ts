@@ -1,6 +1,11 @@
 import type { FluorineClient } from '#classes';
 import { getCommandMention } from '#util';
-import { type ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandSubcommandBuilder } from 'discord.js';
+import {
+    type ChatInputCommandInteraction,
+    PermissionFlagsBits,
+    SlashCommandSubcommandBuilder,
+    type AutocompleteInteraction
+} from 'discord.js';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const name = interaction.options.getString('name');
@@ -30,6 +35,30 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     client.shop.delete(interaction.guildId, name);
 }
 
+export async function onAutocomplete(
+    client: FluorineClient,
+    interaction: AutocompleteInteraction,
+    focusedName: string,
+    focusedValue: string
+) {
+    if (focusedName === 'name') {
+        const items = await client.prisma.shopItem.findMany({
+            where: {
+                guildId: BigInt(interaction.guildId),
+                name: { startsWith: focusedValue }
+            },
+            select: { name: true },
+            take: 25,
+            orderBy: {
+                name: 'asc'
+            }
+        });
+
+        const predicted = items.map(item => ({ name: item.name, value: item.name }));
+        interaction.respond(predicted);
+    }
+}
+
 export const slashCommandData = new SlashCommandSubcommandBuilder()
     .setName('delete')
     .setNameLocalizations({ pl: 'usuń' })
@@ -42,4 +71,5 @@ export const slashCommandData = new SlashCommandSubcommandBuilder()
             .setDescription('Name of the item')
             .setDescriptionLocalizations({ pl: 'Nazwa przedmiotu' })
             .setRequired(true)
+            .setAutocomplete(true)
     );

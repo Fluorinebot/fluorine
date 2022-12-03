@@ -83,4 +83,14 @@ export async function run(client: FluorineClient, interaction: Interaction) {
         const run = modal.onModal ?? modal.onInteraction;
         return run?.(client, interaction, interaction.fields.fields);
     }
+
+    if (interaction.isAutocomplete()) {
+        const subcommand = interaction.options.getSubcommand(false);
+        const key = subcommand ? `${interaction.commandName}/${subcommand}` : interaction.commandName;
+
+        const command = client.chatInput.get(key);
+        const focused = interaction.options.getFocused(true);
+
+        return command.onAutocomplete(client, interaction, focused.name, focused.value);
+    }
 }

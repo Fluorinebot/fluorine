@@ -10,7 +10,8 @@ import type {
     SlashCommandBuilder,
     SlashCommandSubcommandBuilder,
     TextInputComponent,
-    Interaction
+    Interaction,
+    AutocompleteInteraction
 } from 'discord.js';
 
 export type Category = 'fun' | 'tools' | 'moderation' | 'economy';
@@ -44,6 +45,12 @@ export interface BaseCommand {
         client: FluorineClient,
         interaction: ModalSubmitInteraction,
         fields: Collection<string, TextInputComponent>
+    ) => Promise<void>;
+    onAutocomplete: (
+        client: FluorineClient,
+        interaction: AutocompleteInteraction,
+        focusedName: string,
+        focusedValue: string | number
     ) => Promise<void>;
 
     dev?: boolean;
