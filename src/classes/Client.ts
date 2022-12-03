@@ -3,7 +3,7 @@ import process from 'node:process';
 
 import { startServer } from '#api';
 import { Logger } from '#classes';
-import { CooldownHandler, EventHandler, InteractionHandler } from '#handlers';
+import { CooldownHandler, EventHandler, CommandHandler } from '#handlers';
 import { CasesModule, EconomyModule, ShopModule, OAuthModule } from '#modules';
 import { getDirname } from '#util';
 
@@ -21,7 +21,7 @@ export class FluorineClient extends Client {
     i18n = i18next;
     prisma = new PrismaClient({});
 
-    interactions = new InteractionHandler(this);
+    interactions = new CommandHandler(this);
 
     chatInput = new Collection<string, ChatInputCommand | ChatInputSubcommand>();
     contextMenu = new Collection<string, ContextMenuCommand>();

@@ -3,7 +3,7 @@ import type { ChatInputCommand, ChatInputSubcommand, ContextMenuCommand, Command
 import { loadParentDirectory } from '#util';
 import type { SlashCommandBuilder, SlashCommandSubcommandBuilder } from 'discord.js';
 
-export class InteractionHandler {
+export class CommandHandler {
     constructor(private client: FluorineClient) {
         this.client = client;
     }

@@ -1,3 +1,3 @@
 export * from './CooldownHandler.js';
 export * from './EventHandler.js';
-export * from './InteractionHandler.js';
+export * from './CommandHandler.js';
