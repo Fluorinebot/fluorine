@@ -25,7 +25,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
             await client.rest.put(route, {
                 body:
                     guildId && commands.cache.some(c => c.name === 'deploy')
-                        ? [client.chatInput.get('deploy').slashCommandData.toJSON()]
+                        ? [client.chatInputCommands.get('deploy').slashCommandData.toJSON()]
                         : []
             });
         } else {

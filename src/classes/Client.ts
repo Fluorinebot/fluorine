@@ -23,8 +23,8 @@ export class FluorineClient extends Client {
 
     interactions = new CommandHandler(this);
 
-    chatInput = new Collection<string, ChatInputCommand | ChatInputSubcommand>();
-    contextMenu = new Collection<string, ContextMenuCommand>();
+    chatInputCommands = new Collection<string, ChatInputCommand | ChatInputSubcommand>();
+    contextMenuCommands = new Collection<string, ContextMenuCommand>();
     components = new Collection<string, Component>();
     modals = new Collection<string, Modal>();
     cooldowns = new CooldownHandler(this);

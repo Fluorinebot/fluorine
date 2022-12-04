@@ -17,7 +17,7 @@ export async function onInteraction(
         ? [interaction.options.getString('category')]
         : interaction.values;
 
-    const commands = client.chatInput.filter((c: ChatInputCommand) => c.category === category && !c.dev);
+    const commands = client.chatInputCommands.filter((c: ChatInputCommand) => c.category === category && !c.dev);
 
     const fields: APIEmbedField[] = commands.map(c => ({
         name: `/${c.slashCommandData.name_localizations[interaction.locale] ?? c.slashCommandData.name}`,

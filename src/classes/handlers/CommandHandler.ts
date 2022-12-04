@@ -14,12 +14,12 @@ export class CommandHandler {
             return;
         }
 
-        const subcommandNames = [...this.client.chatInput.keys()].filter(c =>
+        const subcommandNames = [...this.client.chatInputCommands.keys()].filter(c =>
             c.startsWith(`${command.slashCommandData.name}/`)
         );
 
         const subcommands = subcommandNames.map(subcommandName => {
-            const subcommand = this.client.chatInput.get(subcommandName);
+            const subcommand = this.client.chatInputCommands.get(subcommandName);
 
             if (this.isChatInputSubcommand(subcommand)) {
                 return subcommand.slashCommandData;
@@ -42,15 +42,18 @@ export class CommandHandler {
 
     // SECTION - Load commands
     async loadCommands() {
-        const [parentCommands, subCommands] = await loadParentDirectory<Command, Command>('../commands');
+        const [parentCommands, subcommands] = await loadParentDirectory<Command, Command>('../commands');
 
-        const commands = [...parentCommands];
-        subCommands.map(subInteraction => commands.push(subInteraction.data));
+        const commands = [...parentCommands, ...subcommands.map(s => s.data)];
 
         // * loads command types that do not have difference when nested.
         for (const command of commands) {
+            if (this.isChatInputCommand(command)) {
+                this.client.chatInputCommands.set(command.slashCommandData.name, command);
+            }
+
             if (this.isContextMenuCommand(command)) {
-                this.client.contextMenu.set(command.contextMenuCommandData.name, command);
+                this.client.contextMenuCommands.set(command.contextMenuCommandData.name, command);
             }
 
             if (this.isComponent(command)) {
@@ -62,26 +65,15 @@ export class CommandHandler {
             }
         }
 
-        // * loads command types that have difference in nesting
-        for (const parentCommand of parentCommands) {
-            if (this.isChatInputCommand(parentCommand)) {
-                this.client.chatInput.set(parentCommand.slashCommandData.name, parentCommand);
+        for (const subcommand of subcommands) {
+            if (this.isChatInputSubcommand(subcommand.data)) {
+                const [key] = subcommand.name.endsWith('index') ? subcommand.name.split('/') : [subcommand.name];
+
+                this.client.chatInputCommands.set(key, subcommand.data);
             }
         }
 
-        for (const subCommand of subCommands) {
-            if (this.isChatInputCommand(subCommand.data)) {
-                this.client.chatInput.set(subCommand.data.slashCommandData.name, subCommand.data);
-            }
-
-            if (this.isChatInputSubcommand(subCommand.data)) {
-                const [key] = subCommand.name.endsWith('index') ? subCommand.name.split('/') : [subCommand.name];
-
-                this.client.chatInput.set(key, subCommand.data);
-            }
-        }
-
-        this.client.chatInput.forEach(c => this.addFullBuilder(c));
+        this.client.chatInputCommands.forEach(c => this.addFullBuilder(c));
         this.client.logger.log(`Loaded ${parentCommands.length} interactions.`);
     }
     // !SECTION

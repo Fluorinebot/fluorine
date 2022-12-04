@@ -7,8 +7,8 @@ export async function run(client: FluorineClient, interaction: Interaction) {
         const subcommand = interaction.options.getSubcommand(false);
         const key = subcommand ? `${interaction.commandName}/${subcommand}` : interaction.commandName;
 
-        const command = client.chatInput.get(key);
-        const { dev } = client.chatInput.get(interaction.commandName) as ChatInputCommand;
+        const command = client.chatInputCommands.get(key);
+        const { dev } = client.chatInputCommands.get(interaction.commandName) as ChatInputCommand;
 
         if (command?.cooldown) {
             const cooldown = await client.cooldowns.get(interaction.user, key);
@@ -36,7 +36,7 @@ export async function run(client: FluorineClient, interaction: Interaction) {
         }
 
         const run = command?.onSlashCommand ?? command?.onCommand ?? command?.onInteraction;
-        await run?.(client, interaction);
+        run?.(client, interaction);
 
         if (command?.cooldown) {
             client.cooldowns.set(interaction.user, key, command.cooldown);
@@ -46,7 +46,7 @@ export async function run(client: FluorineClient, interaction: Interaction) {
     }
 
     if (interaction.isContextMenuCommand()) {
-        const command = client.contextMenu.get(interaction.commandName);
+        const command = client.contextMenuCommands.get(interaction.commandName);
 
         if (command.dev && !client.devs.includes(interaction.user.id)) {
             return interaction.reply({
@@ -88,7 +88,7 @@ export async function run(client: FluorineClient, interaction: Interaction) {
         const subcommand = interaction.options.getSubcommand(false);
         const key = subcommand ? `${interaction.commandName}/${subcommand}` : interaction.commandName;
 
-        const command = client.chatInput.get(key);
+        const command = client.chatInputCommands.get(key);
         const focused = interaction.options.getFocused(true);
 
         return command.onAutocomplete(client, interaction, focused.name, focused.value);

@@ -23,12 +23,12 @@ function createComponents(
 ) {
     return new ActionRowBuilder<ButtonBuilder>().addComponents(
         new ButtonBuilder()
-            .setCustomId(`navatar:${interaction.user.id}:${member.id}.guild`)
+            .setCustomId(`avatar:${interaction.user.id}:${member.id}.guild`)
             .setLabel(client.i18n.t('AVATAR_GUILD', { lng: interaction.locale }))
             .setStyle(ButtonStyle.Primary)
             .setDisabled(action === 'guild'),
         new ButtonBuilder()
-            .setCustomId(`navatar:${interaction.user.id}:${member.id}.user`)
+            .setCustomId(`avatar:${interaction.user.id}:${member.id}.user`)
             .setLabel(client.i18n.t('AVATAR_USER', { lng: interaction.locale }))
             .setStyle(ButtonStyle.Primary)
             .setDisabled(action === 'user')
@@ -110,7 +110,7 @@ export const contextMenuCommandData = new ContextMenuCommandBuilder()
 export const componentData: ComponentData = {
     authorOnly: false,
     exists: true,
-    name: 'navatar'
+    name: 'avatar'
 };
 
 export const category: Category = 'tools';

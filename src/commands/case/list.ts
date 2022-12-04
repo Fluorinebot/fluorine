@@ -3,34 +3,32 @@ import type { ComponentData } from '#types';
 import { splitArray } from '#util';
 import {
     ActionRowBuilder,
-    ButtonBuilder,
-    ButtonStyle,
     ApplicationCommandType,
-    PermissionFlagsBits,
-    ContextMenuCommandBuilder,
-    GuildMember,
-    SlashCommandSubcommandBuilder,
-    type ChatInputCommandInteraction,
-    type InteractionReplyOptions,
+    ButtonBuilder,
     type ButtonInteraction,
-    type UserContextMenuCommandInteraction,
-    type InteractionUpdateOptions
+    ButtonStyle,
+    type CommandInteraction,
+    ContextMenuCommandBuilder,
+    type GuildMember,
+    type InteractionReplyOptions,
+    type InteractionUpdateOptions,
+    PermissionFlagsBits,
+    SlashCommandSubcommandBuilder
 } from 'discord.js';
 
 export async function onInteraction(
     client: FluorineClient,
-    interaction:
-        | ChatInputCommandInteraction<'cached'>
-        | UserContextMenuCommandInteraction<'cached'>
-        | ButtonInteraction,
+    interaction: ButtonInteraction | CommandInteraction<'cached'>,
     value: string
 ) {
-    const [_user, _page] = value?.split('.') ?? [];
-    const _member = interaction.isCommand() ? interaction.options.getMember('user') : await client.users.fetch(_user);
-    const member = _member instanceof GuildMember ? _member.user : _member;
+    const [user, _page] = value?.split('.') ?? [];
     const page = Number(_page ?? '0');
 
-    if (!_member) {
+    const member: GuildMember = interaction.isCommand()
+        ? interaction.options.getMember('user')
+        : await interaction.guild.members.fetch(user).catch(() => null);
+
+    if (!member) {
         return interaction.reply({
             content: client.i18n.t('LISTCASE_MEMBER_MISSING', {
                 lng: interaction.locale
@@ -39,20 +37,20 @@ export async function onInteraction(
         });
     }
 
-    const cases = await client.cases.getMany(interaction.guildId, member);
+    const cases = await client.cases.getMany(interaction.guildId, member.user);
     const chunk = splitArray(cases, 10);
 
     const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle('LISTCASE_TITLE', { user: member.tag })
+        .setLocaleTitle('LISTCASE_TITLE', { user: member.user.tag })
         .setThumbnail(member.displayAvatarURL());
 
-    const replyOptions: InteractionReplyOptions = { embeds: [embed] };
+    const replyOptions: InteractionReplyOptions & InteractionUpdateOptions = { embeds: [embed] };
 
     if (!cases.length) {
         return interaction.reply({
             content: client.i18n.t('LISTCASE_NO_CASES', {
                 lng: interaction.locale,
-                user: member.tag
+                user: member.user.tag
             }),
             ephemeral: true
         });
@@ -84,9 +82,7 @@ export async function onInteraction(
         replyOptions.components = [row];
     }
 
-    interaction.isCommand()
-        ? interaction.reply(replyOptions)
-        : interaction.update(replyOptions as InteractionUpdateOptions);
+    interaction.isCommand() ? interaction.reply(replyOptions) : interaction.update(replyOptions);
 }
 
 export const slashCommandData = new SlashCommandSubcommandBuilder()

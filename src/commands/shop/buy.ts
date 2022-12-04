@@ -58,7 +58,7 @@ export async function onAutocomplete(
         const items = await client.prisma.shopItem.findMany({
             where: {
                 guildId: BigInt(interaction.guildId),
-                name: { startsWith: focusedValue }
+                name: { contains: focusedValue }
             },
             select: { name: true },
             take: 25,

@@ -1,3 +1,6 @@
+import { readdir } from 'node:fs/promises';
+import { join } from 'node:path';
+import process from 'node:process';
 import { Embed, type FluorineClient } from '#classes';
 import type { Category, ComponentData } from '#types';
 import { getDirname } from '#util';
@@ -11,11 +14,7 @@ import {
     ButtonStyle
 } from 'discord.js';
 
-import { readdir } from 'node:fs/promises';
-import { join } from 'node:path';
-import process from 'node:process';
-
-async function getEmbed(client: FluorineClient, interaction: Interaction, page: 'info' | 'stats') {
+async function getEmbed(client: FluorineClient, interaction: Interaction, page: string) {
     const embed = new Embed(client, interaction.locale);
 
     if (page === 'info') {
@@ -83,7 +82,7 @@ async function getEmbed(client: FluorineClient, interaction: Interaction, page: 
             },
             {
                 name: 'INFO_STATS_COMMANDS',
-                value: client.chatInput.size.toString(),
+                value: client.chatInputCommands.size.toString(),
                 inline: true
             },
             {
@@ -97,7 +96,7 @@ async function getEmbed(client: FluorineClient, interaction: Interaction, page: 
     return embed;
 }
 
-function getComponents(client: FluorineClient, interaction: Interaction, page: 'info' | 'stats') {
+function getComponents(client: FluorineClient, interaction: Interaction, page: string) {
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
         new ButtonBuilder()
             .setLabel(client.i18n.t('INFO', { lng: interaction.locale }))
@@ -114,23 +113,21 @@ function getComponents(client: FluorineClient, interaction: Interaction, page: '
     return row;
 }
 
-export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
-    interaction.reply({
-        embeds: [await getEmbed(client, interaction, 'info')],
-        components: [getComponents(client, interaction, 'info')]
-    });
-}
-
-export async function onComponent(client: FluorineClient, interaction: ButtonInteraction, value: string) {
-    interaction.update({
-        embeds: [await getEmbed(client, interaction, value as 'info' | 'stats')],
-        components: [getComponents(client, interaction, value as 'info' | 'stats')]
-    });
+export async function onInteraction(
+    client: FluorineClient,
+    interaction: ButtonInteraction | ChatInputCommandInteraction,
+    value?: string
+) {
+    const options = {
+        embeds: [await getEmbed(client, interaction, value ?? 'info')],
+        components: [getComponents(client, interaction, value ?? 'info')]
+    };
+    interaction.isChatInputCommand() ? interaction.reply(options) : interaction.update(options);
 }
 
 export const componentData: ComponentData = {
     exists: true,
-    name: 'avatar',
+    name: 'info',
     authorOnly: true
 };
 

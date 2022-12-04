@@ -6,7 +6,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 
     const name = interaction.options.getString('command');
     let guildId = interaction.options.getString('guild');
-    const command = client.chatInput.get(name) ?? client.contextMenu.get(name);
+    const command = client.chatInputCommands.get(name) ?? client.contextMenuCommands.get(name);
 
     if (!command && name !== 'all') {
         return interaction.editReply(`Command \`${name}\` not found.`);
@@ -27,7 +27,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
             // @ts-expect-error
             await commands?.fetch();
 
-            const chatInputCommands = client.chatInput
+            const chatInputCommands = client.chatInputCommands
                 .filter(
                     c =>
                         client.interactions.isChatInputCommand(c) &&
@@ -35,7 +35,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
                 )
                 .map(command => command.slashCommandData.toJSON());
 
-            const contextMenuCommands = client.contextMenu
+            const contextMenuCommands = client.contextMenuCommands
                 .filter(c => commands.cache.some(cmd => cmd.name === 'deploy') || !c.dev)
                 .map(command => command.contextMenuCommandData.toJSON());
 
@@ -46,14 +46,16 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
             await interaction.editReply('Added all commands.');
         } else {
             await client.rest.post(route, {
-                body: client.chatInput.get(name)
+                body: client.chatInputCommands.get(name)
                     ? command.slashCommandData?.toJSON()
                     : command.contextMenuCommandData?.toJSON()
             });
 
             interaction.editReply(
                 `Added \`${
-                    client.chatInput.get(name) ? command.slashCommandData?.name : command.contextMenuCommandData?.name
+                    client.chatInputCommands.get(name)
+                        ? command.slashCommandData?.name
+                        : command.contextMenuCommandData?.name
                 }\`.`
             );
         }

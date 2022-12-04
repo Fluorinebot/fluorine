@@ -46,7 +46,7 @@
         "dotenv": "^16.0.2",
         "erlpack": "github:discord/erlpack",
         "fast-jwt": "^1.7.1",
-        "fastify": "^4.8.1",
+        "fastify": "^4.10.2",
         "i18next": "^22.0.4",
         "i18next-fs-backend": "^1.1.5",
         "ms": "^3.0.0-canary.1",
@@ -65,7 +65,7 @@
         "eslint-plugin-prettier": "^4.2.1",
         "prisma": "^4.3.1",
         "tsx": "^3.8.2",
-        "typescript": "^4.8.3"
+        "typescript": "^4.9.3"
     },
     "engines": {
         "node": ">=18.0.0"
