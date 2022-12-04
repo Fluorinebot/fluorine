@@ -15,7 +15,7 @@ export async function getGuilds(client: FluorineClient, req: FastifyRequest, res
         return;
     }
     return {
-        guilds: guilds.map(e => {
+        guilds: guilds.map((e) => {
             const guild = client.guilds.cache.get(e.id);
             e.fluorine = Boolean(guild);
             return e;

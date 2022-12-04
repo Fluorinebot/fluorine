@@ -35,7 +35,7 @@ export const data = new SlashCommandSubcommandBuilder()
     .setNameLocalizations({ pl: 'usuń' })
     .setDescription('Delete a item from the shop')
     .setDescriptionLocalizations({ pl: 'Usuń przedmiot ze sklepu' })
-    .addStringOption(option =>
+    .addStringOption((option) =>
         option
             .setName('name')
             .setNameLocalizations({ pl: 'nazwa' })

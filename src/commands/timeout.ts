@@ -81,7 +81,7 @@ export const data = new SlashCommandBuilder()
     .setDescriptionLocalizations({ pl: 'Wyślij użytkownika na przerwę (podobne do mute)' })
     .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers)
     .setDMPermission(false)
-    .addUserOption(option =>
+    .addUserOption((option) =>
         option
             .setName('user')
             .setNameLocalizations({ pl: 'użytkownik' })
@@ -89,7 +89,7 @@ export const data = new SlashCommandBuilder()
             .setDescriptionLocalizations({ pl: 'Podaj użytkownika, którego chcesz wysłać na przerwę' })
             .setRequired(true)
     )
-    .addStringOption(option =>
+    .addStringOption((option) =>
         option
             .setName('duration')
             .setNameLocalizations({ pl: 'długość' })
@@ -97,7 +97,7 @@ export const data = new SlashCommandBuilder()
             .setDescriptionLocalizations({ pl: 'Podaj, jak długo ma trwać przerwa' })
             .setRequired(true)
     )
-    .addStringOption(option =>
+    .addStringOption((option) =>
         option
             .setName('reason')
             .setNameLocalizations({ pl: 'powód' })

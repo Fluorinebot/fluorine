@@ -22,12 +22,12 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         if (name === 'all') {
             await client.rest.put(route, {
                 body:
-                    guildId && commands.cache.some(c => c.name === 'deploy')
+                    guildId && commands.cache.some((c) => c.name === 'deploy')
                         ? [client.commands.chatInput.get('deploy').data.toJSON()]
                         : []
             });
         } else {
-            const command = commands.cache.find(c => c.name === name);
+            const command = commands.cache.find((c) => c.name === name);
 
             if (!command) {
                 return interaction.editReply(`Command \`${name}\` not found. Are you sure it was deployed?`);
@@ -49,7 +49,9 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
 export const data = new SlashCommandSubcommandBuilder()
     .setName('delete')
     .setDescription('Delete application commands')
-    .addStringOption(option =>
+    .addStringOption((option) =>
         option.setName('command').setDescription('Provide a command to delete').setRequired(true)
     )
-    .addStringOption(option => option.setName('guild').setDescription('Provide a guild to deploy').setRequired(false));
+    .addStringOption((option) =>
+        option.setName('guild').setDescription('Provide a guild to deploy').setRequired(false)
+    );

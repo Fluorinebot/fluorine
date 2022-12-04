@@ -16,7 +16,7 @@ export async function getChannels(client: FluorineClient, req: FastifyRequest, r
     if (!member.permissions.has(PermissionsBitField.Flags.ManageGuild)) {
         return reply.status(403).send({ error: 'Missing permissions' });
     }
-    return (await guild.channels.fetch()).map(e => ({
+    return (await guild.channels.fetch()).map((e) => ({
         id: e?.id,
         name: e?.name,
         position: e?.position

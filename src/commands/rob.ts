@@ -54,7 +54,7 @@ export const data = new SlashCommandBuilder()
     .setDescription('Rob a user')
     .setDescriptionLocalizations({ pl: 'Okradnij użytkownika' })
     .setDMPermission(false)
-    .addUserOption(option =>
+    .addUserOption((option) =>
         option
             .setName('user')
             .setNameLocalizations({ pl: 'użytkownik' })

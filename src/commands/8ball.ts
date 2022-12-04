@@ -22,7 +22,7 @@ export const data = new SlashCommandBuilder()
     .setNameLocalizations({ pl: 'magiczna-kula' })
     .setDescription('Ask the magic ball a question')
     .setDescriptionLocalizations({ pl: 'Zapytaj o coś magiczną kulę' })
-    .addStringOption(option =>
+    .addStringOption((option) =>
         option
             .setName('question')
             .setNameLocalizations({ pl: 'pytanie' })

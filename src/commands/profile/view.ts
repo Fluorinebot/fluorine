@@ -83,7 +83,7 @@ export const data = new SlashCommandSubcommandBuilder()
     .setNameLocalizations({ pl: 'obejrz' })
     .setDescription('View a profile')
     .setDescriptionLocalizations({ pl: 'Obejrz profil' })
-    .addUserOption(option =>
+    .addUserOption((option) =>
         option
             .setName('user')
             .setNameLocalizations({ pl: 'użytkownik' })

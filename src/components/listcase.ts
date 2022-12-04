@@ -30,7 +30,7 @@ export async function run(client: FluorineClient, interaction: ButtonInteraction
         .setLocaleTitle('LISTCASE_TITLE', { user: member.tag })
         .setThumbnail(member.displayAvatarURL());
 
-    chunk[page > chunk.length ? page - 1 : page].forEach(caseData => {
+    chunk[page > chunk.length ? page - 1 : page].forEach((caseData) => {
         embed.addFields({ name: `#${caseData.caseId} ${caseData.type}`, value: caseData.reason });
     });
 

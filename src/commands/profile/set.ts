@@ -10,7 +10,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     switch (field) {
         case 'birthday': {
             const birthday = value;
-            const [day, month] = birthday.split('/').map(str => parseInt(str) || 0);
+            const [day, month] = birthday.split('/').map((str) => parseInt(str) || 0);
 
             if (day > 31 || day < 1 || month > 12 || month < 1) {
                 interaction.reply({
@@ -165,7 +165,7 @@ export const data = new SlashCommandSubcommandBuilder()
     .setNameLocalizations({ pl: 'ustaw' })
     .setDescription('Set a profile')
     .setDescriptionLocalizations({ pl: 'Ustaw profil' })
-    .addStringOption(option =>
+    .addStringOption((option) =>
         option
             .setName('field')
             .setNameLocalizations({ pl: 'rubryka' })
@@ -210,7 +210,7 @@ export const data = new SlashCommandSubcommandBuilder()
                 }
             )
     )
-    .addStringOption(option =>
+    .addStringOption((option) =>
         option
             .setName('value')
             .setNameLocalizations({ pl: 'wartość' })

@@ -26,12 +26,12 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
             await commands?.fetch();
 
             const chatInputCommands = client.commands.chatInput
-                .filter(c => 'category' in c && (commands.cache.some(cmd => cmd.name === 'deploy') || !c.dev))
-                .map(command => command.data.toJSON());
+                .filter((c) => 'category' in c && (commands.cache.some((cmd) => cmd.name === 'deploy') || !c.dev))
+                .map((command) => command.data.toJSON());
 
             const contextMenuCommands = client.commands.contextMenu
-                .filter(c => commands.cache.some(cmd => cmd.name === 'deploy') || !c.dev)
-                .map(command => command.data.toJSON());
+                .filter((c) => commands.cache.some((cmd) => cmd.name === 'deploy') || !c.dev)
+                .map((command) => command.data.toJSON());
 
             await client.rest.put(route, {
                 body: [...chatInputCommands, ...contextMenuCommands]
@@ -57,7 +57,9 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
 export const data = new SlashCommandSubcommandBuilder()
     .setName('create')
     .setDescription('Create application commands')
-    .addStringOption(option =>
+    .addStringOption((option) =>
         option.setName('command').setDescription('Provide a command to create').setRequired(true)
     )
-    .addStringOption(option => option.setName('guild').setDescription('Provide a guild to deploy').setRequired(false));
+    .addStringOption((option) =>
+        option.setName('guild').setDescription('Provide a guild to deploy').setRequired(false)
+    );

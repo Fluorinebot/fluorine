@@ -9,17 +9,19 @@ export async function getInfoEmbed(client: FluorineClient, interaction: Interact
     const embed = new Embed(client, interaction.locale);
 
     if (page === 'info') {
-        const developers = (await Promise.all(client.devs.map(async id => (await client.users.fetch(id)).tag))).join(
+        const developers = (await Promise.all(client.devs.map(async (id) => (await client.users.fetch(id)).tag))).join(
             '\n'
         );
 
         const thanks = (
             await Promise.all(
-                ['709446362252443760', '603635602809946113'].map(async id => (await client.users.fetch(id)).tag)
+                ['709446362252443760', '603635602809946113'].map(async (id) => (await client.users.fetch(id)).tag)
             )
         ).join('\n');
 
-        const langs = (await readdir(join(getDirname(import.meta.url), '../../i18n'))).map(file => file.split('.')[0]);
+        const langs = (await readdir(join(getDirname(import.meta.url), '../../i18n'))).map(
+            (file) => file.split('.')[0]
+        );
 
         embed
             .setLocaleTitle('INFO_TITLE')

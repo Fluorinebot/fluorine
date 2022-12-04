@@ -5,8 +5,8 @@ on:
   pull_request:
     branches: [main]
 jobs:
-  lint:
-    name: ESLint
+  rome:
+    name: Rome
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -21,8 +21,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run ESLint
-        run: npm run lint
+      - name: Run Rome
+        run: npm run check
 
   typescript:
     name: TypeScript
@@ -44,7 +44,7 @@ jobs:
         run: echo "##[add-matcher].github/tsc.json"
 
       - name: Run TypeScript compiler
-        run: npm run test:typescript
+        run: npm run ts
   docker:
     name: Docker
     runs-on: ubuntu-latest

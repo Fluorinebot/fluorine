@@ -1,0 +1,33 @@
+{
+  "$schema": "./node_modules/rome/configuration_schema.json",
+  "files": {
+    "ignore": [
+      "node_modules/**",
+      "dist/**"
+    ]
+  },
+  "formatter": {
+    "indentStyle": "space",
+    "indentSize": 4,
+    "lineWidth": 120
+  },
+  "javascript": {
+    "formatter": {
+      "semicolons": "always",
+      "quoteStyle": "single", 
+      "trailingComma": "none"
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "complexity": {
+        "useSimplifiedLogicExpression": "off"
+      },
+      "nursery": {
+        "recommended": true,
+        "noBannedTypes": "error"
+      }
+    }
+  }
+}

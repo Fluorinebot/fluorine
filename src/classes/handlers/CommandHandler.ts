@@ -13,9 +13,9 @@ export class CommandHandler {
 
     private addFullBuilder(command: ChatInputCommand | ChatInputSubcommand) {
         if ('category' in command) {
-            const subcommandNames = [...this.chatInput.keys()].filter(c => c.startsWith(`${command.data.name}/`));
+            const subcommandNames = [...this.chatInput.keys()].filter((c) => c.startsWith(`${command.data.name}/`));
 
-            const subcommands = subcommandNames.map(subcommandName => {
+            const subcommands = subcommandNames.map((subcommandName) => {
                 const subcommand = this.chatInput.get(subcommandName);
                 if (!('category' in subcommand)) {
                     return subcommand.data;
@@ -48,9 +48,9 @@ export class CommandHandler {
             this.chatInput.set(key, subcommand.data);
         }
 
-        this.chatInput.forEach(c => this.addFullBuilder(c));
+        this.chatInput.forEach((c) => this.addFullBuilder(c));
 
-        const commandsLoaded = [...this.chatInput.keys()].filter(key => !key.includes('/'));
+        const commandsLoaded = [...this.chatInput.keys()].filter((key) => !key.includes('/'));
         this.client.logger.log(`Loaded ${commandsLoaded.length} chat input commands.`);
         return this.chatInput;
     }

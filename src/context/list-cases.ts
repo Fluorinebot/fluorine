@@ -42,7 +42,7 @@ export async function run(client: FluorineClient, interaction: UserContextMenuCo
 
     const chunk = splitArray(cases, 10);
 
-    chunk[0].forEach(caseData => {
+    chunk[0].forEach((caseData) => {
         embed.addFields({ name: `#${caseData.caseId} ${caseData.type}`, value: caseData.reason });
     });
 

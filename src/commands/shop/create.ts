@@ -46,7 +46,7 @@ export const data = new SlashCommandSubcommandBuilder()
     .setNameLocalizations({ pl: 'utwórz' })
     .setDescription('Create a item!')
     .setDescriptionLocalizations({ pl: 'Utwórz przedmiot!' })
-    .addStringOption(option =>
+    .addStringOption((option) =>
         option
             .setName('name')
             .setNameLocalizations({ pl: 'nazwa' })
@@ -55,7 +55,7 @@ export const data = new SlashCommandSubcommandBuilder()
             .setMaxLength(20)
             .setRequired(true)
     )
-    .addStringOption(option =>
+    .addStringOption((option) =>
         option
             .setName('description')
             .setNameLocalizations({ pl: 'opis' })
@@ -64,7 +64,7 @@ export const data = new SlashCommandSubcommandBuilder()
             .setMaxLength(50)
             .setRequired(true)
     )
-    .addIntegerOption(option =>
+    .addIntegerOption((option) =>
         option
             .setName('price')
             .setNameLocalizations({ pl: 'cena' })
@@ -73,7 +73,7 @@ export const data = new SlashCommandSubcommandBuilder()
             .setMinValue(1)
             .setRequired(true)
     )
-    .addRoleOption(option =>
+    .addRoleOption((option) =>
         option
             .setName('role')
             .setNameLocalizations({ pl: 'rola' })

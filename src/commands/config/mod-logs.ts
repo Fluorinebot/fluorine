@@ -28,7 +28,7 @@ export const data = new SlashCommandSubcommandBuilder()
     .setNameLocalizations({ pl: 'mod-logi' })
     .setDescription('Set if you want to log moderation actions')
     .setDescriptionLocalizations({ pl: 'Ustaw, czy chcesz, by logować akcje moderacyjne' })
-    .addBooleanOption(option =>
+    .addBooleanOption((option) =>
         option
             .setName('mod-logs')
             .setNameLocalizations({ pl: 'mod-logi' })

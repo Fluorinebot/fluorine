@@ -9,7 +9,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     const id = interaction.options.getString('id');
 
     const statusURL = client.i18n.t('INPOST_URL', { lng: interaction.locale });
-    const statuses = (await fetch(statusURL).then(res => res.json())) as InpostStatuses;
+    const statuses = (await fetch(statusURL).then((res) => res.json())) as InpostStatuses;
 
     const req = await fetch(`https://api-shipx-pl.easypack24.net/v1/tracking/${id}`);
     const response = (await req.json()) as InpostTrackObj;
@@ -30,8 +30,8 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         embed.setLocaleDescription('INPOST_DESCRIPTION', response.custom_attributes.target_machine_detail);
     }
 
-    response.tracking_details.reverse().forEach(data => {
-        const status = statuses.items.find(element => element.name === data.status);
+    response.tracking_details.reverse().forEach((data) => {
+        const status = statuses.items.find((element) => element.name === data.status);
         embed.addFields({ name: status.title, value: status.description });
     });
 
@@ -43,7 +43,7 @@ export const data = new SlashCommandBuilder()
     .setNameLocalizations({ pl: 'inpost' })
     .setDescription('Track an InPost package')
     .setDescriptionLocalizations({ pl: 'Śledź paczkę w InPost' })
-    .addStringOption(option =>
+    .addStringOption((option) =>
         option
             .setName('id')
             .setNameLocalizations({ pl: 'id' })

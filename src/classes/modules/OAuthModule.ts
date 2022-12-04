@@ -12,7 +12,7 @@ export class OAuthModule {
         this.client = client;
     }
     refreshToken(token: string) {
-        return this.client.rest.post(`/oauth2/token`, {
+        return this.client.rest.post('/oauth2/token', {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
@@ -29,7 +29,7 @@ export class OAuthModule {
         }) as Promise<RESTPostOAuth2ClientCredentialsResult>;
     }
     getToken(code: string) {
-        return this.client.rest.post(`/oauth2/token`, {
+        return this.client.rest.post('/oauth2/token', {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },

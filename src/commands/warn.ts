@@ -48,7 +48,7 @@ export const data = new SlashCommandBuilder()
     .setDescriptionLocalizations({ pl: 'Daj użytkownikowi ostrzeżenie' })
     .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers)
     .setDMPermission(false)
-    .addUserOption(option =>
+    .addUserOption((option) =>
         option
             .setName('user')
             .setNameLocalizations({ pl: 'użytkownik' })
@@ -56,7 +56,7 @@ export const data = new SlashCommandBuilder()
             .setDescriptionLocalizations({ pl: 'Podaj użytkownika, któremu chcesz wstawić ostrzeżenie' })
             .setRequired(true)
     )
-    .addStringOption(option =>
+    .addStringOption((option) =>
         option
             .setName('reason')
             .setNameLocalizations({ pl: 'powód' })

@@ -113,13 +113,15 @@ export class CasesModule {
         const guild = this.client.guilds.cache.get(guildId);
         const user = await this.client.users.fetch(Case.moderatedUser.toString());
         switch (Case.type) {
-            case 'ban':
+            case 'ban': {
                 await guild.bans.remove(user);
                 break;
-            case 'timeout':
+            }
+            case 'timeout': {
                 const member = await guild.members.fetch(user);
                 await member.timeout(null);
                 break;
+            }
         }
         return this.table.delete({
             where: {

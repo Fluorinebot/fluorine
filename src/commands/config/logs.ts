@@ -28,7 +28,7 @@ export const data = new SlashCommandSubcommandBuilder()
     .setNameLocalizations({ pl: 'logi' })
     .setDescription('Set if you want to log messages')
     .setDescriptionLocalizations({ pl: 'Ustaw, czy chcesz logować wiadomości na specjalnym kanale' })
-    .addBooleanOption(option =>
+    .addBooleanOption((option) =>
         option
             .setName('logs')
             .setNameLocalizations({ pl: 'logi' })

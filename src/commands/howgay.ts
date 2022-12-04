@@ -25,7 +25,7 @@ export const data = new SlashCommandBuilder()
     .setNameLocalizations({ pl: 'howgay' })
     .setDescription('Check how gay something is')
     .setDescriptionLocalizations({ pl: 'Sprawdź, jak gejowa jest jakaś rzecz' })
-    .addStringOption(option =>
+    .addStringOption((option) =>
         option
             .setName('thing')
             .setNameLocalizations({ pl: 'rzecz' })

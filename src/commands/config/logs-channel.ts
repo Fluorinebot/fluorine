@@ -30,7 +30,7 @@ export const data = new SlashCommandSubcommandBuilder()
     .setNameLocalizations({ pl: 'kanał-logów' })
     .setDescription('Set the channel for logs')
     .setDescriptionLocalizations({ pl: 'Ustaw kanał, na którym pojawiają się logi' })
-    .addChannelOption(option =>
+    .addChannelOption((option) =>
         option
             .setName('channel')
             .setNameLocalizations({ pl: 'kanał' })

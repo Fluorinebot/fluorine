@@ -31,7 +31,7 @@ export const data = new SlashCommandBuilder()
     .setDescription('Deposit your money')
     .setDescriptionLocalizations({ pl: 'Wpłać swoje pieniądze' })
     .setDMPermission(false)
-    .addIntegerOption(option =>
+    .addIntegerOption((option) =>
         option
             .setName('amount')
             .setNameLocalizations({ pl: 'ilość' })

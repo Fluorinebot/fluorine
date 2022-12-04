@@ -8,7 +8,7 @@ declare const fetch: typeof _fetch;
 
 export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const player = interaction.options.getString('player');
-    const uuid = (await fetch(`https://api.mojang.com/users/profiles/minecraft/${player}`).then(res =>
+    const uuid = (await fetch(`https://api.mojang.com/users/profiles/minecraft/${player}`).then((res) =>
         res.json()
     )) as UUIDResponse;
 
@@ -22,7 +22,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     }
 
     const data = (await fetch(`https://api.hypixel.net/player?uuid=${uuid.id}&key=${process.env.HYPIXEL_TOKEN}`).then(
-        res => res.json()
+        (res) => res.json()
     )) as HypixelType;
     const bedStats = data?.player?.stats?.Bedwars;
 
@@ -86,7 +86,7 @@ export const data = new SlashCommandBuilder()
     .setNameLocalizations({ pl: 'bedwars' })
     .setDescription("Check a player's bedwars stats from Hypixel")
     .setDescriptionLocalizations({ pl: 'Sprawdź statystyki gracza Hypixela' })
-    .addStringOption(option =>
+    .addStringOption((option) =>
         option
             .setName('player')
             .setNameLocalizations({ pl: 'gracz' })

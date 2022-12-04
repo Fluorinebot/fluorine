@@ -25,4 +25,4 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
 export const data = new SlashCommandSubcommandBuilder()
     .setName('eval')
     .setDescription('Evaluates a given exprssion.')
-    .addStringOption(option => option.setName('code').setDescription('The code to evaluate.').setRequired(true));
+    .addStringOption((option) => option.setName('code').setDescription('The code to evaluate.').setRequired(true));

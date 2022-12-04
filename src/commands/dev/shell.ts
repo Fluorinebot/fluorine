@@ -21,4 +21,4 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
 export const data = new SlashCommandSubcommandBuilder()
     .setName('shell')
     .setDescription('Execute a shell script')
-    .addStringOption(option => option.setName('script').setDescription('The shell script.').setRequired(true));
+    .addStringOption((option) => option.setName('script').setDescription('The shell script.').setRequired(true));

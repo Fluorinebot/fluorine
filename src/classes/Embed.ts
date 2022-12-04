@@ -39,7 +39,7 @@ export class Embed extends EmbedBuilder {
 
     public addLocaleFields(fields: LocaleFieldOptions[]): this {
         return super.addFields(
-            fields.map(field => ({
+            fields.map((field) => ({
                 name: this.i18n.t(field.name, { lng: this.locale, ...field.args }),
                 value:
                     field.value ||

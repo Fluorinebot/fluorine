@@ -25,8 +25,7 @@ export async function getGuild(client: FluorineClient, req: FastifyRequest, repl
     reply.header('Content-Type', 'application/json');
     reply.send(
         JSON.stringify({ name, icon, logModerationActions, logsChannel, logsEnabled }, (k, v) =>
-            // eslint-disable-next-line prettier/prettier
-            (typeof v === 'bigint' ? v.toString() : v)
+            typeof v === 'bigint' ? v.toString() : v
         )
     );
 }

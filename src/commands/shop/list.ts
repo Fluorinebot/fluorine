@@ -8,7 +8,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     const currency = await client.economy.getCurrency(interaction.guildId);
 
     if (list.length) {
-        list.forEach(item => {
+        list.forEach((item) => {
             embed.addFields({ name: `${item.name} - ${item.price} ${currency}`, value: item.description });
         });
     } else {

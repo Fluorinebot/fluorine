@@ -49,7 +49,7 @@ export const data = new SlashCommandSubcommandBuilder()
     .setNameLocalizations({ pl: 'kup' })
     .setDescription('Buy an item from the shop')
     .setDescriptionLocalizations({ pl: 'Zakup przedmiotu ze sklepu' })
-    .addStringOption(option =>
+    .addStringOption((option) =>
         option
             .setName('item')
             .setNameLocalizations({ pl: 'przedmiot' })

@@ -27,7 +27,7 @@ export const data = new SlashCommandBuilder()
     .setNameLocalizations({ pl: 'avatar' })
     .setDescription('Show avatar of a user')
     .setDescriptionLocalizations({ pl: 'Wyświetla avatar użytkownika' })
-    .addUserOption(option =>
+    .addUserOption((option) =>
         option
             .setName('user')
             .setNameLocalizations({ pl: 'użytkownik' })

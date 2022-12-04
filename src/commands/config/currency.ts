@@ -26,7 +26,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
 export const data = new SlashCommandSubcommandBuilder()
     .setName('currency')
     .setDescription('Set the currency')
-    .addStringOption(option =>
+    .addStringOption((option) =>
         option
             .setName('currency')
             .setNameLocalizations({ pl: 'waluta' })

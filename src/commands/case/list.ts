@@ -40,7 +40,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
 
     const chunk = splitArray(cases, 10);
 
-    chunk[0].forEach(caseData => {
+    chunk[0].forEach((caseData) => {
         embed.addFields({ name: `#${caseData.caseId} ${caseData.type}`, value: caseData.reason });
     });
 
@@ -78,7 +78,7 @@ export const data = new SlashCommandSubcommandBuilder()
     .setNameLocalizations({ pl: 'lista' })
     .setDescription('Check punishments of a user')
     .setDescriptionLocalizations({ pl: 'Sprawdź kary użytkownika' })
-    .addUserOption(option =>
+    .addUserOption((option) =>
         option
             .setName('user')
             .setNameLocalizations({ pl: 'użytkownik' })

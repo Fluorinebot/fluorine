@@ -69,7 +69,7 @@ export const data = new SlashCommandBuilder()
     .setDescriptionLocalizations({ pl: 'Wyrzuca użytkownika z serwera' })
     .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
     .setDMPermission(false)
-    .addUserOption(option =>
+    .addUserOption((option) =>
         option
             .setName('user')
             .setNameLocalizations({ pl: 'użytkownik' })
@@ -77,7 +77,7 @@ export const data = new SlashCommandBuilder()
             .setDescriptionLocalizations({ pl: 'Podaj użytkownika, którego chcesz wyrzucić' })
             .setRequired(true)
     )
-    .addStringOption(option =>
+    .addStringOption((option) =>
         option
             .setName('reason')
             .setNameLocalizations({ pl: 'powód' })
