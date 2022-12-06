@@ -2,8 +2,8 @@
   "$schema": "./node_modules/rome/configuration_schema.json",
   "files": {
     "ignore": [
-      "node_modules/**",
-      "dist/**"
+      "node_modules",
+      "dist"
     ]
   },
   "formatter": {
@@ -21,6 +21,7 @@
   "linter": {
     "enabled": true,
     "rules": {
+      "recommended": true,
       "complexity": {
         "useSimplifiedLogicExpression": "off"
       },

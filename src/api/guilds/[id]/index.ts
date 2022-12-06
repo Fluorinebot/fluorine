@@ -56,7 +56,7 @@ export async function patchGuild(client: FluorineClient, req: FastifyRequest, re
     ) {
         return reply.status(400).send({ error: 'Invalid body' });
     }
-    const data: Record<string, any> = {};
+    const data: Record<string, unknown> = {};
     if (logModerationActions !== undefined) {
         data.logModerationActions = logModerationActions;
     }

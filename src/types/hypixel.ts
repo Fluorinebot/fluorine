@@ -13,7 +13,7 @@ export interface Player {
     lastLogin: number;
     playername: string;
     achievementsOneTime: string[];
-    achievementTracking: any[];
+    achievementTracking: unknown[];
     achievementSync: AchievementSync;
     stats: Stats;
     achievementPoints: number;
@@ -33,7 +33,7 @@ export interface Player {
     vanityMeta: VanityMeta;
     monthlycrates: { [key: string]: Monthlycrate };
     lastAdsenseGenerateTime: number;
-    friendRequestsUuid: any[];
+    friendRequestsUuid: unknown[];
     channel: string;
     levelingReward_4: boolean;
     levelingReward_5: boolean;
@@ -907,21 +907,21 @@ export interface Pit {
 
 export interface Profile {
     moved_achievements_1: boolean;
-    outgoing_offers: any[];
+    outgoing_offers: unknown[];
     moved_achievements_2: boolean;
     items_last_buy: ItemsLastBuy;
     leaderboard_stats: LeaderboardStats;
     last_save: number;
     king_quest: KingQuest;
     inv_armor: InvArmor;
-    login_messages: any[];
+    login_messages: unknown[];
     hotbar_favorites: number[];
     spire_stash_inv: InvArmor;
     xp: number;
     inv_contents: InvArmor;
     cheap_milk: boolean;
     zero_point_three_gold_transfer: boolean;
-    bounties: any[];
+    bounties: unknown[];
     spire_stash_armor: InvArmor;
     cash: number;
     cash_during_prestige_0: number;

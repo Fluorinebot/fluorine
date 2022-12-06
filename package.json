@@ -11,6 +11,7 @@
         "check": "rome ci .",
         "check:fix": "rome check --apply . && rome format --write .",
         "dev": "tsx watch src/index.ts",
+        "format": "rome format --write .",
         "build": "rm -rf ./dist/ && tsc",
         "start": "cross-env NODE_ENV=production node --enable-source-maps ."
     },
@@ -58,7 +59,7 @@
         "@types/i18next-fs-backend": "^1.1.2",
         "cross-env": "^7.0.3",
         "prisma": "^4.7.1",
-        "rome": "^10.0.1-nightly.40f10a4",
+        "rome": "^11.0.0",
         "tsx": "^3.12.1",
         "typescript": "^4.9.3"
     },

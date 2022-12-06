@@ -37,7 +37,7 @@ export interface Component {
 }
 
 export interface Event {
-    run: (client: FluorineClient, ...args: any) => void;
+    run: (client: FluorineClient, ...args: unknown[]) => void;
 }
 
 export interface PhishingLink {
