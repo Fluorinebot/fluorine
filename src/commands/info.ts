@@ -6,7 +6,6 @@ import type { Category, ComponentData } from '#types';
 import { getDirname } from '#util';
 import {
     type ChatInputCommandInteraction,
-    type Interaction,
     type ButtonInteraction,
     SlashCommandBuilder,
     ActionRowBuilder,
@@ -14,10 +13,14 @@ import {
     ButtonStyle
 } from 'discord.js';
 
-async function getEmbed(client: FluorineClient, interaction: Interaction, page: string) {
+export async function onInteraction(
+    client: FluorineClient,
+    interaction: ButtonInteraction | ChatInputCommandInteraction,
+    value: 'info' | 'stats' = 'info'
+) {
     const embed = new Embed(client, interaction.locale);
 
-    if (page === 'info') {
+    if (value === 'info') {
         const developers = (await Promise.all(client.devs.map(async id => (await client.users.fetch(id)).tag))).join(
             '\n'
         );
@@ -58,7 +61,7 @@ async function getEmbed(client: FluorineClient, interaction: Interaction, page: 
             ]);
     }
 
-    if (page === 'stats') {
+    if (value === 'stats') {
         embed.setLocaleTitle('INFO_STATS_TITLE').addLocaleFields([
             {
                 name: 'INFO_STATS_RAM',
@@ -93,35 +96,24 @@ async function getEmbed(client: FluorineClient, interaction: Interaction, page: 
         ]);
     }
 
-    return embed;
-}
-
-function getComponents(client: FluorineClient, interaction: Interaction, page: string) {
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
         new ButtonBuilder()
             .setLabel(client.i18n.t('INFO', { lng: interaction.locale }))
-            .setDisabled(page === 'info')
+            .setDisabled(value === 'info')
             .setCustomId(`info:${interaction.user.id}:info`)
             .setStyle(ButtonStyle.Primary),
         new ButtonBuilder()
             .setLabel(client.i18n.t('INFO_STATS', { lng: interaction.locale }))
-            .setDisabled(page === 'stats')
+            .setDisabled(value === 'stats')
             .setCustomId(`info:${interaction.user.id}:stats`)
             .setStyle(ButtonStyle.Primary)
     ]);
 
-    return row;
-}
-
-export async function onInteraction(
-    client: FluorineClient,
-    interaction: ButtonInteraction | ChatInputCommandInteraction,
-    value?: string
-) {
     const options = {
-        embeds: [await getEmbed(client, interaction, value ?? 'info')],
-        components: [getComponents(client, interaction, value ?? 'info')]
+        embeds: [embed],
+        components: [row]
     };
+
     interaction.isChatInputCommand() ? interaction.reply(options) : interaction.update(options);
 }
 
