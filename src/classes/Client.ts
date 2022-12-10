@@ -21,7 +21,7 @@ export class FluorineClient extends Client {
     i18n = i18next;
     prisma = new PrismaClient({});
 
-    interactions = new CommandHandler(this);
+    commands = new CommandHandler(this);
 
     chatInputCommands = new Collection<string, ChatInputCommand | ChatInputSubcommand>();
     contextMenuCommands = new Collection<string, ContextMenuCommand>();
@@ -58,7 +58,7 @@ export class FluorineClient extends Client {
 
         new EventHandler(this).loadEvents();
 
-        this.interactions.loadCommands();
+        this.commands.loadCommands();
 
         await this.i18n.use(Backend).init({
             fallbackLng: 'en-US',

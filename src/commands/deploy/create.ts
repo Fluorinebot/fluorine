@@ -30,7 +30,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
             const chatInputCommands = client.chatInputCommands
                 .filter(
                     c =>
-                        client.interactions.isChatInputCommand(c) &&
+                        client.commands.isChatInputCommand(c) &&
                         (commands.cache.some(cmd => cmd.name === 'deploy') || !c.dev)
                 )
                 .map(command => command.slashCommandData.toJSON());
