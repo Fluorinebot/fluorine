@@ -2,7 +2,7 @@ import type { FluorineClient } from '#classes';
 import type { Category } from '#types';
 import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const toWithdraw = interaction.options.getInteger('amount');
     const balance = await client.economy.get(interaction.guildId, interaction.user);
 
@@ -25,7 +25,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     await client.economy.withdraw(interaction.guildId, interaction.user, toWithdraw);
 }
 
-export const data = new SlashCommandBuilder()
+export const slashCommandData = new SlashCommandBuilder()
     .setName('withdraw')
     .setNameLocalizations({ pl: 'wypłać' })
     .setDescription('Withdraw your money')

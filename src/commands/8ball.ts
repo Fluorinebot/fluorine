@@ -3,7 +3,7 @@ import type { Category } from '#types';
 import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import hash from 'murmurhash-v3';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const question = interaction.options.getString('question');
     const responseId = hash(question) % 6;
 
@@ -17,7 +17,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     interaction.reply({ embeds: [embed] });
 }
 
-export const data = new SlashCommandBuilder()
+export const slashCommandData = new SlashCommandBuilder()
     .setName('8ball')
     .setNameLocalizations({ pl: 'magiczna-kula' })
     .setDescription('Ask the magic ball a question')

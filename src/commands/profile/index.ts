@@ -1,7 +1,7 @@
 import type { Category } from '#types';
 import { SlashCommandBuilder } from 'discord.js';
 
-export const data = new SlashCommandBuilder()
+export const slashCommandData = new SlashCommandBuilder()
     .setName('profile')
     .setNameLocalizations({ pl: 'profil' })
     .setDescription('View/set a profile')

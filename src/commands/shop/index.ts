@@ -1,7 +1,7 @@
 import type { Category } from '#types';
 import { SlashCommandBuilder } from 'discord.js';
 
-export const data = new SlashCommandBuilder()
+export const slashCommandData = new SlashCommandBuilder()
     .setName('shop')
     .setNameLocalizations({ pl: 'sklep' })
     .setDescription('Buy something with your economy money!')

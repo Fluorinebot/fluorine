@@ -2,7 +2,7 @@ import { Embed, type FluorineClient } from '#classes';
 import type { Category } from '#types';
 import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const currency = await client.economy.getCurrency(interaction.guildId);
     const random = Math.floor(Math.random() * 10);
 
@@ -33,7 +33,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     client.economy.add(interaction.guildId, interaction.user, money);
 }
 
-export const data = new SlashCommandBuilder()
+export const slashCommandData = new SlashCommandBuilder()
     .setName('crime')
     .setNameLocalizations({ pl: 'przestępstwo' })
     .setDescription('Commit a crime')

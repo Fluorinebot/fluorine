@@ -5,7 +5,7 @@ import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.j
 import type { fetch as _fetch } from 'undici';
 declare const fetch: typeof _fetch;
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const { file } = (await fetch('https://api.alexflipnote.dev/cats').then(response => response.json())) as {
         file: string;
     };
@@ -14,7 +14,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     interaction.reply({ embeds: [embed] });
 }
 
-export const data = new SlashCommandBuilder()
+export const slashCommandData = new SlashCommandBuilder()
     .setName('cat')
     .setNameLocalizations({ pl: 'kot' })
     .setDescription('Random cat picture')

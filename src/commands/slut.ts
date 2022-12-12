@@ -2,7 +2,7 @@ import { Embed, type FluorineClient } from '#classes';
 import type { Category } from '#types';
 import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const money = Math.floor(Math.random() * 200 + 50);
     const embed = new Embed(client, interaction.locale)
         .setLocaleTitle('SLUT_SUCCESS')
@@ -14,7 +14,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     interaction.reply({ embeds: [embed] });
 }
 
-export const data = new SlashCommandBuilder()
+export const slashCommandData = new SlashCommandBuilder()
     .setName('slut')
     .setNameLocalizations({ pl: 'slut' })
     .setDescription('Get money by being a slut!')

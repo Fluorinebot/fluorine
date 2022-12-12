@@ -3,7 +3,7 @@ import { fragmentText, getDirname } from '#util';
 import { createCanvas, loadImage, GlobalFonts } from '@napi-rs/canvas';
 import { AttachmentBuilder, type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const user = interaction.options.getUser('user') ?? interaction.user;
     const localeOptions = {
         lng: interaction.locale
@@ -78,7 +78,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     interaction.reply({ files: [attachment] });
 }
 
-export const data = new SlashCommandSubcommandBuilder()
+export const slashCommandData = new SlashCommandSubcommandBuilder()
     .setName('view')
     .setNameLocalizations({ pl: 'obejrz' })
     .setDescription('View a profile')

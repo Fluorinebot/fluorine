@@ -5,7 +5,7 @@ import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.j
 import type { fetch as _fetch } from 'undici';
 declare const fetch: typeof _fetch;
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const id = interaction.options.getString('id');
 
     const statusURL = client.i18n.t('INPOST_URL', { lng: interaction.locale });
@@ -38,7 +38,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     interaction.reply({ embeds: [embed] });
 }
 
-export const data = new SlashCommandBuilder()
+export const slashCommandData = new SlashCommandBuilder()
     .setName('inpost')
     .setNameLocalizations({ pl: 'inpost' })
     .setDescription('Track an InPost package')

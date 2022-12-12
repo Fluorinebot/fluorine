@@ -6,7 +6,7 @@ import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.j
 import type { fetch as _fetch } from 'undici';
 declare const fetch: typeof _fetch;
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const player = interaction.options.getString('player');
     const uuid = (await fetch(`https://api.mojang.com/users/profiles/minecraft/${player}`).then(res =>
         res.json()
@@ -74,7 +74,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     interaction.reply({ embeds: [embed] });
 }
 
-export const data = new SlashCommandBuilder()
+export const slashCommandData = new SlashCommandBuilder()
     .setName('skywars')
     .setNameLocalizations({ pl: 'skywars' })
     .setDescription("Check a player's skywars stats from Hypixel")

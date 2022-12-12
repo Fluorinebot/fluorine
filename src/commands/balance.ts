@@ -2,7 +2,7 @@ import { Embed, type FluorineClient } from '#classes';
 import type { Category } from '#types';
 import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const balance = await client.economy.get(interaction.guildId, interaction.user);
     const currency = await client.economy.getCurrency(interaction.guildId);
 
@@ -17,7 +17,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     interaction.reply({ embeds: [embed], ephemeral: true });
 }
 
-export const data = new SlashCommandBuilder()
+export const slashCommandData = new SlashCommandBuilder()
     .setName('balance')
     .setNameLocalizations({ pl: 'saldo' })
     .setDescription('Check your balance')

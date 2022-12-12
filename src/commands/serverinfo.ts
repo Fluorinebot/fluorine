@@ -2,7 +2,7 @@ import { Embed, type FluorineClient } from '#classes';
 import type { Category } from '#types';
 import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const embed = new Embed(client, interaction.locale).setLocaleTitle('SERVER_INFO').addLocaleFields([
         {
             name: 'SERVER_INFO_NAME',
@@ -28,7 +28,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     interaction.reply({ embeds: [embed] });
 }
 
-export const data = new SlashCommandBuilder()
+export const slashCommandData = new SlashCommandBuilder()
     .setName('serverinfo')
     .setNameLocalizations({ pl: 'serverinfo' })
     .setDescription('Information about this server')

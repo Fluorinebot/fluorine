@@ -3,7 +3,7 @@ import type { Category } from '#types';
 import { type ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
 import ms, { type StringValue } from 'ms';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
     const member = interaction.options.getMember('user');
     const duration = ms(interaction.options.getString('duration') as StringValue);
     const reason = interaction.options.getString('reason') ?? client.i18n.t('NONE', { lng: interaction.locale });
@@ -74,7 +74,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     client.cases.logToModerationChannel(interaction.guildId, caseObj);
 }
 
-export const data = new SlashCommandBuilder()
+export const slashCommandData = new SlashCommandBuilder()
     .setName('timeout')
     .setNameLocalizations({ pl: 'timeout' })
     .setDescription('Timeout a user from the server')

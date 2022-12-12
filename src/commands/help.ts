@@ -1,20 +1,27 @@
 import { Embed, type FluorineClient } from '#classes';
-import type { Category, ChatInputCommand } from '#types';
+import type { Category, ChatInputCommand, ComponentData } from '#types';
 import {
     ActionRowBuilder,
     type APIEmbedField,
     type ChatInputCommandInteraction,
     SelectMenuBuilder,
-    SlashCommandBuilder
+    SlashCommandBuilder,
+    type SelectMenuInteraction
 } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
-    const category = interaction.options.getString('category');
-    const commands = client.commands.chatInput.filter((c: ChatInputCommand) => c.category === category && !c.dev);
+export async function onInteraction(
+    client: FluorineClient,
+    interaction: ChatInputCommandInteraction | SelectMenuInteraction
+) {
+    const [category] = interaction.isChatInputCommand()
+        ? [interaction.options.getString('category')]
+        : interaction.values;
+
+    const commands = client.chatInputCommands.filter((c: ChatInputCommand) => c.category === category && !c.dev);
 
     const fields: APIEmbedField[] = commands.map(c => ({
-        name: `/${c.data.name_localizations[interaction.locale] ?? c.data.name}`,
-        value: c.data.description_localizations[interaction.locale] ?? c.data.description
+        name: `/${c.slashCommandData.name_localizations[interaction.locale] ?? c.slashCommandData.name}`,
+        value: c.slashCommandData.description_localizations[interaction.locale] ?? c.slashCommandData.description
     }));
 
     const embed = new Embed(client, interaction.locale)
@@ -54,13 +61,15 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         ])
     ]);
 
-    interaction.reply({
+    const options = {
         embeds: [embed],
         components: [row]
-    });
+    };
+
+    interaction.isChatInputCommand() ? interaction.reply(options) : interaction.update(options);
 }
 
-export const data = new SlashCommandBuilder()
+export const slashCommandData = new SlashCommandBuilder()
     .setName('help')
     .setNameLocalizations({ pl: 'pomoc' })
     .setDescription('Display the list of commands')
@@ -103,5 +112,11 @@ export const data = new SlashCommandBuilder()
             )
             .setRequired(true)
     );
+
+export const componentData: ComponentData = {
+    exists: true,
+    name: 'help',
+    authorOnly: true
+};
 
 export const category: Category = 'tools';

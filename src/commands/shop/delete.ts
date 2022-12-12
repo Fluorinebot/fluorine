@@ -1,8 +1,13 @@
 import type { FluorineClient } from '#classes';
 import { getCommandMention } from '#util';
-import { type ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandSubcommandBuilder } from 'discord.js';
+import {
+    type ChatInputCommandInteraction,
+    PermissionFlagsBits,
+    SlashCommandSubcommandBuilder,
+    type AutocompleteInteraction
+} from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const name = interaction.options.getString('name');
     const itemObj = await client.shop.get(interaction.guildId, name);
 
@@ -30,7 +35,31 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     client.shop.delete(interaction.guildId, name);
 }
 
-export const data = new SlashCommandSubcommandBuilder()
+export async function onAutocomplete(
+    client: FluorineClient,
+    interaction: AutocompleteInteraction,
+    focusedName: string,
+    focusedValue: string
+) {
+    if (focusedName === 'name') {
+        const items = await client.prisma.shopItem.findMany({
+            where: {
+                guildId: BigInt(interaction.guildId),
+                name: { contains: focusedValue }
+            },
+            select: { name: true },
+            take: 25,
+            orderBy: {
+                name: 'asc'
+            }
+        });
+
+        const predicted = items.map(item => ({ name: item.name, value: item.name }));
+        interaction.respond(predicted);
+    }
+}
+
+export const slashCommandData = new SlashCommandSubcommandBuilder()
     .setName('delete')
     .setNameLocalizations({ pl: 'usuń' })
     .setDescription('Delete a item from the shop')
@@ -42,4 +71,5 @@ export const data = new SlashCommandSubcommandBuilder()
             .setDescription('Name of the item')
             .setDescriptionLocalizations({ pl: 'Nazwa przedmiotu' })
             .setRequired(true)
+            .setAutocomplete(true)
     );

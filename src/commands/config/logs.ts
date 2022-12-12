@@ -1,7 +1,7 @@
 import { Embed, type FluorineClient } from '#classes';
 import { type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const value = interaction.options.getBoolean('logs');
 
     await client.prisma.config.update({
@@ -23,7 +23,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     interaction.reply({ embeds: [embed] });
 }
 
-export const data = new SlashCommandSubcommandBuilder()
+export const slashCommandData = new SlashCommandSubcommandBuilder()
     .setName('logs')
     .setNameLocalizations({ pl: 'logi' })
     .setDescription('Set if you want to log messages')

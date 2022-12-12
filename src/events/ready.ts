@@ -9,10 +9,10 @@ export async function run(client: FluorineClient) {
 
     if (!commands.some(c => c.name === 'deploy')) {
         const route = Routes.applicationGuildCommands(client.user.id, process.env.DISCORD_DEV_GUILD);
-        const command = client.commands.chatInput.get('deploy');
+        const command = client.chatInputCommands.get('deploy');
 
         await client.rest.post(route, {
-            body: command.data.toJSON()
+            body: command.slashCommandData.toJSON()
         });
 
         client.logger.log(`Enabled deploy commands for guild ID ${process.env.DISCORD_DEV_GUILD}.`);

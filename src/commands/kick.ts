@@ -2,7 +2,7 @@ import { Embed, type FluorineClient } from '#classes';
 import type { Category } from '#types';
 import { type ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
     const member = interaction.options.getMember('user');
     const reason =
         interaction.options.getString('reason') ??
@@ -62,7 +62,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     client.cases.logToModerationChannel(interaction.guildId, caseObj);
 }
 
-export const data = new SlashCommandBuilder()
+export const slashCommandData = new SlashCommandBuilder()
     .setName('kick')
     .setNameLocalizations({ pl: 'kick' })
     .setDescription('Kick a user from the server')
