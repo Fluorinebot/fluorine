@@ -1,5 +1,5 @@
-import process from 'node:process';
 import { Embed, type FluorineClient } from '#classes';
+import { env } from '#env';
 import type { Category, HypixelType, UUIDResponse } from '#types';
 import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 
@@ -21,8 +21,8 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         });
     }
 
-    const data = (await fetch(`https://api.hypixel.net/player?uuid=${uuid.id}&key=${process.env.HYPIXEL_TOKEN}`).then(
-        res => res.json()
+    const data = (await fetch(`https://api.hypixel.net/player?uuid=${uuid.id}&key=${env.HYPIXEL_TOKEN}`).then(res =>
+        res.json()
     )) as HypixelType;
     const bedStats = data?.player?.stats?.Bedwars;
 

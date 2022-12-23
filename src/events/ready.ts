@@ -1,21 +1,21 @@
 import { performance } from 'node:perf_hooks';
-import process from 'node:process';
 import type { FluorineClient } from '#classes';
+import { env } from '#env';
 import { Routes } from 'discord.js';
 
 export async function run(client: FluorineClient) {
-    const devGuild = client.guilds.cache.get(process.env.DISCORD_DEV_GUILD);
+    const devGuild = client.guilds.cache.get(env.DISCORD_DEV_GUILD);
     const commands = await devGuild.commands.fetch();
 
     if (!commands.some(c => c.name === 'deploy')) {
-        const route = Routes.applicationGuildCommands(client.user.id, process.env.DISCORD_DEV_GUILD);
+        const route = Routes.applicationGuildCommands(client.user.id, env.DISCORD_DEV_GUILD);
         const command = client.chatInputCommands.get('deploy');
 
         await client.rest.post(route, {
             body: command.slashCommandData.toJSON()
         });
 
-        client.logger.log(`Enabled deploy commands for guild ID ${process.env.DISCORD_DEV_GUILD}.`);
+        client.logger.log(`Enabled deploy commands for guild ID ${env.DISCORD_DEV_GUILD}.`);
     }
 
     client.guilds.cache.forEach(async guild => {

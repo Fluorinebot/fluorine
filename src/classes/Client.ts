@@ -3,6 +3,7 @@ import process from 'node:process';
 
 import { startServer } from '#api';
 import { Logger } from '#classes';
+import { env } from '#env';
 import { CooldownHandler, EventHandler, CommandHandler } from '#handlers';
 import { CasesModule, EconomyModule, ShopModule, OAuthModule } from '#modules';
 import { getDirname } from '#util';
@@ -18,6 +19,7 @@ import type { ChatInputCommand, ContextMenuCommand, ChatInputSubcommand, Compone
 export class FluorineClient extends Client {
     createdAt = performance.now();
     logger = Logger;
+
     i18n = i18next;
     prisma = new PrismaClient({});
 
@@ -34,9 +36,9 @@ export class FluorineClient extends Client {
     cases = new CasesModule(this);
     oauth = new OAuthModule(this);
 
-    version = process.env.npm_package_version;
-    devs = ['707675871355600967', '478823932913516544', '348591272476540928'];
-    support = process.env.DISCORD_SUPPORT_INVITE;
+    version = env.npm_package_version;
+    devs = env.DISCORD_DEV_IDS;
+    support = env.DISCORD_SUPPORT_INVITE;
 
     constructor() {
         super({
@@ -50,9 +52,9 @@ export class FluorineClient extends Client {
     }
 
     async init() {
-        this.logger.log(`Starting ${bold(red(process.env.NODE_ENV ?? 'development'))} build...`);
+        this.logger.log(`Starting ${bold(red(env.NODE_ENV ?? 'development'))} build...`);
 
-        if (process.env.NODE_ENV === 'production') {
+        if (env.NODE_ENV === 'production') {
             disableValidators();
         }
 

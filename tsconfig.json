@@ -9,10 +9,11 @@
         "paths": {
             "#api": ["api/index.ts"],
             "#classes": ["classes/index.ts"],
+            "#env": ["env/index.ts"],
             "#handlers": ["classes/handlers/index.ts"],
             "#modules": ["classes/modules/index.ts"],
             "#util": ["util/index.ts"],
-            "#types": ["types/index.ts"]
+            "#types": ["types/index.ts"],
         },
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
