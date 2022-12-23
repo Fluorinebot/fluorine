@@ -23,7 +23,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
                 new TextInputBuilder()
                     .setCustomId(`code`)
                     .setLabel('Statement')
-                    .setPlaceholder('DROP DATABASE;')
+                    .setPlaceholder('DROP DATammmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm splendid;')
                     .setStyle(TextInputStyle.Paragraph)
                     .setMaxLength(4000)
                     .setRequired(true)
