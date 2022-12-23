@@ -3,8 +3,8 @@ FROM node:18-alpine
 WORKDIR /usr/src/app
 
 COPY package*.json ./
-# install dependencies for node-gyp (ihate it)
-RUN apk add python3 make gcc g++
+# install dependencies for node-gyp AND PRISMa (ihate it)
+RUN apk add python3 make gcc g++ libssl1.1
 
 RUN npm install
 COPY . .
