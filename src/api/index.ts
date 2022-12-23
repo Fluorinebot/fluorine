@@ -1,6 +1,4 @@
 import type { FluorineClient } from '#classes';
-import process from 'node:process';
-
 import cors from '@fastify/cors';
 import cookies from '@fastify/cookie';
 import { fastify } from 'fastify';
@@ -15,6 +13,7 @@ import { getEconomy } from './guilds/[id]/economy/index.js';
 import { getCases } from './guilds/[id]/cases/index.js';
 import { deleteCase, getCase, patchCase } from './guilds/[id]/cases/[caseId].js';
 import { patchEconomy } from './guilds/[id]/economy/[userId].js';
+import { env } from 'env/index.js';
 const server = fastify({
     ignoreTrailingSlash: true
 });
@@ -22,12 +21,11 @@ const server = fastify({
 export async function startServer(client: FluorineClient) {
     await server.register(cors, {
         origin:
-            process.env.NODE_ENV === 'production'
-                ? ['https://fluorine.me', 'http://localhost:3000']
-                : 'https://localhost:5173',
+            env.NODE_ENV === 'production' ? ['https://fluorine.me', 'http://localhost:3000'] : 'https://localhost:5173',
         methods: ['GET', 'PATCH', 'DELETE'],
         credentials: true
     });
+
     await server.register(cookies);
 
     server.get('/guilds/:id(^\\d{17,19})', {
