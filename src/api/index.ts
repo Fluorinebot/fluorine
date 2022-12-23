@@ -1,4 +1,5 @@
 import type { FluorineClient } from '#classes';
+import { env } from '#env';
 import cors from '@fastify/cors';
 import cookies from '@fastify/cookie';
 import { fastify } from 'fastify';
@@ -13,7 +14,7 @@ import { getEconomy } from './guilds/[id]/economy/index.js';
 import { getCases } from './guilds/[id]/cases/index.js';
 import { deleteCase, getCase, patchCase } from './guilds/[id]/cases/[caseId].js';
 import { patchEconomy } from './guilds/[id]/economy/[userId].js';
-import { env } from '#env';
+
 const server = fastify({
     ignoreTrailingSlash: true
 });

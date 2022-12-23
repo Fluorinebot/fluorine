@@ -1,9 +1,9 @@
 import { Embed, type FluorineClient } from '#classes';
+import { env } from '#env';
 import type { Category, HypixelType, UUIDResponse } from '#types';
 import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 
 import type { fetch as _fetch } from 'undici';
-import { env } from '#env';
 declare const fetch: typeof _fetch;
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {

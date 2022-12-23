@@ -3,6 +3,7 @@ import process from 'node:process';
 
 import { startServer } from '#api';
 import { Logger } from '#classes';
+import { env } from '#env';
 import { CooldownHandler, EventHandler, CommandHandler } from '#handlers';
 import { CasesModule, EconomyModule, ShopModule, OAuthModule } from '#modules';
 import { getDirname } from '#util';
@@ -14,7 +15,6 @@ import Backend from 'i18next-fs-backend';
 import { performance } from 'perf_hooks';
 import { bold, red } from 'yoctocolors';
 import type { ChatInputCommand, ContextMenuCommand, ChatInputSubcommand, Component, Modal } from '#types';
-import { env } from '#env';
 
 export class FluorineClient extends Client {
     createdAt = performance.now();
