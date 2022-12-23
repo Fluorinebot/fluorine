@@ -1,46 +1,51 @@
-import process from 'node:process';
 import type { FluorineClient } from '#classes';
 import type { APIGuild, APIUser, RESTPostOAuth2ClientCredentialsResult } from 'discord.js';
 import { createSigner, createVerifier } from 'fast-jwt';
+import { env } from 'env';
 
 export class OAuthModule {
-    client: FluorineClient;
-    sign = createSigner({ key: process.env.JWT_SECRET });
-    verify = createVerifier({ key: process.env.JWT_SECRET });
+    sign = createSigner({ key: env.JWT_SECRET });
+    verify = createVerifier({ key: env.JWT_SECRET });
 
-    constructor(client: FluorineClient) {
+    constructor(private client: FluorineClient) {
         this.client = client;
     }
+
     refreshToken(token: string) {
+        const body = new URLSearchParams({
+            client_id: env.DISCORD_CLIENT_ID,
+            client_secret: env.DISCORD_SECRET,
+            grant_type: 'refresh_token',
+            refresh_token: token,
+            scope: 'identify guilds',
+            redirect_uri: env.DISCORD_REDIRECT
+        }).toString();
+
         return this.client.rest.post(`/oauth2/token`, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: new URLSearchParams({
-                client_id: process.env.DISCORD_CLIENT_ID,
-                client_secret: process.env.DISCORD_SECRET,
-                grant_type: 'refresh_token',
-                refresh_token: token,
-                scope: 'identify guilds',
-                redirect_uri: process.env.DISCORD_REDIRECT
-            }).toString(),
+            body,
             auth: false,
             passThroughBody: true
         }) as Promise<RESTPostOAuth2ClientCredentialsResult>;
     }
+
     getToken(code: string) {
+        const body = new URLSearchParams({
+            client_id: env.DISCORD_CLIENT_ID,
+            client_secret: env.DISCORD_SECRET,
+            grant_type: 'authorization_code',
+            code,
+            scope: 'identify guilds',
+            redirect_uri: env.DISCORD_REDIRECT
+        }).toString();
+
         return this.client.rest.post(`/oauth2/token`, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: new URLSearchParams({
-                client_id: process.env.DISCORD_CLIENT_ID,
-                client_secret: process.env.DISCORD_SECRET,
-                grant_type: 'authorization_code',
-                code,
-                scope: 'identify guilds',
-                redirect_uri: process.env.DISCORD_REDIRECT
-            }).toString(),
+            body,
             auth: false,
             passThroughBody: true
         }) as Promise<RESTPostOAuth2ClientCredentialsResult>;

@@ -13,6 +13,7 @@ import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
 import { performance } from 'perf_hooks';
 import { bold, red } from 'yoctocolors';
+import { env } from 'env';
 
 export class FluorineClient extends Client {
     createdAt = performance.now();
@@ -30,9 +31,9 @@ export class FluorineClient extends Client {
     cases = new CasesModule(this);
     oauth = new OAuthModule(this);
 
-    version = process.env.npm_package_version;
-    devs = ['707675871355600967', '478823932913516544', '348591272476540928'];
-    support = process.env.DISCORD_SUPPORT_INVITE;
+    version = env.npm_package_version;
+    devs = env.DISCORD_DEV_IDS;
+    support = env.DISCORD_SUPPORT_INVITE;
 
     constructor() {
         super({
@@ -48,7 +49,7 @@ export class FluorineClient extends Client {
     async init() {
         this.logger.log(`Starting ${bold(red(process.env.NODE_ENV ?? 'development'))} build...`);
 
-        if (process.env.NODE_ENV === 'production') {
+        if (env.NODE_ENV === 'production') {
             disableValidators();
         }
 

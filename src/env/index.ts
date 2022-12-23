@@ -2,19 +2,23 @@ import 'dotenv/config';
 import { createEnv } from 'neon-env';
 
 export const env = createEnv({
-    // authentication-related constants
+    // authentication
     DISCORD_TOKEN: { type: 'string' },
     DISCORD_SECRET: { type: 'string' },
     DISCORD_CLIENT_ID: { type: 'string' },
-    DISCORD_REDIRECT: { type: 'string', parser: url => new URL(url) },
+    DISCORD_REDIRECT: { type: 'string' },
     JWT_SECRET: { type: 'string' },
 
-    // bot config
-    DISCORD_DEV_GUILD: { type: 'string', parser: url => new URL(url) },
-    DISCORD_SUPPORT_INVITE: { type: 'string', parser: url => new URL(url) },
+    // bot
+    DISCORD_DEV_GUILD: { type: 'string' },
+    DISCORD_SUPPORT_INVITE: { type: 'string' },
     DISCORD_DEV_IDS: { type: 'array' },
 
-    // other constants
+    // other
+    NODE_ENV: { type: 'string', default: 'development', choices: ['development', 'production'] as const },
     HYPIXEL_TOKEN: { type: 'string' },
-    DATABASE_URL: { type: 'string' }
+    DATABASE_URL: { type: 'string' },
+
+    // injected
+    npm_package_version: { type: 'string' }
 });
