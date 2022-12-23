@@ -36,9 +36,9 @@ export class FluorineClient extends Client {
     cases = new CasesModule(this);
     oauth = new OAuthModule(this);
 
-    version = this.env.npm_package_version;
-    devs = ['707675871355600967', '478823932913516544', '348591272476540928'];
-    support = this.env.DISCORD_SUPPORT_INVITE;
+    version = env.npm_package_version;
+    devs = env.DISCORD_DEV_IDS;
+    support = env.DISCORD_SUPPORT_INVITE;
 
     constructor() {
         super({
@@ -52,9 +52,9 @@ export class FluorineClient extends Client {
     }
 
     async init() {
-        this.logger.log(`Starting ${bold(red(this.env.NODE_ENV ?? 'development'))} build...`);
+        this.logger.log(`Starting ${bold(red(env.NODE_ENV ?? 'development'))} build...`);
 
-        if (this.env.NODE_ENV === 'production') {
+        if (env.NODE_ENV === 'production') {
             disableValidators();
         }
 
