@@ -17,11 +17,11 @@
     "imports": {
         "#api": "./dist/api/index.js",
         "#classes": "./dist/classes/index.js",
+        "#env": "./dist/env/index.js",
         "#handlers": "./dist/classes/handlers/index.js",
         "#modules": "./dist/classes/modules/index.js",
         "#types": "./dist/types/index.js",
-        "#util": "./dist/util/index.js",
-        "#env": "./dist/env/index.js"
+        "#util": "./dist/util/index.js"
     },
     "repository": {
         "type": "git",
