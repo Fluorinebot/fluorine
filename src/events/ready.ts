@@ -4,18 +4,18 @@ import type { FluorineClient } from '#classes';
 import { Routes } from 'discord.js';
 
 export async function run(client: FluorineClient) {
-    const devGuild = client.guilds.cache.get(process.env.DISCORD_DEV_GUILD);
+    const devGuild = client.guilds.cache.get(client.env.DISCORD_DEV_GUILD);
     const commands = await devGuild.commands.fetch();
 
     if (!commands.some(c => c.name === 'deploy')) {
-        const route = Routes.applicationGuildCommands(client.user.id, process.env.DISCORD_DEV_GUILD);
+        const route = Routes.applicationGuildCommands(client.user.id, client.env.DISCORD_DEV_GUILD);
         const command = client.chatInputCommands.get('deploy');
 
         await client.rest.post(route, {
             body: command.slashCommandData.toJSON()
         });
 
-        client.logger.log(`Enabled deploy commands for guild ID ${process.env.DISCORD_DEV_GUILD}.`);
+        client.logger.log(`Enabled deploy commands for guild ID ${client.env.DISCORD_DEV_GUILD}.`);
     }
 
     client.guilds.cache.forEach(async guild => {

@@ -15,7 +15,7 @@ export async function getAuth(client: FluorineClient, req: FastifyRequest, reply
         sameSite: 'none',
         secure: true,
         httpOnly: true,
-        domain: process.env.NODE_ENV === 'production' ? 'fluorine.me' : 'localhost',
+        domain: client.env.NODE_ENV === 'production' ? 'fluorine.me' : 'localhost',
         expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30)
     });
     reply.status(200).send();

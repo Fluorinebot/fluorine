@@ -20,7 +20,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
             ephemeral: true
         });
     }
-    const data = (await fetch(`https://api.hypixel.net/player?uuid=${uuid.id}&key=${process.env.HYPIXEL_TOKEN}`)
+    const data = (await fetch(`https://api.hypixel.net/player?uuid=${uuid.id}&key=${client.env.HYPIXEL_TOKEN}`)
         .then(res => res.json())
         .catch(() => ({ data: null }))) as HypixelType;
 

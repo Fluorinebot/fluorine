@@ -21,7 +21,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         });
     }
 
-    const data = (await fetch(`https://api.hypixel.net/player?uuid=${uuid.id}&key=${process.env.HYPIXEL_TOKEN}`).then(
+    const data = (await fetch(`https://api.hypixel.net/player?uuid=${uuid.id}&key=${client.env.HYPIXEL_TOKEN}`).then(
         res => res.json()
     )) as HypixelType;
     const bedStats = data?.player?.stats?.Bedwars;

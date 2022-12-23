@@ -22,7 +22,7 @@ const server = fastify({
 export async function startServer(client: FluorineClient) {
     await server.register(cors, {
         origin:
-            process.env.NODE_ENV === 'production'
+            client.env.NODE_ENV === 'production'
                 ? ['https://fluorine.me', 'http://localhost:3000']
                 : 'https://localhost:5173',
         methods: ['GET', 'PATCH', 'DELETE'],
