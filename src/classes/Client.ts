@@ -14,7 +14,7 @@ import Backend from 'i18next-fs-backend';
 import { performance } from 'perf_hooks';
 import { bold, red } from 'yoctocolors';
 import type { ChatInputCommand, ContextMenuCommand, ChatInputSubcommand, Component, Modal } from '#types';
-import { env } from 'env/index.js';
+import { env } from '#env';
 
 export class FluorineClient extends Client {
     createdAt = performance.now();

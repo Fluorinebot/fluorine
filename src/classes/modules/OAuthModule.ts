@@ -1,7 +1,7 @@
 import type { FluorineClient } from '#classes';
 import type { APIGuild, APIUser, RESTPostOAuth2ClientCredentialsResult } from 'discord.js';
 import { createSigner, createVerifier } from 'fast-jwt';
-import { env } from 'env/index.js';
+import { env } from '#env';
 
 export class OAuthModule {
     client: FluorineClient;

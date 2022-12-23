@@ -1,7 +1,7 @@
 import { performance } from 'node:perf_hooks';
 import type { FluorineClient } from '#classes';
 import { Routes } from 'discord.js';
-import { env } from 'env/index.js';
+import { env } from '#env';
 
 export async function run(client: FluorineClient) {
     const devGuild = client.guilds.cache.get(env.DISCORD_DEV_GUILD);

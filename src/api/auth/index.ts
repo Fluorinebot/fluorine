@@ -1,5 +1,5 @@
 import type { FluorineClient } from '#classes';
-import { env } from 'env/index.js';
+import { env } from '#env';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 
 export async function getAuth(client: FluorineClient, req: FastifyRequest, reply: FastifyReply) {

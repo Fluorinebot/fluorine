@@ -20,7 +20,8 @@
         "#handlers": "./dist/classes/handlers/index.js",
         "#modules": "./dist/classes/modules/index.js",
         "#types": "./dist/types/index.js",
-        "#util": "./dist/util/index.js"
+        "#util": "./dist/util/index.js",
+        "#env": "./dist/env/index.js"
     },
     "repository": {
         "type": "git",

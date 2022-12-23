@@ -13,7 +13,7 @@ import { getEconomy } from './guilds/[id]/economy/index.js';
 import { getCases } from './guilds/[id]/cases/index.js';
 import { deleteCase, getCase, patchCase } from './guilds/[id]/cases/[caseId].js';
 import { patchEconomy } from './guilds/[id]/economy/[userId].js';
-import { env } from 'env/index.js';
+import { env } from '#env';
 const server = fastify({
     ignoreTrailingSlash: true
 });
