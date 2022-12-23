@@ -14,12 +14,11 @@ import Backend from 'i18next-fs-backend';
 import { performance } from 'perf_hooks';
 import { bold, red } from 'yoctocolors';
 import type { ChatInputCommand, ContextMenuCommand, ChatInputSubcommand, Component, Modal } from '#types';
-import { env } from 'env';
+import { env } from 'env/index.js';
 
 export class FluorineClient extends Client {
     createdAt = performance.now();
     logger = Logger;
-    env = env;
 
     i18n = i18next;
     prisma = new PrismaClient({});

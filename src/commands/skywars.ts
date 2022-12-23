@@ -1,9 +1,9 @@
-import process from 'node:process';
 import { Embed, type FluorineClient } from '#classes';
 import type { Category, HypixelType, UUIDResponse } from '#types';
 import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 
 import type { fetch as _fetch } from 'undici';
+import { env } from 'env/index.js';
 declare const fetch: typeof _fetch;
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
@@ -20,7 +20,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
             ephemeral: true
         });
     }
-    const data = (await fetch(`https://api.hypixel.net/player?uuid=${uuid.id}&key=${client.env.HYPIXEL_TOKEN}`)
+    const data = (await fetch(`https://api.hypixel.net/player?uuid=${uuid.id}&key=${env.HYPIXEL_TOKEN}`)
         .then(res => res.json())
         .catch(() => ({ data: null }))) as HypixelType;
 

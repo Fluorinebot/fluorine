@@ -1,6 +1,7 @@
 import { readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import process from 'node:process';
+
 import { Embed, type FluorineClient } from '#classes';
 import type { Category, ComponentData } from '#types';
 import { getDirname } from '#util';
