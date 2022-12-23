@@ -3,7 +3,7 @@ FROM node:18-alpine
 WORKDIR /usr/src/app
 
 COPY package*.json ./
-# install dependencies (prisma and canvas)
+# install dependencies (node-gyp and prisma)
 RUN apk add python3 make gcc g++ libssl1.1
 
 RUN npm install
