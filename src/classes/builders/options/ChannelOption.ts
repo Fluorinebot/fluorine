@@ -13,5 +13,6 @@ export class ChannelOption extends BaseOption<SlashCommandChannelOption> {
 
     setChannelTypes(...types: ApplicationCommandOptionAllowedChannelTypes[]) {
         this.builder.addChannelTypes(...types);
+        return this;
     }
 }
