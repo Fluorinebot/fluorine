@@ -8,7 +8,7 @@ import {
     SlashCommandUserOption
 } from 'discord.js';
 
-// this file contains options that DO NOT modify from BaseOption
+// this file contains options that DO NOT modify BaseOption
 
 // https://discord.js.org/#/docs/builders/main/class/SlashCommandAttachmentOption
 export class AttachmentOption extends BaseOption<SlashCommandAttachmentOption> {
