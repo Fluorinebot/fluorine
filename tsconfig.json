@@ -8,10 +8,12 @@
         "baseUrl": "src",
         "paths": {
             "#api": ["api/index.ts"],
+            "#builders": ["classes/builders/index.ts"],
             "#classes": ["classes/index.ts"],
             "#env": ["env/index.ts"],
             "#handlers": ["classes/handlers/index.ts"],
             "#modules": ["classes/modules/index.ts"],
+            "#options": ["classes/builders/options/index.ts"],
             "#util": ["util/index.ts"],
             "#types": ["types/index.ts"],
         },

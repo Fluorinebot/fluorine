@@ -11,7 +11,16 @@ import type {
     SlashCommandSubcommandBuilder,
     TextInputComponent,
     Interaction,
-    AutocompleteInteraction
+    AutocompleteInteraction,
+    SlashCommandMentionableOption,
+    SlashCommandAttachmentOption,
+    SlashCommandBooleanOption,
+    SlashCommandChannelOption,
+    SlashCommandIntegerOption,
+    SlashCommandNumberOption,
+    SlashCommandRoleOption,
+    SlashCommandStringOption,
+    SlashCommandUserOption
 } from 'discord.js';
 
 export type Category = 'fun' | 'tools' | 'moderation' | 'economy';
@@ -76,6 +85,20 @@ export type ChatInputSubcommand = Pick<BaseCommand, 'slashCommandData'> &
 export type ContextMenuCommand = Pick<BaseCommand, 'contextMenuCommandData'> & Command;
 export type Component = Pick<BaseCommand, 'componentData'> & Command;
 export type Modal = Pick<BaseCommand, 'modalData'> & Command;
+
+export type CommandResolvable = SlashCommandBuilder | SlashCommandSubcommandBuilder | ContextMenuCommandBuilder;
+export type OptionResolvable =
+    | SlashCommandAttachmentOption
+    | SlashCommandBooleanOption
+    | SlashCommandChannelOption
+    | SlashCommandIntegerOption
+    | SlashCommandMentionableOption
+    | SlashCommandNumberOption
+    | SlashCommandRoleOption
+    | SlashCommandStringOption
+    | SlashCommandUserOption;
+
+export type BuilderResolvable = CommandResolvable | OptionResolvable;
 
 export interface Event {
     run: (client: FluorineClient, ...args: any) => void;
