@@ -18,14 +18,14 @@ export class BaseBuilder<T extends BuilderResolvable> {
         const localized: LocalizationMap = {};
 
         for (const lang of this.langs) {
-            localized[lang] = this.i18n.t(key, { lng: lang });
+            localized[lang] = this.i18n.t(key, { lng: lang, ns: 'commands' });
         }
 
         return localized;
     }
 
     getDefault(key: string) {
-        return this.i18n.t(key, { lng: 'en-US' });
+        return this.i18n.t(key, { lng: 'en-US', ns: 'commands' });
     }
 
     setName(name: string) {

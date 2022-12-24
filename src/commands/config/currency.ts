@@ -1,5 +1,6 @@
+import { SlashCommandSubcommandBuilder } from '#builders';
 import { Embed, type FluorineClient } from '#classes';
-import { type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction } from 'discord.js';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const value = interaction.options.getString('currency');
@@ -24,13 +25,11 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 }
 
 export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('currency')
-    .setDescription('Set the currency')
+    .setName('CONFIG_CURRENCY_NAME')
+    .setDescription('CONFIG_CURRENCY_DESCRIPTION')
     .addStringOption(option =>
         option
-            .setName('currency')
-            .setNameLocalizations({ pl: 'waluta' })
-            .setDescription('The currency you want to set')
-            .setDescriptionLocalizations({ pl: 'Waluta, którą chcesz ustawić' })
+            .setName('CONFIG_CURRENCY_OPTION_CURRENCY_NAME')
+            .setDescription('CONFIG_CURRENCY_OPTION_CURRENCY_DESCRIPTION')
             .setRequired(true)
     );

@@ -1,11 +1,10 @@
+import { SlashCommandBuilder } from '#builders';
 import type { Category } from '#types';
-import { PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
+import { PermissionFlagsBits } from 'discord.js';
 
 export const slashCommandData = new SlashCommandBuilder()
-    .setName('case')
-    .setNameLocalizations({ pl: 'kara' })
-    .setDescription('Check moderation cases')
-    .setDescriptionLocalizations({ pl: 'Sprawdz informacje o karze' })
+    .setName('CASE_NAME')
+    .setDescription('CASE_DESCRIPTION')
     .setDefaultMemberPermissions(PermissionFlagsBits.ViewAuditLog)
     .setDMPermission(false);
 

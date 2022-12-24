@@ -31,7 +31,7 @@ export class NumberOption extends BaseOption<SlashCommandNumberOption> {
         return this;
     }
 
-    setMinLength(num: number) {
+    setMinValue(num: number) {
         this.builder.setMaxValue(num);
         return this;
     }

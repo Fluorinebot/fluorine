@@ -57,7 +57,7 @@ export class CommandWithOptions<T extends SlashCommandBuilder | SlashCommandSubc
         return this;
     }
 
-    addStringption(input: (option: StringOption) => StringOption) {
+    addStringOption(input: (option: StringOption) => StringOption) {
         this.builder.addStringOption(input(new StringOption()).builder);
         return this;
     }

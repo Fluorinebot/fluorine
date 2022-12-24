@@ -1,0 +1,23 @@
+{
+    "CASE_NAME": "case",
+    "CASE_DESCRIPTION": "Check moderaction cases",
+    "CASE_LIST_NAME": "list",
+    "CASE_LIST_DESCRIPTION": "Check punishments of a user",
+    "CASE_LIST_OPTION_USER_NAME": "user",
+    "CASE_LIST_OPTION_USER_DESCRIPTION": "The user to check",
+    "CASE_LIST_CONTEXT": "List Cases",
+    "CASE_VIEW_NAME": "view",
+    "CASE_VIEW_DESCRIPTION": "Check a moderation case",
+    "CASE_VIEW_OPTION_ID_NAME": "id",
+    "CASE_VIEW_OPTION_ID_DESCRIPTION": "The case ID to search",
+    "CONFIG_NAME": "config",
+    "CONFIG_DESCRIPTION": "Set your guild's config",
+    "CONFIG_CURRENCY_NAME": "currency",
+    "CONFIG_CURRENCY_DESCRIPTION": "Set the currency",
+    "CONFIG_CURRENCY_OPTION_CURRENCY_NAME": "currency",
+    "CONFIG_CURRENCY_OPTION_CURRENCY_DESCRIPTION": "The currency you want to set",
+    "CONFIG_LOGS_CHANNEL_NAME": "logs-channel",
+    "CONFIG_LOGS_CHANNEL_DESCRIPTION": "Set the channel for logs",
+    "CONFIG_LOGS_CHANNEL_OPTION_CHANNEL_NAME": "channel",
+    "CONFIG_LOGS_CHANNEL_OPTION_CHANNEL_DESCRIPTION": "Channel for logs"
+}

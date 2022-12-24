@@ -64,8 +64,10 @@ export class FluorineClient extends Client {
 
         await this.i18n.use(Backend).init({
             fallbackLng: 'en-US',
+            ns: ['responses', 'commands'],
+            defaultNS: 'responses',
             preload: ['en-US', 'pl'],
-            backend: { loadPath: join(getDirname(import.meta.url), '/../../i18n/{{lng}}.json') }
+            backend: { loadPath: join(getDirname(import.meta.url), '/../../i18n/{{lng}}/{{ns}}.json') }
         });
 
         await this.prisma.$connect();

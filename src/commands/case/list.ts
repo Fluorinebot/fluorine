@@ -1,3 +1,4 @@
+import { SlashCommandSubcommandBuilder, ContextMenuCommandBuilder } from '#builders';
 import { Embed, type FluorineClient } from '#classes';
 import type { ComponentData } from '#types';
 import { splitArray } from '#util';
@@ -8,12 +9,10 @@ import {
     type ButtonInteraction,
     ButtonStyle,
     type CommandInteraction,
-    ContextMenuCommandBuilder,
     type GuildMember,
     type InteractionReplyOptions,
     type InteractionUpdateOptions,
-    PermissionFlagsBits,
-    SlashCommandSubcommandBuilder
+    PermissionFlagsBits
 } from 'discord.js';
 
 export async function onInteraction(
@@ -86,25 +85,19 @@ export async function onInteraction(
 }
 
 export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('list')
-    .setNameLocalizations({ pl: 'lista' })
-    .setDescription('Check punishments of a user')
-    .setDescriptionLocalizations({ pl: 'Sprawdź kary użytkownika' })
+    .setName('CASE_LIST_NAME')
+    .setDescription('CASE_LIST_DESCRIPTION')
     .addUserOption(option =>
         option
-            .setName('user')
-            .setNameLocalizations({ pl: 'użytkownik' })
-            .setDescription('The user to check')
-            .setDescriptionLocalizations({ pl: 'Użytkownik, którego chcesz sprawdzić' })
+            .setName('CASE_LIST_OPTION_USER_NAME')
+            .setDescription('CASE_LIST_OPTION_USER_DESCRIPTION')
             .setRequired(true)
     );
 
-export const contextMenuCommandData = new ContextMenuCommandBuilder()
-    .setName('List Cases')
-    .setNameLocalizations({ pl: 'Lista Kar' })
+export const contextMenuCommandData = new ContextMenuCommandBuilder(ApplicationCommandType.User)
+    .setName('CASES_LIST_CONTEXT')
     .setDefaultMemberPermissions(PermissionFlagsBits.ViewAuditLog)
-    .setDMPermission(false)
-    .setType(ApplicationCommandType.User);
+    .setDMPermission(false);
 
 export const componentData: ComponentData = {
     exists: true,

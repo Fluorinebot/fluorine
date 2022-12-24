@@ -6,6 +6,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     const embed = new Embed(client, interaction.locale)
         .setTitle('Ping')
         .addLocaleFields([{ name: 'PING', value: `${client.ws.ping}ms` }]);
+
     interaction.reply({ embeds: [embed] });
 }
 
