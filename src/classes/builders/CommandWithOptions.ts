@@ -66,4 +66,10 @@ export class CommandWithOptions<T extends SlashCommandBuilder | SlashCommandSubc
         this.builder.addUserOption(input(new UserOption()).builder);
         return this;
     }
+
+    setDescription(desc: string) {
+        this.builder.setDescription(this.getDefault(desc));
+        this.builder.setDescriptionLocalizations(this.getLocalizations(desc));
+        return this;
+    }
 }

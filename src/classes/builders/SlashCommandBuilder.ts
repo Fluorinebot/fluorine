@@ -1,16 +1,14 @@
-import { CommandWithOptions, type SlashCommandSubcommandBuilder } from '#builders';
+import {
+    CommandWithOptions,
+    type SlashCommandSubcommandBuilder,
+    type SlashCommandSubcommandGroupBuilder
+} from '#builders';
 import { ApplicationCommandOptionType, SlashCommandBuilder as UnlocalizedBuilder } from 'discord.js';
 
 export class SlashCommandBuilder extends CommandWithOptions<UnlocalizedBuilder> {
     constructor() {
         super(false, ApplicationCommandOptionType.Subcommand);
         this.builder = new UnlocalizedBuilder();
-    }
-
-    setDescription(desc: string) {
-        this.builder.setDescription(this.getDefault(desc));
-        this.builder.setDescriptionLocalizations(this.getLocalizations(desc));
-        return this;
     }
 
     setDefaultMemberPermissions(permissions: bigint | string | number) {
@@ -25,6 +23,11 @@ export class SlashCommandBuilder extends CommandWithOptions<UnlocalizedBuilder> 
 
     addSubcommand(subcommand: SlashCommandSubcommandBuilder) {
         this.builder.addSubcommand(subcommand.builder);
+        return this;
+    }
+
+    addSubcommandGroup(subCommandGroup: SlashCommandSubcommandGroupBuilder) {
+        this.builder.addSubcommandGroup(subCommandGroup.builder);
         return this;
     }
 }

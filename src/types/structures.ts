@@ -20,7 +20,8 @@ import type {
     SlashCommandNumberOption,
     SlashCommandRoleOption,
     SlashCommandStringOption,
-    SlashCommandUserOption
+    SlashCommandUserOption,
+    SlashCommandSubcommandGroupBuilder
 } from 'discord.js';
 
 export type Category = 'fun' | 'tools' | 'moderation' | 'economy';
@@ -86,7 +87,12 @@ export type ContextMenuCommand = Pick<BaseCommand, 'contextMenuCommandData'> & C
 export type Component = Pick<BaseCommand, 'componentData'> & Command;
 export type Modal = Pick<BaseCommand, 'modalData'> & Command;
 
-export type CommandResolvable = SlashCommandBuilder | SlashCommandSubcommandBuilder | ContextMenuCommandBuilder;
+export type CommandResolvable =
+    | SlashCommandBuilder
+    | SlashCommandSubcommandBuilder
+    | ContextMenuCommandBuilder
+    | SlashCommandSubcommandGroupBuilder;
+
 export type OptionResolvable =
     | SlashCommandAttachmentOption
     | SlashCommandBooleanOption
