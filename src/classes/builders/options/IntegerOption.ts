@@ -32,7 +32,7 @@ export class IntegerOption extends BaseOption<SlashCommandIntegerOption> {
     }
 
     setMinValue(num: number) {
-        this.builder.setMaxValue(num);
+        this.builder.setMinValue(num);
         return this;
     }
 }
