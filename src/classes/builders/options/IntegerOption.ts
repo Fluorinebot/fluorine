@@ -1,9 +1,5 @@
-import {
-    type APIApplicationCommandOptionChoice,
-    ApplicationCommandOptionType,
-    SlashCommandIntegerOption
-} from 'discord.js';
-import { BaseOption } from '#options';
+import { ApplicationCommandOptionType, SlashCommandIntegerOption } from 'discord.js';
+import { BaseOption, type Choice } from '#options';
 
 export class IntegerOption extends BaseOption<SlashCommandIntegerOption> {
     constructor() {
@@ -16,13 +12,8 @@ export class IntegerOption extends BaseOption<SlashCommandIntegerOption> {
         return this;
     }
 
-    setChoices(bool: boolean) {
-        this.builder.setAutocomplete(bool);
-        return this;
-    }
-
-    addChoices(...choices: APIApplicationCommandOptionChoice<number>[]) {
-        this.builder.addChoices(...choices);
+    setChoices(...choices: Choice<number>[]) {
+        this.builder.setChoices(...choices);
         return this;
     }
 

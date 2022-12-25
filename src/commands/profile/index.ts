@@ -1,10 +1,6 @@
+import { SlashCommandBuilder } from '#builders';
 import type { Category } from '#types';
-import { SlashCommandBuilder } from 'discord.js';
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('profile')
-    .setNameLocalizations({ pl: 'profil' })
-    .setDescription('View/set a profile')
-    .setDescriptionLocalizations({ pl: 'Obejrzyj/ustaw profil' });
+export const slashCommandData = new SlashCommandBuilder().setName('PROFILE_NAME').setDescription('PROFILE_DESCRIPTION');
 
 export const category: Category = 'tools';

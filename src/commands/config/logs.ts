@@ -25,15 +25,11 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 }
 
 export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('logs')
-    .setNameLocalizations({ pl: 'logi' })
-    .setDescription('Set if you want to log messages')
-    .setDescriptionLocalizations({ pl: 'Ustaw, czy chcesz logować wiadomości na specjalnym kanale' })
+    .setName('CONFIG_LOG_NAME')
+    .setDescription('CONFIG_LOG_DESCRIPTION')
     .addBooleanOption(option =>
         option
-            .setName('logs')
-            .setNameLocalizations({ pl: 'logi' })
-            .setDescription('Set whether you want to log messages')
-            .setDescriptionLocalizations({ pl: 'Ustaw, czy chcesz logować wiadomości' })
+            .setName('CONFIG_LOG_OPTION_LOGS_NAME')
+            .setDescription('CONFIG_LOG_OPTION_LOGS_DESCRIPTION')
             .setRequired(true)
     );

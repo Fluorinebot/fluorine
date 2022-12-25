@@ -1,5 +1,7 @@
+import { SlashCommandSubcommandBuilder } from '#builders';
 import { Embed, type FluorineClient } from '#classes';
-import { type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
+import { Choice } from '#options';
+import { type ChatInputCommandInteraction } from 'discord.js';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const table = client.prisma.profile;
@@ -161,60 +163,24 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 }
 
 export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('set')
-    .setNameLocalizations({ pl: 'ustaw' })
-    .setDescription('Set a profile')
-    .setDescriptionLocalizations({ pl: 'Ustaw profil' })
+    .setName('PROFILE_SET_NAME')
+    .setDescription('PROFILE_SET_DESCRIPTION')
     .addStringOption(option =>
         option
-            .setName('field')
-            .setNameLocalizations({ pl: 'rubryka' })
-            .setDescription('Field to set')
-            .setDescriptionLocalizations({ pl: 'Rubryka, którą chcesz zmienić' })
+            .setName('PROFILE_SET_OPTION_FIELD_NAME')
+            .setDescription('PROFILE_SET_OPTION_FIELD_DESCRIPTION')
             .setRequired(true)
             .setChoices(
-                {
-                    name: 'Birthday',
-                    name_localizations: {
-                        pl: 'Urodziny'
-                    },
-                    value: 'birthday'
-                },
-                {
-                    name: 'Description',
-                    name_localizations: {
-                        pl: 'Opis'
-                    },
-                    value: 'description'
-                },
-                {
-                    name: 'Location',
-                    name_localizations: {
-                        pl: 'Lokalizacja'
-                    },
-                    value: 'location'
-                },
-                {
-                    name: 'Pronouns',
-                    name_localizations: {
-                        pl: 'Zaimki'
-                    },
-                    value: 'pronouns'
-                },
-                {
-                    name: 'Website',
-                    name_localizations: {
-                        pl: 'Strona internetowa'
-                    },
-                    value: 'website'
-                }
+                new Choice<string>().setName('PROFILE_SET_OPTION_FIELD_CHOICES_BIRTHDAY').setValue('birthday'),
+                new Choice<string>().setName('PROFILE_SET_OPTION_FIELD_CHOICES_DESCRIPTION').setValue('description'),
+                new Choice<string>().setName('PROFILE_SET_OPTION_FIELD_CHOICES_LOCATION').setValue('location'),
+                new Choice<string>().setName('PROFILE_SET_OPTION_FIELD_CHOICES_PRONOUNS').setValue('pronouns'),
+                new Choice<string>().setName('PROFILE_SET_OPTION_FIELD_CHOICES_WEBSITE').setValue('website')
             )
     )
     .addStringOption(option =>
         option
-            .setName('value')
-            .setNameLocalizations({ pl: 'wartość' })
-            .setDescription('Value to set')
-            .setDescriptionLocalizations({ pl: 'Wartość, którą ustawić' })
+            .setName('PROFILE_SET_OPTION_VALUE_NAME')
+            .setDescription('PROFILE_SET_OPTION_VALUE_DESCRIPTION')
             .setRequired(true)
     );

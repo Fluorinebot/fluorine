@@ -1,7 +1,8 @@
+import { SlashCommandSubcommandBuilder } from '#builders';
 import type { FluorineClient } from '#classes';
 import { fragmentText, getDirname } from '#util';
 import { createCanvas, loadImage, GlobalFonts } from '@napi-rs/canvas';
-import { AttachmentBuilder, type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
+import { AttachmentBuilder, type ChatInputCommandInteraction } from 'discord.js';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const user = interaction.options.getUser('user') ?? interaction.user;
@@ -79,15 +80,11 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 }
 
 export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('view')
-    .setNameLocalizations({ pl: 'obejrz' })
-    .setDescription('View a profile')
-    .setDescriptionLocalizations({ pl: 'Obejrz profil' })
+    .setName('PROFILE_VIEW_NAME')
+    .setDescription('PROFILE_VIEW_DESCRIPTION')
     .addUserOption(option =>
         option
-            .setName('user')
-            .setNameLocalizations({ pl: 'użytkownik' })
-            .setDescription('User to view')
-            .setDescriptionLocalizations({ pl: 'Użytkownik, którego chcesz zobaczyć' })
+            .setName('PROFILE_VIEW_OPTION_USER_NAME')
+            .setDescription('PROFILE_VIEW_OPTION_USER_DESCRIPTION')
             .setRequired(false)
     );
