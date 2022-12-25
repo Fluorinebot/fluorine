@@ -1,33 +1,73 @@
 {
-    "CASE_NAME": "kara",
-    "CASE_DESCRIPTION": "Sprawdz informacje o karze",
-    "CASE_LIST_NAME": "lisat",
-    "CASE_LIST_DESCRIPTION": "Sprawdź kary użytkownika",
-    "CASE_LIST_OPTION_USER_NAME": "użytkownik",
-    "CASE_LIST_OPTION_USER_DESCRIPTION": "Użytkownik, którego chcesz sprawdzić",
-    "CASE_LIST_CONTEXT": "Lista Kar",
-    "CASE_VIEW_NAME": "zobacz",
-    "CASE_VIEW_DESCRIPTION": "Sprawdz informacje o karze",
-    "CASE_VIEW_OPTION_ID_NAME": "id",
-    "CASE_VIEW_OPTION_ID_DESCRIPTION": "ID kary",
-    "CONFIG_NAME": "konfiguracja",
-    "CONFIG_DESCRIPTION": "Zobacz konfigurację twojego serwera",
-    "CONFIG_CURRENCY_NAME": "waluta",
-    "CONFIG_CURRENCY_DESCRIPTION": "unlocalized string",
-    "CONFIG_CURRENCY_OPTION_CURRENCY_NAME": "waluta",
-    "CONFIG_CURRENCY_OPTION_CURRENCY_DESCRIPTION": "Waluta, którą chcesz ustawić",
-    "CONFIG_LOGS_CHANNEL_NAME": "lanał-logów",
-    "CONFIG_LOGS_CHANNEL_DESCRIPTION": "Ustaw kanał, na którym pojawiają się logi",
-    "CONFIG_LOGS_CHANNEL_OPTION_CHANNEL_NAME": "kanał",
-    "CONFIG_LOGS_CHANNEL_OPTION_CHANNEL_DESCRIPTION": "Kanał z logami",
-    "CONFIG_LOG_NAME": "logi",
-    "CONFIG_LOG_DESCRIPTION": "Ustaw, czy chcesz logować wiadomości na specjalnym kanale",
-    "CONFIG_LOG_OPTION_LOGS_NAME": "logi",
-    "CONFIG_LOG_OPTION_LOGS_DESCRIPTION": "Ustaw, czy chcesz logować wiadomości",
-    "CONFIG_MOD_LOGS_NAME": "mod-logi",
-    "CONFIG_MOD_LOGS_DESCRIPTION": "Ustaw, czy chcesz, by logować akcje moderacyjne",
-    "CONFIG_MOD_LOGS_OPTION_MOD_LOGS_NAME": "mod-logi",
-    "CONFIG_MOD_LOGS_OPTION_MOD_LOGS_DESCRIPTION": "Ustaw, czy chcesz, by logować akcje moderacyjne",
+    "CASE": {
+        "NAME": "kara",
+        "DESCRIPTION": "Sprawdz informacje o karze",
+        "LIST": {
+            "NAME": "lisat",
+            "DESCRIPTION": "Sprawdź kary użytkownika",
+            "OPTIONS": {
+                "USER": {
+                    "NAME": "użytkownik",
+                    "DESCRIPTION": "Użytkownik, którego chcesz sprawdzić"
+                }
+            },
+            "CONTEXT": "Lista kar"
+        },
+        "VIEW": {
+            "NAME": "zobacz",
+            "DESCRIPTION": "Sprawdz informacje o karze",
+            "OPTIONS": {
+                "ID": {
+                    "NAME": "id",
+                    "DESCRIPTION": "ID kary"
+                }
+            }
+        }
+    },
+    "CONFIG": {
+        "NAME": "konfiguracja",
+        "DESCRIPTION": "Zobacz konfigurację twojego serwera",
+        "CURRENCY": {
+            "NAME": "waluta",
+            "DESCRIPTION": "Ustaw walutę",
+            "OPTIONS": {
+                "CURRENCY": {
+                    "NAME": "waluta",
+                    "DESCRIPTION": "Waluta, którą chcesz ustawić"
+                }
+            }
+        },
+        "LOGS_CHANNEL": {
+            "NAME": "lanał-logów",
+            "DESCRIPTION": "Ustaw kanał, na którym pojawiają się logi",
+            "OPTIONS": {
+                "CHANNEL": {
+                    "NAME": "kanał",
+                    "DESCRIPTION": "Kanał z logami"
+                }
+            }
+        },
+        "LOGS": {
+            "NAME": "logi",
+            "DESCRIPTION": "Ustaw, czy chcesz logować wiadomości na specjalnym kanale",
+            "OPTIONS": {
+                "LOGS": {
+                    "NAME": "logi",
+                    "DESCRIPTION": "Ustaw, czy chcesz logować wiadomości"
+                }
+            }
+        },
+        "MOD_LOGS": {
+            "NAME": "mod-logi",
+            "DESCRIPTION": "Ustaw, czy chcesz, by logować akcje moderacyjne",
+            "OPTIONS": {
+                "MOD_LOGS": {
+                    "NAME": "mod-logi",
+                    "DESCRIPTION": "Ustaw, czy chcesz, by logować akcje moderacyjne"
+                }
+            }
+        }
+    },
     "PROFILE_NAME": "profil",
     "PROFILE_DESCRIPTION": "Obejrzyj/ustaw profil",
     "PROFILE_SET_NAME": "ustaw",

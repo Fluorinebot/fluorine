@@ -1,33 +1,73 @@
 {
-    "CASE_NAME": "case",
-    "CASE_DESCRIPTION": "Check moderaction cases",
-    "CASE_LIST_NAME": "list",
-    "CASE_LIST_DESCRIPTION": "Check punishments of a user",
-    "CASE_LIST_OPTION_USER_NAME": "user",
-    "CASE_LIST_OPTION_USER_DESCRIPTION": "The user to check",
-    "CASE_LIST_CONTEXT": "List Cases",
-    "CASE_VIEW_NAME": "view",
-    "CASE_VIEW_DESCRIPTION": "Check a moderation case",
-    "CASE_VIEW_OPTION_ID_NAME": "id",
-    "CASE_VIEW_OPTION_ID_DESCRIPTION": "The case ID to search",
-    "CONFIG_NAME": "config",
-    "CONFIG_DESCRIPTION": "Set your guild's config",
-    "CONFIG_CURRENCY_NAME": "currency",
-    "CONFIG_CURRENCY_DESCRIPTION": "Set the currency",
-    "CONFIG_CURRENCY_OPTION_CURRENCY_NAME": "currency",
-    "CONFIG_CURRENCY_OPTION_CURRENCY_DESCRIPTION": "The currency you want to set",
-    "CONFIG_LOGS_CHANNEL_NAME": "logs-channel",
-    "CONFIG_LOGS_CHANNEL_DESCRIPTION": "Set the channel for logs",
-    "CONFIG_LOGS_CHANNEL_OPTION_CHANNEL_NAME": "channel",
-    "CONFIG_LOGS_CHANNEL_OPTION_CHANNEL_DESCRIPTION": "Channel for logs",
-    "CONFIG_LOG_NAME": "logs",
-    "CONFIG_LOG_DESCRIPTION": "Set if you want to log messages",
-    "CONFIG_LOG_OPTION_LOGS_NAME": "logs",
-    "CONFIG_LOG_OPTION_LOGS_DESCRIPTION": "Set whether you want to log messages",
-    "CONFIG_MOD_LOGS_NAME": "mod-logs",
-    "CONFIG_MOD_LOGS_DESCRIPTION": "Set if you want to log moderation actions",
-    "CONFIG_MOD_LOGS_OPTION_MOD_LOGS_NAME": "mod-logs",
-    "CONFIG_MOD_LOGS_OPTION_MOD_LOGS_DESCRIPTION": "Set whether you want to log moderation actions",
+    "CASE": {
+        "NAME": "case",
+        "DESCRIPTION": "Check moderaction cases",
+        "LIST": {
+            "NAME": "list",
+            "DESCRIPTION": "Check punishments of a user",
+            "OPTIONS": {
+                "USER": {
+                    "NAME": "user",
+                    "DESCRIPTION": "The user to check"
+                }
+            },
+            "CONTEXT": "List Cases"
+        },
+        "VIEW": {
+            "NAME": "view",
+            "DESCRIPTION": "Check a moderaction case",
+            "OPTIONS": {
+                "ID": {
+                    "NAME": "id",
+                    "DESCRIPTION": "The case ID to search"
+                }
+            }
+        }
+    },
+    "CONFIG": {
+        "NAME": "config",
+        "DESCRIPTION": "Set your guild's config",
+        "CURRENCY": {
+            "NAME": "currency",
+            "DESCRIPTION": "Set the currency",
+            "OPTIONS": {
+                "CURRENCY": {
+                    "NAME": "currency",
+                    "DESCRIPTION": "The currency you want to set"
+                }
+            }
+        },
+        "LOGS_CHANNEL": {
+            "NAME": "logs-channel",
+            "DESCRIPTION": "Set the channel for logs",
+            "OPTIONS": {
+                "CHANNEL": {
+                    "NAME": "channel",
+                    "DESCRIPTION": "Channel for logs"
+                }
+            }
+        },
+        "LOGS": {
+            "NAME": "logs",
+            "DESCRIPTION": "Set if you want to log messages",
+            "OPTIONS": {
+                "LOGS": {
+                    "NAME": "logs",
+                    "DESCRIPTION": "Set whether you want to log messages"
+                }
+            }
+        },
+        "MOD_LOGS": {
+            "NAME": "mod-logs",
+            "DESCRIPTION": "Set if you want to log moderation actions",
+            "OPTIONS": {
+                "MOD_LOGS": {
+                    "NAME": "mod-logs",
+                    "DESCRIPTION": "Set whether you want to log moderation actions"
+                }
+            }
+        }
+    },
     "PROFILE_NAME": "profile",
     "PROFILE_DESCRIPTION": "View/set a profile",
     "PROFILE_SET_NAME": "set",
