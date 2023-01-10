@@ -33,30 +33,30 @@
         "NAME": ""
     },
     "BIRB": {
-        "DESCRIPTION": "Losowe zdjęcie ptaka",
+        "DESCRIPTION": "Losowe zdjęcie ptakaLosowe zdjęcie ptaka",
         "NAME": "birb"
     },
     "CASE": {
-        "NAME": "kara",
         "DESCRIPTION": "Sprawdz informacje o karze",
         "LIST": {
-            "NAME": "lisat",
+            "CONTEXT": "Lista kar",
             "DESCRIPTION": "Sprawdź kary użytkownika",
+            "NAME": "lisat",
             "OPTIONS": {
                 "USER": {
-                    "NAME": "użytkownik",
-                    "DESCRIPTION": "Użytkownik, którego chcesz sprawdzić"
+                    "DESCRIPTION": "Użytkownik, którego chcesz sprawdzić",
+                    "NAME": "użytkownik"
                 }
-            },
-            "CONTEXT": "Lista kar"
+            }
         },
+        "NAME": "kara",
         "VIEW": {
-            "NAME": "zobacz",
             "DESCRIPTION": "Sprawdz informacje o karze",
+            "NAME": "zobacz",
             "OPTIONS": {
                 "ID": {
-                    "NAME": "id",
-                    "DESCRIPTION": "ID kary"
+                    "DESCRIPTION": "ID kary",
+                    "NAME": "id"
                 }
             }
         }
@@ -66,48 +66,48 @@
         "NAME": ""
     },
     "CONFIG": {
-        "NAME": "konfiguracja",
-        "DESCRIPTION": "Zobacz konfigurację twojego serwera",
         "CURRENCY": {
-            "NAME": "waluta",
             "DESCRIPTION": "Ustaw walutę",
+            "NAME": "waluta",
             "OPTIONS": {
                 "CURRENCY": {
-                    "NAME": "waluta",
-                    "DESCRIPTION": "Waluta, którą chcesz ustawić"
+                    "DESCRIPTION": "Waluta, którą chcesz ustawić",
+                    "NAME": "waluta"
+                }
+            }
+        },
+        "DESCRIPTION": "Zobacz konfigurację twojego serwera",
+        "LOGS": {
+            "DESCRIPTION": "Ustaw, czy chcesz logować wiadomości na specjalnym kanale",
+            "NAME": "logi",
+            "OPTIONS": {
+                "LOGS": {
+                    "DESCRIPTION": "Ustaw, czy chcesz logować wiadomości",
+                    "NAME": "logi"
                 }
             }
         },
         "LOGS_CHANNEL": {
-            "NAME": "lanał-logów",
             "DESCRIPTION": "Ustaw kanał, na którym pojawiają się logi",
+            "NAME": "lanał-logów",
             "OPTIONS": {
                 "CHANNEL": {
-                    "NAME": "kanał",
-                    "DESCRIPTION": "Kanał z logami"
-                }
-            }
-        },
-        "LOGS": {
-            "NAME": "logi",
-            "DESCRIPTION": "Ustaw, czy chcesz logować wiadomości na specjalnym kanale",
-            "OPTIONS": {
-                "LOGS": {
-                    "NAME": "logi",
-                    "DESCRIPTION": "Ustaw, czy chcesz logować wiadomości"
+                    "DESCRIPTION": "Kanał z logami",
+                    "NAME": "kanał"
                 }
             }
         },
         "MOD_LOGS": {
-            "NAME": "mod-logi",
             "DESCRIPTION": "Ustaw, czy chcesz, by logować akcje moderacyjne",
+            "NAME": "mod-logi",
             "OPTIONS": {
                 "MOD_LOGS": {
-                    "NAME": "mod-logi",
-                    "DESCRIPTION": "Ustaw, czy chcesz, by logować akcje moderacyjne"
+                    "DESCRIPTION": "Ustaw, czy chcesz, by logować akcje moderacyjne",
+                    "NAME": "mod-logi"
                 }
             }
-        }
+        },
+        "NAME": "konfiguracja"
     },
     "CRIME": {
         "DESCRIPTION": "",
@@ -146,11 +146,11 @@
         "NAME": ""
     },
     "PROFILE": {
-        "NAME": "profil",
         "DESCRIPTION": "Obejrzyj/ustaw profil",
+        "NAME": "profil",
         "SET": {
-            "NAME": "ustaw",
             "DESCRIPTION": "Ustaw profil",
+            "NAME": "ustaw",
             "OPTIONS": {
                 "FIELD": {
                     "CHOICES": {
@@ -160,22 +160,22 @@
                         "PRONOUNS": "Zaimki",
                         "WEBSITE": "Strona internetowa"
                     },
-                    "NAME": "rubryka",
-                    "DESCRIPTION": "Rubryka, którą chcesz zmienić"
+                    "DESCRIPTION": "Rubryka, którą chcesz zmienić",
+                    "NAME": "rubryka"
                 },
                 "VALUE": {
-                    "NAME": "wartość",
-                    "DESCRIPTION": "Wartość, którą ustawić"
+                    "DESCRIPTION": "Wartość, którą ustawić",
+                    "NAME": "wartość"
                 }
             }
         },
         "VIEW": {
-            "NAME": "obejrz",
             "DESCRIPTION": "Obejrz profil",
+            "NAME": "obejrz",
             "OPTIONS": {
                 "USER": {
-                    "NAME": "użytkownik",
-                    "DESCRIPTION": "Użytkownik, którego chcesz zobaczyć"
+                    "DESCRIPTION": "Użytkownik, którego chcesz zobaczyć",
+                    "NAME": "użytkownik"
                 }
             }
         }
