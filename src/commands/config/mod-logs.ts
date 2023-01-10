@@ -25,11 +25,11 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 }
 
 export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('CONFIG_MOD_LOGS_NAME')
-    .setDescription('CONFIG_MOD_LOGS_DESCRIPTION')
+    .setName('CONFIG.MOD_LOGS.NAME')
+    .setDescription('CONFIG.MOD_LOGS.DESCRIPTION')
     .addBooleanOption(option =>
         option
-            .setName('CONFIG_MOD_LOGS_OPTION_MOD_LOGS_NAME')
-            .setDescription('CONFIG_MOD_LOGS_OPTION_MOD_LOGS_DESCRIPTION')
+            .setName('CONFIG.MOD.LOGS_OPTIONS.MOD_LOGS.NAME')
+            .setDescription('CONFIG.MOD_LOGS.OPTIONS.MOD_LOGS.DESCRIPTION')
             .setRequired(true)
     );

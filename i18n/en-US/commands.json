@@ -68,21 +68,37 @@
             }
         }
     },
-    "PROFILE_NAME": "profile",
-    "PROFILE_DESCRIPTION": "View/set a profile",
-    "PROFILE_SET_NAME": "set",
-    "PROFILE_SET_DESCRIPTION": "Set a profile",
-    "PROFILE_SET_OPTION_FIELD_NAME": "field",
-    "PROFILE_SET_OPTION_FIELD_NAME_DESCRIPTION": "Field to set",
+    "PROFILE": {
+        "NAME": "profile",
+        "DESCRIPTION": "View/set a profile",
+        "SET": {
+            "NAME": "set",
+            "DESCRIPTION": "Set a profile",
+            "OPTIONS": {
+                "FIELD": {
+                    "NAME": "field",
+                    "DESCRIPTION": "Field to set"
+                },
+                "VALUE": {
+                    "NAME": "value",
+                    "DESCRIPTION": "Value to set"
+                }
+            }
+        },
+        "VIEW": {
+            "NAME": "view",
+            "DESCRIPTION": "View a profile",
+            "OPTIONS": {
+                "USER": {
+                    "NAME": "user",
+                    "DESCRIPTION": "User to view"
+                }
+            }
+        }
+    },
     "PROFILE_SET_OPTION_FIELD_CHOICES_BIRTHDAY": "Birthday",
     "PROFILE_SET_OPTION_FIELD_CHOICES_DESCRIPTION": "Description",
     "PROFILE_SET_OPTION_FIELD_CHOICES_LOCATION": "Location",
-    "PROFILE_SET_OPTION_FIELDCHOICES_PRONOUNS": "Pronouns",
-    "PROFILE_SET_OPTION_FIELD_CHOICES_WEBSITE": "Website",
-    "PROFILE_SET_OPTION_VALUE_NAME": "value",
-    "PROFILE_SET_OPTION_VALUE_DESCRIPTION": "Value to set",
-    "PROFILE_VIEW_NAME": "view",
-    "PROFILE_VIEW_DESCRIPTION": "View a profile",
-    "PROFILE_VIEW_OPTION_USER_NAME": "user",
-    "PROFILE_VIEW_OPTION_USER_DESCRIPTION": "User to view"
+    "PROFILE_SET_OPTION_FIELD_CHOICES_PRONOUNS": "Pronouns",
+    "PROFILE_SET_OPTION_FIELD_CHOICES_WEBSITE": "Website"
 }

@@ -163,24 +163,24 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 }
 
 export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('PROFILE_SET_NAME')
-    .setDescription('PROFILE_SET_DESCRIPTION')
+    .setName('PROFILE.SET.NAME')
+    .setDescription('PROFILE.SET.DESCRIPTION')
     .addStringOption(option =>
         option
-            .setName('PROFILE_SET_OPTION_FIELD_NAME')
-            .setDescription('PROFILE_SET_OPTION_FIELD_DESCRIPTION')
+            .setName('PROFILE.SET.OPTIONS_FIELD_NAME')
+            .setDescription('PROFILE.SET.OPTIONS_FIELD_DESCRIPTION')
             .setRequired(true)
             .setChoices(
-                new Choice<string>().setName('PROFILE_SET_OPTION_FIELD_CHOICES_BIRTHDAY').setValue('birthday'),
-                new Choice<string>().setName('PROFILE_SET_OPTION_FIELD_CHOICES_DESCRIPTION').setValue('description'),
-                new Choice<string>().setName('PROFILE_SET_OPTION_FIELD_CHOICES_LOCATION').setValue('location'),
-                new Choice<string>().setName('PROFILE_SET_OPTION_FIELD_CHOICES_PRONOUNS').setValue('pronouns'),
-                new Choice<string>().setName('PROFILE_SET_OPTION_FIELD_CHOICES_WEBSITE').setValue('website')
+                new Choice<string>().setName('PROFILE.SET.OPTIONS.FIELD.CHOICES.BIRTHDAY').setValue('birthday'),
+                new Choice<string>().setName('PROFILE.SET.OPTIONS.FIELD.CHOICES.DESCRIPTION').setValue('description'),
+                new Choice<string>().setName('PROFILE.SET.OPTIONS.FIELD.CHOICES.LOCATION').setValue('location'),
+                new Choice<string>().setName('PROFILE.SET.OPTIONS.FIELD.CHOICES.PRONOUNS').setValue('pronouns'),
+                new Choice<string>().setName('PROFILE.SET.OPTIONS.FIELD.CHOICES.WEBSITE').setValue('website')
             )
     )
     .addStringOption(option =>
         option
-            .setName('PROFILE_SET_OPTION_VALUE_NAME')
-            .setDescription('PROFILE_SET_OPTION_VALUE_DESCRIPTION')
+            .setName('PROFILE.SET.OPTIONS.VALUE.NAME')
+            .setDescription('PROFILE.SET.OPTIONS.VALUE.DESCRIPTION')
             .setRequired(true)
     );

@@ -35,12 +35,12 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 }
 
 export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('CASE_VIEW_NAME')
-    .setDescription('CASE_VIEW_DESCRIPTION')
+    .setName('CASE.VIEW.NAME')
+    .setDescription('CASE.VIEW.DESCRIPTION')
     .addIntegerOption(option =>
         option
-            .setName('CASE_VIEW_OPTION_ID_NAME')
-            .setDescription('CASE_VIEW_OPTION_ID_DESCRIPTION')
+            .setName('CASE.VIEW.OPTIONS.ID.NAME')
+            .setDescription('CASE.VIEW.OPTIONS.ID.DESCRIPTION')
             .setMinValue(1)
             .setRequired(true)
     );

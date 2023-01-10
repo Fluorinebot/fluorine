@@ -85,17 +85,17 @@ export async function onInteraction(
 }
 
 export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('CASE_LIST_NAME')
-    .setDescription('CASE_LIST_DESCRIPTION')
+    .setName('CASE.LIST.NAME')
+    .setDescription('CASE.LIST.DESCRIPTION')
     .addUserOption(option =>
         option
-            .setName('CASE_LIST_OPTION_USER_NAME')
-            .setDescription('CASE_LIST_OPTION_USER_DESCRIPTION')
+            .setName('CASE.LIST.OPTIONS.USER.NAME')
+            .setDescription('CASE.LIST.OPTIONS.USER.DESCRIPTION')
             .setRequired(true)
     );
 
 export const contextMenuCommandData = new ContextMenuCommandBuilder(ApplicationCommandType.User)
-    .setName('CASES_LIST_CONTEXT')
+    .setName('CASE.LIST.CONTEXT')
     .setDefaultMemberPermissions(PermissionFlagsBits.ViewAuditLog)
     .setDMPermission(false);
 

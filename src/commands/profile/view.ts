@@ -80,11 +80,11 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 }
 
 export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('PROFILE_VIEW_NAME')
-    .setDescription('PROFILE_VIEW_DESCRIPTION')
+    .setName('PROFILE.VIEW.NAME')
+    .setDescription('PROFILE.VIEW.DESCRIPTION')
     .addUserOption(option =>
         option
-            .setName('PROFILE_VIEW_OPTION_USER_NAME')
-            .setDescription('PROFILE_VIEW_OPTION_USER_DESCRIPTION')
+            .setName('PROFILE.VIEW.OPTIONS.USER.NAME')
+            .setDescription('PROFILE.VIEW.OPTIONS.USER.DESCRIPTION')
             .setRequired(false)
     );

@@ -27,12 +27,12 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 }
 
 export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('CONFIG_LOGS_CHANNEL_NAME')
-    .setDescription('CONFIG_LOGS_CHANNEL_DESCRIPTION')
+    .setName('CONFIG.LOGS_CHANNEL.NAME')
+    .setDescription('CONFIG.LOGS_CHANNEL.DESCRIPTION')
     .addChannelOption(option =>
         option
-            .setName('CONFIG_LOGS_OPTION_CHANNEL_NAME')
-            .setDescription('CONFIG_LOGS_OPTION_CHANNEL_DESCRIPTION')
+            .setName('CONFIG.LOGS_CHANNEL.OPTIONS.CHANNEL.NAME')
+            .setDescription('CONFIG.LOGS_CHANNEL.LOGS.OPTIONS.CHANNEL.DESCRIPTION')
             .setChannelTypes(ChannelType.GuildText)
             .setRequired(true)
     );

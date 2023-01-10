@@ -68,21 +68,37 @@
             }
         }
     },
-    "PROFILE_NAME": "profil",
-    "PROFILE_DESCRIPTION": "Obejrzyj/ustaw profil",
-    "PROFILE_SET_NAME": "ustaw",
-    "PROFILE_SET_DESCRIPTION": "Ustaw profil",
-    "PROFILE_SET_OPTION_FIELD_NAME": "rubryka",
-    "PROFILE_SET_OPTION_FIELD_NAME_DESCRIPTION": "Rubryka, którą chcesz zmienić",
+    "PROFILE": {
+        "NAME": "profil",
+        "DESCRIPTION": "Obejrzyj/ustaw profil",
+        "SET": {
+            "NAME": "ustaw",
+            "DESCRIPTION": "Ustaw profil",
+            "OPTIONS": {
+                "FIELD": {
+                    "NAME": "rubryka",
+                    "DESCRIPTION": "Rubryka, którą chcesz zmienić"
+                },
+                "VALUE": {
+                    "NAME": "wartość",
+                    "DESCRIPTION": "Wartość, którą ustawić"
+                }
+            }
+        },
+        "VIEW": {
+            "NAME": "obejrz",
+            "DESCRIPTION": "Obejrz profil",
+            "OPTIONS": {
+                "USER": {
+                    "NAME": "użytkownik",
+                    "DESCRIPTION": "Użytkownik, którego chcesz zobaczyć"
+                }
+            }
+        }
+    },
     "PROFILE_SET_OPTION_FIELD_CHOICES_BIRTHDAY": "Urodziny",
     "PROFILE_SET_OPTION_FIELD_CHOICES_DESCRIPTION": "Opis",
     "PROFILE_SET_OPTION_FIELD_CHOICES_LOCATION": "Lokalizacja",
-    "PROFILE_SET_OPTION_FIELDCHOICES_PRONOUNS": "Zaimki",
-    "PROFILE_SET_OPTION_FIELD_CHOICES_WEBSITE": "Strona internetowa",
-    "PROFILE_SET_OPTION_VALUE_NAME": "wartość",
-    "PROFILE_SET_OPTION_VALUE_DESCRIPTION": "Wartość, którą ustawić",
-    "PROFILE_VIEW_NAME": "obejrz",
-    "PROFILE_VIEW_DESCRIPTION": "Obejrz profil",
-    "PROFILE_VIEW_OPTION_USER_NAME": "użytkownik",
-    "PROFILE_VIEW_OPTION_USER_DESCRIPTION": "Użytkownik, którego chcesz zobaczyć"
+    "PROFILE_SET_OPTION_FIELD_CHOICES_PRONOUNS": "Zaimki",
+    "PROFILE_SET_OPTION_FIELD_CHOICES_WEBSITE": "Strona internetowa"
 }

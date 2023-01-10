@@ -25,11 +25,11 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 }
 
 export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('CONFIG_CURRENCY_NAME')
-    .setDescription('CONFIG_CURRENCY_DESCRIPTION')
+    .setName('CONFIG.CURRENCY.NAME')
+    .setDescription('CONFIG.CURRENCY.DESCRIPTION')
     .addStringOption(option =>
         option
-            .setName('CONFIG_CURRENCY_OPTION_CURRENCY_NAME')
-            .setDescription('CONFIG_CURRENCY_OPTION_CURRENCY_DESCRIPTION')
+            .setName('CONFIG.CURRENCY.OPTIONS.CURRENCY.NAME')
+            .setDescription('CONFIG.CURRENCY.OPTIONS.CURRENCY.DESCRIPTION')
             .setRequired(true)
     );
