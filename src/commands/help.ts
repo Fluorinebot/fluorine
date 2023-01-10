@@ -1,3 +1,4 @@
+import { SlashCommandBuilder } from '#builders';
 import { Embed, type FluorineClient } from '#classes';
 import type { Category, ChatInputCommand, ComponentData } from '#types';
 import {
@@ -5,7 +6,6 @@ import {
     type APIEmbedField,
     type ChatInputCommandInteraction,
     SelectMenuBuilder,
-    SlashCommandBuilder,
     type SelectMenuInteraction
 } from 'discord.js';
 

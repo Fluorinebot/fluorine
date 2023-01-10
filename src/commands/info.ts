@@ -1,3 +1,4 @@
+import { SlashCommandBuilder } from '#builders';
 import { readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import process from 'node:process';
@@ -8,7 +9,6 @@ import { getDirname } from '#util';
 import {
     type ChatInputCommandInteraction,
     type ButtonInteraction,
-    SlashCommandBuilder,
     ActionRowBuilder,
     ButtonBuilder,
     ButtonStyle

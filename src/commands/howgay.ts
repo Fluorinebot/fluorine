@@ -1,11 +1,11 @@
+import { SlashCommandBuilder } from '#builders';
 import type { FluorineClient } from '#classes';
 import type { Category } from '#types';
 import {
     ApplicationCommandType,
     type ChatInputCommandInteraction,
     type UserContextMenuCommandInteraction,
-    ContextMenuCommandBuilder,
-    SlashCommandBuilder
+    ContextMenuCommandBuilder
 } from 'discord.js';
 import hash from 'murmurhash-v3';
 

@@ -1,10 +1,10 @@
+import { SlashCommandBuilder } from '#builders';
 import { type FluorineClient, Embed } from '#classes';
 import type { ComponentData, Category } from '#types';
 import {
     type ChatInputCommandInteraction,
     GuildMember,
     type InteractionReplyOptions,
-    SlashCommandBuilder,
     type ButtonInteraction,
     type ContextMenuCommandInteraction,
     ActionRowBuilder,
