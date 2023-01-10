@@ -6,20 +6,13 @@ export class Choice<T> extends BaseBuilder<null> {
     public name_localizations: LocalizationMap;
     public value: T;
 
-    constructor() {
+    constructor(baseKey: string, value: T) {
         // i know this makes no sense but choice is not a pre-existing djs builder
         super(false, null);
-    }
 
-    override setName(name: string) {
-        this.name = this.getDefault(name);
-        this.name_localizations = this.getLocalizations(name);
-        return this;
-    }
-
-    setValue(value: T) {
+        this.name = this.getDefault(`${baseKey}.${value.toString().toUpperCase()}`);
+        this.name_localizations = this.getLocalizations(`${baseKey}.${value.toString().toUpperCase()}`);
         this.value = value;
-        return this;
     }
 
     override toJSON() {

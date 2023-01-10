@@ -1,104 +1,218 @@
 {
+    "8BALL": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "AVATAR": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "BALANCE": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "BAN": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "BEDWARS": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "BIRB": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
     "CASE": {
-        "NAME": "case",
         "DESCRIPTION": "Check moderaction cases",
         "LIST": {
-            "NAME": "list",
+            "CONTEXT": "List Cases",
             "DESCRIPTION": "Check punishments of a user",
+            "NAME": "list",
             "OPTIONS": {
                 "USER": {
-                    "NAME": "user",
-                    "DESCRIPTION": "The user to check"
+                    "DESCRIPTION": "The user to check",
+                    "NAME": "user"
                 }
-            },
-            "CONTEXT": "List Cases"
+            }
         },
+        "NAME": "case",
         "VIEW": {
-            "NAME": "view",
             "DESCRIPTION": "Check a moderaction case",
+            "NAME": "view",
             "OPTIONS": {
                 "ID": {
-                    "NAME": "id",
-                    "DESCRIPTION": "The case ID to search"
+                    "DESCRIPTION": "The case ID to search",
+                    "NAME": "id"
                 }
             }
         }
     },
+    "CAT": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
     "CONFIG": {
-        "NAME": "config",
-        "DESCRIPTION": "Set your guild's config",
         "CURRENCY": {
-            "NAME": "currency",
             "DESCRIPTION": "Set the currency",
+            "NAME": "currency",
             "OPTIONS": {
                 "CURRENCY": {
-                    "NAME": "currency",
-                    "DESCRIPTION": "The currency you want to set"
+                    "DESCRIPTION": "The currency you want to set",
+                    "NAME": "currency"
+                }
+            }
+        },
+        "DESCRIPTION": "Set your guild's config",
+        "LOGS": {
+            "DESCRIPTION": "Set if you want to log messages",
+            "NAME": "logs",
+            "OPTIONS": {
+                "LOGS": {
+                    "DESCRIPTION": "Set whether you want to log messages",
+                    "NAME": "logs"
                 }
             }
         },
         "LOGS_CHANNEL": {
-            "NAME": "logs-channel",
             "DESCRIPTION": "Set the channel for logs",
+            "NAME": "logs-channel",
             "OPTIONS": {
                 "CHANNEL": {
-                    "NAME": "channel",
-                    "DESCRIPTION": "Channel for logs"
-                }
-            }
-        },
-        "LOGS": {
-            "NAME": "logs",
-            "DESCRIPTION": "Set if you want to log messages",
-            "OPTIONS": {
-                "LOGS": {
-                    "NAME": "logs",
-                    "DESCRIPTION": "Set whether you want to log messages"
+                    "DESCRIPTION": "Channel for logs",
+                    "NAME": "channel"
                 }
             }
         },
         "MOD_LOGS": {
-            "NAME": "mod-logs",
             "DESCRIPTION": "Set if you want to log moderation actions",
+            "NAME": "mod-logs",
             "OPTIONS": {
                 "MOD_LOGS": {
-                    "NAME": "mod-logs",
-                    "DESCRIPTION": "Set whether you want to log moderation actions"
+                    "DESCRIPTION": "Set whether you want to log moderation actions",
+                    "NAME": "mod-logs"
                 }
             }
-        }
+        },
+        "NAME": "config"
+    },
+    "CRIME": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "DEPLOY": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "DEPOSIT": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "DEV": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "DOG": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "HELP": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "HOWGAY": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "INFO": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "INPOST": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "KICK": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "PING": {
+        "DESCRIPTION": "",
+        "NAME": ""
     },
     "PROFILE": {
-        "NAME": "profile",
         "DESCRIPTION": "View/set a profile",
+        "NAME": "profile",
         "SET": {
-            "NAME": "set",
             "DESCRIPTION": "Set a profile",
+            "NAME": "set",
             "OPTIONS": {
                 "FIELD": {
-                    "NAME": "field",
-                    "DESCRIPTION": "Field to set"
+                    "CHOICES": {
+                        "BIRTHDAY": "Birthday",
+                        "DESCRIPTION": "Description",
+                        "LOCATION": "Location",
+                        "PRONOUNS": "Pronouns",
+                        "WEBSITE": "Website"
+                    },
+                    "DESCRIPTION": "Field to set",
+                    "NAME": "field"
                 },
                 "VALUE": {
-                    "NAME": "value",
-                    "DESCRIPTION": "Value to set"
+                    "DESCRIPTION": "Value to set",
+                    "NAME": "value"
                 }
             }
         },
         "VIEW": {
-            "NAME": "view",
             "DESCRIPTION": "View a profile",
+            "NAME": "view",
             "OPTIONS": {
                 "USER": {
-                    "NAME": "user",
-                    "DESCRIPTION": "User to view"
+                    "DESCRIPTION": "User to view",
+                    "NAME": "user"
                 }
             }
         }
     },
-    "PROFILE_SET_OPTION_FIELD_CHOICES_BIRTHDAY": "Birthday",
-    "PROFILE_SET_OPTION_FIELD_CHOICES_DESCRIPTION": "Description",
-    "PROFILE_SET_OPTION_FIELD_CHOICES_LOCATION": "Location",
-    "PROFILE_SET_OPTION_FIELD_CHOICES_PRONOUNS": "Pronouns",
-    "PROFILE_SET_OPTION_FIELD_CHOICES_WEBSITE": "Website"
+    "ROB": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "SERVERINFO": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "SHOP": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "SKYWARS": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "SLUT": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "SUPPORT": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "TIMEOUT": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "WARN": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "WITHDRAW": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "WORK": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    }
 }

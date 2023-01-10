@@ -171,11 +171,11 @@ export const slashCommandData = new SlashCommandSubcommandBuilder()
             .setDescription('PROFILE.SET.OPTIONS_FIELD_DESCRIPTION')
             .setRequired(true)
             .setChoices(
-                new Choice<string>().setName('PROFILE.SET.OPTIONS.FIELD.CHOICES.BIRTHDAY').setValue('birthday'),
-                new Choice<string>().setName('PROFILE.SET.OPTIONS.FIELD.CHOICES.DESCRIPTION').setValue('description'),
-                new Choice<string>().setName('PROFILE.SET.OPTIONS.FIELD.CHOICES.LOCATION').setValue('location'),
-                new Choice<string>().setName('PROFILE.SET.OPTIONS.FIELD.CHOICES.PRONOUNS').setValue('pronouns'),
-                new Choice<string>().setName('PROFILE.SET.OPTIONS.FIELD.CHOICES.WEBSITE').setValue('website')
+                new Choice('PROFILE.SET.OPTIONS.FIELD.CHOICES', 'birthday'),
+                new Choice('PROFILE.SET.OPTIONS.FIELD.CHOICES', 'description'),
+                new Choice('PROFILE.SET.OPTIONS.FIELD.CHOICES', 'location'),
+                new Choice('PROFILE.SET.OPTIONS.FIELD.CHOICES', 'pronouns'),
+                new Choice('PROFILE.SET.OPTIONS.FIELD.CHOICES', 'website')
             )
     )
     .addStringOption(option =>

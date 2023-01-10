@@ -1,104 +1,126 @@
 {
+    "8BALL": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "AVATAR": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "BALANCE": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "BAN": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "BEDWARS": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "BIRB": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
     "CASE": {
-        "NAME": "kara",
-        "DESCRIPTION": "Sprawdz informacje o karze",
-        "LIST": {
-            "NAME": "lisat",
-            "DESCRIPTION": "Sprawdź kary użytkownika",
-            "OPTIONS": {
-                "USER": {
-                    "NAME": "użytkownik",
-                    "DESCRIPTION": "Użytkownik, którego chcesz sprawdzić"
-                }
-            },
-            "CONTEXT": "Lista kar"
-        },
-        "VIEW": {
-            "NAME": "zobacz",
-            "DESCRIPTION": "Sprawdz informacje o karze",
-            "OPTIONS": {
-                "ID": {
-                    "NAME": "id",
-                    "DESCRIPTION": "ID kary"
-                }
-            }
-        }
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "CAT": {
+        "DESCRIPTION": "",
+        "NAME": ""
     },
     "CONFIG": {
-        "NAME": "konfiguracja",
-        "DESCRIPTION": "Zobacz konfigurację twojego serwera",
-        "CURRENCY": {
-            "NAME": "waluta",
-            "DESCRIPTION": "Ustaw walutę",
-            "OPTIONS": {
-                "CURRENCY": {
-                    "NAME": "waluta",
-                    "DESCRIPTION": "Waluta, którą chcesz ustawić"
-                }
-            }
-        },
-        "LOGS_CHANNEL": {
-            "NAME": "lanał-logów",
-            "DESCRIPTION": "Ustaw kanał, na którym pojawiają się logi",
-            "OPTIONS": {
-                "CHANNEL": {
-                    "NAME": "kanał",
-                    "DESCRIPTION": "Kanał z logami"
-                }
-            }
-        },
-        "LOGS": {
-            "NAME": "logi",
-            "DESCRIPTION": "Ustaw, czy chcesz logować wiadomości na specjalnym kanale",
-            "OPTIONS": {
-                "LOGS": {
-                    "NAME": "logi",
-                    "DESCRIPTION": "Ustaw, czy chcesz logować wiadomości"
-                }
-            }
-        },
-        "MOD_LOGS": {
-            "NAME": "mod-logi",
-            "DESCRIPTION": "Ustaw, czy chcesz, by logować akcje moderacyjne",
-            "OPTIONS": {
-                "MOD_LOGS": {
-                    "NAME": "mod-logi",
-                    "DESCRIPTION": "Ustaw, czy chcesz, by logować akcje moderacyjne"
-                }
-            }
-        }
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "CRIME": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "DEPLOY": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "DEPOSIT": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "DEV": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "DOG": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "HELP": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "HOWGAY": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "INFO": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "INPOST": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "KICK": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "PING": {
+        "DESCRIPTION": "",
+        "NAME": ""
     },
     "PROFILE": {
-        "NAME": "profil",
-        "DESCRIPTION": "Obejrzyj/ustaw profil",
-        "SET": {
-            "NAME": "ustaw",
-            "DESCRIPTION": "Ustaw profil",
-            "OPTIONS": {
-                "FIELD": {
-                    "NAME": "rubryka",
-                    "DESCRIPTION": "Rubryka, którą chcesz zmienić"
-                },
-                "VALUE": {
-                    "NAME": "wartość",
-                    "DESCRIPTION": "Wartość, którą ustawić"
-                }
-            }
-        },
-        "VIEW": {
-            "NAME": "obejrz",
-            "DESCRIPTION": "Obejrz profil",
-            "OPTIONS": {
-                "USER": {
-                    "NAME": "użytkownik",
-                    "DESCRIPTION": "Użytkownik, którego chcesz zobaczyć"
-                }
-            }
-        }
+        "DESCRIPTION": "",
+        "NAME": ""
     },
-    "PROFILE_SET_OPTION_FIELD_CHOICES_BIRTHDAY": "Urodziny",
-    "PROFILE_SET_OPTION_FIELD_CHOICES_DESCRIPTION": "Opis",
-    "PROFILE_SET_OPTION_FIELD_CHOICES_LOCATION": "Lokalizacja",
-    "PROFILE_SET_OPTION_FIELD_CHOICES_PRONOUNS": "Zaimki",
-    "PROFILE_SET_OPTION_FIELD_CHOICES_WEBSITE": "Strona internetowa"
+    "ROB": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "SERVERINFO": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "SHOP": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "SKYWARS": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "SLUT": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "SUPPORT": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "TIMEOUT": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "WARN": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "WITHDRAW": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    },
+    "WORK": {
+        "DESCRIPTION": "",
+        "NAME": ""
+    }
 }
