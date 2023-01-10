@@ -19,10 +19,8 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 }
 
 export const slashCommandData = new SlashCommandBuilder()
-    .setName('balance')
-    .setNameLocalizations({ pl: 'saldo' })
-    .setDescription('Check your balance')
-    .setDescriptionLocalizations({ pl: 'Sprawdź swoje saldo' })
+    .setName('BALANCE.NAME')
+    .setDescription('BALANCE.DESCRIPTION')
     .setDMPermission(false);
 
 export const category: Category = 'economy';

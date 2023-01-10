@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from '#builders';
+import { SlashCommandBuilder, ContextMenuCommandBuilder } from '#builders';
 import { type FluorineClient, Embed } from '#classes';
 import type { ComponentData, Category } from '#types';
 import {
@@ -11,7 +11,6 @@ import {
     ButtonBuilder,
     ButtonStyle,
     type User,
-    ContextMenuCommandBuilder,
     ApplicationCommandType
 } from 'discord.js';
 
@@ -90,22 +89,16 @@ export async function onComponent(client: FluorineClient, interaction: ButtonInt
 }
 
 export const slashCommandData = new SlashCommandBuilder()
-    .setName('avatar')
-    .setNameLocalizations({ pl: 'avatar' })
-    .setDescription('Show avatar of a user')
-    .setDescriptionLocalizations({ pl: 'Wyświetla avatar użytkownika' })
+    .setName('AVATAR.NAME')
+    .setDescription('AVATAR.DESCRIPTION')
+
     .addUserOption(option =>
-        option
-            .setName('user')
-            .setNameLocalizations({ pl: 'użytkownik' })
-            .setDescription('Select a user')
-            .setDescriptionLocalizations({ pl: 'Wybierz użytkownika' })
-            .setRequired(false)
+        option.setName('AVATAR.OPTIONS.USER.NAME').setDescription('AVATAR.OPTIONS.USER.DESCRIPTION').setRequired(false)
     );
 
-export const contextMenuCommandData = new ContextMenuCommandBuilder()
-    .setName('Avatar')
-    .setType(ApplicationCommandType.User);
+export const contextMenuCommandData = new ContextMenuCommandBuilder(ApplicationCommandType.User).setName(
+    'AVATAR.CONTEXT'
+);
 
 export const componentData: ComponentData = {
     authorOnly: false,

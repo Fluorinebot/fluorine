@@ -1,15 +1,28 @@
 {
     "8BALL": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Zapytaj o coś magiczną kulę",
+        "NAME": "magiczna-kula",
+        "OPTIONS": {
+            "QUESTION": {
+                "DESCRIPTION": "Zadaj pytanie",
+                "NAME": "pytanie"
+            }
+        }
     },
     "AVATAR": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "CONTEXT": "Avatar",
+        "DESCRIPTION": "Wyświetla avatar użytkownika",
+        "NAME": "avatar",
+        "OPTIONS": {
+            "USER": {
+                "DESCRIPTION": "Wybierz użytkownika",
+                "NAME": "użytkownik"
+            }
+        }
     },
     "BALANCE": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Sprawdź swoje saldo",
+        "NAME": "saldo"
     },
     "BAN": {
         "DESCRIPTION": "",
@@ -20,34 +33,87 @@
         "NAME": ""
     },
     "BIRB": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Losowe zdjęcie ptaka",
+        "NAME": "birb"
     },
     "CASE": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "NAME": "kara",
+        "DESCRIPTION": "Sprawdz informacje o karze",
+        "LIST": {
+            "NAME": "lisat",
+            "DESCRIPTION": "Sprawdź kary użytkownika",
+            "OPTIONS": {
+                "USER": {
+                    "NAME": "użytkownik",
+                    "DESCRIPTION": "Użytkownik, którego chcesz sprawdzić"
+                }
+            },
+            "CONTEXT": "Lista kar"
+        },
+        "VIEW": {
+            "NAME": "zobacz",
+            "DESCRIPTION": "Sprawdz informacje o karze",
+            "OPTIONS": {
+                "ID": {
+                    "NAME": "id",
+                    "DESCRIPTION": "ID kary"
+                }
+            }
+        }
     },
     "CAT": {
         "DESCRIPTION": "",
         "NAME": ""
     },
     "CONFIG": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "NAME": "konfiguracja",
+        "DESCRIPTION": "Zobacz konfigurację twojego serwera",
+        "CURRENCY": {
+            "NAME": "waluta",
+            "DESCRIPTION": "Ustaw walutę",
+            "OPTIONS": {
+                "CURRENCY": {
+                    "NAME": "waluta",
+                    "DESCRIPTION": "Waluta, którą chcesz ustawić"
+                }
+            }
+        },
+        "LOGS_CHANNEL": {
+            "NAME": "lanał-logów",
+            "DESCRIPTION": "Ustaw kanał, na którym pojawiają się logi",
+            "OPTIONS": {
+                "CHANNEL": {
+                    "NAME": "kanał",
+                    "DESCRIPTION": "Kanał z logami"
+                }
+            }
+        },
+        "LOGS": {
+            "NAME": "logi",
+            "DESCRIPTION": "Ustaw, czy chcesz logować wiadomości na specjalnym kanale",
+            "OPTIONS": {
+                "LOGS": {
+                    "NAME": "logi",
+                    "DESCRIPTION": "Ustaw, czy chcesz logować wiadomości"
+                }
+            }
+        },
+        "MOD_LOGS": {
+            "NAME": "mod-logi",
+            "DESCRIPTION": "Ustaw, czy chcesz, by logować akcje moderacyjne",
+            "OPTIONS": {
+                "MOD_LOGS": {
+                    "NAME": "mod-logi",
+                    "DESCRIPTION": "Ustaw, czy chcesz, by logować akcje moderacyjne"
+                }
+            }
+        }
     },
     "CRIME": {
         "DESCRIPTION": "",
         "NAME": ""
     },
-    "DEPLOY": {
-        "DESCRIPTION": "",
-        "NAME": ""
-    },
     "DEPOSIT": {
-        "DESCRIPTION": "",
-        "NAME": ""
-    },
-    "DEV": {
         "DESCRIPTION": "",
         "NAME": ""
     },
@@ -80,8 +146,39 @@
         "NAME": ""
     },
     "PROFILE": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "NAME": "profil",
+        "DESCRIPTION": "Obejrzyj/ustaw profil",
+        "SET": {
+            "NAME": "ustaw",
+            "DESCRIPTION": "Ustaw profil",
+            "OPTIONS": {
+                "FIELD": {
+                    "CHOICES": {
+                        "BIRTHDAY": "Urodziny",
+                        "DESCRIPTION": "Opis",
+                        "LOCATION": "Lokalizacja",
+                        "PRONOUNS": "Zaimki",
+                        "WEBSITE": "Strona internetowa"
+                    },
+                    "NAME": "rubryka",
+                    "DESCRIPTION": "Rubryka, którą chcesz zmienić"
+                },
+                "VALUE": {
+                    "NAME": "wartość",
+                    "DESCRIPTION": "Wartość, którą ustawić"
+                }
+            }
+        },
+        "VIEW": {
+            "NAME": "obejrz",
+            "DESCRIPTION": "Obejrz profil",
+            "OPTIONS": {
+                "USER": {
+                    "NAME": "użytkownik",
+                    "DESCRIPTION": "Użytkownik, którego chcesz zobaczyć"
+                }
+            }
+        }
     },
     "ROB": {
         "DESCRIPTION": "",

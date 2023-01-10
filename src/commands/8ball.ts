@@ -19,16 +19,12 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 }
 
 export const slashCommandData = new SlashCommandBuilder()
-    .setName('8ball')
-    .setNameLocalizations({ pl: 'magiczna-kula' })
-    .setDescription('Ask the magic ball a question')
-    .setDescriptionLocalizations({ pl: 'Zapytaj o coś magiczną kulę' })
+    .setName('8BALL.NAME')
+    .setDescription('8BALL.DESCRIPTION')
     .addStringOption(option =>
         option
-            .setName('question')
-            .setNameLocalizations({ pl: 'pytanie' })
-            .setDescription('Ask a question')
-            .setDescriptionLocalizations({ pl: 'Zadaj pytanie' })
+            .setName('8BALL.OPTIONS.QUESTION.NAME')
+            .setDescription('8BALL.OPTIONS.QUESTION.DESCRIPTION')
             .setRequired(true)
     );
 
