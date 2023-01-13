@@ -1,20 +1,10 @@
 import { ApplicationCommandOptionType, SlashCommandStringOption } from 'discord.js';
-import { BaseOption, type Choice } from '#options';
+import { OptionWithAutocomplete } from '#builders';
 
-export class StringOption extends BaseOption<SlashCommandStringOption> {
-    constructor() {
-        super(ApplicationCommandOptionType.String);
+export class StringOption extends OptionWithAutocomplete<SlashCommandStringOption> {
+    constructor(baseKey: string) {
+        super(ApplicationCommandOptionType.String, baseKey);
         this.builder = new SlashCommandStringOption();
-    }
-
-    setAutocomplete(bool: boolean) {
-        this.builder.setAutocomplete(bool);
-        return this;
-    }
-
-    setChoices(...choices: Choice<string>[]) {
-        this.builder.setChoices(...choices);
-        return this;
     }
 
     setMaxLength(num: number) {

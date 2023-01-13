@@ -1,20 +1,10 @@
 import { ApplicationCommandOptionType, SlashCommandNumberOption } from 'discord.js';
-import { BaseOption, type Choice } from '#options';
+import { OptionWithAutocomplete } from '#builders';
 
-export class NumberOption extends BaseOption<SlashCommandNumberOption> {
-    constructor() {
-        super(ApplicationCommandOptionType.Number);
+export class NumberOption extends OptionWithAutocomplete<SlashCommandNumberOption> {
+    constructor(baseKey: string) {
+        super(ApplicationCommandOptionType.Number, baseKey);
         this.builder = new SlashCommandNumberOption();
-    }
-
-    setAutocomplete(bool: boolean) {
-        this.builder.setAutocomplete(bool);
-        return this;
-    }
-
-    setChoices(...choices: Choice<number>[]) {
-        this.builder.setChoices(...choices);
-        return this;
     }
 
     setMaxValue(num: number) {

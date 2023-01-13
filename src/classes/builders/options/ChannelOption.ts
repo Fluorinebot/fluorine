@@ -3,11 +3,11 @@ import {
     ApplicationCommandOptionType,
     SlashCommandChannelOption
 } from 'discord.js';
-import { BaseOption } from './BaseOption';
+import { BaseOption } from '#builders';
 
 export class ChannelOption extends BaseOption<SlashCommandChannelOption> {
-    constructor() {
-        super(ApplicationCommandOptionType.Channel);
+    constructor(baseKey: string) {
+        super(ApplicationCommandOptionType.Channel, baseKey);
         this.builder = new SlashCommandChannelOption();
     }
 

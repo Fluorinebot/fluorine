@@ -59,7 +59,6 @@ export class FluorineClient extends Client {
         }
 
         new EventHandler(this).loadEvents();
-
         this.commands.loadCommands();
 
         await this.i18n.use(Backend).init({
