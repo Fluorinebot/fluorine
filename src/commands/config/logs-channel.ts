@@ -26,13 +26,6 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [embed] });
 }
 
-export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('CONFIG.LOGS_CHANNEL.NAME')
-    .setDescription('CONFIG.LOGS_CHANNEL.DESCRIPTION')
-    .addChannelOption(option =>
-        option
-            .setName('CONFIG.LOGS_CHANNEL.OPTIONS.CHANNEL.NAME')
-            .setDescription('CONFIG.LOGS_CHANNEL.LOGS.OPTIONS.CHANNEL.DESCRIPTION')
-            .setChannelTypes(ChannelType.GuildText)
-            .setRequired(true)
-    );
+export const slashCommandData = new SlashCommandSubcommandBuilder('CHANNEL').addChannelOption('CHANNEL', option =>
+    option.setChannelTypes(ChannelType.GuildText).setRequired(true)
+);

@@ -1,6 +1,5 @@
 import { SlashCommandSubcommandBuilder } from '#builders';
 import { Embed, type FluorineClient } from '#classes';
-import { Choice } from '#options';
 import { type ChatInputCommandInteraction } from 'discord.js';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
@@ -162,25 +161,8 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     }
 }
 
-export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('PROFILE.SET.NAME')
-    .setDescription('PROFILE.SET.DESCRIPTION')
-    .addStringOption(option =>
-        option
-            .setName('PROFILE.SET.OPTIONS_FIELD_NAME')
-            .setDescription('PROFILE.SET.OPTIONS_FIELD_DESCRIPTION')
-            .setRequired(true)
-            .setChoices(
-                new Choice('PROFILE.SET.OPTIONS.FIELD.CHOICES', 'birthday'),
-                new Choice('PROFILE.SET.OPTIONS.FIELD.CHOICES', 'description'),
-                new Choice('PROFILE.SET.OPTIONS.FIELD.CHOICES', 'location'),
-                new Choice('PROFILE.SET.OPTIONS.FIELD.CHOICES', 'pronouns'),
-                new Choice('PROFILE.SET.OPTIONS.FIELD.CHOICES', 'website')
-            )
+export const slashCommandData = new SlashCommandSubcommandBuilder('PROFILE')
+    .addStringOption('FIELD', option =>
+        option.setRequired(true).addChoices('birthday', 'description', 'location', 'pronouns', 'website')
     )
-    .addStringOption(option =>
-        option
-            .setName('PROFILE.SET.OPTIONS.VALUE.NAME')
-            .setDescription('PROFILE.SET.OPTIONS.VALUE.DESCRIPTION')
-            .setRequired(true)
-    );
+    .addStringOption('VALUE', option => option.setRequired(true));

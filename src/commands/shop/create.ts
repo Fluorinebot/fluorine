@@ -1,6 +1,7 @@
+import { SlashCommandSubcommandBuilder } from '#builders';
 import { Embed, type FluorineClient } from '#classes';
 import type { ShopItemConstructor } from '#types';
-import { type ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandSubcommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction, PermissionFlagsBits } from 'discord.js';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const name = interaction.options.getString('name');
@@ -41,43 +42,8 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     client.shop.add(obj);
 }
 
-export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('create')
-    .setNameLocalizations({ pl: 'utwórz' })
-    .setDescription('Create a item!')
-    .setDescriptionLocalizations({ pl: 'Utwórz przedmiot!' })
-    .addStringOption(option =>
-        option
-            .setName('name')
-            .setNameLocalizations({ pl: 'nazwa' })
-            .setDescription('Name of the item')
-            .setDescriptionLocalizations({ pl: 'Nazwa przedmiotu' })
-            .setMaxLength(20)
-            .setRequired(true)
-    )
-    .addStringOption(option =>
-        option
-            .setName('description')
-            .setNameLocalizations({ pl: 'opis' })
-            .setDescription('Description of the item')
-            .setDescriptionLocalizations({ pl: 'Opis przedmiotu' })
-            .setMaxLength(50)
-            .setRequired(true)
-    )
-    .addIntegerOption(option =>
-        option
-            .setName('price')
-            .setNameLocalizations({ pl: 'cena' })
-            .setDescription('Price of the item')
-            .setDescriptionLocalizations({ pl: 'Cena przedmiotu' })
-            .setMinValue(1)
-            .setRequired(true)
-    )
-    .addRoleOption(option =>
-        option
-            .setName('role')
-            .setNameLocalizations({ pl: 'rola' })
-            .setDescription('The role you want to give')
-            .setDescriptionLocalizations({ pl: 'Rola, którą chcesz nadać' })
-            .setRequired(false)
-    );
+export const slashCommandData = new SlashCommandSubcommandBuilder('CREATE')
+    .addStringOption('NAME', option => option.setMaxLength(20).setRequired(true))
+    .addStringOption('DESCRIPTION', option => option.setMaxLength(50).setRequired(true))
+    .addIntegerOption('PRICE', option => option.setMinValue(1).setRequired(true))
+    .addRoleOption('ROLE');

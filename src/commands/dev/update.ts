@@ -1,6 +1,7 @@
+import { SlashCommandSubcommandBuilder } from '#builders';
 import { execSync } from 'node:child_process';
 import type { FluorineClient } from '#classes';
-import { type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
+import type { ChatInputCommandInteraction } from 'discord.js';
 
 export async function doSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     await interaction.deferReply();
@@ -10,4 +11,4 @@ export async function doSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.editReply('Successfully updated');
 }
 
-export const slashCommandData = new SlashCommandSubcommandBuilder().setName('update').setDescription('Update the bot.');
+export const slashCommandData = new SlashCommandSubcommandBuilder('UPDATE');

@@ -24,12 +24,6 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [embed] });
 }
 
-export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('CONFIG.MOD_LOGS.NAME')
-    .setDescription('CONFIG.MOD_LOGS.DESCRIPTION')
-    .addBooleanOption(option =>
-        option
-            .setName('CONFIG.MOD.LOGS_OPTIONS.MOD_LOGS.NAME')
-            .setDescription('CONFIG.MOD_LOGS.OPTIONS.MOD_LOGS.DESCRIPTION')
-            .setRequired(true)
-    );
+export const slashCommandData = new SlashCommandSubcommandBuilder('MOD_LOGS').addBooleanOption('MOD_LOGS', option =>
+    option.setRequired(true)
+);

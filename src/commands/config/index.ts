@@ -2,9 +2,7 @@ import { SlashCommandBuilder } from '#builders';
 import type { Category } from '#types';
 import { PermissionFlagsBits } from 'discord.js';
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('CONFIG.NAME')
-    .setDescription('CONFIG.DESCRIPTION')
+export const slashCommandData = new SlashCommandBuilder('CONFIG')
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
     .setDMPermission(false);
 

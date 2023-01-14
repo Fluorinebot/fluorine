@@ -24,10 +24,10 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [embed] });
 }
 
-export const slashCommandData = new SlashCommandSubcommandBuilder()
+export const slashCommandData = new SlashCommandSubcommandBuilder('LOGS')
     .setName('CONFIG.LOGS.NAME')
     .setDescription('CONFIG.LOGS.DESCRIPTION')
-    .addBooleanOption(option =>
+    .addBooleanOption('LOGS', option =>
         option
             .setName('CONFIG.LOGS.OPTIONS.LOGS.NAME')
             .setDescription('CONFIG.LOG.OPTIONS.LOGS.DESCRIPTION')

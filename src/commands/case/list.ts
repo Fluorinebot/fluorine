@@ -84,18 +84,11 @@ export async function onInteraction(
     interaction.isCommand() ? interaction.reply(replyOptions) : interaction.update(replyOptions);
 }
 
-export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('CASE.LIST.NAME')
-    .setDescription('CASE.LIST.DESCRIPTION')
-    .addUserOption(option =>
-        option
-            .setName('CASE.LIST.OPTIONS.USER.NAME')
-            .setDescription('CASE.LIST.OPTIONS.USER.DESCRIPTION')
-            .setRequired(true)
-    );
+export const slashCommandData = new SlashCommandSubcommandBuilder('LIST').addUserOption('USER', option =>
+    option.setRequired(true)
+);
 
-export const contextMenuCommandData = new ContextMenuCommandBuilder(ApplicationCommandType.User)
-    .setName('CASE.LIST.CONTEXT')
+export const contextMenuCommandData = new ContextMenuCommandBuilder(ApplicationCommandType.User, 'CASE.LIST')
     .setDefaultMemberPermissions(PermissionFlagsBits.ViewAuditLog)
     .setDMPermission(false);
 

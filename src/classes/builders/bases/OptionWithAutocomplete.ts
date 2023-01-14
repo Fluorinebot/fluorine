@@ -20,7 +20,7 @@ export class OptionWithAutocomplete<
         return this;
     }
 
-    addChoices(choices: string[] | number[]) {
+    addChoices(...choices: string[] | number[]) {
         this.choiceQueue = choices;
         return this;
     }

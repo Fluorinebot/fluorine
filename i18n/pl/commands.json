@@ -113,9 +113,61 @@
         "DESCRIPTION": "",
         "NAME": ""
     },
+    "DEPLOY": {
+        "CREATE": {
+            "DESCRIPTION": "Create an application command",
+            "NAME": "create",
+            "OPTIONS": {
+                "COMMAND": {
+                    "DESCRIPTION": "The command to create",
+                    "NAME": "command"
+                },
+                "GUILD": {
+                    "DESCRIPTION": "The target guild",
+                    "NAME": "guild"
+                }
+            }
+        },
+        "DELETE": {
+            "DESCRIPTION": "Delete an application command",
+            "NAME": "delete",
+            "OPTIONS": {
+                "COMMAND": {
+                    "DESCRIPTION": "The command to delete",
+                    "NAME": "command"
+                },
+                "GUILD": {
+                    "DESCRIPTION": "The target guild",
+                    "NAME": "guild"
+                }
+            }
+        },
+        "DESCRIPTION": "Deploy application commands",
+        "NAME": "deploy"
+    },
     "DEPOSIT": {
         "DESCRIPTION": "",
         "NAME": ""
+    },
+    "DEV": {
+        "DESCRIPTION": "a piece of kebab",
+        "EVAL": {
+            "DESCRIPTION": "proccess.exit();",
+            "NAME": "eval"
+        },
+        "NAME": "dev",
+        "SHELL": {
+            "DESCRIPTION": "sudo sudo",
+            "NAME": "shell"
+        },
+        "SQL": {
+            "DESCRIPTION": "DROP DATABASE splendid;",
+            "NAME": "sql"
+        },
+        "UPDATE ": {
+            "DESCRIPTION": "i forgor",
+            "NAME": "dev"
+        }
     },
     "DOG": {
         "DESCRIPTION": "",
@@ -189,8 +241,54 @@
         "NAME": ""
     },
     "SHOP": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "BUY": {
+            "DESCRIPTION": "Zakup przedmiotu ze sklepu",
+            "NAME": "kup",
+            "OPTIONS": {
+                "ITEM": {
+                    "DESCRIPTION": "Przedmiot, który chcesz kupić",
+                    "NAME": "przedmiot"
+                }
+            }
+        },
+        "CREATE": {
+            "DESCRIPTION": "Utwórz przedmiot!",
+            "NAME": "utwórz",
+            "OPTIONS": {
+                "DESCRIPTION": {
+                    "DESCRIPTION": "Opis przedmiotu",
+                    "NAME": "opis"
+                },
+                "NAME": {
+                    "DESCRIPTION": "Nazwa przedmiotu",
+                    "NAME": "nawza"
+                },
+                "PRICE": {
+                    "DESCRIPTION": "Cena przedmiotu",
+                    "NAME": "cena"
+                },
+                "ROLE": {
+                    "DESCRIPTION": "Rola, którą chcesz nadać",
+                    "NAME": "rola"
+                }
+            }
+        },
+        "DELETE": {
+            "DESCRIPTION": "Usuń przedmiot ze sklepu",
+            "NAME": "usuń",
+            "OPTIONS": {
+                "NAME": {
+                    "DESCRIPTION": "Nazwa przedmiotu",
+                    "NAME": "nawza"
+                }
+            }
+        },
+        "DESCRIPTION": "Kup coś za pieniądze w ekonomii!",
+        "LIST": {
+            "DESCRIPTION": "Lista wszystkich przedmiotów w sklepie",
+            "NAME": "lista"
+        },
+        "NAME": "sklep"
     },
     "SKYWARS": {
         "DESCRIPTION": "",

@@ -24,12 +24,6 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [embed] });
 }
 
-export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('CONFIG.CURRENCY.NAME')
-    .setDescription('CONFIG.CURRENCY.DESCRIPTION')
-    .addStringOption(option =>
-        option
-            .setName('CONFIG.CURRENCY.OPTIONS.CURRENCY.NAME')
-            .setDescription('CONFIG.CURRENCY.OPTIONS.CURRENCY.DESCRIPTION')
-            .setRequired(true)
-    );
+export const slashCommandData = new SlashCommandSubcommandBuilder('CURRENCY').addStringOption('CURRENCY', option =>
+    option.setRequired(true)
+);

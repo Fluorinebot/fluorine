@@ -79,12 +79,4 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ files: [attachment] });
 }
 
-export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('PROFILE.VIEW.NAME')
-    .setDescription('PROFILE.VIEW.DESCRIPTION')
-    .addUserOption(option =>
-        option
-            .setName('PROFILE.VIEW.OPTIONS.USER.NAME')
-            .setDescription('PROFILE.VIEW.OPTIONS.USER.DESCRIPTION')
-            .setRequired(false)
-    );
+export const slashCommandData = new SlashCommandSubcommandBuilder('VIEW').addUserOption('USER');

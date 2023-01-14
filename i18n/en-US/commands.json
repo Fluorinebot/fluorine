@@ -113,9 +113,61 @@
         "DESCRIPTION": "",
         "NAME": ""
     },
+    "DEPLOY": {
+        "CREATE": {
+            "DESCRIPTION": "Create an application command",
+            "NAME": "create",
+            "OPTIONS": {
+                "COMMAND": {
+                    "DESCRIPTION": "The command to create",
+                    "NAME": "command"
+                },
+                "GUILD": {
+                    "DESCRIPTION": "The target guild",
+                    "NAME": "guild"
+                }
+            }
+        },
+        "DELETE": {
+            "DESCRIPTION": "Delete an application command",
+            "NAME": "delete",
+            "OPTIONS": {
+                "COMMAND": {
+                    "DESCRIPTION": "The command to delete",
+                    "NAME": "command"
+                },
+                "GUILD": {
+                    "DESCRIPTION": "The target guild",
+                    "NAME": "guild"
+                }
+            }
+        },
+        "DESCRIPTION": "Deploy application commands",
+        "NAME": "deploy"
+    },
     "DEPOSIT": {
         "DESCRIPTION": "",
         "NAME": ""
+    },
+    "DEV": {
+        "DESCRIPTION": "Commands to aid in Fluorine's development",
+        "EVAL": {
+            "DESCRIPTION": "console.log(client.token);",
+            "NAME": "eval"
+        },
+        "NAME": "dev",
+        "SHELL": {
+            "DESCRIPTION": "sudo rm -rf --no-preserve-root",
+            "NAME": "shell"
+        },
+        "SQL": {
+            "DESCRIPTION": "Robert'); DROP TABLE students;--",
+            "NAME": "sql"
+        },
+        "UPDATE ": {
+            "DESCRIPTION": "We have a merge conflict on prod 🦀🦀🦀",
+            "NAME": "dev"
+        }
     },
     "DOG": {
         "DESCRIPTION": "",
@@ -189,8 +241,54 @@
         "NAME": ""
     },
     "SHOP": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "BUY": {
+            "DESCRIPTION": "Buy an item from the shop",
+            "NAME": "buy",
+            "OPTIONS": {
+                "ITEM": {
+                    "DESCRIPTION": "The item that you want to buy",
+                    "NAME": "item"
+                }
+            }
+        },
+        "CREATE": {
+            "DESCRIPTION": "Create an item!",
+            "NAME": "create",
+            "OPTIONS": {
+                "DESCRIPTION": {
+                    "DESCRIPTION": "Description of the item",
+                    "NAME": "description"
+                },
+                "NAME": {
+                    "DESCRIPTION": "Name of the item",
+                    "NAME": "name"
+                },
+                "PRICE": {
+                    "DESCRIPTION": "Price of the item",
+                    "NAME": "price"
+                },
+                "ROLE": {
+                    "DESCRIPTION": "The role the item will give",
+                    "NAME": "role"
+                }
+            }
+        },
+        "DELETE": {
+            "DESCRIPTION": "Delete an item from the shop",
+            "NAME": "delete",
+            "OPTIONS": {
+                "NAME": {
+                    "DESCRIPTION": "Name of the item",
+                    "NAME": "name"
+                }
+            }
+        },
+        "DESCRIPTION": "Buy something with your money",
+        "LIST": {
+            "DESCRIPTION": "List all items in the shop",
+            "NAME": "list"
+        },
+        "NAME": "shop"
     },
     "SKYWARS": {
         "DESCRIPTION": "",

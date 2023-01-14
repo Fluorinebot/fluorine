@@ -1,5 +1,6 @@
+import { SlashCommandSubcommandBuilder } from '#builders';
 import { Embed, type FluorineClient } from '#classes';
-import { type ChatInputCommandInteraction, Routes, SlashCommandSubcommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction, Routes } from 'discord.js';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     await interaction.deferReply();
@@ -68,10 +69,6 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     }
 }
 
-export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('create')
-    .setDescription('Create application commands')
-    .addStringOption(option =>
-        option.setName('command').setDescription('Provide a command to create').setRequired(true)
-    )
-    .addStringOption(option => option.setName('guild').setDescription('Provide a guild to deploy').setRequired(false));
+export const slashCommandData = new SlashCommandSubcommandBuilder('CREATE')
+    .addStringOption('COMMAND', option => option.setRequired(true))
+    .addStringOption('GUILD');

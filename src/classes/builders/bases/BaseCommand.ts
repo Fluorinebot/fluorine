@@ -1,16 +1,4 @@
-import {
-    BaseBuilder
-    //     AttachmentOption,
-    //     BooleanOption,
-    //     ChannelOption,
-    //     IntegerOption,
-    //     MentionableOption,
-    //     NumberOption,
-    //     RoleOption,
-    //     StringOption,
-    //     UserOption
-} from '#builders';
-
+import { BaseBuilder } from '#builders';
 import type { CommandResolvable } from '#types';
 import type { ApplicationCommandType, ApplicationCommandOptionType } from 'discord.js';
 
