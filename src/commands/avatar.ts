@@ -88,17 +88,8 @@ export async function onComponent(client: FluorineClient, interaction: ButtonInt
     });
 }
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('AVATAR.NAME')
-    .setDescription('AVATAR.DESCRIPTION')
-
-    .addUserOption(option =>
-        option.setName('AVATAR.OPTIONS.USER.NAME').setDescription('AVATAR.OPTIONS.USER.DESCRIPTION').setRequired(false)
-    );
-
-export const contextMenuCommandData = new ContextMenuCommandBuilder(ApplicationCommandType.User).setName(
-    'AVATAR.CONTEXT'
-);
+export const slashCommandData = new SlashCommandBuilder('AVATAR').addUserOption('USER');
+export const contextMenuCommandData = new ContextMenuCommandBuilder(ApplicationCommandType.User, 'AVATAR');
 
 export const componentData: ComponentData = {
     authorOnly: false,

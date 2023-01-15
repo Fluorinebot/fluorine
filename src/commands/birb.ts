@@ -15,6 +15,5 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [embed] });
 }
 
-export const slashCommandData = new SlashCommandBuilder().setName('BIRB.NAME').setDescription('BIRB.DESCRIPTION');
-
+export const slashCommandData = new SlashCommandBuilder('BIRB');
 export const category: Category = 'fun';
