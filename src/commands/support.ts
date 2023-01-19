@@ -10,10 +10,5 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [embed] });
 }
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('support')
-    .setNameLocalizations({ pl: 'support' })
-    .setDescription("Get an invite link to Fluorine's support server")
-    .setDescriptionLocalizations({ pl: 'Zdobądź zaproszenie do serwera support Fluorine' });
-
+export const slashCommandData = new SlashCommandBuilder('SUPPORT');
 export const category: Category = 'tools';

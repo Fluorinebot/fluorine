@@ -29,11 +29,6 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [embed] });
 }
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('serverinfo')
-    .setNameLocalizations({ pl: 'serverinfo' })
-    .setDescription('Information about this server')
-    .setDescriptionLocalizations({ pl: 'Informacje o tym serwerze' })
-    .setDMPermission(false);
+export const slashCommandData = new SlashCommandBuilder('SERVERINFO').setDMPermission(false);
 
 export const category: Category = 'tools';

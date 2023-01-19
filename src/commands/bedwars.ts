@@ -82,18 +82,8 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [bedEmbed] });
 }
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('bedwars')
-    .setNameLocalizations({ pl: 'bedwars' })
-    .setDescription("Check a player's bedwars stats from Hypixel")
-    .setDescriptionLocalizations({ pl: 'Sprawdź statystyki gracza Hypixela' })
-    .addStringOption(option =>
-        option
-            .setName('player')
-            .setNameLocalizations({ pl: 'gracz' })
-            .setDescription('The player to search')
-            .setDescriptionLocalizations({ pl: 'Gracz, którego statystyki sprawdzasz' })
-            .setRequired(true)
-    );
+export const slashCommandData = new SlashCommandBuilder('BEDWARS').addStringOption('PLAYER', option =>
+    option.setRequired(true)
+);
 
 export const category: Category = 'fun';

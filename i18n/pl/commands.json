@@ -25,12 +25,28 @@
         "NAME": "saldo"
     },
     "BAN": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Zbanuj użytkownika",
+        "NAME": "ban",
+        "OPTIONS": {
+            "REASON": {
+                "DESCRIPTION": "Podaj powód bana",
+                "NAME": "powód"
+            },
+            "USER": {
+                "DESCRIPTION": "Podaj użytkownika, którego chcesz zbanować",
+                "NAME": "użytkownik"
+            }
+        }
     },
     "BEDWARS": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Sprawdź statystyki gracza Hypixela",
+        "NAME": "bedwars",
+        "OPTIONS": {
+            "PLAYER": {
+                "DESCRIPTION": "Gracz, którego statystyki sprawdzasz",
+                "NAME": "gracz"
+            }
+        }
     },
     "BIRB": {
         "DESCRIPTION": "Losowe zdjęcie ptakaLosowe zdjęcie ptaka",
@@ -62,8 +78,8 @@
         }
     },
     "CAT": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Losowe zdjęcie kota",
+        "NAME": "kot"
     },
     "CONFIG": {
         "CURRENCY": {
@@ -110,8 +126,8 @@
         "NAME": "konfiguracja"
     },
     "CRIME": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Popełnij przestępstwo w ekonomii",
+        "NAME": "przestępstwo"
     },
     "DEPLOY": {
         "CREATE": {
@@ -146,8 +162,14 @@
         "NAME": "deploy"
     },
     "DEPOSIT": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Wpłać swoje pieniądze",
+        "NAME": "wpłać",
+        "OPTIONS": {
+            "AMOUNT": {
+                "DESCRIPTION": "Ilość pieniędzy, które chcesz wpłacić",
+                "NAME": "ilość"
+            }
+        }
     },
     "DEV": {
         "DESCRIPTION": "a piece of kebab",
@@ -170,32 +192,67 @@
         }
     },
     "DOG": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Losowe zdjęcie psa",
+        "NAME": "pies"
     },
     "HELP": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Wyświetl listę komend",
+        "NAME": "pomoc",
+        "OPTIONS": {
+            "CATEGORY": {
+                "CHOICES": {
+                    "ECONOMY": "Ekonomia",
+                    "FUN": "Fun",
+                    "MODERATION": "Moderacja",
+                    "TOOLS": "Narzędzia"
+                },
+                "DESCRIPTION": "Kategoria, którą chcesz wyświetlić",
+                "NAME": "kategoria"
+            }
+        }
     },
     "HOWGAY": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "CONTEXT": "How Gay",
+        "DESCRIPTION": "Sprawdź, jak gejowa jest jakaś rzecz",
+        "NAME": "howgay",
+        "OPTIONS": {
+            "THING": {
+                "DESCRIPTION": "Podaj rzecz, którą chcesz sprawdzić",
+                "NAME": "rzecz"
+            }
+        }
     },
     "INFO": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Informacje o Fluorine",
+        "NAME": "informacje"
     },
     "INPOST": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Śledź paczkę w InPost",
+        "NAME": "inpost",
+        "OPTIONS": {
+            "ID": {
+                "DESCRIPTION": "Id paczki",
+                "NAME": "id"
+            }
+        }
     },
     "KICK": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Wyrzuca użytkownika z serwera",
+        "NAME": "kick",
+        "OPTIONS": {
+            "REASON": {
+                "DESCRIPTION": "Podaj powód wyrzucenia użytkownika z serwera",
+                "NAME": "powód"
+            },
+            "USER": {
+                "DESCRIPTION": "Podaj użytkownika, którego chcesz wyrzucić",
+                "NAME": "użytkownik"
+            }
+        }
     },
     "PING": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Sprawdź ping bota",
+        "NAME": "ping"
     },
     "PROFILE": {
         "DESCRIPTION": "Obejrzyj/ustaw profil",
@@ -226,19 +283,25 @@
             "NAME": "obejrz",
             "OPTIONS": {
                 "USER": {
-                    "DESCRIPTION": "Użytkownik, którego chcesz zobaczyć",
+                    "DESCRIPTION": "Użytkownik, którego chcesz z    obaczyć",
                     "NAME": "użytkownik"
                 }
             }
         }
     },
     "ROB": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Okradnij użytkownika",
+        "NAME": "okradnij",
+        "OPTIONS": {
+            "USER": {
+                "DESCRIPTION": "User you want to rob",
+                "NAME": "user"
+            }
+        }
     },
     "SERVERINFO": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Informacje o tym serwerze",
+        "NAME": "serverinfo"
     },
     "SHOP": {
         "BUY": {
@@ -291,31 +354,67 @@
         "NAME": "sklep"
     },
     "SKYWARS": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Sprawdź statystyki skywars gracza Hypixela",
+        "NAME": "skywars",
+        "OPTIONS": {
+            "PLAYER": {
+                "DESCRIPTION": "Gracz, którego statystyki chcesz sprawdzić",
+                "NAME": "gracz"
+            }
+        }
     },
     "SLUT": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Zdobądź pieniądze będąc prostytutką!",
+        "NAME": "slut"
     },
     "SUPPORT": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Zdobądź zaproszenie do serwera support Fluorine",
+        "NAME": "support"
     },
     "TIMEOUT": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Wyślij użytkownika na przerwę (podobne do mute)",
+        "NAME": "timeout",
+        "OPTIONS": {
+            "USER": {
+                "DESCRIPTION": "Podaj użytkownika, którego chcesz wysłać na przerwę",
+                "NAME": "użytkownik"
+            },
+            "DURATION": {
+                "DESCRIPTION": "Podaj, jak długo ma trwać przerwa",
+                "NAME": "długość"
+            },
+            "REASON": {
+                "DESCRIPTION": "Podaj powód przerwy",
+                "NAME": "powód"
+            }
+        }
     },
     "WARN": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Daj użytkownikowi ostrzeżenie",
+        "NAME": "ostrzeżenie",
+        "OPTIONS": {
+            "USER": {
+                "DESCRIPTION": "Podaj użytkownika, któremu chcesz wstawić ostrzeżenie",
+                "NAME": "użytkownik"
+            },
+            "REASON": {
+                "DESCRIPTION": "Podaj powód ostrzeżenia",
+                "NAME": "powód"
+            }
+        }
     },
     "WITHDRAW": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Wypłać pieniądze",
+        "NAME": "wypłać",
+        "OPTIONS": {
+            "AMOUNT": {
+                "DESCRIPTION": "Ilość pieniędzy do wypłaty",
+                "NAME": "ilość"
+            }
+        }
     },
     "WORK": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Zdobądź pieniądze za pracę!",
+        "NAME": "pracuj"
     }
 }

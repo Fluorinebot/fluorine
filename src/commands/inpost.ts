@@ -39,18 +39,8 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [embed] });
 }
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('inpost')
-    .setNameLocalizations({ pl: 'inpost' })
-    .setDescription('Track an InPost package')
-    .setDescriptionLocalizations({ pl: 'Śledź paczkę w InPost' })
-    .addStringOption(option =>
-        option
-            .setName('id')
-            .setNameLocalizations({ pl: 'id' })
-            .setDescription('ID of the package')
-            .setDescriptionLocalizations({ pl: 'Id paczki' })
-            .setRequired(true)
-    );
+export const slashCommandData = new SlashCommandBuilder('INPOST').addStringOption('ID', option =>
+    option.setRequired(true)
+);
 
 export const category = 'tools';

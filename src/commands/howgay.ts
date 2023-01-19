@@ -1,11 +1,10 @@
-import { SlashCommandBuilder } from '#builders';
+import { SlashCommandBuilder, ContextMenuCommandBuilder } from '#builders';
 import type { FluorineClient } from '#classes';
 import type { Category } from '#types';
 import {
     ApplicationCommandType,
     type ChatInputCommandInteraction,
-    type UserContextMenuCommandInteraction,
-    ContextMenuCommandBuilder
+    type UserContextMenuCommandInteraction
 } from 'discord.js';
 import hash from 'murmurhash-v3';
 
@@ -35,23 +34,8 @@ export async function onCommand(
     );
 }
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('howgay')
-    .setNameLocalizations({ pl: 'howgay' })
-    .setDescription('Check how gay something is')
-    .setDescriptionLocalizations({ pl: 'Sprawdź, jak gejowa jest jakaś rzecz' })
-    .addStringOption(option =>
-        option
-            .setName('thing')
-            .setNameLocalizations({ pl: 'rzecz' })
-            .setDescription('Provide a thing to check')
-            .setDescriptionLocalizations({ pl: 'Podaj rzecz, którą chcesz sprawdzić' })
-            .setRequired(false)
-    );
+export const slashCommandData = new SlashCommandBuilder('HOWGAY').addStringOption('THING');
 
-export const contextMenuCommandData = new ContextMenuCommandBuilder()
-    .setName('How Gay')
-    .setNameLocalizations({ pl: 'How Gay' })
-    .setType(ApplicationCommandType.User);
+export const contextMenuCommandData = new ContextMenuCommandBuilder(ApplicationCommandType.User, 'HOWGAY');
 
 export const category: Category = 'fun';

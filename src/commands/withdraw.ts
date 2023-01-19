@@ -26,20 +26,8 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     await client.economy.withdraw(interaction.guildId, interaction.user, toWithdraw);
 }
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('withdraw')
-    .setNameLocalizations({ pl: 'wypłać' })
-    .setDescription('Withdraw your money')
-    .setDescriptionLocalizations({ pl: 'Wypłać pieniądze' })
+export const slashCommandData = new SlashCommandBuilder('WITHDRAW')
     .setDMPermission(false)
-    .addIntegerOption(option =>
-        option
-            .setName('amount')
-            .setNameLocalizations({ pl: 'ilość' })
-            .setDescription('Amount of money to withdraw')
-            .setDescriptionLocalizations({ pl: 'Ilość pieniędzy do wypłaty' })
-            .setMinValue(1)
-            .setRequired(true)
-    );
+    .addIntegerOption('AMOUNT', option => option.setMinValue(1).setRequired(true));
 
 export const category: Category = 'economy';

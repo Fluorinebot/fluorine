@@ -63,29 +63,10 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     client.cases.logToModerationChannel(interaction.guildId, caseObj);
 }
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('kick')
-    .setNameLocalizations({ pl: 'kick' })
-    .setDescription('Kick a user from the server')
-    .setDescriptionLocalizations({ pl: 'Wyrzuca użytkownika z serwera' })
+export const slashCommandData = new SlashCommandBuilder('KICK')
     .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
     .setDMPermission(false)
-    .addUserOption(option =>
-        option
-            .setName('user')
-            .setNameLocalizations({ pl: 'użytkownik' })
-            .setDescription('Provide a user to kick')
-            .setDescriptionLocalizations({ pl: 'Podaj użytkownika, którego chcesz wyrzucić' })
-            .setRequired(true)
-    )
-    .addStringOption(option =>
-        option
-            .setName('reason')
-            .setNameLocalizations({ pl: 'powód' })
-            .setDescription('Provide a reason for kicking this user')
-            .setDescriptionLocalizations({ pl: 'Podaj powód wyrzucenia użytkownika z serwera' })
-            .setMaxLength(1024)
-            .setRequired(false)
-    );
+    .addUserOption('USER', option => option.setRequired(true))
+    .addStringOption('REASON', option => option.setMaxLength(1024));
 
 export const category: Category = 'moderation';

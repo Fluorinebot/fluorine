@@ -25,12 +25,28 @@
         "NAME": "balance"
     },
     "BAN": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Ban a user from the server",
+        "NAME": "ban",
+        "OPTIONS": {
+            "REASON": {
+                "DESCRIPTION": "Provide a reason for banning this user",
+                "NAME": "reason"
+            },
+            "USER": {
+                "DESCRIPTION": "Provide a user to ban'",
+                "NAME": "user"
+            }
+        }
     },
     "BEDWARS": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Check a player's bedwars stats from Hypixel",
+        "NAME": "bedwars",
+        "OPTIONS": {
+            "PLAYER": {
+                "DESCRIPTION": "The player to search",
+                "NAME": "player"
+            }
+        }
     },
     "BIRB": {
         "DESCRIPTION": "Random bird picture",
@@ -62,8 +78,8 @@
         }
     },
     "CAT": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Random cat picture",
+        "NAME": "cat"
     },
     "CONFIG": {
         "CURRENCY": {
@@ -110,8 +126,8 @@
         "NAME": "config"
     },
     "CRIME": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Commit a crime",
+        "NAME": "crime"
     },
     "DEPLOY": {
         "CREATE": {
@@ -146,8 +162,14 @@
         "NAME": "deploy"
     },
     "DEPOSIT": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Deposit your money",
+        "NAME": "deposit",
+        "OPTIONS": {
+            "AMOUNT": {
+                "DESCRIPTION": "Amount of money to deposit",
+                "NAME": "amount"
+            }
+        }
     },
     "DEV": {
         "DESCRIPTION": "Commands to aid in Fluorine's development",
@@ -170,32 +192,67 @@
         }
     },
     "DOG": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Random dog picture",
+        "NAME": "dog"
     },
     "HELP": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Display the list of commands",
+        "NAME": "help",
+        "OPTIONS": {
+            "CATEGORY": {
+                "CHOICES": {
+                    "ECONOMY": "Economy",
+                    "FUN": "Fun",
+                    "MODERATION": "Moderation",
+                    "TOOLS": "Tools"
+                },
+                "DESCRIPTION": "The category to display",
+                "NAME": "category"
+            }
+        }
     },
     "HOWGAY": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "CONTEXT": "How Gay",
+        "DESCRIPTION": "Check how gay something is",
+        "NAME": "howgay",
+        "OPTIONS": {
+            "THING": {
+                "DESCRIPTION": "Provide a thing to check",
+                "NAME": "thing"
+            }
+        }
     },
     "INFO": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Information about Fluorine",
+        "NAME": "info"
     },
     "INPOST": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Track an InPost Package",
+        "NAME": "inpost",
+        "OPTIONS": {
+            "ID": {
+                "DESCRIPTION": "ID of the package",
+                "NAME": "id"
+            }
+        }
     },
     "KICK": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Kick a user from the server",
+        "NAME": "kick",
+        "OPTIONS": {
+            "REASON": {
+                "DESCRIPTION": "Provide a reason for kicking this user",
+                "NAME": "reason"
+            },
+            "USER": {
+                "DESCRIPTION": "Provide a user to kick",
+                "NAME": "user"
+            }
+        }
     },
     "PING": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Check the bot's ping",
+        "NAME": "ping"
     },
     "PROFILE": {
         "DESCRIPTION": "View/set a profile",
@@ -233,12 +290,18 @@
         }
     },
     "ROB": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Rob a user",
+        "NAME": "rob",
+        "OPTIONS": {
+            "USER": {
+                "DESCRIPTION": "Użytkownik, którego chcesz okraść",
+                "NAME": "użytkownik"
+            }
+        }
     },
     "SERVERINFO": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Information about this server",
+        "NAME": "serverinfo"
     },
     "SHOP": {
         "BUY": {
@@ -291,31 +354,67 @@
         "NAME": "shop"
     },
     "SKYWARS": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Check a player's skywars stats from Hypixel",
+        "NAME": "skywars",
+        "OPTIONS": {
+            "PLAYER": {
+                "DESCRIPTION": "The player to search",
+                "NAME": "player"
+            }
+        }
     },
     "SLUT": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Get money by being a slut!",
+        "NAME": "slut"
     },
     "SUPPORT": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Get an invite link to Fluorine's support server",
+        "NAME": "support"
     },
     "TIMEOUT": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Timeout a user from the server",
+        "NAME": "timeout",
+        "OPTIONS": {
+            "USER": {
+                "DESCRIPTION": "Provide a user to timeout",
+                "NAME": "user"
+            },
+            "DURATION": {
+                "DESCRIPTION": "Provide how long the timeout will last",
+                "NAME": "duration"
+            },
+            "REASON": {
+                "DESCRIPTION": "Provide a reason for timing out this user",
+                "NAME": "reason"
+            }
+        }
     },
     "WARN": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Warn a user in the server",
+        "NAME": "warn",
+        "OPTIONS": {
+            "USER": {
+                "DESCRIPTION": "Provide a user to warn",
+                "NAME": "user"
+            },
+            "REASON": {
+                "DESCRIPTION": "Provide a reason for warning this user",
+                "NAME": "reason"
+            }
+        }
     },
     "WITHDRAW": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Withdraw your money",
+        "NAME": "withdraw",
+        "OPTIONS": {
+            "AMOUNT": {
+                "DESCRIPTION": "Amount of money to withdraw",
+                "NAME": "amount"
+            }
+        }
     },
     "WORK": {
-        "DESCRIPTION": "",
-        "NAME": ""
+        "DESCRIPTION": "Get money from working!",
+        "NAME": "work"
     }
 }

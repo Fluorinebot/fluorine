@@ -69,49 +69,9 @@ export async function onInteraction(
     interaction.isChatInputCommand() ? interaction.reply(options) : interaction.update(options);
 }
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('help')
-    .setNameLocalizations({ pl: 'pomoc' })
-    .setDescription('Display the list of commands')
-    .setDescriptionLocalizations({ pl: 'Wyświetl listę komend' })
-    .addStringOption(option =>
-        option
-            .setName('category')
-            .setNameLocalizations({ pl: 'kategoria' })
-            .setDescription('The category to display')
-            .setDescriptionLocalizations({ pl: 'Kategoria, którą chcesz wyświetlić' })
-            .addChoices(
-                {
-                    name: 'Fun',
-                    name_localizations: {
-                        pl: 'Fun'
-                    },
-                    value: 'fun'
-                },
-                {
-                    name: 'Tools',
-                    name_localizations: {
-                        pl: 'Narzędzia'
-                    },
-                    value: 'tools'
-                },
-                {
-                    name: 'Moderation',
-                    name_localizations: {
-                        pl: 'Moderacja'
-                    },
-                    value: 'moderation'
-                },
-                {
-                    name: 'Economy',
-                    name_localizations: {
-                        pl: 'Ekonomia'
-                    },
-                    value: 'economy'
-                }
-            )
-            .setRequired(true)
-    );
+export const slashCommandData = new SlashCommandBuilder('HELP').addStringOption('CATEGORY', option =>
+    option.addChoices('fun', 'tools', 'moderation', 'economy').setRequired(true)
+);
 
 export const componentData: ComponentData = {
     exists: true,

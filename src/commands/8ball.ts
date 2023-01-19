@@ -18,14 +18,8 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [embed] });
 }
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('8BALL.NAME')
-    .setDescription('8BALL.DESCRIPTION')
-    .addStringOption(option =>
-        option
-            .setName('8BALL.OPTIONS.QUESTION.NAME')
-            .setDescription('8BALL.OPTIONS.QUESTION.DESCRIPTION')
-            .setRequired(true)
-    );
+export const slashCommandData = new SlashCommandBuilder('8BALL').addStringOption('QUESTION', option =>
+    option.setRequired(true)
+);
 
 export const category: Category = 'fun';

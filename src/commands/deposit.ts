@@ -26,20 +26,8 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     await client.economy.deposit(interaction.guildId, interaction.user, toDeposit);
 }
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('deposit')
-    .setNameLocalizations({ pl: 'wpłać' })
-    .setDescription('Deposit your money')
-    .setDescriptionLocalizations({ pl: 'Wpłać swoje pieniądze' })
+export const slashCommandData = new SlashCommandBuilder('DEPOSIT')
     .setDMPermission(false)
-    .addIntegerOption(option =>
-        option
-            .setName('amount')
-            .setNameLocalizations({ pl: 'ilość' })
-            .setDescription('Amount of money to deposit')
-            .setDescriptionLocalizations({ pl: 'Ilość pieniędzy, które chcesz wpłacić' })
-            .setMinValue(1)
-            .setRequired(true)
-    );
+    .addIntegerOption('DEPOSIT', option => option.setMinValue(1).setRequired(true));
 
 export const category: Category = 'economy';

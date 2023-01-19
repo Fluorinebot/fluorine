@@ -75,18 +75,8 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [embed] });
 }
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('skywars')
-    .setNameLocalizations({ pl: 'skywars' })
-    .setDescription("Check a player's skywars stats from Hypixel")
-    .setDescriptionLocalizations({ pl: 'Sprawdź statystyki skywars gracza Hypixela' })
-    .addStringOption(option =>
-        option
-            .setName('player')
-            .setNameLocalizations({ pl: 'gracz' })
-            .setDescription('The player to search')
-            .setDescriptionLocalizations({ pl: 'Gracz, którego statystyki chcesz sprawdzić' })
-            .setRequired(true)
-    );
+export const slashCommandData = new SlashCommandBuilder('SKYWARS').addStringOption('PLAYER', option =>
+    option.setRequired(true)
+);
 
 export const category: Category = 'fun';

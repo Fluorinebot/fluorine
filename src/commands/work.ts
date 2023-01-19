@@ -19,12 +19,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [embed] });
 }
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('work')
-    .setNameLocalizations({ pl: 'pracuj' })
-    .setDescription('Get money from working!')
-    .setDescriptionLocalizations({ pl: 'Zdobądź pieniądze za pracę!' })
-    .setDMPermission(false);
+export const slashCommandData = new SlashCommandBuilder('WORK').setDMPermission(false);
 
 export const category: Category = 'economy';
 export const cooldown = 30 * 60 * 1000;

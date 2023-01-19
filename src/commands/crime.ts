@@ -34,12 +34,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     client.economy.add(interaction.guildId, interaction.user, money);
 }
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('crime')
-    .setNameLocalizations({ pl: 'przestępstwo' })
-    .setDescription('Commit a crime')
-    .setDescriptionLocalizations({ pl: 'Popełnij przestępstwo w ekonomii' })
-    .setDMPermission(false);
+export const slashCommandData = new SlashCommandBuilder('CRIME').setDMPermission(false);
 
 export const category: Category = 'economy';
 export const cooldown = 1 * 60 * 60 * 1000;

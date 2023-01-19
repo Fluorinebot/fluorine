@@ -124,10 +124,5 @@ export const componentData: ComponentData = {
     authorOnly: true
 };
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('info')
-    .setNameLocalizations({ pl: 'informacje' })
-    .setDescription('Information about Fluorine')
-    .setDescriptionLocalizations({ pl: 'Informacje o Fluorine' });
-
+export const slashCommandData = new SlashCommandBuilder('INFO');
 export const category: Category = 'tools';

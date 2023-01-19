@@ -15,10 +15,6 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [embed] });
 }
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('dog')
-    .setNameLocalizations({ pl: 'pies' })
-    .setDescription('Random dog picture')
-    .setDescriptionLocalizations({ pl: 'Losowe zdjęcie psa' });
+export const slashCommandData = new SlashCommandBuilder('DOG');
 
 export const category: Category = 'fun';

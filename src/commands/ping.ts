@@ -11,10 +11,5 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [embed] });
 }
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('ping')
-    .setNameLocalizations({ pl: 'ping' })
-    .setDescription("Check the bot's ping")
-    .setDescriptionLocalizations({ pl: 'Sprawdź ping bota' });
-
+export const slashCommandData = new SlashCommandBuilder('PING');
 export const category: Category = 'tools';
