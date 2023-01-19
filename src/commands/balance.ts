@@ -19,5 +19,4 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 }
 
 export const slashCommandData = new SlashCommandBuilder('BALANCE').setDMPermission(false);
-
 export const category: Category = 'economy';

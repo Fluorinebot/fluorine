@@ -16,6 +16,5 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 }
 
 export const slashCommandData = new SlashCommandBuilder('SLUT').setDMPermission(false);
-
 export const category: Category = 'economy';
 export const cooldown = 1 * 60 * 60 * 1000;

@@ -55,8 +55,8 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
             interaction.editReply(
                 `Added \`${
                     client.chatInputCommands.get(name)
-                        ? command.slashCommandData?.name
-                        : command.contextMenuCommandData?.name
+                        ? command.slashCommandData?.builder.name
+                        : command.contextMenuCommandData?.builder.name
                 }\`.`
             );
         }

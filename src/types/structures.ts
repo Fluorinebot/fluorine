@@ -1,27 +1,28 @@
+import type { ContextMenuCommandBuilder, SlashCommandBuilder, SlashCommandSubcommandBuilder } from '#builders';
 import type { FluorineClient } from '#classes';
 import type {
+    AutocompleteInteraction,
     ChatInputCommandInteraction,
     Collection,
     CommandInteraction,
-    ContextMenuCommandBuilder,
     ContextMenuCommandInteraction,
+    Interaction,
     MessageComponentInteraction,
     ModalSubmitInteraction,
-    SlashCommandBuilder,
-    SlashCommandSubcommandBuilder,
-    TextInputComponent,
-    Interaction,
-    AutocompleteInteraction,
-    SlashCommandMentionableOption,
     SlashCommandAttachmentOption,
     SlashCommandBooleanOption,
     SlashCommandChannelOption,
     SlashCommandIntegerOption,
+    SlashCommandMentionableOption,
     SlashCommandNumberOption,
     SlashCommandRoleOption,
     SlashCommandStringOption,
+    SlashCommandSubcommandGroupBuilder,
     SlashCommandUserOption,
-    SlashCommandSubcommandGroupBuilder
+    TextInputComponent,
+    ContextMenuCommandBuilder as DjsContextMenuCommandBuilder,
+    SlashCommandBuilder as DjsSlashCommandBuilder,
+    SlashCommandSubcommandBuilder as DjsSlashCommandSubcommandBuilder
 } from 'discord.js';
 
 export type Category = 'fun' | 'tools' | 'moderation' | 'economy';
@@ -88,9 +89,9 @@ export type Component = Pick<BaseCommand, 'componentData'> & Command;
 export type Modal = Pick<BaseCommand, 'modalData'> & Command;
 
 export type CommandResolvable =
-    | SlashCommandBuilder
-    | SlashCommandSubcommandBuilder
-    | ContextMenuCommandBuilder
+    | DjsSlashCommandBuilder
+    | DjsSlashCommandSubcommandBuilder
+    | DjsContextMenuCommandBuilder
     | SlashCommandSubcommandGroupBuilder;
 
 export type OptionResolvable =

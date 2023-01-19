@@ -10,9 +10,10 @@ import i18next from 'i18next';
 const preload = i18next.options.preload as string[];
 
 export class BaseBuilder<T extends BuilderResolvable> {
-    builder: T;
     private i18n = i18next;
     private langs = preload.filter(lang => lang !== 'en-US');
+
+    public builder: T;
     public baseKey: string;
     public type: ApplicationCommandOptionType | ApplicationCommandType;
 

@@ -16,5 +16,4 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 }
 
 export const slashCommandData = new SlashCommandBuilder('DOG');
-
 export const category: Category = 'fun';

@@ -20,8 +20,12 @@ export async function onInteraction(
     const commands = client.chatInputCommands.filter((c: ChatInputCommand) => c.category === category && !c.dev);
 
     const fields: APIEmbedField[] = commands.map(c => ({
-        name: `/${c.slashCommandData.name_localizations[interaction.locale] ?? c.slashCommandData.name}`,
-        value: c.slashCommandData.description_localizations[interaction.locale] ?? c.slashCommandData.description
+        name: `/${
+            c.slashCommandData.builder.name_localizations[interaction.locale] ?? c.slashCommandData.builder.name
+        }`,
+        value:
+            c.slashCommandData.builder.description_localizations[interaction.locale] ??
+            c.slashCommandData.builder.description
     }));
 
     const embed = new Embed(client, interaction.locale)

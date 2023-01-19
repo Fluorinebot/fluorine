@@ -35,7 +35,5 @@ export async function onCommand(
 }
 
 export const slashCommandData = new SlashCommandBuilder('HOWGAY').addStringOption('THING');
-
 export const contextMenuCommandData = new ContextMenuCommandBuilder(ApplicationCommandType.User, 'HOWGAY');
-
 export const category: Category = 'fun';
