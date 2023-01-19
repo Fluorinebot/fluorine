@@ -108,10 +108,11 @@ export class CommandWithOptions<T extends SlashCommandBuilder | SlashCommandSubc
     }
 
     prepareOptions() {
-        // console.log('hi');
         for (const option of this.optionQueue) {
             this.mapOption(option);
         }
+
+        this.optionQueue = [];
 
         return this;
     }

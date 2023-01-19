@@ -39,6 +39,7 @@ export class OptionWithAutocomplete<
             };
         });
 
+        this.choiceQueue = [];
         // i know this is an any but thats what you have to do when youre doing assumed types.
         this.builder.addChoices(...(preparedChoices as any[]));
         return this;

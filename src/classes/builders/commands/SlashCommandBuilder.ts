@@ -39,6 +39,7 @@ export class SlashCommandBuilder extends CommandWithOptions<UnlocalizedBuilder> 
             subcommandGroup.builder.addSubcommand(subcommand.prepareOptions().builder);
         }
 
+        subcommandGroup.subcommandQueue = [];
         this.builder.addSubcommandGroup(subcommandGroup.builder);
         return this;
     }
