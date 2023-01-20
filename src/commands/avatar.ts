@@ -1,48 +1,46 @@
 import {
-    EmbedBuilder,
-    SlashCommandBuilder,
-    ContextMenuCommandBuilder,
     ActionRowBuilder,
-    ButtonBuilder
+    ButtonBuilder,
+    ContextMenuCommandBuilder,
+    EmbedBuilder,
+    SlashCommandBuilder
 } from '#builders';
-import { type FluorineClient } from '#classes';
-import type { ComponentData, Category } from '#types';
+import type { FluorineClient } from '#classes';
+import type { Category, ComponentData } from '#types';
 import {
-    type ChatInputCommandInteraction,
-    GuildMember,
-    type InteractionReplyOptions,
-    type ButtonInteraction,
-    type ContextMenuCommandInteraction,
+    ApplicationCommandType,
     ButtonStyle,
-    type User,
-    ApplicationCommandType
+    GuildMember,
+    type ButtonInteraction,
+    type ChatInputCommandInteraction,
+    type ContextMenuCommandInteraction,
+    type User
 } from 'discord.js';
 
-function createComponents(
+export async function onInteraction(
     client: FluorineClient,
-    interaction: ChatInputCommandInteraction | ButtonInteraction | ContextMenuCommandInteraction,
-    member: GuildMember,
-    action: 'guild' | 'user'
+    interaction: ChatInputCommandInteraction | ContextMenuCommandInteraction | ButtonInteraction,
+    value?: string
 ) {
-    return new ActionRowBuilder(interaction.locale).addComponents(
-        new ButtonBuilder(`avatar:${interaction.user.id}:${member.id}.guild`)
-            .setLabel('AVATAR_GUILD')
-            .setStyle(ButtonStyle.Primary)
-            .setDisabled(action === 'guild'),
-        new ButtonBuilder(`avatar:${interaction.user.id}:${member.id}.user`)
-            .setLabel('AVATAR_USER')
-            .setStyle(ButtonStyle.Primary)
-            .setDisabled(action === 'user')
-    );
-}
+    let member: GuildMember | User;
+    let action: string;
 
-function createEmbed(
-    client: FluorineClient,
-    interaction: ChatInputCommandInteraction | ButtonInteraction | ContextMenuCommandInteraction,
-    member: GuildMember | User,
-    action: 'guild' | 'user'
-) {
+    if (interaction.isContextMenuCommand() || interaction.isChatInputCommand()) {
+        member =
+            (interaction.options.getMember('user') as unknown as User) ??
+            interaction.options.getUser('user') ??
+            (interaction.member as GuildMember);
+
+        action = 'guild';
+    } else {
+        const [memberId, parsedAction] = value.split('.');
+
+        member = await interaction.guild.members.fetch(memberId);
+        action = parsedAction;
+    }
+
     const embed = new EmbedBuilder(client, interaction.locale).setTitle('AVATAR');
+    const components = new ActionRowBuilder(interaction.locale);
 
     if (member instanceof GuildMember) {
         switch (action) {
@@ -56,38 +54,25 @@ function createEmbed(
                 break;
             }
         }
+
+        if (member.avatar) {
+            components.addComponents(
+                new ButtonBuilder(`avatar:${interaction.user.id}:${member.id}.guild`)
+                    .setLabel('AVATAR_GUILD')
+                    .setStyle(ButtonStyle.Primary)
+                    .setDisabled(action === 'guild'),
+                new ButtonBuilder(`avatar:${interaction.user.id}:${member.id}.user`)
+                    .setLabel('AVATAR_USER')
+                    .setStyle(ButtonStyle.Primary)
+                    .setDisabled(action === 'user')
+            );
+        }
     } else {
         embed.setImage(member.displayAvatarURL({ size: 512 }));
     }
 
-    return embed.builder;
-}
-
-export async function onCommand(
-    client: FluorineClient,
-    interaction: ChatInputCommandInteraction<'cached'> | ContextMenuCommandInteraction<'cached'>
-) {
-    const user = interaction.options.getMember('user') ?? interaction.options.getUser('user') ?? interaction.member;
-
-    const replyOptions: InteractionReplyOptions = {
-        embeds: [createEmbed(client, interaction, user, 'guild')]
-    };
-
-    if (user instanceof GuildMember && user.avatar) {
-        replyOptions.components = [createComponents(client, interaction, user, 'guild')];
-    }
-
-    interaction.reply(replyOptions);
-}
-
-export async function onComponent(client: FluorineClient, interaction: ButtonInteraction, value: string) {
-    const [memberId, action] = value.split('.');
-    const member = await interaction.guild.members.fetch(memberId);
-
-    interaction.update({
-        components: [createComponents(client, interaction, member, action as 'guild' | 'user')],
-        embeds: [createEmbed(client, interaction, member, action as 'guild' | 'user')]
-    });
+    const options = { embeds: [embed.builder], components: [components.builder] };
+    interaction.isMessageComponent() ? interaction.update(options) : interaction.reply(options);
 }
 
 export const slashCommandData = new SlashCommandBuilder('AVATAR').addUserOption('USER');
