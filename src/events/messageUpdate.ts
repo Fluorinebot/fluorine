@@ -1,4 +1,5 @@
-import { Embed, type FluorineClient } from '#classes';
+import { EmbedBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
 import type { Message } from 'discord.js';
 
 export async function run(client: FluorineClient, oldMessage: Message, newMessage: Message) {
@@ -27,25 +28,25 @@ export async function run(client: FluorineClient, oldMessage: Message, newMessag
 
     const { member } = newMessage;
 
-    const embed = new Embed(client, newMessage.guild.preferredLocale)
-        .setLocaleTitle('MESSAGE_UPDATE_TITLE')
+    const embed = new EmbedBuilder(client, newMessage.guild.preferredLocale)
+        .setTitle('MESSAGE_UPDATE_TITLE')
         .setThumbnail(member.displayAvatarURL())
-        .addLocaleFields([
+        .addFields(
             {
                 name: 'MESSAGE_UPDATE_AUTHOR',
-                value: member.user.tag
+                rawValue: member.user.tag
             },
             {
                 name: 'MESSAGE_UPDATE_OLD_CONTENT',
-                localeValue: 'NONE',
-                value: oldMessage.content
+                value: 'NONE',
+                rawValue: oldMessage.content
             },
             {
                 name: 'MESSAGE_UPDATE_NEW_CONTENT',
-                localeValue: 'NONE',
-                value: newMessage.content
+                value: 'NONE',
+                rawValue: newMessage.content
             }
-        ]);
+        );
 
-    channel.send({ embeds: [embed] });
+    channel.send({ embeds: [embed.builder] });
 }

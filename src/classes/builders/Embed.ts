@@ -44,8 +44,8 @@ export class EmbedBuilder extends BaseBuilder<UnlocalizedBuilder> {
         return this;
     }
 
-    setDescription(description: string, args = {}, raw = false): this {
-        this.builder.setDescription(raw ? description : this.getOne(description, this.locale, args));
+    setDescription(description: string, args: Record<string, any> = {}): this {
+        this.builder.setDescription(args.raw ? description : this.getOne(description, this.locale, args));
         return this;
     }
 
@@ -64,8 +64,8 @@ export class EmbedBuilder extends BaseBuilder<UnlocalizedBuilder> {
         return this;
     }
 
-    setTitle(title: string, args = {}, raw = false): this {
-        this.builder.setTitle(raw ? title : this.getOne(title, this.locale, args));
+    setTitle(title: string, args: Record<string, any> = {}): this {
+        this.builder.setTitle(args.raw ? title : this.getOne(title, this.locale, args));
         return this;
     }
 

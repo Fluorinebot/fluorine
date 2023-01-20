@@ -1,4 +1,4 @@
-import { SlashCommandSubcommandBuilder } from '#builders';
+import { EmbedBuilder, SlashCommandSubcommandBuilder } from '#builders';
 import type { FluorineClient } from '#classes';
 import type { ShopItemConstructor } from '#types';
 import { type ChatInputCommandInteraction, PermissionFlagsBits } from 'discord.js';
@@ -29,16 +29,16 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     if (existingItem) {
         return interaction.reply({ content: client.i18n.t('SHOP_CREATE_EXISTS') });
     }
-    const embed = new EmbedBuilder(client, interaction.locale).setTitle('SHOP_CREATE_SUCCESS').addFields([
-        { name: 'SHOP_CREATE_NAME', value: name },
-        { name: 'SHOP_CREATE_DESCRIPTION', value: description },
+    const embed = new EmbedBuilder(client, interaction.locale).setTitle('SHOP_CREATE_SUCCESS').addFields(
+        { name: 'SHOP_CREATE_NAME', rawValue: name },
+        { name: 'SHOP_CREATE_DESCRIPTION', rawValue: description },
         {
             name: 'SHOP_CREATE_PRICE',
-            value: `${price} ${await client.economy.getCurrency(interaction.guildId)}`
+            rawValue: `${price} ${await client.economy.getCurrency(interaction.guildId)}`
         }
-    ]);
+    );
 
-    interaction.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed.builder] });
     client.shop.add(obj);
 }
 

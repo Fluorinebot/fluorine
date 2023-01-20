@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from '#builders';
+import { EmbedBuilder, SlashCommandBuilder } from '#builders';
 import type { FluorineClient } from '#classes';
 import type { Category } from '#types';
 import { type ChatInputCommandInteraction, PermissionFlagsBits } from 'discord.js';
@@ -60,18 +60,18 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         .setTitle('TIMEOUT_SUCCESS_TITLE')
         .setDescription('TIMEOUT_SUCCESS_DESCRIPTION')
         .setThumbnail(member.displayAvatarURL())
-        .addFields([
+        .addFields(
             {
                 name: 'TIMEOUT_MODERATOR',
-                value: interaction.user.tag
+                rawValue: interaction.user.tag
             },
-            { name: 'TIMEOUT_USER', value: member.user.tag },
-            { name: 'DURATION', value: ms(duration) },
-            { name: 'REASON', value: reason },
-            { name: 'CASE_ID', value: caseObj.caseId.toString() }
-        ]);
+            { name: 'TIMEOUT_USER', rawValue: member.user.tag },
+            { name: 'DURATION', rawValue: ms(duration) },
+            { name: 'REASON', rawValue: reason },
+            { name: 'CASE_ID', rawValue: caseObj.caseId.toString() }
+        );
 
-    interaction.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed.builder] });
     client.cases.logToModerationChannel(interaction.guildId, caseObj);
 }
 

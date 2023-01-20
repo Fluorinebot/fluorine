@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from '#builders';
+import { EmbedBuilder, SlashCommandBuilder } from '#builders';
 import type { FluorineClient } from '#classes';
 import type { Category } from '#types';
 import { type ChatInputCommandInteraction } from 'discord.js';
@@ -12,7 +12,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         });
 
     client.economy.add(interaction.guildId, interaction.user, money);
-    interaction.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed.builder] });
 }
 
 export const slashCommandData = new SlashCommandBuilder('SLUT').setDMPermission(false);

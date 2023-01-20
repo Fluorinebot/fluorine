@@ -1,4 +1,4 @@
-import { SlashCommandSubcommandBuilder } from '#builders';
+import { EmbedBuilder, SlashCommandSubcommandBuilder } from '#builders';
 import type { FluorineClient } from '#classes';
 import { type ChatInputCommandInteraction } from 'discord.js';
 
@@ -10,13 +10,13 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 
     if (list.length) {
         list.forEach(item => {
-            embed.addFields({ name: `${item.name} - ${item.price} ${currency}`, value: item.description });
+            embed.addFields({ rawName: `${item.name} - ${item.price} ${currency}`, rawValue: item.description });
         });
     } else {
         embed.setDescription('NONE');
     }
 
-    interaction.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed.builder] });
 }
 
 export const slashCommandData = new SlashCommandSubcommandBuilder('LIST');

@@ -1,4 +1,5 @@
-import { Embed, type FluorineClient } from '#classes';
+import { EmbedBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
 import type { Message } from 'discord.js';
 
 export async function run(client: FluorineClient, message: Message) {
@@ -25,19 +26,19 @@ export async function run(client: FluorineClient, message: Message) {
         return;
     }
 
-    const embed = new Embed(client, message.guild.preferredLocale)
-        .setLocaleTitle('MESSAGE_DELETE_TITLE')
+    const embed = new EmbedBuilder(client, message.guild.preferredLocale)
+        .setTitle('MESSAGE_DELETE_TITLE')
         .setThumbnail(message.member.displayAvatarURL())
-        .addLocaleFields([
+        .addFields(
             {
                 name: 'MESSAGE_DELETE_AUTHOR',
-                value: message.author.tag
+                rawValue: message.author.tag
             },
             {
                 name: 'MESSAGE_DELETE_CONTENT',
-                value: message.content
+                rawValue: message.content
             }
-        ]);
+        );
 
-    channel.send({ embeds: [embed] });
+    channel.send({ embeds: [embed.builder] });
 }

@@ -1,4 +1,4 @@
-import { SlashCommandSubcommandBuilder } from '#builders';
+import { EmbedBuilder, SlashCommandSubcommandBuilder } from '#builders';
 import type { FluorineClient } from '#classes';
 import { type ChatInputCommandInteraction, Routes } from 'discord.js';
 
@@ -62,10 +62,10 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         }
     } catch (error) {
         const embed = new EmbedBuilder(client, interaction.locale)
-            .setTitle('Failed')
-            .setDescription(`\`\`\`js\n${error}\`\`\``);
+            .setTitle('Failed', { raw: true })
+            .setDescription(`\`\`\`js\n${error}\`\`\``, { raw: true });
 
-        interaction.editReply({ embeds: [embed] });
+        interaction.editReply({ embeds: [embed.builder] });
     }
 }
 

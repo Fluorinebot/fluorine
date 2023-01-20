@@ -1,4 +1,4 @@
-import { SlashCommandSubcommandBuilder } from '#builders';
+import { EmbedBuilder, SlashCommandSubcommandBuilder } from '#builders';
 import type { FluorineClient } from '#classes';
 import { type ChatInputCommandInteraction, Routes } from 'discord.js';
 
@@ -43,9 +43,10 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         interaction.editReply('Deleted all commands.');
     } catch (error) {
         const embed = new EmbedBuilder(client, interaction.locale)
-            .setTitle('Failed')
-            .setDescription(`\`\`\`js\n${error}\n${error.stack}\`\`\``);
-        interaction.editReply({ embeds: [embed] });
+            .setTitle('Failed', { raw: true })
+            .setDescription(`\`\`\`js\n${error}\n${error.stack}\`\`\``, { raw: true });
+
+        interaction.editReply({ embeds: [embed.builder] });
     }
 }
 

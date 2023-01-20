@@ -1,4 +1,4 @@
-import { SlashCommandSubcommandBuilder } from '#builders';
+import { EmbedBuilder, SlashCommandSubcommandBuilder } from '#builders';
 import type { FluorineClient } from '#classes';
 import type { ChatInputCommandInteraction } from 'discord.js';
 
@@ -21,17 +21,17 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     const embed = new EmbedBuilder(client, interaction.locale)
         .setTitle('CASE_TITLE', { id })
         .setThumbnail(user.displayAvatarURL())
-        .addFields([
-            { name: 'CASE_USER', value: user.tag },
-            { name: 'CASE_MODERATOR', value: creator.tag },
+        .addFields(
+            { name: 'CASE_USER', rawValue: user.tag },
+            { name: 'CASE_MODERATOR', rawValue: creator.tag },
             {
                 name: 'CASE_TYPE',
-                localeValue: caseObj.type.toUpperCase()
+                value: caseObj.type.toUpperCase()
             },
-            { name: 'CASE_REASON', value: caseObj.reason }
-        ]);
+            { name: 'CASE_REASON', rawValue: caseObj.reason }
+        );
 
-    interaction.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed.builder] });
 }
 
 export const slashCommandData = new SlashCommandSubcommandBuilder('VIEW').addIntegerOption('ID', option =>

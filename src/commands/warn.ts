@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from '#builders';
+import { EmbedBuilder, SlashCommandBuilder } from '#builders';
 import type { FluorineClient } from '#classes';
 import type { Category } from '#types';
 import { type ChatInputCommandInteraction, PermissionFlagsBits } from 'discord.js';
@@ -31,14 +31,14 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         .setTitle('WARN_SUCCESS_TITLE')
         .setDescription('WARN_SUCCESS_DESCRIPTION')
         .setThumbnail(member.displayAvatarURL())
-        .addFields([
-            { name: 'WARN_MODERATOR', value: interaction.user.tag },
-            { name: 'WARN_USER', value: member.user.tag },
-            { name: 'REASON', value: reason },
-            { name: 'CASE_ID', value: caseObj.caseId.toString() }
-        ]);
+        .addFields(
+            { name: 'WARN_MODERATOR', rawValue: interaction.user.tag },
+            { name: 'WARN_USER', rawValue: member.user.tag },
+            { name: 'REASON', rawValue: reason },
+            { name: 'CASE_ID', rawValue: caseObj.caseId.toString() }
+        );
 
-    interaction.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed.builder] });
     client.cases.logToModerationChannel(interaction.guildId, caseObj);
 }
 

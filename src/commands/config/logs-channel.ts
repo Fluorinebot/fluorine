@@ -1,4 +1,4 @@
-import { SlashCommandSubcommandBuilder } from '#builders';
+import { EmbedBuilder, SlashCommandSubcommandBuilder } from '#builders';
 import type { FluorineClient } from '#classes';
 import { type ChatInputCommandInteraction, ChannelType } from 'discord.js';
 
@@ -23,7 +23,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
             value
         });
 
-    interaction.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed.builder] });
 }
 
 export const slashCommandData = new SlashCommandSubcommandBuilder('CHANNEL').addChannelOption('CHANNEL', option =>

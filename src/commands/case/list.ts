@@ -1,4 +1,10 @@
-import { ActionRowBuilder, ButtonBuilder, SlashCommandSubcommandBuilder, ContextMenuCommandBuilder } from '#builders';
+import {
+    EmbedBuilder,
+    ActionRowBuilder,
+    ButtonBuilder,
+    SlashCommandSubcommandBuilder,
+    ContextMenuCommandBuilder
+} from '#builders';
 import type { FluorineClient } from '#classes';
 import type { ComponentData } from '#types';
 import { splitArray } from '#util';
@@ -41,7 +47,7 @@ export async function onInteraction(
         .setTitle('LISTCASE_TITLE', { user: member.user.tag })
         .setThumbnail(member.displayAvatarURL());
 
-    const replyOptions: InteractionReplyOptions & InteractionUpdateOptions = { embeds: [embed] };
+    const replyOptions: InteractionReplyOptions & InteractionUpdateOptions = { embeds: [embed.builder] };
 
     if (!cases.length) {
         return interaction.reply({
@@ -57,7 +63,7 @@ export async function onInteraction(
     const chunkPage = interaction.isCommand() ? page : componentPage;
 
     chunk[chunkPage].forEach(caseData => {
-        embed.addFields({ name: `#${caseData.caseId} ${caseData.type}`, value: caseData.reason });
+        embed.addFields({ rawName: `#${caseData.caseId} ${caseData.type}`, rawValue: caseData.reason });
     });
 
     if (chunk.length > 1) {

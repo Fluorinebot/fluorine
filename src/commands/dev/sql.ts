@@ -1,5 +1,5 @@
-import { SlashCommandSubcommandBuilder } from '#builders';
-import { type FluorineClient, Embed } from '#classes';
+import { EmbedBuilder, SlashCommandSubcommandBuilder } from '#builders';
+import { type FluorineClient } from '#classes';
 import {
     type Collection,
     type ModalSubmitInteraction,
@@ -53,7 +53,7 @@ export async function onModal(
         embed.setTitle('Failed').setDescription(codeBlock('js', cleaned));
     }
 
-    interaction.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed.builder] });
 }
 
 export const modalData: NonCommandInteractionData = {
