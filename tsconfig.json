@@ -8,7 +8,7 @@
         "baseUrl": "src",
         "paths": {
             "#api": ["api/index.ts"],
-            "#builders": ["classes/builders/commands/index.ts"],
+            "#builders": ["classes/builders/index.ts"],
             "#builderBases": ["classes/builders/bases/index.ts"],
             "#classes": ["classes/index.ts"],
             "#commands": ["classes/builders/commands/index.ts"],
