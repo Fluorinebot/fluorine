@@ -30,7 +30,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 
     const embed = new EmbedBuilder(client, interaction.locale)
         .setTitle('CRIME_SUCCESS')
-        .setDescription(description, true);
+        .setDescription(description, { raw: true });
 
     interaction.reply({ embeds: [embed.builder] });
     client.economy.add(interaction.guildId, interaction.user, money);

@@ -41,7 +41,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 
     const bedEmbed = new EmbedBuilder(client, interaction.locale)
         .setTitle('HYPIXEL_STATISTICS_TITLE', { player })
-        .setDescription(`K/D: ${kd}\n Win/loss ratio: ${winratio}`, true)
+        .setDescription(`K/D: ${kd}\n Win/loss ratio: ${winratio}`, { raw: true })
         .addFields(
             {
                 name: 'HYPIXEL_WON_GAMES',

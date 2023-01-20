@@ -1,5 +1,11 @@
-import { SlashCommandBuilder, ContextMenuCommandBuilder, ActionRowBuilder, ButtonBuilder } from '#builders';
-import { type FluorineClient, Embed } from '#classes';
+import {
+    EmbedBuilder,
+    SlashCommandBuilder,
+    ContextMenuCommandBuilder,
+    ActionRowBuilder,
+    ButtonBuilder
+} from '#builders';
+import { type FluorineClient } from '#classes';
 import type { ComponentData, Category } from '#types';
 import {
     type ChatInputCommandInteraction,
@@ -54,7 +60,7 @@ function createEmbed(
         embed.setImage(member.displayAvatarURL({ size: 512 }));
     }
 
-    return embed;
+    return embed.builder;
 }
 
 export async function onCommand(
