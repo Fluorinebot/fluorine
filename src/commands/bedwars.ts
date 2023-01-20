@@ -1,7 +1,8 @@
+import { SlashCommandBuilder } from '#builders';
 import { Embed, type FluorineClient } from '#classes';
 import { env } from '#env';
 import type { Category, HypixelType, UUIDResponse } from '#types';
-import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction } from 'discord.js';
 
 import type { fetch as _fetch } from 'undici';
 declare const fetch: typeof _fetch;
@@ -81,18 +82,8 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [bedEmbed] });
 }
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('bedwars')
-    .setNameLocalizations({ pl: 'bedwars' })
-    .setDescription("Check a player's bedwars stats from Hypixel")
-    .setDescriptionLocalizations({ pl: 'Sprawdź statystyki gracza Hypixela' })
-    .addStringOption(option =>
-        option
-            .setName('player')
-            .setNameLocalizations({ pl: 'gracz' })
-            .setDescription('The player to search')
-            .setDescriptionLocalizations({ pl: 'Gracz, którego statystyki sprawdzasz' })
-            .setRequired(true)
-    );
+export const slashCommandData = new SlashCommandBuilder('BEDWARS').addStringOption('PLAYER', option =>
+    option.setRequired(true)
+);
 
 export const category: Category = 'fun';

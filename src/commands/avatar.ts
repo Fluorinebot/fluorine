@@ -1,17 +1,16 @@
+import { SlashCommandBuilder, ContextMenuCommandBuilder } from '#builders';
 import { type FluorineClient, Embed } from '#classes';
 import type { ComponentData, Category } from '#types';
 import {
     type ChatInputCommandInteraction,
     GuildMember,
     type InteractionReplyOptions,
-    SlashCommandBuilder,
     type ButtonInteraction,
     type ContextMenuCommandInteraction,
     ActionRowBuilder,
     ButtonBuilder,
     ButtonStyle,
     type User,
-    ContextMenuCommandBuilder,
     ApplicationCommandType
 } from 'discord.js';
 
@@ -89,23 +88,8 @@ export async function onComponent(client: FluorineClient, interaction: ButtonInt
     });
 }
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('avatar')
-    .setNameLocalizations({ pl: 'avatar' })
-    .setDescription('Show avatar of a user')
-    .setDescriptionLocalizations({ pl: 'Wyświetla avatar użytkownika' })
-    .addUserOption(option =>
-        option
-            .setName('user')
-            .setNameLocalizations({ pl: 'użytkownik' })
-            .setDescription('Select a user')
-            .setDescriptionLocalizations({ pl: 'Wybierz użytkownika' })
-            .setRequired(false)
-    );
-
-export const contextMenuCommandData = new ContextMenuCommandBuilder()
-    .setName('Avatar')
-    .setType(ApplicationCommandType.User);
+export const slashCommandData = new SlashCommandBuilder('AVATAR').addUserOption('USER');
+export const contextMenuCommandData = new ContextMenuCommandBuilder(ApplicationCommandType.User, 'AVATAR');
 
 export const componentData: ComponentData = {
     authorOnly: false,

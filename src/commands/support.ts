@@ -1,6 +1,7 @@
+import { SlashCommandBuilder } from '#builders';
 import { Embed, type FluorineClient } from '#classes';
 import type { Category } from '#types';
-import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction } from 'discord.js';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const embed = new Embed(client, interaction.locale)
@@ -9,10 +10,5 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [embed] });
 }
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('support')
-    .setNameLocalizations({ pl: 'support' })
-    .setDescription("Get an invite link to Fluorine's support server")
-    .setDescriptionLocalizations({ pl: 'Zdobądź zaproszenie do serwera support Fluorine' });
-
+export const slashCommandData = new SlashCommandBuilder('SUPPORT');
 export const category: Category = 'tools';

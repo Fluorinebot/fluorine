@@ -1,6 +1,7 @@
+import { SlashCommandBuilder } from '#builders';
 import { Embed, type FluorineClient } from '#classes';
 import type { Category } from '#types';
-import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction } from 'discord.js';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const random = Math.floor(Math.random() * 3);
@@ -18,12 +19,6 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [embed] });
 }
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('work')
-    .setNameLocalizations({ pl: 'pracuj' })
-    .setDescription('Get money from working!')
-    .setDescriptionLocalizations({ pl: 'Zdobądź pieniądze za pracę!' })
-    .setDMPermission(false);
-
+export const slashCommandData = new SlashCommandBuilder('WORK').setDMPermission(false);
 export const category: Category = 'economy';
 export const cooldown = 30 * 60 * 1000;

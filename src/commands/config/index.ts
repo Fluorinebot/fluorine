@@ -1,11 +1,8 @@
+import { SlashCommandBuilder } from '#builders';
 import type { Category } from '#types';
-import { PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
+import { PermissionFlagsBits } from 'discord.js';
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('config')
-    .setNameLocalizations({ pl: 'konfiguracja' })
-    .setDescription("Set your guild's config")
-    .setDescriptionLocalizations({ pl: 'Zobacz konfigurację twojego serwera' })
+export const slashCommandData = new SlashCommandBuilder('CONFIG')
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
     .setDMPermission(false);
 

@@ -1,6 +1,7 @@
+import { SlashCommandBuilder } from '#builders';
 import { Embed, type FluorineClient } from '#classes';
 import type { Category } from '#types';
-import { type ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction, PermissionFlagsBits } from 'discord.js';
 import ms, { type StringValue } from 'ms';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
@@ -74,37 +75,11 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     client.cases.logToModerationChannel(interaction.guildId, caseObj);
 }
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('timeout')
-    .setNameLocalizations({ pl: 'timeout' })
-    .setDescription('Timeout a user from the server')
-    .setDescriptionLocalizations({ pl: 'Wyślij użytkownika na przerwę (podobne do mute)' })
+export const slashCommandData = new SlashCommandBuilder('TIMEOUT')
     .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers)
     .setDMPermission(false)
-    .addUserOption(option =>
-        option
-            .setName('user')
-            .setNameLocalizations({ pl: 'użytkownik' })
-            .setDescription('Provide a user to timeout')
-            .setDescriptionLocalizations({ pl: 'Podaj użytkownika, którego chcesz wysłać na przerwę' })
-            .setRequired(true)
-    )
-    .addStringOption(option =>
-        option
-            .setName('duration')
-            .setNameLocalizations({ pl: 'długość' })
-            .setDescription('Provide how long the timeout will last')
-            .setDescriptionLocalizations({ pl: 'Podaj, jak długo ma trwać przerwa' })
-            .setRequired(true)
-    )
-    .addStringOption(option =>
-        option
-            .setName('reason')
-            .setNameLocalizations({ pl: 'powód' })
-            .setDescription('Provide a reason for timing out this user')
-            .setDescriptionLocalizations({ pl: 'Podaj powód przerwy' })
-            .setMaxLength(1024)
-            .setRequired(false)
-    );
+    .addUserOption('USER', option => option.setRequired(true))
+    .addStringOption('DURATION', option => option.setRequired(true))
+    .addStringOption('REASON', option => option.setMaxLength(1024));
 
 export const category: Category = 'moderation';

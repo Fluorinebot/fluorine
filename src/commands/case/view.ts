@@ -1,5 +1,6 @@
+import { SlashCommandSubcommandBuilder } from '#builders';
 import { Embed, type FluorineClient } from '#classes';
-import { type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
+import type { ChatInputCommandInteraction } from 'discord.js';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const id = interaction.options.getInteger('id');
@@ -33,17 +34,6 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [embed] });
 }
 
-export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('view')
-    .setNameLocalizations({ pl: 'zobacz' })
-    .setDescription('Check a moderation case')
-    .setDescriptionLocalizations({ pl: 'Sprawdz informacje o karze' })
-    .addIntegerOption(option =>
-        option
-            .setName('id')
-            .setNameLocalizations({ pl: 'id' })
-            .setDescription('The case ID to search')
-            .setDescriptionLocalizations({ pl: 'ID kary' })
-            .setMinValue(1)
-            .setRequired(true)
-    );
+export const slashCommandData = new SlashCommandSubcommandBuilder('VIEW').addIntegerOption('ID', option =>
+    option.setMinValue(1).setRequired(true)
+);

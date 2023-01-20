@@ -1,6 +1,7 @@
+import { SlashCommandBuilder } from '#builders';
 import { Embed, type FluorineClient } from '#classes';
 import type { Category } from '#types';
-import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction } from 'discord.js';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const balance = await client.economy.get(interaction.guildId, interaction.user);
@@ -17,11 +18,5 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [embed], ephemeral: true });
 }
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('balance')
-    .setNameLocalizations({ pl: 'saldo' })
-    .setDescription('Check your balance')
-    .setDescriptionLocalizations({ pl: 'Sprawdź swoje saldo' })
-    .setDMPermission(false);
-
+export const slashCommandData = new SlashCommandBuilder('BALANCE').setDMPermission(false);
 export const category: Category = 'economy';

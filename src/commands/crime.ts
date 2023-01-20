@@ -1,6 +1,7 @@
+import { SlashCommandBuilder } from '#builders';
 import { Embed, type FluorineClient } from '#classes';
 import type { Category } from '#types';
-import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction } from 'discord.js';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const currency = await client.economy.getCurrency(interaction.guildId);
@@ -33,12 +34,6 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     client.economy.add(interaction.guildId, interaction.user, money);
 }
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('crime')
-    .setNameLocalizations({ pl: 'przestępstwo' })
-    .setDescription('Commit a crime')
-    .setDescriptionLocalizations({ pl: 'Popełnij przestępstwo w ekonomii' })
-    .setDMPermission(false);
-
+export const slashCommandData = new SlashCommandBuilder('CRIME').setDMPermission(false);
 export const category: Category = 'economy';
 export const cooldown = 1 * 60 * 60 * 1000;

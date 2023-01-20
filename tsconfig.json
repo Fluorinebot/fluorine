@@ -1,17 +1,21 @@
 {
     "compilerOptions": {
-        "target": "es2022",
-        "lib": ["es2022"],
+        "target": "es2021",
+        "lib": ["es2021"],
         "module": "esnext",
         "outDir": "dist",
         "moduleResolution": "Node",
         "baseUrl": "src",
         "paths": {
             "#api": ["api/index.ts"],
+            "#builders": ["classes/builders/commands/index.ts"],
+            "#builderBases": ["classes/builders/bases/index.ts"],
             "#classes": ["classes/index.ts"],
+            "#commands": ["classes/builders/commands/index.ts"],
             "#env": ["env/index.ts"],
             "#handlers": ["classes/handlers/index.ts"],
             "#modules": ["classes/modules/index.ts"],
+            "#options": ["classes/builders/options/index.ts"],
             "#util": ["util/index.ts"],
             "#types": ["types/index.ts"],
         },

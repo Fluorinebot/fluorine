@@ -1,0 +1,420 @@
+{
+    "8BALL": {
+        "DESCRIPTION": "Zapytaj o coś magiczną kulę",
+        "NAME": "magiczna-kula",
+        "OPTIONS": {
+            "QUESTION": {
+                "DESCRIPTION": "Zadaj pytanie",
+                "NAME": "pytanie"
+            }
+        }
+    },
+    "AVATAR": {
+        "CONTEXT": "Avatar",
+        "DESCRIPTION": "Wyświetla avatar użytkownika",
+        "NAME": "avatar",
+        "OPTIONS": {
+            "USER": {
+                "DESCRIPTION": "Wybierz użytkownika",
+                "NAME": "użytkownik"
+            }
+        }
+    },
+    "BALANCE": {
+        "DESCRIPTION": "Sprawdź swoje saldo",
+        "NAME": "saldo"
+    },
+    "BAN": {
+        "DESCRIPTION": "Zbanuj użytkownika",
+        "NAME": "ban",
+        "OPTIONS": {
+            "REASON": {
+                "DESCRIPTION": "Podaj powód bana",
+                "NAME": "powód"
+            },
+            "USER": {
+                "DESCRIPTION": "Podaj użytkownika, którego chcesz zbanować",
+                "NAME": "użytkownik"
+            }
+        }
+    },
+    "BEDWARS": {
+        "DESCRIPTION": "Sprawdź statystyki gracza Hypixela",
+        "NAME": "bedwars",
+        "OPTIONS": {
+            "PLAYER": {
+                "DESCRIPTION": "Gracz, którego statystyki sprawdzasz",
+                "NAME": "gracz"
+            }
+        }
+    },
+    "BIRB": {
+        "DESCRIPTION": "Losowe zdjęcie ptakaLosowe zdjęcie ptaka",
+        "NAME": "birb"
+    },
+    "CASE": {
+        "DESCRIPTION": "Sprawdz informacje o karze",
+        "LIST": {
+            "CONTEXT": "Lista kar",
+            "DESCRIPTION": "Sprawdź kary użytkownika",
+            "NAME": "lisat",
+            "OPTIONS": {
+                "USER": {
+                    "DESCRIPTION": "Użytkownik, którego chcesz sprawdzić",
+                    "NAME": "użytkownik"
+                }
+            }
+        },
+        "NAME": "kara",
+        "VIEW": {
+            "DESCRIPTION": "Sprawdz informacje o karze",
+            "NAME": "zobacz",
+            "OPTIONS": {
+                "ID": {
+                    "DESCRIPTION": "ID kary",
+                    "NAME": "id"
+                }
+            }
+        }
+    },
+    "CAT": {
+        "DESCRIPTION": "Losowe zdjęcie kota",
+        "NAME": "kot"
+    },
+    "CONFIG": {
+        "CURRENCY": {
+            "DESCRIPTION": "Ustaw walutę",
+            "NAME": "waluta",
+            "OPTIONS": {
+                "CURRENCY": {
+                    "DESCRIPTION": "Waluta, którą chcesz ustawić",
+                    "NAME": "waluta"
+                }
+            }
+        },
+        "DESCRIPTION": "Zobacz konfigurację twojego serwera",
+        "LOGS": {
+            "DESCRIPTION": "Ustaw, czy chcesz logować wiadomości na specjalnym kanale",
+            "NAME": "logi",
+            "OPTIONS": {
+                "LOGS": {
+                    "DESCRIPTION": "Ustaw, czy chcesz logować wiadomości",
+                    "NAME": "logi"
+                }
+            }
+        },
+        "LOGS_CHANNEL": {
+            "DESCRIPTION": "Ustaw kanał, na którym pojawiają się logi",
+            "NAME": "lanał-logów",
+            "OPTIONS": {
+                "CHANNEL": {
+                    "DESCRIPTION": "Kanał z logami",
+                    "NAME": "kanał"
+                }
+            }
+        },
+        "MOD_LOGS": {
+            "DESCRIPTION": "Ustaw, czy chcesz, by logować akcje moderacyjne",
+            "NAME": "mod-logi",
+            "OPTIONS": {
+                "MOD_LOGS": {
+                    "DESCRIPTION": "Ustaw, czy chcesz, by logować akcje moderacyjne",
+                    "NAME": "mod-logi"
+                }
+            }
+        },
+        "NAME": "konfiguracja"
+    },
+    "CRIME": {
+        "DESCRIPTION": "Popełnij przestępstwo w ekonomii",
+        "NAME": "przestępstwo"
+    },
+    "DEPLOY": {
+        "CREATE": {
+            "DESCRIPTION": "Create an application command",
+            "NAME": "create",
+            "OPTIONS": {
+                "COMMAND": {
+                    "DESCRIPTION": "The command to create",
+                    "NAME": "command"
+                },
+                "GUILD": {
+                    "DESCRIPTION": "The target guild",
+                    "NAME": "guild"
+                }
+            }
+        },
+        "DELETE": {
+            "DESCRIPTION": "Delete an application command",
+            "NAME": "delete",
+            "OPTIONS": {
+                "COMMAND": {
+                    "DESCRIPTION": "The command to delete",
+                    "NAME": "command"
+                },
+                "GUILD": {
+                    "DESCRIPTION": "The target guild",
+                    "NAME": "guild"
+                }
+            }
+        },
+        "DESCRIPTION": "Deploy application commands",
+        "NAME": "deploy"
+    },
+    "DEPOSIT": {
+        "DESCRIPTION": "Wpłać swoje pieniądze",
+        "NAME": "wpłać",
+        "OPTIONS": {
+            "AMOUNT": {
+                "DESCRIPTION": "Ilość pieniędzy, które chcesz wpłacić",
+                "NAME": "ilość"
+            }
+        }
+    },
+    "DEV": {
+        "DESCRIPTION": "a piece of kebab",
+        "EVAL": {
+            "DESCRIPTION": "proccess.exit();",
+            "NAME": "eval"
+        },
+        "NAME": "dev",
+        "SHELL": {
+            "DESCRIPTION": "sudo sudo",
+            "NAME": "shell"
+        },
+        "SQL": {
+            "DESCRIPTION": "DROP DATABASE splendid;",
+            "NAME": "sql"
+        },
+        "UPDATE ": {
+            "DESCRIPTION": "i forgor",
+            "NAME": "dev"
+        }
+    },
+    "DOG": {
+        "DESCRIPTION": "Losowe zdjęcie psa",
+        "NAME": "pies"
+    },
+    "HELP": {
+        "DESCRIPTION": "Wyświetl listę komend",
+        "NAME": "pomoc",
+        "OPTIONS": {
+            "CATEGORY": {
+                "CHOICES": {
+                    "ECONOMY": "Ekonomia",
+                    "FUN": "Fun",
+                    "MODERATION": "Moderacja",
+                    "TOOLS": "Narzędzia"
+                },
+                "DESCRIPTION": "Kategoria, którą chcesz wyświetlić",
+                "NAME": "kategoria"
+            }
+        }
+    },
+    "HOWGAY": {
+        "CONTEXT": "How Gay",
+        "DESCRIPTION": "Sprawdź, jak gejowa jest jakaś rzecz",
+        "NAME": "howgay",
+        "OPTIONS": {
+            "THING": {
+                "DESCRIPTION": "Podaj rzecz, którą chcesz sprawdzić",
+                "NAME": "rzecz"
+            }
+        }
+    },
+    "INFO": {
+        "DESCRIPTION": "Informacje o Fluorine",
+        "NAME": "informacje"
+    },
+    "INPOST": {
+        "DESCRIPTION": "Śledź paczkę w InPost",
+        "NAME": "inpost",
+        "OPTIONS": {
+            "ID": {
+                "DESCRIPTION": "Id paczki",
+                "NAME": "id"
+            }
+        }
+    },
+    "KICK": {
+        "DESCRIPTION": "Wyrzuca użytkownika z serwera",
+        "NAME": "kick",
+        "OPTIONS": {
+            "REASON": {
+                "DESCRIPTION": "Podaj powód wyrzucenia użytkownika z serwera",
+                "NAME": "powód"
+            },
+            "USER": {
+                "DESCRIPTION": "Podaj użytkownika, którego chcesz wyrzucić",
+                "NAME": "użytkownik"
+            }
+        }
+    },
+    "PING": {
+        "DESCRIPTION": "Sprawdź ping bota",
+        "NAME": "ping"
+    },
+    "PROFILE": {
+        "DESCRIPTION": "Obejrzyj/ustaw profil",
+        "NAME": "profil",
+        "SET": {
+            "DESCRIPTION": "Ustaw profil",
+            "NAME": "ustaw",
+            "OPTIONS": {
+                "FIELD": {
+                    "CHOICES": {
+                        "BIRTHDAY": "Urodziny",
+                        "DESCRIPTION": "Opis",
+                        "LOCATION": "Lokalizacja",
+                        "PRONOUNS": "Zaimki",
+                        "WEBSITE": "Strona internetowa"
+                    },
+                    "DESCRIPTION": "Rubryka, którą chcesz zmienić",
+                    "NAME": "rubryka"
+                },
+                "VALUE": {
+                    "DESCRIPTION": "Wartość, którą ustawić",
+                    "NAME": "wartość"
+                }
+            }
+        },
+        "VIEW": {
+            "DESCRIPTION": "Obejrz profil",
+            "NAME": "obejrz",
+            "OPTIONS": {
+                "USER": {
+                    "DESCRIPTION": "Użytkownik, którego chcesz z    obaczyć",
+                    "NAME": "użytkownik"
+                }
+            }
+        }
+    },
+    "ROB": {
+        "DESCRIPTION": "Okradnij użytkownika",
+        "NAME": "okradnij",
+        "OPTIONS": {
+            "USER": {
+                "DESCRIPTION": "User you want to rob",
+                "NAME": "user"
+            }
+        }
+    },
+    "SERVERINFO": {
+        "DESCRIPTION": "Informacje o tym serwerze",
+        "NAME": "serverinfo"
+    },
+    "SHOP": {
+        "BUY": {
+            "DESCRIPTION": "Zakup przedmiotu ze sklepu",
+            "NAME": "kup",
+            "OPTIONS": {
+                "ITEM": {
+                    "DESCRIPTION": "Przedmiot, który chcesz kupić",
+                    "NAME": "przedmiot"
+                }
+            }
+        },
+        "CREATE": {
+            "DESCRIPTION": "Utwórz przedmiot!",
+            "NAME": "utwórz",
+            "OPTIONS": {
+                "DESCRIPTION": {
+                    "DESCRIPTION": "Opis przedmiotu",
+                    "NAME": "opis"
+                },
+                "NAME": {
+                    "DESCRIPTION": "Nazwa przedmiotu",
+                    "NAME": "nawza"
+                },
+                "PRICE": {
+                    "DESCRIPTION": "Cena przedmiotu",
+                    "NAME": "cena"
+                },
+                "ROLE": {
+                    "DESCRIPTION": "Rola, którą chcesz nadać",
+                    "NAME": "rola"
+                }
+            }
+        },
+        "DELETE": {
+            "DESCRIPTION": "Usuń przedmiot ze sklepu",
+            "NAME": "usuń",
+            "OPTIONS": {
+                "NAME": {
+                    "DESCRIPTION": "Nazwa przedmiotu",
+                    "NAME": "nawza"
+                }
+            }
+        },
+        "DESCRIPTION": "Kup coś za pieniądze w ekonomii!",
+        "LIST": {
+            "DESCRIPTION": "Lista wszystkich przedmiotów w sklepie",
+            "NAME": "lista"
+        },
+        "NAME": "sklep"
+    },
+    "SKYWARS": {
+        "DESCRIPTION": "Sprawdź statystyki skywars gracza Hypixela",
+        "NAME": "skywars",
+        "OPTIONS": {
+            "PLAYER": {
+                "DESCRIPTION": "Gracz, którego statystyki chcesz sprawdzić",
+                "NAME": "gracz"
+            }
+        }
+    },
+    "SLUT": {
+        "DESCRIPTION": "Zdobądź pieniądze będąc prostytutką!",
+        "NAME": "slut"
+    },
+    "SUPPORT": {
+        "DESCRIPTION": "Zdobądź zaproszenie do serwera support Fluorine",
+        "NAME": "support"
+    },
+    "TIMEOUT": {
+        "DESCRIPTION": "Wyślij użytkownika na przerwę (podobne do mute)",
+        "NAME": "timeout",
+        "OPTIONS": {
+            "USER": {
+                "DESCRIPTION": "Podaj użytkownika, którego chcesz wysłać na przerwę",
+                "NAME": "użytkownik"
+            },
+            "DURATION": {
+                "DESCRIPTION": "Podaj, jak długo ma trwać przerwa",
+                "NAME": "długość"
+            },
+            "REASON": {
+                "DESCRIPTION": "Podaj powód przerwy",
+                "NAME": "powód"
+            }
+        }
+    },
+    "WARN": {
+        "DESCRIPTION": "Daj użytkownikowi ostrzeżenie",
+        "NAME": "ostrzeżenie",
+        "OPTIONS": {
+            "USER": {
+                "DESCRIPTION": "Podaj użytkownika, któremu chcesz wstawić ostrzeżenie",
+                "NAME": "użytkownik"
+            },
+            "REASON": {
+                "DESCRIPTION": "Podaj powód ostrzeżenia",
+                "NAME": "powód"
+            }
+        }
+    },
+    "WITHDRAW": {
+        "DESCRIPTION": "Wypłać pieniądze",
+        "NAME": "wypłać",
+        "OPTIONS": {
+            "AMOUNT": {
+                "DESCRIPTION": "Ilość pieniędzy do wypłaty",
+                "NAME": "ilość"
+            }
+        }
+    },
+    "WORK": {
+        "DESCRIPTION": "Zdobądź pieniądze za pracę!",
+        "NAME": "pracuj"
+    }
+}

@@ -1,6 +1,7 @@
+import { SlashCommandBuilder } from '#builders';
 import { Embed, type FluorineClient } from '#classes';
 import type { Category } from '#types';
-import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction } from 'discord.js';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const user = interaction.options.getUser('user');
@@ -48,20 +49,9 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 
     return interaction.reply({ embeds: [embed] });
 }
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('rob')
-    .setNameLocalizations({ pl: 'okradnij' })
-    .setDescription('Rob a user')
-    .setDescriptionLocalizations({ pl: 'Okradnij użytkownika' })
+export const slashCommandData = new SlashCommandBuilder('ROB')
     .setDMPermission(false)
-    .addUserOption(option =>
-        option
-            .setName('user')
-            .setNameLocalizations({ pl: 'użytkownik' })
-            .setDescription('User you want to rob')
-            .setDescriptionLocalizations({ pl: 'Użytkownik, którego chcesz okraść' })
-            .setRequired(true)
-    );
+    .addUserOption('USER', option => option.setRequired(true));
 
 export const category: Category = 'economy';
 export const cooldown = 12 * 60 * 60 * 1000;

@@ -1,17 +1,28 @@
+import type { ContextMenuCommandBuilder, SlashCommandBuilder, SlashCommandSubcommandBuilder } from '#builders';
 import type { FluorineClient } from '#classes';
 import type {
+    AutocompleteInteraction,
     ChatInputCommandInteraction,
     Collection,
     CommandInteraction,
-    ContextMenuCommandBuilder,
     ContextMenuCommandInteraction,
+    Interaction,
     MessageComponentInteraction,
     ModalSubmitInteraction,
-    SlashCommandBuilder,
-    SlashCommandSubcommandBuilder,
+    SlashCommandAttachmentOption,
+    SlashCommandBooleanOption,
+    SlashCommandChannelOption,
+    SlashCommandIntegerOption,
+    SlashCommandMentionableOption,
+    SlashCommandNumberOption,
+    SlashCommandRoleOption,
+    SlashCommandStringOption,
+    SlashCommandSubcommandGroupBuilder,
+    SlashCommandUserOption,
     TextInputComponent,
-    Interaction,
-    AutocompleteInteraction
+    ContextMenuCommandBuilder as DjsContextMenuCommandBuilder,
+    SlashCommandBuilder as DjsSlashCommandBuilder,
+    SlashCommandSubcommandBuilder as DjsSlashCommandSubcommandBuilder
 } from 'discord.js';
 
 export type Category = 'fun' | 'tools' | 'moderation' | 'economy';
@@ -76,6 +87,25 @@ export type ChatInputSubcommand = Pick<BaseCommand, 'slashCommandData'> &
 export type ContextMenuCommand = Pick<BaseCommand, 'contextMenuCommandData'> & Command;
 export type Component = Pick<BaseCommand, 'componentData'> & Command;
 export type Modal = Pick<BaseCommand, 'modalData'> & Command;
+
+export type CommandResolvable =
+    | DjsSlashCommandBuilder
+    | DjsSlashCommandSubcommandBuilder
+    | DjsContextMenuCommandBuilder
+    | SlashCommandSubcommandGroupBuilder;
+
+export type OptionResolvable =
+    | SlashCommandAttachmentOption
+    | SlashCommandBooleanOption
+    | SlashCommandChannelOption
+    | SlashCommandIntegerOption
+    | SlashCommandMentionableOption
+    | SlashCommandNumberOption
+    | SlashCommandRoleOption
+    | SlashCommandStringOption
+    | SlashCommandUserOption;
+
+export type BuilderResolvable = CommandResolvable | OptionResolvable;
 
 export interface Event {
     run: (client: FluorineClient, ...args: any) => void;

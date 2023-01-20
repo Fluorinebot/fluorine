@@ -1,3 +1,4 @@
+import { SlashCommandBuilder } from '#builders';
 import { readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import process from 'node:process';
@@ -8,7 +9,6 @@ import { getDirname } from '#util';
 import {
     type ChatInputCommandInteraction,
     type ButtonInteraction,
-    SlashCommandBuilder,
     ActionRowBuilder,
     ButtonBuilder,
     ButtonStyle
@@ -124,10 +124,5 @@ export const componentData: ComponentData = {
     authorOnly: true
 };
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('info')
-    .setNameLocalizations({ pl: 'informacje' })
-    .setDescription('Information about Fluorine')
-    .setDescriptionLocalizations({ pl: 'Informacje o Fluorine' });
-
+export const slashCommandData = new SlashCommandBuilder('INFO');
 export const category: Category = 'tools';

@@ -1,10 +1,10 @@
+import { SlashCommandSubcommandBuilder } from '#builders';
 import { type FluorineClient, Embed } from '#classes';
 import {
     type Collection,
     type ModalSubmitInteraction,
     type TextInputComponent,
     type ChatInputCommandInteraction,
-    SlashCommandSubcommandBuilder,
     ActionRowBuilder,
     ModalBuilder,
     TextInputBuilder,
@@ -23,7 +23,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
                 new TextInputBuilder()
                     .setCustomId(`code`)
                     .setLabel('Statement')
-                    .setPlaceholder('DROP DATammmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm splendid;')
+                    .setPlaceholder('DROP MY_SPLENDID_DATABASE;')
                     .setStyle(TextInputStyle.Paragraph)
                     .setMaxLength(4000)
                     .setRequired(true)
@@ -61,6 +61,4 @@ export const modalData: NonCommandInteractionData = {
     name: 'sql'
 };
 
-export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('sql')
-    .setDescription("Robert'); DROP TABLE students;--");
+export const slashCommandData = new SlashCommandSubcommandBuilder('SQL');

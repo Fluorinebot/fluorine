@@ -1,5 +1,6 @@
+import { SlashCommandSubcommandBuilder } from '#builders';
 import { Embed, type FluorineClient } from '#classes';
-import { type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction } from 'discord.js';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const table = client.prisma.profile;
@@ -160,61 +161,8 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     }
 }
 
-export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('set')
-    .setNameLocalizations({ pl: 'ustaw' })
-    .setDescription('Set a profile')
-    .setDescriptionLocalizations({ pl: 'Ustaw profil' })
-    .addStringOption(option =>
-        option
-            .setName('field')
-            .setNameLocalizations({ pl: 'rubryka' })
-            .setDescription('Field to set')
-            .setDescriptionLocalizations({ pl: 'Rubryka, którą chcesz zmienić' })
-            .setRequired(true)
-            .setChoices(
-                {
-                    name: 'Birthday',
-                    name_localizations: {
-                        pl: 'Urodziny'
-                    },
-                    value: 'birthday'
-                },
-                {
-                    name: 'Description',
-                    name_localizations: {
-                        pl: 'Opis'
-                    },
-                    value: 'description'
-                },
-                {
-                    name: 'Location',
-                    name_localizations: {
-                        pl: 'Lokalizacja'
-                    },
-                    value: 'location'
-                },
-                {
-                    name: 'Pronouns',
-                    name_localizations: {
-                        pl: 'Zaimki'
-                    },
-                    value: 'pronouns'
-                },
-                {
-                    name: 'Website',
-                    name_localizations: {
-                        pl: 'Strona internetowa'
-                    },
-                    value: 'website'
-                }
-            )
+export const slashCommandData = new SlashCommandSubcommandBuilder('PROFILE')
+    .addStringOption('FIELD', option =>
+        option.setRequired(true).addChoices('birthday', 'description', 'location', 'pronouns', 'website')
     )
-    .addStringOption(option =>
-        option
-            .setName('value')
-            .setNameLocalizations({ pl: 'wartość' })
-            .setDescription('Value to set')
-            .setDescriptionLocalizations({ pl: 'Wartość, którą ustawić' })
-            .setRequired(true)
-    );
+    .addStringOption('VALUE', option => option.setRequired(true));

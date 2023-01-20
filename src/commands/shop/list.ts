@@ -1,5 +1,6 @@
+import { SlashCommandSubcommandBuilder } from '#builders';
 import { Embed, type FluorineClient } from '#classes';
-import { type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction } from 'discord.js';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const list = await client.shop.list(interaction.guildId);
@@ -18,8 +19,4 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [embed] });
 }
 
-export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('list')
-    .setNameLocalizations({ pl: 'lista' })
-    .setDescription('List all items in the shop')
-    .setDescriptionLocalizations({ pl: 'Lista wszystkich przedmiotów w sklepie' });
+export const slashCommandData = new SlashCommandSubcommandBuilder('LIST');

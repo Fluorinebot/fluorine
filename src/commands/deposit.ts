@@ -1,6 +1,7 @@
+import { SlashCommandBuilder } from '#builders';
 import type { FluorineClient } from '#classes';
 import type { Category } from '#types';
-import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction } from 'discord.js';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const toDeposit = interaction.options.getInteger('amount');
@@ -25,20 +26,8 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     await client.economy.deposit(interaction.guildId, interaction.user, toDeposit);
 }
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('deposit')
-    .setNameLocalizations({ pl: 'wpłać' })
-    .setDescription('Deposit your money')
-    .setDescriptionLocalizations({ pl: 'Wpłać swoje pieniądze' })
+export const slashCommandData = new SlashCommandBuilder('DEPOSIT')
     .setDMPermission(false)
-    .addIntegerOption(option =>
-        option
-            .setName('amount')
-            .setNameLocalizations({ pl: 'ilość' })
-            .setDescription('Amount of money to deposit')
-            .setDescriptionLocalizations({ pl: 'Ilość pieniędzy, które chcesz wpłacić' })
-            .setMinValue(1)
-            .setRequired(true)
-    );
+    .addIntegerOption('AMOUNT', option => option.setMinValue(1).setRequired(true));
 
 export const category: Category = 'economy';

@@ -1,10 +1,10 @@
+import { SlashCommandSubcommandBuilder } from '#builders';
 import { type FluorineClient, Embed } from '#classes';
 import {
     type Collection,
     type ModalSubmitInteraction,
     type TextInputComponent,
     type ChatInputCommandInteraction,
-    SlashCommandSubcommandBuilder,
     ActionRowBuilder,
     ModalBuilder,
     TextInputBuilder,
@@ -24,7 +24,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
                 new TextInputBuilder()
                     .setCustomId(`code`)
                     .setLabel('Expression')
-                    .setPlaceholder('sudo rm --rf --no-preserve-root')
+                    .setPlaceholder('sudo rm -rf --no-preserve-root')
                     .setStyle(TextInputStyle.Paragraph)
                     .setMaxLength(4000)
                     .setRequired(true)
@@ -62,6 +62,4 @@ export const modalData: NonCommandInteractionData = {
     name: 'shell'
 };
 
-export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('shell')
-    .setDescription('Execute a shell script');
+export const slashCommandData = new SlashCommandSubcommandBuilder('SHELL');

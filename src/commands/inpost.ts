@@ -1,6 +1,7 @@
+import { SlashCommandBuilder } from '#builders';
 import { Embed, type FluorineClient } from '#classes';
 import type { InpostStatuses, InpostTrackObj } from '#types';
-import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction } from 'discord.js';
 
 import type { fetch as _fetch } from 'undici';
 declare const fetch: typeof _fetch;
@@ -38,18 +39,8 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [embed] });
 }
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('inpost')
-    .setNameLocalizations({ pl: 'inpost' })
-    .setDescription('Track an InPost package')
-    .setDescriptionLocalizations({ pl: 'Śledź paczkę w InPost' })
-    .addStringOption(option =>
-        option
-            .setName('id')
-            .setNameLocalizations({ pl: 'id' })
-            .setDescription('ID of the package')
-            .setDescriptionLocalizations({ pl: 'Id paczki' })
-            .setRequired(true)
-    );
+export const slashCommandData = new SlashCommandBuilder('INPOST').addStringOption('ID', option =>
+    option.setRequired(true)
+);
 
 export const category = 'tools';

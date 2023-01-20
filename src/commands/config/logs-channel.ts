@@ -1,5 +1,6 @@
+import { SlashCommandSubcommandBuilder } from '#builders';
 import { Embed, type FluorineClient } from '#classes';
-import { type ChatInputCommandInteraction, ChannelType, SlashCommandSubcommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction, ChannelType } from 'discord.js';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const value = interaction.options.getChannel('channel').id;
@@ -25,17 +26,6 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [embed] });
 }
 
-export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('logs-channel')
-    .setNameLocalizations({ pl: 'kanał-logów' })
-    .setDescription('Set the channel for logs')
-    .setDescriptionLocalizations({ pl: 'Ustaw kanał, na którym pojawiają się logi' })
-    .addChannelOption(option =>
-        option
-            .setName('channel')
-            .setNameLocalizations({ pl: 'kanał' })
-            .setDescription('Channel for logs')
-            .setDescriptionLocalizations({ pl: 'Kanał z logami' })
-            .addChannelTypes(ChannelType.GuildText)
-            .setRequired(true)
-    );
+export const slashCommandData = new SlashCommandSubcommandBuilder('CHANNEL').addChannelOption('CHANNEL', option =>
+    option.setChannelTypes(ChannelType.GuildText).setRequired(true)
+);

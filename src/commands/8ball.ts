@@ -1,6 +1,7 @@
+import { SlashCommandBuilder } from '#builders';
 import { Embed, type FluorineClient } from '#classes';
 import type { Category } from '#types';
-import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction } from 'discord.js';
 import hash from 'murmurhash-v3';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
@@ -17,18 +18,8 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [embed] });
 }
 
-export const slashCommandData = new SlashCommandBuilder()
-    .setName('8ball')
-    .setNameLocalizations({ pl: 'magiczna-kula' })
-    .setDescription('Ask the magic ball a question')
-    .setDescriptionLocalizations({ pl: 'Zapytaj o coś magiczną kulę' })
-    .addStringOption(option =>
-        option
-            .setName('question')
-            .setNameLocalizations({ pl: 'pytanie' })
-            .setDescription('Ask a question')
-            .setDescriptionLocalizations({ pl: 'Zadaj pytanie' })
-            .setRequired(true)
-    );
+export const slashCommandData = new SlashCommandBuilder('8BALL').addStringOption('QUESTION', option =>
+    option.setRequired(true)
+);
 
 export const category: Category = 'fun';

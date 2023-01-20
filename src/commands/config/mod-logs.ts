@@ -1,5 +1,6 @@
+import { SlashCommandSubcommandBuilder } from '#builders';
 import { Embed, type FluorineClient } from '#classes';
-import { type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction } from 'discord.js';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const value = interaction.options.getBoolean('mod-logs');
@@ -23,16 +24,6 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [embed] });
 }
 
-export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('mod-logs')
-    .setNameLocalizations({ pl: 'mod-logi' })
-    .setDescription('Set if you want to log moderation actions')
-    .setDescriptionLocalizations({ pl: 'Ustaw, czy chcesz, by logować akcje moderacyjne' })
-    .addBooleanOption(option =>
-        option
-            .setName('mod-logs')
-            .setNameLocalizations({ pl: 'mod-logi' })
-            .setDescription('Set whether you want to log moderation actions')
-            .setDescriptionLocalizations({ pl: 'Ustaw, czy chcesz, by logować akcje moderacyjne' })
-            .setRequired(true)
-    );
+export const slashCommandData = new SlashCommandSubcommandBuilder('MOD_LOGS').addBooleanOption('MOD_LOGS', option =>
+    option.setRequired(true)
+);

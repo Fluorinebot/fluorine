@@ -1,3 +1,4 @@
+import { SlashCommandSubcommandBuilder } from '#builders';
 import { type FluorineClient, Embed } from '#classes';
 import type { NonCommandInteractionData } from '#types';
 import { clean } from '#util';
@@ -6,7 +7,6 @@ import {
     type ModalSubmitInteraction,
     type TextInputComponent,
     type ChatInputCommandInteraction,
-    SlashCommandSubcommandBuilder,
     ActionRowBuilder,
     ModalBuilder,
     TextInputBuilder,
@@ -61,6 +61,4 @@ export const modalData: NonCommandInteractionData = {
     name: 'eval'
 };
 
-export const slashCommandData = new SlashCommandSubcommandBuilder()
-    .setName('eval')
-    .setDescription('Evaluates a given exprssion.');
+export const slashCommandData = new SlashCommandSubcommandBuilder('EVAL');
