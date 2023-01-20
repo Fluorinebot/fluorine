@@ -1,5 +1,5 @@
-import { SlashCommandBuilder } from '#builders';
-import { Embed, type FluorineClient } from '#classes';
+import { EmbedBuilder, SlashCommandBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
 import type { InpostStatuses, InpostTrackObj } from '#types';
 import { type ChatInputCommandInteraction } from 'discord.js';
 
@@ -25,10 +25,10 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         });
     }
 
-    const embed = new Embed(client, interaction.locale).setLocaleTitle('INPOST_TITLE', { id }).setColor('#ffcb39');
+    const embed = new EmbedBuilder(client, interaction.locale).setTitle('INPOST_TITLE', { id }).setColor('#ffcb39');
 
     if (response.custom_attributes.target_machine_detail.name) {
-        embed.setLocaleDescription('INPOST_DESCRIPTION', response.custom_attributes.target_machine_detail);
+        embed.setDescription('INPOST_DESCRIPTION', response.custom_attributes.target_machine_detail);
     }
 
     response.tracking_details.reverse().forEach(data => {
@@ -36,7 +36,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         embed.addFields({ name: status.title, value: status.description });
     });
 
-    interaction.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed.builder] });
 }
 
 export const slashCommandData = new SlashCommandBuilder('INPOST').addStringOption('ID', option =>

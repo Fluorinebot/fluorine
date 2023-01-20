@@ -1,5 +1,5 @@
 import { SlashCommandSubcommandBuilder } from '#builders';
-import { Embed, type FluorineClient } from '#classes';
+import type { FluorineClient } from '#classes';
 import { type ChatInputCommandInteraction } from 'discord.js';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
@@ -32,9 +32,9 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
                 }
             });
 
-            const embed = new Embed(client, interaction.locale)
-                .setLocaleTitle('PROFILE_SUCCESS')
-                .setLocaleDescription('PROFILE_SET_BIRTHDAY', { birthday });
+            const embed = new EmbedBuilder(client, interaction.locale)
+                .setTitle('PROFILE_SUCCESS')
+                .setDescription('PROFILE_SET_BIRTHDAY', { birthday });
 
             interaction.reply({ embeds: [embed], ephemeral: true });
             break;
@@ -59,9 +59,9 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
                 }
             });
 
-            const embed = new Embed(client, interaction.locale)
-                .setLocaleTitle('PROFILE_SUCCESS')
-                .setLocaleDescription('PROFILE_SET_LOCATION', {
+            const embed = new EmbedBuilder(client, interaction.locale)
+                .setTitle('PROFILE_SUCCESS')
+                .setDescription('PROFILE_SET_LOCATION', {
                     location: value
                 });
 
@@ -91,9 +91,9 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
                 }
             });
 
-            const embed = new Embed(client, interaction.locale)
-                .setLocaleTitle('PROFILE_SUCCESS')
-                .setLocaleDescription('PROFILE_SET_WEBSITE', { website });
+            const embed = new EmbedBuilder(client, interaction.locale)
+                .setTitle('PROFILE_SUCCESS')
+                .setDescription('PROFILE_SET_WEBSITE', { website });
 
             interaction.reply({ embeds: [embed], ephemeral: true });
             break;
@@ -119,9 +119,9 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
                 }
             });
 
-            const embed = new Embed(client, interaction.locale)
-                .setLocaleTitle('PROFILE_SUCCESS')
-                .setLocaleDescription('PROFILE_SET_PRONOUNS', {
+            const embed = new EmbedBuilder(client, interaction.locale)
+                .setTitle('PROFILE_SUCCESS')
+                .setDescription('PROFILE_SET_PRONOUNS', {
                     pronouns
                 });
 
@@ -149,9 +149,9 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
                 }
             });
 
-            const embed = new Embed(client, interaction.locale)
-                .setLocaleTitle('PROFILE_SUCCESS')
-                .setLocaleDescription('PROFILE_SET_DESCRIPTION', {
+            const embed = new EmbedBuilder(client, interaction.locale)
+                .setTitle('PROFILE_SUCCESS')
+                .setDescription('PROFILE_SET_DESCRIPTION', {
                     description
                 });
 

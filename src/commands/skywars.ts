@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from '#builders';
-import { Embed, type FluorineClient } from '#classes';
+import type { FluorineClient } from '#classes';
 import { env } from '#env';
 import type { Category, HypixelType, UUIDResponse } from '#types';
 import { type ChatInputCommandInteraction } from 'discord.js';
@@ -38,10 +38,10 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     const kd = Number((skyStats.kills / skyStats.deaths).toFixed(2));
     const winratio = Number((skyStats.wins / skyStats.deaths).toFixed(2));
 
-    const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle('HYPIXEL_STATISTICS_TITLE', { player })
+    const embed = new EmbedBuilder(client, interaction.locale)
+        .setTitle('HYPIXEL_STATISTICS_TITLE', { player })
         .setDescription(`K/D: ${kd}\n Win/loss ratio: ${winratio}`)
-        .addLocaleFields([
+        .addFields([
             {
                 name: 'HYPIXEL_WON_GAMES',
                 value: `${skyStats.wins || 0}`,

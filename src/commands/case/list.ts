@@ -1,5 +1,5 @@
 import { ActionRowBuilder, ButtonBuilder, SlashCommandSubcommandBuilder, ContextMenuCommandBuilder } from '#builders';
-import { Embed, type FluorineClient } from '#classes';
+import type { FluorineClient } from '#classes';
 import type { ComponentData } from '#types';
 import { splitArray } from '#util';
 import {
@@ -37,8 +37,8 @@ export async function onInteraction(
     const cases = await client.cases.getMany(interaction.guildId, member.user);
     const chunk = splitArray(cases, 10);
 
-    const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle('LISTCASE_TITLE', { user: member.user.tag })
+    const embed = new EmbedBuilder(client, interaction.locale)
+        .setTitle('LISTCASE_TITLE', { user: member.user.tag })
         .setThumbnail(member.displayAvatarURL());
 
     const replyOptions: InteractionReplyOptions & InteractionUpdateOptions = { embeds: [embed] };

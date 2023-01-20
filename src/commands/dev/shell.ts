@@ -41,7 +41,7 @@ export async function onModal(
 ) {
     const code = fields.get('code').value;
     code.replace('```sh\n', '').replace('\n```', '');
-    const embed = new Embed(client, interaction.locale);
+    const embed = new EmbedBuilder(client, interaction.locale);
 
     try {
         const evaluated = execSync(code);

@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from '#builders';
-import { Embed, type FluorineClient } from '#classes';
+import type { FluorineClient } from '#classes';
 import type { Category } from '#types';
 import { type ChatInputCommandInteraction, PermissionFlagsBits } from 'discord.js';
 
@@ -27,11 +27,11 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 
     const caseObj = await client.cases.create(interaction.guildId, member.user, interaction.user, 'warn', reason);
 
-    const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle('WARN_SUCCESS_TITLE')
-        .setLocaleDescription('WARN_SUCCESS_DESCRIPTION')
+    const embed = new EmbedBuilder(client, interaction.locale)
+        .setTitle('WARN_SUCCESS_TITLE')
+        .setDescription('WARN_SUCCESS_DESCRIPTION')
         .setThumbnail(member.displayAvatarURL())
-        .addLocaleFields([
+        .addFields([
             { name: 'WARN_MODERATOR', value: interaction.user.tag },
             { name: 'WARN_USER', value: member.user.tag },
             { name: 'REASON', value: reason },

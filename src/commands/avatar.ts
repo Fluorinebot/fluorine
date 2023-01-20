@@ -36,7 +36,7 @@ function createEmbed(
     member: GuildMember | User,
     action: 'guild' | 'user'
 ) {
-    const embed = new Embed(client, interaction.locale).setLocaleTitle('AVATAR');
+    const embed = new EmbedBuilder(client, interaction.locale).setTitle('AVATAR');
 
     if (member instanceof GuildMember) {
         switch (action) {

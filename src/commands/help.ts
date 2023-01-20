@@ -1,7 +1,7 @@
-import { ActionRowBuilder, SelectMenuBuilder, SlashCommandBuilder } from '#builders';
-import { Embed, type FluorineClient } from '#classes';
-import type { Category, ChatInputCommand, ComponentData } from '#types';
-import { type APIEmbedField, type ChatInputCommandInteraction, type SelectMenuInteraction } from 'discord.js';
+import { EmbedBuilder, ActionRowBuilder, SelectMenuBuilder, SlashCommandBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
+import type { Category, ChatInputCommand, ComponentData, LocaleFieldOptions } from '#types';
+import { type ChatInputCommandInteraction, type SelectMenuInteraction } from 'discord.js';
 
 export async function onInteraction(
     client: FluorineClient,
@@ -13,18 +13,18 @@ export async function onInteraction(
 
     const commands = client.chatInputCommands.filter((c: ChatInputCommand) => c.category === category && !c.dev);
 
-    const fields: APIEmbedField[] = commands.map(c => ({
-        name: `/${
+    const fields: LocaleFieldOptions[] = commands.map(c => ({
+        rawName: `/${
             c.slashCommandData.builder.name_localizations[interaction.locale] ?? c.slashCommandData.builder.name
         }`,
-        value:
+        rawValue:
             c.slashCommandData.builder.description_localizations[interaction.locale] ??
             c.slashCommandData.builder.description
     }));
 
-    const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle(`HELP_TITLE_${category.toUpperCase()}`)
-        .setFields(fields);
+    const embed = new EmbedBuilder(client, interaction.locale)
+        .setTitle(`HELP_TITLE_${category.toUpperCase()}`)
+        .setFields(...fields);
 
     const row = new ActionRowBuilder(interaction.locale).addComponents(
         new SelectMenuBuilder(`help:${interaction.user.id}`).setOptions(
@@ -36,7 +36,7 @@ export async function onInteraction(
     );
 
     const options = {
-        embeds: [embed],
+        embeds: [embed.builder],
         components: [row]
     };
 

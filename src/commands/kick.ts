@@ -1,5 +1,5 @@
-import { SlashCommandBuilder } from '#builders';
-import { Embed, type FluorineClient } from '#classes';
+import { EmbedBuilder, SlashCommandBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
 import type { Category } from '#types';
 import { type ChatInputCommandInteraction, PermissionFlagsBits } from 'discord.js';
 
@@ -48,18 +48,18 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         })
     );
 
-    const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle('KICK_SUCCESS_TITLE')
-        .setLocaleDescription('KICK_SUCCESS_DESCRIPTION')
+    const embed = new EmbedBuilder(client, interaction.locale)
+        .setTitle('KICK_SUCCESS_TITLE')
+        .setDescription('KICK_SUCCESS_DESCRIPTION')
         .setThumbnail(member.displayAvatarURL())
-        .addLocaleFields([
-            { name: 'KICK_MODERATOR', value: interaction.user.tag },
-            { name: 'KICK_USER', value: member.user.tag },
-            { name: 'REASON', value: reason },
-            { name: 'CASE_ID', value: caseObj.caseId.toString() }
-        ]);
+        .addFields(
+            { name: 'KICK_MODERATOR', rawValue: interaction.user.tag },
+            { name: 'KICK_USER', rawValue: member.user.tag },
+            { name: 'REASON', rawValue: reason },
+            { name: 'CASE_ID', rawValue: caseObj.caseId.toString() }
+        );
 
-    interaction.reply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed.builder] });
     client.cases.logToModerationChannel(interaction.guildId, caseObj);
 }
 

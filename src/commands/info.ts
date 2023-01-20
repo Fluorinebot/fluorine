@@ -2,8 +2,8 @@ import { readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import process from 'node:process';
 
-import { ActionRowBuilder, ButtonBuilder, SlashCommandBuilder } from '#builders';
-import { Embed, type FluorineClient } from '#classes';
+import { ActionRowBuilder, ButtonBuilder, EmbedBuilder, SlashCommandBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
 import type { Category, ComponentData } from '#types';
 import { getDirname } from '#util';
 
@@ -14,7 +14,7 @@ export async function onInteraction(
     interaction: ButtonInteraction | ChatInputCommandInteraction,
     value: 'info' | 'stats' = 'info'
 ) {
-    const embed = new Embed(client, interaction.locale);
+    const embed = new EmbedBuilder(client, interaction.locale);
 
     if (value === 'info') {
         const developers = (await Promise.all(client.devs.map(async id => (await client.users.fetch(id)).tag))).join(
@@ -30,66 +30,66 @@ export async function onInteraction(
         const langs = (await readdir(join(getDirname(import.meta.url), '../../i18n'))).map(file => file.split('.')[0]);
 
         embed
-            .setLocaleTitle('INFO_TITLE')
-            .setLocaleDescription('INFO_DESCRIPTION')
-            .addLocaleFields([
+            .setTitle('INFO_TITLE')
+            .setDescription('INFO_DESCRIPTION')
+            .addFields(
                 {
                     name: 'INFO_DEVELOPERS',
-                    value: developers,
+                    rawValue: developers,
                     inline: true
                 },
                 {
                     name: 'INFO_THANKS',
-                    value: thanks,
+                    rawValue: thanks,
                     inline: true
                 },
-                { name: '\u200B', value: '\u200B', inline: true },
+                { rawName: '\u200B', rawValue: '\u200B', inline: true },
                 {
                     name: 'INFO_LANGUAGES',
-                    value: langs.join(', '),
+                    rawValue: langs.join(', '),
                     inline: true
                 },
                 {
                     name: 'INFO_VERSION',
-                    value: client.version,
+                    rawValue: client.version,
                     inline: true
                 }
-            ]);
+            );
     }
 
     if (value === 'stats') {
-        embed.setLocaleTitle('INFO_STATS_TITLE').addLocaleFields([
+        embed.setTitle('INFO_STATS_TITLE').addFields(
             {
                 name: 'INFO_STATS_RAM',
-                value: `${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)} MB`,
+                rawValue: `${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)} MB`,
                 inline: true
             },
             {
                 name: 'INFO_STATS_SERVERS',
-                value: client.guilds.cache.size.toString(),
+                rawValue: client.guilds.cache.size.toString(),
                 inline: true
             },
             {
                 name: 'INFO_STATS_USERS',
-                value: client.users.cache.size.toString(),
+                rawValue: client.users.cache.size.toString(),
                 inline: true
             },
             {
                 name: 'INFO_STATS_CHANNELS',
-                value: client.channels.cache.size.toString(),
+                rawValue: client.channels.cache.size.toString(),
                 inline: true
             },
             {
                 name: 'INFO_STATS_COMMANDS',
-                value: client.chatInputCommands.size.toString(),
+                rawValue: client.chatInputCommands.size.toString(),
                 inline: true
             },
             {
                 name: 'INFO_STATS_PING',
-                value: `${client.ws.ping}ms`,
+                rawValue: `${client.ws.ping}ms`,
                 inline: true
             }
-        ]);
+        );
     }
 
     const row = new ActionRowBuilder(interaction.locale).addComponents(
@@ -104,7 +104,7 @@ export async function onInteraction(
     );
 
     const options = {
-        embeds: [embed],
+        embeds: [embed.builder],
         components: [row]
     };
 

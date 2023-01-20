@@ -1,5 +1,5 @@
 import { SlashCommandSubcommandBuilder } from '#builders';
-import { Embed, type FluorineClient } from '#classes';
+import type { FluorineClient } from '#classes';
 import type { ShopItemConstructor } from '#types';
 import { type ChatInputCommandInteraction, PermissionFlagsBits } from 'discord.js';
 
@@ -29,7 +29,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     if (existingItem) {
         return interaction.reply({ content: client.i18n.t('SHOP_CREATE_EXISTS') });
     }
-    const embed = new Embed(client, interaction.locale).setLocaleTitle('SHOP_CREATE_SUCCESS').addLocaleFields([
+    const embed = new EmbedBuilder(client, interaction.locale).setTitle('SHOP_CREATE_SUCCESS').addFields([
         { name: 'SHOP_CREATE_NAME', value: name },
         { name: 'SHOP_CREATE_DESCRIPTION', value: description },
         {

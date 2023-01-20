@@ -126,11 +126,11 @@ export interface Event {
 }
 
 export interface LocaleFieldOptions {
-    name: string;
+    name?: string;
     nameArgs?: Record<string, unknown>;
     value?: string;
     valueArgs?: Record<string, unknown>;
-    rawName: string;
+    rawName?: string;
     rawValue?: string;
     inline?: boolean;
 }
