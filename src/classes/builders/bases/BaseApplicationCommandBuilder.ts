@@ -13,7 +13,7 @@ export class BaseApplicationCommandBuilder<T extends ApplicationCommandBuilderRe
     public type: ApplicationCommandOptionType | ApplicationCommandType;
 
     constructor() {
-        super();
+        super('commands');
     }
 
     getLocalizations(key: string) {

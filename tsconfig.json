@@ -12,6 +12,7 @@
             "#builderBases": ["classes/builders/bases/index.ts"],
             "#classes": ["classes/index.ts"],
             "#commands": ["classes/builders/commands/index.ts"],
+            "#components": ["classes/builders/components/index.ts"],
             "#env": ["env/index.ts"],
             "#handlers": ["classes/handlers/index.ts"],
             "#modules": ["classes/modules/index.ts"],
