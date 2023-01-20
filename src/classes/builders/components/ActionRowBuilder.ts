@@ -1,8 +1,13 @@
-import { ActionRowBuilder as UnlocalizedBuilder, type LocalizationMap } from 'discord.js';
 import { BaseComponent } from '#builderBases';
 import type { ButtonBuilder, SelectMenuBuilder } from '#components';
+import {
+    ActionRowBuilder as UnlocalizedBuilder,
+    type ButtonBuilder as DjsButtonBuilder,
+    type LocalizationMap,
+    type SelectMenuBuilder as DjsSelectMenuBuilder
+} from 'discord.js';
 
-export class ActionRowBuilder extends BaseComponent<UnlocalizedBuilder> {
+export class ActionRowBuilder extends BaseComponent<UnlocalizedBuilder<DjsButtonBuilder | DjsSelectMenuBuilder>> {
     public locale: keyof LocalizationMap;
 
     constructor(locale: keyof LocalizationMap) {

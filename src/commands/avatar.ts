@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, ContextMenuCommandBuilder } from '#builders';
+import { SlashCommandBuilder, ContextMenuCommandBuilder, ActionRowBuilder, ButtonBuilder } from '#builders';
 import { type FluorineClient, Embed } from '#classes';
 import type { ComponentData, Category } from '#types';
 import {
@@ -7,8 +7,6 @@ import {
     type InteractionReplyOptions,
     type ButtonInteraction,
     type ContextMenuCommandInteraction,
-    ActionRowBuilder,
-    ButtonBuilder,
     ButtonStyle,
     type User,
     ApplicationCommandType
@@ -20,15 +18,13 @@ function createComponents(
     member: GuildMember,
     action: 'guild' | 'user'
 ) {
-    return new ActionRowBuilder<ButtonBuilder>().addComponents(
-        new ButtonBuilder()
-            .setCustomId(`avatar:${interaction.user.id}:${member.id}.guild`)
-            .setLabel(client.i18n.t('AVATAR_GUILD', { lng: interaction.locale }))
+    return new ActionRowBuilder(interaction.locale).addComponents(
+        new ButtonBuilder(`avatar:${interaction.user.id}:${member.id}.guild`)
+            .setLabel('AVATAR_GUILD')
             .setStyle(ButtonStyle.Primary)
             .setDisabled(action === 'guild'),
-        new ButtonBuilder()
-            .setCustomId(`avatar:${interaction.user.id}:${member.id}.user`)
-            .setLabel(client.i18n.t('AVATAR_USER', { lng: interaction.locale }))
+        new ButtonBuilder(`avatar:${interaction.user.id}:${member.id}.user`)
+            .setLabel('AVATAR_USER')
             .setStyle(ButtonStyle.Primary)
             .setDisabled(action === 'user')
     );

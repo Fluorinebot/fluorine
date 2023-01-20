@@ -22,16 +22,6 @@ export class ModalBuilder extends BaseComponent<UnlocalizedBuilder> {
     }
 
     addComponents(...components: TextInputBuilder[]) {
-        this.builder.addComponents(
-            ...components.map(builder =>
-                new ActionRowBuilder<DjsTextInputBuilder>().addComponents(builder.prepare(this.locale).builder)
-            )
-        );
-
-        return this;
-    }
-
-    setComponents(...components: TextInputBuilder[]) {
         this.builder.setComponents(
             ...components.map(builder =>
                 new ActionRowBuilder<DjsTextInputBuilder>().addComponents(builder.prepare(this.locale).builder)

@@ -1,11 +1,9 @@
-import { SlashCommandSubcommandBuilder, ContextMenuCommandBuilder } from '#builders';
+import { ActionRowBuilder, ButtonBuilder, SlashCommandSubcommandBuilder, ContextMenuCommandBuilder } from '#builders';
 import { Embed, type FluorineClient } from '#classes';
 import type { ComponentData } from '#types';
 import { splitArray } from '#util';
 import {
-    ActionRowBuilder,
     ApplicationCommandType,
-    ButtonBuilder,
     type ButtonInteraction,
     ButtonStyle,
     type CommandInteraction,
@@ -63,20 +61,16 @@ export async function onInteraction(
     });
 
     if (chunk.length > 1) {
-        const row = new ActionRowBuilder<ButtonBuilder>();
-
-        row.addComponents([
-            new ButtonBuilder()
-                .setCustomId(`listcase:${interaction.user.id}:${member.id}.${page - 1}`)
-                .setLabel(client.i18n.t('LISTCASE_BACK', { lng: interaction.locale }))
+        const row = new ActionRowBuilder(interaction.locale).addComponents(
+            new ButtonBuilder(`listcase:${interaction.user.id}:${member.id}.${page - 1}`)
+                .setLabel('LISTCASE_BACK')
                 .setStyle(ButtonStyle.Primary)
                 .setDisabled(page === 0),
-            new ButtonBuilder()
-                .setCustomId(`listcase:${interaction.user.id}:${member.id}.${page + 1}`)
-                .setLabel(client.i18n.t('LISTCASE_NEXT', { lng: interaction.locale }))
+            new ButtonBuilder(`listcase:${interaction.user.id}:${member.id}.${page + 1}`)
+                .setLabel('LISTCASE_NEXT')
                 .setStyle(ButtonStyle.Primary)
                 .setDisabled(page + 1 === chunk.length)
-        ]);
+        );
 
         replyOptions.components = [row];
     }

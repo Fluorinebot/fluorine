@@ -117,8 +117,7 @@ export type ComponentResolvable =
     | ButtonBuilder
     | ModalBuilder
     | TextInputBuilder
-    | SelectMenuBuilder
-    | SelectMenuOptionBuilder;
+    | SelectMenuBuilder;
 
 export type ApplicationCommandBuilderResolvable = CommandResolvable | OptionResolvable;
 export type BuilderResolvable = ApplicationCommandBuilderResolvable | ComponentResolvable | EmbedBuilder;

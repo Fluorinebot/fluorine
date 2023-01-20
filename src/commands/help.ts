@@ -1,13 +1,7 @@
-import { SlashCommandBuilder } from '#builders';
+import { ActionRowBuilder, SelectMenuBuilder, SlashCommandBuilder } from '#builders';
 import { Embed, type FluorineClient } from '#classes';
 import type { Category, ChatInputCommand, ComponentData } from '#types';
-import {
-    ActionRowBuilder,
-    type APIEmbedField,
-    type ChatInputCommandInteraction,
-    SelectMenuBuilder,
-    type SelectMenuInteraction
-} from 'discord.js';
+import { type APIEmbedField, type ChatInputCommandInteraction, type SelectMenuInteraction } from 'discord.js';
 
 export async function onInteraction(
     client: FluorineClient,
@@ -32,38 +26,14 @@ export async function onInteraction(
         .setLocaleTitle(`HELP_TITLE_${category.toUpperCase()}`)
         .setFields(fields);
 
-    const row = new ActionRowBuilder<SelectMenuBuilder>().addComponents([
-        new SelectMenuBuilder().setCustomId(`help:${interaction.user.id}`).setOptions([
-            {
-                label: client.i18n.t('FUN', { lng: interaction.locale }),
-                value: 'fun',
-                emoji: '🎮',
-                default: category === 'fun'
-            },
-            {
-                label: client.i18n.t('TOOLS', { lng: interaction.locale }),
-                value: 'tools',
-                emoji: '🛠️',
-                default: category === 'tools'
-            },
-            {
-                label: client.i18n.t('MODERATION', {
-                    lng: interaction.locale
-                }),
-                value: 'moderation',
-                emoji: '🔨',
-                default: category === 'moderation'
-            },
-            {
-                label: client.i18n.t('ECONOMY', {
-                    lng: interaction.locale
-                }),
-                value: 'economy',
-                emoji: '💰',
-                default: category === 'economy'
-            }
-        ])
-    ]);
+    const row = new ActionRowBuilder(interaction.locale).addComponents(
+        new SelectMenuBuilder(`help:${interaction.user.id}`).setOptions(
+            { label: 'FUN', value: 'fun', emoji: '🎮', default: category === 'fun' },
+            { label: 'TOOLS', value: 'tools', emoji: '🛠️', default: category === 'tools' },
+            { label: 'MODERATION', value: 'moderation', emoji: '🔨', default: category === 'moderation' },
+            { label: 'ECONOMY', value: 'economy', emoji: '💰', default: category === 'economy' }
+        )
+    );
 
     const options = {
         embeds: [embed],

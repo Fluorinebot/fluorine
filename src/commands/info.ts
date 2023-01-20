@@ -1,18 +1,13 @@
-import { SlashCommandBuilder } from '#builders';
 import { readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import process from 'node:process';
 
+import { ActionRowBuilder, ButtonBuilder, SlashCommandBuilder } from '#builders';
 import { Embed, type FluorineClient } from '#classes';
 import type { Category, ComponentData } from '#types';
 import { getDirname } from '#util';
-import {
-    type ChatInputCommandInteraction,
-    type ButtonInteraction,
-    ActionRowBuilder,
-    ButtonBuilder,
-    ButtonStyle
-} from 'discord.js';
+
+import { ButtonStyle, type ButtonInteraction, type ChatInputCommandInteraction } from 'discord.js';
 
 export async function onInteraction(
     client: FluorineClient,
@@ -97,18 +92,16 @@ export async function onInteraction(
         ]);
     }
 
-    const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
-        new ButtonBuilder()
-            .setLabel(client.i18n.t('INFO', { lng: interaction.locale }))
+    const row = new ActionRowBuilder(interaction.locale).addComponents(
+        new ButtonBuilder(`info:${interaction.user.id}:info`)
+            .setLabel('INFO')
             .setDisabled(value === 'info')
-            .setCustomId(`info:${interaction.user.id}:info`)
             .setStyle(ButtonStyle.Primary),
-        new ButtonBuilder()
-            .setLabel(client.i18n.t('INFO_STATS', { lng: interaction.locale }))
+        new ButtonBuilder(`info:${interaction.user.id}:stats`)
+            .setLabel('INFO_STATS')
             .setDisabled(value === 'stats')
-            .setCustomId(`info:${interaction.user.id}:stats`)
             .setStyle(ButtonStyle.Primary)
-    ]);
+    );
 
     const options = {
         embeds: [embed],

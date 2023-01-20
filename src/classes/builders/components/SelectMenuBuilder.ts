@@ -1,10 +1,13 @@
 import { BaseComponent } from '#builderBases';
-import type { SelectMenuOptionBuilder } from '#components';
-import { SelectMenuBuilder as UnlocalizedBuilder, type LocalizationMap } from 'discord.js';
+import {
+    SelectMenuBuilder as UnlocalizedBuilder,
+    type SelectMenuComponentOptionData,
+    type LocalizationMap
+} from 'discord.js';
 
 export class SelectMenuBuilder extends BaseComponent<UnlocalizedBuilder> {
     placeholder: string;
-    options: SelectMenuOptionBuilder[];
+    options: SelectMenuComponentOptionData[];
 
     constructor(customId: string) {
         super();
@@ -32,13 +35,14 @@ export class SelectMenuBuilder extends BaseComponent<UnlocalizedBuilder> {
         return this;
     }
 
-    setOptions(...options: SelectMenuOptionBuilder[]) {
+    setOptions(...options: SelectMenuComponentOptionData[]) {
         this.options = options;
         return this;
     }
 
-    addOptions(...options: SelectMenuOptionBuilder[]) {
+    addOptions(...options: SelectMenuComponentOptionData[]) {
         this.options.push(...options);
+        return this;
     }
 
     prepare(locale: keyof LocalizationMap) {
@@ -46,7 +50,12 @@ export class SelectMenuBuilder extends BaseComponent<UnlocalizedBuilder> {
             this.builder.setPlaceholder(this.getOne(this.placeholder, locale));
         }
 
-        this.builder.setOptions(this.options.map(option => option.prepare(locale).builder));
+        this.builder.setOptions(
+            this.options.map(option => {
+                option.label = this.getOne(option.label, locale);
+                return option;
+            })
+        );
 
         this.options = [];
         return this;

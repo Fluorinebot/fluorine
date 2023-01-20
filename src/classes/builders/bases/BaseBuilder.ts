@@ -29,8 +29,8 @@ export class BaseBuilder<T extends BuilderResolvable> {
         return this.i18n.t(key, { lng: 'en-US', ns: this.defaultNS });
     }
 
-    getOne(key: string, lng: keyof LocalizationMap) {
-        return this.i18n.t(key, { lng, ns: this.defaultNS });
+    getOne(key: string, lng: keyof LocalizationMap, args: Record<string, any> = {}) {
+        return this.i18n.t(key, { lng, ns: this.defaultNS, ...args });
     }
 
     toJSON() {
