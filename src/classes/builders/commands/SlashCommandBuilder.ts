@@ -1,8 +1,5 @@
-import {
-    CommandWithOptions,
-    type SlashCommandSubcommandBuilder,
-    type SlashCommandSubcommandGroupBuilder
-} from '#builders';
+import { CommandWithOptions } from '#builderBases';
+import type { SlashCommandSubcommandBuilder, SlashCommandSubcommandGroupBuilder } from '#commands';
 import { ApplicationCommandType, SlashCommandBuilder as UnlocalizedBuilder } from 'discord.js';
 
 export class SlashCommandBuilder extends CommandWithOptions<UnlocalizedBuilder> {

@@ -16,9 +16,10 @@
     },
     "imports": {
         "#api": "./dist/api/index.js",
-
-        "#builders": "./dist/classes/builders/index.js",
+        "#builders": "./dist/classes/builders/commands/index.js",
+        "#builderBases": "./dist/classes/builders/bases/index.js",
         "#classes": "./dist/classes/index.js",
+        "#commands": "./dist/classes/builders/commands/index.js",
         "#env": "./dist/env/index.js",
         "#handlers": "./dist/classes/handlers/index.js",
         "#modules": "./dist/classes/modules/index.js",

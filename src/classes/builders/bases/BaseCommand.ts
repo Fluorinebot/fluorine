@@ -1,4 +1,4 @@
-import { BaseBuilder } from '#builders';
+import { BaseBuilder } from '#builderBases';
 import type { CommandResolvable } from '#types';
 import type { ApplicationCommandType, ApplicationCommandOptionType } from 'discord.js';
 

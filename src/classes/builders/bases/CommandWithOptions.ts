@@ -1,6 +1,6 @@
+import { BaseCommand, type BaseOption } from '#builderBases';
 import {
     AttachmentOption,
-    BaseCommand,
     BooleanOption,
     ChannelOption,
     IntegerOption,
@@ -8,9 +8,8 @@ import {
     NumberOption,
     RoleOption,
     StringOption,
-    UserOption,
-    type BaseOption
-} from '#builders';
+    UserOption
+} from '#options';
 import {
     SlashCommandBuilder,
     type ApplicationCommandOptionType,

@@ -1,4 +1,4 @@
-import { BaseOption } from '#builders';
+import { BaseOption } from '#builderBases';
 import { ApplicationCommandOptionType, SlashCommandMentionableOption } from 'discord.js';
 
 // https://discord.js.org/#/docs/builders/main/class/SlashCommandMentionableOption
