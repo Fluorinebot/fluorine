@@ -3,9 +3,9 @@ import {
     ApplicationCommandOptionType,
     SlashCommandChannelOption
 } from 'discord.js';
-import { BaseOption } from '#builderBases';
+import { BaseOptionBuilder } from '#builderBases';
 
-export class ChannelOption extends BaseOption<SlashCommandChannelOption> {
+export class ChannelOption extends BaseOptionBuilder<SlashCommandChannelOption> {
     constructor(baseKey: string) {
         super(ApplicationCommandOptionType.Channel, baseKey);
         this.builder = new SlashCommandChannelOption();

@@ -1,8 +1,8 @@
-import { BaseBuilder } from '#builderBases';
+import { BaseApplicationCommandBuilder } from '#builderBases';
 import type { CommandResolvable } from '#types';
 import type { ApplicationCommandType, ApplicationCommandOptionType } from 'discord.js';
 
-export class BaseCommand<T extends CommandResolvable> extends BaseBuilder<T> {
+export class BaseCommandBuilder<T extends CommandResolvable> extends BaseApplicationCommandBuilder<T> {
     constructor(
         public type:
             | ApplicationCommandType

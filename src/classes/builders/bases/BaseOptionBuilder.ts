@@ -1,8 +1,8 @@
-import { BaseBuilder } from '#builderBases';
+import { BaseApplicationCommandBuilder } from '#builderBases';
 import type { OptionResolvable } from '#types';
 import type { ApplicationCommandOptionType } from 'discord.js';
 
-export class BaseOption<T extends OptionResolvable> extends BaseBuilder<T> {
+export class BaseOptionBuilder<T extends OptionResolvable> extends BaseApplicationCommandBuilder<T> {
     constructor(public type: ApplicationCommandOptionType, baseKey: string) {
         super();
         this.type = type;

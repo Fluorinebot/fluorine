@@ -1,7 +1,7 @@
 import { ApplicationCommandOptionType, SlashCommandIntegerOption } from 'discord.js';
-import { BaseOption } from '#builderBases';
+import { BaseOptionBuilder } from '#builderBases';
 
-export class IntegerOption extends BaseOption<SlashCommandIntegerOption> {
+export class IntegerOption extends BaseOptionBuilder<SlashCommandIntegerOption> {
     choiceQueue: number[];
 
     constructor(baseKey: string) {

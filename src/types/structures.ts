@@ -22,7 +22,14 @@ import type {
     TextInputComponent,
     ContextMenuCommandBuilder as DjsContextMenuCommandBuilder,
     SlashCommandBuilder as DjsSlashCommandBuilder,
-    SlashCommandSubcommandBuilder as DjsSlashCommandSubcommandBuilder
+    SlashCommandSubcommandBuilder as DjsSlashCommandSubcommandBuilder,
+    ActionRowBuilder,
+    ButtonBuilder,
+    EmbedBuilder,
+    ModalBuilder,
+    SelectMenuBuilder,
+    SelectMenuOptionBuilder,
+    TextInputBuilder
 } from 'discord.js';
 
 export type Category = 'fun' | 'tools' | 'moderation' | 'economy';
@@ -105,7 +112,15 @@ export type OptionResolvable =
     | SlashCommandStringOption
     | SlashCommandUserOption;
 
-export type BuilderResolvable = CommandResolvable | OptionResolvable;
+export type ComponentResolvable =
+    | ActionRowBuilder
+    | ButtonBuilder
+    | ModalBuilder
+    | TextInputBuilder
+    | SelectMenuBuilder;
+
+export type ApplicationCommandBuilderResolvable = CommandResolvable | OptionResolvable;
+export type BuilderResolvable = ApplicationCommandBuilderResolvable | ComponentResolvable | EmbedBuilder;
 
 export interface Event {
     run: (client: FluorineClient, ...args: any) => void;

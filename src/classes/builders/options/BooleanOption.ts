@@ -1,8 +1,8 @@
 import { SlashCommandBooleanOption, ApplicationCommandOptionType } from 'discord.js';
-import { BaseOption } from '#builderBases';
+import { BaseOptionBuilder } from '#builderBases';
 
 // https://discord.js.org/#/docs/builders/main/class/SlashCommandBooleanOption
-export class BooleanOption extends BaseOption<SlashCommandBooleanOption> {
+export class BooleanOption extends BaseOptionBuilder<SlashCommandBooleanOption> {
     constructor(baseKey: string) {
         super(ApplicationCommandOptionType.Boolean, baseKey);
         this.builder = new SlashCommandBooleanOption();
