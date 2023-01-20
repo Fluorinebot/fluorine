@@ -28,7 +28,6 @@ import type {
     EmbedBuilder,
     ModalBuilder,
     SelectMenuBuilder,
-    SelectMenuOptionBuilder,
     TextInputBuilder
 } from 'discord.js';
 
@@ -126,8 +125,29 @@ export interface Event {
     run: (client: FluorineClient, ...args: any) => void;
 }
 
-export interface PhishingLink {
-    url: string;
+export interface LocaleFieldOptions {
+    name: string;
+    nameArgs?: Record<string, unknown>;
+    value?: string;
+    valueArgs?: Record<string, unknown>;
+    rawName: string;
+    rawValue?: string;
+    inline?: boolean;
+}
+
+export interface LocaleAuthor {
+    name?: string;
+    nameArgs?: Record<string, unknown>;
+    rawName?: string;
+    url?: string;
+    iconURL?: string;
+}
+
+export interface LocaleFooter {
+    text?: string;
+    textArgs?: Record<string, unknown>;
+    rawText?: string;
+    iconURL?: string;
 }
 
 export interface ShopItemConstructor {
