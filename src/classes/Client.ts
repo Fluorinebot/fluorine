@@ -58,9 +58,6 @@ export class FluorineClient extends Client {
             disableValidators();
         }
 
-        new EventHandler(this).loadEvents();
-        this.commands.loadCommands();
-
         await this.i18n.use(Backend).init({
             fallbackLng: 'en-US',
             ns: ['responses', 'commands'],
@@ -69,9 +66,12 @@ export class FluorineClient extends Client {
             backend: { loadPath: join(getDirname(import.meta.url), '/../../i18n/{{lng}}/{{ns}}.json') }
         });
 
+        // you have to call loaders after i18n otherwise builders could potentially fail.
+        new EventHandler(this).loadEvents();
+        this.commands.loadCommands();
         await this.prisma.$connect();
-        this.login();
 
+        this.login();
         await startServer(this);
 
         process.on('unhandledRejection', (error: Error) => {
