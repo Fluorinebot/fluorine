@@ -1,11 +1,11 @@
-import { BaseComponent } from '#builderBases';
+import { BaseComponentBuilder } from '#builderBases';
 import {
     SelectMenuBuilder as UnlocalizedBuilder,
     type SelectMenuComponentOptionData,
     type LocalizationMap
 } from 'discord.js';
 
-export class SelectMenuBuilder extends BaseComponent<UnlocalizedBuilder> {
+export class SelectMenuBuilder extends BaseComponentBuilder<UnlocalizedBuilder> {
     placeholder: string;
     options: SelectMenuComponentOptionData[];
 

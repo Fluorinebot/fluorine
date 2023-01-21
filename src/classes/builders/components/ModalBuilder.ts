@@ -4,10 +4,10 @@ import {
     type LocalizationMap,
     type TextInputBuilder as DjsTextInputBuilder
 } from 'discord.js';
-import { BaseComponent } from '#builderBases';
+import { BaseComponentBuilder } from '#builderBases';
 import type { TextInputBuilder } from '#components';
 
-export class ModalBuilder extends BaseComponent<UnlocalizedBuilder> {
+export class ModalBuilder extends BaseComponentBuilder<UnlocalizedBuilder> {
     public locale: keyof LocalizationMap;
 
     constructor(locale: keyof LocalizationMap, customId: string) {

@@ -4,9 +4,9 @@ import {
     type APIMessageComponentEmoji,
     type ButtonStyle
 } from 'discord.js';
-import { BaseComponent } from '../bases/BaseComponent';
+import { BaseComponentBuilder } from '../bases/BaseComponentBuilder';
 
-export class ButtonBuilder extends BaseComponent<UnlocalizedBuilder> {
+export class ButtonBuilder extends BaseComponentBuilder<UnlocalizedBuilder> {
     label: string;
 
     constructor(customId: string) {

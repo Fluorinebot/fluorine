@@ -1,7 +1,7 @@
 import { TextInputBuilder as UnlocalizedBuilder, type LocalizationMap, type TextInputStyle } from 'discord.js';
-import { BaseComponent } from '../bases/BaseComponent';
+import { BaseComponentBuilder } from '../bases/BaseComponentBuilder';
 
-export class TextInputBuilder extends BaseComponent<UnlocalizedBuilder> {
+export class TextInputBuilder extends BaseComponentBuilder<UnlocalizedBuilder> {
     label: string;
     placeholder: string;
 
