@@ -8,7 +8,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         .setTitle('SUPPORT_TITLE')
         .setDescription('SUPPORT_DESCRIPTION', { link: client.support });
 
-    interaction.reply({ embeds: [embed.builder] });
+    interaction.reply({ embeds: [embed] });
 }
 
 export const slashCommandData = new SlashCommandBuilder('SUPPORT');

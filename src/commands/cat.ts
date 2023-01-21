@@ -12,7 +12,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     };
 
     const embed = new EmbedBuilder(client, interaction.locale).setTitle('CAT').setImage(file);
-    interaction.reply({ embeds: [embed.builder] });
+    interaction.reply({ embeds: [embed] });
 }
 
 export const slashCommandData = new SlashCommandBuilder('CAT');

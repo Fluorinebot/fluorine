@@ -13,7 +13,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         value: `8BALL_RESPONSES.${responseId}`
     });
 
-    interaction.reply({ embeds: [embed.builder] });
+    interaction.reply({ embeds: [embed] });
 }
 
 export const slashCommandData = new SlashCommandBuilder('8BALL').addStringOption('QUESTION', option =>

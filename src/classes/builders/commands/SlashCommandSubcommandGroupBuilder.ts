@@ -4,6 +4,7 @@ import { ApplicationCommandOptionType, SlashCommandSubcommandGroupBuilder as Unl
 
 export class SlashCommandSubcommandGroupBuilder extends BaseCommandBuilder<UnlocalizedBuilder> {
     public subcommandQueue: SlashCommandSubcommandBuilder[];
+
     constructor(baseKey: string) {
         super(ApplicationCommandOptionType.SubcommandGroup, baseKey);
         this.builder = new UnlocalizedBuilder();

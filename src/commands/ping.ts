@@ -8,7 +8,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         .setTitle('Ping')
         .addFields({ name: 'PING', value: `${client.ws.ping}ms` });
 
-    interaction.reply({ embeds: [embed.builder] });
+    interaction.reply({ embeds: [embed] });
 }
 
 export const slashCommandData = new SlashCommandBuilder('PING');

@@ -1,7 +1,7 @@
 import { BaseBuilder } from '#builderBases';
 import type { FluorineClient } from '#classes';
 import type { LocaleFieldOptions, LocaleAuthor, LocaleFooter } from '#types';
-import { EmbedBuilder as UnlocalizedBuilder, type ColorResolvable, type LocalizationMap } from 'discord.js';
+import { APIEmbed, EmbedBuilder as UnlocalizedBuilder, type ColorResolvable, type LocalizationMap } from 'discord.js';
 
 export class EmbedBuilder extends BaseBuilder<UnlocalizedBuilder> {
     clientColor: ColorResolvable = 0x3872f2;
@@ -87,5 +87,9 @@ export class EmbedBuilder extends BaseBuilder<UnlocalizedBuilder> {
     spliceFields(index: number, deleteCount: number, ...fields: LocaleFieldOptions[]) {
         this.builder.spliceFields(index, deleteCount, ...fields.map(field => this.mapField(field)));
         return this;
+    }
+
+    toJSON(): APIEmbed {
+        return this.builder.toJSON();
     }
 }

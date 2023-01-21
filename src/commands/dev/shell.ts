@@ -54,7 +54,7 @@ export async function onModal(
         embed.setTitle('Failed', { raw: true }).setDescription(codeBlock('sh', cleaned), { raw: true });
     }
 
-    interaction.reply({ embeds: [embed.builder] });
+    interaction.reply({ embeds: [embed] });
 }
 
 export const modalData: NonCommandInteractionData = {

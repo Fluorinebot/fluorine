@@ -86,7 +86,7 @@ export class CasesModule {
                 return;
             }
 
-            channel.send({ embeds: [embed.builder] });
+            channel.send({ embeds: [embed] });
         }
     }
     async getGuild(id: string) {

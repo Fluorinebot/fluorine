@@ -47,7 +47,7 @@ export async function onInteraction(
         .setTitle('LISTCASE_TITLE', { user: member.user.tag })
         .setThumbnail(member.displayAvatarURL());
 
-    const replyOptions: InteractionReplyOptions & InteractionUpdateOptions = { embeds: [embed.builder] };
+    const replyOptions: InteractionReplyOptions & InteractionUpdateOptions = { embeds: [embed] };
 
     if (!cases.length) {
         return interaction.reply({

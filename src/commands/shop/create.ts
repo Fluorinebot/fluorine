@@ -38,7 +38,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         }
     );
 
-    interaction.reply({ embeds: [embed.builder] });
+    interaction.reply({ embeds: [embed] });
     client.shop.add(obj);
 }
 

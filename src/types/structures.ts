@@ -9,26 +9,7 @@ import type {
     Interaction,
     MessageComponentInteraction,
     ModalSubmitInteraction,
-    SlashCommandAttachmentOption,
-    SlashCommandBooleanOption,
-    SlashCommandChannelOption,
-    SlashCommandIntegerOption,
-    SlashCommandMentionableOption,
-    SlashCommandNumberOption,
-    SlashCommandRoleOption,
-    SlashCommandStringOption,
-    SlashCommandSubcommandGroupBuilder,
-    SlashCommandUserOption,
-    TextInputComponent,
-    ContextMenuCommandBuilder as DjsContextMenuCommandBuilder,
-    SlashCommandBuilder as DjsSlashCommandBuilder,
-    SlashCommandSubcommandBuilder as DjsSlashCommandSubcommandBuilder,
-    ActionRowBuilder,
-    ButtonBuilder,
-    EmbedBuilder,
-    ModalBuilder,
-    SelectMenuBuilder,
-    TextInputBuilder
+    TextInputComponent
 } from 'discord.js';
 
 export type Category = 'fun' | 'tools' | 'moderation' | 'economy';
@@ -94,60 +75,8 @@ export type ContextMenuCommand = Pick<BaseCommand, 'contextMenuCommandData'> & C
 export type Component = Pick<BaseCommand, 'componentData'> & Command;
 export type Modal = Pick<BaseCommand, 'modalData'> & Command;
 
-export type CommandResolvable =
-    | DjsSlashCommandBuilder
-    | DjsSlashCommandSubcommandBuilder
-    | DjsContextMenuCommandBuilder
-    | SlashCommandSubcommandGroupBuilder;
-
-export type OptionResolvable =
-    | SlashCommandAttachmentOption
-    | SlashCommandBooleanOption
-    | SlashCommandChannelOption
-    | SlashCommandIntegerOption
-    | SlashCommandMentionableOption
-    | SlashCommandNumberOption
-    | SlashCommandRoleOption
-    | SlashCommandStringOption
-    | SlashCommandUserOption;
-
-export type ComponentResolvable =
-    | ActionRowBuilder
-    | ButtonBuilder
-    | ModalBuilder
-    | TextInputBuilder
-    | SelectMenuBuilder;
-
-export type ApplicationCommandBuilderResolvable = CommandResolvable | OptionResolvable;
-export type BuilderResolvable = ApplicationCommandBuilderResolvable | ComponentResolvable | EmbedBuilder;
-
 export interface Event {
     run: (client: FluorineClient, ...args: any) => void;
-}
-
-export interface LocaleFieldOptions {
-    name?: string;
-    nameArgs?: Record<string, unknown>;
-    value?: string;
-    valueArgs?: Record<string, unknown>;
-    rawName?: string;
-    rawValue?: string;
-    inline?: boolean;
-}
-
-export interface LocaleAuthor {
-    name?: string;
-    nameArgs?: Record<string, unknown>;
-    rawName?: string;
-    url?: string;
-    iconURL?: string;
-}
-
-export interface LocaleFooter {
-    text?: string;
-    textArgs?: Record<string, unknown>;
-    rawText?: string;
-    iconURL?: string;
 }
 
 export interface ShopItemConstructor {

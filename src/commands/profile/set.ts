@@ -37,7 +37,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
                 .setTitle('PROFILE_SUCCESS')
                 .setDescription('PROFILE_SET_BIRTHDAY', { birthday });
 
-            interaction.reply({ embeds: [embed.builder], ephemeral: true });
+            interaction.reply({ embeds: [embed], ephemeral: true });
             break;
         }
 
@@ -66,7 +66,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
                     location: value
                 });
 
-            interaction.reply({ embeds: [embed.builder], ephemeral: true });
+            interaction.reply({ embeds: [embed], ephemeral: true });
             break;
         }
 
@@ -96,7 +96,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
                 .setTitle('PROFILE_SUCCESS')
                 .setDescription('PROFILE_SET_WEBSITE', { website });
 
-            interaction.reply({ embeds: [embed.builder], ephemeral: true });
+            interaction.reply({ embeds: [embed], ephemeral: true });
             break;
         }
 
@@ -126,7 +126,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
                     pronouns
                 });
 
-            interaction.reply({ embeds: [embed.builder], ephemeral: true });
+            interaction.reply({ embeds: [embed], ephemeral: true });
             break;
         }
 
@@ -156,7 +156,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
                     description
                 });
 
-            interaction.reply({ embeds: [embed.builder], ephemeral: true });
+            interaction.reply({ embeds: [embed], ephemeral: true });
             break;
         }
     }

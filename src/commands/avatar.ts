@@ -71,7 +71,7 @@ export async function onInteraction(
         embed.setImage(member.displayAvatarURL({ size: 512 }));
     }
 
-    const options = { embeds: [embed.builder], components: [components.builder] };
+    const options = { embeds: [embed], components: [components.builder] };
     interaction.isMessageComponent() ? interaction.update(options) : interaction.reply(options);
 }
 

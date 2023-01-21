@@ -16,7 +16,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         embed.setDescription('NONE');
     }
 
-    interaction.reply({ embeds: [embed.builder] });
+    interaction.reply({ embeds: [embed] });
 }
 
 export const slashCommandData = new SlashCommandSubcommandBuilder('LIST');

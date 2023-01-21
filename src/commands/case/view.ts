@@ -31,7 +31,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
             { name: 'CASE_REASON', rawValue: caseObj.reason }
         );
 
-    interaction.reply({ embeds: [embed.builder] });
+    interaction.reply({ embeds: [embed] });
 }
 
 export const slashCommandData = new SlashCommandSubcommandBuilder('VIEW').addIntegerOption('ID', option =>

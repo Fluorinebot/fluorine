@@ -59,7 +59,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
             { name: 'CASE_ID', value: caseObj.caseId.toString() }
         );
 
-    interaction.reply({ embeds: [embed.builder] });
+    interaction.reply({ embeds: [embed] });
     client.cases.logToModerationChannel(interaction.guildId, caseObj);
 }
 

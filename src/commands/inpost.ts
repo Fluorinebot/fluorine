@@ -36,7 +36,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         embed.addFields({ name: status.title, value: status.description });
     });
 
-    interaction.reply({ embeds: [embed.builder] });
+    interaction.reply({ embeds: [embed] });
 }
 
 export const slashCommandData = new SlashCommandBuilder('INPOST').addStringOption('ID', option =>

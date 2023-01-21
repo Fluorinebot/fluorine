@@ -36,7 +36,7 @@ export async function onInteraction(
     );
 
     const options = {
-        embeds: [embed.builder],
+        embeds: [embed],
         components: [row]
     };
 

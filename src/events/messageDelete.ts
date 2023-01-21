@@ -40,5 +40,5 @@ export async function run(client: FluorineClient, message: Message) {
             }
         );
 
-    channel.send({ embeds: [embed.builder] });
+    channel.send({ embeds: [embed] });
 }

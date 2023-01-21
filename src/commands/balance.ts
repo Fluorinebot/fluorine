@@ -15,7 +15,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         { name: 'BALANCE_BANK', rawValue: `${balance.bankBal} ${currency}` }
     );
 
-    interaction.reply({ embeds: [embed.builder], ephemeral: true });
+    interaction.reply({ embeds: [embed], ephemeral: true });
 }
 
 export const slashCommandData = new SlashCommandBuilder('BALANCE').setDMPermission(false);

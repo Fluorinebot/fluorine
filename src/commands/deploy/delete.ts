@@ -46,7 +46,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
             .setTitle('Failed', { raw: true })
             .setDescription(`\`\`\`js\n${error}\n${error.stack}\`\`\``, { raw: true });
 
-        interaction.editReply({ embeds: [embed.builder] });
+        interaction.editReply({ embeds: [embed] });
     }
 }
 

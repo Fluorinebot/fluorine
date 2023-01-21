@@ -78,7 +78,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         )
         .setThumbnail(`https://crafatar.com/avatars/${uuid.id}?default=MHF_Steve&overlay`);
 
-    interaction.reply({ embeds: [bedEmbed.builder] });
+    interaction.reply({ embeds: [bedembed] });
 }
 
 export const slashCommandData = new SlashCommandBuilder('BEDWARS').addStringOption('PLAYER', option =>

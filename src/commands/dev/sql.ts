@@ -53,7 +53,7 @@ export async function onModal(
         embed.setTitle('Failed').setDescription(codeBlock('js', cleaned));
     }
 
-    interaction.reply({ embeds: [embed.builder] });
+    interaction.reply({ embeds: [embed] });
 }
 
 export const modalData: NonCommandInteractionData = {

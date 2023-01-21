@@ -47,7 +47,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     client.economy.add(interaction.guildId, interaction.user, earned);
     client.economy.subtract(interaction.guildId, interaction.user, earned);
 
-    return interaction.reply({ embeds: [embed.builder] });
+    return interaction.reply({ embeds: [embed] });
 }
 export const slashCommandData = new SlashCommandBuilder('ROB')
     .setDMPermission(false)

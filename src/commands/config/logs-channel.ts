@@ -23,7 +23,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
             value
         });
 
-    interaction.reply({ embeds: [embed.builder] });
+    interaction.reply({ embeds: [embed] });
 }
 
 export const slashCommandData = new SlashCommandSubcommandBuilder('CHANNEL').addChannelOption('CHANNEL', option =>

@@ -72,7 +72,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         )
         .setThumbnail(`https://crafatar.com/avatars/${uuid.id}?default=MHF_Steve&overlay`);
 
-    interaction.reply({ embeds: [embed.builder] });
+    interaction.reply({ embeds: [embed] });
 }
 
 export const slashCommandData = new SlashCommandBuilder('SKYWARS').addStringOption('PLAYER', option =>
