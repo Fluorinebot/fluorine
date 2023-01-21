@@ -24,7 +24,7 @@ export async function startServer(client: FluorineClient) {
         origin:
             env.NODE_ENV === 'production'
                 ? ['https://fluorine.me', 'http://localhost:3000']
-                : ['https://localhost:3000', 'https://localhost:5173'],
+                : ['http://localhost:3000', 'http://localhost:5173'],
         methods: ['GET', 'PATCH', 'DELETE'],
         credentials: true
     });
