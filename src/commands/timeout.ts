@@ -60,16 +60,13 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         .setTitle('TIMEOUT_SUCCESS_TITLE')
         .setDescription('TIMEOUT_SUCCESS_DESCRIPTION')
         .setThumbnail(member.displayAvatarURL())
-        .addFields(
-            {
-                name: 'TIMEOUT_MODERATOR',
-                rawValue: interaction.user.tag
-            },
+        .addFields([
+            { name: 'TIMEOUT_MODERATOR', rawValue: interaction.user.tag },
             { name: 'TIMEOUT_USER', rawValue: member.user.tag },
             { name: 'DURATION', rawValue: ms(duration) },
             { name: 'REASON', rawValue: reason },
             { name: 'CASE_ID', rawValue: caseObj.caseId.toString() }
-        );
+        ]);
 
     interaction.reply({ embeds: [embed] });
     client.cases.logToModerationChannel(interaction.guildId, caseObj);

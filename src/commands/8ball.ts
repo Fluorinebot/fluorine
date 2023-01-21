@@ -8,12 +8,9 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     const question = interaction.options.getString('question');
     const responseId = hash(question) % 6;
 
-    const embed = new EmbedBuilder(client, interaction.locale).setDescription(question).addFields([
-        {
-            name: '8BALL_RESPONSE',
-            value: `8BALL_RESPONSES.${responseId}`
-        }
-    ]);
+    const embed = new EmbedBuilder(client, interaction.locale)
+        .setDescription(question)
+        .addFields([{ name: '8BALL_RESPONSE', value: `8BALL_RESPONSES.${responseId}` }]);
 
     interaction.reply({ embeds: [embed] });
 }

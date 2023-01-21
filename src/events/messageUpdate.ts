@@ -31,22 +31,11 @@ export async function run(client: FluorineClient, oldMessage: Message, newMessag
     const embed = new EmbedBuilder(client, newMessage.guild.preferredLocale)
         .setTitle('MESSAGE_UPDATE_TITLE')
         .setThumbnail(member.displayAvatarURL())
-        .addFields(
-            {
-                name: 'MESSAGE_UPDATE_AUTHOR',
-                rawValue: member.user.tag
-            },
-            {
-                name: 'MESSAGE_UPDATE_OLD_CONTENT',
-                value: 'NONE',
-                rawValue: oldMessage.content
-            },
-            {
-                name: 'MESSAGE_UPDATE_NEW_CONTENT',
-                value: 'NONE',
-                rawValue: newMessage.content
-            }
-        );
+        .addFields([
+            { name: 'MESSAGE_UPDATE_AUTHOR', rawValue: member.user.tag },
+            { name: 'MESSAGE_UPDATE_OLD_CONTENT', value: 'NONE', rawValue: oldMessage.content },
+            { name: 'MESSAGE_UPDATE_NEW_CONTENT', value: 'NONE', rawValue: newMessage.content }
+        ]);
 
     channel.send({ embeds: [embed] });
 }

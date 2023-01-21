@@ -63,11 +63,11 @@ export async function onInteraction(
     const chunkPage = interaction.isCommand() ? page : componentPage;
 
     chunk[chunkPage].forEach(caseData => {
-        embed.addFields({ rawName: `#${caseData.caseId} ${caseData.type}`, rawValue: caseData.reason });
+        embed.addFields([{ rawName: `#${caseData.caseId} ${caseData.type}`, rawValue: caseData.reason }]);
     });
 
     if (chunk.length > 1) {
-        const row = new ActionRowBuilder(interaction.locale).addComponents(
+        const row = new ActionRowBuilder(interaction.locale).addComponents([
             new ButtonBuilder(`listcase:${interaction.user.id}:${member.id}.${page - 1}`)
                 .setLabel('LISTCASE_BACK')
                 .setStyle(ButtonStyle.Primary)
@@ -76,7 +76,7 @@ export async function onInteraction(
                 .setLabel('LISTCASE_NEXT')
                 .setStyle(ButtonStyle.Primary)
                 .setDisabled(page + 1 === chunk.length)
-        );
+        ]);
 
         replyOptions.components = [row];
     }

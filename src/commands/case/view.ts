@@ -21,7 +21,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     const embed = new EmbedBuilder(client, interaction.locale)
         .setTitle('CASE_TITLE', { id })
         .setThumbnail(user.displayAvatarURL())
-        .addFields(
+        .addFields([
             { name: 'CASE_USER', rawValue: user.tag },
             { name: 'CASE_MODERATOR', rawValue: creator.tag },
             {
@@ -29,7 +29,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
                 value: caseObj.type.toUpperCase()
             },
             { name: 'CASE_REASON', rawValue: caseObj.reason }
-        );
+        ]);
 
     interaction.reply({ embeds: [embed] });
 }

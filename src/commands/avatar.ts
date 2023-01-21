@@ -56,7 +56,7 @@ export async function onInteraction(
         }
 
         if (member.avatar) {
-            components.addComponents(
+            components.addComponents([
                 new ButtonBuilder(`avatar:${interaction.user.id}:${member.id}.guild`)
                     .setLabel('AVATAR_GUILD')
                     .setStyle(ButtonStyle.Primary)
@@ -65,7 +65,7 @@ export async function onInteraction(
                     .setLabel('AVATAR_USER')
                     .setStyle(ButtonStyle.Primary)
                     .setDisabled(action === 'user')
-            );
+            ]);
         }
     } else {
         embed.setImage(member.displayAvatarURL({ size: 512 }));

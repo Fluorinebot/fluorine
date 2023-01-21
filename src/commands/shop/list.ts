@@ -10,7 +10,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 
     if (list.length) {
         list.forEach(item => {
-            embed.addFields({ rawName: `${item.name} - ${item.price} ${currency}`, rawValue: item.description });
+            embed.addFields([{ rawName: `${item.name} - ${item.price} ${currency}`, rawValue: item.description }]);
         });
     } else {
         embed.setDescription('NONE');

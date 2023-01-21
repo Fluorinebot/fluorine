@@ -29,16 +29,10 @@ export async function run(client: FluorineClient, message: Message) {
     const embed = new EmbedBuilder(client, message.guild.preferredLocale)
         .setTitle('MESSAGE_DELETE_TITLE')
         .setThumbnail(message.member.displayAvatarURL())
-        .addFields(
-            {
-                name: 'MESSAGE_DELETE_AUTHOR',
-                rawValue: message.author.tag
-            },
-            {
-                name: 'MESSAGE_DELETE_CONTENT',
-                rawValue: message.content
-            }
-        );
+        .addFields([
+            { name: 'MESSAGE_DELETE_AUTHOR', rawValue: message.author.tag },
+            { name: 'MESSAGE_DELETE_CONTENT', rawValue: message.content }
+        ]);
 
     channel.send({ embeds: [embed] });
 }

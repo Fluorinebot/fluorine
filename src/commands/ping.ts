@@ -6,7 +6,7 @@ import type { Category } from '#types';
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const embed = new EmbedBuilder(client, interaction.locale)
         .setTitle('Ping')
-        .addFields({ name: 'PING', value: `${client.ws.ping}ms` });
+        .addFields([{ name: 'PING', value: `${client.ws.ping}ms` }]);
 
     interaction.reply({ embeds: [embed] });
 }

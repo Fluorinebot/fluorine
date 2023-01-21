@@ -31,12 +31,12 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         .setTitle('WARN_SUCCESS_TITLE')
         .setDescription('WARN_SUCCESS_DESCRIPTION')
         .setThumbnail(member.displayAvatarURL())
-        .addFields(
+        .addFields([
             { name: 'WARN_MODERATOR', rawValue: interaction.user.tag },
             { name: 'WARN_USER', rawValue: member.user.tag },
             { name: 'REASON', rawValue: reason },
             { name: 'CASE_ID', rawValue: caseObj.caseId.toString() }
-        );
+        ]);
 
     interaction.reply({ embeds: [embed] });
     client.cases.logToModerationChannel(interaction.guildId, caseObj);

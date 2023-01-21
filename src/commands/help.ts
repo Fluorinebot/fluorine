@@ -20,16 +20,16 @@ export async function onInteraction(
 
     const embed = new EmbedBuilder(client, interaction.locale)
         .setTitle(`HELP_TITLE_${category.toUpperCase()}`)
-        .setFields(...fields);
+        .setFields(fields);
 
-    const row = new ActionRowBuilder(interaction.locale).addComponents(
-        new SelectMenuBuilder(`help:${interaction.user.id}`).setOptions(
+    const row = new ActionRowBuilder(interaction.locale).addComponents([
+        new SelectMenuBuilder(`help:${interaction.user.id}`).setOptions([
             { label: 'FUN', value: 'fun', emoji: '🎮', default: category === 'fun' },
             { label: 'TOOLS', value: 'tools', emoji: '🛠️', default: category === 'tools' },
             { label: 'MODERATION', value: 'moderation', emoji: '🔨', default: category === 'moderation' },
             { label: 'ECONOMY', value: 'economy', emoji: '💰', default: category === 'economy' }
-        )
-    );
+        ])
+    ]);
 
     const options = {
         embeds: [embed],

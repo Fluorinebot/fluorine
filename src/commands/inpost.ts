@@ -33,7 +33,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 
     response.tracking_details.reverse().forEach(data => {
         const status = statuses.items.find(element => element.name === data.status);
-        embed.addFields({ name: status.title, value: status.description });
+        embed.addFields([{ name: status.title, value: status.description }]);
     });
 
     interaction.reply({ embeds: [embed] });

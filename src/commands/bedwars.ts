@@ -42,40 +42,16 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     const embed = new EmbedBuilder(client, interaction.locale)
         .setTitle('HYPIXEL_STATISTICS_TITLE', { player })
         .setDescription(`K/D: ${kd}\n Win/loss ratio: ${winratio}`, { raw: true })
-        .addFields(
-            {
-                name: 'HYPIXEL_WON_GAMES',
-                rawValue: `${bedStats.wins_bedwars || 0}`,
-                inline: true
-            },
-            {
-                name: 'HYPIXEL_LOST_GAMES',
-                rawValue: `${bedStats.losses_bedwars || 0}`,
-                inline: true
-            },
+        .addFields([
+            { name: 'HYPIXEL_WON_GAMES', rawValue: `${bedStats.wins_bedwars || 0}`, inline: true },
+            { name: 'HYPIXEL_LOST_GAMES', rawValue: `${bedStats.losses_bedwars || 0}`, inline: true },
             { rawName: '\u200B', rawValue: '\u200B', inline: true },
-            {
-                name: 'HYPIXEL_KILLS',
-                rawValue: `${bedStats.kills_bedwars || 0}`,
-                inline: true
-            },
-            {
-                name: 'HYPIXEL_DEATHS',
-                rawValue: `${bedStats.deaths_bedwars || 0}`,
-                inline: true
-            },
+            { name: 'HYPIXEL_KILLS', rawValue: `${bedStats.kills_bedwars || 0}`, inline: true },
+            { name: 'HYPIXEL_DEATHS', rawValue: `${bedStats.deaths_bedwars || 0}`, inline: true },
             { rawName: '\u200B', rawValue: '\u200B', inline: true },
-            {
-                name: 'HYPIXEL_BEDS_DESTROYED',
-                rawValue: `${bedStats.beds_broken_bedwars || 0}`,
-                inline: true
-            },
-            {
-                name: 'HYPIXEL_BEDS_LOST',
-                rawValue: `${bedStats.beds_lost_bedwars || 0}`,
-                inline: true
-            }
-        )
+            { name: 'HYPIXEL_BEDS_DESTROYED', rawValue: `${bedStats.beds_broken_bedwars || 0}`, inline: true },
+            { name: 'HYPIXEL_BEDS_LOST', rawValue: `${bedStats.beds_lost_bedwars || 0}`, inline: true }
+        ])
         .setThumbnail(`https://crafatar.com/avatars/${uuid.id}?default=MHF_Steve&overlay`);
 
     interaction.reply({ embeds: [embed] });

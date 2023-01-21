@@ -41,35 +41,15 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     const embed = new EmbedBuilder(client, interaction.locale)
         .setTitle('HYPIXEL_STATISTICS_TITLE', { player })
         .setDescription(`K/D: ${kd}\n Win/loss ratio: ${winratio}`)
-        .addFields(
-            {
-                name: 'HYPIXEL_WON_GAMES',
-                rawValue: `${skyStats.wins || 0}`,
-                inline: true
-            },
-            {
-                name: 'HYPIXEL_LOST_GAMES',
-                rawValue: `${skyStats.losses || 0}`,
-                inline: true
-            },
+        .addFields([
+            { name: 'HYPIXEL_WON_GAMES', rawValue: `${skyStats.wins || 0}`, inline: true },
+            { name: 'HYPIXEL_LOST_GAMES', rawValue: `${skyStats.losses || 0}`, inline: true },
             { name: '\u200B', value: '\u200B', inline: true },
-            {
-                name: 'HYPIXEL_KILLS',
-                rawValue: `${skyStats.kills || 0}`,
-                inline: true
-            },
-            {
-                name: 'HYPIXEL_DEATHS',
-                rawValue: `${skyStats.deaths || 0}`,
-                inline: true
-            },
+            { name: 'HYPIXEL_KILLS', rawValue: `${skyStats.kills || 0}`, inline: true },
+            { name: 'HYPIXEL_DEATHS', rawValue: `${skyStats.deaths || 0}`, inline: true },
             { name: '\u200B', value: '\u200B', inline: true },
-            {
-                name: 'HYPIXEL_ASSISTS',
-                rawValue: `${skyStats.assists || 0}`,
-                inline: true
-            }
-        )
+            { name: 'HYPIXEL_ASSISTS', rawValue: `${skyStats.assists || 0}`, inline: true }
+        ])
         .setThumbnail(`https://crafatar.com/avatars/${uuid.id}?default=MHF_Steve&overlay`);
 
     interaction.reply({ embeds: [embed] });

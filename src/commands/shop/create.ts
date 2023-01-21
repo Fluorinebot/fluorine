@@ -29,14 +29,11 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     if (existingItem) {
         return interaction.reply({ content: client.i18n.t('SHOP_CREATE_EXISTS') });
     }
-    const embed = new EmbedBuilder(client, interaction.locale).setTitle('SHOP_CREATE_SUCCESS').addFields(
+    const embed = new EmbedBuilder(client, interaction.locale).setTitle('SHOP_CREATE_SUCCESS').addFields([
         { name: 'SHOP_CREATE_NAME', rawValue: name },
         { name: 'SHOP_CREATE_DESCRIPTION', rawValue: description },
-        {
-            name: 'SHOP_CREATE_PRICE',
-            rawValue: `${price} ${await client.economy.getCurrency(interaction.guildId)}`
-        }
-    );
+        { name: 'SHOP_CREATE_PRICE', rawValue: `${price} ${await client.economy.getCurrency(interaction.guildId)}` }
+    ]);
 
     interaction.reply({ embeds: [embed] });
     client.shop.add(obj);
