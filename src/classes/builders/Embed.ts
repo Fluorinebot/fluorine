@@ -29,7 +29,7 @@ export class EmbedBuilder extends BaseBuilder<UnlocalizedBuilder> {
         };
     }
 
-    addFields(...fields: LocaleFieldOptions[]) {
+    addFields(fields: LocaleFieldOptions[]) {
         this.builder.addFields(fields.map(field => this.mapField(field)));
         return this;
     }
@@ -79,12 +79,12 @@ export class EmbedBuilder extends BaseBuilder<UnlocalizedBuilder> {
         return this;
     }
 
-    setFields(...fields: LocaleFieldOptions[]) {
+    setFields(fields: LocaleFieldOptions[]) {
         this.builder.setFields(fields.map(field => this.mapField(field)));
         return this;
     }
 
-    spliceFields(index: number, deleteCount: number, ...fields: LocaleFieldOptions[]) {
+    spliceFields(index: number, deleteCount: number, fields: LocaleFieldOptions[]) {
         this.builder.spliceFields(index, deleteCount, ...fields.map(field => this.mapField(field)));
         return this;
     }

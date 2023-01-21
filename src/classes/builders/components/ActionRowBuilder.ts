@@ -18,8 +18,8 @@ export class ActionRowBuilder extends BaseComponentBuilder<
         this.builder = new UnlocalizedBuilder();
     }
 
-    addComponents(...components: (ButtonBuilder | SelectMenuBuilder)[]) {
-        this.builder.addComponents(...components.map(builder => builder.prepare(this.locale).builder));
+    addComponents(components: (ButtonBuilder | SelectMenuBuilder)[]) {
+        this.builder.addComponents(components.map(builder => builder.prepare(this.locale).builder));
         return this;
     }
 

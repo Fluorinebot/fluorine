@@ -35,12 +35,12 @@ export class SelectMenuBuilder extends BaseComponentBuilder<UnlocalizedBuilder> 
         return this;
     }
 
-    setOptions(...options: SelectMenuComponentOptionData[]) {
+    setOptions(options: SelectMenuComponentOptionData[]) {
         this.options = options;
         return this;
     }
 
-    addOptions(...options: SelectMenuComponentOptionData[]) {
+    addOptions(options: SelectMenuComponentOptionData[]) {
         this.options.push(...options);
         return this;
     }

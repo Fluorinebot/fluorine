@@ -32,64 +32,25 @@ export async function onInteraction(
         embed
             .setTitle('INFO_TITLE')
             .setDescription('INFO_DESCRIPTION')
-            .addFields(
-                {
-                    name: 'INFO_DEVELOPERS',
-                    rawValue: developers,
-                    inline: true
-                },
-                {
-                    name: 'INFO_THANKS',
-                    rawValue: thanks,
-                    inline: true
-                },
+            .addFields([
+                { name: 'INFO_DEVELOPERS', rawValue: developers, inline: true },
+                { name: 'INFO_THANKS', rawValue: thanks, inline: true },
                 { rawName: '\u200B', rawValue: '\u200B', inline: true },
-                {
-                    name: 'INFO_LANGUAGES',
-                    rawValue: langs.join(', '),
-                    inline: true
-                },
-                {
-                    name: 'INFO_VERSION',
-                    rawValue: client.version,
-                    inline: true
-                }
-            );
+                { name: 'INFO_LANGUAGES', rawValue: langs.join(', '), inline: true },
+                { name: 'INFO_VERSION', rawValue: client.version, inline: true }
+            ]);
     }
 
     if (value === 'stats') {
-        embed.setTitle('INFO_STATS_TITLE').addFields(
-            {
-                name: 'INFO_STATS_RAM',
-                rawValue: `${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)} MB`,
-                inline: true
-            },
-            {
-                name: 'INFO_STATS_SERVERS',
-                rawValue: client.guilds.cache.size.toString(),
-                inline: true
-            },
-            {
-                name: 'INFO_STATS_USERS',
-                rawValue: client.users.cache.size.toString(),
-                inline: true
-            },
-            {
-                name: 'INFO_STATS_CHANNELS',
-                rawValue: client.channels.cache.size.toString(),
-                inline: true
-            },
-            {
-                name: 'INFO_STATS_COMMANDS',
-                rawValue: client.chatInputCommands.size.toString(),
-                inline: true
-            },
-            {
-                name: 'INFO_STATS_PING',
-                rawValue: `${client.ws.ping}ms`,
-                inline: true
-            }
-        );
+        const memUsage = process.memoryUsage().rss / 1024 / 1024;
+        embed.setTitle('INFO_STATS_TITLE').addFields([
+            { name: 'INFO_STATS_RAM', rawValue: `${memUsage.toFixed(2)} MB`, inline: true },
+            { name: 'INFO_STATS_SERVERS', rawValue: client.guilds.cache.size.toString(), inline: true },
+            { name: 'INFO_STATS_USERS', rawValue: client.users.cache.size.toString(), inline: true },
+            { name: 'INFO_STATS_CHANNELS', rawValue: client.channels.cache.size.toString(), inline: true },
+            { name: 'INFO_STATS_COMMANDS', rawValue: client.chatInputCommands.size.toString(), inline: true },
+            { name: 'INFO_STATS_PING', rawValue: `${client.ws.ping}ms`, inline: true }
+        ]);
     }
 
     const row = new ActionRowBuilder(interaction.locale).addComponents(
