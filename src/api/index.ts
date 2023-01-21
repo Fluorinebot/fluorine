@@ -22,10 +22,11 @@ const server = fastify({
 export async function startServer(client: FluorineClient) {
     await server.register(cors, {
         origin:
-            env.NODE_ENV === 'production' ? ['https://fluorine.me', 'http://localhost:3000'] : 'https://localhost:5173',
+            env.NODE_ENV === 'production' ? ['https://fluorine.me', 'http://localhost:3000'] : 'https://localhost:3000',
         methods: ['GET', 'PATCH', 'DELETE'],
         credentials: true
     });
+
     await server.register(cookies);
 
     server.get('/guilds/:id(^\\d{17,19})', {
@@ -40,12 +41,18 @@ export async function startServer(client: FluorineClient) {
         handler: (req, reply) => getChannels(client, req, reply)
     });
 
+    server.get('/guilds/:id(^\\d{17,19})/cases', {
+        handler: (req, reply) => getCases(client, req, reply)
+    });
+
     server.patch('/guilds/:id(^\\d{17,19})/cases/:case', {
         handler: (req, reply) => patchCase(client, req, reply)
     });
+
     server.get('/guilds/:id(^\\d{17,19})/cases/:case(^\\d+)', {
         handler: (req, reply) => getCase(client, req, reply)
     });
+
     server.delete('/guilds/:id(^\\d{17,19})/cases/:case', {
         handler: (req, reply) => deleteCase(client, req, reply)
     });
@@ -53,22 +60,25 @@ export async function startServer(client: FluorineClient) {
     server.get('/guilds/:id(^\\d{17,19})/economy', {
         handler: (req, reply) => getEconomy(client, req, reply)
     });
+
     server.patch('/guilds/:id(^\\d{17,19})/economy/:userId(^\\d{17,19})', {
         handler: (req, reply) => patchEconomy(client, req, reply)
     });
-    server.get('/guilds/:id(^\\d{17,19})/cases', {
-        handler: (req, reply) => getCases(client, req, reply)
-    });
+
     server.get('/guilds', {
         handler: (req, reply) => getGuilds(client, req, reply)
     });
+
     server.get('/auth', {
         handler: (req, reply) => getAuth(client, req, reply)
     });
+
     server.patch('/guilds/:id(^\\d{17,19})', {
         handler: (req, reply) => patchGuild(client, req, reply)
     });
+
     server.addHook('preHandler', (req, reply) => tokenCheck(client, req, reply));
+
     server.addHook('onRequest', async (req, reply) => {
         if (!['DELETE', 'GET', 'PATCH'].includes(req.method)) {
             reply.callNotFound();
@@ -76,6 +86,7 @@ export async function startServer(client: FluorineClient) {
     });
 
     const validRoutes = ['/', '/favicon.ico'];
+
     server.addHook('onResponse', async (req, reply) => {
         const ip = reply.statusCode >= 299 && !validRoutes.includes(req.url) ? req.ip : '';
         client.logger.log(green(`${bold(req.method)} ${req.url}`), magenta(bold(reply.statusCode.toString())), ip);
