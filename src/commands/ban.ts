@@ -52,12 +52,12 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         .setTitle('BAN_SUCCESS_TITLE')
         .setDescription('BAN_SUCCESS_DESCRIPTION')
         .setThumbnail(member.displayAvatarURL())
-        .addFields(
+        .addFields([
             { name: 'BAN_MODERATOR', value: interaction.user.tag },
             { name: 'BAN_USER', value: member.user.tag },
             { name: 'REASON', value: reason },
             { name: 'CASE_ID', value: caseObj.caseId.toString() }
-        );
+        ]);
 
     interaction.reply({ embeds: [embed] });
     client.cases.logToModerationChannel(interaction.guildId, caseObj);

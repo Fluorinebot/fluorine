@@ -69,7 +69,7 @@ export class CasesModule {
             const embed = new EmbedBuilder(this.client, guildObj.preferredLocale)
                 .setTitle('CASE_NEW')
                 .setThumbnail(member.displayAvatarURL())
-                .addFields(
+                .addFields([
                     {
                         name: 'CASE_TYPE',
                         value: caseObj.type.toUpperCase() as 'BAN' | 'KICK' | 'WARN' | 'TIMEOUT'
@@ -78,7 +78,7 @@ export class CasesModule {
                     { name: 'CASE_USER', rawValue: member.user.tag },
                     { name: 'REASON', rawValue: caseObj.reason },
                     { name: 'ID', rawValue: `#${caseObj.caseId}` }
-                );
+                ]);
 
             const channel = guildObj.channels.cache.get(logsChannel.toString());
 

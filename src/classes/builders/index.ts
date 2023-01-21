@@ -1,3 +1,3 @@
 export * from '#commands';
 export * from '#components';
-export * from './Embed.js';
+export * from './EmbedBuilder.js';

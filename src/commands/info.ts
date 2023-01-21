@@ -53,7 +53,7 @@ export async function onInteraction(
         ]);
     }
 
-    const row = new ActionRowBuilder(interaction.locale).addComponents(
+    const row = new ActionRowBuilder(interaction.locale).addComponents([
         new ButtonBuilder(`info:${interaction.user.id}:info`)
             .setLabel('INFO')
             .setDisabled(value === 'info')
@@ -62,7 +62,7 @@ export async function onInteraction(
             .setLabel('INFO_STATS')
             .setDisabled(value === 'stats')
             .setStyle(ButtonStyle.Primary)
-    );
+    ]);
 
     const options = {
         embeds: [embed],

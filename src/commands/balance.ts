@@ -7,13 +7,10 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     const balance = await client.economy.get(interaction.guildId, interaction.user);
     const currency = await client.economy.getCurrency(interaction.guildId);
 
-    const embed = new EmbedBuilder(client, interaction.locale).setTitle('BALANCE').addFields(
-        {
-            name: 'BALANCE_WALLET',
-            rawValue: `${balance.walletBal} ${currency}`
-        },
+    const embed = new EmbedBuilder(client, interaction.locale).setTitle('BALANCE').addFields([
+        { name: 'BALANCE_WALLET', rawValue: `${balance.walletBal} ${currency}` },
         { name: 'BALANCE_BANK', rawValue: `${balance.bankBal} ${currency}` }
-    );
+    ]);
 
     interaction.reply({ embeds: [embed], ephemeral: true });
 }
