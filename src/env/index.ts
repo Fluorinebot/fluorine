@@ -8,6 +8,7 @@ export const env = createEnv({
     DISCORD_CLIENT_ID: { type: 'string' },
     DISCORD_REDIRECT: { type: 'string' },
     JWT_SECRET: { type: 'string' },
+    DASHBOARD_URI: { type: 'string' },
 
     // bot
     DISCORD_DEV_GUILD: { type: 'string' },
