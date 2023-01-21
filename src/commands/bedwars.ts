@@ -39,7 +39,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     const kd = Number((bedStats.kills_bedwars / bedStats.deaths_bedwars).toFixed(2));
     const winratio = Number((bedStats.wins_bedwars / bedStats.losses_bedwars).toFixed(2));
 
-    const bedEmbed = new EmbedBuilder(client, interaction.locale)
+    const embed = new EmbedBuilder(client, interaction.locale)
         .setTitle('HYPIXEL_STATISTICS_TITLE', { player })
         .setDescription(`K/D: ${kd}\n Win/loss ratio: ${winratio}`, { raw: true })
         .addFields(
@@ -78,7 +78,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         )
         .setThumbnail(`https://crafatar.com/avatars/${uuid.id}?default=MHF_Steve&overlay`);
 
-    interaction.reply({ embeds: [bedembed] });
+    interaction.reply({ embeds: [embed] });
 }
 
 export const slashCommandData = new SlashCommandBuilder('BEDWARS').addStringOption('PLAYER', option =>
