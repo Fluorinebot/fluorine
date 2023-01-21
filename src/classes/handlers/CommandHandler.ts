@@ -15,7 +15,7 @@ export class CommandHandler {
         }
 
         const subcommandNames = [...this.client.chatInputCommands.keys()].filter(c =>
-            c.startsWith(`${command.slashCommandData.builder.name}/`)
+            c.startsWith(`${command.slashCommandData.name}/`)
         );
 
         const subcommands = subcommandNames.map(subcommandName => {
@@ -49,11 +49,11 @@ export class CommandHandler {
         // * loads command types that do not have difference when nested.
         for (const command of commands) {
             if (this.isChatInputCommand(command)) {
-                this.client.chatInputCommands.set(command.slashCommandData.builder.name, command);
+                this.client.chatInputCommands.set(command.slashCommandData.name, command);
             }
 
             if (this.isContextMenuCommand(command)) {
-                this.client.contextMenuCommands.set(command.contextMenuCommandData.builder.name, command);
+                this.client.contextMenuCommands.set(command.contextMenuCommandData.name, command);
             }
 
             if (this.isComponent(command)) {

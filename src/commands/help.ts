@@ -14,12 +14,8 @@ export async function onInteraction(
     const commands = client.chatInputCommands.filter((c: ChatInputCommand) => c.category === category && !c.dev);
 
     const fields: LocaleFieldOptions[] = commands.map(c => ({
-        rawName: `/${
-            c.slashCommandData.builder.name_localizations[interaction.locale] ?? c.slashCommandData.builder.name
-        }`,
-        rawValue:
-            c.slashCommandData.builder.description_localizations[interaction.locale] ??
-            c.slashCommandData.builder.description
+        rawName: `/${c.slashCommandData.nameLocalizations[interaction.locale] ?? c.slashCommandData.name}`,
+        rawValue: c.slashCommandData.descriptionLocalizations[interaction.locale] ?? c.slashCommandData.description
     }));
 
     const embed = new EmbedBuilder(client, interaction.locale)

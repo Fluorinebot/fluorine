@@ -13,4 +13,20 @@ export class BaseOptionBuilder<T extends OptionResolvable> extends BaseApplicati
         this.builder.setRequired(bool);
         return this;
     }
+
+    get name() {
+        return this.builder.name;
+    }
+
+    get description() {
+        return this.builder.description;
+    }
+
+    get nameLocalizations() {
+        return this.builder.name_localizations;
+    }
+
+    get descriptionLocalizations() {
+        return this.builder.description_localizations;
+    }
 }

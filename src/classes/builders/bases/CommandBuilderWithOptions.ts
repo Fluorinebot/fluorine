@@ -36,30 +36,26 @@ export class CommandBuilderWithOptions<
     }
 
     private mapOption(option: BaseOptionBuilder<any>) {
+        option.setBaseKey(`${this.baseKey}.OPTIONS.${option.baseKey}`);
+
         if (option instanceof AttachmentOption) {
-            this.builder.addAttachmentOption(option.setBaseKey(`${this.baseKey}.OPTIONS.${option.baseKey}`).builder);
+            this.builder.addAttachmentOption(option.builder);
         } else if (option instanceof BooleanOption) {
-            this.builder.addBooleanOption(option.setBaseKey(`${this.baseKey}.OPTIONS.${option.baseKey}`).builder);
+            this.builder.addBooleanOption(option.builder);
         } else if (option instanceof ChannelOption) {
-            this.builder.addChannelOption(option.setBaseKey(`${this.baseKey}.OPTIONS.${option.baseKey}`).builder);
+            this.builder.addChannelOption(option.builder);
         } else if (option instanceof IntegerOption) {
-            this.builder.addIntegerOption(
-                option.setBaseKey(`${this.baseKey}.OPTIONS.${option.baseKey}`).prepareChoices().builder
-            );
+            this.builder.addIntegerOption(option.prepareChoices().builder);
         } else if (option instanceof MentionableOption) {
-            this.builder.addMentionableOption(option.setBaseKey(`${this.baseKey}.OPTIONS.${option.baseKey}`).builder);
+            this.builder.addMentionableOption(option.builder);
         } else if (option instanceof NumberOption) {
-            this.builder.addNumberOption(
-                option.setBaseKey(`${this.baseKey}.OPTIONS.${option.baseKey}`).prepareChoices().builder
-            );
+            this.builder.addNumberOption(option.prepareChoices().builder);
         } else if (option instanceof RoleOption) {
-            this.builder.addRoleOption(option.setBaseKey(`${this.baseKey}.OPTIONS.${option.baseKey}`).builder);
+            this.builder.addRoleOption(option.builder);
         } else if (option instanceof StringOption) {
-            this.builder.addStringOption(
-                option.setBaseKey(`${this.baseKey}.OPTIONS.${option.baseKey}`).prepareChoices().builder
-            );
+            this.builder.addStringOption(option.prepareChoices().builder);
         } else if (option instanceof UserOption) {
-            this.builder.addUserOption(option.setBaseKey(`${this.baseKey}.OPTIONS.${option.baseKey}`).builder);
+            this.builder.addUserOption(option.builder);
         }
     }
 
