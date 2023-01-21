@@ -40,4 +40,8 @@ export class SlashCommandBuilder extends CommandBuilderWithOptions<UnlocalizedBu
         this.builder.addSubcommandGroup(subcommandGroup.builder);
         return this;
     }
+
+    toJSON() {
+        return this.builder.toJSON();
+    }
 }

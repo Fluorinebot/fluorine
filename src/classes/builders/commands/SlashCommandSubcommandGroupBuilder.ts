@@ -15,4 +15,8 @@ export class SlashCommandSubcommandGroupBuilder extends BaseCommandBuilder<Unloc
         this.subcommandQueue.push(subcommand);
         return this;
     }
+
+    toJSON() {
+        return this.builder.toJSON();
+    }
 }

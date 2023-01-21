@@ -48,4 +48,8 @@ export class IntegerOption extends BaseOptionBuilder<SlashCommandIntegerOption> 
         this.builder.addChoices(...preparedChoices);
         return this;
     }
+
+    toJSON() {
+        return this.builder.toJSON();
+    }
 }

@@ -1,5 +1,5 @@
+import { BaseComponentBuilder } from '#builderBases';
 import { TextInputBuilder as UnlocalizedBuilder, type LocalizationMap, type TextInputStyle } from 'discord.js';
-import { BaseComponentBuilder } from '../bases/BaseComponentBuilder';
 
 export class TextInputBuilder extends BaseComponentBuilder<UnlocalizedBuilder> {
     label: string;
@@ -48,5 +48,9 @@ export class TextInputBuilder extends BaseComponentBuilder<UnlocalizedBuilder> {
         }
 
         return this;
+    }
+
+    toJSON() {
+        return this.builder.toJSON();
     }
 }

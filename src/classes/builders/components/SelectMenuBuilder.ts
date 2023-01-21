@@ -1,8 +1,8 @@
 import { BaseComponentBuilder } from '#builderBases';
 import {
     SelectMenuBuilder as UnlocalizedBuilder,
-    type SelectMenuComponentOptionData,
-    type LocalizationMap
+    type LocalizationMap,
+    type SelectMenuComponentOptionData
 } from 'discord.js';
 
 export class SelectMenuBuilder extends BaseComponentBuilder<UnlocalizedBuilder> {
@@ -59,5 +59,9 @@ export class SelectMenuBuilder extends BaseComponentBuilder<UnlocalizedBuilder> 
 
         this.options = [];
         return this;
+    }
+
+    toJSON() {
+        return this.builder.toJSON();
     }
 }

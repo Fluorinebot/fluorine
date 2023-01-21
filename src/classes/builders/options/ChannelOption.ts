@@ -15,4 +15,8 @@ export class ChannelOption extends BaseOptionBuilder<SlashCommandChannelOption> 
         this.builder.addChannelTypes(...types);
         return this;
     }
+
+    toJSON() {
+        return this.builder.toJSON();
+    }
 }

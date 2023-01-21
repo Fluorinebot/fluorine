@@ -1,12 +1,7 @@
 import { BaseBuilder } from '#builderBases';
 import type { FluorineClient } from '#classes';
 import type { LocaleAuthor, LocaleFieldOptions, LocaleFooter } from '#types';
-import {
-    EmbedBuilder as UnlocalizedBuilder,
-    type APIEmbed,
-    type ColorResolvable,
-    type LocalizationMap
-} from 'discord.js';
+import { EmbedBuilder as UnlocalizedBuilder, type ColorResolvable, type LocalizationMap } from 'discord.js';
 
 export class EmbedBuilder extends BaseBuilder<UnlocalizedBuilder> {
     clientColor: ColorResolvable = 0x3872f2;
@@ -94,7 +89,7 @@ export class EmbedBuilder extends BaseBuilder<UnlocalizedBuilder> {
         return this;
     }
 
-    toJSON(): APIEmbed {
+    toJSON() {
         return this.builder.toJSON();
     }
 }

@@ -47,4 +47,8 @@ export class StringOption extends BaseOptionBuilder<SlashCommandStringOption> {
         this.builder.addChoices(...preparedChoices);
         return this;
     }
+
+    toJSON() {
+        return this.builder.toJSON();
+    }
 }

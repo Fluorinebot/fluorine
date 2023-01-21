@@ -20,6 +20,10 @@ export class ActionRowBuilder extends BaseComponentBuilder<
 
     addComponents(...components: (ButtonBuilder | SelectMenuBuilder)[]) {
         this.builder.addComponents(...components.map(builder => builder.prepare(this.locale).builder));
-        return this.builder;
+        return this;
+    }
+
+    toJSON() {
+        return this.builder.toJSON();
     }
 }

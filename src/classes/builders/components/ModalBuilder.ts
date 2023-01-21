@@ -1,11 +1,11 @@
+import { BaseComponentBuilder } from '#builderBases';
+import type { TextInputBuilder } from '#components';
 import {
     ActionRowBuilder,
     ModalBuilder as UnlocalizedBuilder,
     type LocalizationMap,
     type TextInputBuilder as DjsTextInputBuilder
 } from 'discord.js';
-import { BaseComponentBuilder } from '#builderBases';
-import type { TextInputBuilder } from '#components';
 
 export class ModalBuilder extends BaseComponentBuilder<UnlocalizedBuilder> {
     public locale: keyof LocalizationMap;
@@ -29,5 +29,9 @@ export class ModalBuilder extends BaseComponentBuilder<UnlocalizedBuilder> {
         );
 
         return this.builder;
+    }
+
+    toJSON() {
+        return this.builder.toJSON();
     }
 }

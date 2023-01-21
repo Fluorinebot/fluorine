@@ -6,4 +6,8 @@ export class SlashCommandSubcommandBuilder extends CommandBuilderWithOptions<Unl
         super(ApplicationCommandOptionType.Subcommand, baseKey);
         this.builder = new UnlocalizedBuilder();
     }
+
+    toJSON() {
+        return this.builder.toJSON();
+    }
 }

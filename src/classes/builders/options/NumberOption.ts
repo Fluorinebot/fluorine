@@ -48,4 +48,8 @@ export class NumberOption extends BaseOptionBuilder<SlashCommandNumberOption> {
         this.builder.addChoices(...preparedChoices);
         return this;
     }
+
+    toJSON() {
+        return this.builder.toJSON();
+    }
 }

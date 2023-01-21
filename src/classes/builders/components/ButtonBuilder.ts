@@ -1,10 +1,10 @@
+import { BaseComponentBuilder } from '#builderBases';
 import {
     ButtonBuilder as UnlocalizedBuilder,
-    type LocalizationMap,
     type APIMessageComponentEmoji,
-    type ButtonStyle
+    type ButtonStyle,
+    type LocalizationMap
 } from 'discord.js';
-import { BaseComponentBuilder } from '../bases/BaseComponentBuilder';
 
 export class ButtonBuilder extends BaseComponentBuilder<UnlocalizedBuilder> {
     label: string;
@@ -42,5 +42,9 @@ export class ButtonBuilder extends BaseComponentBuilder<UnlocalizedBuilder> {
     prepare(locale: keyof LocalizationMap) {
         this.builder.setLabel(this.getOne(this.label, locale));
         return this;
+    }
+
+    toJSON() {
+        return this.builder.toJSON();
     }
 }
