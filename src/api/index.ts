@@ -14,6 +14,7 @@ import { getEconomy } from './guilds/[id]/economy/index.js';
 import { getCases } from './guilds/[id]/cases/index.js';
 import { deleteCase, getCase, patchCase } from './guilds/[id]/cases/[caseId].js';
 import { patchEconomy } from './guilds/[id]/economy/[userId].js';
+import { getProfile } from './profile.js';
 
 const server = fastify({
     ignoreTrailingSlash: true
@@ -77,6 +78,14 @@ export async function startServer(client: FluorineClient) {
 
     server.patch('/guilds/:id(^\\d{17,19})', {
         handler: (req, reply) => patchGuild(client, req, reply)
+    });
+
+    server.get('/profile', {
+        handler: (req, reply) => getProfile(client, req, reply)
+    });
+
+    server.patch('/profile', {
+        handler: (req, reply) => getProfile(client, req, reply)
     });
 
     server.addHook('preHandler', (req, reply) => tokenCheck(client, req, reply));
