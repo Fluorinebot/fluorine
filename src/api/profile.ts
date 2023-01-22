@@ -1,5 +1,5 @@
 import type { FluorineClient } from '#classes';
-import { Replace } from '#types';
+import type { Replace } from '#types';
 import type { Profile } from '@prisma/client';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 
