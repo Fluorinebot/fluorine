@@ -1,4 +1,5 @@
 import type { FluorineClient } from '#classes';
+import { Replace } from '#types';
 import type { Profile } from '@prisma/client';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 
@@ -7,7 +8,10 @@ export async function getProfile(client: FluorineClient, req: FastifyRequest, re
     const { id } = await client.oauth.verify(authorization);
 
     const profile = await client.prisma.profile.findUnique({ where: { userId: BigInt(id) } });
-    res.send({ userId: profile.userId.toString(), ...profile });
+    const proccessed: Replace<Profile, 'userId', string | bigint> = { ...profile };
+    proccessed.userId = profile.userId.toString();
+
+    res.send(proccessed);
 }
 
 export async function patchProfile(client: FluorineClient, req: FastifyRequest, res: FastifyReply) {
