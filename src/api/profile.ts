@@ -22,10 +22,15 @@ export async function getProfile(client: FluorineClient, req: FastifyRequest, re
 export async function patchProfile(client: FluorineClient, req: FastifyRequest, res: FastifyReply) {
     const { authorization } = req.cookies as { authorization: string };
     const { id } = await client.oauth.verify(authorization);
-    const body = req.body as Partial<Replace<Profile, 'userId', string | bigint>>;
 
-    body.userId &&= BigInt(body.userId);
+    const body = (req.body ? JSON.parse(req.body as string) : {}) as Partial<Profile>;
+    body.userId ??= BigInt(body.userId);
 
-    await client.prisma.profile.update({ where: { userId: BigInt(id) }, data: body as Partial<Profile> });
+    await client.prisma.profile.upsert({
+        where: { userId: BigInt(id) },
+        create: { userId: BigInt(id), ...body },
+        update: body
+    });
+
     res.status(204).send();
 }
