@@ -10,7 +10,7 @@ export async function getProfile(client: FluorineClient, req: FastifyRequest, re
     const profile = await client.prisma.profile.findUnique({ where: { userId: BigInt(id) } });
 
     if (!profile) {
-        res.status(404).send({ error: 'User does not have a profile' });
+        res.status(404).send({ error: 'User does not have a profile', userId: profile.userId.toString() });
     }
 
     const proccessed: Replace<Profile, 'userId', string | bigint> = { ...profile };
