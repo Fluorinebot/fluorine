@@ -8,6 +8,11 @@ export async function getProfile(client: FluorineClient, req: FastifyRequest, re
     const { id } = await client.oauth.verify(authorization);
 
     const profile = await client.prisma.profile.findUnique({ where: { userId: BigInt(id) } });
+
+    if (!profile) {
+        res.status(404).send({ error: 'User does not have a profile' });
+    }
+
     const proccessed: Replace<Profile, 'userId', string | bigint> = { ...profile };
     proccessed.userId = profile.userId.toString();
 
@@ -17,12 +22,10 @@ export async function getProfile(client: FluorineClient, req: FastifyRequest, re
 export async function patchProfile(client: FluorineClient, req: FastifyRequest, res: FastifyReply) {
     const { authorization } = req.cookies as { authorization: string };
     const { id } = await client.oauth.verify(authorization);
-    const body = req.body as Partial<Profile>;
+    const body = req.body as Partial<Replace<Profile, 'userId', string | bigint>>;
 
-    if ('userId' in body) {
-        res.status(405).send();
-    }
+    body.userId &&= BigInt(body.userId);
 
-    await client.prisma.profile.update({ where: { userId: BigInt(id) }, data: body });
+    await client.prisma.profile.update({ where: { userId: BigInt(id) }, data: body as Partial<Profile> });
     res.status(204).send();
 }
