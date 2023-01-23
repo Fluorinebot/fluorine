@@ -24,12 +24,17 @@ export async function patchProfile(client: FluorineClient, req: FastifyRequest, 
     const { id } = await client.oauth.verify(authorization);
 
     const body = (req.body ? JSON.parse(req.body as string) : {}) as Partial<Profile>;
-    body.userId ??= BigInt(body.userId);
+    body.userId = BigInt(body.userId);
+
+    const updatableBody = {};
+    Object.keys(body)
+        .filter(x => x !== 'userId')
+        .map(x => (updatableBody[x] = body[x]));
 
     await client.prisma.profile.upsert({
         where: { userId: BigInt(id) },
         create: { userId: BigInt(id), ...body },
-        update: body
+        update: updatableBody
     });
 
     res.status(204).send();
