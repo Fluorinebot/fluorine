@@ -14,7 +14,7 @@ import type {
 
 export type Category = 'fun' | 'tools' | 'moderation' | 'economy';
 
-type Replace<Interface, Property extends keyof Interface, NewType> = Omit<Interface, Property> & {
+export type Replace<Interface, Property extends keyof Interface, NewType> = Omit<Interface, Property> & {
     [P in Property]: NewType;
 };
 

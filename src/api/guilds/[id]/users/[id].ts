@@ -4,7 +4,7 @@ import type { FastifyRequest, FastifyReply } from 'fastify';
 
 export async function getUser(client: FluorineClient, req: FastifyRequest, reply: FastifyReply) {
     const { id: guildId } = req.params as { id: string };
-    const { id: userId } = req.params as { id: string };
+    const { userId } = req.params as { userId: string };
     const { authorization } = req.cookies;
 
     const { id: authId } = client.oauth.verify(authorization);
@@ -19,6 +19,7 @@ export async function getUser(client: FluorineClient, req: FastifyRequest, reply
     }
 
     const { user, nickname, roles } = await guild.members.fetch(userId);
+
     return {
         tag: user.tag,
         nickname,
