@@ -45,7 +45,7 @@
         "@fastify/cookie": "^8.1.0",
         "@fastify/cors": "^8.1.0",
         "@napi-rs/canvas": "^0.1.30",
-        "@prisma/client": "^4.3.1",
+        "@prisma/client": "^4.10.0",
         "bufferutil": "^4.0.6",
         "discord.js": "^14.6.0",
         "dotenv": "^16.0.2",
