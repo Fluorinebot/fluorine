@@ -16,6 +16,7 @@ import { getRoles } from './guilds/[id]/roles.js';
 import { getUser } from './guilds/[id]/users/[id].js';
 import { getProfile, patchProfile } from './profile/index.js';
 import { tokenCheck } from './tokenCheck.js';
+import { getOauthUser } from './user/index.js';
 
 const server = fastify({
     ignoreTrailingSlash: true
@@ -94,7 +95,7 @@ export async function startServer(client: FluorineClient) {
     });
 
     server.get('/user', {
-        handler: (req, reply) => getUser(client, req, reply)
+        handler: (req, reply) => getOauthUser(client, req, reply)
     });
 
     server.addHook('preHandler', (req, reply) => tokenCheck(client, req, reply));
