@@ -7,7 +7,7 @@ export class EmbedBuilder extends BaseBuilder<UnlocalizedBuilder> {
     clientColor: ColorResolvable = 0x3872f2;
 
     constructor(private client: FluorineClient, private locale: keyof LocalizationMap) {
-        super('commands');
+        super('responses');
         this.builder = new UnlocalizedBuilder();
         this.locale = locale;
         this.client = client;
