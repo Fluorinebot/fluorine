@@ -20,9 +20,6 @@ export async function getProfile(client: FluorineClient, req: FastifyRequest, re
 }
 
 export async function patchProfile(client: FluorineClient, req: FastifyRequest, res: FastifyReply) {
-    const { authorization } = req.cookies as { authorization: string };
-    const { id } = await client.oauth.verify(authorization);
-
     const body = (req.body ? JSON.parse(req.body as string) : {}) as Partial<Profile>;
     body.userId = BigInt(body.userId);
 
@@ -32,8 +29,8 @@ export async function patchProfile(client: FluorineClient, req: FastifyRequest, 
         .map(x => (updatableBody[x] = body[x]));
 
     await client.prisma.profile.upsert({
-        where: { userId: BigInt(id) },
-        create: { userId: BigInt(id), ...body },
+        where: { userId: body.userId },
+        create: { userId: body.userId, ...body },
         update: updatableBody
     });
 
