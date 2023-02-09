@@ -162,7 +162,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     }
 }
 
-export const slashCommandData = new SlashCommandSubcommandBuilder('PROFILE')
+export const slashCommandData = new SlashCommandSubcommandBuilder('SET')
     .addStringOption('FIELD', option =>
         option.setRequired(true).addChoices('birthday', 'description', 'location', 'pronouns', 'website')
     )

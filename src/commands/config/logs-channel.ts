@@ -26,6 +26,6 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [embed] });
 }
 
-export const slashCommandData = new SlashCommandSubcommandBuilder('CHANNEL').addChannelOption('CHANNEL', option =>
+export const slashCommandData = new SlashCommandSubcommandBuilder('LOGS_CHANNEL').addChannelOption('CHANNEL', option =>
     option.setChannelTypes(ChannelType.GuildText).setRequired(true)
 );

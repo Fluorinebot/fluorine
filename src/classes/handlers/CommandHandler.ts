@@ -1,7 +1,7 @@
+import type { SlashCommandBuilder, SlashCommandSubcommandBuilder } from '#builders';
 import type { FluorineClient } from '#classes';
 import type { ChatInputCommand, ChatInputSubcommand, ContextMenuCommand, Command, Modal, Component } from '#types';
 import { loadParentDirectory } from '#util';
-import type { SlashCommandBuilder, SlashCommandSubcommandBuilder } from 'discord.js';
 
 export class CommandHandler {
     constructor(private client: FluorineClient) {
@@ -22,11 +22,11 @@ export class CommandHandler {
             const subcommand = this.client.chatInputCommands.get(subcommandName);
 
             if (this.isChatInputSubcommand(subcommand)) {
-                return subcommand.slashCommandData.builder;
+                return subcommand.slashCommandData;
             }
         });
 
-        this.getMergedCommandData(command.slashCommandData.builder, subcommands);
+        this.getMergedCommandData(command.slashCommandData, subcommands);
     }
 
     private getMergedCommandData(base: SlashCommandBuilder, data: SlashCommandSubcommandBuilder[] = []) {

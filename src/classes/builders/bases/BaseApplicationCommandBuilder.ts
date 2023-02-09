@@ -1,10 +1,5 @@
 import type { ApplicationCommandBuilderResolvable } from '#types';
-import {
-    ContextMenuCommandBuilder,
-    type ApplicationCommandOptionType,
-    type ApplicationCommandType,
-    type LocalizationMap
-} from 'discord.js';
+import { ContextMenuCommandBuilder, type ApplicationCommandOptionType, type ApplicationCommandType } from 'discord.js';
 import { BaseBuilder } from './BaseBuilder';
 
 export class BaseApplicationCommandBuilder<T extends ApplicationCommandBuilderResolvable> extends BaseBuilder<T> {
@@ -14,20 +9,6 @@ export class BaseApplicationCommandBuilder<T extends ApplicationCommandBuilderRe
 
     constructor() {
         super('commands');
-    }
-
-    getLocalizations(key: string) {
-        const localized: LocalizationMap = {};
-
-        for (const lang of this.langs) {
-            localized[lang] = this.i18n.t(key, { lng: lang, ns: 'commands' });
-        }
-
-        return localized;
-    }
-
-    getDefault(key: string) {
-        return this.i18n.t(key, { lng: 'en-US', ns: 'commands' });
     }
 
     setName(name: string) {
@@ -50,6 +31,7 @@ export class BaseApplicationCommandBuilder<T extends ApplicationCommandBuilderRe
 
     setBaseKey(key: string) {
         this.baseKey = key;
+
         this.setName(this.baseKey);
         this.setDescription(this.baseKey);
 

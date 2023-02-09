@@ -5,7 +5,7 @@ export class ContextMenuCommandBuilder extends BaseCommandBuilder<UnlocalizedBui
     constructor(type: ApplicationCommandType.Message | ApplicationCommandType.User, baseKey: string) {
         super(type, baseKey);
         this.builder = new UnlocalizedBuilder().setType(type);
-        this.setBaseKey(baseKey);
+        this.setName(this.baseKey);
     }
 
     setDefaultMemberPermissions(permissions: bigint | string | number) {
