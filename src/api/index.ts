@@ -14,8 +14,9 @@ import { patchEconomy } from './guilds/[id]/economy/[userId].js';
 import { getGuild, patchGuild } from './guilds/[id]/index.js';
 import { getRoles } from './guilds/[id]/roles.js';
 import { getUser } from './guilds/[id]/users/[id].js';
-import { getProfile, patchProfile } from './profile.js';
+import { getProfile, patchProfile } from './profile/index.js';
 import { tokenCheck } from './tokenCheck.js';
+import { getOauthUser } from './user/index.js';
 
 const server = fastify({
     ignoreTrailingSlash: true
@@ -91,6 +92,10 @@ export async function startServer(client: FluorineClient) {
 
     server.patch('/profile', {
         handler: (req, reply) => patchProfile(client, req, reply)
+    });
+
+    server.get('/user', {
+        handler: (req, reply) => getOauthUser(client, req, reply)
     });
 
     server.addHook('preHandler', (req, reply) => tokenCheck(client, req, reply));
