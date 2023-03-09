@@ -21,6 +21,6 @@ export async function getChannels(client: FluorineClient, req: FastifyRequest, r
         name: e?.name,
         position: e?.position,
         type: e?.type,
-        parentId: e?.parentId || 0
+        parentId: e?.parentId || '0'
     }));
 }

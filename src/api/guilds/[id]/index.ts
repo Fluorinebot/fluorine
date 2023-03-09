@@ -26,7 +26,7 @@ export async function getGuild(client: FluorineClient, req: FastifyRequest, repl
     reply.send(
         JSON.stringify({ name, icon, logModerationActions, logsChannel, logsEnabled }, (k, v) =>
             // eslint-disable-next-line prettier/prettier
-            (typeof v === 'bigint' ? v.toString() : v)
+            typeof v === 'bigint' ? v.toString() : v
         )
     );
 }
@@ -45,7 +45,7 @@ export async function patchGuild(client: FluorineClient, req: FastifyRequest, re
     if (!member.permissions.has(PermissionsBitField.Flags.ManageGuild)) {
         return reply.status(403).send({ error: 'Missing permissions' });
     }
-    const { logModerationActions, logsChannel, logsEnabled } = req.body as {
+    const { logModerationActions, logsChannel, logsEnabled } = JSON.parse(req.body as string) as {
         logModerationActions?: boolean;
         logsChannel?: string;
         logsEnabled?: boolean;
