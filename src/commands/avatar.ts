@@ -27,7 +27,7 @@ export async function onInteraction(
 
     if (interaction.isContextMenuCommand() || interaction.isChatInputCommand()) {
         member =
-            (interaction.options.getMember('user') as unknown as User) ??
+            (interaction.options.getMember('user') as GuildMember) ??
             interaction.options.getUser('user') ??
             (interaction.member as GuildMember);
 
