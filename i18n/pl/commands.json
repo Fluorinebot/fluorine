@@ -188,7 +188,7 @@
         },
         "UPDATE": {
             "DESCRIPTION": "i forgor",
-            "NAME": "dev"
+            "NAME": "update"
         }
     },
     "DOG": {

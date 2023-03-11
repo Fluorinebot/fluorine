@@ -188,7 +188,7 @@
         },
         "UPDATE": {
             "DESCRIPTION": "We have a merge conflict on prod 🦀🦀🦀",
-            "NAME": "dev"
+            "NAME": "update"
         }
     },
     "DOG": {
