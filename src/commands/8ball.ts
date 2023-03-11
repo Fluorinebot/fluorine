@@ -1,5 +1,5 @@
-import { SlashCommandBuilder } from '#builders';
-import { Embed, type FluorineClient } from '#classes';
+import { EmbedBuilder, SlashCommandBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
 import type { Category } from '#types';
 import { type ChatInputCommandInteraction } from 'discord.js';
 import hash from 'murmurhash-v3';
@@ -8,12 +8,9 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     const question = interaction.options.getString('question');
     const responseId = hash(question) % 6;
 
-    const embed = new Embed(client, interaction.locale).setDescription(question).addLocaleFields([
-        {
-            name: '8BALL_RESPONSE',
-            localeValue: `8BALL_RESPONSES.${responseId}`
-        }
-    ]);
+    const embed = new EmbedBuilder(client, interaction.locale)
+        .setDescription(question)
+        .addFields([{ name: '8BALL_RESPONSE', value: `8BALL_RESPONSES.${responseId}` }]);
 
     interaction.reply({ embeds: [embed] });
 }

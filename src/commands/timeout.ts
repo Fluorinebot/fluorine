@@ -1,5 +1,5 @@
-import { SlashCommandBuilder } from '#builders';
-import { Embed, type FluorineClient } from '#classes';
+import { EmbedBuilder, SlashCommandBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
 import type { Category } from '#types';
 import { type ChatInputCommandInteraction, PermissionFlagsBits } from 'discord.js';
 import ms, { type StringValue } from 'ms';
@@ -56,19 +56,16 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         })
     );
 
-    const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle('TIMEOUT_SUCCESS_TITLE')
-        .setLocaleDescription('TIMEOUT_SUCCESS_DESCRIPTION')
+    const embed = new EmbedBuilder(client, interaction.locale)
+        .setTitle('TIMEOUT_SUCCESS_TITLE')
+        .setDescription('TIMEOUT_SUCCESS_DESCRIPTION')
         .setThumbnail(member.displayAvatarURL())
-        .addLocaleFields([
-            {
-                name: 'TIMEOUT_MODERATOR',
-                value: interaction.user.tag
-            },
-            { name: 'TIMEOUT_USER', value: member.user.tag },
-            { name: 'DURATION', value: ms(duration) },
-            { name: 'REASON', value: reason },
-            { name: 'CASE_ID', value: caseObj.caseId.toString() }
+        .addFields([
+            { name: 'TIMEOUT_MODERATOR', rawValue: interaction.user.tag },
+            { name: 'TIMEOUT_USER', rawValue: member.user.tag },
+            { name: 'DURATION', rawValue: ms(duration) },
+            { name: 'REASON', rawValue: reason },
+            { name: 'CASE_ID', rawValue: caseObj.caseId.toString() }
         ]);
 
     interaction.reply({ embeds: [embed] });

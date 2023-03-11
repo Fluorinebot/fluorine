@@ -1,5 +1,5 @@
-import { SlashCommandSubcommandBuilder } from '#builders';
-import { type FluorineClient, Embed } from '#classes';
+import { EmbedBuilder, SlashCommandSubcommandBuilder } from '#builders';
+import { type FluorineClient } from '#classes';
 import {
     type Collection,
     type ModalSubmitInteraction,
@@ -40,7 +40,7 @@ export async function onModal(
 ) {
     const code = fields.get('code').value;
     code.replace('```sql\n', '').replace('\n```', '');
-    const embed = new Embed(client, interaction.locale);
+    const embed = new EmbedBuilder(client, interaction.locale);
 
     try {
         const evaluated = client.prisma.$queryRawUnsafe(code);

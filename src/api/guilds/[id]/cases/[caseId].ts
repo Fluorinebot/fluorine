@@ -12,7 +12,7 @@ export async function patchCase(client: FluorineClient, req: FastifyRequest, res
     if (!member.permissions.has(PermissionFlagsBits.ManageGuild)) {
         return res.status(403).send({ error: 'Missing permissions' });
     }
-    const { reason } = req.body as { reason: string };
+    const { reason } = JSON.parse(req.body as string) as { reason: string };
     if (!reason) {
         return res.status(400).send({ error: 'Invalid body' });
     }

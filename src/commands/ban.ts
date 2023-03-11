@@ -1,5 +1,5 @@
-import { SlashCommandBuilder } from '#builders';
-import { Embed, type FluorineClient } from '#classes';
+import { EmbedBuilder, SlashCommandBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
 import type { Category } from '#types';
 import { type ChatInputCommandInteraction, PermissionFlagsBits } from 'discord.js';
 
@@ -48,11 +48,11 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         })
     });
 
-    const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle('BAN_SUCCESS_TITLE')
-        .setLocaleDescription('BAN_SUCCESS_DESCRIPTION')
+    const embed = new EmbedBuilder(client, interaction.locale)
+        .setTitle('BAN_SUCCESS_TITLE')
+        .setDescription('BAN_SUCCESS_DESCRIPTION')
         .setThumbnail(member.displayAvatarURL())
-        .addLocaleFields([
+        .addFields([
             { name: 'BAN_MODERATOR', value: interaction.user.tag },
             { name: 'BAN_USER', value: member.user.tag },
             { name: 'REASON', value: reason },

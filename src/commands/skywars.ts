@@ -1,5 +1,5 @@
-import { SlashCommandBuilder } from '#builders';
-import { Embed, type FluorineClient } from '#classes';
+import { EmbedBuilder, SlashCommandBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
 import { env } from '#env';
 import type { Category, HypixelType, UUIDResponse } from '#types';
 import { type ChatInputCommandInteraction } from 'discord.js';
@@ -38,37 +38,17 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     const kd = Number((skyStats.kills / skyStats.deaths).toFixed(2));
     const winratio = Number((skyStats.wins / skyStats.deaths).toFixed(2));
 
-    const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle('HYPIXEL_STATISTICS_TITLE', { player })
+    const embed = new EmbedBuilder(client, interaction.locale)
+        .setTitle('HYPIXEL_STATISTICS_TITLE', { player })
         .setDescription(`K/D: ${kd}\n Win/loss ratio: ${winratio}`)
-        .addLocaleFields([
-            {
-                name: 'HYPIXEL_WON_GAMES',
-                value: `${skyStats.wins || 0}`,
-                inline: true
-            },
-            {
-                name: 'HYPIXEL_LOST_GAMES',
-                value: `${skyStats.losses || 0}`,
-                inline: true
-            },
+        .addFields([
+            { name: 'HYPIXEL_WON_GAMES', rawValue: `${skyStats.wins || 0}`, inline: true },
+            { name: 'HYPIXEL_LOST_GAMES', rawValue: `${skyStats.losses || 0}`, inline: true },
             { name: '\u200B', value: '\u200B', inline: true },
-            {
-                name: 'HYPIXEL_KILLS',
-                value: `${skyStats.kills || 0}`,
-                inline: true
-            },
-            {
-                name: 'HYPIXEL_DEATHS',
-                value: `${skyStats.deaths || 0}`,
-                inline: true
-            },
+            { name: 'HYPIXEL_KILLS', rawValue: `${skyStats.kills || 0}`, inline: true },
+            { name: 'HYPIXEL_DEATHS', rawValue: `${skyStats.deaths || 0}`, inline: true },
             { name: '\u200B', value: '\u200B', inline: true },
-            {
-                name: 'HYPIXEL_ASSISTS',
-                value: `${skyStats.assists || 0}`,
-                inline: true
-            }
+            { name: 'HYPIXEL_ASSISTS', rawValue: `${skyStats.assists || 0}`, inline: true }
         ])
         .setThumbnail(`https://crafatar.com/avatars/${uuid.id}?default=MHF_Steve&overlay`);
 

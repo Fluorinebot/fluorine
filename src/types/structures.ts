@@ -9,20 +9,7 @@ import type {
     Interaction,
     MessageComponentInteraction,
     ModalSubmitInteraction,
-    SlashCommandAttachmentOption,
-    SlashCommandBooleanOption,
-    SlashCommandChannelOption,
-    SlashCommandIntegerOption,
-    SlashCommandMentionableOption,
-    SlashCommandNumberOption,
-    SlashCommandRoleOption,
-    SlashCommandStringOption,
-    SlashCommandSubcommandGroupBuilder,
-    SlashCommandUserOption,
-    TextInputComponent,
-    ContextMenuCommandBuilder as DjsContextMenuCommandBuilder,
-    SlashCommandBuilder as DjsSlashCommandBuilder,
-    SlashCommandSubcommandBuilder as DjsSlashCommandSubcommandBuilder
+    TextInputComponent
 } from 'discord.js';
 
 export type Category = 'fun' | 'tools' | 'moderation' | 'economy';
@@ -88,31 +75,8 @@ export type ContextMenuCommand = Pick<BaseCommand, 'contextMenuCommandData'> & C
 export type Component = Pick<BaseCommand, 'componentData'> & Command;
 export type Modal = Pick<BaseCommand, 'modalData'> & Command;
 
-export type CommandResolvable =
-    | DjsSlashCommandBuilder
-    | DjsSlashCommandSubcommandBuilder
-    | DjsContextMenuCommandBuilder
-    | SlashCommandSubcommandGroupBuilder;
-
-export type OptionResolvable =
-    | SlashCommandAttachmentOption
-    | SlashCommandBooleanOption
-    | SlashCommandChannelOption
-    | SlashCommandIntegerOption
-    | SlashCommandMentionableOption
-    | SlashCommandNumberOption
-    | SlashCommandRoleOption
-    | SlashCommandStringOption
-    | SlashCommandUserOption;
-
-export type BuilderResolvable = CommandResolvable | OptionResolvable;
-
 export interface Event {
     run: (client: FluorineClient, ...args: any) => void;
-}
-
-export interface PhishingLink {
-    url: string;
 }
 
 export interface ShopItemConstructor {

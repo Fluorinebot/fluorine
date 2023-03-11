@@ -186,9 +186,9 @@
             "DESCRIPTION": "DROP DATABASE splendid;",
             "NAME": "sql"
         },
-        "UPDATE ": {
+        "UPDATE": {
             "DESCRIPTION": "i forgor",
-            "NAME": "dev"
+            "NAME": "update"
         }
     },
     "DOG": {

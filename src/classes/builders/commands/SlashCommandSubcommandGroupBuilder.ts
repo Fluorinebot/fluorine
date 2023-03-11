@@ -1,9 +1,10 @@
-import { BaseCommand } from '#builderBases';
+import { BaseCommandBuilder } from '#builderBases';
 import type { SlashCommandSubcommandBuilder } from '#commands';
 import { ApplicationCommandOptionType, SlashCommandSubcommandGroupBuilder as UnlocalizedBuilder } from 'discord.js';
 
-export class SlashCommandSubcommandGroupBuilder extends BaseCommand<UnlocalizedBuilder> {
+export class SlashCommandSubcommandGroupBuilder extends BaseCommandBuilder<UnlocalizedBuilder> {
     public subcommandQueue: SlashCommandSubcommandBuilder[];
+
     constructor(baseKey: string) {
         super(ApplicationCommandOptionType.SubcommandGroup, baseKey);
         this.builder = new UnlocalizedBuilder();
@@ -13,5 +14,9 @@ export class SlashCommandSubcommandGroupBuilder extends BaseCommand<UnlocalizedB
     addSubcommand(subcommand: SlashCommandSubcommandBuilder) {
         this.subcommandQueue.push(subcommand);
         return this;
+    }
+
+    toJSON() {
+        return this.builder.toJSON();
     }
 }

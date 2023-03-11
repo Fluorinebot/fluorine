@@ -1,5 +1,5 @@
-import { SlashCommandSubcommandBuilder } from '#builders';
-import { Embed, type FluorineClient } from '#classes';
+import { EmbedBuilder, SlashCommandSubcommandBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
 import { type ChatInputCommandInteraction } from 'discord.js';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
@@ -14,9 +14,9 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         }
     });
 
-    const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle('CONFIG_SET_SUCCESS_TITLE')
-        .setLocaleDescription('CONFIG_SET_SUCCESS_DESCRIPTION', {
+    const embed = new EmbedBuilder(client, interaction.locale)
+        .setTitle('CONFIG_SET_SUCCESS_TITLE')
+        .setDescription('CONFIG_SET_SUCCESS_DESCRIPTION', {
             key: client.i18n.t('CONFIG_CURRENCY', { lng: interaction.locale }),
             value
         });

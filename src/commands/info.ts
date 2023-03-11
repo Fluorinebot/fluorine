@@ -1,25 +1,20 @@
-import { SlashCommandBuilder } from '#builders';
 import { readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import process from 'node:process';
 
-import { Embed, type FluorineClient } from '#classes';
+import { ActionRowBuilder, ButtonBuilder, EmbedBuilder, SlashCommandBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
 import type { Category, ComponentData } from '#types';
 import { getDirname } from '#util';
-import {
-    type ChatInputCommandInteraction,
-    type ButtonInteraction,
-    ActionRowBuilder,
-    ButtonBuilder,
-    ButtonStyle
-} from 'discord.js';
+
+import { ButtonStyle, type ButtonInteraction, type ChatInputCommandInteraction } from 'discord.js';
 
 export async function onInteraction(
     client: FluorineClient,
     interaction: ButtonInteraction | ChatInputCommandInteraction,
     value: 'info' | 'stats' = 'info'
 ) {
-    const embed = new Embed(client, interaction.locale);
+    const embed = new EmbedBuilder(client, interaction.locale);
 
     if (value === 'info') {
         const developers = (await Promise.all(client.devs.map(async id => (await client.users.fetch(id)).tag))).join(
@@ -35,78 +30,37 @@ export async function onInteraction(
         const langs = (await readdir(join(getDirname(import.meta.url), '../../i18n'))).map(file => file.split('.')[0]);
 
         embed
-            .setLocaleTitle('INFO_TITLE')
-            .setLocaleDescription('INFO_DESCRIPTION')
-            .addLocaleFields([
-                {
-                    name: 'INFO_DEVELOPERS',
-                    value: developers,
-                    inline: true
-                },
-                {
-                    name: 'INFO_THANKS',
-                    value: thanks,
-                    inline: true
-                },
-                { name: '\u200B', value: '\u200B', inline: true },
-                {
-                    name: 'INFO_LANGUAGES',
-                    value: langs.join(', '),
-                    inline: true
-                },
-                {
-                    name: 'INFO_VERSION',
-                    value: client.version,
-                    inline: true
-                }
+            .setTitle('INFO_TITLE')
+            .setDescription('INFO_DESCRIPTION')
+            .addFields([
+                { name: 'INFO_DEVELOPERS', rawValue: developers, inline: true },
+                { name: 'INFO_THANKS', rawValue: thanks, inline: true },
+                { rawName: '\u200B', rawValue: '\u200B', inline: true },
+                { name: 'INFO_LANGUAGES', rawValue: langs.join(', '), inline: true },
+                { name: 'INFO_VERSION', rawValue: client.version, inline: true }
             ]);
     }
 
     if (value === 'stats') {
-        embed.setLocaleTitle('INFO_STATS_TITLE').addLocaleFields([
-            {
-                name: 'INFO_STATS_RAM',
-                value: `${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)} MB`,
-                inline: true
-            },
-            {
-                name: 'INFO_STATS_SERVERS',
-                value: client.guilds.cache.size.toString(),
-                inline: true
-            },
-            {
-                name: 'INFO_STATS_USERS',
-                value: client.users.cache.size.toString(),
-                inline: true
-            },
-            {
-                name: 'INFO_STATS_CHANNELS',
-                value: client.channels.cache.size.toString(),
-                inline: true
-            },
-            {
-                name: 'INFO_STATS_COMMANDS',
-                value: client.chatInputCommands.size.toString(),
-                inline: true
-            },
-            {
-                name: 'INFO_STATS_PING',
-                value: `${client.ws.ping}ms`,
-                inline: true
-            }
+        const memUsage = process.memoryUsage().rss / 1024 / 1024;
+        embed.setTitle('INFO_STATS_TITLE').addFields([
+            { name: 'INFO_STATS_RAM', rawValue: `${memUsage.toFixed(2)} MB`, inline: true },
+            { name: 'INFO_STATS_SERVERS', rawValue: client.guilds.cache.size.toString(), inline: true },
+            { name: 'INFO_STATS_USERS', rawValue: client.users.cache.size.toString(), inline: true },
+            { name: 'INFO_STATS_CHANNELS', rawValue: client.channels.cache.size.toString(), inline: true },
+            { name: 'INFO_STATS_COMMANDS', rawValue: client.chatInputCommands.size.toString(), inline: true },
+            { name: 'INFO_STATS_PING', rawValue: `${client.ws.ping}ms`, inline: true }
         ]);
     }
 
-    const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
-        new ButtonBuilder()
-            .setLabel(client.i18n.t('INFO', { lng: interaction.locale }))
+    const row = new ActionRowBuilder(interaction.locale).addComponents([
+        new ButtonBuilder(`info:${interaction.user.id}:info`)
+            .setLabel('INFO')
             .setDisabled(value === 'info')
-            .setCustomId(`info:${interaction.user.id}:info`)
             .setStyle(ButtonStyle.Primary),
-        new ButtonBuilder()
-            .setLabel(client.i18n.t('INFO_STATS', { lng: interaction.locale }))
+        new ButtonBuilder(`info:${interaction.user.id}:stats`)
+            .setLabel('INFO_STATS')
             .setDisabled(value === 'stats')
-            .setCustomId(`info:${interaction.user.id}:stats`)
             .setStyle(ButtonStyle.Primary)
     ]);
 

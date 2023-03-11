@@ -186,9 +186,9 @@
             "DESCRIPTION": "Robert'); DROP TABLE students;--",
             "NAME": "sql"
         },
-        "UPDATE ": {
+        "UPDATE": {
             "DESCRIPTION": "We have a merge conflict on prod 🦀🦀🦀",
-            "NAME": "dev"
+            "NAME": "update"
         }
     },
     "DOG": {

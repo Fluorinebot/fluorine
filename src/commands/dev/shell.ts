@@ -1,5 +1,5 @@
-import { SlashCommandSubcommandBuilder } from '#builders';
-import { type FluorineClient, Embed } from '#classes';
+import { EmbedBuilder, SlashCommandSubcommandBuilder } from '#builders';
+import { type FluorineClient } from '#classes';
 import {
     type Collection,
     type ModalSubmitInteraction,
@@ -41,17 +41,17 @@ export async function onModal(
 ) {
     const code = fields.get('code').value;
     code.replace('```sh\n', '').replace('\n```', '');
-    const embed = new Embed(client, interaction.locale);
+    const embed = new EmbedBuilder(client, interaction.locale);
 
     try {
         const evaluated = execSync(code);
         const cleaned = await clean(client, evaluated);
 
-        embed.setTitle('Done').setDescription(codeBlock('sh', cleaned));
+        embed.setTitle('Done', { raw: true }).setDescription(codeBlock('sh', cleaned), { raw: true });
     } catch (error) {
         const cleaned = await clean(client, error);
 
-        embed.setTitle('Failed').setDescription(codeBlock('sh', cleaned));
+        embed.setTitle('Failed', { raw: true }).setDescription(codeBlock('sh', cleaned), { raw: true });
     }
 
     interaction.reply({ embeds: [embed] });

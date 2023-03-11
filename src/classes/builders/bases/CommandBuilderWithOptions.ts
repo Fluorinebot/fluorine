@@ -1,4 +1,4 @@
-import { BaseCommand, type BaseOption } from '#builderBases';
+import { BaseCommandBuilder, type BaseOptionBuilder } from '#builderBases';
 import {
     AttachmentOption,
     BooleanOption,
@@ -17,15 +17,17 @@ import {
     type SlashCommandSubcommandBuilder
 } from 'discord.js';
 
-export class CommandWithOptions<T extends SlashCommandBuilder | SlashCommandSubcommandBuilder> extends BaseCommand<T> {
-    public optionQueue: BaseOption<any>[];
+export class CommandBuilderWithOptions<
+    T extends SlashCommandBuilder | SlashCommandSubcommandBuilder
+> extends BaseCommandBuilder<T> {
+    public optionQueue: BaseOptionBuilder<any>[];
 
     constructor(type: ApplicationCommandType.ChatInput | ApplicationCommandOptionType.Subcommand, baseKey: string) {
         super(type, baseKey);
         this.optionQueue = [];
     }
 
-    private addOption(input: BaseOption<any>) {
+    private addOption(input: BaseOptionBuilder<any>) {
         if (this.builder instanceof SlashCommandBuilder) {
             this.mapOption(input);
         }
@@ -33,31 +35,27 @@ export class CommandWithOptions<T extends SlashCommandBuilder | SlashCommandSubc
         this.optionQueue.push(input);
     }
 
-    private mapOption(option: BaseOption<any>) {
+    private mapOption(option: BaseOptionBuilder<any>) {
+        option.setBaseKey(`${this.baseKey}.OPTIONS.${option.baseKey}`);
+
         if (option instanceof AttachmentOption) {
-            this.builder.addAttachmentOption(option.setBaseKey(`${this.baseKey}.OPTIONS.${option.baseKey}`).builder);
+            this.builder.addAttachmentOption(option.builder);
         } else if (option instanceof BooleanOption) {
-            this.builder.addBooleanOption(option.setBaseKey(`${this.baseKey}.OPTIONS.${option.baseKey}`).builder);
+            this.builder.addBooleanOption(option.builder);
         } else if (option instanceof ChannelOption) {
-            this.builder.addChannelOption(option.setBaseKey(`${this.baseKey}.OPTIONS.${option.baseKey}`).builder);
+            this.builder.addChannelOption(option.builder);
         } else if (option instanceof IntegerOption) {
-            this.builder.addIntegerOption(
-                option.setBaseKey(`${this.baseKey}.OPTIONS.${option.baseKey}`).prepareChoices().builder
-            );
+            this.builder.addIntegerOption(option.prepareChoices().builder);
         } else if (option instanceof MentionableOption) {
-            this.builder.addMentionableOption(option.setBaseKey(`${this.baseKey}.OPTIONS.${option.baseKey}`).builder);
+            this.builder.addMentionableOption(option.builder);
         } else if (option instanceof NumberOption) {
-            this.builder.addNumberOption(
-                option.setBaseKey(`${this.baseKey}.OPTIONS.${option.baseKey}`).prepareChoices().builder
-            );
+            this.builder.addNumberOption(option.prepareChoices().builder);
         } else if (option instanceof RoleOption) {
-            this.builder.addRoleOption(option.setBaseKey(`${this.baseKey}.OPTIONS.${option.baseKey}`).builder);
+            this.builder.addRoleOption(option.builder);
         } else if (option instanceof StringOption) {
-            this.builder.addStringOption(
-                option.setBaseKey(`${this.baseKey}.OPTIONS.${option.baseKey}`).prepareChoices().builder
-            );
+            this.builder.addStringOption(option.prepareChoices().builder);
         } else if (option instanceof UserOption) {
-            this.builder.addUserOption(option.setBaseKey(`${this.baseKey}.OPTIONS.${option.baseKey}`).builder);
+            this.builder.addUserOption(option.builder);
         }
     }
 

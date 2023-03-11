@@ -1,7 +1,7 @@
 import { ApplicationCommandOptionType, SlashCommandStringOption } from 'discord.js';
-import { BaseOption } from '#builderBases';
+import { BaseOptionBuilder } from '#builderBases';
 
-export class StringOption extends BaseOption<SlashCommandStringOption> {
+export class StringOption extends BaseOptionBuilder<SlashCommandStringOption> {
     choiceQueue: string[];
 
     constructor(baseKey: string) {
@@ -46,5 +46,9 @@ export class StringOption extends BaseOption<SlashCommandStringOption> {
         this.choiceQueue = [];
         this.builder.addChoices(...preparedChoices);
         return this;
+    }
+
+    toJSON() {
+        return this.builder.toJSON();
     }
 }

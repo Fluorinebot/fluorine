@@ -1,5 +1,5 @@
-import { SlashCommandBuilder } from '#builders';
-import { Embed, type FluorineClient } from '#classes';
+import { EmbedBuilder, SlashCommandBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
 import type { Category } from '#types';
 import { type ChatInputCommandInteraction } from 'discord.js';
 
@@ -12,10 +12,11 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         amount: `${money} ${await client.economy.getCurrency(interaction.guildId)}`
     });
 
-    const embed = new Embed(client, interaction.locale).setLocaleTitle('WORK_SUCCESS').setDescription(description);
+    const embed = new EmbedBuilder(client, interaction.locale)
+        .setTitle('WORK_SUCCESS')
+        .setDescription(description, { raw: true });
 
     client.economy.add(interaction.guildId, interaction.user, money);
-
     interaction.reply({ embeds: [embed] });
 }
 

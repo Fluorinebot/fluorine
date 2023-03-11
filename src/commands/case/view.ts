@@ -1,5 +1,5 @@
-import { SlashCommandSubcommandBuilder } from '#builders';
-import { Embed, type FluorineClient } from '#classes';
+import { EmbedBuilder, SlashCommandSubcommandBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
 import type { ChatInputCommandInteraction } from 'discord.js';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
@@ -18,17 +18,17 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     const user = await client.users.fetch(caseObj.moderatedUser.toString());
     const creator = await client.users.fetch(caseObj.caseCreator.toString());
 
-    const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle('CASE_TITLE', { id })
+    const embed = new EmbedBuilder(client, interaction.locale)
+        .setTitle('CASE_TITLE', { id })
         .setThumbnail(user.displayAvatarURL())
-        .addLocaleFields([
-            { name: 'CASE_USER', value: user.tag },
-            { name: 'CASE_MODERATOR', value: creator.tag },
+        .addFields([
+            { name: 'CASE_USER', rawValue: user.tag },
+            { name: 'CASE_MODERATOR', rawValue: creator.tag },
             {
                 name: 'CASE_TYPE',
-                localeValue: caseObj.type.toUpperCase()
+                value: caseObj.type.toUpperCase()
             },
-            { name: 'CASE_REASON', value: caseObj.reason }
+            { name: 'CASE_REASON', rawValue: caseObj.reason }
         ]);
 
     interaction.reply({ embeds: [embed] });

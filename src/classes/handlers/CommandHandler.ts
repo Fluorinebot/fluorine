@@ -1,7 +1,7 @@
+import type { SlashCommandBuilder, SlashCommandSubcommandBuilder } from '#builders';
 import type { FluorineClient } from '#classes';
 import type { ChatInputCommand, ChatInputSubcommand, ContextMenuCommand, Command, Modal, Component } from '#types';
 import { loadParentDirectory } from '#util';
-import type { SlashCommandBuilder, SlashCommandSubcommandBuilder } from 'discord.js';
 
 export class CommandHandler {
     constructor(private client: FluorineClient) {
@@ -15,18 +15,18 @@ export class CommandHandler {
         }
 
         const subcommandNames = [...this.client.chatInputCommands.keys()].filter(c =>
-            c.startsWith(`${command.slashCommandData.builder.name}/`)
+            c.startsWith(`${command.slashCommandData.name}/`)
         );
 
         const subcommands = subcommandNames.map(subcommandName => {
             const subcommand = this.client.chatInputCommands.get(subcommandName);
 
             if (this.isChatInputSubcommand(subcommand)) {
-                return subcommand.slashCommandData.builder;
+                return subcommand.slashCommandData;
             }
         });
 
-        this.getMergedCommandData(command.slashCommandData.builder, subcommands);
+        this.getMergedCommandData(command.slashCommandData, subcommands);
     }
 
     private getMergedCommandData(base: SlashCommandBuilder, data: SlashCommandSubcommandBuilder[] = []) {
@@ -49,11 +49,11 @@ export class CommandHandler {
         // * loads command types that do not have difference when nested.
         for (const command of commands) {
             if (this.isChatInputCommand(command)) {
-                this.client.chatInputCommands.set(command.slashCommandData.builder.name, command);
+                this.client.chatInputCommands.set(command.slashCommandData.name, command);
             }
 
             if (this.isContextMenuCommand(command)) {
-                this.client.contextMenuCommands.set(command.contextMenuCommandData.builder.name, command);
+                this.client.contextMenuCommands.set(command.contextMenuCommandData.name, command);
             }
 
             if (this.isComponent(command)) {

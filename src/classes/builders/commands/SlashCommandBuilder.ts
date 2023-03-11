@@ -1,8 +1,8 @@
-import { CommandWithOptions } from '#builderBases';
+import { CommandBuilderWithOptions } from '#builderBases';
 import type { SlashCommandSubcommandBuilder, SlashCommandSubcommandGroupBuilder } from '#commands';
 import { ApplicationCommandType, SlashCommandBuilder as UnlocalizedBuilder } from 'discord.js';
 
-export class SlashCommandBuilder extends CommandWithOptions<UnlocalizedBuilder> {
+export class SlashCommandBuilder extends CommandBuilderWithOptions<UnlocalizedBuilder> {
     constructor(baseKey: string) {
         super(ApplicationCommandType.ChatInput, baseKey);
         this.builder = new UnlocalizedBuilder();
@@ -39,5 +39,9 @@ export class SlashCommandBuilder extends CommandWithOptions<UnlocalizedBuilder> 
         subcommandGroup.subcommandQueue = [];
         this.builder.addSubcommandGroup(subcommandGroup.builder);
         return this;
+    }
+
+    toJSON() {
+        return this.builder.toJSON();
     }
 }

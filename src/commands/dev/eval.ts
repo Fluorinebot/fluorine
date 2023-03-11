@@ -1,5 +1,5 @@
-import { SlashCommandSubcommandBuilder } from '#builders';
-import { type FluorineClient, Embed } from '#classes';
+import { EmbedBuilder, SlashCommandSubcommandBuilder } from '#builders';
+import { type FluorineClient } from '#classes';
 import type { NonCommandInteractionData } from '#types';
 import { clean } from '#util';
 import {
@@ -40,17 +40,17 @@ export async function onModal(
 ) {
     const code = fields.get('code').value;
     code.replace('```js\n', '').replace('\n```', '');
-    const embed = new Embed(client, interaction.locale);
+    const embed = new EmbedBuilder(client, interaction.locale);
 
     try {
         const evaluated = eval(code);
         const cleaned = await clean(client, evaluated);
 
-        embed.setTitle('Done').setDescription(codeBlock('js', cleaned));
+        embed.setTitle('Done', { raw: true }).setDescription(codeBlock('js', cleaned), { raw: true });
     } catch (error) {
         const cleaned = await clean(client, error);
 
-        embed.setTitle('Failed').setDescription(codeBlock('js', cleaned));
+        embed.setTitle('Failed', { raw: true }).setDescription(codeBlock('js', cleaned), { raw: true });
     }
 
     interaction.reply({ embeds: [embed] });

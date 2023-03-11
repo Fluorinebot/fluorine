@@ -1,13 +1,13 @@
-import { SlashCommandBuilder } from '#builders';
-import { Embed, type FluorineClient } from '#classes';
+import { EmbedBuilder, SlashCommandBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
 import type { Category } from '#types';
 import { type ChatInputCommandInteraction } from 'discord.js';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const money = Math.floor(Math.random() * 200 + 50);
-    const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle('SLUT_SUCCESS')
-        .setLocaleDescription('SLUT_SUCCESS_DESCRIPTION', {
+    const embed = new EmbedBuilder(client, interaction.locale)
+        .setTitle('SLUT_SUCCESS')
+        .setDescription('SLUT_SUCCESS_DESCRIPTION', {
             amount: `${money} ${await client.economy.getCurrency(interaction.guildId)}`
         });
 

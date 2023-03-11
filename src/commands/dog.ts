@@ -1,5 +1,5 @@
-import { SlashCommandBuilder } from '#builders';
-import { Embed, type FluorineClient } from '#classes';
+import { EmbedBuilder, SlashCommandBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
 import type { Category } from '#types';
 import { type ChatInputCommandInteraction } from 'discord.js';
 
@@ -11,7 +11,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         file: string;
     };
 
-    const embed = new Embed(client, interaction.locale).setLocaleTitle('DOG').setImage(file);
+    const embed = new EmbedBuilder(client, interaction.locale).setTitle('DOG').setImage(file);
     interaction.reply({ embeds: [embed] });
 }
 
