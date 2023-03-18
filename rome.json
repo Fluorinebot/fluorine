@@ -1,34 +1,31 @@
 {
-  "$schema": "./node_modules/rome/configuration_schema.json",
-  "files": {
-    "ignore": [
-      "node_modules",
-      "dist"
-    ]
-  },
-  "formatter": {
-    "indentStyle": "space",
-    "indentSize": 4,
-    "lineWidth": 120
-  },
-  "javascript": {
+    "$schema": "./node_modules/rome/configuration_schema.json",
+    "files": {
+        "ignore": ["node_modules", "dist"]
+    },
     "formatter": {
-      "semicolons": "always",
-      "quoteStyle": "single", 
-      "trailingComma": "none"
+        "indentStyle": "space",
+        "indentSize": 4,
+        "lineWidth": 120
+    },
+    "javascript": {
+        "formatter": {
+            "semicolons": "always",
+            "quoteStyle": "single",
+            "trailingComma": "none"
+        }
+    },
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "recommended": true,
+            "complexity": {
+                "useSimplifiedLogicExpression": "off"
+            },
+            "nursery": {
+                "recommended": true,
+                "noBannedTypes": "error"
+            }
+        }
     }
-  },
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "recommended": true,
-      "complexity": {
-        "useSimplifiedLogicExpression": "off"
-      },
-      "nursery": {
-        "recommended": true,
-        "noBannedTypes": "error"
-      }
-    }
-  }
 }

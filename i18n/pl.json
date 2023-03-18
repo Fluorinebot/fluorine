@@ -36,8 +36,7 @@
     "CRIME_FAIL_DESCRIPTION": "Policja cię złapała! Dostałeś mandat {{- amount }}",
     "CRIME_SUCCESS": "Sukces!",
     "CRIME_SUCCESS_DESCRIPTION": [
-        "Okradłeś bank! Zarobiłeś {{- amount }}",
-        "Ukradłeś kogoś portfel! Znalazłeś w nim {{- amount }}",
+        "Okradłeś bank! Zarobiłeś {{- amount }}", "Ukradłeś kogoś portfel! Znalazłeś w nim {{- amount }}",
         "Włamałeś się do domu i ukradłeś {{- amount }}"
     ],
     "DEPOSIT_NOT_ENOUGH": "Nie masz tyle pieniędzy!",
@@ -108,18 +107,8 @@
     "MESSAGE_UPDATE_TITLE": "Zedytowano wiadomość",
     "MODERATION": "Moderacja",
     "MONTHS": [
-        "Styczeń",
-        "Luty",
-        "Marzec",
-        "Kwiecień",
-        "Maj",
-        "Czerwiec",
-        "Lipiec",
-        "Sierpień",
-        "Wrzesień",
-        "Październik",
-        "Listopad",
-        "Grudzień"
+        "Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik",
+        "Listopad", "Grudzień"
     ],
     "NONE": "Brak",
     "PING": "Opóźnienie",
@@ -200,8 +189,7 @@
     "WITHDRAW_SUCCESS": "Wypłacono {{- amount }} z twojego banku!",
     "WORK_SUCCESS": "Pracowałeś!",
     "WORK_SUCCESS_DESCRIPTION": [
-        "Stworzyłeś bota na discorda! Zarobiłeś {{- amount }}",
-        "Pracowałeś w McDonaldzie i zarobiłeś {{- amount }}",
+        "Stworzyłeś bota na discorda! Zarobiłeś {{- amount }}", "Pracowałeś w McDonaldzie i zarobiłeś {{- amount }}",
         "Stworzyłeś stronę dla małej firmy! Zapłacili ci {{- amount }}"
     ]
 }

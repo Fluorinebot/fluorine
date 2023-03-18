@@ -1,14 +1,7 @@
 {
     "8BALL_ERROR": "You need to provide a question!",
     "8BALL_RESPONSE": "Response",
-    "8BALL_RESPONSES": [
-        "Yes",
-        "No",
-        "Maybe",
-        "Probably",
-        "I'm not sure",
-        "I don't think so"
-    ],
+    "8BALL_RESPONSES": ["Yes", "No", "Maybe", "Probably", "I'm not sure", "I don't think so"],
     "AVATAR": "Avatar",
     "AVATAR_GUILD": "Server Avatar",
     "AVATAR_USER": "User Avatar",
@@ -43,8 +36,7 @@
     "CRIME_FAIL_DESCRIPTION": "The police caught you! You got fined {{- amount }}",
     "CRIME_SUCCESS": "You commited a crime!",
     "CRIME_SUCCESS_DESCRIPTION": [
-        "You robbed a bank! You got {{- amount }}",
-        "You stole someone's wallet! You found {{- amount }}",
+        "You robbed a bank! You got {{- amount }}", "You stole someone's wallet! You found {{- amount }}",
         "You broke into a house and stole {{- amount }}"
     ],
     "DEPOSIT_NOT_ENOUGH": "You don't have that much money!",
@@ -115,17 +107,7 @@
     "MESSAGE_UPDATE_TITLE": "Message edited",
     "MODERATION": "Moderation",
     "MONTHS": [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
+        "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November",
         "December"
     ],
     "NONE": "None",
@@ -207,8 +189,7 @@
     "WITHDRAW_SUCCESS": "Successfully withdrew {{- amount }} from your bank!",
     "WORK_SUCCESS": "You worked!",
     "WORK_SUCCESS_DESCRIPTION": [
-        "You coded a discord bot! You earned {{- amount }}",
-        "You worked at McDonald's and earned {{- amount }}",
+        "You coded a discord bot! You earned {{- amount }}", "You worked at McDonald's and earned {{- amount }}",
         "You coded a website for a small company! They paid you {{- amount }}"
     ]
 }
