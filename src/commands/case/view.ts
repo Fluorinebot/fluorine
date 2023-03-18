@@ -29,7 +29,10 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
                 value: caseObj.type.toUpperCase()
             },
             { name: 'CASE_REASON', rawValue: caseObj.reason },
-            { name: 'CASE_CREATED_AT', rawValue: `<t:${caseObj.createdAt / 1000n}:R>` }
+            {
+                name: 'CASE_CREATED_AT',
+                rawValue: `<t:${caseObj.createdAt / 1000n}:d> (<t:${caseObj.createdAt / 1000n}:R>)`
+            }
         ]);
 
     interaction.reply({ embeds: [embed] });
