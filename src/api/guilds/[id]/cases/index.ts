@@ -8,18 +8,26 @@ export async function getCases(client: FluorineClient, req: FastifyRequest, repl
 
     const { id: userId } = client.oauth.verify(authorization);
     const guild = client.guilds.cache.get(guildId);
+
     if (!guild) {
         return reply.status(404).send({ error: 'Guild not found' });
     }
 
     const member = await guild.members.fetch(userId);
+
     if (!member.permissions.has(PermissionsBitField.Flags.ManageGuild)) {
         return reply.status(403).send({ error: 'Missing permissions' });
     }
+
+    const cases = await client.cases.getGuild(guildId);
+
+    const casesWithIsoString = cases.map(caseData => ({
+        ...caseData,
+        createdAt: new Date(Number(caseData.createdAt)).toISOString()
+    }));
+
     reply.header('Content-Type', 'application/json');
     reply.send(
-        JSON.stringify(await client.cases.getGuild(guildId), (key, value) =>
-            typeof value === 'bigint' ? value.toString() : value
-        )
+        JSON.stringify(casesWithIsoString, (key, value) => (typeof value === 'bigint' ? value.toString() : value))
     );
 }

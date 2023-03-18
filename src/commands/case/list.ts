@@ -63,7 +63,14 @@ export async function onInteraction(
     const chunkPage = interaction.isCommand() ? page : componentPage;
 
     chunk[chunkPage].forEach(caseData => {
-        embed.addFields([{ rawName: `#${caseData.caseId} ${caseData.type}`, rawValue: caseData.reason }]);
+        embed.addFields([
+            {
+                rawName: `#${caseData.caseId} (${client.i18n.t(caseData.type.toUpperCase(), {
+                    lng: interaction.locale
+                })}) <t:${caseData.createdAt / 1000n}:R>`,
+                rawValue: caseData.reason
+            }
+        ]);
     });
 
     if (chunk.length > 1) {

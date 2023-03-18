@@ -375,10 +375,6 @@
         "DESCRIPTION": "Timeout a user from the server",
         "NAME": "timeout",
         "OPTIONS": {
-            "USER": {
-                "DESCRIPTION": "Provide a user to timeout",
-                "NAME": "user"
-            },
             "DURATION": {
                 "DESCRIPTION": "Provide how long the timeout will last",
                 "NAME": "duration"
@@ -386,6 +382,10 @@
             "REASON": {
                 "DESCRIPTION": "Provide a reason for timing out this user",
                 "NAME": "reason"
+            },
+            "USER": {
+                "DESCRIPTION": "Provide a user to timeout",
+                "NAME": "user"
             }
         }
     },
@@ -393,13 +393,13 @@
         "DESCRIPTION": "Warn a user in the server",
         "NAME": "warn",
         "OPTIONS": {
-            "USER": {
-                "DESCRIPTION": "Provide a user to warn",
-                "NAME": "user"
-            },
             "REASON": {
                 "DESCRIPTION": "Provide a reason for warning this user",
                 "NAME": "reason"
+            },
+            "USER": {
+                "DESCRIPTION": "Provide a user to warn",
+                "NAME": "user"
             }
         }
     },
