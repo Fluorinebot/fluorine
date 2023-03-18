@@ -6,10 +6,11 @@
     "extends": ["eslint:recommended", "prettier/prettier", "plugin:@typescript-eslint/recommended"],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "ecmaVersion": 2021,
+        "ecmaVersion": 2022,
         "sourceType": "module"
     },
     "plugins": ["@typescript-eslint", "prettier"],
+    "ignorePatterns": ["node_modules", "dist"],
     "rules": {
         "@typescript-eslint/ban-ts-comment": "off",
         "@typescript-eslint/consistent-type-imports": "error",
@@ -40,7 +41,6 @@
         "lines-around-comment": "error",
         "no-alert": "error",
         "no-case-declarations": "off",
-        "no-confusing-arrow": "error",
         "no-duplicate-imports": [
             "error",
             {
@@ -71,35 +71,41 @@
         "no-restricted-globals": [
             "error",
             {
-              "name": "Buffer",
-              "message": "Import Buffer from `node:buffer` instead"
+                "name": "Buffer",
+                "message": "Import Buffer from `node:buffer` instead"
             },
             {
-              "name": "process",
-              "message": "Import process from `node:process` instead"
+                "name": "process",
+                "message": "Import process from `node:process` instead"
             },
             {
-              "name": "__dirname",
-              "message": "Import getDirname from `util/index.js` instead"
+                "name": "__dirname",
+                "message": "Import getDirname from `util/index.js` instead"
             },
             {
-              "name": "__filename",
-              "message": "Import getFilename from `util/index.js` instead"
+                "name": "__filename",
+                "message": "Import getFilename from `util/index.js` instead"
             }
         ],
-        "no-restricted-imports": ["error", {
-            "name": "@discordjs/builders",
-            "message": "Import from `discord.js` instead."
-        }, {
-            "name": "@discordjs/rest",
-            "message": "Import from `discord.js` instead."
-        }, {
-            "name": "discord-api-types",
-            "message": "Import from `discord.js` instead."
-        }, {
-            "name": "discord-api-types/v10",
-            "message": "Import from `discord.js` instead."
-        }],
+        "no-restricted-imports": [
+            "error",
+            {
+                "name": "@discordjs/builders",
+                "message": "Import from `discord.js` instead."
+            },
+            {
+                "name": "@discordjs/rest",
+                "message": "Import from `discord.js` instead."
+            },
+            {
+                "name": "discord-api-types",
+                "message": "Import from `discord.js` instead."
+            },
+            {
+                "name": "discord-api-types/v10",
+                "message": "Import from `discord.js` instead."
+            }
+        ],
         "no-return-await": "error",
         "no-sequences": [
             "error",
@@ -148,15 +154,7 @@
         "prefer-rest-params": "error",
         "prefer-spread": "error",
         "prefer-template": "error",
-        "prettier/prettier": [
-            "error",
-            {
-                "endOfLine": "auto"
-            },
-            {
-                "usePrettierrc": true
-            }
-        ],
+        "prettier/prettier": ["error"],
         "require-atomic-updates": "error",
         "require-unicode-regexp": "error",
         "rest-spread-spacing": ["error", "never"],
