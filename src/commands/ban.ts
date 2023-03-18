@@ -1,8 +1,9 @@
-import { Embed, type FluorineClient } from '#classes';
+import { EmbedBuilder, SlashCommandBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
 import type { Category } from '#types';
-import { type ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction, PermissionFlagsBits } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
     const member = interaction.options.getMember('user');
     const reason =
         interaction.options.getString('reason') ??
@@ -47,11 +48,11 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         })
     });
 
-    const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle('BAN_SUCCESS_TITLE')
-        .setLocaleDescription('BAN_SUCCESS_DESCRIPTION')
+    const embed = new EmbedBuilder(client, interaction.locale)
+        .setTitle('BAN_SUCCESS_TITLE')
+        .setDescription('BAN_SUCCESS_DESCRIPTION')
         .setThumbnail(member.displayAvatarURL())
-        .addLocaleFields([
+        .addFields([
             { name: 'BAN_MODERATOR', value: interaction.user.tag },
             { name: 'BAN_USER', value: member.user.tag },
             { name: 'REASON', value: reason },
@@ -62,29 +63,10 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     client.cases.logToModerationChannel(interaction.guildId, caseObj);
 }
 
-export const data = new SlashCommandBuilder()
-    .setName('ban')
-    .setNameLocalizations({ pl: 'ban' })
-    .setDescription('Ban a user from the server')
-    .setDescriptionLocalizations({ pl: 'Zbanuj użytkownika' })
+export const slashCommandData = new SlashCommandBuilder('BAN')
     .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
     .setDMPermission(false)
-    .addUserOption((option) =>
-        option
-            .setName('user')
-            .setNameLocalizations({ pl: 'użytkownik' })
-            .setDescription('Provide a user to ban')
-            .setDescriptionLocalizations({ pl: 'Podaj użytkownika, którego chcesz zbanować' })
-            .setRequired(true)
-    )
-    .addStringOption((option) =>
-        option
-            .setName('reason')
-            .setNameLocalizations({ pl: 'powód' })
-            .setDescription('Provide a reason for banning this user')
-            .setDescriptionLocalizations({ pl: 'Podaj powód bana' })
-            .setMaxLength(1024)
-            .setRequired(false)
-    );
+    .addUserOption('USER', option => option.setRequired(true))
+    .addStringOption('REASON', option => option.setMaxLength(1024));
 
 export const category: Category = 'moderation';

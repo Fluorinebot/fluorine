@@ -1,11 +1,25 @@
+import { SlashCommandBuilder, ContextMenuCommandBuilder } from '#builders';
 import type { FluorineClient } from '#classes';
 import type { Category } from '#types';
-import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import {
+    ApplicationCommandType,
+    type ChatInputCommandInteraction,
+    type UserContextMenuCommandInteraction
+} from 'discord.js';
 import hash from 'murmurhash-v3';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
-    const thing =
-        interaction.options.resolved.users?.first() ?? interaction.options.getString('thing') ?? interaction.user;
+export async function onCommand(
+    client: FluorineClient,
+    interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction
+) {
+    let thing;
+
+    if (interaction.isChatInputCommand()) {
+        thing =
+            interaction.options.resolved.users?.first() ?? interaction.options.getString('thing') ?? interaction.user;
+    } else {
+        thing = interaction.targetUser;
+    }
 
     const percent = ['<@478823932913516544>', '<@348591272476540928>'].includes(thing.toString())
         ? 100
@@ -20,18 +34,6 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     );
 }
 
-export const data = new SlashCommandBuilder()
-    .setName('howgay')
-    .setNameLocalizations({ pl: 'howgay' })
-    .setDescription('Check how gay something is')
-    .setDescriptionLocalizations({ pl: 'Sprawdź, jak gejowa jest jakaś rzecz' })
-    .addStringOption((option) =>
-        option
-            .setName('thing')
-            .setNameLocalizations({ pl: 'rzecz' })
-            .setDescription('Provide a thing to check')
-            .setDescriptionLocalizations({ pl: 'Podaj rzecz, którą chcesz sprawdzić' })
-            .setRequired(false)
-    );
-
+export const slashCommandData = new SlashCommandBuilder('HOWGAY').addStringOption('THING');
+export const contextMenuCommandData = new ContextMenuCommandBuilder(ApplicationCommandType.User, 'HOWGAY');
 export const category: Category = 'fun';

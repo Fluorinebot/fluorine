@@ -1,15 +1,16 @@
-import { Embed, type FluorineClient } from '#classes';
+import { EmbedBuilder, SlashCommandBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
 import type { InpostStatuses, InpostTrackObj } from '#types';
-import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction } from 'discord.js';
 
 import type { fetch as _fetch } from 'undici';
 declare const fetch: typeof _fetch;
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const id = interaction.options.getString('id');
 
     const statusURL = client.i18n.t('INPOST_URL', { lng: interaction.locale });
-    const statuses = (await fetch(statusURL).then((res) => res.json())) as InpostStatuses;
+    const statuses = (await fetch(statusURL).then(res => res.json())) as InpostStatuses;
 
     const req = await fetch(`https://api-shipx-pl.easypack24.net/v1/tracking/${id}`);
     const response = (await req.json()) as InpostTrackObj;
@@ -24,32 +25,22 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         });
     }
 
-    const embed = new Embed(client, interaction.locale).setLocaleTitle('INPOST_TITLE', { id }).setColor('#ffcb39');
+    const embed = new EmbedBuilder(client, interaction.locale).setTitle('INPOST_TITLE', { id }).setColor('#ffcb39');
 
     if (response.custom_attributes.target_machine_detail.name) {
-        embed.setLocaleDescription('INPOST_DESCRIPTION', response.custom_attributes.target_machine_detail);
+        embed.setDescription('INPOST_DESCRIPTION', response.custom_attributes.target_machine_detail);
     }
 
-    response.tracking_details.reverse().forEach((data) => {
-        const status = statuses.items.find((element) => element.name === data.status);
-        embed.addFields({ name: status.title, value: status.description });
+    response.tracking_details.reverse().forEach(data => {
+        const status = statuses.items.find(element => element.name === data.status);
+        embed.addFields([{ name: status.title, value: status.description }]);
     });
 
     interaction.reply({ embeds: [embed] });
 }
 
-export const data = new SlashCommandBuilder()
-    .setName('inpost')
-    .setNameLocalizations({ pl: 'inpost' })
-    .setDescription('Track an InPost package')
-    .setDescriptionLocalizations({ pl: 'Śledź paczkę w InPost' })
-    .addStringOption((option) =>
-        option
-            .setName('id')
-            .setNameLocalizations({ pl: 'id' })
-            .setDescription('ID of the package')
-            .setDescriptionLocalizations({ pl: 'Id paczki' })
-            .setRequired(true)
-    );
+export const slashCommandData = new SlashCommandBuilder('INPOST').addStringOption('ID', option =>
+    option.setRequired(true)
+);
 
 export const category = 'tools';

@@ -1,14 +1,15 @@
-import process from 'node:process';
-import { Embed, type FluorineClient } from '#classes';
+import { EmbedBuilder, SlashCommandBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
+import { env } from '#env';
 import type { Category, HypixelType, UUIDResponse } from '#types';
-import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction } from 'discord.js';
 
 import type { fetch as _fetch } from 'undici';
 declare const fetch: typeof _fetch;
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const player = interaction.options.getString('player');
-    const uuid = (await fetch(`https://api.mojang.com/users/profiles/minecraft/${player}`).then((res) =>
+    const uuid = (await fetch(`https://api.mojang.com/users/profiles/minecraft/${player}`).then(res =>
         res.json()
     )) as UUIDResponse;
 
@@ -21,8 +22,8 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         });
     }
 
-    const data = (await fetch(`https://api.hypixel.net/player?uuid=${uuid.id}&key=${process.env.HYPIXEL_TOKEN}`).then(
-        (res) => res.json()
+    const data = (await fetch(`https://api.hypixel.net/player?uuid=${uuid.id}&key=${env.HYPIXEL_TOKEN}`).then(res =>
+        res.json()
     )) as HypixelType;
     const bedStats = data?.player?.stats?.Bedwars;
 
@@ -36,63 +37,28 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     }
 
     const kd = Number((bedStats.kills_bedwars / bedStats.deaths_bedwars).toFixed(2));
-
     const winratio = Number((bedStats.wins_bedwars / bedStats.losses_bedwars).toFixed(2));
 
-    const bedEmbed = new Embed(client, interaction.locale)
-        .setLocaleTitle('HYPIXEL_STATISTICS_TITLE', { player })
-        .setDescription(`K/D: ${kd}\n Win/loss ratio: ${winratio}`)
-        .addLocaleFields([
-            {
-                name: 'HYPIXEL_WON_GAMES',
-                value: `${bedStats.wins_bedwars || 0}`,
-                inline: true
-            },
-            {
-                name: 'HYPIXEL_LOST_GAMES',
-                value: `${bedStats.losses_bedwars || 0}`,
-                inline: true
-            },
-            { name: '\u200B', value: '\u200B', inline: true },
-            {
-                name: 'HYPIXEL_KILLS',
-                value: `${bedStats.kills_bedwars || 0}`,
-                inline: true
-            },
-            {
-                name: 'HYPIXEL_DEATHS',
-                value: `${bedStats.deaths_bedwars || 0}`,
-                inline: true
-            },
-            { name: '\u200B', value: '\u200B', inline: true },
-            {
-                name: 'HYPIXEL_BEDS_DESTROYED',
-                value: `${bedStats.beds_broken_bedwars || 0}`,
-                inline: true
-            },
-            {
-                name: 'HYPIXEL_BEDS_LOST',
-                value: `${bedStats.beds_lost_bedwars || 0}`,
-                inline: true
-            }
+    const embed = new EmbedBuilder(client, interaction.locale)
+        .setTitle('HYPIXEL_STATISTICS_TITLE', { player })
+        .setDescription(`K/D: ${kd}\n Win/loss ratio: ${winratio}`, { raw: true })
+        .addFields([
+            { name: 'HYPIXEL_WON_GAMES', rawValue: `${bedStats.wins_bedwars || 0}`, inline: true },
+            { name: 'HYPIXEL_LOST_GAMES', rawValue: `${bedStats.losses_bedwars || 0}`, inline: true },
+            { rawName: '\u200B', rawValue: '\u200B', inline: true },
+            { name: 'HYPIXEL_KILLS', rawValue: `${bedStats.kills_bedwars || 0}`, inline: true },
+            { name: 'HYPIXEL_DEATHS', rawValue: `${bedStats.deaths_bedwars || 0}`, inline: true },
+            { rawName: '\u200B', rawValue: '\u200B', inline: true },
+            { name: 'HYPIXEL_BEDS_DESTROYED', rawValue: `${bedStats.beds_broken_bedwars || 0}`, inline: true },
+            { name: 'HYPIXEL_BEDS_LOST', rawValue: `${bedStats.beds_lost_bedwars || 0}`, inline: true }
         ])
         .setThumbnail(`https://crafatar.com/avatars/${uuid.id}?default=MHF_Steve&overlay`);
 
-    interaction.reply({ embeds: [bedEmbed] });
+    interaction.reply({ embeds: [embed] });
 }
 
-export const data = new SlashCommandBuilder()
-    .setName('bedwars')
-    .setNameLocalizations({ pl: 'bedwars' })
-    .setDescription("Check a player's bedwars stats from Hypixel")
-    .setDescriptionLocalizations({ pl: 'Sprawdź statystyki gracza Hypixela' })
-    .addStringOption((option) =>
-        option
-            .setName('player')
-            .setNameLocalizations({ pl: 'gracz' })
-            .setDescription('The player to search')
-            .setDescriptionLocalizations({ pl: 'Gracz, którego statystyki sprawdzasz' })
-            .setRequired(true)
-    );
+export const slashCommandData = new SlashCommandBuilder('BEDWARS').addStringOption('PLAYER', option =>
+    option.setRequired(true)
+);
 
 export const category: Category = 'fun';

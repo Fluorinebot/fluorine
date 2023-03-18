@@ -1,7 +1,8 @@
-import { Embed, type FluorineClient } from '#classes';
-import { type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
+import { EmbedBuilder, SlashCommandSubcommandBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
+import { type ChatInputCommandInteraction } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const value = interaction.options.getString('currency');
 
     await client.prisma.config.update({
@@ -13,9 +14,9 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         }
     });
 
-    const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle('CONFIG_SET_SUCCESS_TITLE')
-        .setLocaleDescription('CONFIG_SET_SUCCESS_DESCRIPTION', {
+    const embed = new EmbedBuilder(client, interaction.locale)
+        .setTitle('CONFIG_SET_SUCCESS_TITLE')
+        .setDescription('CONFIG_SET_SUCCESS_DESCRIPTION', {
             key: client.i18n.t('CONFIG_CURRENCY', { lng: interaction.locale }),
             value
         });
@@ -23,14 +24,6 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     interaction.reply({ embeds: [embed] });
 }
 
-export const data = new SlashCommandSubcommandBuilder()
-    .setName('currency')
-    .setDescription('Set the currency')
-    .addStringOption((option) =>
-        option
-            .setName('currency')
-            .setNameLocalizations({ pl: 'waluta' })
-            .setDescription('The currency you want to set')
-            .setDescriptionLocalizations({ pl: 'Waluta, którą chcesz ustawić' })
-            .setRequired(true)
-    );
+export const slashCommandData = new SlashCommandSubcommandBuilder('CURRENCY').addStringOption('CURRENCY', option =>
+    option.setRequired(true)
+);

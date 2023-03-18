@@ -19,6 +19,8 @@ export async function getChannels(client: FluorineClient, req: FastifyRequest, r
     return (await guild.channels.fetch()).map((e) => ({
         id: e?.id,
         name: e?.name,
-        position: e?.position
+        position: e?.position,
+        type: e?.type,
+        parentId: e?.parentId || '0'
     }));
 }

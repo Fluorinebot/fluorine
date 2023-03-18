@@ -1,12 +1,13 @@
-import { Embed, type FluorineClient } from '#classes';
+import { EmbedBuilder, SlashCommandBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
 import type { Category } from '#types';
-import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const money = Math.floor(Math.random() * 200 + 50);
-    const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle('SLUT_SUCCESS')
-        .setLocaleDescription('SLUT_SUCCESS_DESCRIPTION', {
+    const embed = new EmbedBuilder(client, interaction.locale)
+        .setTitle('SLUT_SUCCESS')
+        .setDescription('SLUT_SUCCESS_DESCRIPTION', {
             amount: `${money} ${await client.economy.getCurrency(interaction.guildId)}`
         });
 
@@ -14,12 +15,6 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     interaction.reply({ embeds: [embed] });
 }
 
-export const data = new SlashCommandBuilder()
-    .setName('slut')
-    .setNameLocalizations({ pl: 'slut' })
-    .setDescription('Get money by being a slut!')
-    .setDescriptionLocalizations({ pl: 'Zdobądź pieniądze będąc prostytutką!' })
-    .setDMPermission(false);
-
+export const slashCommandData = new SlashCommandBuilder('SLUT').setDMPermission(false);
 export const category: Category = 'economy';
 export const cooldown = 1 * 60 * 60 * 1000;

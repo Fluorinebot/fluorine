@@ -22,12 +22,10 @@ export async function getGuild(client: FluorineClient, req: FastifyRequest, repl
     });
     // get only the important data
     const { name, icon } = guild;
+
+    const replacer = (k: string, v: any) => (typeof v === 'bigint' ? v.toString() : v);
     reply.header('Content-Type', 'application/json');
-    reply.send(
-        JSON.stringify({ name, icon, logModerationActions, logsChannel, logsEnabled }, (k, v) =>
-            typeof v === 'bigint' ? v.toString() : v
-        )
-    );
+    reply.send(JSON.stringify({ name, icon, logModerationActions, logsChannel, logsEnabled }, replacer));
 }
 
 export async function patchGuild(client: FluorineClient, req: FastifyRequest, reply: FastifyReply) {
@@ -44,7 +42,7 @@ export async function patchGuild(client: FluorineClient, req: FastifyRequest, re
     if (!member.permissions.has(PermissionsBitField.Flags.ManageGuild)) {
         return reply.status(403).send({ error: 'Missing permissions' });
     }
-    const { logModerationActions, logsChannel, logsEnabled } = req.body as {
+    const { logModerationActions, logsChannel, logsEnabled } = JSON.parse(req.body as string) as {
         logModerationActions?: boolean;
         logsChannel?: string;
         logsEnabled?: boolean;

@@ -1,10 +1,13 @@
-import { Embed, type FluorineClient } from '#classes';
-import { type ChatInputCommandInteraction, Routes, SlashCommandSubcommandBuilder } from 'discord.js';
+import { EmbedBuilder, SlashCommandSubcommandBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
+import { type ChatInputCommandInteraction, Routes } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     await interaction.deferReply();
+
     const name = interaction.options.getString('command');
     let guildId = interaction.options.getString('guild');
+
     if (guildId === 'this') {
         guildId = interaction.guild.id;
     }
@@ -22,12 +25,12 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         if (name === 'all') {
             await client.rest.put(route, {
                 body:
-                    guildId && commands.cache.some((c) => c.name === 'deploy')
-                        ? [client.commands.chatInput.get('deploy').data.toJSON()]
+                    guildId && commands.cache.some(c => c.name === 'deploy')
+                        ? [client.chatInputCommands.get('deploy').slashCommandData.toJSON()]
                         : []
             });
         } else {
-            const command = commands.cache.find((c) => c.name === name);
+            const command = commands.cache.find(c => c.name === name);
 
             if (!command) {
                 return interaction.editReply(`Command \`${name}\` not found. Are you sure it was deployed?`);
@@ -39,19 +42,14 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
 
         interaction.editReply('Deleted all commands.');
     } catch (error) {
-        const embed = new Embed(client, interaction.locale)
-            .setTitle('Failed')
-            .setDescription(`\`\`\`js\n${error}\n${error.stack}\`\`\``);
+        const embed = new EmbedBuilder(client, interaction.locale)
+            .setTitle('Failed', { raw: true })
+            .setDescription(`\`\`\`js\n${error}\n${error.stack}\`\`\``, { raw: true });
+
         interaction.editReply({ embeds: [embed] });
     }
 }
 
-export const data = new SlashCommandSubcommandBuilder()
-    .setName('delete')
-    .setDescription('Delete application commands')
-    .addStringOption((option) =>
-        option.setName('command').setDescription('Provide a command to delete').setRequired(true)
-    )
-    .addStringOption((option) =>
-        option.setName('guild').setDescription('Provide a guild to deploy').setRequired(false)
-    );
+export const slashCommandData = new SlashCommandSubcommandBuilder('DELETE')
+    .addStringOption('COMMAND', option => option.setRequired(true))
+    .addStringOption('GUILD');

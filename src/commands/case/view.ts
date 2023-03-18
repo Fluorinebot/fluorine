@@ -1,7 +1,8 @@
-import { Embed, type FluorineClient } from '#classes';
-import { type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
+import { EmbedBuilder, SlashCommandSubcommandBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
+import type { ChatInputCommandInteraction } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const id = interaction.options.getInteger('id');
     const caseObj = await client.cases.getOne(interaction.guildId, id);
 
@@ -17,33 +18,26 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     const user = await client.users.fetch(caseObj.moderatedUser.toString());
     const creator = await client.users.fetch(caseObj.caseCreator.toString());
 
-    const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle('CASE_TITLE', { id })
+    const embed = new EmbedBuilder(client, interaction.locale)
+        .setTitle('CASE_TITLE', { id })
         .setThumbnail(user.displayAvatarURL())
-        .addLocaleFields([
-            { name: 'CASE_USER', value: user.tag },
-            { name: 'CASE_MODERATOR', value: creator.tag },
+        .addFields([
+            { name: 'CASE_USER', rawValue: user.tag },
+            { name: 'CASE_MODERATOR', rawValue: creator.tag },
             {
                 name: 'CASE_TYPE',
-                localeValue: caseObj.type.toUpperCase()
+                value: caseObj.type.toUpperCase()
             },
-            { name: 'CASE_REASON', value: caseObj.reason }
+            { name: 'CASE_REASON', rawValue: caseObj.reason },
+            {
+                name: 'CASE_CREATED_AT',
+                rawValue: `<t:${caseObj.createdAt / 1000n}:d> (<t:${caseObj.createdAt / 1000n}:R>)`
+            }
         ]);
 
     interaction.reply({ embeds: [embed] });
 }
 
-export const data = new SlashCommandSubcommandBuilder()
-    .setName('view')
-    .setNameLocalizations({ pl: 'zobacz' })
-    .setDescription('Check a moderation case')
-    .setDescriptionLocalizations({ pl: 'Sprawdz informacje o karze' })
-    .addIntegerOption((option) =>
-        option
-            .setName('id')
-            .setNameLocalizations({ pl: 'id' })
-            .setDescription('The case ID to search')
-            .setDescriptionLocalizations({ pl: 'ID kary' })
-            .setMinValue(1)
-            .setRequired(true)
-    );
+export const slashCommandData = new SlashCommandSubcommandBuilder('VIEW').addIntegerOption('ID', option =>
+    option.setMinValue(1).setRequired(true)
+);

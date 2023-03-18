@@ -1,6 +1,6 @@
 {
     "name": "fluorine",
-    "version": "2.0.2",
+    "version": "2.0.3",
     "description": "A discord bot",
     "private": true,
     "type": "module",
@@ -16,12 +16,14 @@
         "start": "cross-env NODE_ENV=production node --enable-source-maps ."
     },
     "imports": {
-        "#api": "./dist/api/index.js",
-        "#classes": "./dist/classes/index.js",
+        "#*": "./dist/*/index.js",
+        "#builders": "./dist/classes/builders/index.js",
+        "#builderBases": "./dist/classes/builders/bases/index.js",
+        "#commands": "./dist/classes/builders/commands/index.js",
+        "#components": "./dist/classes/builders/components/index.js",
         "#handlers": "./dist/classes/handlers/index.js",
         "#modules": "./dist/classes/modules/index.js",
-        "#types": "./dist/types/index.js",
-        "#util": "./dist/util/index.js"
+        "#options": "./dist/classes/builders/options/index.js"
     },
     "repository": {
         "type": "git",
@@ -39,29 +41,29 @@
     "homepage": "https://github.com/Fluorinebot/fluorine/#readme",
     "dependencies": {
         "@fastify/cookie": "^8.3.0",
-        "@fastify/cors": "^8.2.0",
-        "@napi-rs/canvas": "^0.1.30",
-        "@prisma/client": "^4.7.1",
+        "@fastify/cors": "^8.2.1",
+        "@napi-rs/canvas": "^0.1.39",
+        "@prisma/client": "^4.11.0",
         "bufferutil": "^4.0.7",
         "discord.js": "^14.8.0",
         "dotenv": "^16.0.3",
-        "fast-jwt": "^1.7.2",
-        "fastify": "^4.10.2",
-        "i18next": "^22.0.6",
-        "i18next-fs-backend": "^1.2.0",
+        "fast-jwt": "^2.2.0",
+        "fastify": "^4.14.1",
+        "i18next": "^22.4.12",
+        "i18next-fs-backend": "^2.1.1",
         "ms": "^3.0.0-canary.1",
         "murmurhash-v3": "^1.0.2",
-        "utf-8-validate": "^5.0.10",
+        "neon-env": "^0.1.3",
+        "utf-8-validate": "^6.0.3",
         "yoctocolors": "^1.0.0",
         "zlib-sync": "^0.1.8"
     },
     "devDependencies": {
-        "@types/i18next-fs-backend": "^1.1.2",
         "cross-env": "^7.0.3",
-        "prisma": "^4.7.1",
+        "prisma": "^4.11.0",
         "rome": "^11.0.0-nightly.aec33ef",
-        "tsx": "^3.12.1",
-        "typescript": "^4.9.3"
+        "tsx": "^3.12.5",
+        "typescript": "^5.0.2"
     },
     "engines": {
         "node": ">=18.0.0"

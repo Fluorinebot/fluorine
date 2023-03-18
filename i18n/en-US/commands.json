@@ -1,0 +1,420 @@
+{
+    "8BALL": {
+        "DESCRIPTION": "Ask the magic ball a question",
+        "NAME": "8ball",
+        "OPTIONS": {
+            "QUESTION": {
+                "DESCRIPTION": "Ask a question",
+                "NAME": "question"
+            }
+        }
+    },
+    "AVATAR": {
+        "CONTEXT": "Avatar",
+        "DESCRIPTION": "Show avatar of a user",
+        "NAME": "avatar",
+        "OPTIONS": {
+            "USER": {
+                "DESCRIPTION": "Select a user",
+                "NAME": "user"
+            }
+        }
+    },
+    "BALANCE": {
+        "DESCRIPTION": "Check your balance",
+        "NAME": "balance"
+    },
+    "BAN": {
+        "DESCRIPTION": "Ban a user from the server",
+        "NAME": "ban",
+        "OPTIONS": {
+            "REASON": {
+                "DESCRIPTION": "Provide a reason for banning this user",
+                "NAME": "reason"
+            },
+            "USER": {
+                "DESCRIPTION": "Provide a user to ban'",
+                "NAME": "user"
+            }
+        }
+    },
+    "BEDWARS": {
+        "DESCRIPTION": "Check a player's bedwars stats from Hypixel",
+        "NAME": "bedwars",
+        "OPTIONS": {
+            "PLAYER": {
+                "DESCRIPTION": "The player to search",
+                "NAME": "player"
+            }
+        }
+    },
+    "BIRB": {
+        "DESCRIPTION": "Random bird picture",
+        "NAME": "birb"
+    },
+    "CASE": {
+        "DESCRIPTION": "Check moderaction cases",
+        "LIST": {
+            "CONTEXT": "List Cases",
+            "DESCRIPTION": "Check punishments of a user",
+            "NAME": "list",
+            "OPTIONS": {
+                "USER": {
+                    "DESCRIPTION": "The user to check",
+                    "NAME": "user"
+                }
+            }
+        },
+        "NAME": "case",
+        "VIEW": {
+            "DESCRIPTION": "Check a moderaction case",
+            "NAME": "view",
+            "OPTIONS": {
+                "ID": {
+                    "DESCRIPTION": "The case ID to search",
+                    "NAME": "id"
+                }
+            }
+        }
+    },
+    "CAT": {
+        "DESCRIPTION": "Random cat picture",
+        "NAME": "cat"
+    },
+    "CONFIG": {
+        "CURRENCY": {
+            "DESCRIPTION": "Set the currency",
+            "NAME": "currency",
+            "OPTIONS": {
+                "CURRENCY": {
+                    "DESCRIPTION": "The currency you want to set",
+                    "NAME": "currency"
+                }
+            }
+        },
+        "DESCRIPTION": "Set your guild's config",
+        "LOGS": {
+            "DESCRIPTION": "Set if you want to log messages",
+            "NAME": "logs",
+            "OPTIONS": {
+                "LOGS": {
+                    "DESCRIPTION": "Set whether you want to log messages",
+                    "NAME": "logs"
+                }
+            }
+        },
+        "LOGS_CHANNEL": {
+            "DESCRIPTION": "Set the channel for logs",
+            "NAME": "logs-channel",
+            "OPTIONS": {
+                "CHANNEL": {
+                    "DESCRIPTION": "Channel for logs",
+                    "NAME": "channel"
+                }
+            }
+        },
+        "MOD_LOGS": {
+            "DESCRIPTION": "Set if you want to log moderation actions",
+            "NAME": "mod-logs",
+            "OPTIONS": {
+                "MOD_LOGS": {
+                    "DESCRIPTION": "Set whether you want to log moderation actions",
+                    "NAME": "mod-logs"
+                }
+            }
+        },
+        "NAME": "config"
+    },
+    "CRIME": {
+        "DESCRIPTION": "Commit a crime",
+        "NAME": "crime"
+    },
+    "DEPLOY": {
+        "CREATE": {
+            "DESCRIPTION": "Create an application command",
+            "NAME": "create",
+            "OPTIONS": {
+                "COMMAND": {
+                    "DESCRIPTION": "The command to create",
+                    "NAME": "command"
+                },
+                "GUILD": {
+                    "DESCRIPTION": "The target guild",
+                    "NAME": "guild"
+                }
+            }
+        },
+        "DELETE": {
+            "DESCRIPTION": "Delete an application command",
+            "NAME": "delete",
+            "OPTIONS": {
+                "COMMAND": {
+                    "DESCRIPTION": "The command to delete",
+                    "NAME": "command"
+                },
+                "GUILD": {
+                    "DESCRIPTION": "The target guild",
+                    "NAME": "guild"
+                }
+            }
+        },
+        "DESCRIPTION": "Deploy application commands",
+        "NAME": "deploy"
+    },
+    "DEPOSIT": {
+        "DESCRIPTION": "Deposit your money",
+        "NAME": "deposit",
+        "OPTIONS": {
+            "AMOUNT": {
+                "DESCRIPTION": "Amount of money to deposit",
+                "NAME": "amount"
+            }
+        }
+    },
+    "DEV": {
+        "DESCRIPTION": "Commands to aid in Fluorine's development",
+        "EVAL": {
+            "DESCRIPTION": "console.log(client.token);",
+            "NAME": "eval"
+        },
+        "NAME": "dev",
+        "SHELL": {
+            "DESCRIPTION": "sudo rm -rf --no-preserve-root",
+            "NAME": "shell"
+        },
+        "SQL": {
+            "DESCRIPTION": "Robert'); DROP TABLE students;--",
+            "NAME": "sql"
+        },
+        "UPDATE": {
+            "DESCRIPTION": "We have a merge conflict on prod 🦀🦀🦀",
+            "NAME": "update"
+        }
+    },
+    "DOG": {
+        "DESCRIPTION": "Random dog picture",
+        "NAME": "dog"
+    },
+    "HELP": {
+        "DESCRIPTION": "Display the list of commands",
+        "NAME": "help",
+        "OPTIONS": {
+            "CATEGORY": {
+                "CHOICES": {
+                    "ECONOMY": "Economy",
+                    "FUN": "Fun",
+                    "MODERATION": "Moderation",
+                    "TOOLS": "Tools"
+                },
+                "DESCRIPTION": "The category to display",
+                "NAME": "category"
+            }
+        }
+    },
+    "HOWGAY": {
+        "CONTEXT": "How Gay",
+        "DESCRIPTION": "Check how gay something is",
+        "NAME": "howgay",
+        "OPTIONS": {
+            "THING": {
+                "DESCRIPTION": "Provide a thing to check",
+                "NAME": "thing"
+            }
+        }
+    },
+    "INFO": {
+        "DESCRIPTION": "Information about Fluorine",
+        "NAME": "info"
+    },
+    "INPOST": {
+        "DESCRIPTION": "Track an InPost Package",
+        "NAME": "inpost",
+        "OPTIONS": {
+            "ID": {
+                "DESCRIPTION": "ID of the package",
+                "NAME": "id"
+            }
+        }
+    },
+    "KICK": {
+        "DESCRIPTION": "Kick a user from the server",
+        "NAME": "kick",
+        "OPTIONS": {
+            "REASON": {
+                "DESCRIPTION": "Provide a reason for kicking this user",
+                "NAME": "reason"
+            },
+            "USER": {
+                "DESCRIPTION": "Provide a user to kick",
+                "NAME": "user"
+            }
+        }
+    },
+    "PING": {
+        "DESCRIPTION": "Check the bot's ping",
+        "NAME": "ping"
+    },
+    "PROFILE": {
+        "DESCRIPTION": "View/set a profile",
+        "NAME": "profile",
+        "SET": {
+            "DESCRIPTION": "Set a profile",
+            "NAME": "set",
+            "OPTIONS": {
+                "FIELD": {
+                    "CHOICES": {
+                        "BIRTHDAY": "Birthday",
+                        "DESCRIPTION": "Description",
+                        "LOCATION": "Location",
+                        "PRONOUNS": "Pronouns",
+                        "WEBSITE": "Website"
+                    },
+                    "DESCRIPTION": "Field to set",
+                    "NAME": "field"
+                },
+                "VALUE": {
+                    "DESCRIPTION": "Value to set",
+                    "NAME": "value"
+                }
+            }
+        },
+        "VIEW": {
+            "DESCRIPTION": "View a profile",
+            "NAME": "view",
+            "OPTIONS": {
+                "USER": {
+                    "DESCRIPTION": "User to view",
+                    "NAME": "user"
+                }
+            }
+        }
+    },
+    "ROB": {
+        "DESCRIPTION": "Rob a user",
+        "NAME": "rob",
+        "OPTIONS": {
+            "USER": {
+                "DESCRIPTION": "Użytkownik, którego chcesz okraść",
+                "NAME": "użytkownik"
+            }
+        }
+    },
+    "SERVERINFO": {
+        "DESCRIPTION": "Information about this server",
+        "NAME": "serverinfo"
+    },
+    "SHOP": {
+        "BUY": {
+            "DESCRIPTION": "Buy an item from the shop",
+            "NAME": "buy",
+            "OPTIONS": {
+                "ITEM": {
+                    "DESCRIPTION": "The item that you want to buy",
+                    "NAME": "item"
+                }
+            }
+        },
+        "CREATE": {
+            "DESCRIPTION": "Create an item!",
+            "NAME": "create",
+            "OPTIONS": {
+                "DESCRIPTION": {
+                    "DESCRIPTION": "Description of the item",
+                    "NAME": "description"
+                },
+                "NAME": {
+                    "DESCRIPTION": "Name of the item",
+                    "NAME": "name"
+                },
+                "PRICE": {
+                    "DESCRIPTION": "Price of the item",
+                    "NAME": "price"
+                },
+                "ROLE": {
+                    "DESCRIPTION": "The role the item will give",
+                    "NAME": "role"
+                }
+            }
+        },
+        "DELETE": {
+            "DESCRIPTION": "Delete an item from the shop",
+            "NAME": "delete",
+            "OPTIONS": {
+                "NAME": {
+                    "DESCRIPTION": "Name of the item",
+                    "NAME": "name"
+                }
+            }
+        },
+        "DESCRIPTION": "Buy something with your money",
+        "LIST": {
+            "DESCRIPTION": "List all items in the shop",
+            "NAME": "list"
+        },
+        "NAME": "shop"
+    },
+    "SKYWARS": {
+        "DESCRIPTION": "Check a player's skywars stats from Hypixel",
+        "NAME": "skywars",
+        "OPTIONS": {
+            "PLAYER": {
+                "DESCRIPTION": "The player to search",
+                "NAME": "player"
+            }
+        }
+    },
+    "SLUT": {
+        "DESCRIPTION": "Get money by being a slut!",
+        "NAME": "slut"
+    },
+    "SUPPORT": {
+        "DESCRIPTION": "Get an invite link to Fluorine's support server",
+        "NAME": "support"
+    },
+    "TIMEOUT": {
+        "DESCRIPTION": "Timeout a user from the server",
+        "NAME": "timeout",
+        "OPTIONS": {
+            "DURATION": {
+                "DESCRIPTION": "Provide how long the timeout will last",
+                "NAME": "duration"
+            },
+            "REASON": {
+                "DESCRIPTION": "Provide a reason for timing out this user",
+                "NAME": "reason"
+            },
+            "USER": {
+                "DESCRIPTION": "Provide a user to timeout",
+                "NAME": "user"
+            }
+        }
+    },
+    "WARN": {
+        "DESCRIPTION": "Warn a user in the server",
+        "NAME": "warn",
+        "OPTIONS": {
+            "REASON": {
+                "DESCRIPTION": "Provide a reason for warning this user",
+                "NAME": "reason"
+            },
+            "USER": {
+                "DESCRIPTION": "Provide a user to warn",
+                "NAME": "user"
+            }
+        }
+    },
+    "WITHDRAW": {
+        "DESCRIPTION": "Withdraw your money",
+        "NAME": "withdraw",
+        "OPTIONS": {
+            "AMOUNT": {
+                "DESCRIPTION": "Amount of money to withdraw",
+                "NAME": "amount"
+            }
+        }
+    },
+    "WORK": {
+        "DESCRIPTION": "Get money from working!",
+        "NAME": "work"
+    }
+}

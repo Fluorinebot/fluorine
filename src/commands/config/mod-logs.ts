@@ -1,7 +1,8 @@
-import { Embed, type FluorineClient } from '#classes';
-import { type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
+import { EmbedBuilder, SlashCommandSubcommandBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
+import { type ChatInputCommandInteraction } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const value = interaction.options.getBoolean('mod-logs');
 
     await client.prisma.config.update({
@@ -13,9 +14,9 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         }
     });
 
-    const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle('CONFIG_SET_SUCCESS_TITLE')
-        .setLocaleDescription('CONFIG_SET_SUCCESS_DESCRIPTION', {
+    const embed = new EmbedBuilder(client, interaction.locale)
+        .setTitle('CONFIG_SET_SUCCESS_TITLE')
+        .setDescription('CONFIG_SET_SUCCESS_DESCRIPTION', {
             key: client.i18n.t('CONFIG_MODLOG', { lng: interaction.locale }),
             value
         });
@@ -23,16 +24,6 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     interaction.reply({ embeds: [embed] });
 }
 
-export const data = new SlashCommandSubcommandBuilder()
-    .setName('mod-logs')
-    .setNameLocalizations({ pl: 'mod-logi' })
-    .setDescription('Set if you want to log moderation actions')
-    .setDescriptionLocalizations({ pl: 'Ustaw, czy chcesz, by logować akcje moderacyjne' })
-    .addBooleanOption((option) =>
-        option
-            .setName('mod-logs')
-            .setNameLocalizations({ pl: 'mod-logi' })
-            .setDescription('Set whether you want to log moderation actions')
-            .setDescriptionLocalizations({ pl: 'Ustaw, czy chcesz, by logować akcje moderacyjne' })
-            .setRequired(true)
-    );
+export const slashCommandData = new SlashCommandSubcommandBuilder('MOD_LOGS').addBooleanOption('MOD_LOGS', option =>
+    option.setRequired(true)
+);

@@ -1,29 +1,32 @@
+import type { SlashCommandBuilder, SlashCommandSubcommandBuilder } from '#builders';
 import type { FluorineClient } from '#classes';
-import type { ChatInputCommand, ChatInputSubcommand, ContextMenuCommand } from '#types';
-import { loadDirectory, loadParentDirectory } from '#util';
-import { Collection, type SlashCommandBuilder, type SlashCommandSubcommandBuilder } from 'discord.js';
+import type { ChatInputCommand, ChatInputSubcommand, ContextMenuCommand, Command, Modal, Component } from '#types';
+import { loadParentDirectory } from '#util';
 
 export class CommandHandler {
-    chatInput = new Collection<string, ChatInputCommand | ChatInputSubcommand>();
-    contextMenu = new Collection<string, ContextMenuCommand>();
-
     constructor(private client: FluorineClient) {
         this.client = client;
     }
 
+    // SECTION - Merge builders of subcommands with parent commands
     private addFullBuilder(command: ChatInputCommand | ChatInputSubcommand) {
-        if ('category' in command) {
-            const subcommandNames = [...this.chatInput.keys()].filter((c) => c.startsWith(`${command.data.name}/`));
-
-            const subcommands = subcommandNames.map((subcommandName) => {
-                const subcommand = this.chatInput.get(subcommandName);
-                if (!('category' in subcommand)) {
-                    return subcommand.data;
-                }
-            });
-
-            this.getMergedCommandData(command.data, subcommands);
+        if (!this.isChatInputCommand(command)) {
+            return;
         }
+
+        const subcommandNames = [...this.client.chatInputCommands.keys()].filter((c) =>
+            c.startsWith(`${command.slashCommandData.name}/`)
+        );
+
+        const subcommands = subcommandNames.map((subcommandName) => {
+            const subcommand = this.client.chatInputCommands.get(subcommandName);
+
+            if (this.isChatInputSubcommand(subcommand)) {
+                return subcommand.slashCommandData;
+            }
+        });
+
+        this.getMergedCommandData(command.slashCommandData, subcommands);
     }
 
     private getMergedCommandData(base: SlashCommandBuilder, data: SlashCommandSubcommandBuilder[] = []) {
@@ -35,33 +38,65 @@ export class CommandHandler {
 
         return base;
     }
+    // !SECTION
 
-    async loadChatInput() {
-        const [commands, subcommands] = await loadParentDirectory<ChatInputCommand, ChatInputSubcommand>('../commands');
+    // SECTION - Load commands
+    async loadCommands() {
+        const [parentCommands, subcommands] = await loadParentDirectory<Command, Command>('../commands');
 
+        const commands = [...parentCommands, ...subcommands.map((s) => s.data)];
+
+        // * loads command types that do not have difference when nested.
         for (const command of commands) {
-            this.chatInput.set(command.data.name, command);
+            if (this.isChatInputCommand(command)) {
+                this.client.chatInputCommands.set(command.slashCommandData.name, command);
+            }
+
+            if (this.isContextMenuCommand(command)) {
+                this.client.contextMenuCommands.set(command.contextMenuCommandData.name, command);
+            }
+
+            if (this.isComponent(command)) {
+                this.client.components.set(command.componentData.name, command);
+            }
+
+            if (this.isModal(command)) {
+                this.client.modals.set(command.modalData.name, command);
+            }
         }
 
         for (const subcommand of subcommands) {
-            const [key] = subcommand.name.endsWith('index') ? subcommand.name.split('/') : [subcommand.name];
-            this.chatInput.set(key, subcommand.data);
+            if (this.isChatInputSubcommand(subcommand.data)) {
+                const [key] = subcommand.name.endsWith('index') ? subcommand.name.split('/') : [subcommand.name];
+
+                this.client.chatInputCommands.set(key, subcommand.data);
+            }
         }
 
-        this.chatInput.forEach((c) => this.addFullBuilder(c));
+        this.client.chatInputCommands.forEach((c) => this.addFullBuilder(c));
+        this.client.logger.log(`Loaded ${parentCommands.length} interactions.`);
+    }
+    // !SECTION
 
-        const commandsLoaded = [...this.chatInput.keys()].filter((key) => !key.includes('/'));
-        this.client.logger.log(`Loaded ${commandsLoaded.length} chat input commands.`);
-        return this.chatInput;
+    // SECTION - Type checking functions
+    isChatInputCommand(command: Command): command is ChatInputCommand {
+        return 'slashCommandData' in command && 'category' in command;
     }
 
-    async loadContextMenu() {
-        const files = await loadDirectory<ContextMenuCommand>('../context');
-        for (const file of files) {
-            this.contextMenu.set(file.data.data.name, file.data);
-        }
-
-        this.client.logger.log(`Loaded ${files.length} context menu commands.`);
-        return this.contextMenu;
+    isChatInputSubcommand(command: Command): command is ChatInputSubcommand {
+        return 'slashCommandData' in command && !('category' in command);
     }
+
+    isContextMenuCommand(command: Command): command is ContextMenuCommand {
+        return 'contextMenuCommandData' in command;
+    }
+
+    isComponent(command: Command): command is Component {
+        return 'componentData' in command;
+    }
+
+    isModal(command: Command): command is Modal {
+        return 'modalData' in command;
+    }
+    // !SECTION
 }

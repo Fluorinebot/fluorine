@@ -1,11 +1,5 @@
+import { SlashCommandBuilder } from '#builders';
 import type { Category } from '#types';
-import { SlashCommandBuilder } from 'discord.js';
 
-export const data = new SlashCommandBuilder()
-    .setName('shop')
-    .setNameLocalizations({ pl: 'sklep' })
-    .setDescription('Buy something with your economy money!')
-    .setDescriptionLocalizations({ pl: 'Kup coś za pieniądze w ekonomii!' })
-    .setDMPermission(false);
-
+export const slashCommandData = new SlashCommandBuilder('SHOP').setDMPermission(false);
 export const category: Category = 'economy';

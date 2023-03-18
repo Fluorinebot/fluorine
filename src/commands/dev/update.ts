@@ -1,13 +1,16 @@
+import { SlashCommandSubcommandBuilder } from '#builders';
 import { execSync } from 'node:child_process';
 import type { FluorineClient } from '#classes';
-import { type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
+import type { ChatInputCommandInteraction } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     await interaction.deferReply();
+
     execSync('git pull');
     execSync('npm i');
     execSync('npm run build');
+
     interaction.editReply('Successfully updated');
 }
 
-export const data = new SlashCommandSubcommandBuilder().setName('update').setDescription('Update the bot.');
+export const slashCommandData = new SlashCommandSubcommandBuilder('UPDATE');

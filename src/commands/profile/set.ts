@@ -1,7 +1,8 @@
-import { Embed, type FluorineClient } from '#classes';
-import { type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
+import { EmbedBuilder, SlashCommandSubcommandBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
+import { type ChatInputCommandInteraction } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const table = client.prisma.profile;
 
     const field = interaction.options.getString('field');
@@ -10,7 +11,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     switch (field) {
         case 'birthday': {
             const birthday = value;
-            const [day, month] = birthday.split('/').map((str) => parseInt(str) || 0);
+            const [day, month] = birthday.split('/').map(str => parseInt(str) || 0);
 
             if (day > 31 || day < 1 || month > 12 || month < 1) {
                 interaction.reply({
@@ -19,6 +20,7 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
                     }),
                     ephemeral: true
                 });
+
                 break;
             }
 
@@ -31,9 +33,9 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
                 }
             });
 
-            const embed = new Embed(client, interaction.locale)
-                .setLocaleTitle('PROFILE_SUCCESS')
-                .setLocaleDescription('PROFILE_SET_BIRTHDAY', { birthday });
+            const embed = new EmbedBuilder(client, interaction.locale)
+                .setTitle('PROFILE_SUCCESS')
+                .setDescription('PROFILE_SET_BIRTHDAY', { birthday });
 
             interaction.reply({ embeds: [embed], ephemeral: true });
             break;
@@ -58,9 +60,9 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
                 }
             });
 
-            const embed = new Embed(client, interaction.locale)
-                .setLocaleTitle('PROFILE_SUCCESS')
-                .setLocaleDescription('PROFILE_SET_LOCATION', {
+            const embed = new EmbedBuilder(client, interaction.locale)
+                .setTitle('PROFILE_SUCCESS')
+                .setDescription('PROFILE_SET_LOCATION', {
                     location: value
                 });
 
@@ -90,9 +92,9 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
                 }
             });
 
-            const embed = new Embed(client, interaction.locale)
-                .setLocaleTitle('PROFILE_SUCCESS')
-                .setLocaleDescription('PROFILE_SET_WEBSITE', { website });
+            const embed = new EmbedBuilder(client, interaction.locale)
+                .setTitle('PROFILE_SUCCESS')
+                .setDescription('PROFILE_SET_WEBSITE', { website });
 
             interaction.reply({ embeds: [embed], ephemeral: true });
             break;
@@ -118,9 +120,9 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
                 }
             });
 
-            const embed = new Embed(client, interaction.locale)
-                .setLocaleTitle('PROFILE_SUCCESS')
-                .setLocaleDescription('PROFILE_SET_PRONOUNS', {
+            const embed = new EmbedBuilder(client, interaction.locale)
+                .setTitle('PROFILE_SUCCESS')
+                .setDescription('PROFILE_SET_PRONOUNS', {
                     pronouns
                 });
 
@@ -148,9 +150,9 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
                 }
             });
 
-            const embed = new Embed(client, interaction.locale)
-                .setLocaleTitle('PROFILE_SUCCESS')
-                .setLocaleDescription('PROFILE_SET_DESCRIPTION', {
+            const embed = new EmbedBuilder(client, interaction.locale)
+                .setTitle('PROFILE_SUCCESS')
+                .setDescription('PROFILE_SET_DESCRIPTION', {
                     description
                 });
 
@@ -160,61 +162,8 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     }
 }
 
-export const data = new SlashCommandSubcommandBuilder()
-    .setName('set')
-    .setNameLocalizations({ pl: 'ustaw' })
-    .setDescription('Set a profile')
-    .setDescriptionLocalizations({ pl: 'Ustaw profil' })
-    .addStringOption((option) =>
-        option
-            .setName('field')
-            .setNameLocalizations({ pl: 'rubryka' })
-            .setDescription('Field to set')
-            .setDescriptionLocalizations({ pl: 'Rubryka, którą chcesz zmienić' })
-            .setRequired(true)
-            .setChoices(
-                {
-                    name: 'Birthday',
-                    name_localizations: {
-                        pl: 'Urodziny'
-                    },
-                    value: 'birthday'
-                },
-                {
-                    name: 'Description',
-                    name_localizations: {
-                        pl: 'Opis'
-                    },
-                    value: 'description'
-                },
-                {
-                    name: 'Location',
-                    name_localizations: {
-                        pl: 'Lokalizacja'
-                    },
-                    value: 'location'
-                },
-                {
-                    name: 'Pronouns',
-                    name_localizations: {
-                        pl: 'Zaimki'
-                    },
-                    value: 'pronouns'
-                },
-                {
-                    name: 'Website',
-                    name_localizations: {
-                        pl: 'Strona internetowa'
-                    },
-                    value: 'website'
-                }
-            )
+export const slashCommandData = new SlashCommandSubcommandBuilder('SET')
+    .addStringOption('FIELD', option =>
+        option.setRequired(true).addChoices('birthday', 'description', 'location', 'pronouns', 'website')
     )
-    .addStringOption((option) =>
-        option
-            .setName('value')
-            .setNameLocalizations({ pl: 'wartość' })
-            .setDescription('Value to set')
-            .setDescriptionLocalizations({ pl: 'Wartość, którą ustawić' })
-            .setRequired(true)
-    );
+    .addStringOption('VALUE', option => option.setRequired(true));

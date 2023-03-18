@@ -1,8 +1,9 @@
+import { SlashCommandSubcommandBuilder } from '#builders';
 import type { FluorineClient } from '#classes';
 import { getCommandMention } from '#util';
-import { type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction, type AutocompleteInteraction } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
     const item = interaction.options.getString('item');
     const itemObj = await client.shop.get(interaction.guildId, item);
     const user = await client.economy.get(interaction.guildId, interaction.user);
@@ -44,16 +45,30 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     client.economy.subtract(interaction.guildId, interaction.user, itemObj.price);
 }
 
-export const data = new SlashCommandSubcommandBuilder()
-    .setName('buy')
-    .setNameLocalizations({ pl: 'kup' })
-    .setDescription('Buy an item from the shop')
-    .setDescriptionLocalizations({ pl: 'Zakup przedmiotu ze sklepu' })
-    .addStringOption((option) =>
-        option
-            .setName('item')
-            .setNameLocalizations({ pl: 'przedmiot' })
-            .setDescription('The item you want to buy')
-            .setDescriptionLocalizations({ pl: 'Przedmiot, który chcesz kupić' })
-            .setRequired(true)
-    );
+export async function onAutocomplete(
+    client: FluorineClient,
+    interaction: AutocompleteInteraction,
+    focusedName: string,
+    focusedValue: string
+) {
+    if (focusedName === 'item') {
+        const items = await client.prisma.shopItem.findMany({
+            where: {
+                guildId: BigInt(interaction.guildId),
+                name: { contains: focusedValue }
+            },
+            select: { name: true },
+            take: 25,
+            orderBy: {
+                name: 'asc'
+            }
+        });
+
+        const predicted = items.map(item => ({ name: item.name, value: item.name }));
+        interaction.respond(predicted);
+    }
+}
+
+export const slashCommandData = new SlashCommandSubcommandBuilder('BUY').addStringOption('ITEM', option =>
+    option.setRequired(true).setAutocomplete(true)
+);

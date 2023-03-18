@@ -1,17 +1,35 @@
-import { Embed, type FluorineClient } from '#classes';
-import { splitArray } from '#util';
 import {
+    EmbedBuilder,
     ActionRowBuilder,
     ButtonBuilder,
+    SlashCommandSubcommandBuilder,
+    ContextMenuCommandBuilder
+} from '#builders';
+import type { FluorineClient } from '#classes';
+import type { ComponentData } from '#types';
+import { splitArray } from '#util';
+import {
+    ApplicationCommandType,
+    type ButtonInteraction,
     ButtonStyle,
-    type ChatInputCommandInteraction,
+    type CommandInteraction,
+    type GuildMember,
     type InteractionReplyOptions,
-    SlashCommandSubcommandBuilder
+    type InteractionUpdateOptions,
+    PermissionFlagsBits
 } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
-    const row = new ActionRowBuilder<ButtonBuilder>();
-    const member = interaction.options.getMember('user');
+export async function onInteraction(
+    client: FluorineClient,
+    interaction: ButtonInteraction | CommandInteraction<'cached'>,
+    value: string
+) {
+    const [user, _page] = value?.split('.') ?? [];
+    const page = Number(_page ?? '0');
+
+    const member: GuildMember = interaction.isCommand()
+        ? interaction.options.getMember('user')
+        : await interaction.guild.members.fetch(user).catch(() => null);
 
     if (!member) {
         return interaction.reply({
@@ -23,10 +41,13 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     }
 
     const cases = await client.cases.getMany(interaction.guildId, member.user);
+    const chunk = splitArray(cases, 10);
 
-    const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle('LISTCASE_TITLE', { user: member.user.tag })
-        .setThumbnail(member.user.displayAvatarURL());
+    const embed = new EmbedBuilder(client, interaction.locale)
+        .setTitle('LISTCASE_TITLE', { user: member.user.tag })
+        .setThumbnail(member.displayAvatarURL());
+
+    const replyOptions: InteractionReplyOptions & InteractionUpdateOptions = { embeds: [embed] };
 
     if (!cases.length) {
         return interaction.reply({
@@ -38,51 +59,48 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         });
     }
 
-    const chunk = splitArray(cases, 10);
+    const componentPage = page > chunk.length ? page - 1 : page;
+    const chunkPage = interaction.isCommand() ? page : componentPage;
 
-    chunk[0].forEach((caseData) => {
-        embed.addFields({ name: `#${caseData.caseId} ${caseData.type}`, value: caseData.reason });
+    chunk[chunkPage].forEach(caseData => {
+        embed.addFields([
+            {
+                rawName: `#${caseData.caseId} (${client.i18n.t(caseData.type.toUpperCase(), {
+                    lng: interaction.locale
+                })}) <t:${caseData.createdAt / 1000n}:R>`,
+                rawValue: caseData.reason
+            }
+        ]);
     });
 
-    const replyOptions: InteractionReplyOptions = { embeds: [embed] };
-
     if (chunk.length > 1) {
-        row.addComponents([
-            new ButtonBuilder()
-                .setCustomId(`listcase:${interaction.user.id}:${member.user.id}.0`)
-                .setLabel(
-                    client.i18n.t('LISTCASE_BACK', {
-                        lng: interaction.locale
-                    })
-                )
+        const row = new ActionRowBuilder(interaction.locale).addComponents([
+            new ButtonBuilder(`listcase:${interaction.user.id}:${member.id}.${page - 1}`)
+                .setLabel('LISTCASE_BACK')
                 .setStyle(ButtonStyle.Primary)
-                .setDisabled(true),
-            new ButtonBuilder()
-                .setCustomId(`listcase:${interaction.user.id}:${member.user.id}.1`)
-                .setLabel(
-                    client.i18n.t('LISTCASE_NEXT', {
-                        lng: interaction.locale
-                    })
-                )
+                .setDisabled(page === 0),
+            new ButtonBuilder(`listcase:${interaction.user.id}:${member.id}.${page + 1}`)
+                .setLabel('LISTCASE_NEXT')
                 .setStyle(ButtonStyle.Primary)
+                .setDisabled(page + 1 === chunk.length)
         ]);
 
         replyOptions.components = [row];
     }
 
-    interaction.reply(replyOptions);
+    interaction.isCommand() ? interaction.reply(replyOptions) : interaction.update(replyOptions);
 }
 
-export const data = new SlashCommandSubcommandBuilder()
-    .setName('list')
-    .setNameLocalizations({ pl: 'lista' })
-    .setDescription('Check punishments of a user')
-    .setDescriptionLocalizations({ pl: 'Sprawdź kary użytkownika' })
-    .addUserOption((option) =>
-        option
-            .setName('user')
-            .setNameLocalizations({ pl: 'użytkownik' })
-            .setDescription('The user to check')
-            .setDescriptionLocalizations({ pl: 'Użytkownik, którego chcesz sprawdzić' })
-            .setRequired(true)
-    );
+export const slashCommandData = new SlashCommandSubcommandBuilder('LIST').addUserOption('USER', option =>
+    option.setRequired(true)
+);
+
+export const contextMenuCommandData = new ContextMenuCommandBuilder(ApplicationCommandType.User, 'CASE.LIST')
+    .setDefaultMemberPermissions(PermissionFlagsBits.ViewAuditLog)
+    .setDMPermission(false);
+
+export const componentData: ComponentData = {
+    exists: true,
+    name: 'listcase',
+    authorOnly: true
+};

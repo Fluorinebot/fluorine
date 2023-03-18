@@ -6,9 +6,11 @@ export async function tokenCheck(client: FluorineClient, req: FastifyRequest, re
     if (req.routerPath === '/auth') {
         return;
     }
+
     if (!authorization) {
         return reply.status(401).send({ error: 'Missing token' });
     }
+
     try {
         client.oauth.verify(authorization);
     } catch {

@@ -1,7 +1,8 @@
-import { Embed, type FluorineClient } from '#classes';
-import { type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
+import { EmbedBuilder, SlashCommandSubcommandBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
+import { type ChatInputCommandInteraction } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const value = interaction.options.getBoolean('logs');
 
     await client.prisma.config.update({
@@ -13,9 +14,9 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         }
     });
 
-    const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle('CONFIG_SET_SUCCESS_TITLE')
-        .setLocaleDescription('CONFIG_SET_SUCCESS_DESCRIPTION', {
+    const embed = new EmbedBuilder(client, interaction.locale)
+        .setTitle('CONFIG_SET_SUCCESS_TITLE')
+        .setDescription('CONFIG_SET_SUCCESS_DESCRIPTION', {
             key: client.i18n.t('CONFIG_LOGS', { lng: interaction.locale }),
             value
         });
@@ -23,16 +24,6 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     interaction.reply({ embeds: [embed] });
 }
 
-export const data = new SlashCommandSubcommandBuilder()
-    .setName('logs')
-    .setNameLocalizations({ pl: 'logi' })
-    .setDescription('Set if you want to log messages')
-    .setDescriptionLocalizations({ pl: 'Ustaw, czy chcesz logować wiadomości na specjalnym kanale' })
-    .addBooleanOption((option) =>
-        option
-            .setName('logs')
-            .setNameLocalizations({ pl: 'logi' })
-            .setDescription('Set whether you want to log messages')
-            .setDescriptionLocalizations({ pl: 'Ustaw, czy chcesz logować wiadomości' })
-            .setRequired(true)
-    );
+export const slashCommandData = new SlashCommandSubcommandBuilder('LOGS').addBooleanOption('LOGS', option =>
+    option.setRequired(true)
+);

@@ -1,0 +1,14 @@
+{
+    "recommendations": [
+        "aaron-bond.better-comments",
+        "esbenp.prettier-vscode",
+        "exodiusstudios.comment-anchors",
+        "dbaeumer.vscode-eslint",
+        "github.vscode-pull-request-github",
+        "codezombiech.gitignore",
+        "eamodio.gitlens",
+        "christian-kohler.npm-intellisense",
+        "christian-kohler.path-intellisense",
+        "Prisma.prisma"
+    ]
+}

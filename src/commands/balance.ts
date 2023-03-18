@@ -1,27 +1,19 @@
-import { Embed, type FluorineClient } from '#classes';
+import { EmbedBuilder, SlashCommandBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
 import type { Category } from '#types';
-import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const balance = await client.economy.get(interaction.guildId, interaction.user);
     const currency = await client.economy.getCurrency(interaction.guildId);
 
-    const embed = new Embed(client, interaction.locale).setLocaleTitle('BALANCE').addLocaleFields([
-        {
-            name: 'BALANCE_WALLET',
-            value: `${balance.walletBal} ${currency}`
-        },
-        { name: 'BALANCE_BANK', value: `${balance.bankBal} ${currency}` }
+    const embed = new EmbedBuilder(client, interaction.locale).setTitle('BALANCE').addFields([
+        { name: 'BALANCE_WALLET', rawValue: `${balance.walletBal} ${currency}` },
+        { name: 'BALANCE_BANK', rawValue: `${balance.bankBal} ${currency}` }
     ]);
 
     interaction.reply({ embeds: [embed], ephemeral: true });
 }
 
-export const data = new SlashCommandBuilder()
-    .setName('balance')
-    .setNameLocalizations({ pl: 'saldo' })
-    .setDescription('Check your balance')
-    .setDescriptionLocalizations({ pl: 'Sprawdź swoje saldo' })
-    .setDMPermission(false);
-
+export const slashCommandData = new SlashCommandBuilder('BALANCE').setDMPermission(false);
 export const category: Category = 'economy';

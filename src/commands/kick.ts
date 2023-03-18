@@ -1,8 +1,9 @@
-import { Embed, type FluorineClient } from '#classes';
+import { EmbedBuilder, SlashCommandBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
 import type { Category } from '#types';
-import { type ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
+import { type ChatInputCommandInteraction, PermissionFlagsBits } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
     const member = interaction.options.getMember('user');
     const reason =
         interaction.options.getString('reason') ??
@@ -47,44 +48,25 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         })
     );
 
-    const embed = new Embed(client, interaction.locale)
-        .setLocaleTitle('KICK_SUCCESS_TITLE')
-        .setLocaleDescription('KICK_SUCCESS_DESCRIPTION')
+    const embed = new EmbedBuilder(client, interaction.locale)
+        .setTitle('KICK_SUCCESS_TITLE')
+        .setDescription('KICK_SUCCESS_DESCRIPTION')
         .setThumbnail(member.displayAvatarURL())
-        .addLocaleFields([
-            { name: 'KICK_MODERATOR', value: interaction.user.tag },
-            { name: 'KICK_USER', value: member.user.tag },
-            { name: 'REASON', value: reason },
-            { name: 'CASE_ID', value: caseObj.caseId.toString() }
+        .addFields([
+            { name: 'KICK_MODERATOR', rawValue: interaction.user.tag },
+            { name: 'KICK_USER', rawValue: member.user.tag },
+            { name: 'REASON', rawValue: reason },
+            { name: 'CASE_ID', rawValue: caseObj.caseId.toString() }
         ]);
 
     interaction.reply({ embeds: [embed] });
     client.cases.logToModerationChannel(interaction.guildId, caseObj);
 }
 
-export const data = new SlashCommandBuilder()
-    .setName('kick')
-    .setNameLocalizations({ pl: 'kick' })
-    .setDescription('Kick a user from the server')
-    .setDescriptionLocalizations({ pl: 'Wyrzuca użytkownika z serwera' })
+export const slashCommandData = new SlashCommandBuilder('KICK')
     .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
     .setDMPermission(false)
-    .addUserOption((option) =>
-        option
-            .setName('user')
-            .setNameLocalizations({ pl: 'użytkownik' })
-            .setDescription('Provide a user to kick')
-            .setDescriptionLocalizations({ pl: 'Podaj użytkownika, którego chcesz wyrzucić' })
-            .setRequired(true)
-    )
-    .addStringOption((option) =>
-        option
-            .setName('reason')
-            .setNameLocalizations({ pl: 'powód' })
-            .setDescription('Provide a reason for kicking this user')
-            .setDescriptionLocalizations({ pl: 'Podaj powód wyrzucenia użytkownika z serwera' })
-            .setMaxLength(1024)
-            .setRequired(false)
-    );
+    .addUserOption('USER', option => option.setRequired(true))
+    .addStringOption('REASON', option => option.setMaxLength(1024));
 
 export const category: Category = 'moderation';

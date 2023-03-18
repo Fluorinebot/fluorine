@@ -1,9 +1,10 @@
+import { SlashCommandSubcommandBuilder } from '#builders';
 import type { FluorineClient } from '#classes';
 import { fragmentText, getDirname } from '#util';
 import { createCanvas, loadImage, GlobalFonts } from '@napi-rs/canvas';
-import { AttachmentBuilder, type ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
+import { AttachmentBuilder, type ChatInputCommandInteraction } from 'discord.js';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const user = interaction.options.getUser('user') ?? interaction.user;
     const localeOptions = {
         lng: interaction.locale
@@ -78,16 +79,4 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
     interaction.reply({ files: [attachment] });
 }
 
-export const data = new SlashCommandSubcommandBuilder()
-    .setName('view')
-    .setNameLocalizations({ pl: 'obejrz' })
-    .setDescription('View a profile')
-    .setDescriptionLocalizations({ pl: 'Obejrz profil' })
-    .addUserOption((option) =>
-        option
-            .setName('user')
-            .setNameLocalizations({ pl: 'użytkownik' })
-            .setDescription('User to view')
-            .setDescriptionLocalizations({ pl: 'Użytkownik, którego chcesz zobaczyć' })
-            .setRequired(false)
-    );
+export const slashCommandData = new SlashCommandSubcommandBuilder('VIEW').addUserOption('USER');

@@ -1,4 +1,5 @@
-import { Embed, type FluorineClient } from '#classes';
+import { EmbedBuilder } from '#builders';
+import type { FluorineClient } from '#classes';
 import type { Prisma } from '@prisma/client';
 import type { User } from 'discord.js';
 
@@ -26,7 +27,8 @@ export class CasesModule {
                 caseCreator: BigInt(caseCreator.id),
                 moderatedUser: BigInt(moderatedUser.id),
                 type,
-                reason
+                reason,
+                createdAt: BigInt(Date.now())
             }
         });
 
@@ -65,18 +67,18 @@ export class CasesModule {
             const guildObj = this.client.guilds.cache.get(guild);
             const member = await guildObj.members.fetch(caseObj.moderatedUser.toString());
 
-            const embed = new Embed(this.client, guildObj.preferredLocale)
-                .setLocaleTitle('CASE_NEW')
+            const embed = new EmbedBuilder(this.client, guildObj.preferredLocale)
+                .setTitle('CASE_NEW')
                 .setThumbnail(member.displayAvatarURL())
-                .addLocaleFields([
+                .addFields([
                     {
                         name: 'CASE_TYPE',
-                        localeValue: caseObj.type.toUpperCase() as 'BAN' | 'KICK' | 'WARN' | 'TIMEOUT'
+                        value: caseObj.type.toUpperCase() as 'BAN' | 'KICK' | 'WARN' | 'TIMEOUT'
                     },
-                    { name: 'CASE_MODERATOR', value: creator.tag },
-                    { name: 'CASE_USER', value: member.user.tag },
-                    { name: 'REASON', value: caseObj.reason },
-                    { name: 'ID', value: `#${caseObj.caseId}` }
+                    { name: 'CASE_MODERATOR', rawValue: creator.tag },
+                    { name: 'CASE_USER', rawValue: member.user.tag },
+                    { name: 'REASON', rawValue: caseObj.reason },
+                    { name: 'ID', rawValue: `#${caseObj.caseId}` }
                 ]);
 
             const channel = guildObj.channels.cache.get(logsChannel.toString());
@@ -88,6 +90,7 @@ export class CasesModule {
             channel.send({ embeds: [embed] });
         }
     }
+
     async getGuild(id: string) {
         return this.client.prisma.case.findMany({
             where: {
@@ -95,6 +98,7 @@ export class CasesModule {
             }
         });
     }
+
     async editReason(guildId: string, caseId: number, reason: string) {
         return this.table.update({
             where: {
@@ -108,12 +112,14 @@ export class CasesModule {
             }
         });
     }
+
     async delete(guildId: string, caseId: number) {
-        const Case = await this.getOne(guildId, caseId);
+        const caseData = await this.getOne(guildId, caseId);
         const guild = this.client.guilds.cache.get(guildId);
-        const user = await this.client.users.fetch(Case.moderatedUser.toString());
-        switch (Case.type) {
-            case 'ban': {
+        const user = await this.client.users.fetch(caseData.moderatedUser.toString());
+
+        switch (caseData.type) {
+            case 'ban':
                 await guild.bans.remove(user);
                 break;
             }
@@ -123,11 +129,12 @@ export class CasesModule {
                 break;
             }
         }
+
         return this.table.delete({
             where: {
                 caseId_guildId: {
                     caseId,
-                    guildId: BigInt(guildId)
+                    guildId: bigint(guildId)
                 }
             }
         });

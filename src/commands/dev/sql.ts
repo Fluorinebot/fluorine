@@ -1,12 +1,46 @@
-import { Embed, type FluorineClient } from '#classes';
+import { EmbedBuilder, SlashCommandSubcommandBuilder } from '#builders';
+import { type FluorineClient } from '#classes';
+import {
+    type Collection,
+    type ModalSubmitInteraction,
+    type TextInputComponent,
+    type ChatInputCommandInteraction,
+    ActionRowBuilder,
+    ModalBuilder,
+    TextInputBuilder,
+    TextInputStyle,
+    codeBlock
+} from 'discord.js';
 import { clean } from '#util';
-import { type ChatInputCommandInteraction, codeBlock, SlashCommandSubcommandBuilder } from 'discord.js';
+import type { NonCommandInteractionData } from '#types';
 
-export async function run(client: FluorineClient, interaction: ChatInputCommandInteraction) {
-    await interaction.deferReply();
-    const code = interaction.options.getString('code');
-    code.replace('```\nsql', '').replace('\n```', '');
-    const embed = new Embed(client, interaction.locale);
+export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
+    const modal = new ModalBuilder()
+        .setTitle('Evaluate')
+        .setCustomId(`sql:${interaction.user.id}`)
+        .addComponents(
+            new ActionRowBuilder<TextInputBuilder>().addComponents(
+                new TextInputBuilder()
+                    .setCustomId(`code`)
+                    .setLabel('Statement')
+                    .setPlaceholder('DROP MY_SPLENDID_DATABASE;')
+                    .setStyle(TextInputStyle.Paragraph)
+                    .setMaxLength(4000)
+                    .setRequired(true)
+            )
+        );
+
+    interaction.showModal(modal);
+}
+
+export async function onModal(
+    client: FluorineClient,
+    interaction: ModalSubmitInteraction,
+    fields: Collection<string, TextInputComponent>
+) {
+    const code = fields.get('code').value;
+    code.replace('```sql\n', '').replace('\n```', '');
+    const embed = new EmbedBuilder(client, interaction.locale);
 
     try {
         const evaluated = client.prisma.$queryRawUnsafe(code);
@@ -19,10 +53,12 @@ export async function run(client: FluorineClient, interaction: ChatInputCommandI
         embed.setTitle('Failed').setDescription(codeBlock('js', cleaned));
     }
 
-    interaction.editReply({ embeds: [embed] });
+    interaction.reply({ embeds: [embed] });
 }
 
-export const data = new SlashCommandSubcommandBuilder()
-    .setName('sql')
-    .setDescription("Robert'); DROP TABLE students;--")
-    .addStringOption((option) => option.setName('code').setDescription('The code to evaluate.').setRequired(true));
+export const modalData: NonCommandInteractionData = {
+    exists: true,
+    name: 'sql'
+};
+
+export const slashCommandData = new SlashCommandSubcommandBuilder('SQL');
