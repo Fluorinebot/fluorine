@@ -375,10 +375,6 @@
         "DESCRIPTION": "Wyślij użytkownika na przerwę (podobne do mute)",
         "NAME": "timeout",
         "OPTIONS": {
-            "USER": {
-                "DESCRIPTION": "Podaj użytkownika, którego chcesz wysłać na przerwę",
-                "NAME": "użytkownik"
-            },
             "DURATION": {
                 "DESCRIPTION": "Podaj, jak długo ma trwać przerwa",
                 "NAME": "długość"
@@ -386,6 +382,10 @@
             "REASON": {
                 "DESCRIPTION": "Podaj powód przerwy",
                 "NAME": "powód"
+            },
+            "USER": {
+                "DESCRIPTION": "Podaj użytkownika, którego chcesz wysłać na przerwę",
+                "NAME": "użytkownik"
             }
         }
     },
@@ -393,13 +393,13 @@
         "DESCRIPTION": "Daj użytkownikowi ostrzeżenie",
         "NAME": "ostrzeżenie",
         "OPTIONS": {
-            "USER": {
-                "DESCRIPTION": "Podaj użytkownika, któremu chcesz wstawić ostrzeżenie",
-                "NAME": "użytkownik"
-            },
             "REASON": {
                 "DESCRIPTION": "Podaj powód ostrzeżenia",
                 "NAME": "powód"
+            },
+            "USER": {
+                "DESCRIPTION": "Podaj użytkownika, któremu chcesz wstawić ostrzeżenie",
+                "NAME": "użytkownik"
             }
         }
     },

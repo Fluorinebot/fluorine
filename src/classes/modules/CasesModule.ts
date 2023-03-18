@@ -27,7 +27,8 @@ export class CasesModule {
                 caseCreator: BigInt(caseCreator.id),
                 moderatedUser: BigInt(moderatedUser.id),
                 type,
-                reason
+                reason,
+                createdAt: BigInt(Date.now())
             }
         });
 
@@ -89,6 +90,7 @@ export class CasesModule {
             channel.send({ embeds: [embed] });
         }
     }
+
     async getGuild(id: string) {
         return this.client.prisma.case.findMany({
             where: {
@@ -112,11 +114,11 @@ export class CasesModule {
     }
 
     async delete(guildId: string, caseId: number) {
-        const Case = await this.getOne(guildId, caseId);
+        const caseData = await this.getOne(guildId, caseId);
         const guild = this.client.guilds.cache.get(guildId);
-        const user = await this.client.users.fetch(Case.moderatedUser.toString());
+        const user = await this.client.users.fetch(caseData.moderatedUser.toString());
 
-        switch (Case.type) {
+        switch (caseData.type) {
             case 'ban':
                 await guild.bans.remove(user);
                 break;
