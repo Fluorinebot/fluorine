@@ -17,7 +17,7 @@ export interface Player {
     achievementSync: AchievementSync;
     stats: Stats;
     achievementPoints: number;
-    achievements: { [key: string]: number };
+    achievements: Record<string, number>;
     lastLogout: number;
     challenges: Challenges;
     networkExp: number;
@@ -25,13 +25,13 @@ export interface Player {
     levelingReward_0: boolean;
     parkourCheckpointBests: ParkourCheckpointBests;
     parkourCompletions: ParkourCompletions;
-    achievementRewardsNew: { [key: string]: number };
+    achievementRewardsNew: Record<string, number>;
     levelingReward_1: boolean;
     levelingReward_3: boolean;
     levelingReward_2: boolean;
-    petConsumables: { [key: string]: number };
+    petConsumables: Record<string, number>;
     vanityMeta: VanityMeta;
-    monthlycrates: { [key: string]: Monthlycrate };
+    monthlycrates: Record<string, Monthlycrate>;
     lastAdsenseGenerateTime: number;
     friendRequestsUuid: any[];
     channel: string;
@@ -67,7 +67,7 @@ export interface AchievementSync {
 }
 
 export interface Challenges {
-    all_time: { [key: string]: number };
+    all_time: Record<string, number>;
     day_e: DayE;
     day_f: Day;
     day_g: Day;
@@ -101,9 +101,9 @@ export interface Outfit {
 }
 
 export interface ParkourCheckpointBests {
-    Duels: { [key: string]: number };
-    Bedwars: { [key: string]: number };
-    Prototype: { [key: string]: number };
+    Duels: Record<string, number>;
+    Bedwars: Record<string, number>;
+    Prototype: Record<string, number>;
 }
 
 export interface ParkourCompletions {
@@ -902,7 +902,7 @@ export interface Paintball {
 
 export interface Pit {
     profile: Profile;
-    pit_stats_ptl: { [key: string]: number };
+    pit_stats_ptl: Record<string, number>;
 }
 
 export interface Profile {

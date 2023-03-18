@@ -1,14 +1,7 @@
 {
     "8BALL_ERROR": "You need to provide a question!",
     "8BALL_RESPONSE": "Response",
-    "8BALL_RESPONSES": [
-        "Yes",
-        "No",
-        "Maybe",
-        "Probably",
-        "I'm not sure",
-        "I don't think so"
-    ],
+    "8BALL_RESPONSES": ["Yes", "No", "Maybe", "Probably", "I'm not sure", "I don't think so"],
     "AVATAR": "Avatar",
     "AVATAR_GUILD": "Server Avatar",
     "AVATAR_USER": "User Avatar",

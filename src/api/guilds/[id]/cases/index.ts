@@ -19,8 +19,7 @@ export async function getCases(client: FluorineClient, req: FastifyRequest, repl
     reply.header('Content-Type', 'application/json');
     reply.send(
         JSON.stringify(await client.cases.getGuild(guildId), (key, value) =>
-            // eslint-disable-next-line prettier/prettier
-            (typeof value === 'bigint' ? value.toString() : value)
+            typeof value === 'bigint' ? value.toString() : value
         )
     );
 }
