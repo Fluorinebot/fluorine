@@ -1,4 +1,5 @@
 import { join } from 'node:path';
+import { performance } from 'node:perf_hooks';
 import process from 'node:process';
 
 import { startServer } from '#api';
@@ -6,15 +7,14 @@ import { Logger } from '#classes';
 import { env } from '#env';
 import { CooldownHandler, EventHandler, CommandHandler } from '#handlers';
 import { CasesModule, EconomyModule, ShopModule, OAuthModule } from '#modules';
+import type { ChatInputCommand, ContextMenuCommand, ChatInputSubcommand, Component, Modal } from '#types';
 import { getDirname } from '#util';
 
 import { PrismaClient } from '@prisma/client';
 import { ActivityType, Client, Collection, disableValidators, GatewayIntentBits, Partials } from 'discord.js';
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
-import { performance } from 'perf_hooks';
 import { bold, red } from 'yoctocolors';
-import type { ChatInputCommand, ContextMenuCommand, ChatInputSubcommand, Component, Modal } from '#types';
 
 export class FluorineClient extends Client {
     createdAt = performance.now();

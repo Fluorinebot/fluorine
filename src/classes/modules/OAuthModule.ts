@@ -17,7 +17,7 @@ export class OAuthModule {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: new URLSearchParams({
-                client_id: env.DISCORD_CLIENT_ID,
+                client_id: this.client.user.id,
                 client_secret: env.DISCORD_SECRET,
                 grant_type: 'refresh_token',
                 refresh_token: token,
@@ -34,7 +34,7 @@ export class OAuthModule {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: new URLSearchParams({
-                client_id: env.DISCORD_CLIENT_ID,
+                client_id: this.client.user.id,
                 client_secret: env.DISCORD_SECRET,
                 grant_type: 'authorization_code',
                 code,
