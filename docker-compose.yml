@@ -1,20 +1,25 @@
-version: "3.9"
+version: '3.9'
+
+volumes:
+    postgres-data:
 
 services:
-  fluorine:
-    build: .
-    ports:
-      - "8080:8080"
-    env_file:
-      - .env
-    depends_on:
-      - postgres
-    links:
-      - postgres
+    bot:
+        build: .
+        ports:
+            - '8080:8080'
+        env_file:
+            - .env
+        depends_on:
+            - postgres
+        links:
+            - postgres
 
-  postgres:
-    image: "postgres:alpine"
-    ports: 
-      - "5432:5432"
-    env_file:
-      - postgres.env
+    postgres:
+        image: 'postgres:alpine'
+        ports:
+            - '5432:5432'
+        env_file:
+            - postgres.env
+        volumes:
+            - postgres-data:/var/lib/postgresql/data
