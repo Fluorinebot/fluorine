@@ -23,7 +23,7 @@ export async function getGuild(client: FluorineClient, req: FastifyRequest, repl
     // get only the important data
     const { name, icon } = guild;
 
-    const replacer = (k: string, v: any) => (typeof v === 'bigint' ? v.toString() : v);
+    const replacer = (k: string, v: unknown) => (typeof v === 'bigint' ? v.toString() : v);
     reply.header('Content-Type', 'application/json');
     reply.send(JSON.stringify({ name, icon, logModerationActions, logsChannel, logsEnabled }, replacer));
 }

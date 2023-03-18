@@ -119,7 +119,7 @@ export class CasesModule {
         const user = await this.client.users.fetch(caseData.moderatedUser.toString());
 
         switch (caseData.type) {
-            case 'ban':
+            case 'ban': {
                 await guild.bans.remove(user);
                 break;
             }
@@ -134,7 +134,7 @@ export class CasesModule {
             where: {
                 caseId_guildId: {
                     caseId,
-                    guildId: bigint(guildId)
+                    guildId: BigInt(guildId)
                 }
             }
         });
