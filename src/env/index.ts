@@ -15,7 +15,7 @@ export const env = createEnv({
     DISCORD_SUPPORT_INVITE: { type: 'string' },
 
     // other
-    NODE_ENV: { type: 'string', default: 'development', choices: ['development', 'production'] as const },
+    NODE_ENV: { type: 'string', default: 'development', choices: ['development', 'production'] },
     HYPIXEL_TOKEN: { type: 'string' },
     DATABASE_URL: { type: 'string' },
 
