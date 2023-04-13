@@ -1,6 +1,6 @@
-import type { ApplicationCommandBuilderResolvable } from '#types';
-import { ContextMenuCommandBuilder, type ApplicationCommandOptionType, type ApplicationCommandType } from 'discord.js';
 import { BaseBuilder } from '#builderBases';
+import type { ApplicationCommandBuilderResolvable } from '#types';
+import { type ApplicationCommandOptionType, type ApplicationCommandType, ContextMenuCommandBuilder } from 'discord.js';
 
 export class BaseApplicationCommandBuilder<T extends ApplicationCommandBuilderResolvable> extends BaseBuilder<T> {
     public builder: T;
@@ -11,8 +11,8 @@ export class BaseApplicationCommandBuilder<T extends ApplicationCommandBuilderRe
         super('commands');
     }
 
-    setName(name: string) {
-        name = this.builder instanceof ContextMenuCommandBuilder ? `${name}.CONTEXT` : `${name}.NAME`;
+    setName(_name: string) {
+        const name = this.builder instanceof ContextMenuCommandBuilder ? `${_name}.CONTEXT` : `${_name}.NAME`;
 
         this.builder.setName(this.getDefault(name));
         this.builder.setNameLocalizations(this.getLocalizations(name));

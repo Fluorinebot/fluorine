@@ -10,24 +10,25 @@ import {
     StringOption,
     UserOption
 } from '#options';
+import type { OptionResolvable } from '#types';
 import {
-    SlashCommandBuilder,
     type ApplicationCommandOptionType,
     type ApplicationCommandType,
+    SlashCommandBuilder,
     type SlashCommandSubcommandBuilder
 } from 'discord.js';
 
 export class CommandBuilderWithOptions<
     T extends SlashCommandBuilder | SlashCommandSubcommandBuilder
 > extends BaseCommandBuilder<T> {
-    public optionQueue: BaseOptionBuilder<any>[];
+    public optionQueue: BaseOptionBuilder<OptionResolvable>[];
 
     constructor(type: ApplicationCommandType.ChatInput | ApplicationCommandOptionType.Subcommand, baseKey: string) {
         super(type, baseKey);
         this.optionQueue = [];
     }
 
-    private addOption(input: BaseOptionBuilder<any>) {
+    private addOption<T extends OptionResolvable>(input: BaseOptionBuilder<T>) {
         if (this.builder instanceof SlashCommandBuilder) {
             this.mapOption(input);
         }
@@ -35,7 +36,7 @@ export class CommandBuilderWithOptions<
         this.optionQueue.push(input);
     }
 
-    private mapOption(option: BaseOptionBuilder<any>) {
+    private mapOption<T extends OptionResolvable>(option: BaseOptionBuilder<T>) {
         option.setBaseKey(`${this.baseKey}.OPTIONS.${option.baseKey}`);
 
         if (option instanceof AttachmentOption) {
@@ -59,47 +60,47 @@ export class CommandBuilderWithOptions<
         }
     }
 
-    addAttachmentOption(key: string, input: (option: AttachmentOption) => AttachmentOption = option => option) {
+    addAttachmentOption(key: string, input: (option: AttachmentOption) => AttachmentOption = (option) => option) {
         this.addOption(input(new AttachmentOption(key)));
         return this;
     }
 
-    addBooleanOption(key: string, input: (option: BooleanOption) => BooleanOption = option => option) {
+    addBooleanOption(key: string, input: (option: BooleanOption) => BooleanOption = (option) => option) {
         this.addOption(input(new BooleanOption(key)));
         return this;
     }
 
-    addChannelOption(key: string, input: (option: ChannelOption) => ChannelOption = option => option) {
+    addChannelOption(key: string, input: (option: ChannelOption) => ChannelOption = (option) => option) {
         this.addOption(input(new ChannelOption(key)));
         return this;
     }
 
-    addIntegerOption(key: string, input: (option: IntegerOption) => IntegerOption = option => option) {
+    addIntegerOption(key: string, input: (option: IntegerOption) => IntegerOption = (option) => option) {
         this.addOption(input(new IntegerOption(key)));
         return this;
     }
 
-    addMentionableOption(key: string, input: (option: MentionableOption) => MentionableOption = option => option) {
+    addMentionableOption(key: string, input: (option: MentionableOption) => MentionableOption = (option) => option) {
         this.addOption(input(new MentionableOption(key)));
         return this;
     }
 
-    addNumberOption(key: string, input: (option: NumberOption) => NumberOption = option => option) {
+    addNumberOption(key: string, input: (option: NumberOption) => NumberOption = (option) => option) {
         this.addOption(input(new NumberOption(key)));
         return this;
     }
 
-    addRoleOption(key: string, input: (option: RoleOption) => RoleOption = option => option) {
+    addRoleOption(key: string, input: (option: RoleOption) => RoleOption = (option) => option) {
         this.addOption(input(new RoleOption(key)));
         return this;
     }
 
-    addStringOption(key: string, input: (option: StringOption) => StringOption = option => option) {
+    addStringOption(key: string, input: (option: StringOption) => StringOption = (option) => option) {
         this.addOption(input(new StringOption(key)));
         return this;
     }
 
-    addUserOption(key: string, input: (option: UserOption) => UserOption = option => option) {
+    addUserOption(key: string, input: (option: UserOption) => UserOption = (option) => option) {
         this.addOption(input(new UserOption(key)));
         return this;
     }

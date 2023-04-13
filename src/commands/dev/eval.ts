@@ -3,13 +3,13 @@ import { type FluorineClient } from '#classes';
 import type { NonCommandInteractionData } from '#types';
 import { clean } from '#util';
 import {
-    type Collection,
-    type ModalSubmitInteraction,
-    type TextInputComponent,
-    type ChatInputCommandInteraction,
     ActionRowBuilder,
+    type ChatInputCommandInteraction,
+    type Collection,
     ModalBuilder,
+    type ModalSubmitInteraction,
     TextInputBuilder,
+    type TextInputComponent,
     TextInputStyle,
     codeBlock
 } from 'discord.js';
@@ -21,7 +21,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         .addComponents(
             new ActionRowBuilder<TextInputBuilder>().addComponents(
                 new TextInputBuilder()
-                    .setCustomId(`code`)
+                    .setCustomId('code')
                     .setLabel('Expression')
                     .setPlaceholder(`console.log('sex balls');`)
                     .setStyle(TextInputStyle.Paragraph)

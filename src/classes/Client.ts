@@ -5,13 +5,13 @@ import process from 'node:process';
 import { startServer } from '#api';
 import { Logger } from '#classes';
 import { env } from '#env';
-import { CooldownHandler, EventHandler, CommandHandler } from '#handlers';
-import { CasesModule, EconomyModule, ShopModule, OAuthModule } from '#modules';
-import type { ChatInputCommand, ContextMenuCommand, ChatInputSubcommand, Component, Modal } from '#types';
+import { CommandHandler, CooldownHandler, EventHandler } from '#handlers';
+import { CasesModule, EconomyModule, OAuthModule, ShopModule } from '#modules';
+import type { ChatInputCommand, ChatInputSubcommand, Component, ContextMenuCommand, Modal } from '#types';
 import { getDirname } from '#util';
 
 import { PrismaClient } from '@prisma/client';
-import { ActivityType, Client, Collection, disableValidators, GatewayIntentBits, Partials } from 'discord.js';
+import { ActivityType, Client, Collection, GatewayIntentBits, Partials, disableValidators } from 'discord.js';
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
 import { bold, red } from 'yoctocolors';
@@ -21,7 +21,7 @@ export class FluorineClient extends Client {
     logger = Logger;
 
     i18n = i18next;
-    prisma = new PrismaClient({});
+    prisma = new PrismaClient();
 
     commands = new CommandHandler(this);
 

@@ -8,6 +8,9 @@
         "indentSize": 4,
         "lineWidth": 120
     },
+    "organizeImports": {
+        "enabled": true
+    },
     "javascript": {
         "formatter": {
             "semicolons": "always",
@@ -19,9 +22,6 @@
         "enabled": true,
         "rules": {
             "recommended": true,
-            "complexity": {
-                "useSimplifiedLogicExpression": "off"
-            },
             "nursery": {
                 "recommended": true,
                 "noBannedTypes": "error"

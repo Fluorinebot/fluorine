@@ -1,6 +1,6 @@
 import { BaseApplicationCommandBuilder } from '#builderBases';
 import type { CommandResolvable } from '#types';
-import { ContextMenuCommandBuilder, type ApplicationCommandOptionType, type ApplicationCommandType } from 'discord.js';
+import { type ApplicationCommandOptionType, type ApplicationCommandType, ContextMenuCommandBuilder } from 'discord.js';
 
 export class BaseCommandBuilder<T extends CommandResolvable> extends BaseApplicationCommandBuilder<T> {
     constructor(

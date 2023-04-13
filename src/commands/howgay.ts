@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, ContextMenuCommandBuilder } from '#builders';
+import { ContextMenuCommandBuilder, SlashCommandBuilder } from '#builders';
 import type { FluorineClient } from '#classes';
 import type { Category } from '#types';
 import {

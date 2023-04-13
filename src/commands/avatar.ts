@@ -9,11 +9,11 @@ import type { FluorineClient } from '#classes';
 import type { Category, ComponentData } from '#types';
 import {
     ApplicationCommandType,
-    ButtonStyle,
-    GuildMember,
     type ButtonInteraction,
+    ButtonStyle,
     type ChatInputCommandInteraction,
     type ContextMenuCommandInteraction,
+    GuildMember,
     type User
 } from 'discord.js';
 

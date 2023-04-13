@@ -7,7 +7,7 @@ import type { FluorineClient } from '#classes';
 import type { Category, ComponentData } from '#types';
 import { getDirname } from '#util';
 
-import { ButtonStyle, type ButtonInteraction, type ChatInputCommandInteraction } from 'discord.js';
+import { type ButtonInteraction, ButtonStyle, type ChatInputCommandInteraction } from 'discord.js';
 
 export async function onInteraction(
     client: FluorineClient,
@@ -17,17 +17,19 @@ export async function onInteraction(
     const embed = new EmbedBuilder(client, interaction.locale);
 
     if (value === 'info') {
-        const developers = (await Promise.all(client.devs.map(async id => (await client.users.fetch(id)).tag))).join(
+        const developers = (await Promise.all(client.devs.map(async (id) => (await client.users.fetch(id)).tag))).join(
             '\n'
         );
 
         const thanks = (
             await Promise.all(
-                ['709446362252443760', '603635602809946113'].map(async id => (await client.users.fetch(id)).tag)
+                ['709446362252443760', '603635602809946113'].map(async (id) => (await client.users.fetch(id)).tag)
             )
         ).join('\n');
 
-        const langs = (await readdir(join(getDirname(import.meta.url), '../../i18n'))).map(file => file.split('.')[0]);
+        const langs = (await readdir(join(getDirname(import.meta.url), '../../i18n'))).map(
+            (file) => file.split('.')[0]
+        );
 
         embed
             .setTitle('INFO_TITLE')

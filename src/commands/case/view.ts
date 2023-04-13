@@ -38,6 +38,6 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [embed] });
 }
 
-export const slashCommandData = new SlashCommandSubcommandBuilder('VIEW').addIntegerOption('ID', option =>
+export const slashCommandData = new SlashCommandSubcommandBuilder('VIEW').addIntegerOption('ID', (option) =>
     option.setMinValue(1).setRequired(true)
 );

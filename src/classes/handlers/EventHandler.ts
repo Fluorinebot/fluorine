@@ -1,6 +1,6 @@
 import type { FluorineClient } from '#classes';
-import { loadDirectory } from '#util';
 import type { Event } from '#types';
+import { loadDirectory } from '#util';
 
 export class EventHandler {
     constructor(private client: FluorineClient) {

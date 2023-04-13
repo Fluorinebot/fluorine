@@ -1,7 +1,7 @@
 import { BaseComponentBuilder } from '#builderBases';
 import {
-    SelectMenuBuilder as UnlocalizedBuilder,
     type LocalizationMap,
+    SelectMenuBuilder as UnlocalizedBuilder,
     type SelectMenuComponentOptionData
 } from 'discord.js';
 
@@ -51,7 +51,7 @@ export class SelectMenuBuilder extends BaseComponentBuilder<UnlocalizedBuilder> 
         }
 
         this.builder.setOptions(
-            this.options.map(option => {
+            this.options.map((option) => {
                 option.label = this.getOne(option.label, locale);
                 return option;
             })

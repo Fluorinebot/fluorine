@@ -9,7 +9,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     const currency = await client.economy.getCurrency(interaction.guildId);
 
     if (list.length) {
-        list.forEach(item => {
+        list.forEach((item) => {
             embed.addFields([{ rawName: `${item.name} - ${item.price} ${currency}`, rawValue: item.description }]);
         });
     } else {

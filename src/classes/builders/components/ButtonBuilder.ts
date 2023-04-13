@@ -1,7 +1,7 @@
 import { BaseComponentBuilder } from '#builderBases';
 import {
-    ButtonBuilder as UnlocalizedBuilder,
     type APIMessageComponentEmoji,
+    ButtonBuilder as UnlocalizedBuilder,
     type ButtonStyle,
     type LocalizationMap
 } from 'discord.js';

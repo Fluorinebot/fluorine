@@ -30,15 +30,15 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 
             const chatInputCommands = client.chatInputCommands
                 .filter(
-                    c =>
+                    (c) =>
                         client.commands.isChatInputCommand(c) &&
-                        (commands.cache.some(cmd => cmd.name === 'deploy') || !c.dev)
+                        (commands.cache.some((cmd) => cmd.name === 'deploy') || !c.dev)
                 )
-                .map(command => command.slashCommandData.toJSON());
+                .map((command) => command.slashCommandData.toJSON());
 
             const contextMenuCommands = client.contextMenuCommands
-                .filter(c => commands.cache.some(cmd => cmd.name === 'deploy') || !c.dev)
-                .map(command => command.contextMenuCommandData.toJSON());
+                .filter((c) => commands.cache.some((cmd) => cmd.name === 'deploy') || !c.dev)
+                .map((command) => command.contextMenuCommandData.toJSON());
 
             await client.rest.put(route, {
                 body: [...chatInputCommands, ...contextMenuCommands]
@@ -70,5 +70,5 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 }
 
 export const slashCommandData = new SlashCommandSubcommandBuilder('CREATE')
-    .addStringOption('COMMAND', option => option.setRequired(true))
+    .addStringOption('COMMAND', (option) => option.setRequired(true))
     .addStringOption('GUILD');

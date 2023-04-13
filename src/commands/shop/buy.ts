@@ -1,7 +1,7 @@
 import { SlashCommandSubcommandBuilder } from '#builders';
 import type { FluorineClient } from '#classes';
 import { getCommandMention } from '#util';
-import { type ChatInputCommandInteraction, type AutocompleteInteraction } from 'discord.js';
+import { type AutocompleteInteraction, type ChatInputCommandInteraction } from 'discord.js';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction<'cached'>) {
     const item = interaction.options.getString('item');
@@ -64,11 +64,11 @@ export async function onAutocomplete(
             }
         });
 
-        const predicted = items.map(item => ({ name: item.name, value: item.name }));
+        const predicted = items.map((item) => ({ name: item.name, value: item.name }));
         interaction.respond(predicted);
     }
 }
 
-export const slashCommandData = new SlashCommandSubcommandBuilder('BUY').addStringOption('ITEM', option =>
+export const slashCommandData = new SlashCommandSubcommandBuilder('BUY').addStringOption('ITEM', (option) =>
     option.setRequired(true).setAutocomplete(true)
 );

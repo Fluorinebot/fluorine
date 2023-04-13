@@ -75,8 +75,8 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 export const slashCommandData = new SlashCommandBuilder('TIMEOUT')
     .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers)
     .setDMPermission(false)
-    .addUserOption('USER', option => option.setRequired(true))
-    .addStringOption('DURATION', option => option.setRequired(true))
-    .addStringOption('REASON', option => option.setMaxLength(1024));
+    .addUserOption('USER', (option) => option.setRequired(true))
+    .addStringOption('DURATION', (option) => option.setRequired(true))
+    .addStringOption('REASON', (option) => option.setMaxLength(1024));
 
 export const category: Category = 'moderation';

@@ -1,7 +1,7 @@
 import { BaseBuilder } from '#builderBases';
 import type { FluorineClient } from '#classes';
 import type { LocaleAuthor, LocaleFieldOptions, LocaleFooter } from '#types';
-import { EmbedBuilder as UnlocalizedBuilder, type ColorResolvable, type LocalizationMap } from 'discord.js';
+import { type ColorResolvable, EmbedBuilder as UnlocalizedBuilder, type LocalizationMap } from 'discord.js';
 
 export class EmbedBuilder extends BaseBuilder<UnlocalizedBuilder> {
     clientColor: ColorResolvable = 0x3872f2;
@@ -30,7 +30,7 @@ export class EmbedBuilder extends BaseBuilder<UnlocalizedBuilder> {
     }
 
     addFields(fields: LocaleFieldOptions[]) {
-        this.builder.addFields(fields.map(field => this.mapField(field)));
+        this.builder.addFields(fields.map((field) => this.mapField(field)));
         return this;
     }
 
@@ -44,7 +44,7 @@ export class EmbedBuilder extends BaseBuilder<UnlocalizedBuilder> {
         return this;
     }
 
-    setDescription(description: string, args: Record<string, any> = {}): this {
+    setDescription(description: string, args: Record<string, string | boolean> = {}): this {
         this.builder.setDescription(args.raw ? description : this.getOne(description, this.locale, args));
         return this;
     }
@@ -64,7 +64,7 @@ export class EmbedBuilder extends BaseBuilder<UnlocalizedBuilder> {
         return this;
     }
 
-    setTitle(title: string, args: Record<string, any> = {}): this {
+    setTitle(title: string, args: Record<string, string | boolean> = {}): this {
         this.builder.setTitle(args.raw ? title : this.getOne(title, this.locale, args));
         return this;
     }
@@ -80,12 +80,12 @@ export class EmbedBuilder extends BaseBuilder<UnlocalizedBuilder> {
     }
 
     setFields(fields: LocaleFieldOptions[]) {
-        this.builder.setFields(fields.map(field => this.mapField(field)));
+        this.builder.setFields(fields.map((field) => this.mapField(field)));
         return this;
     }
 
     spliceFields(index: number, deleteCount: number, fields: LocaleFieldOptions[]) {
-        this.builder.spliceFields(index, deleteCount, ...fields.map(field => this.mapField(field)));
+        this.builder.spliceFields(index, deleteCount, ...fields.map((field) => this.mapField(field)));
         return this;
     }
 

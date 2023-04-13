@@ -40,7 +40,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 }
 
 export const slashCommandData = new SlashCommandSubcommandBuilder('CREATE')
-    .addStringOption('NAME', option => option.setMaxLength(20).setRequired(true))
-    .addStringOption('DESCRIPTION', option => option.setMaxLength(50).setRequired(true))
-    .addIntegerOption('PRICE', option => option.setMinValue(1).setRequired(true))
+    .addStringOption('NAME', (option) => option.setMaxLength(20).setRequired(true))
+    .addStringOption('DESCRIPTION', (option) => option.setMaxLength(50).setRequired(true))
+    .addIntegerOption('PRICE', (option) => option.setMinValue(1).setRequired(true))
     .addRoleOption('ROLE');

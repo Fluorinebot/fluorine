@@ -24,6 +24,6 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [embed] });
 }
 
-export const slashCommandData = new SlashCommandSubcommandBuilder('LOGS').addBooleanOption('LOGS', option =>
+export const slashCommandData = new SlashCommandSubcommandBuilder('LOGS').addBooleanOption('LOGS', (option) =>
     option.setRequired(true)
 );

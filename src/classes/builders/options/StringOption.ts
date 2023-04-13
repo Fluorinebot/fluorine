@@ -1,5 +1,5 @@
-import { ApplicationCommandOptionType, SlashCommandStringOption } from 'discord.js';
 import { BaseOptionBuilder } from '#builderBases';
+import { ApplicationCommandOptionType, SlashCommandStringOption } from 'discord.js';
 
 export class StringOption extends BaseOptionBuilder<SlashCommandStringOption> {
     choiceQueue: string[];

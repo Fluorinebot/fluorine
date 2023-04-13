@@ -51,7 +51,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 }
 export const slashCommandData = new SlashCommandBuilder('ROB')
     .setDMPermission(false)
-    .addUserOption('USER', option => option.setRequired(true));
+    .addUserOption('USER', (option) => option.setRequired(true));
 
 export const category: Category = 'economy';
 export const cooldown = 12 * 60 * 60 * 1000;

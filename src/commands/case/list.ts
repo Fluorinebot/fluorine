@@ -1,9 +1,9 @@
 import {
-    EmbedBuilder,
     ActionRowBuilder,
     ButtonBuilder,
-    SlashCommandSubcommandBuilder,
-    ContextMenuCommandBuilder
+    ContextMenuCommandBuilder,
+    EmbedBuilder,
+    SlashCommandSubcommandBuilder
 } from '#builders';
 import type { FluorineClient } from '#classes';
 import type { ComponentData } from '#types';
@@ -62,7 +62,7 @@ export async function onInteraction(
     const componentPage = page > chunk.length ? page - 1 : page;
     const chunkPage = interaction.isCommand() ? page : componentPage;
 
-    chunk[chunkPage].forEach(caseData => {
+    chunk[chunkPage].forEach((caseData) => {
         embed.addFields([
             {
                 rawName: `#${caseData.caseId} (${client.i18n.t(caseData.type.toUpperCase(), {
@@ -91,7 +91,7 @@ export async function onInteraction(
     interaction.isCommand() ? interaction.reply(replyOptions) : interaction.update(replyOptions);
 }
 
-export const slashCommandData = new SlashCommandSubcommandBuilder('LIST').addUserOption('USER', option =>
+export const slashCommandData = new SlashCommandSubcommandBuilder('LIST').addUserOption('USER', (option) =>
     option.setRequired(true)
 );
 

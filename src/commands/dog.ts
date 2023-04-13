@@ -7,7 +7,7 @@ import type { fetch as _fetch } from 'undici';
 declare const fetch: typeof _fetch;
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
-    const { file } = (await fetch('https://api.alexflipnote.dev/dogs').then(response => response.json())) as {
+    const { file } = (await fetch('https://api.alexflipnote.dev/dogs').then((response) => response.json())) as {
         file: string;
     };
 

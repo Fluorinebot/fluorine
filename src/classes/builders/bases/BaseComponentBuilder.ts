@@ -1,6 +1,6 @@
-import type { ComponentResolvable } from '#types';
-import type { LocalizationMap, ComponentType } from 'discord.js';
 import { BaseBuilder } from '#builderBases';
+import type { ComponentResolvable } from '#types';
+import type { ComponentType, LocalizationMap } from 'discord.js';
 
 export class BaseComponentBuilder<T extends ComponentResolvable> extends BaseBuilder<T> {
     public type: ComponentType;

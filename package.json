@@ -6,8 +6,8 @@
     "type": "module",
     "main": "dist",
     "scripts": {
-        "test": "npm run check && npm run ts",
-        "ts": "tsc --noEmit",
+        "test": "npm run check && npm run typecheck",
+        "typecheck": "tsc --noEmit",
         "check": "rome ci .",
         "check:fix": "rome check --apply . && rome format --write .",
         "dev": "tsx watch src/index.ts",
@@ -61,7 +61,7 @@
     "devDependencies": {
         "cross-env": "^7.0.3",
         "prisma": "^4.11.0",
-        "rome": "^11.0.0-nightly.aec33ef",
+        "rome": "^12.0.0-nightly.0133f40",
         "tsx": "^3.12.5",
         "typescript": "^5.0.2"
     },

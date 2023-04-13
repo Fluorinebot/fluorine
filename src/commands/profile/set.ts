@@ -11,7 +11,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     switch (field) {
         case 'birthday': {
             const birthday = value;
-            const [day, month] = birthday.split('/').map(str => parseInt(str) || 0);
+            const [day, month] = birthday.split('/').map((str) => parseInt(str) || 0);
 
             if (day > 31 || day < 1 || month > 12 || month < 1) {
                 interaction.reply({
@@ -163,7 +163,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 }
 
 export const slashCommandData = new SlashCommandSubcommandBuilder('SET')
-    .addStringOption('FIELD', option =>
+    .addStringOption('FIELD', (option) =>
         option.setRequired(true).addChoices('birthday', 'description', 'location', 'pronouns', 'website')
     )
-    .addStringOption('VALUE', option => option.setRequired(true));
+    .addStringOption('VALUE', (option) => option.setRequired(true));

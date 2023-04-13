@@ -28,6 +28,6 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 
 export const slashCommandData = new SlashCommandBuilder('DEPOSIT')
     .setDMPermission(false)
-    .addIntegerOption('AMOUNT', option => option.setMinValue(1).setRequired(true));
+    .addIntegerOption('AMOUNT', (option) => option.setMinValue(1).setRequired(true));
 
 export const category: Category = 'economy';

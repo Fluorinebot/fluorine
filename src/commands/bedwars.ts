@@ -9,7 +9,7 @@ declare const fetch: typeof _fetch;
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const player = interaction.options.getString('player');
-    const uuid = (await fetch(`https://api.mojang.com/users/profiles/minecraft/${player}`).then(res =>
+    const uuid = (await fetch(`https://api.mojang.com/users/profiles/minecraft/${player}`).then((res) =>
         res.json()
     )) as UUIDResponse;
 
@@ -22,7 +22,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         });
     }
 
-    const data = (await fetch(`https://api.hypixel.net/player?uuid=${uuid.id}&key=${env.HYPIXEL_TOKEN}`).then(res =>
+    const data = (await fetch(`https://api.hypixel.net/player?uuid=${uuid.id}&key=${env.HYPIXEL_TOKEN}`).then((res) =>
         res.json()
     )) as HypixelType;
     const bedStats = data?.player?.stats?.Bedwars;
@@ -57,7 +57,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     interaction.reply({ embeds: [embed] });
 }
 
-export const slashCommandData = new SlashCommandBuilder('BEDWARS').addStringOption('PLAYER', option =>
+export const slashCommandData = new SlashCommandBuilder('BEDWARS').addStringOption('PLAYER', (option) =>
     option.setRequired(true)
 );
 

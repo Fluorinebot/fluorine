@@ -1,6 +1,6 @@
 import type { FluorineClient } from '#classes';
 import { PermissionsBitField } from 'discord.js';
-import type { FastifyRequest, FastifyReply } from 'fastify';
+import type { FastifyReply, FastifyRequest } from 'fastify';
 
 export async function getCases(client: FluorineClient, req: FastifyRequest, reply: FastifyReply) {
     const { id: guildId } = req.params as { id: string };

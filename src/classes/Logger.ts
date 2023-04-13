@@ -1,4 +1,4 @@
-import { bold, yellow, blue, red } from 'yoctocolors';
+import { blue, bold, red, yellow } from 'yoctocolors';
 
 export class Logger {
     static error(msg: string, ...args: unknown[]) {

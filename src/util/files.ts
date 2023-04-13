@@ -1,6 +1,6 @@
 import { lstat, readdir } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
-import { fileURLToPath, type URL } from 'node:url';
+import { type URL, fileURLToPath } from 'node:url';
 
 type Child<T> = { name: string; data: T };
 

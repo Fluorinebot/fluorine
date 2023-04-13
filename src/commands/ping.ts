@@ -1,7 +1,7 @@
 import { EmbedBuilder, SlashCommandBuilder } from '#builders';
 import type { FluorineClient } from '#classes';
-import { type ChatInputCommandInteraction } from 'discord.js';
 import type { Category } from '#types';
+import { type ChatInputCommandInteraction } from 'discord.js';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const embed = new EmbedBuilder(client, interaction.locale)

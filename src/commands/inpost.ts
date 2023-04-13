@@ -10,7 +10,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
     const id = interaction.options.getString('id');
 
     const statusURL = client.i18n.t('INPOST_URL', { lng: interaction.locale });
-    const statuses = (await fetch(statusURL).then(res => res.json())) as InpostStatuses;
+    const statuses = (await fetch(statusURL).then((res) => res.json())) as InpostStatuses;
 
     const req = await fetch(`https://api-shipx-pl.easypack24.net/v1/tracking/${id}`);
     const response = (await req.json()) as InpostTrackObj;
@@ -31,15 +31,15 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         embed.setDescription('INPOST_DESCRIPTION', response.custom_attributes.target_machine_detail);
     }
 
-    response.tracking_details.reverse().forEach(data => {
-        const status = statuses.items.find(element => element.name === data.status);
+    response.tracking_details.reverse().forEach((data) => {
+        const status = statuses.items.find((element) => element.name === data.status);
         embed.addFields([{ name: status.title, value: status.description }]);
     });
 
     interaction.reply({ embeds: [embed] });
 }
 
-export const slashCommandData = new SlashCommandBuilder('INPOST').addStringOption('ID', option =>
+export const slashCommandData = new SlashCommandBuilder('INPOST').addStringOption('ID', (option) =>
     option.setRequired(true)
 );
 

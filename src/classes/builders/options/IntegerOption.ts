@@ -1,5 +1,5 @@
-import { ApplicationCommandOptionType, SlashCommandIntegerOption } from 'discord.js';
 import { BaseOptionBuilder } from '#builderBases';
+import { ApplicationCommandOptionType, SlashCommandIntegerOption } from 'discord.js';
 
 export class IntegerOption extends BaseOptionBuilder<SlashCommandIntegerOption> {
     choiceQueue: number[];

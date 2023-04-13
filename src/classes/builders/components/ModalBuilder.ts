@@ -2,8 +2,8 @@ import { BaseComponentBuilder } from '#builderBases';
 import type { TextInputBuilder } from '#components';
 import {
     ActionRowBuilder,
-    ModalBuilder as UnlocalizedBuilder,
     type LocalizationMap,
+    ModalBuilder as UnlocalizedBuilder,
     type TextInputBuilder as DjsTextInputBuilder
 } from 'discord.js';
 
@@ -23,7 +23,7 @@ export class ModalBuilder extends BaseComponentBuilder<UnlocalizedBuilder> {
 
     addComponents(components: TextInputBuilder[]) {
         this.builder.setComponents(
-            components.map(builder =>
+            components.map((builder) =>
                 new ActionRowBuilder<DjsTextInputBuilder>().addComponents(builder.prepare(this.locale).builder)
             )
         );

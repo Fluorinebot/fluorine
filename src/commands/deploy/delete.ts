@@ -25,12 +25,12 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         if (name === 'all') {
             await client.rest.put(route, {
                 body:
-                    guildId && commands.cache.some(c => c.name === 'deploy')
+                    guildId && commands.cache.some((c) => c.name === 'deploy')
                         ? [client.chatInputCommands.get('deploy').slashCommandData.toJSON()]
                         : []
             });
         } else {
-            const command = commands.cache.find(c => c.name === name);
+            const command = commands.cache.find((c) => c.name === name);
 
             if (!command) {
                 return interaction.editReply(`Command \`${name}\` not found. Are you sure it was deployed?`);
@@ -51,5 +51,5 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
 }
 
 export const slashCommandData = new SlashCommandSubcommandBuilder('DELETE')
-    .addStringOption('COMMAND', option => option.setRequired(true))
+    .addStringOption('COMMAND', (option) => option.setRequired(true))
     .addStringOption('GUILD');

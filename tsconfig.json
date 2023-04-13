@@ -4,7 +4,7 @@
         "lib": ["es2021"],
         "module": "esnext",
         "outDir": "dist",
-        "moduleResolution": "nodenext",
+        "moduleResolution": "node",
         "baseUrl": "src",
         "paths": {
             "#*": ["*/index.ts"],
@@ -17,6 +17,7 @@
             "#options": ["classes/builders/options/index.ts"]
         },
         "allowSyntheticDefaultImports": true,
+        "verbatimModuleSyntax": true,
         "esModuleInterop": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,

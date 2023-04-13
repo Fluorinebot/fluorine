@@ -1,7 +1,7 @@
 import { SlashCommandSubcommandBuilder } from '#builders';
-import { execSync } from 'node:child_process';
 import type { FluorineClient } from '#classes';
 import type { ChatInputCommandInteraction } from 'discord.js';
+import { execSync } from 'node:child_process';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     await interaction.deferReply();

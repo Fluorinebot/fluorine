@@ -1,6 +1,6 @@
 import type { SlashCommandBuilder, SlashCommandSubcommandBuilder } from '#builders';
 import type { FluorineClient } from '#classes';
-import type { ChatInputCommand, ChatInputSubcommand, ContextMenuCommand, Command, Modal, Component } from '#types';
+import type { ChatInputCommand, ChatInputSubcommand, Command, Component, ContextMenuCommand, Modal } from '#types';
 import { loadParentDirectory } from '#util';
 
 export class CommandHandler {

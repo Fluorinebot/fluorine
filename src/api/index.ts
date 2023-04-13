@@ -1,22 +1,22 @@
 import type { FluorineClient } from '#classes';
 import { env } from '#env';
+import { getAuth } from './auth/index.js';
+import { deleteCase, getCase, patchCase } from './guilds/[id]/cases/[caseId].js';
+import { getCases } from './guilds/[id]/cases/index.js';
+import { getChannels } from './guilds/[id]/channels.js';
+import { patchEconomy } from './guilds/[id]/economy/[userId].js';
+import { getEconomy } from './guilds/[id]/economy/index.js';
+import { getGuild, patchGuild } from './guilds/[id]/index.js';
+import { getRoles } from './guilds/[id]/roles.js';
+import { getUser } from './guilds/[id]/users/[id].js';
+import { getGuilds } from './guilds/index.js';
+import { getProfile, patchProfile } from './profile/index.js';
+import { tokenCheck } from './tokenCheck.js';
+import { getOauthUser } from './user/index.js';
 import cookies from '@fastify/cookie';
 import cors from '@fastify/cors';
 import { fastify } from 'fastify';
 import { blue, bold, green, magenta } from 'yoctocolors';
-import { getAuth } from './auth/index.js';
-import { getGuilds } from './guilds/index.js';
-import { getCases } from './guilds/[id]/cases/index.js';
-import { deleteCase, getCase, patchCase } from './guilds/[id]/cases/[caseId].js';
-import { getChannels } from './guilds/[id]/channels.js';
-import { getEconomy } from './guilds/[id]/economy/index.js';
-import { patchEconomy } from './guilds/[id]/economy/[userId].js';
-import { getGuild, patchGuild } from './guilds/[id]/index.js';
-import { getRoles } from './guilds/[id]/roles.js';
-import { getUser } from './guilds/[id]/users/[id].js';
-import { getProfile, patchProfile } from './profile/index.js';
-import { tokenCheck } from './tokenCheck.js';
-import { getOauthUser } from './user/index.js';
 
 const server = fastify({
     ignoreTrailingSlash: true

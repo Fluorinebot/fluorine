@@ -1,18 +1,18 @@
 import { EmbedBuilder, SlashCommandSubcommandBuilder } from '#builders';
 import { type FluorineClient } from '#classes';
+import type { NonCommandInteractionData } from '#types';
+import { clean } from '#util';
 import {
-    type Collection,
-    type ModalSubmitInteraction,
-    type TextInputComponent,
-    type ChatInputCommandInteraction,
     ActionRowBuilder,
+    type ChatInputCommandInteraction,
+    type Collection,
     ModalBuilder,
+    type ModalSubmitInteraction,
     TextInputBuilder,
+    type TextInputComponent,
     TextInputStyle,
     codeBlock
 } from 'discord.js';
-import { clean } from '#util';
-import type { NonCommandInteractionData } from '#types';
 
 export async function onSlashCommand(client: FluorineClient, interaction: ChatInputCommandInteraction) {
     const modal = new ModalBuilder()
@@ -21,7 +21,7 @@ export async function onSlashCommand(client: FluorineClient, interaction: ChatIn
         .addComponents(
             new ActionRowBuilder<TextInputBuilder>().addComponents(
                 new TextInputBuilder()
-                    .setCustomId(`code`)
+                    .setCustomId('code')
                     .setLabel('Statement')
                     .setPlaceholder('DROP MY_SPLENDID_DATABASE;')
                     .setStyle(TextInputStyle.Paragraph)

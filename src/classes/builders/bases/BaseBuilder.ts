@@ -4,7 +4,7 @@ import i18next from 'i18next';
 
 export class BaseBuilder<T extends BuilderResolvable> {
     protected i18n = i18next;
-    protected langs = (i18next.options.preload as string[]).filter(lang => lang !== 'en-US');
+    protected langs = (i18next.options.preload as string[]).filter((lang) => lang !== 'en-US');
     protected defaultNS: 'commands' | 'responses';
 
     public builder: T;
@@ -27,7 +27,7 @@ export class BaseBuilder<T extends BuilderResolvable> {
         return this.i18n.t(key, { lng: 'en-US', ns: this.defaultNS });
     }
 
-    getOne(key: string, lng: keyof LocalizationMap, args: Record<string, any> = {}) {
+    getOne(key: string, lng: keyof LocalizationMap, args: Record<string, unknown> = {}) {
         return this.i18n.t(key, { lng, ns: this.defaultNS, ...args });
     }
 }

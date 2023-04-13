@@ -1,4 +1,4 @@
-import { EmbedBuilder, ActionRowBuilder, SelectMenuBuilder, SlashCommandBuilder } from '#builders';
+import { ActionRowBuilder, EmbedBuilder, SelectMenuBuilder, SlashCommandBuilder } from '#builders';
 import type { FluorineClient } from '#classes';
 import type { Category, ChatInputCommand, ComponentData, LocaleFieldOptions } from '#types';
 import { type ChatInputCommandInteraction, type SelectMenuInteraction } from 'discord.js';
@@ -13,7 +13,7 @@ export async function onInteraction(
 
     const commands = client.chatInputCommands.filter((c: ChatInputCommand) => c.category === category && !c.dev);
 
-    const fields: LocaleFieldOptions[] = commands.map(c => ({
+    const fields: LocaleFieldOptions[] = commands.map((c) => ({
         rawName: `/${c.slashCommandData.nameLocalizations[interaction.locale] ?? c.slashCommandData.name}`,
         rawValue: c.slashCommandData.descriptionLocalizations[interaction.locale] ?? c.slashCommandData.description
     }));
@@ -39,7 +39,7 @@ export async function onInteraction(
     interaction.isChatInputCommand() ? interaction.reply(options) : interaction.update(options);
 }
 
-export const slashCommandData = new SlashCommandBuilder('HELP').addStringOption('CATEGORY', option =>
+export const slashCommandData = new SlashCommandBuilder('HELP').addStringOption('CATEGORY', (option) =>
     option.addChoices('fun', 'tools', 'moderation', 'economy').setRequired(true)
 );
 

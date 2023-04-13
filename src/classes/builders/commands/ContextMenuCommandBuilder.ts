@@ -1,5 +1,5 @@
 import { BaseCommandBuilder } from '#builderBases';
-import { ContextMenuCommandBuilder as UnlocalizedBuilder, type ApplicationCommandType } from 'discord.js';
+import { type ApplicationCommandType, ContextMenuCommandBuilder as UnlocalizedBuilder } from 'discord.js';
 
 export class ContextMenuCommandBuilder extends BaseCommandBuilder<UnlocalizedBuilder> {
     constructor(type: ApplicationCommandType.Message | ApplicationCommandType.User, baseKey: string) {
