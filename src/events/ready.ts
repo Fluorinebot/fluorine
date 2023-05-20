@@ -27,7 +27,9 @@ export async function run(client: FluorineClient) {
                 guildId: BigInt(guild.id),
                 logsEnabled: false,
                 logsChannel: null,
-                logModerationActions: false
+                logModerationActions: false,
+                ticketsRole: null,
+                ticketsChannel: null
             },
             update: {}
         });
