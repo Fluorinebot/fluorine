@@ -371,6 +371,42 @@
         "DESCRIPTION": "Get an invite link to Fluorine's support server",
         "NAME": "support"
     },
+    "TICKETS": {
+        "DESCRIPTION": "Manage and edit tickets in your server",
+        "NAME": "tickets",
+        "NEW": {
+            "DESCRIPTION": "Creates a new ticket creation flow",
+            "NAME": "new",
+            "OPTIONS": {
+                "CENTERAL_TICKETS": {
+                    "DESCRIPTION": "Whether to create tickets in the centeral tickets channel, or in the flow's channel",
+                    "NAME": "centeralize_creation"
+                },
+                "CHANNEL": {
+                    "DESCRIPTION": "The channel where the flow will be created, and where tickets may be created",
+                    "NAME": "channel"
+                }
+            }
+        },
+        "OPEN": {
+            "DESCRIPTION": "Manually open a ticket for a user",
+            "NAME": "open",
+            "OPTIONS": {
+                "CHANNEL": {
+                    "DESCRIPTION": "The channel where the ticket will be created, it must be a channel containing a ticket flow or the centeral ticket channel",
+                    "NAME": "channel"
+                },
+                "FREEZE": {
+                    "DESCRIPTION": "Whether to freeze the user upon creation of the ticket",
+                    "NAME": "freeze"
+                },
+                "USER": {
+                    "DESCRIPTION": "The user to create the ticket for",
+                    "NAME": "user"
+                }
+            }
+        }
+    },
     "TIMEOUT": {
         "DESCRIPTION": "Timeout a user from the server",
         "NAME": "timeout",
