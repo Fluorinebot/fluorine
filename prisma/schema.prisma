@@ -27,6 +27,8 @@ model Config {
   logsChannel          BigInt?  @map("logs_channel")
   logModerationActions Boolean? @map("log_moderation_actions")
   currency             String?
+  ticketsChannel       BigInt?  @map("tickets_channel")
+  ticketsRole          BigInt?  @map("tickets_role")
 
   @@map("config")
 }
